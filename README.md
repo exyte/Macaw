@@ -22,7 +22,7 @@ pod "Macaw"
 
 ## Author
 
-Igor Zapletnev, igor.zapletnev@gmail.com
+Exyte.com
 
 ## License
 

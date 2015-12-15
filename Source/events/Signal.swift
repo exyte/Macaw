@@ -1,0 +1,4 @@
+import Foundation
+
+class Signal {
+}

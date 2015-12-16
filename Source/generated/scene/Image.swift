@@ -9,14 +9,20 @@ class Image: Node  {
 	var w: Int
 	var h: Int
 
-
-	init(src: String, xAlign: Align, yAlign: Align, preserveAspectRatio: AspectRatio, w: Int, h: Int) {
+	init(src: String, xAlign: Align, yAlign: Align, preserveAspectRatio: AspectRatio, w: Int, h: Int, pos: Transform, opaque: Bool, visible: Bool, clip: Locus, tag: [String]) {
 		self.src = src	
 		self.xAlign = xAlign	
 		self.yAlign = yAlign	
 		self.preserveAspectRatio = preserveAspectRatio	
 		self.w = w	
 		self.h = h	
+		super.init(
+			pos: pos,
+			opaque: opaque,
+			visible: visible,
+			clip: clip,
+			tag: tag
+		)
 	}
 
 }

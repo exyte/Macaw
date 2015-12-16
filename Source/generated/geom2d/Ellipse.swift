@@ -7,7 +7,6 @@ class Ellipse: Locus  {
 	var rx: NSNumber = 0
 	var ry: NSNumber = 0
 
-
 	init(cx: NSNumber = 0, cy: NSNumber = 0, rx: NSNumber = 0, ry: NSNumber = 0) {
 		self.cx = cx	
 		self.cy = cy	
@@ -15,9 +14,10 @@ class Ellipse: Locus  {
 		self.ry = ry	
 	}
 
-	// GENERATED
+	// GENERATED NOT
 	func arc(shift: NSNumber, extent: NSNumber) -> Arc {
-		
+        // TODO initial implementation
+        return Arc(ellipse: Ellipse())
 	}
 
 }

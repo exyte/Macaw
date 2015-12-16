@@ -9,7 +9,6 @@ class Transform {
 	var dx: Float = 0
 	var dy: Float = 0
 
-
 	init(m11: Float = 1, m12: Float = 0, m21: Float = 0, m22: Float = 1, dx: Float = 0, dy: Float = 0) {
 		self.m11 = m11	
 		self.m12 = m12	
@@ -19,44 +18,46 @@ class Transform {
 		self.dy = dy	
 	}
 
-	// GENERATED
+	// GENERATED NOT
 	func move(dx: Float, dy: Float) -> Transform {
+        // TODO initial implementation
+        return Transform(dx: dx, dy: dy)
+	}
+	// GENERATED NOT
+	func rotate(angle: Float) -> Transform {
+        // TODO initial implementation
+		return Transform()
+	}
+	// GENERATED NOT
+	func scale(sx: Float, sy: Float) -> Transform {
+        // TODO initial implementation
+        return Transform()
+	}
+	// GENERATED NOT
+	func shear(shx: Float, shy: Float) -> Transform {
+        // TODO initial implementation
+		return Transform()
+	}
+
+	// GENERATED
+	class func move(dx: Float, dy: Float) -> Transform {
 		return Transform(dx: dx, dy: dy)
 	}
 
 	// GENERATED
-	func scale(sx: Float, sy: Float) -> Transform {
+	class func scale(sx: Float, sy: Float) -> Transform {
 		return Transform(m11: sx, m22: sy)
 	}
 
 	// GENERATED
-	func shear(shx: Float, shy: Float) -> Transform {
+	class func shear(shx: Float, shy: Float) -> Transform {
 		return Transform(m12: shx, m21: shy)
 	}
 
-	// GENERATED
-	func rotate(angle: Float) -> Transform {
-		
-	}
-
-	// GENERATED
-	func move(dx: Float, dy: Float) -> Transform {
-		
-	}
-
-	// GENERATED
-	func rotate(angle: Float) -> Transform {
-		
-	}
-
-	// GENERATED
-	func scale(sx: Float, sy: Float) -> Transform {
-		
-	}
-
-	// GENERATED
-	func shear(shx: Float, shy: Float) -> Transform {
-		
-	}
+	// GENERATED NOT
+	class func rotate(angle: Float) -> Transform {
+        // TODO initial implementation
+		return Transform()
+    }
 
 }

@@ -6,7 +6,6 @@ class Tab {
 	var image: NSObject
 	var content: Widget
 
-
 	init(name: String = "", image: NSObject, content: Widget) {
 		self.name = name	
 		self.image = image	

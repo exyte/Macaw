@@ -10,8 +10,7 @@ class Elliptical: PathSegment  {
 	var x: NSNumber = 0
 	var y: NSNumber = 0
 
-
-	init(rx: NSNumber = 0, ry: NSNumber = 0, angle: NSNumber = 0, largeArc: Bool, sweep: Bool, x: NSNumber = 0, y: NSNumber = 0) {
+	init(rx: NSNumber = 0, ry: NSNumber = 0, angle: NSNumber = 0, largeArc: Bool, sweep: Bool, x: NSNumber = 0, y: NSNumber = 0, absolute: Bool) {
 		self.rx = rx	
 		self.ry = ry	
 		self.angle = angle	
@@ -19,6 +18,9 @@ class Elliptical: PathSegment  {
 		self.sweep = sweep	
 		self.x = x	
 		self.y = y	
+		super.init(
+			absolute: absolute
+		)
 	}
 
 }

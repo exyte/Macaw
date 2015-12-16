@@ -2,14 +2,13 @@ import Foundation
 
 class Locus {
 
-
-
 	init() {
 	}
 
-	// GENERATED
+	// GENERATED NOT
 	func bounds() -> Rect {
-		
+        // TODO initial implementation
+        return Rect()
 	}
 
 }

@@ -7,7 +7,6 @@ class Textual: Style  {
 	var font_style: FontStyle
 	var font_weight: FontWeight
 
-
 	init(font_family: String, font_size: NSNumber, font_style: FontStyle, font_weight: FontWeight) {
 		self.font_family = font_family	
 		self.font_size = font_size	

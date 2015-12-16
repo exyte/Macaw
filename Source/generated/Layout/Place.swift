@@ -7,7 +7,6 @@ class Place: Style  {
 	var w: NSNumber = 0
 	var h: NSNumber = 0
 
-
 	init(x: NSNumber = 0, y: NSNumber = 0, w: NSNumber = 0, h: NSNumber = 0) {
 		self.x = x	
 		self.y = y	

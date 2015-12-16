@@ -2,9 +2,10 @@ import Foundation
 
 class Close: PathSegment  {
 
-
-
-	init() {
+	override init(absolute: Bool) {
+		super.init(
+			absolute: absolute
+		)
 	}
 
 }

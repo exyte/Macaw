@@ -2,9 +2,7 @@ import Foundation
 
 class CssPlace: Style  {
 
-
-
-	init() {
+	override init() {
 	}
 
 }

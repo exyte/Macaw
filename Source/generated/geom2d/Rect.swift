@@ -14,14 +14,13 @@ public class Rect: Locus  {
 		self.h = h	
 	}
 
-    // GENERATED NOT
-    func round(rx: NSNumber, ry: NSNumber) -> RoundRect {
+	// GENERATED NOT
+	func round(rx: NSNumber, ry: NSNumber) -> RoundRect {
         // TODO initial implementation
         return RoundRect(rect: Rect())
     }
-    
-    // GENERATED NOT
-    func contains(locus: Locus) -> Bool {
+	// GENERATED NOT
+	func contains(locus: Locus) -> Bool {
         // TODO initial implementation
         return false
     }

@@ -17,8 +17,8 @@ public class Node: Drawable  {
 		)
 	}
 
-    // GENERATED NOT
-    func mouse() -> Mouse {
+	// GENERATED NOT
+	func mouse() -> Mouse {
         // TODO initial implementation
         return Mouse(
             hover: false,
@@ -28,9 +28,8 @@ public class Node: Drawable  {
             onWheel: Signal()
         )
     }
-    
-    // GENERATED NOT
-    func bounds() -> Rect {
+	// GENERATED NOT
+	func bounds() -> Rect {
         // TODO initial implementation
         return Rect()
     }

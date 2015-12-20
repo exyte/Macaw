@@ -27,7 +27,6 @@ public class Mouse {
             onDoubleClick: Signal()
         )
 	}
-    
 	// GENERATED NOT
 	func middle() -> MouseButton {
         // TODO initial implementation
@@ -39,7 +38,6 @@ public class Mouse {
             onDoubleClick: Signal()
         )
 	}
-    
 	// GENERATED NOT
 	func right() -> MouseButton {
         // TODO initial implementation
@@ -51,4 +49,5 @@ public class Mouse {
             onDoubleClick: Signal()
         )
 	}
+
 }

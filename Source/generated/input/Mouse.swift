@@ -2,13 +2,13 @@ import Foundation
 
 public class Mouse {
 
-	var hover: Bool
+	var hover: Bool = false
 	var pos: Point
 	var onEnter: Signal
 	var onExit: Signal
 	var onWheel: Signal
 
-	init(hover: Bool, pos: Point, onEnter: Signal, onExit: Signal, onWheel: Signal) {
+	init(hover: Bool = false, pos: Point, onEnter: Signal, onExit: Signal, onWheel: Signal) {
 		self.hover = hover	
 		self.pos = pos	
 		self.onEnter = onEnter	

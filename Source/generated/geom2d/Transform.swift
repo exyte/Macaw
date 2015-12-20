@@ -33,9 +33,10 @@ public class Transform {
         // TODO initial implementation
         return Transform()
 	}
-	// GENERATED
+	// GENERATED NOT
 	func shear(shx: Float, shy: Float) -> Transform {
-		return nil
+        // TODO initial implementation
+        return Transform()
 	}
 
 	// GENERATED

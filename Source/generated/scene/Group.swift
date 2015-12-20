@@ -2,9 +2,9 @@ import Foundation
 
 public class Group: Node  {
 
-	var contents: [Node]
+	var contents: [Node] = []
 
-	init(contents: [Node], pos: Transform, opaque: Bool, visible: Bool, clip: Locus, tag: [String]) {
+	init(contents: [Node] = [], pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
 		self.contents = contents	
 		super.init(
 			pos: pos,

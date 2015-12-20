@@ -3,11 +3,11 @@ import Foundation
 public class Node: Drawable  {
 
 	var pos: Transform
-	var opaque: Bool = true
-	var visible: Bool = true
+	var opaque: NSNumber = true
+	var visible: NSNumber = true
 	var clip: Locus
 
-	init(pos: Transform, opaque: Bool = true, visible: Bool = true, clip: Locus, tag: [String]) {
+	init(pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
 		self.pos = pos	
 		self.opaque = opaque	
 		self.visible = visible	

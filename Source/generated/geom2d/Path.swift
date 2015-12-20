@@ -2,9 +2,9 @@ import Foundation
 
 public class Path: Locus  {
 
-	var segments: [PathSegment]
+	var segments: [PathSegment] = []
 
-	init(segments: [PathSegment]) {
+	init(segments: [PathSegment] = []) {
 		self.segments = segments	
 	}
 

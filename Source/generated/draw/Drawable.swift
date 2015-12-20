@@ -1,6 +1,6 @@
 import Foundation
 
-class Drawable {
+public class Drawable {
 
 	var tag: [String]
 

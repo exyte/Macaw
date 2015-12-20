@@ -1,6 +1,6 @@
 import Foundation
 
-class Arc: Locus  {
+public class Arc: Locus  {
 
 	var ellipse: Ellipse
 	var shift: NSNumber = 0

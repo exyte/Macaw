@@ -1,6 +1,6 @@
 import Foundation
 
-class Mouse {
+public class Mouse {
 
 	var hover: Bool
 	var pos: Point
@@ -19,17 +19,36 @@ class Mouse {
 	// GENERATED NOT
 	func left() -> MouseButton {
         // TODO initial implementation
-        return MouseButton(pressed: false, onPress: Signal(), onRelease: Signal(), onClick: Signal(), onDoubleClick: Signal())
+        return MouseButton(
+            pressed: false,
+            onPress: Signal(),
+            onRelease: Signal(),
+            onClick: Signal(),
+            onDoubleClick: Signal()
+        )
 	}
+    
 	// GENERATED NOT
 	func middle() -> MouseButton {
         // TODO initial implementation
-        return MouseButton(pressed: false, onPress: Signal(), onRelease: Signal(), onClick: Signal(), onDoubleClick: Signal())
+        return MouseButton(
+            pressed: false,
+            onPress: Signal(),
+            onRelease: Signal(),
+            onClick: Signal(),
+            onDoubleClick: Signal()
+        )
 	}
+    
 	// GENERATED NOT
 	func right() -> MouseButton {
         // TODO initial implementation
-        return MouseButton(pressed: false, onPress: Signal(), onRelease: Signal(), onClick: Signal(), onDoubleClick: Signal())
+        return MouseButton(
+            pressed: false,
+            onPress: Signal(),
+            onRelease: Signal(),
+            onClick: Signal(),
+            onDoubleClick: Signal()
+        )
 	}
-
 }

@@ -1,4 +1,4 @@
-enum Baseline {
+public enum Baseline {
 	case top
 	case alphabetic
 	case bottom

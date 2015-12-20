@@ -1,6 +1,6 @@
 import Foundation
 
-class Close: PathSegment  {
+public class Close: PathSegment  {
 
 	override init(absolute: Bool) {
 		super.init(

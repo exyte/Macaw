@@ -1,6 +1,6 @@
 import Foundation
 
-class Circle: Locus  {
+public class Circle: Locus  {
 
 	var cx: NSNumber = 0
 	var cy: NSNumber = 0

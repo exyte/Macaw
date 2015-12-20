@@ -1,6 +1,6 @@
 import Foundation
 
-class Size {
+public class Size {
 
 	var w: NSNumber = 0
 	var h: NSNumber = 0

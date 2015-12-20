@@ -1,6 +1,6 @@
 import Foundation
 
-class Polygon: Locus  {
+public class Polygon: Locus  {
 
 	var points: [NSNumber]
 

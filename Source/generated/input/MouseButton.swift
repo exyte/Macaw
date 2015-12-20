@@ -1,6 +1,6 @@
 import Foundation
 
-class MouseButton {
+public class MouseButton {
 
 	var pressed: Bool
 	var onPress: Signal

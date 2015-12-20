@@ -1,6 +1,6 @@
 import Foundation
 
-class SCubic: PathSegment  {
+public class SCubic: PathSegment  {
 
 	var x2: NSNumber = 0
 	var y2: NSNumber = 0

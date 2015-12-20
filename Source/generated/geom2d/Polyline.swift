@@ -1,6 +1,6 @@
 import Foundation
 
-class Polyline: Locus  {
+public class Polyline: Locus  {
 
 	var points: [NSNumber]
 

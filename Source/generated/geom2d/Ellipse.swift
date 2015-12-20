@@ -1,6 +1,6 @@
 import Foundation
 
-class Ellipse: Locus  {
+public class Ellipse: Locus  {
 
 	var cx: NSNumber = 0
 	var cy: NSNumber = 0
@@ -16,8 +16,8 @@ class Ellipse: Locus  {
 
 	// GENERATED NOT
 	func arc(shift: NSNumber, extent: NSNumber) -> Arc {
-        // TODO initial implementation
-        return Arc(ellipse: Ellipse())
+         // TODO initial implementation
+		return Arc(ellipse: Ellipse())
 	}
 
 }

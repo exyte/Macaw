@@ -1,6 +1,6 @@
 import Foundation
 
-class Stroke {
+public class Stroke {
 
 	var fill: Fill
 	var width: Float = 1

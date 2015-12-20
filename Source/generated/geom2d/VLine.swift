@@ -1,6 +1,6 @@
 import Foundation
 
-class VLine: PathSegment  {
+public class VLine: PathSegment  {
 
 	var y: NSNumber = 0
 

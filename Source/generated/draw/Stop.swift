@@ -1,6 +1,6 @@
 import Foundation
 
-class Stop {
+public class Stop {
 
 	var offset: Float
 	var color: Color

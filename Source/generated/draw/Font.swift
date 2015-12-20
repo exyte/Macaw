@@ -1,6 +1,6 @@
 import Foundation
 
-class Font {
+public class Font {
 
 	var name: String = "Serif"
 	var size: Int = 12

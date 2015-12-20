@@ -1,6 +1,6 @@
 import Foundation
 
-class Path: Locus  {
+public class Path: Locus  {
 
 	var segments: [PathSegment]
 

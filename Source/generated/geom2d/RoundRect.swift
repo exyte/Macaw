@@ -1,6 +1,6 @@
 import Foundation
 
-class RoundRect: Locus  {
+public class RoundRect: Locus  {
 
 	var rect: Rect
 	var rx: NSNumber = 0

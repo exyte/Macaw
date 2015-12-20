@@ -1,6 +1,6 @@
 import Foundation
 
-class PathSegment {
+public class PathSegment {
 
 	var absolute: Bool
 

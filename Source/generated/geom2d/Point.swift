@@ -1,6 +1,6 @@
 import Foundation
 
-class Point: Locus  {
+public class Point: Locus  {
 
 	var x: NSNumber = 0
 	var y: NSNumber = 0

@@ -1,6 +1,6 @@
 import Foundation
 
-class Line: Locus  {
+public class Line: Locus  {
 
 	var x1: NSNumber = 0
 	var y1: NSNumber = 0

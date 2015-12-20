@@ -1,6 +1,6 @@
 import Foundation
 
-class Image: Node  {
+public class Image: Node  {
 
 	var src: String
 	var xAlign: Align

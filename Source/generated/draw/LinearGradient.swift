@@ -1,6 +1,6 @@
 import Foundation
 
-class LinearGradient: Fill  {
+public class LinearGradient: Fill  {
 
 	var userSpace: Bool
 	var stops: [Stop]

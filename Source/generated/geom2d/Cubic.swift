@@ -1,6 +1,6 @@
 import Foundation
 
-class Cubic: PathSegment  {
+public class Cubic: PathSegment  {
 
 	var x1: NSNumber = 0
 	var y1: NSNumber = 0

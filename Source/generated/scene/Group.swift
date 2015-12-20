@@ -1,6 +1,6 @@
 import Foundation
 
-class Group: Node  {
+public class Group: Node  {
 
 	var contents: [Node]
 

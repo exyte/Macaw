@@ -1,6 +1,6 @@
 import Foundation
 
-class PLine: PathSegment  {
+public class PLine: PathSegment  {
 
 	var x: NSNumber = 0
 	var y: NSNumber = 0

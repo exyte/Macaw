@@ -1,6 +1,6 @@
 import Foundation
 
-class Fill {
+public class Fill {
 
 	init() {
 	}

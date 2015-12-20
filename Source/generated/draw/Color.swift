@@ -1,25 +1,25 @@
 import Foundation
 
-class Color: Fill  {
+public class Color: Fill  {
 
 	var val: Int = 0
 
-	static var white: Color = Color( val: 16777215 )
-	static var silver: Color = Color( val: 12632256 )
-	static var gray: Color = Color( val: 8421504 )
+	static var white: Color = Color( val: 0xFFFFFF )
+	static var silver: Color = Color( val: 0xC0C0C0 )
+	static var gray: Color = Color( val: 0x808080 )
 	static var black: Color = Color( val: 0 )
-	static var red: Color = Color( val: 16711680 )
-	static var maroon: Color = Color( val: 8388608 )
-	static var yellow: Color = Color( val: 16776960 )
-	static var olive: Color = Color( val: 8421376 )
-	static var lime: Color = Color( val: 65280 )
-	static var green: Color = Color( val: 32768 )
-	static var aqua: Color = Color( val: 65535 )
-	static var teal: Color = Color( val: 32896 )
-	static var blue: Color = Color( val: 255 )
-	static var navy: Color = Color( val: 128 )
-	static var fuchsia: Color = Color( val: 16711935 )
-	static var purple: Color = Color( val: 8388736 )
+	static var red: Color = Color( val: 0xFF0000 )
+	static var maroon: Color = Color( val: 0x800000 )
+	static var yellow: Color = Color( val: 0xFFFF00 )
+	static var olive: Color = Color( val: 0x808000 )
+	static var lime: Color = Color( val: 0x00FF00 )
+	static var green: Color = Color( val: 0x008000 )
+	static var aqua: Color = Color( val: 0x00FFFF )
+	static var teal: Color = Color( val: 0x008080 )
+	static var blue: Color = Color( val: 0x0000FF )
+	static var navy: Color = Color( val: 0x000080 )
+	static var fuchsia: Color = Color( val: 0xFF00FF )
+	static var purple: Color = Color( val: 0x800080 )
 
 	init(val: Int = 0) {
 		self.val = val	
@@ -27,24 +27,24 @@ class Color: Fill  {
 
 	// GENERATED
 	func r() -> Int {
-		return ( ( val >> 16 ) & 255 )
+		return ( ( val >> 16 ) & 0xff )
 	}
 	// GENERATED
 	func g() -> Int {
-		return ( ( val >> 8 ) & 255 )
+		return ( ( val >> 8 ) & 0xff )
 	}
 	// GENERATED
 	func b() -> Int {
-		return ( val & 255 )
+		return ( val & 0xff )
 	}
 	// GENERATED
 	func a() -> Int {
-		return ( 255 - ( ( val >> 24 ) & 255 ) )
+		return ( 255 - ( ( val >> 24 ) & 0xff ) )
 	}
 
 	// GENERATED
 	class func rgbt(r: Int, g: Int, b: Int, t: Int) -> Color {
-		return Color(val: ( ( ( ( ( t & 255 ) << 24 ) | ( ( r & 255 ) << 16 ) ) | ( ( g & 255 ) << 8 ) ) | ( b & 255 ) ))
+		return Color(val: ( ( ( ( ( t & 0xff ) << 24 ) | ( ( r & 0xff ) << 16 ) ) | ( ( g & 0xff ) << 8 ) ) | ( b & 0xff ) ))
 	}
 
 	// GENERATED

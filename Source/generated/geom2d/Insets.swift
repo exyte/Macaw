@@ -1,6 +1,6 @@
 import Foundation
 
-class Insets {
+public class Insets {
 
 	var top: NSNumber = 0
 	var right: NSNumber = 0

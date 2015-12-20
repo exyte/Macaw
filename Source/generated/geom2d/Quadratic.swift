@@ -1,6 +1,6 @@
 import Foundation
 
-class Quadratic: PathSegment  {
+public class Quadratic: PathSegment  {
 
 	var x1: NSNumber = 0
 	var y1: NSNumber = 0

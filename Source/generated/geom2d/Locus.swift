@@ -1,6 +1,6 @@
 import Foundation
 
-class Locus {
+public class Locus {
 
 	init() {
 	}

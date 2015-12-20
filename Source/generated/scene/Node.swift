@@ -1,6 +1,6 @@
 import Foundation
 
-class Node: Drawable  {
+public class Node: Drawable  {
 
 	var pos: Transform
 	var opaque: Bool = true
@@ -17,15 +17,22 @@ class Node: Drawable  {
 		)
 	}
 
-	// GENERATED NOT
-	func mouse() -> Mouse {
+    // GENERATED NOT
+    func mouse() -> Mouse {
         // TODO initial implementation
-		return Mouse(hover: false, pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
-	}
-	// GENERATED NOT
-	func bounds() -> Rect {
+        return Mouse(
+            hover: false,
+            pos: Point(),
+            onEnter: Signal(),
+            onExit: Signal(),
+            onWheel: Signal()
+        )
+    }
+    
+    // GENERATED NOT
+    func bounds() -> Rect {
         // TODO initial implementation
         return Rect()
-	}
+    }
 
 }

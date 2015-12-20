@@ -1,6 +1,6 @@
 import Foundation
 
-class Elliptical: PathSegment  {
+public class Elliptical: PathSegment  {
 
 	var rx: NSNumber = 0
 	var ry: NSNumber = 0

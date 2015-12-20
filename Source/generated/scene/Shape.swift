@@ -1,6 +1,6 @@
 import Foundation
 
-class Shape: Node  {
+public class Shape: Node  {
 
 	var form: Locus
 	var fill: Fill

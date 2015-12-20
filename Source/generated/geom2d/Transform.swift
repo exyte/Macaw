@@ -1,6 +1,6 @@
 import Foundation
 
-class Transform {
+public class Transform {
 
 	var m11: Float = 1
 	var m12: Float = 0
@@ -23,20 +23,23 @@ class Transform {
         // TODO initial implementation
         return Transform(dx: dx, dy: dy)
 	}
-	// GENERATED NOT
+	
+    // GENERATED NOT
 	func rotate(angle: Float) -> Transform {
         // TODO initial implementation
-		return Transform()
+        return Transform()
 	}
-	// GENERATED NOT
+	
+    // GENERATED NOT
 	func scale(sx: Float, sy: Float) -> Transform {
         // TODO initial implementation
         return Transform()
 	}
-	// GENERATED NOT
+    
+	// GENERATED
 	func shear(shx: Float, shy: Float) -> Transform {
         // TODO initial implementation
-		return Transform()
+        return Transform()
 	}
 
 	// GENERATED
@@ -57,7 +60,7 @@ class Transform {
 	// GENERATED NOT
 	class func rotate(angle: Float) -> Transform {
         // TODO initial implementation
-		return Transform()
-    }
+        return Transform()
+	}
 
 }

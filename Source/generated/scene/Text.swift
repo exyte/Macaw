@@ -1,6 +1,6 @@
 import Foundation
 
-class Text: Node  {
+public class Text: Node  {
 
 	var text: String = ""
 	var font: Font

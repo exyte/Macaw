@@ -21,24 +21,24 @@ public class Color: Fill  {
 	public static var fuchsia: Color = Color( val: 0xFF00FF )
 	public static var purple: Color = Color( val: 0x800080 )
 
-	init(val: Int = 0) {
+	public init(val: Int = 0) {
 		self.val = val	
 	}
 
 	// GENERATED
-	func r() -> Int {
+	public func r() -> Int {
 		return ( ( val >> 16 ) & 0xff )
 	}
 	// GENERATED
-	func g() -> Int {
+	public func g() -> Int {
 		return ( ( val >> 8 ) & 0xff )
 	}
 	// GENERATED
-	func b() -> Int {
+	public func b() -> Int {
 		return ( val & 0xff )
 	}
 	// GENERATED
-	func a() -> Int {
+	public func a() -> Int {
 		return ( 255 - ( ( val >> 24 ) & 0xff ) )
 	}
 

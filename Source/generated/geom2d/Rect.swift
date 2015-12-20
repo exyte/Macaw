@@ -7,7 +7,7 @@ public class Rect: Locus  {
 	var w: NSNumber = 0
 	var h: NSNumber = 0
 
-	init(x: NSNumber = 0, y: NSNumber = 0, w: NSNumber = 0, h: NSNumber = 0) {
+	public init(x: NSNumber = 0, y: NSNumber = 0, w: NSNumber = 0, h: NSNumber = 0) {
 		self.x = x	
 		self.y = y	
 		self.w = w	
@@ -15,12 +15,12 @@ public class Rect: Locus  {
 	}
 
 	// GENERATED NOT
-	func round(rx: NSNumber, ry: NSNumber) -> RoundRect {
+	public func round(rx: NSNumber, ry: NSNumber) -> RoundRect {
         // TODO initial implementation
         return RoundRect(rect: Rect())
     }
 	// GENERATED NOT
-	func contains(locus: Locus) -> Bool {
+	public func contains(locus: Locus) -> Bool {
         // TODO initial implementation
         return false
     }

@@ -4,7 +4,7 @@ public class Drawable {
 
 	var tag: [String] = []
 
-	init(tag: [String] = []) {
+	public init(tag: [String] = []) {
 		self.tag = tag	
 	}
 

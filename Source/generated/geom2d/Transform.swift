@@ -9,7 +9,7 @@ public class Transform {
 	var dx: Float = 0
 	var dy: Float = 0
 
-	init(m11: Float = 1, m12: Float = 0, m21: Float = 0, m22: Float = 1, dx: Float = 0, dy: Float = 0) {
+	public init(m11: Float = 1, m12: Float = 0, m21: Float = 0, m22: Float = 1, dx: Float = 0, dy: Float = 0) {
 		self.m11 = m11	
 		self.m12 = m12	
 		self.m21 = m21	
@@ -19,22 +19,22 @@ public class Transform {
 	}
 
 	// GENERATED NOT
-	func move(dx: Float, dy: Float) -> Transform {
+	public func move(dx: Float, dy: Float) -> Transform {
         // TODO initial implementation
         return Transform(dx: dx, dy: dy)
 	}
 	// GENERATED NOT
-	func rotate(angle: Float) -> Transform {
+	public func rotate(angle: Float) -> Transform {
         // TODO initial implementation
         return Transform()
 	}
 	// GENERATED NOT
-	func scale(sx: Float, sy: Float) -> Transform {
+	public func scale(sx: Float, sy: Float) -> Transform {
         // TODO initial implementation
         return Transform()
 	}
 	// GENERATED NOT
-	func shear(shx: Float, shy: Float) -> Transform {
+	public func shear(shx: Float, shy: Float) -> Transform {
         // TODO initial implementation
         return Transform()
 	}

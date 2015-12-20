@@ -9,7 +9,7 @@ public class LinearGradient: Fill  {
 	var x2: NSNumber = 0
 	var y2: NSNumber = 0
 
-	init(userSpace: Bool = false, stops: [Stop] = [], x1: NSNumber = 0, y1: NSNumber = 0, x2: NSNumber = 0, y2: NSNumber = 0) {
+	public init(userSpace: Bool = false, stops: [Stop] = [], x1: NSNumber = 0, y1: NSNumber = 0, x2: NSNumber = 0, y2: NSNumber = 0) {
 		self.userSpace = userSpace	
 		self.stops = stops	
 		self.x1 = x1	

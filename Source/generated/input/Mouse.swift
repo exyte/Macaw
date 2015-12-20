@@ -8,7 +8,7 @@ public class Mouse {
 	var onExit: Signal
 	var onWheel: Signal
 
-	init(hover: Bool = false, pos: Point, onEnter: Signal, onExit: Signal, onWheel: Signal) {
+	public init(hover: Bool = false, pos: Point, onEnter: Signal, onExit: Signal, onWheel: Signal) {
 		self.hover = hover	
 		self.pos = pos	
 		self.onEnter = onEnter	
@@ -17,7 +17,7 @@ public class Mouse {
 	}
 
 	// GENERATED NOT
-	func left() -> MouseButton {
+	public func left() -> MouseButton {
         // TODO initial implementation
         return MouseButton(
             pressed: false,
@@ -28,7 +28,7 @@ public class Mouse {
         )
 	}
 	// GENERATED NOT
-	func middle() -> MouseButton {
+	public func middle() -> MouseButton {
         // TODO initial implementation
         return MouseButton(
             pressed: false,
@@ -39,7 +39,7 @@ public class Mouse {
         )
 	}
 	// GENERATED NOT
-	func right() -> MouseButton {
+	public func right() -> MouseButton {
         // TODO initial implementation
         return MouseButton(
             pressed: false,

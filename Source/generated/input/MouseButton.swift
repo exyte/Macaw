@@ -8,7 +8,7 @@ public class MouseButton {
 	var onClick: Signal
 	var onDoubleClick: Signal
 
-	init(pressed: Bool = false, onPress: Signal, onRelease: Signal, onClick: Signal, onDoubleClick: Signal) {
+	public init(pressed: Bool = false, onPress: Signal, onRelease: Signal, onClick: Signal, onDoubleClick: Signal) {
 		self.pressed = pressed	
 		self.onPress = onPress	
 		self.onRelease = onRelease	

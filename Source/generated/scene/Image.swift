@@ -9,7 +9,7 @@ public class Image: Node  {
 	var w: Int
 	var h: Int
 
-	init(src: String, xAlign: Align, yAlign: Align, preserveAspectRatio: AspectRatio, w: Int, h: Int, pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
+	public init(src: String, xAlign: Align, yAlign: Align, preserveAspectRatio: AspectRatio, w: Int, h: Int, pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
 		self.src = src	
 		self.xAlign = xAlign	
 		self.yAlign = yAlign	

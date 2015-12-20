@@ -8,7 +8,7 @@ public class Stroke {
 	var join: LineJoin
 	var dashes: [NSNumber] = []
 
-	init(fill: Fill, width: Float = 1, cap: LineCap, join: LineJoin, dashes: [NSNumber] = []) {
+	public init(fill: Fill, width: Float = 1, cap: LineCap, join: LineJoin, dashes: [NSNumber] = []) {
 		self.fill = fill	
 		self.width = width	
 		self.cap = cap	

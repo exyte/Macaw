@@ -1,4 +1,4 @@
 import Foundation
 
-class Signal {
+public class Signal {
 }

@@ -6,7 +6,7 @@ public class Shape: Node  {
 	var fill: Fill
 	var stroke: Stroke
 
-	init(form: Locus, fill: Fill, stroke: Stroke, pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
+	public init(form: Locus, fill: Fill, stroke: Stroke, pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
 		self.form = form	
 		self.fill = fill	
 		self.stroke = stroke	

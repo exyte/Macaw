@@ -2,11 +2,11 @@ import Foundation
 
 public class Locus {
 
-	init() {
+	public init() {
 	}
 
 	// GENERATED NOT
-	func bounds() -> Rect {
+	public func bounds() -> Rect {
         // TODO initial implementation
         return Rect()
 	}

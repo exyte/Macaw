@@ -3,13 +3,13 @@ import Foundation
 public class Image: Node  {
 
 	var src: String
-	var xAlign: Align
-	var yAlign: Align
-	var preserveAspectRatio: AspectRatio
-	var w: Int
-	var h: Int
+	var xAlign: Align? = nil
+	var yAlign: Align? = nil
+	var preserveAspectRatio: AspectRatio? = nil
+	var w: Int = 0
+	var h: Int = 0
 
-	public init(src: String, xAlign: Align, yAlign: Align, preserveAspectRatio: AspectRatio, w: Int, h: Int, pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
+	public init(src: String, xAlign: Align? = nil, yAlign: Align? = nil, preserveAspectRatio: AspectRatio? = nil, w: Int = 0, h: Int = 0, pos: Transform? = nil, opaque: NSObject? = true, visible: NSObject? = true, clip: Locus? = nil, tag: [String] = []) {
 		self.src = src	
 		self.xAlign = xAlign	
 		self.yAlign = yAlign	

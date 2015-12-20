@@ -7,8 +7,7 @@ public class Locus {
 
 	// GENERATED NOT
 	public func bounds() -> Rect {
-        // TODO initial implementation
-        return Rect()
+		return Rect()
 	}
 
 }

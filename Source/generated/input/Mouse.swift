@@ -3,12 +3,12 @@ import Foundation
 public class Mouse {
 
 	var hover: Bool = false
-	var pos: Point
-	var onEnter: Signal
-	var onExit: Signal
-	var onWheel: Signal
+	var pos: Point? = nil
+	var onEnter: Signal? = nil
+	var onExit: Signal? = nil
+	var onWheel: Signal? = nil
 
-	public init(hover: Bool = false, pos: Point, onEnter: Signal, onExit: Signal, onWheel: Signal) {
+	public init(hover: Bool = false, pos: Point? = nil, onEnter: Signal? = nil, onExit: Signal? = nil, onWheel: Signal? = nil) {
 		self.hover = hover	
 		self.pos = pos	
 		self.onEnter = onEnter	
@@ -18,36 +18,15 @@ public class Mouse {
 
 	// GENERATED NOT
 	public func left() -> MouseButton {
-        // TODO initial implementation
-        return MouseButton(
-            pressed: false,
-            onPress: Signal(),
-            onRelease: Signal(),
-            onClick: Signal(),
-            onDoubleClick: Signal()
-        )
+		return MouseButton()
 	}
 	// GENERATED NOT
 	public func middle() -> MouseButton {
-        // TODO initial implementation
-        return MouseButton(
-            pressed: false,
-            onPress: Signal(),
-            onRelease: Signal(),
-            onClick: Signal(),
-            onDoubleClick: Signal()
-        )
+		return MouseButton()
 	}
 	// GENERATED NOT
 	public func right() -> MouseButton {
-        // TODO initial implementation
-        return MouseButton(
-            pressed: false,
-            onPress: Signal(),
-            onRelease: Signal(),
-            onClick: Signal(),
-            onDoubleClick: Signal()
-        )
+		return MouseButton()
 	}
 
 }

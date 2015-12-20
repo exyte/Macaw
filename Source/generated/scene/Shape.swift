@@ -2,11 +2,11 @@ import Foundation
 
 public class Shape: Node  {
 
-	var form: Locus
-	var fill: Fill
-	var stroke: Stroke
+	var form: Locus? = nil
+	var fill: Fill? = nil
+	var stroke: Stroke? = nil
 
-	public init(form: Locus, fill: Fill, stroke: Stroke, pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
+	public init(form: Locus? = nil, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform? = nil, opaque: NSObject? = true, visible: NSObject? = true, clip: Locus? = nil, tag: [String] = []) {
 		self.form = form	
 		self.fill = fill	
 		self.stroke = stroke	

@@ -4,22 +4,22 @@ public class Color: Fill  {
 
 	var val: Int = 0
 
-	public static var white: Color = Color( val: 0xFFFFFF )
-	public static var silver: Color = Color( val: 0xC0C0C0 )
-	public static var gray: Color = Color( val: 0x808080 )
-	public static var black: Color = Color( val: 0 )
-	public static var red: Color = Color( val: 0xFF0000 )
-	public static var maroon: Color = Color( val: 0x800000 )
-	public static var yellow: Color = Color( val: 0xFFFF00 )
-	public static var olive: Color = Color( val: 0x808000 )
-	public static var lime: Color = Color( val: 0x00FF00 )
-	public static var green: Color = Color( val: 0x008000 )
-	public static var aqua: Color = Color( val: 0x00FFFF )
-	public static var teal: Color = Color( val: 0x008080 )
-	public static var blue: Color = Color( val: 0x0000FF )
-	public static var navy: Color = Color( val: 0x000080 )
-	public static var fuchsia: Color = Color( val: 0xFF00FF )
-	public static var purple: Color = Color( val: 0x800080 )
+	public static var white: Color? = Color( val: 0xFFFFFF )
+	public static var silver: Color? = Color( val: 0xC0C0C0 )
+	public static var gray: Color? = Color( val: 0x808080 )
+	public static var black: Color? = Color( val: 0 )
+	public static var red: Color? = Color( val: 0xFF0000 )
+	public static var maroon: Color? = Color( val: 0x800000 )
+	public static var yellow: Color? = Color( val: 0xFFFF00 )
+	public static var olive: Color? = Color( val: 0x808000 )
+	public static var lime: Color? = Color( val: 0x00FF00 )
+	public static var green: Color? = Color( val: 0x008000 )
+	public static var aqua: Color? = Color( val: 0x00FFFF )
+	public static var teal: Color? = Color( val: 0x008080 )
+	public static var blue: Color? = Color( val: 0x0000FF )
+	public static var navy: Color? = Color( val: 0x000080 )
+	public static var fuchsia: Color? = Color( val: 0xFF00FF )
+	public static var purple: Color? = Color( val: 0x800080 )
 
 	public init(val: Int = 0) {
 		self.val = val	

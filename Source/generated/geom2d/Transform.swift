@@ -20,23 +20,19 @@ public class Transform {
 
 	// GENERATED NOT
 	public func move(dx: Float, dy: Float) -> Transform {
-        // TODO initial implementation
-        return Transform(dx: dx, dy: dy)
+		return Transform()
 	}
 	// GENERATED NOT
 	public func rotate(angle: Float) -> Transform {
-        // TODO initial implementation
-        return Transform()
+		return Transform()
 	}
 	// GENERATED NOT
 	public func scale(sx: Float, sy: Float) -> Transform {
-        // TODO initial implementation
-        return Transform()
+		return Transform()
 	}
 	// GENERATED NOT
 	public func shear(shx: Float, shy: Float) -> Transform {
-        // TODO initial implementation
-        return Transform()
+		return Transform()
 	}
 
 	// GENERATED
@@ -56,8 +52,7 @@ public class Transform {
 
 	// GENERATED NOT
 	class func rotate(angle: Float) -> Transform {
-        // TODO initial implementation
-        return Transform()
+		return Transform()
 	}
 
 }

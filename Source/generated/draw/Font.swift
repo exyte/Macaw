@@ -4,12 +4,12 @@ public class Font {
 
 	var name: String = "Serif"
 	var size: Int = 12
-	var bold: NSNumber = false
-	var italic: NSNumber = false
-	var underline: NSNumber = false
-	var strike_through: NSNumber = false
+	var bold: NSObject? = false
+	var italic: NSObject? = false
+	var underline: NSObject? = false
+	var strike_through: NSObject? = false
 
-	public init(name: String = "Serif", size: Int = 12, bold: NSNumber = false, italic: NSNumber = false, underline: NSNumber = false, strike_through: NSNumber = false) {
+	public init(name: String = "Serif", size: Int = 12, bold: NSObject? = false, italic: NSObject? = false, underline: NSObject? = false, strike_through: NSObject? = false) {
 		self.name = name	
 		self.size = size	
 		self.bold = bold	

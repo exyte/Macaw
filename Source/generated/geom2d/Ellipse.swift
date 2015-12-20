@@ -16,8 +16,7 @@ public class Ellipse: Locus  {
 
 	// GENERATED NOT
 	public func arc(shift: NSNumber, extent: NSNumber) -> Arc {
-         // TODO initial implementation
-		return Arc(ellipse: Ellipse())
+		return Arc()
 	}
 
 }

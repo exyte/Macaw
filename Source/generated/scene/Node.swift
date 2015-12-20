@@ -2,12 +2,12 @@ import Foundation
 
 public class Node: Drawable  {
 
-	var pos: Transform
-	var opaque: NSNumber = true
-	var visible: NSNumber = true
-	var clip: Locus
+	var pos: Transform? = nil
+	var opaque: NSObject? = true
+	var visible: NSObject? = true
+	var clip: Locus? = nil
 
-	public init(pos: Transform, opaque: NSNumber = true, visible: NSNumber = true, clip: Locus, tag: [String] = []) {
+	public init(pos: Transform? = nil, opaque: NSObject? = true, visible: NSObject? = true, clip: Locus? = nil, tag: [String] = []) {
 		self.pos = pos	
 		self.opaque = opaque	
 		self.visible = visible	
@@ -19,19 +19,11 @@ public class Node: Drawable  {
 
 	// GENERATED NOT
 	public func mouse() -> Mouse {
-        // TODO initial implementation
-        return Mouse(
-            hover: false,
-            pos: Point(),
-            onEnter: Signal(),
-            onExit: Signal(),
-            onWheel: Signal()
-        )
-    }
+		return Mouse()
+	}
 	// GENERATED NOT
 	public func bounds() -> Rect {
-        // TODO initial implementation
-        return Rect()
-    }
+		return Rect()
+	}
 
 }

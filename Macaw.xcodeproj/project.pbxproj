@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; settings = {ASSET_TAGS = (); }; };
 		B02E75E31C160FFD00D1971D /* HelloWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75E21C160FFD00D1971D /* HelloWorld.swift */; };
 		B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F88BD1C1C6A9E00F24FFC /* Signal.swift */; };
 		B09EEB211C26C2760017055E /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09EEAEE1C26C2760017055E /* Align.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		585C04471C27CFB100335FF2 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		B02E75D61C160F8D00D1971D /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75E21C160FFD00D1971D /* HelloWorld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloWorld.swift; sourceTree = "<group>"; };
 		B02E76131C1612A900D1971D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		585C04461C27CFB100335FF2 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				585C04471C27CFB100335FF2 /* MacawView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		B02E75CC1C160F8D00D1971D = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +154,7 @@
 		B02E75E11C160FF200D1971D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				585C04461C27CFB100335FF2 /* views */,
 				B09EEAEC1C26C2760017055E /* generated */,
 				B03F88BC1C1C6A9300F24FFC /* events */,
 				B02E76131C1612A900D1971D /* Info.plist */,
@@ -355,6 +366,7 @@
 				B09EEB4E1C26C2760017055E /* Node.swift in Sources */,
 				B09EEB3C1C26C2760017055E /* PathSegment.swift in Sources */,
 				B09EEB411C26C2760017055E /* Quadratic.swift in Sources */,
+				585C04481C27CFB100335FF2 /* MacawView.swift in Sources */,
 				B09EEB271C26C2760017055E /* Font.swift in Sources */,
 				B09EEB481C26C2760017055E /* VLine.swift in Sources */,
 				B09EEB451C26C2760017055E /* Size.swift in Sources */,

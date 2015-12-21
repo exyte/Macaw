@@ -2,7 +2,7 @@ import Foundation
 
 public class PathSegment {
 
-	var absolute: Bool = false
+	let absolute: Bool
 
 	public init(absolute: Bool = false) {
 		self.absolute = absolute	

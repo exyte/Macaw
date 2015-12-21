@@ -2,8 +2,8 @@ import Foundation
 
 public class Stop {
 
-	var offset: Float = 0
-	var color: Color? = nil
+	let offset: Float
+	let color: Color?
 
 	public init(offset: Float = 0, color: Color? = nil) {
 		self.offset = offset	

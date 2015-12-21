@@ -2,8 +2,8 @@ import Foundation
 
 public class SQuadratic: PathSegment  {
 
-	var x: NSNumber = 0
-	var y: NSNumber = 0
+	let x: NSNumber
+	let y: NSNumber
 
 	public init(x: NSNumber = 0, y: NSNumber = 0, absolute: Bool = false) {
 		self.x = x	

@@ -2,9 +2,9 @@ import Foundation
 
 public class RoundRect: Locus  {
 
-	var rect: Rect? = nil
-	var rx: NSNumber = 0
-	var ry: NSNumber = 0
+	let rect: Rect?
+	let rx: NSNumber
+	let ry: NSNumber
 
 	public init(rect: Rect? = nil, rx: NSNumber = 0, ry: NSNumber = 0) {
 		self.rect = rect	

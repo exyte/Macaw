@@ -2,10 +2,10 @@ import Foundation
 
 public class Rect: Locus  {
 
-	var x: NSNumber = 0
-	var y: NSNumber = 0
-	var w: NSNumber = 0
-	var h: NSNumber = 0
+	let x: NSNumber
+	let y: NSNumber
+	let w: NSNumber
+	let h: NSNumber
 
 	public init(x: NSNumber = 0, y: NSNumber = 0, w: NSNumber = 0, h: NSNumber = 0) {
 		self.x = x	

@@ -2,7 +2,7 @@ import Foundation
 
 public class Polyline: Locus  {
 
-	var points: [NSNumber] = []
+	let points: [NSNumber]
 
 	public init(points: [NSNumber] = []) {
 		self.points = points	

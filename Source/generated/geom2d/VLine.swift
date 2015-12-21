@@ -2,7 +2,7 @@ import Foundation
 
 public class VLine: PathSegment  {
 
-	var y: NSNumber = 0
+	let y: NSNumber
 
 	public init(y: NSNumber = 0, absolute: Bool = false) {
 		self.y = y	

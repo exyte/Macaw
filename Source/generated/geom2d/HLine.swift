@@ -2,7 +2,7 @@ import Foundation
 
 public class HLine: PathSegment  {
 
-	var x: NSNumber = 0
+	let x: NSNumber
 
 	public init(x: NSNumber = 0, absolute: Bool = false) {
 		self.x = x	

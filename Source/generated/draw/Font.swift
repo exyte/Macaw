@@ -2,12 +2,12 @@ import Foundation
 
 public class Font {
 
-	var name: String = "Serif"
-	var size: Int = 12
-	var bold: NSObject? = false
-	var italic: NSObject? = false
-	var underline: NSObject? = false
-	var strike_through: NSObject? = false
+	let name: String
+	let size: Int
+	let bold: NSObject?
+	let italic: NSObject?
+	let underline: NSObject?
+	let strike_through: NSObject?
 
 	public init(name: String = "Serif", size: Int = 12, bold: NSObject? = false, italic: NSObject? = false, underline: NSObject? = false, strike_through: NSObject? = false) {
 		self.name = name	

@@ -4,12 +4,12 @@ public class LinearGradient: Fill  {
 
 	let userSpace: Bool
 	let stops: [Stop]
-	let x1: NSNumber
-	let y1: NSNumber
-	let x2: NSNumber
-	let y2: NSNumber
+	let x1: Double
+	let y1: Double
+	let x2: Double
+	let y2: Double
 
-	public init(userSpace: Bool = false, stops: [Stop] = [], x1: NSNumber = 0, y1: NSNumber = 0, x2: NSNumber = 0, y2: NSNumber = 0) {
+	public init(userSpace: Bool = false, stops: [Stop] = [], x1: Double = 0, y1: Double = 0, x2: Double = 0, y2: Double = 0) {
 		self.userSpace = userSpace	
 		self.stops = stops	
 		self.x1 = x1	

@@ -50,15 +50,15 @@ public class MacawView: UIView {
                 UIRectCorner.AllCorners, cornerRadii: corners).CGPath
             CGContextAddPath(ctx, path)
         } else if let circle = locus as? Circle {
-            let cx = CGFloat(circle.cx)
-            let cy = CGFloat(circle.cy)
-            let r = CGFloat(circle.r)
+            let cx = circle.cx
+            let cy = circle.cy
+            let r = circle.r
             CGContextAddEllipseInRect(ctx, CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
         } else if let ellipse = locus as? Ellipse {
-            let cx = CGFloat(ellipse.cx)
-            let cy = CGFloat(ellipse.cy)
-            let rx = CGFloat(ellipse.rx)
-            let ry = CGFloat(ellipse.ry)
+            let cx = ellipse.cx
+            let cy = ellipse.cy
+            let rx = ellipse.rx
+            let ry = ellipse.ry
             CGContextAddEllipseInRect(ctx, CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
         } else if let arc = locus as? Arc {
             CGContextAddPath(ctx, toBezierPath(arc).CGPath)
@@ -83,7 +83,7 @@ public class MacawView: UIView {
         }
     }
 
-    private func toBezierPath(points: [NSNumber]) -> UIBezierPath {
+    private func toBezierPath(points: [Double]) -> UIBezierPath {
         let parts = 0.stride(to: points.count, by: 2).map { Array(points[$0..<$0 + 2]) }
         let path = UIBezierPath()
         var first = true
@@ -170,7 +170,7 @@ public class MacawView: UIView {
         }
     }
 
-    private func mapDash(dashes: [NSNumber]) -> UnsafeMutablePointer<CGFloat> {
+    private func mapDash(dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
         let p = UnsafeMutablePointer<CGFloat>(calloc(dashes.count, sizeof(CGFloat)))
         for (index, item) in dashes.enumerate() {
             p[index] = CGFloat(item)

@@ -2,12 +2,12 @@ import Foundation
 
 public class Rect: Locus  {
 
-	let x: NSNumber
-	let y: NSNumber
-	let w: NSNumber
-	let h: NSNumber
+	let x: Double
+	let y: Double
+	let w: Double
+	let h: Double
 
-	public init(x: NSNumber = 0, y: NSNumber = 0, w: NSNumber = 0, h: NSNumber = 0) {
+	public init(x: Double = 0, y: Double = 0, w: Double = 0, h: Double = 0) {
 		self.x = x	
 		self.y = y	
 		self.w = w	
@@ -15,7 +15,7 @@ public class Rect: Locus  {
 	}
 
 	// GENERATED NOT
-	public func round(rx: NSNumber, ry: NSNumber) -> RoundRect {
+	public func round(rx: Double, ry: Double) -> RoundRect {
 		return RoundRect()
 	}
 	// GENERATED NOT

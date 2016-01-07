@@ -2,12 +2,12 @@ import Foundation
 
 public class Insets {
 
-	let top: NSNumber
-	let right: NSNumber
-	let bottom: NSNumber
-	let left: NSNumber
+	let top: Double
+	let right: Double
+	let bottom: Double
+	let left: Double
 
-	public init(top: NSNumber = 0, right: NSNumber = 0, bottom: NSNumber = 0, left: NSNumber = 0) {
+	public init(top: Double = 0, right: Double = 0, bottom: Double = 0, left: Double = 0) {
 		self.top = top	
 		self.right = right	
 		self.bottom = bottom	

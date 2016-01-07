@@ -2,9 +2,9 @@ import Foundation
 
 public class HLine: PathSegment  {
 
-	let x: NSNumber
+	let x: Double
 
-	public init(x: NSNumber = 0, absolute: Bool = false) {
+	public init(x: Double = 0, absolute: Bool = false) {
 		self.x = x	
 		super.init(
 			absolute: absolute

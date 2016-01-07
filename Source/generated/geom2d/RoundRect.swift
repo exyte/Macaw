@@ -3,10 +3,10 @@ import Foundation
 public class RoundRect: Locus  {
 
 	let rect: Rect?
-	let rx: NSNumber
-	let ry: NSNumber
+	let rx: Double
+	let ry: Double
 
-	public init(rect: Rect? = nil, rx: NSNumber = 0, ry: NSNumber = 0) {
+	public init(rect: Rect? = nil, rx: Double = 0, ry: Double = 0) {
 		self.rect = rect	
 		self.rx = rx	
 		self.ry = ry	

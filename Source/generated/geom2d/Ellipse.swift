@@ -2,12 +2,12 @@ import Foundation
 
 public class Ellipse: Locus  {
 
-	let cx: NSNumber
-	let cy: NSNumber
-	let rx: NSNumber
-	let ry: NSNumber
+	let cx: Double
+	let cy: Double
+	let rx: Double
+	let ry: Double
 
-	public init(cx: NSNumber = 0, cy: NSNumber = 0, rx: NSNumber = 0, ry: NSNumber = 0) {
+	public init(cx: Double = 0, cy: Double = 0, rx: Double = 0, ry: Double = 0) {
 		self.cx = cx	
 		self.cy = cy	
 		self.rx = rx	
@@ -15,7 +15,7 @@ public class Ellipse: Locus  {
 	}
 
 	// GENERATED NOT
-	public func arc(shift: NSNumber, extent: NSNumber) -> Arc {
+	public func arc(shift: Double, extent: Double) -> Arc {
 		return Arc()
 	}
 

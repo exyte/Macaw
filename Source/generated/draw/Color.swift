@@ -48,7 +48,7 @@ public class Color: Fill  {
 	}
 
 	// GENERATED
-	class func rgba(r: Int, g: Int, b: Int, a: Float) -> Color {
+	class func rgba(r: Int, g: Int, b: Int, a: Double) -> Color {
 		return rgbt( r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
 	}
 

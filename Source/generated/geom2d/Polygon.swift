@@ -2,9 +2,9 @@ import Foundation
 
 public class Polygon: Locus  {
 
-	let points: [NSNumber]
+	let points: [Double]
 
-	public init(points: [NSNumber] = []) {
+	public init(points: [Double] = []) {
 		self.points = points	
 	}
 

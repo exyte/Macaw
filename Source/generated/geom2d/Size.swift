@@ -2,10 +2,10 @@ import Foundation
 
 public class Size {
 
-	let w: NSNumber
-	let h: NSNumber
+	let w: Double
+	let h: Double
 
-	public init(w: NSNumber = 0, h: NSNumber = 0) {
+	public init(w: Double = 0, h: Double = 0) {
 		self.w = w	
 		self.h = h	
 	}

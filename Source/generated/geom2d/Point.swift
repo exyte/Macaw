@@ -2,10 +2,10 @@ import Foundation
 
 public class Point: Locus  {
 
-	let x: NSNumber
-	let y: NSNumber
+	let x: Double
+	let y: Double
 
-	public init(x: NSNumber = 0, y: NSNumber = 0) {
+	public init(x: Double = 0, y: Double = 0) {
 		self.x = x	
 		self.y = y	
 	}

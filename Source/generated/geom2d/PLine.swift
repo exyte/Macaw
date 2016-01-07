@@ -2,10 +2,10 @@ import Foundation
 
 public class PLine: PathSegment  {
 
-	let x: NSNumber
-	let y: NSNumber
+	let x: Double
+	let y: Double
 
-	public init(x: NSNumber = 0, y: NSNumber = 0, absolute: Bool = false) {
+	public init(x: Double = 0, y: Double = 0, absolute: Bool = false) {
 		self.x = x	
 		self.y = y	
 		super.init(

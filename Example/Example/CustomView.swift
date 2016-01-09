@@ -43,8 +43,8 @@ class CustomView: MacawView {
         let triangle = Polygon(points: [50, 350, 20, 390, 80, 390])
         let shape10 = Shape(form: triangle, fill: LinearGradient(userSpace: false, stops: [Stop(offset: 0, color: Color(val: 0xC02425)), Stop(offset: 1, color: Color(val: 0xF0CB35))], x1: 50, y1: 350, x2: 50, y2: 390))
 
-        let box = Rect(x: 120, y: 350, w: 40, h: 40)
-        let shape11 = Shape(form: box, fill: LinearGradient(userSpace: true, stops: [Stop(offset: 0, color: Color.black), Stop(offset: 0.5, color: Color.red), Stop(offset: 1, color: Color.black)], x1: 0, y1: 0, x2: 1, y2: 1))
+        let box = Rect(w: 40, h: 40)
+        let shape11 = Shape(form: box, pos: Transform().move(120, my: 350), fill: LinearGradient(userSpace: true, stops: [Stop(offset: 0, color: Color.black), Stop(offset: 0.5, color: Color.red), Stop(offset: 1, color: Color.black)], x1: 0, y1: 0, x2: 1, y2: 1))
 
         let group = Group(contents: [shape1, shape2, shape3, shape4, shape5,
                                      shape6, shape7, shape8, shape9, shape10,

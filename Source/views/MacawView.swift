@@ -28,19 +28,24 @@ public class MacawView: UIView {
     }
 
     private func drawNode(node: Node, ctx: CGContext?) {
-        CGContextSaveGState(ctx)
-        if let shape = node as? Shape {
-            setGeometry(shape.form!, ctx: ctx)
-            setFill(shape.fill, ctx: ctx)
-            setStroke(shape.stroke, ctx: ctx)
-        } else if let group = node as? Group {
-            for content in group.contents {
-                drawNode(content, ctx: ctx)
+        if node.visible == true {
+            CGContextSaveGState(ctx)
+            if (node.pos != nil) {
+                CGContextConcatCTM(ctx, mapTransform(node.pos!))
             }
-        } else {
-            print("Unsupported node: \(node)")
+            if let shape = node as? Shape {
+                setGeometry(shape.form!, ctx: ctx)
+                setFill(shape.fill, ctx: ctx)
+                setStroke(shape.stroke, ctx: ctx)
+            } else if let group = node as? Group {
+                for content in group.contents {
+                    drawNode(content, ctx: ctx)
+                }
+            } else {
+                print("Unsupported node: \(node)")
+            }
+            CGContextRestoreGState(ctx)
         }
-        CGContextRestoreGState(ctx)
     }
 
     private func setGeometry(locus: Locus, ctx: CGContext?) {
@@ -145,14 +150,6 @@ public class MacawView: UIView {
         }
     }
 
-    private func mapColor(color: Color) -> CGColor {
-        let red = CGFloat(Double(color.r()) / 255.0);
-        let green = CGFloat(Double(color.g()) / 255.0);
-        let blue = CGFloat(Double(color.b()) / 255.0);
-        let alpha = CGFloat(Double(color.a()) / 255.0);
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha).CGColor
-    }
-
     private func setStroke(stroke: Stroke?, ctx: CGContext?) {
         if stroke != nil {
             if let color = stroke!.fill as? Color {
@@ -171,6 +168,19 @@ public class MacawView: UIView {
                 print("Unsupported stroke fill: \(stroke!.fill)")
             }
         }
+    }
+
+    private func mapTransform(t: Transform) -> CGAffineTransform {
+        return CGAffineTransform(a: CGFloat(t.m11), b: CGFloat(t.m21), c: CGFloat(t.m12),
+                                 d: CGFloat(t.m22), tx: CGFloat(t.dx), ty: CGFloat(t.dy))
+    }
+    
+    private func mapColor(color: Color) -> CGColor {
+        let red = CGFloat(Double(color.r()) / 255.0);
+        let green = CGFloat(Double(color.g()) / 255.0);
+        let blue = CGFloat(Double(color.b()) / 255.0);
+        let alpha = CGFloat(Double(color.a()) / 255.0);
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha).CGColor
     }
 
     private func mapLineJoin(join: LineJoin?) -> CGLineJoin {

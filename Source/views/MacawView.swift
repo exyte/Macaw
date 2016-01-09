@@ -28,6 +28,7 @@ public class MacawView: UIView {
     }
 
     private func drawNode(node: Node, ctx: CGContext?) {
+        CGContextSaveGState(ctx)
         if let shape = node as? Shape {
             setGeometry(shape.form!, ctx: ctx)
             setFill(shape.fill, ctx: ctx)
@@ -39,6 +40,7 @@ public class MacawView: UIView {
         } else {
             print("Unsupported node: \(node)")
         }
+        CGContextRestoreGState(ctx)
     }
 
     private func setGeometry(locus: Locus, ctx: CGContext?) {
@@ -118,25 +120,42 @@ public class MacawView: UIView {
     private func setFill(fill: Fill?, ctx: CGContext?) {
         if fill != nil {
             if let color = fill as? Color {
-                let red = CGFloat(Double(color.r()) / 255.0);
-                let green = CGFloat(Double(color.g()) / 255.0);
-                let blue = CGFloat(Double(color.b()) / 255.0);
-                let alpha = CGFloat(Double(color.a()) / 255.0);
-                CGContextSetRGBFillColor(ctx, red, green, blue, alpha);
+                CGContextSetFillColorWithColor(ctx, mapColor(color))
                 CGContextFillPath(ctx);
+            } else if let gradient = fill as? LinearGradient {
+                var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
+                var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
+                if gradient.userSpace {
+                    let bounds = CGContextGetPathBoundingBox(ctx)
+                    start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
+                    end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
+                }
+                var colors: [CGColor] = []
+                var stops: [CGFloat] = []
+                for stop in gradient.stops {
+                    stops.append(CGFloat(stop.offset))
+                    colors.append(mapColor(stop.color!))
+                }
+                let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
+                CGContextClip(ctx)
+                CGContextDrawLinearGradient(ctx, cgGradient, start, end, CGGradientDrawingOptions.DrawsAfterEndLocation)
             } else {
                 print("Unsupported fill: \(fill)")
             }
         }
     }
 
+    private func mapColor(color: Color) -> CGColor {
+        let red = CGFloat(Double(color.r()) / 255.0);
+        let green = CGFloat(Double(color.g()) / 255.0);
+        let blue = CGFloat(Double(color.b()) / 255.0);
+        let alpha = CGFloat(Double(color.a()) / 255.0);
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha).CGColor
+    }
+
     private func setStroke(stroke: Stroke?, ctx: CGContext?) {
         if stroke != nil {
             if let color = stroke!.fill as? Color {
-                let red = CGFloat(Double(color.r()) / 255.0)
-                let green = CGFloat(Double(color.g()) / 255.0)
-                let blue = CGFloat(Double(color.b()) / 255.0)
-                let alpha = CGFloat(Double(color.a()) / 255.0)
                 CGContextSetLineWidth(ctx, CGFloat(stroke!.width))
                 CGContextSetLineJoin(ctx, mapLineJoin(stroke!.join))
                 CGContextSetLineCap(ctx, mapLineCap(stroke!.cap))
@@ -146,7 +165,7 @@ public class MacawView: UIView {
                     CGContextSetLineDash(ctx, 0, dashPointer, dashes.count)
                     dashPointer.dealloc(dashes.count)
                 }
-                CGContextSetRGBStrokeColor(ctx, red, green, blue, alpha)
+                CGContextSetStrokeColorWithColor(ctx, mapColor(color))
                 CGContextStrokePath(ctx)
             } else {
                 print("Unsupported stroke fill: \(stroke!.fill)")

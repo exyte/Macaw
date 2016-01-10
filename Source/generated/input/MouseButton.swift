@@ -3,12 +3,12 @@ import Foundation
 public class MouseButton {
 
 	var pressed: Bool = false
-	var onPress: Signal? = nil
-	var onRelease: Signal? = nil
-	var onClick: Signal? = nil
-	var onDoubleClick: Signal? = nil
+	var onPress: Signal
+	var onRelease: Signal
+	var onClick: Signal
+	var onDoubleClick: Signal
 
-	public init(pressed: Bool = false, onPress: Signal? = nil, onRelease: Signal? = nil, onClick: Signal? = nil, onDoubleClick: Signal? = nil) {
+	public init(pressed: Bool = false, onPress: Signal, onRelease: Signal, onClick: Signal, onDoubleClick: Signal) {
 		self.pressed = pressed	
 		self.onPress = onPress	
 		self.onRelease = onRelease	

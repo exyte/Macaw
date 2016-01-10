@@ -16,10 +16,10 @@ public class Rect: Locus  {
 
 	// GENERATED NOT
 	public func round(rx: Double, ry: Double) -> RoundRect {
-		return RoundRect()
+        return RoundRect(rect: Rect())
 	}
 	// GENERATED NOT
-	public func contains(locus: Locus?) -> Bool {
+	public func contains(locus: Locus) -> Bool {
 		return false
 	}
 

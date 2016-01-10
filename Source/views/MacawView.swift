@@ -19,7 +19,7 @@ public class MacawView: UIView {
     }
 
     public required convenience init?(coder aDecoder: NSCoder) {
-        self.init(node: Group(), coder: aDecoder)
+        self.init(node: Group(pos: Transform()), coder: aDecoder)
     }
 
     override public func drawRect(rect: CGRect) {
@@ -30,11 +30,11 @@ public class MacawView: UIView {
     private func drawNode(node: Node, ctx: CGContext?) {
         if node.visible == true {
             CGContextSaveGState(ctx)
-            if (node.pos != nil) {
-                CGContextConcatCTM(ctx, mapTransform(node.pos!))
-            }
+//            if (node.pos != nil) {
+                CGContextConcatCTM(ctx, mapTransform(node.pos))
+//            }
             if let shape = node as? Shape {
-                setGeometry(shape.form!, ctx: ctx)
+                setGeometry(shape.form, ctx: ctx)
                 setFill(shape.fill, ctx: ctx)
                 setStroke(shape.stroke, ctx: ctx)
             } else if let group = node as? Group {
@@ -53,7 +53,7 @@ public class MacawView: UIView {
             CGContextAddRect(ctx, newCGRect(rect))
         } else if let round = locus as? RoundRect {
             let corners = CGSizeMake(CGFloat(round.rx), CGFloat(round.ry))
-            let path = UIBezierPath(roundedRect: newCGRect(round.rect!), byRoundingCorners:
+            let path = UIBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
                 UIRectCorner.AllCorners, cornerRadii: corners).CGPath
             CGContextAddPath(ctx, path)
         } else if let circle = locus as? Circle {
@@ -109,7 +109,7 @@ public class MacawView: UIView {
     private func toBezierPath(arc: Arc) -> UIBezierPath {
         let extent = CGFloat(arc.extent)
         let end = CGFloat(arc.shift) + extent
-        let ellipse = arc.ellipse!
+        let ellipse = arc.ellipse
         if (ellipse.rx == ellipse.ry) {
             let center = CGPointMake(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
             return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: extent, endAngle: end, clockwise: true)
@@ -139,7 +139,7 @@ public class MacawView: UIView {
                 var stops: [CGFloat] = []
                 for stop in gradient.stops {
                     stops.append(CGFloat(stop.offset))
-                    colors.append(mapColor(stop.color!))
+                    colors.append(mapColor(stop.color))
                 }
                 let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
                 CGContextClip(ctx)

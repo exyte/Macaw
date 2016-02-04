@@ -8,7 +8,7 @@ public class Text: Node  {
 	var align: Align
 	var baseline: Baseline
 
-	public init(text: String, font: Font, fill: Fill, align: Align, baseline: Baseline, pos: Transform, opaque: NSObject? = true, visible: NSObject? = true, clip: Locus? = nil, tag: [String] = []) {
+	public init(text: String, font: Font, fill: Fill, align: Align, baseline: Baseline, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
 		self.text = text	
 		self.font = font	
 		self.fill = fill	

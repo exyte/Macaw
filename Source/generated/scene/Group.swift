@@ -4,7 +4,7 @@ public class Group: Node  {
 
 	var contents: [Node] = []
 
-	public init(contents: [Node] = [], pos: Transform, opaque: NSObject? = true, visible: NSObject? = true, clip: Locus? = nil, tag: [String] = []) {
+	public init(contents: [Node] = [], pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
 		self.contents = contents	
 		super.init(
 			pos: pos,

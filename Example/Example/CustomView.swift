@@ -126,7 +126,7 @@ class CustomView: MacawView {
         )
         
         func cloudExample() -> Group {
-            func cloud1Path() -> Path {
+            func cloud1() -> Path {
                 return Path(segments: [
                     Move(x: 441.953, y: 142.352, absolute: true),
                     Cubic(x1: -4.447, y1: -68.872, x2: -61.709, y2: -123.36, x: -131.705, y: -123.36, absolute: false),
@@ -148,7 +148,7 @@ class CustomView: MacawView {
                 ])
             }
             
-            func cloud2Path() -> Path {
+            func cloud2() -> Path {
                 return Path(segments: [
                     Move(x: 431.357, y: 266.878, absolute: true),
                     Cubic(x1: 0.058, y1: -1.449, x2: 0.187, y2: -2.878, x: 0.187, y: -4.333, absolute: false),
@@ -179,7 +179,7 @@ class CustomView: MacawView {
             }
             
             let cloud2Shape = Shape(
-                form: cloud2Path(),
+                form: cloud2(),
                 pos: Transform.scale(1.5, sy: 1.5).move(0, my: -100),
                 fill: Color(val: 0x60636e),
                 stroke: Stroke(
@@ -204,7 +204,7 @@ class CustomView: MacawView {
             )
             
             let cloud1Shape = Shape(
-                form: cloud1Path(),
+                form: cloud1(),
                 pos: Transform.move(120, my: 120),
                 fill: LinearGradient(
                     userSpace: false,
@@ -217,7 +217,7 @@ class CustomView: MacawView {
             )
 
             let cloud1Shape2 = Shape(
-                form: cloud1Path(),
+                form: cloud1(),
                 pos: Transform.move(120, my: 100),
                 fill: Color(val: 0x7b808c),
                 stroke: Stroke(
@@ -230,24 +230,23 @@ class CustomView: MacawView {
             
             return Group(
                 contents: [cloud2Shape, lightningShape, cloud1Shape, cloud1Shape2],
-                pos: Transform.move(70, my: 200).scale(0.35, sy: 0.35)
+                pos: Transform.move(220, my: 320).scale(0.15, sy: 0.15)
             )
         }
         
         let group = Group(
             contents: [
-//                shape1,
-//                shape2,
-//                shape3,
-//                shape4,
-//                shape5,
-//                shape6,
-//                shape7,
-//                shape8,
-//                shape9,
-//                shape10,
-//                shape11,
-//                lightningExample(),
+                shape1,
+                shape2,
+                shape3,
+                shape4,
+                shape5,
+                shape6,
+                shape7,
+                shape8,
+                shape9,
+                shape10,
+                shape11,
                 cloudExample()
             ]
         )

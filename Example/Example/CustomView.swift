@@ -124,7 +124,21 @@ class CustomView: MacawView {
                 y2: 1
             )
         )
-
+        
+        func pathExample() -> Shape {
+            let seg1 = Move(x: 270, y: 350)
+            let seg2 = PLine(x: 240, y: 390)
+            let seg3 = PLine(x: 300, y: 390)
+            let seg4 = Close()
+            
+            let path = Path(segments: [seg1, seg2, seg3, seg4])
+            
+            return Shape(
+                form: path,
+                fill: Color.purple
+            )
+        }
+        
         let group = Group(
             contents: [
                 shape1,
@@ -137,10 +151,11 @@ class CustomView: MacawView {
                 shape8,
                 shape9,
                 shape10,
-                shape11
+                shape11,
+                pathExample()
             ]
         )
-
+        
         super.init(node: group, coder: aDecoder)
     }
 

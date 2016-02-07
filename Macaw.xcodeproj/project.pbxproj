@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; settings = {ASSET_TAGS = (); }; };
-		B02E75E31C160FFD00D1971D /* HelloWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75E21C160FFD00D1971D /* HelloWorld.swift */; };
+		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; };
 		B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F88BD1C1C6A9E00F24FFC /* Signal.swift */; };
 		B09EEB211C26C2760017055E /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09EEAEE1C26C2760017055E /* Align.swift */; };
 		B09EEB221C26C2760017055E /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09EEAEF1C26C2760017055E /* AspectRatio.swift */; };
@@ -62,7 +61,6 @@
 /* Begin PBXFileReference section */
 		585C04471C27CFB100335FF2 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		B02E75D61C160F8D00D1971D /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B02E75E21C160FFD00D1971D /* HelloWorld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloWorld.swift; sourceTree = "<group>"; };
 		B02E76131C1612A900D1971D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B03F88BD1C1C6A9E00F24FFC /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		B09EEAEE1C26C2760017055E /* Align.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Align.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 				B09EEAEC1C26C2760017055E /* generated */,
 				B03F88BC1C1C6A9300F24FFC /* events */,
 				B02E76131C1612A900D1971D /* Info.plist */,
-				B02E75E21C160FFD00D1971D /* HelloWorld.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -336,7 +333,6 @@
 				B09EEB211C26C2760017055E /* Align.swift in Sources */,
 				B09EEB4B1C26C2760017055E /* MouseButton.swift in Sources */,
 				B09EEB431C26C2760017055E /* RoundRect.swift in Sources */,
-				B02E75E31C160FFD00D1971D /* HelloWorld.swift in Sources */,
 				B09EEB301C26C2760017055E /* Arc.swift in Sources */,
 				B09EEB501C26C2760017055E /* Text.swift in Sources */,
 				B09EEB2D1C26C2760017055E /* Stop.swift in Sources */,

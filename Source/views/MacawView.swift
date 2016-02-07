@@ -85,6 +85,8 @@ public class MacawView: UIView {
             CGContextAddPath(ctx, path.CGPath)
         } else if let polygon = locus as? Polyline {
             CGContextAddPath(ctx, toBezierPath(polygon.points).CGPath)
+        } else if let path = locus as? Path {
+            CGContextAddPath(ctx, toBezierPath(path).CGPath)
         } else {
             print("Unsupported locus: \(locus)")
         }
@@ -118,6 +120,25 @@ public class MacawView: UIView {
         return UIBezierPath()
     }
 
+    private func toBezierPath(path: Path) -> UIBezierPath {
+        let bezierPath = UIBezierPath()
+        var initial: CGPoint?
+        for part in path.segments {
+            if let move = part as? Move {
+                let point = CGPointMake(CGFloat(move.x), CGFloat(move.y))
+                bezierPath.moveToPoint(point)
+                initial = point
+            } else if let pline = part as? PLine {
+                bezierPath.addLineToPoint(CGPointMake(CGFloat(pline.x), CGFloat(pline.y)))
+            } else if let _ = part as? Close {
+                if let initialVal = initial {
+                    bezierPath.addLineToPoint(initialVal)
+                }
+            }
+        }
+        return bezierPath
+    }
+    
     private func newCGRect(rect: Rect) -> CGRect {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }

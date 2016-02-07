@@ -120,20 +120,188 @@ public class MacawView: UIView {
         return UIBezierPath()
     }
 
+    
     private func toBezierPath(path: Path) -> UIBezierPath {
         let bezierPath = UIBezierPath()
-        var initial: CGPoint?
+        
+        var currentPoint: CGPoint?
+        var cubicPoint: CGPoint?
+        var quadrPoint: CGPoint?
+        var initialPoint: CGPoint?
+        
+        
+        func M(x: Double, y: Double) {
+            let point = CGPointMake(CGFloat(x), CGFloat(y))
+            bezierPath.moveToPoint(point)
+            setInitPoint(point)
+        }
+        
+        func m(x: Double, y: Double) {
+            if let cur = currentPoint {
+                let next = CGPointMake(CGFloat(x) + cur.x, CGFloat(y) + cur.y)
+                bezierPath.moveToPoint(next)
+                setInitPoint(next)
+            } else {
+                M(x, y: y)
+            }
+        }
+        
+        func L(x: Double, y: Double) {
+            lineTo(CGPointMake(CGFloat(x), CGFloat(y)))
+        }
+        
+        func l(x: Double, y: Double) {
+            if let cur = currentPoint {
+                lineTo(CGPointMake(CGFloat(x) + cur.x, CGFloat(y) + cur.y))
+            } else {
+                L(x, y: y)
+            }
+        }
+        
+        func H(x: Double) {
+            if let cur = currentPoint {
+                lineTo(CGPointMake(CGFloat(x), CGFloat(cur.y)))
+            }
+        }
+        
+        func h(x: Double) {
+            if let cur = currentPoint {
+                lineTo(CGPointMake(CGFloat(x) + cur.x, CGFloat(cur.y)))
+            }
+        }
+        
+        func V(y: Double) {
+            if let cur = currentPoint {
+                lineTo(CGPointMake(CGFloat(cur.x), CGFloat(y)))
+            }
+        }
+        
+        func v(y: Double) {
+            if let cur = currentPoint {
+                lineTo(CGPointMake(CGFloat(cur.x), CGFloat(y) + cur.y))
+            }
+        }
+        
+        func lineTo(p: CGPoint) {
+            bezierPath.addLineToPoint(p)
+            setPoint(p)
+        }
+        
+        func c(x1: Double, y1: Double, x2: Double, y2: Double, x: Double, y: Double) {
+            if let cur = currentPoint {
+                let endPoint = CGPointMake(CGFloat(x) + cur.x, CGFloat(y) + cur.y)
+                let controlPoint1 = CGPointMake(CGFloat(x1) + cur.x, CGFloat(y1) + cur.y)
+                let controlPoint2 = CGPointMake(CGFloat(x2) + cur.x, CGFloat(y2) + cur.y)
+                bezierPath.addCurveToPoint(endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+                setCubicPoint(endPoint, cubic: controlPoint2)
+            }
+        }
+        
+        func C(x1: Double, y1: Double, x2: Double, y2: Double, x: Double, y: Double) {
+            let endPoint = CGPointMake(CGFloat(x), CGFloat(y))
+            let controlPoint1 = CGPointMake(CGFloat(x1), CGFloat(y1))
+            let controlPoint2 = CGPointMake(CGFloat(x2), CGFloat(y2))
+            bezierPath.addCurveToPoint(endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+            setCubicPoint(endPoint, cubic: controlPoint2)
+        }
+        
+        func s(x2: Double, y2: Double, x: Double, y: Double) {
+            if let cur = currentPoint {
+                let nextCubic = CGPointMake(CGFloat(x2) + cur.x, CGFloat(y2) + cur.y)
+                let next = CGPointMake(CGFloat(x) + cur.x, CGFloat(y) + cur.y)
+                
+                var xy1: CGPoint?
+                if let curCubicVal = cubicPoint {
+                    xy1 = CGPointMake(CGFloat(2 * cur.x) - curCubicVal.x, CGFloat(2 * cur.y) - curCubicVal.y)
+                } else {
+                    xy1 = cur
+                }
+                bezierPath.addCurveToPoint(next, controlPoint1: xy1!, controlPoint2: nextCubic)
+                setCubicPoint(next, cubic: nextCubic)
+            }
+        }
+
+        func S(x2: Double, y2: Double, x: Double, y: Double) {
+            if let cur = currentPoint {
+                let nextCubic = CGPointMake(CGFloat(x2), CGFloat(y2))
+                let next = CGPointMake(CGFloat(x), CGFloat(y))
+                var xy1: CGPoint?
+                if let curCubicVal = cubicPoint {
+                   xy1 = CGPointMake(CGFloat(2 * cur.x) - curCubicVal.x, CGFloat(2 * cur.y) - curCubicVal.y)
+                } else {
+                    xy1 = cur
+                }
+                bezierPath.addCurveToPoint(next, controlPoint1: xy1!, controlPoint2: nextCubic)
+                setCubicPoint(next, cubic: nextCubic)
+            }
+        }
+        
+        func Z() {
+            if let initPoint = initialPoint {
+                lineTo(initPoint)
+            }
+            bezierPath.closePath()
+        }
+
+        
+        func setCubicPoint(p: CGPoint, cubic: CGPoint) {
+            currentPoint = p
+            cubicPoint = cubic
+            quadrPoint = nil
+        }
+        
+        func setInitPoint(p: CGPoint) {
+            setPoint(p)
+            initialPoint = p
+        }
+        
+        func setPoint(p: CGPoint) {
+            currentPoint = p
+            cubicPoint = nil
+            quadrPoint = nil
+        }
+        
+        // TODO: think about this
         for part in path.segments {
             if let move = part as? Move {
-                let point = CGPointMake(CGFloat(move.x), CGFloat(move.y))
-                bezierPath.moveToPoint(point)
-                initial = point
-            } else if let pline = part as? PLine {
-                bezierPath.addLineToPoint(CGPointMake(CGFloat(pline.x), CGFloat(pline.y)))
-            } else if let _ = part as? Close {
-                if let initialVal = initial {
-                    bezierPath.addLineToPoint(initialVal)
+                if move.absolute {
+                    M(move.x, y: move.y)
+                } else {
+                    m(move.x, y: move.y)
                 }
+                
+            } else if let pline = part as? PLine {
+                if pline.absolute {
+                    L(pline.x, y: pline.y)
+                } else {
+                    l(pline.x, y: pline.y)
+                }
+            } else if let hLine = part as? HLine {
+                if hLine.absolute {
+                    H(hLine.x)
+                } else {
+                    h(hLine.x)
+                }
+            } else if let vLine = part as? VLine {
+                if vLine.absolute {
+                    V(vLine.y)
+                } else {
+                    v(vLine.y)
+                }
+            } else if let cubic = part as? Cubic {
+                if cubic.absolute {
+                    C(cubic.x1, y1: cubic.y1, x2: cubic.x2, y2: cubic.y2, x: cubic.x, y: cubic.y)
+                } else {
+                    c(cubic.x1, y1: cubic.y1, x2: cubic.x2, y2: cubic.y2, x: cubic.x, y: cubic.y)
+                }
+            } else if let scubic = part as? SCubic {
+                if scubic.absolute {
+                    S(scubic.x2, y2: scubic.y2, x: scubic.x, y: scubic.y)
+                } else {
+                    s(scubic.x2, y2: scubic.y2, x: scubic.x, y: scubic.y)
+                }
+            } else if let _ = part as? Close {
+                Z()
             }
         }
         return bezierPath

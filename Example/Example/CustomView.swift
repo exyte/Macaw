@@ -125,6 +125,91 @@ class CustomView: MacawView {
             )
         )
         
+        let line2 = Line(x1: 30, y1: 450, x2: 450, y2: 450)
+        let textLine = Shape(
+            form: line2,
+            stroke: Stroke(
+                fill: Color.black,
+                width: 1,
+                cap: .round,
+                join: .round
+            )
+        )
+        
+        let text = Text(
+            text: "Toy top",
+            font: Font(),
+            fill: Fill(),
+            align: Align.min,
+            baseline: Baseline.top,
+            pos: Transform().move(10, my: 450)
+        )
+        
+        let text2 = Text(
+            text: "Toy alphabetic",
+            font: Font(),
+            fill: Fill(),
+            align: Align.min,
+            baseline: Baseline.alphabetic,
+            pos: Transform().move(80, my: 450)
+        )
+
+        let text3 = Text(
+            text: "Toy bottom",
+            font: Font(),
+            fill: Fill(),
+            align: Align.min,
+            baseline: Baseline.bottom,
+            pos: Transform().move(180, my: 450)
+        )
+        
+        let text4 = Text(
+            text: "Toy middle",
+            font: Font(),
+            fill: Fill(),
+            align: Align.min,
+            baseline: Baseline.mid,
+            pos: Transform().move(250, my: 450)
+        )
+        
+        let line3 = Line(x1: 50, y1: 470, x2: 50, y2: 600)
+        let textLine2 = Shape(
+            form: line3,
+            stroke: Stroke(
+                fill: Color.black,
+                width: 1,
+                cap: .round,
+                join: .round
+            )
+        )
+        
+        let text5 = Text(
+            text: "text",
+            font: Font(),
+            fill: Color.fuchsia,
+            align: Align.min,
+            baseline: Baseline.top,
+            pos: Transform().move(50, my: 480)
+        )
+        
+        let text6 = Text(
+            text: "text",
+            font: Font(),
+            fill: Color.blue,
+            align: Align.mid,
+            baseline: Baseline.top,
+            pos: Transform().move(50, my: 500)
+        )
+        
+        let text7 = Text(
+            text: "text",
+            font: Font(),
+            fill: Color.aqua,
+            align: Align.max,
+            baseline: Baseline.top,
+            pos: Transform().move(50, my: 520)
+        )
+        
         func cloudExample() -> Group {
             func cloud1() -> Path {
                 return Path(segments: [
@@ -247,6 +332,15 @@ class CustomView: MacawView {
                 shape9,
                 shape10,
                 shape11,
+                textLine,
+                text,
+                text2,
+                text3,
+                text4,
+                textLine2,
+                text5,
+                text6,
+                text7,
                 cloudExample()
             ]
         )

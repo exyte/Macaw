@@ -55,7 +55,7 @@ public class MacawView: UIView {
     private func drawText(text: Text, ctx: CGContext?) {
         let message = text.text
         var font: UIFont
-        if let customFont = UIFont(name: text.font.name, size: 24) {
+        if let customFont = UIFont(name: text.font.name, size: CGFloat(text.font.size)) {
             font = customFont
         } else {
             font = UIFont.systemFontOfSize(CGFloat(text.font.size))

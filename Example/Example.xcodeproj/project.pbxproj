@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		580079D81C254FA500331E27 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580079D71C254FA500331E27 /* CustomView.swift */; settings = {ASSET_TAGS = (); }; };
+		24BE07011C6B923300B5882F /* sweet.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BE07001C6B923300B5882F /* sweet.png */; };
+		580079D81C254FA500331E27 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580079D71C254FA500331E27 /* CustomView.swift */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F31C16104900D1971D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F21C16104900D1971D /* ViewController.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		24BE07001C6B923300B5882F /* sweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sweet.png; path = ../../sweet/plugins/com.exyte.sweet.examples/img/sweet.png; sourceTree = "<group>"; };
 		580079D71C254FA500331E27 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,9 +74,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24BE06FF1C6B91C800B5882F /* img */ = {
+			isa = PBXGroup;
+			children = (
+				24BE07001C6B923300B5882F /* sweet.png */,
+			);
+			name = img;
+			sourceTree = "<group>";
+		};
 		B02E75E41C16104900D1971D = {
 			isa = PBXGroup;
 			children = (
+				24BE06FF1C6B91C800B5882F /* img */,
 				B02E75EF1C16104900D1971D /* Example */,
 				B02E75EE1C16104900D1971D /* Products */,
 				B02E76081C16108E00D1971D /* Macaw.xcodeproj */,
@@ -187,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24BE07011C6B923300B5882F /* sweet.png in Resources */,
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
 				B02E75F61C16104900D1971D /* Main.storyboard in Resources */,

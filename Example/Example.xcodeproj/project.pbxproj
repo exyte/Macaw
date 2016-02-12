@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		24BE07011C6B923300B5882F /* sweet.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BE07001C6B923300B5882F /* sweet.png */; };
-		580079D81C254FA500331E27 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580079D71C254FA500331E27 /* CustomView.swift */; };
+		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
+		24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */; };
+		24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */; };
+		24BE072C1C6DF98000B5882F /* FourthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */; };
+		580079D81C254FA500331E27 /* FirstPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580079D71C254FA500331E27 /* FirstPageCustomView.swift */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F31C16104900D1971D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F21C16104900D1971D /* ViewController.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
@@ -51,7 +55,11 @@
 
 /* Begin PBXFileReference section */
 		24BE07001C6B923300B5882F /* sweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sweet.png; path = ../../sweet/plugins/com.exyte.sweet.examples/img/sweet.png; sourceTree = "<group>"; };
-		580079D71C254FA500331E27 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		24BE07031C6DF1F000B5882F /* BasePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
+		24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondPageCustomView.swift; sourceTree = "<group>"; };
+		24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPageViewController.swift; sourceTree = "<group>"; };
+		24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthPageViewController.swift; sourceTree = "<group>"; };
+		580079D71C254FA500331E27 /* FirstPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstPageCustomView.swift; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02E75F21C16104900D1971D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,7 +117,11 @@
 				B02E75F71C16104900D1971D /* Assets.xcassets */,
 				B02E75F91C16104900D1971D /* LaunchScreen.storyboard */,
 				B02E75FC1C16104900D1971D /* Info.plist */,
-				580079D71C254FA500331E27 /* CustomView.swift */,
+				580079D71C254FA500331E27 /* FirstPageCustomView.swift */,
+				24BE07031C6DF1F000B5882F /* BasePageViewController.swift */,
+				24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */,
+				24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */,
+				24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -212,9 +224,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				580079D81C254FA500331E27 /* CustomView.swift in Sources */,
+				580079D81C254FA500331E27 /* FirstPageCustomView.swift in Sources */,
 				B02E75F31C16104900D1971D /* ViewController.swift in Sources */,
+				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
+				24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */,
+				24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
+				24BE072C1C6DF98000B5882F /* FourthPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

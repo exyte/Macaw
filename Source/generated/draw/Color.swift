@@ -44,7 +44,7 @@ public class Color: Fill  {
 
 	// GENERATED
 	public class func rgbt(r: Int, g: Int, b: Int, t: Int) -> Color {
-		return Color(val: ( ( ( ( ( t & 0xff ) << 24 ) | ( ( r & 0xff ) << 16 ) ) | ( ( g & 0xff ) << 8 ) ) | ( b & 0xff ) ))
+		return Color( val: ( ( ( ( ( t & 0xff ) << 24 ) | ( ( r & 0xff ) << 16 ) ) | ( ( g & 0xff ) << 8 ) ) | ( b & 0xff ) ) )
 	}
 
 	// GENERATED

@@ -8,7 +8,7 @@ public class Stroke {
 	let join: LineJoin
 	let dashes: [Double]
 
-	public init(fill: Fill, width: Double = 1, cap: LineCap, join: LineJoin, dashes: [Double] = []) {
+	public init(fill: Fill, width: Double = 1, cap: LineCap = .butt, join: LineJoin = .miter, dashes: [Double] = []) {
 		self.fill = fill	
 		self.width = width	
 		self.cap = cap	

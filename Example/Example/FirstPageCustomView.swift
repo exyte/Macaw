@@ -18,13 +18,6 @@ class FirstPageCustomView: MacawView {
             form: rect,
             fill: Color.blue
         )
-        
-        func listener(old: Locus, new: Locus) {
-            print("Value changed! OLD: \(old) NEW: \(new)")
-        }
-        shape1.formProperty.addListener(listener)
-        shape1.form = Circle(cx: 10, cy: 10, r: 20)
-        shape1.form = Rect(x: 50, y: 50, w: 50, h: 100)
 
         let round = RoundRect(
             rect: Rect(x: 150, y: 50, w: 50, h: 100),

@@ -2,7 +2,7 @@ import Foundation
 
 public class Polygon: Locus  {
 
-	let points: [Double]
+	var points: [Double] = []
 
 	public init(points: [Double] = []) {
 		self.points = points	

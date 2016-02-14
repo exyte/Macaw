@@ -2,7 +2,7 @@ import Foundation
 
 public class VLine: PathSegment  {
 
-	let y: Double
+	var y: Double = 0
 
 	public init(y: Double = 0, absolute: Bool = false) {
 		self.y = y	

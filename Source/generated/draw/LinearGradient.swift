@@ -2,12 +2,12 @@ import Foundation
 
 public class LinearGradient: Fill  {
 
-	let userSpace: Bool
-	let stops: [Stop]
-	let x1: Double
-	let y1: Double
-	let x2: Double
-	let y2: Double
+	var userSpace: Bool = false
+	var stops: [Stop] = []
+	var x1: Double = 0
+	var y1: Double = 0
+	var x2: Double = 0
+	var y2: Double = 0
 
 	public init(userSpace: Bool = false, stops: [Stop] = [], x1: Double = 0, y1: Double = 0, x2: Double = 0, y2: Double = 0) {
 		self.userSpace = userSpace	

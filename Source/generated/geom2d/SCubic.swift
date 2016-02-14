@@ -2,10 +2,10 @@ import Foundation
 
 public class SCubic: PathSegment  {
 
-	let x2: Double
-	let y2: Double
-	let x: Double
-	let y: Double
+	var x2: Double = 0
+	var y2: Double = 0
+	var x: Double = 0
+	var y: Double = 0
 
 	public init(x2: Double = 0, y2: Double = 0, x: Double = 0, y: Double = 0, absolute: Bool = false) {
 		self.x2 = x2	

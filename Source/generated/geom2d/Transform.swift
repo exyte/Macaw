@@ -2,12 +2,12 @@ import Foundation
 
 public class Transform {
 
-	let m11: Double
-	let m12: Double
-	let m21: Double
-	let m22: Double
-	let dx: Double
-	let dy: Double
+	var m11: Double = 1
+	var m12: Double = 0
+	var m21: Double = 0
+	var m22: Double = 1
+	var dx: Double = 0
+	var dy: Double = 0
 
 	public init(m11: Double = 1, m12: Double = 0, m21: Double = 0, m22: Double = 1, dx: Double = 0, dy: Double = 0) {
 		self.m11 = m11	

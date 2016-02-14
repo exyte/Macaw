@@ -2,7 +2,7 @@ import Foundation
 
 public class Color: Fill  {
 
-	let val: Int
+	var val: Int = 0
 
 	public static let white: Color = Color( val: 0xFFFFFF )
 	public static let silver: Color = Color( val: 0xC0C0C0 )

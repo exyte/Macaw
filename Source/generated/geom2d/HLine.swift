@@ -2,7 +2,7 @@ import Foundation
 
 public class HLine: PathSegment  {
 
-	let x: Double
+	var x: Double = 0
 
 	public init(x: Double = 0, absolute: Bool = false) {
 		self.x = x	

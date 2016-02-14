@@ -2,10 +2,10 @@ import Foundation
 
 public class Ellipse: Locus  {
 
-	let cx: Double
-	let cy: Double
-	let rx: Double
-	let ry: Double
+	var cx: Double = 0
+	var cy: Double = 0
+	var rx: Double = 0
+	var ry: Double = 0
 
 	public init(cx: Double = 0, cy: Double = 0, rx: Double = 0, ry: Double = 0) {
 		self.cx = cx	

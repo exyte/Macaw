@@ -2,8 +2,8 @@ import Foundation
 
 public class Size {
 
-	let w: Double
-	let h: Double
+	var w: Double = 0
+	var h: Double = 0
 
 	public init(w: Double = 0, h: Double = 0) {
 		self.w = w	

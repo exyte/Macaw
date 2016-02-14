@@ -2,11 +2,11 @@ import Foundation
 
 public class Stroke {
 
-	let fill: Fill
-	let width: Double
-	let cap: LineCap
-	let join: LineJoin
-	let dashes: [Double]
+	var fill: Fill
+	var width: Double = 1
+	var cap: LineCap = .butt
+	var join: LineJoin = .miter
+	var dashes: [Double] = []
 
 	public init(fill: Fill, width: Double = 1, cap: LineCap = .butt, join: LineJoin = .miter, dashes: [Double] = []) {
 		self.fill = fill	

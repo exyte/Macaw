@@ -2,12 +2,12 @@ import Foundation
 
 public class Cubic: PathSegment  {
 
-	let x1: Double
-	let y1: Double
-	let x2: Double
-	let y2: Double
-	let x: Double
-	let y: Double
+	var x1: Double = 0
+	var y1: Double = 0
+	var x2: Double = 0
+	var y2: Double = 0
+	var x: Double = 0
+	var y: Double = 0
 
 	public init(x1: Double = 0, y1: Double = 0, x2: Double = 0, y2: Double = 0, x: Double = 0, y: Double = 0, absolute: Bool = false) {
 		self.x1 = x1	

@@ -2,8 +2,8 @@ import Foundation
 
 public class PLine: PathSegment  {
 
-	let x: Double
-	let y: Double
+	var x: Double = 0
+	var y: Double = 0
 
 	public init(x: Double = 0, y: Double = 0, absolute: Bool = false) {
 		self.x = x	

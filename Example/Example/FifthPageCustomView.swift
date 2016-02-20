@@ -5,6 +5,7 @@ import Macaw
 class FifthPageCustomView: MacawView {
 
     var roundedRect: RoundRect!
+    var rectShape: Shape!
     
     required init?(coder aDecoder: NSCoder) {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -20,10 +21,13 @@ class FifthPageCustomView: MacawView {
             fill: Color.rgb(255, g: 0, b: 0)
         )
         
-        self.roundedRect = rect
+        self.rectShape = rectShape
         super.init(node: rectShape, coder: aDecoder)
     }
 
+    func createLocus() {
+        
+    }
     required init?(node: Node, coder aDecoder: NSCoder) {
         super.init(node: node, coder: aDecoder)
     }

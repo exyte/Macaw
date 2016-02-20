@@ -3,18 +3,27 @@ import UIKit
 
 class ShapeRenderer: NodeRenderer {
     
-    var ctx: CGContext
+    var ctx: RenderContext
     let shape: Shape
  
-    init(shape: Shape, ctx: CGContext) {
+    init(shape: Shape, ctx: RenderContext) {
         self.shape = shape
         self.ctx = ctx
+        hook()
     }
 
     func render() {
-        setGeometry(shape.form, ctx: ctx)
-        setFill(shape.fill, ctx: ctx)
-        setStroke(shape.stroke, ctx: ctx)
+        setGeometry(shape.form, ctx: ctx.cgContext!)
+        setFill(shape.fill, ctx: ctx.cgContext!)
+        setStroke(shape.stroke, ctx: ctx.cgContext!)
+    }
+    
+    private func hook() {
+        func onFormChange(old: Locus, new: Locus) {
+            render()
+            ctx.view.setNeedsDisplay()
+        }
+        shape.formProperty.addListener(onFormChange)
     }
     
     private func setGeometry(locus: Locus, ctx: CGContext) {

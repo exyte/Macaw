@@ -2,10 +2,10 @@ import Foundation
 import UIKit
 
 class TextRenderer: NodeRenderer {
-    var ctx: CGContext
+    var ctx: RenderContext
     let text: Text
     
-    init(text: Text, ctx: CGContext) {
+    init(text: Text, ctx: RenderContext) {
         self.text = text
         self.ctx = ctx
     }

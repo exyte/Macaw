@@ -2,6 +2,6 @@ import Foundation
 import UIKit
 
 protocol NodeRenderer {
-    var ctx: CGContext { get }
+    var ctx: RenderContext { get }
     func render()
 }

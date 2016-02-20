@@ -3,9 +3,9 @@ import UIKit
 
 class ImageRenderer: NodeRenderer {
     let image: Image
-    let ctx: CGContext
+    let ctx: RenderContext
     
-    init(image: Image, ctx: CGContext) {
+    init(image: Image, ctx: RenderContext) {
         self.image = image
         self.ctx = ctx
     }
@@ -29,7 +29,7 @@ class ImageRenderer: NodeRenderer {
                     rect = calculateMeetAspectRatio(image, size: imageSize)
                 case AspectRatio.slice:
                     rect = calculateSliceAspectRatio(image, size: imageSize)
-                    CGContextClipToRect(ctx, CGRectMake(0, 0, w, h))
+                    CGContextClipToRect(ctx.cgContext, CGRectMake(0, 0, w, h))
                 default:
                     rect = CGRectMake(0, 0, w, h)
                 }

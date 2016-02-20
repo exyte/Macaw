@@ -99,7 +99,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmK-mv-1Zm" customClass="FifthPageCustomView" customModule="Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" maximumValue="100" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Kxj-dt-Vo1">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" maximumValue="200" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Kxj-dt-Vo1">
                                         <rect key="frame" x="100" y="25" width="94" height="29"/>
                                         <connections>
                                             <action selector="onHeightChange:" destination="2oO-On-aPq" eventType="valueChanged" id="8PS-Bg-oEW"/>
@@ -112,11 +112,17 @@
                                     <constraint firstItem="Kxj-dt-Vo1" firstAttribute="top" secondItem="SmK-mv-1Zm" secondAttribute="top" constant="25" id="zoA-Py-BzH"/>
                                 </constraints>
                             </view>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ETm-da-N6Q">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" maximumValue="200" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="ETm-da-N6Q">
                                 <rect key="frame" x="100" y="65" width="94" height="29"/>
+                                <connections>
+                                    <action selector="onWidthChange:" destination="2oO-On-aPq" eventType="valueChanged" id="9ZK-QU-t0a"/>
+                                </connections>
                             </stepper>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="My3-q5-ad6">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="My3-q5-ad6">
                                 <rect key="frame" x="100" y="105" width="94" height="29"/>
+                                <connections>
+                                    <action selector="onRadiusChange:" destination="2oO-On-aPq" eventType="valueChanged" id="AR1-3J-S9i"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="height:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIF-E3-tWH">
                                 <rect key="frame" x="10" y="30" width="53" height="21"/>

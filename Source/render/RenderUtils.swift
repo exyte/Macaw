@@ -39,4 +39,18 @@ class RenderUtils {
         return p
     }
 
+    class func createNodeRenderer(node: Node, context: RenderContext) -> NodeRenderer? {
+        if let group = node as? Group {
+            return GroupRenderer(group: group, ctx: context)
+        } else if let shape = node as? Shape {
+            return ShapeRenderer(shape: shape, ctx: context)
+        } else if let text = node as? Text {
+            return TextRenderer(text: text, ctx: context)
+        } else if let image = node as? Image {
+            return ImageRenderer(image: image, ctx: context)
+        }
+        print("Unsupported node: \(node)")
+        return nil
+    }
+
 }

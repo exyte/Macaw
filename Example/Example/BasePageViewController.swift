@@ -21,7 +21,7 @@ class BasePageViewController: UIPageViewController {
         super.viewDidLoad()
         dataSource = self
         
-        if let firstViewController = orderedViewControllers.last {
+        if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
                 direction: .Forward,
                 animated: true,

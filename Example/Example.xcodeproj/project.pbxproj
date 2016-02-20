@@ -20,6 +20,8 @@
 		B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F91C16104900D1971D /* LaunchScreen.storyboard */; };
 		B02E76101C16111D00D1971D /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02E760D1C16108E00D1971D /* Macaw.framework */; };
 		B02E76121C16113A00D1971D /* Macaw.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B02E760D1C16108E00D1971D /* Macaw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B03275AD1C786DF9000BDD33 /* FifthPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */; };
+		B03275AF1C78732A000BDD33 /* ModelListenersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		B02E75FA1C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02E75FC1C16104900D1971D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B02E76081C16108E00D1971D /* Macaw.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Macaw.xcodeproj; path = ../Macaw.xcodeproj; sourceTree = "<group>"; };
+		B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FifthPageCustomView.swift; sourceTree = "<group>"; };
+		B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelListenersViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,8 @@
 				24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */,
 				24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */,
 				24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */,
+				B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */,
+				B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -224,8 +230,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B03275AD1C786DF9000BDD33 /* FifthPageCustomView.swift in Sources */,
 				580079D81C254FA500331E27 /* FirstPageCustomView.swift in Sources */,
 				B02E75F31C16104900D1971D /* ViewController.swift in Sources */,
+				B03275AF1C78732A000BDD33 /* ModelListenersViewController.swift in Sources */,
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */,
 				24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */,

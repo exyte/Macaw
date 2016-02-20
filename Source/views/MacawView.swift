@@ -30,21 +30,20 @@ public class MacawView: UIView {
     private func drawNode(node: Node, ctx: CGContext?) {
         if node.visible == true {
             CGContextSaveGState(ctx)
-//            if (node.pos != nil) {
-                CGContextConcatCTM(ctx, mapTransform(node.pos))
-//            }
+            CGContextConcatCTM(ctx, mapTransform(node.pos))
+
             if let shape = node as? Shape {
                 setGeometry(shape.form, ctx: ctx)
                 setFill(shape.fill, ctx: ctx)
                 setStroke(shape.stroke, ctx: ctx)
-            } else if let group = node as? Group {
-                for content in group.contents {
-                    drawNode(content, ctx: ctx)
-                }
             } else if let text = node as? Text {
                 drawText(text, ctx: ctx)
             } else if let image = node as? Image {
                 drawImage(image, ctx: ctx)
+            } else if let group = node as? Group {
+                for content in group.contents {
+                    drawNode(content, ctx: ctx)
+                }
             } else {
                 print("Unsupported node: \(node)")
             }

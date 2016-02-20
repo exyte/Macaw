@@ -7,7 +7,9 @@ class BasePageViewController: UIPageViewController {
         return [self.newMacawViewController("First"),
             self.newMacawViewController("Second"),
             self.newMacawViewController("Third"),
-            self.newMacawViewController("Fourth")]
+            self.newMacawViewController("Fourth"),
+            self.newMacawViewController("Fifth")
+        ]
     }()
     
     private func newMacawViewController(pageNumber: String) -> UIViewController {
@@ -19,7 +21,7 @@ class BasePageViewController: UIPageViewController {
         super.viewDidLoad()
         dataSource = self
         
-        if let firstViewController = orderedViewControllers.first {
+        if let firstViewController = orderedViewControllers.last {
             setViewControllers([firstViewController],
                 direction: .Forward,
                 animated: true,

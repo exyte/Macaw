@@ -3,6 +3,9 @@ import UIKit
 
 class GroupRenderer: NodeRenderer {
     var ctx: RenderContext
+    var node: Node {
+        get { return group }
+    }
     let group: Group
     
     let contentRenderers: [NodeRenderer?]
@@ -14,15 +17,13 @@ class GroupRenderer: NodeRenderer {
     }
     
     func render() {
-        CGContextSaveGState(ctx.cgContext)
-        CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(group.pos))
-        
         contentRenderers.forEach { renderer in
             if let rendererVal = renderer {
+                CGContextSaveGState(ctx.cgContext)
+                CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
                 rendererVal.render()
+                CGContextRestoreGState(ctx.cgContext)
             }
         }
-        CGContextRestoreGState(ctx.cgContext)
-
     }
 }

@@ -4,8 +4,11 @@ import UIKit
 class ShapeRenderer: NodeRenderer {
     
     var ctx: RenderContext
+    var node: Node {
+        get { return shape }
+    }
     let shape: Shape
- 
+    
     init(shape: Shape, ctx: RenderContext) {
         self.shape = shape
         self.ctx = ctx

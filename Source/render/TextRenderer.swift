@@ -4,6 +4,9 @@ import UIKit
 class TextRenderer: NodeRenderer {
     var ctx: RenderContext
     let text: Text
+    var node: Node {
+        get { return text }
+    }
     
     init(text: Text, ctx: RenderContext) {
         self.text = text

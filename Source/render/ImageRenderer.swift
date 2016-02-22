@@ -4,6 +4,9 @@ import UIKit
 class ImageRenderer: NodeRenderer {
     let image: Image
     let ctx: RenderContext
+    var node: Node {
+        get { return image }
+    }
     
     init(image: Image, ctx: RenderContext) {
         self.image = image

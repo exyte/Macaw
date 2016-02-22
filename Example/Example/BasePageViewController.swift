@@ -8,7 +8,8 @@ class BasePageViewController: UIPageViewController {
             self.newMacawViewController("Second"),
             self.newMacawViewController("Third"),
             self.newMacawViewController("Fourth"),
-            self.newMacawViewController("Fifth")
+            self.newMacawViewController("Fifth"),
+            self.newMacawViewController("Sixth")
         ]
     }()
     

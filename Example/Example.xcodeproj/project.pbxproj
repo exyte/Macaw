@@ -23,6 +23,8 @@
 		B03275AD1C786DF9000BDD33 /* FifthPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */; };
 		B03275AF1C78732A000BDD33 /* ModelListenersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */; };
 		B0A531031C7B5463006B842A /* SixthPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A531021C7B5463006B842A /* SixthPageCustomView.swift */; };
+		B0C643B71C7C66E500A0B5CD /* SixthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C643B61C7C66E500A0B5CD /* SixthPageViewController.swift */; };
+		B0C643B91C7C6AC400A0B5CD /* CleanersGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C643B81C7C6AC400A0B5CD /* CleanersGraphics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FifthPageCustomView.swift; sourceTree = "<group>"; };
 		B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelListenersViewController.swift; sourceTree = "<group>"; };
 		B0A531021C7B5463006B842A /* SixthPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SixthPageCustomView.swift; sourceTree = "<group>"; };
+		B0C643B61C7C66E500A0B5CD /* SixthPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SixthPageViewController.swift; sourceTree = "<group>"; };
+		B0C643B81C7C6AC400A0B5CD /* CleanersGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanersGraphics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,8 @@
 				B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */,
 				B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */,
 				B0A531021C7B5463006B842A /* SixthPageCustomView.swift */,
+				B0C643B61C7C66E500A0B5CD /* SixthPageViewController.swift */,
+				B0C643B81C7C6AC400A0B5CD /* CleanersGraphics.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -241,8 +247,10 @@
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */,
 				24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */,
+				B0C643B71C7C66E500A0B5CD /* SixthPageViewController.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
 				24BE072C1C6DF98000B5882F /* FourthPageViewController.swift in Sources */,
+				B0C643B91C7C6AC400A0B5CD /* CleanersGraphics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

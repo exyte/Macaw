@@ -49,7 +49,32 @@ class ShapeRenderer: NodeRenderer {
             let ry = ellipse.ry
             CGContextAddEllipseInRect(ctx, CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
         } else if let arc = locus as? Arc {
-            CGContextAddPath(ctx, toBezierPath(arc).CGPath)
+            if arc.ellipse.rx == arc.ellipse.ry {
+                // Only circle arc supported for now
+                CGContextAddPath(ctx, toBezierPath(arc).CGPath)
+            } else {
+                // http://stackoverflow.com/questions/11365775/how-to-draw-an-elliptical-arc-with-coregraphics
+                // input parameters
+                let ellipse = arc.ellipse
+                let left = CGFloat(ellipse.cx - ellipse.cx / 2)
+                let top = CGFloat(ellipse.cy - ellipse.cy / 2)
+                let width = CGFloat(ellipse.cx * 2)
+                let height = CGFloat(ellipse.ry * 2)
+                let startAngle = CGFloat(arc.shift)
+                let endAngle = startAngle + CGFloat(arc.extent)
+                
+                let cx = left + width * 0.5
+                let cy = top + height * 0.5
+                let r = CGFloat(width * 0.5)
+                
+                let path = CGPathCreateMutable()
+                var t = CGAffineTransformMakeTranslation(cx, cy)
+                t = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, height/width), t);
+                CGPathAddArc(path, &t, 0, 0, r, startAngle, endAngle, false)
+            
+                CGContextAddPath(ctx, path)
+                CGContextStrokePath(ctx)
+            }
         } else if let point = locus as? Point {
             let path = UIBezierPath()
             path.moveToPoint(CGPointMake(CGFloat(point.x), CGFloat(point.y)))
@@ -73,6 +98,14 @@ class ShapeRenderer: NodeRenderer {
         }
     }
     
+    private func toBezierPath(arc: Arc) -> UIBezierPath {
+        let extent = CGFloat(arc.extent)
+        let end = CGFloat(arc.shift) + extent
+        let ellipse = arc.ellipse
+        let center = CGPointMake(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
+        return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: extent, endAngle: end, clockwise: true)
+    }
+    
     private func toBezierPath(points: [Double]) -> UIBezierPath {
         let parts = 0.stride(to: points.count, by: 2).map { Array(points[$0..<$0 + 2]) }
         let path = UIBezierPath()
@@ -88,19 +121,6 @@ class ShapeRenderer: NodeRenderer {
         }
         return path
     }
-    
-    private func toBezierPath(arc: Arc) -> UIBezierPath {
-        let extent = CGFloat(arc.extent)
-        let end = CGFloat(arc.shift) + extent
-        let ellipse = arc.ellipse
-        if (ellipse.rx == ellipse.ry) {
-            let center = CGPointMake(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
-            return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: extent, endAngle: end, clockwise: true)
-        }
-        print("Only circle arc supported for now")
-        return UIBezierPath()
-    }
-    
     
     private func toBezierPath(path: Path) -> UIBezierPath {
         let bezierPath = UIBezierPath()
@@ -217,6 +237,14 @@ class ShapeRenderer: NodeRenderer {
             }
         }
         
+        func a(rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
+            // XXX: implementx
+        }
+        
+        func A(rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
+            // XXX: implementx
+        }
+        
         func Z() {
             if let initPoint = initialPoint {
                 lineTo(initPoint)
@@ -280,6 +308,12 @@ class ShapeRenderer: NodeRenderer {
                     S(scubic.x2, y2: scubic.y2, x: scubic.x, y: scubic.y)
                 } else {
                     s(scubic.x2, y2: scubic.y2, x: scubic.x, y: scubic.y)
+                }
+            } else if let elliptical = part as? Elliptical {
+                if elliptical.absolute {
+                    A(elliptical.rx, ry: elliptical.ry, angle: elliptical.angle, largeArc: elliptical.largeArc, sweep: elliptical.sweep, x: elliptical.x, y: elliptical.y)
+                } else {
+                    a(elliptical.rx, ry: elliptical.ry, angle: elliptical.angle, largeArc: elliptical.largeArc, sweep: elliptical.sweep, x: elliptical.x, y: elliptical.y)
                 }
             } else if let _ = part as? Close {
                 Z()

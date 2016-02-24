@@ -36,8 +36,12 @@ class CleanersGraphics {
             return pickupRequested()
         case .CLEANER_ON_WAY:
             return cleanerOnTheWay()
-        default:
-            return pickupRequested()
+        case .NOW_CLEANING:
+            return nowCleaning()
+        case .CLOTHES_CLEAN:
+            return clothesClean()
+        case .DONE:
+            return cleanDone()
         }
     }
     
@@ -86,6 +90,100 @@ class CleanersGraphics {
         
         let g = Group(contents: [cancel, cancelGroup], pos: Transform().move(x + 20, my: y + r * 0.7))
         return Group(contents: [circle(1), circleGroup, g, text("CLEANER", y), text("ON THE WAY", y + 35)])
+    }
+    
+    func nowCleaning() -> Group {
+        return Group(contents: [circle(2), text("NOW", y), text("CLEANING", y + 35)])
+    }
+    
+    func clothesClean() -> Group {
+        let clothesClean = Group(contents: [circle(2), text("CLOTHES", y), text("CLEAN!", y + 35)])
+        let circleShape = Circle(cx: x, cy: y, r: r * 0.9)
+        let shape3 = Shape(
+            form: circleShape,
+            fill: buttonColor
+        )
+        
+        let clip = Rect(x: x - r, y: y + r * 0.4, w: r * 2, h: r * 2)
+        
+        let circleGroup = Group(
+            contents: [shape3],
+            clip: clip
+        )
+        
+        let firstLineY = y + r * 0.65
+        let request = Text(
+            text: "REQUEST",
+            font: Font(name: fontName, size: 16),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(x, my: firstLineY)
+        )
+        
+        let delivery = Text(
+            text: "DELIVERY",
+            font: Font(name: fontName, size: 16),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(x, my: firstLineY + 18)
+        )
+
+        return Group(contents: [clothesClean, circleGroup, request, delivery])
+    }
+    
+    func cleanDone() -> Group {
+        let circleShape = Circle(cx: x, cy: y, r: r)
+        let shape3 = Shape(
+            form: circleShape,
+            fill: buttonColor
+        )
+        
+        let line1 = Text(
+            text: "Clothes",
+            font: Font(name: fontName, size: 45),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(x, my: y)
+        )
+        let line2 = Text(
+            text: "Clean!",
+            font: Font(name: fontName, size: 45),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(x, my: y + 35)
+        )
+        
+        let firstLineY = y + r * 0.65
+        let request = Text(
+            text: "PAY & REQUEST",
+            font: Font(name: fontName, size: 16),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(x, my: firstLineY)
+        )
+        
+        let delivery = Text(
+            text: "DELIVERY",
+            font: Font(name: fontName, size: 16),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(x, my: firstLineY + 18)
+        )
+        
+        let margin = r * 0.2
+        let lineY = y + r * 0.4
+        let line = Line(x1: x - r + margin, y1: lineY, x2: x + r - margin, y2: lineY)
+        let lineShape = Shape(
+            form: line,
+            stroke: Stroke(fill: Color.white, width: 1.0)
+        )
+        return Group(contents: [shape3, line1, line2, request, delivery, lineShape])
     }
 
     func circle(count: Int = 0) -> Group {

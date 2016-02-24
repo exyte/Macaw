@@ -21,9 +21,18 @@ class GroupRenderer: NodeRenderer {
             if let rendererVal = renderer {
                 CGContextSaveGState(ctx.cgContext)
                 CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
+                setClip(rendererVal.node)
                 rendererVal.render()
                 CGContextRestoreGState(ctx.cgContext)
             }
+        }
+    }
+    
+    // TODO: extract to NodeRenderer
+    // TODO: path support
+    func setClip(node: Node) {
+        if let rect = node.clip as? Rect {
+            CGContextClipToRect(ctx.cgContext, CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
         }
     }
 }

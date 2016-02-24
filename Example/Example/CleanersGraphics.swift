@@ -13,6 +13,7 @@ enum CleanState {
 class CleanersGraphics {
     let activeColor = Color(val: 8375023)
     let disableColor = Color(val: 13421772)
+    let buttonColor = Color(val: 1745378)
     let textColor = Color(val: 5940171)
     let size = 0.7
     let delta = 0.06
@@ -21,7 +22,6 @@ class CleanersGraphics {
     let x: Double
     let y: Double
     let r: Double
-    
 
     init() {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -46,7 +46,46 @@ class CleanersGraphics {
     }
     
     func cleanerOnTheWay() -> Group {
-        return Group(contents: [circle(1), text("CLEANER", y), text("ON THE WAY", y + 35)])
+        let circleShape = Circle(cx: x, cy: y, r: r * 0.9)
+        let shape3 = Shape(
+            form: circleShape,
+            fill: buttonColor
+        )
+        
+        let clip = Rect(x: x - r, y: y + r * 0.4, w: r * 2, h: r * 2)
+        
+        let circleGroup = Group(
+            contents: [shape3],
+            clip: clip
+        )
+        
+        let cancel = Text(
+            text: "CANCEL",
+            font: Font(name: fontName, size: 16),
+            fill: Color.white,
+            align: Align.mid,
+            baseline: Baseline.bottom,
+            pos: Transform().move(0, my: 0)
+        )
+        
+        let cancelCross = Path(
+            segments: [
+                Move(x: 0, y: 0, absolute: true),
+                PLine(x: 6, y: 6),
+                Move(x: 6, y: 0, absolute: true),
+                PLine(x: -6, y: 6)
+            ]
+        )
+        let cancelGroup = Group(contents: [
+            Shape(
+                form: cancelCross,
+                stroke: Stroke(fill: Color.white, width: 1.3),
+                pos: Transform().scale(3, sy: 3).move(-20, my: -7)
+            )
+        ])
+        
+        let g = Group(contents: [cancel, cancelGroup], pos: Transform().move(x + 20, my: y + r * 0.7))
+        return Group(contents: [circle(1), circleGroup, g, text("CLEANER", y), text("ON THE WAY", y + 35)])
     }
 
     func circle(count: Int = 0) -> Group {

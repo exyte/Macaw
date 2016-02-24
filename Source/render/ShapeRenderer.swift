@@ -245,6 +245,24 @@ class ShapeRenderer: NodeRenderer {
             // XXX: implementx
         }
         
+        func E(x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
+            // TODO: only circle now
+            let extent = CGFloat(startAngle)
+            let end = extent + CGFloat(arcAngle)
+            let center = CGPointMake(CGFloat(x + w/2), CGFloat(y + h/2))
+            bezierPath.addArcWithCenter(center, radius: CGFloat(w/2), startAngle: extent, endAngle: end, clockwise: true)
+        }
+        
+        func e(x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
+            // TODO: only circle now
+            if let cur = currentPoint {
+                let extent = CGFloat(startAngle)
+                let end = extent + CGFloat(arcAngle)
+                let center = CGPointMake(CGFloat(x + w/2) + cur.x, CGFloat(y + h/2) + cur.y)
+                bezierPath.addArcWithCenter(center, radius: CGFloat(w/2), startAngle: extent, endAngle: end, clockwise: true)
+            }
+        }
+        
         func Z() {
             if let initPoint = initialPoint {
                 lineTo(initPoint)

@@ -8,15 +8,21 @@ class GroupRenderer: NodeRenderer {
     }
     let group: Group
     
-    let contentRenderers: [NodeRenderer?]
-    
     init(group: Group, ctx: RenderContext) {
         self.group = group
         self.ctx = ctx
-        self.contentRenderers = group.contents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+        hook()
+    }
+    
+    func hook() {
+        func onGroupChange(old: [Node], new: [Node]) {
+            ctx.view.setNeedsDisplay()
+        }
+        group.contentsProperty.addListener(onGroupChange)
     }
     
     func render() {
+        let contentRenderers = group.contents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
         contentRenderers.forEach { renderer in
             if let rendererVal = renderer {
                 CGContextSaveGState(ctx.cgContext)

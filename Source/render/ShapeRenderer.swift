@@ -23,7 +23,6 @@ class ShapeRenderer: NodeRenderer {
     
     private func hook() {
         func onFormChange(old: Locus, new: Locus) {
-            render()
             ctx.view.setNeedsDisplay()
         }
         shape.formProperty.addListener(onFormChange)

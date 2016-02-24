@@ -87,7 +87,7 @@
         <!--6-->
         <scene sceneID="oJI-xh-u5X">
             <objects>
-                <viewController storyboardIdentifier="SixthPageViewController" title="6" id="74N-4W-w39" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SixthPageViewController" title="6" id="74N-4W-w39" customClass="SixthPageViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6ZD-bS-1od"/>
                         <viewControllerLayoutGuide type="bottom" id="ams-3I-029"/>
@@ -97,28 +97,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYt-dx-26j">
-                                <rect key="frame" x="9" y="20" width="109" height="30"/>
+                                <rect key="frame" x="9" y="21" width="109" height="30"/>
                                 <state key="normal" title="PickUp Request"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5o-JG-y2H">
-                                <rect key="frame" x="9" y="46" width="131" height="30"/>
-                                <state key="normal" title="Cleaner on the way"/>
+                                <connections>
+                                    <action selector="pickUpRequested:" destination="74N-4W-w39" eventType="touchUpInside" id="7P5-n1-vU0"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ttg-ie-7Dw">
-                                <rect key="frame" x="9" y="71" width="95" height="30"/>
+                                <rect key="frame" x="9" y="65" width="95" height="30"/>
                                 <state key="normal" title="Now Cleaning"/>
+                                <connections>
+                                    <action selector="nowCleaning:" destination="74N-4W-w39" eventType="touchUpInside" id="6iR-nq-Nlx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFK-RO-f1C">
-                                <rect key="frame" x="9" y="121" width="37" height="30"/>
+                                <rect key="frame" x="9" y="109" width="37" height="30"/>
                                 <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="cleanDone:" destination="74N-4W-w39" eventType="touchUpInside" id="8Un-Uz-GA4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ceg-4d-SBF">
-                                <rect key="frame" x="8" y="96" width="96" height="30"/>
+                                <rect key="frame" x="8" y="87" width="96" height="30"/>
                                 <state key="normal" title="Clothes Clean"/>
+                                <connections>
+                                    <action selector="clothesClean:" destination="74N-4W-w39" eventType="touchUpInside" id="AVc-Xr-VFb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5o-JG-y2H">
+                                <rect key="frame" x="9" y="43" width="131" height="30"/>
+                                <state key="normal" title="Cleaner on the way"/>
+                                <connections>
+                                    <action selector="cleanerOnWay:" destination="74N-4W-w39" eventType="touchUpInside" id="Rwd-VZ-thr"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="macawView" destination="9mn-31-84J" id="JgO-52-7Oq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJ1-FO-V0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

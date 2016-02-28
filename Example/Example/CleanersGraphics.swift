@@ -11,6 +11,7 @@ enum CleanState {
 }
 
 class CleanersGraphics {
+    
     let activeColor = Color(val: 8375023)
     let disableColor = Color(val: 13421772)
     let buttonColor = Color(val: 1745378)
@@ -19,9 +20,9 @@ class CleanersGraphics {
     let delta = 0.06
     let fontName = "MalayalamSangamMN"
     
-    let x: Double
-    let y: Double
-    let r: Double
+    private let x: Double
+    private let y: Double
+    private let r: Double
 
     init() {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -46,31 +47,96 @@ class CleanersGraphics {
     }
     
     func pickupRequested() -> Group {
-        return Group(contents: [circle(), text("PICK UP", y), text("REQUESTED", y + 35)])
+        return Group(contents: [
+            background(segment: 0),
+            text("PICK UP", y, textColor),
+            text("REQUESTED", y + 35, textColor)
+        ])
     }
     
     func cleanerOnTheWay() -> Group {
-        let circleShape = Circle(cx: x, cy: y, r: r * 0.9)
-        let shape3 = Shape(
-            form: circleShape,
-            fill: buttonColor
-        )
+        return Group(contents: [
+            background(segment: 1),
+            fillSegment(),
+            cancelGroup(),
+            text("CLEANER", y, textColor),
+            text("ON THE WAY", y + 35, textColor)
+        ])
+    }
+    
+    func nowCleaning() -> Group {
+        return Group(contents: [
+            background(segment: 2),
+            text("NOW", y, textColor),
+            text("CLEANING", y + 35, textColor)
+        ])
+    }
+    
+    func clothesClean() -> Group {
+        let lineY = y + r * 0.65
+        return Group(contents: [
+            background(segment: 2),
+            text("CLOTHES", y, textColor),
+            text("CLEAN!", y + 35, textColor),
+            fillSegment(),
+            text("REQUEST", lineY, Color.white, 16),
+            text("DELIVERY", lineY + 18, Color.white, 16)
+        ])
+    }
+    
+    func cleanDone() -> Group {
+        let doneCircle = Shape(form: Circle(cx: x, cy: y, r: r), fill: buttonColor)
         
-        let clip = Rect(x: x - r, y: y + r * 0.4, w: r * 2, h: r * 2)
+        let clothes = text("Clothes", y, Color.white, 45)
+        let clean = text("Clean!", y + 35, Color.white, 45)
+        let firstLineY = y + r * 0.65
+
+        let request = text("PAY & REQUEST", firstLineY, Color.white, 16)
+        let delivery = text("DELIVERY", firstLineY + 18, Color.white, 16)
         
-        let circleGroup = Group(
-            contents: [shape3],
-            clip: clip
-        )
+        let margin = r * 0.2
+        let lineY = y + r * 0.4
+        let line = Line(x1: x - r + margin, y1: lineY, x2: x + r - margin, y2: lineY)
+        let hLine = Shape(form: line, stroke: Stroke(fill: Color.white, width: 1.0))
         
-        let cancel = Text(
-            text: "CANCEL",
-            font: Font(name: fontName, size: 16),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(0, my: 0)
+        return Group(contents: [
+            doneCircle,
+            clothes,
+            clean,
+            request,
+            delivery,
+            hLine
+        ])
+    }
+    
+    func background(segment count: Int = 0) -> Group {
+        func arc(extent: Double, shift: Double, color: Macaw.Color) -> Shape {
+            let ellipse = Ellipse(cx: x, cy: y, rx: r, ry: r)
+            let arc = Arc(ellipse: ellipse, shift: shift, extent: extent)
+            let arcStroke = Stroke(fill: color, width: 6, cap: .round, join: .round)
+            return Shape(form: arc, stroke: arcStroke)
+        }
+        
+        func color(index: Int = 0) -> Color {
+            if index < count {
+                return activeColor
+            }
+            return disableColor
+        }
+        
+        return Group(
+            contents: [
+                arc(M_PI + M_PI_2 + delta, shift: M_PI_2 - delta, color: color(0)),
+                arc(delta, shift: M_PI_2 - delta, color: color(1)),
+                arc(M_PI_2 + delta, shift: M_PI_2 - delta, color: color(2)),
+                arc(M_PI + delta, shift: M_PI_2 - delta, color: color(3))
+            ]
         )
+    }
+    
+    func cancelGroup() -> Group {
+        let cancel = text("CANCEL", 0, Color.white, 16)
+        cancel.pos = Transform().move(0, my: 0)
         
         let cancelCross = Path(
             segments: [
@@ -87,142 +153,26 @@ class CleanersGraphics {
                 pos: Transform().scale(3, sy: 3).move(-20, my: -7)
             )
         ])
-        
-        let g = Group(contents: [cancel, cancelGroup], pos: Transform().move(x + 20, my: y + r * 0.7))
-        return Group(contents: [circle(1), circleGroup, g, text("CLEANER", y), text("ON THE WAY", y + 35)])
-    }
-    
-    func nowCleaning() -> Group {
-        return Group(contents: [circle(2), text("NOW", y), text("CLEANING", y + 35)])
-    }
-    
-    func clothesClean() -> Group {
-        let clothesClean = Group(contents: [circle(2), text("CLOTHES", y), text("CLEAN!", y + 35)])
-        let circleShape = Circle(cx: x, cy: y, r: r * 0.9)
-        let shape3 = Shape(
-            form: circleShape,
-            fill: buttonColor
-        )
-        
-        let clip = Rect(x: x - r, y: y + r * 0.4, w: r * 2, h: r * 2)
-        
-        let circleGroup = Group(
-            contents: [shape3],
-            clip: clip
-        )
-        
-        let firstLineY = y + r * 0.65
-        let request = Text(
-            text: "REQUEST",
-            font: Font(name: fontName, size: 16),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(x, my: firstLineY)
-        )
-        
-        let delivery = Text(
-            text: "DELIVERY",
-            font: Font(name: fontName, size: 16),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(x, my: firstLineY + 18)
-        )
-
-        return Group(contents: [clothesClean, circleGroup, request, delivery])
-    }
-    
-    func cleanDone() -> Group {
-        let circleShape = Circle(cx: x, cy: y, r: r)
-        let shape3 = Shape(
-            form: circleShape,
-            fill: buttonColor
-        )
-        
-        let line1 = Text(
-            text: "Clothes",
-            font: Font(name: fontName, size: 45),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(x, my: y)
-        )
-        let line2 = Text(
-            text: "Clean!",
-            font: Font(name: fontName, size: 45),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(x, my: y + 35)
-        )
-        
-        let firstLineY = y + r * 0.65
-        let request = Text(
-            text: "PAY & REQUEST",
-            font: Font(name: fontName, size: 16),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(x, my: firstLineY)
-        )
-        
-        let delivery = Text(
-            text: "DELIVERY",
-            font: Font(name: fontName, size: 16),
-            fill: Color.white,
-            align: Align.mid,
-            baseline: Baseline.bottom,
-            pos: Transform().move(x, my: firstLineY + 18)
-        )
-        
-        let margin = r * 0.2
-        let lineY = y + r * 0.4
-        let line = Line(x1: x - r + margin, y1: lineY, x2: x + r - margin, y2: lineY)
-        let lineShape = Shape(
-            form: line,
-            stroke: Stroke(fill: Color.white, width: 1.0)
-        )
-        return Group(contents: [shape3, line1, line2, request, delivery, lineShape])
-    }
-
-    func circle(count: Int = 0) -> Group {
-        func arc(extent: Double, shift: Double, color: Macaw.Color) -> Shape {
-            let ellipse = Ellipse(cx: x, cy: y, rx: r, ry: r)
-            let arc = Arc(ellipse: ellipse, shift: shift, extent: extent)
-            return Shape(
-                form: arc,
-                stroke: Stroke(
-                    fill: color,
-                    width: 6,
-                    cap: .round,
-                    join: .round
-                )
-            )
-        }
-        
-        func getColor(index: Int = 0) -> Color {
-            if index < count {
-                return activeColor
-            }
-            return disableColor
-        }
-        
         return Group(
-            contents: [
-                arc(M_PI + M_PI_2 + delta, shift: M_PI_2 - delta, color: getColor(0)),
-                arc(delta, shift: M_PI_2 - delta, color: getColor(1)),
-                arc(M_PI_2 + delta, shift: M_PI_2 - delta, color: getColor(2)),
-                arc(M_PI + delta, shift: M_PI_2 - delta, color: getColor(3))
-            ]
+            contents: [cancel, cancelGroup],
+            pos: Transform().move(x + 20, my: y + r * 0.7)
         )
     }
     
-    func text(text: String, _ y: Double) -> Text {
+    func fillSegment() -> Group {
+        let fillSegment = Shape(
+            form: Circle(cx: x, cy: y, r: r * 0.9),
+            fill: buttonColor
+        )
+        let clip = Rect(x: x - r, y: y + r * 0.4, w: r * 2, h: r * 2)
+        return Group(contents: [fillSegment], clip: clip)
+    }
+    
+    func text(text: String, _ y: Double, _ color: Color, _ size: Int = 32) -> Text {
         return Text(
             text: text,
-            font: Font(name: fontName, size: 32),
-            fill: textColor,
+            font: Font(name: fontName, size: size),
+            fill: color,
             align: Align.mid,
             baseline: Baseline.bottom,
             pos: Transform().move(x, my: y)

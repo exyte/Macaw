@@ -1,7 +1,6 @@
 public class ObservableValue<T> {
     
-    public typealias Listener = (oldValue: T, newValue: T) -> ()
-    private var listeners: [Listener] = []
+    private var listeners: [ObservableValueListener<T>] = []
     private var value: T
     
     init(value: T) {
@@ -18,13 +17,28 @@ public class ObservableValue<T> {
         valueChanged(oldValue, newValue: value)
     }
     
-    public func addListener(handler: Listener) {
-        listeners.append(handler)
+    public func addListener(listener: (oldValue: T, newValue: T) -> ()) -> Disposable {
+        let observableListener = ObservableValueListener<T>(onChange: listener)
+        listeners.append(observableListener)
+        return Disposable {
+            let index = self.listeners.indexOf { $0 === observableListener }
+            if let indexVal = index {
+                self.listeners.removeAtIndex(indexVal)
+            }
+        }
     }
     
     func valueChanged(oldValue: T, newValue: T) {
-        for handler in listeners {
-            handler(oldValue: oldValue, newValue: newValue)
+        for listener in listeners {
+            listener.onChange(oldValue: oldValue, newValue: newValue)
         }
+    }
+}
+
+class ObservableValueListener<T> {
+    let onChange: (oldValue: T, newValue: T) -> ()
+    
+    init(onChange: (oldValue: T, newValue: T) -> ()) {
+        self.onChange = onChange
     }
 }

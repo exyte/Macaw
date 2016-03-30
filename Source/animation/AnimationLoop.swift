@@ -30,7 +30,7 @@ class AnimationLoop {
             }
             
             let timePosition = displayLink.timestamp - startTime
-            let position = timePosition - animation.getDuration()
+            let position = timePosition / animation.getDuration()
             subscription.moveToTimeFrame(position, advance: 0)
             rendererCall?()
         }

@@ -128,7 +128,7 @@ class ThirdPageCustomView: MacawView {
         let cloudShapeAnimation =  LinearAnimation(observableProperty: group.posProperty,
                                                    startValue:Transform().move(-80, my: -100),
                                                    finalValue:Transform.move(120, my: 120),
-                                                   animationDuration: 1.0)
+                                                   animationDuration: 10.0)
         super.addAnimation(cloudShapeAnimation)
         
 

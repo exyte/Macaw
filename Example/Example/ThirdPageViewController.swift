@@ -116,18 +116,20 @@ class ThirdPageCustomView: MacawView {
             )
         }
         
+        let testGroup = cloudExample()
+        
         let group = Group(
             contents: [
-                cloudExample()
+               testGroup
             ],
             pos: Transform().move(-80, my: -100)
         )
         
         super.init(node: group, coder: aDecoder)
         
-        let cloudShapeAnimation =  LinearAnimation(observableProperty: group.posProperty,
-                                                   startValue:Transform().move(-80, my: -100),
-                                                   finalValue:Transform.move(120, my: 120),
+        let cloudShapeAnimation =  LinearAnimation(observableProperty: testGroup.posProperty,
+                                                   startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
+                                                   finalValue:Transform.move(120, my: 120).scale(0.15, sy: 0.15),
                                                    animationDuration: 10.0)
         super.addAnimation(cloudShapeAnimation)
         

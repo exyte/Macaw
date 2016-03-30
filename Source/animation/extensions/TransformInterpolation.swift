@@ -2,7 +2,6 @@ import Foundation
 
 extension Transform: InterpolatingType {
     public func interpolate(endValue: Transform, progress: Double) -> Transform {
-        print("Progress \(progress)")
         return Transform(m11: self.m11.interpolate(endValue.m11, progress: progress),
                          m12: self.m12.interpolate(endValue.m12, progress: progress),
                          m21: self.m21.interpolate(endValue.m21, progress: progress),

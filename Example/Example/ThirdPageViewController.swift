@@ -116,22 +116,39 @@ class ThirdPageCustomView: MacawView {
             )
         }
         
-        let testGroup = cloudExample()
+        let cloud1 = cloudExample()
+        let cloud2 = cloudExample()
+        let cloud3 = cloudExample()
         
         let group = Group(
             contents: [
-               testGroup
+                cloud1,
+                cloud2,
+                cloud3
             ],
             pos: Transform().move(-80, my: -100)
         )
         
         super.init(node: group, coder: aDecoder)
         
-        let cloudShapeAnimation =  LinearAnimation(observableProperty: testGroup.posProperty,
+        let cloud1ShapeAnimation =  LinearAnimation(observableProperty: cloud1.posProperty,
                                                    startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
-                                                   finalValue:Transform.move(120, my: 120).scale(0.15, sy: 0.15),
-                                                   animationDuration: 10.0)
-        super.addAnimation(cloudShapeAnimation)
+                                                   finalValue:Transform.move(120, my: 120).scale(0.3, sy: 0.3),
+                                                   animationDuration: 7.0)
+        
+        let cloud2ShapeAnimation =  LinearAnimation(observableProperty: cloud2.posProperty,
+                                                   startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
+                                                   finalValue:Transform.move(100, my: 320).scale(0.075, sy: 0.075),
+                                                   animationDuration: 7.0)
+        
+        let cloud3ShapeAnimation =  LinearAnimation(observableProperty: cloud3.posProperty,
+                                                    startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
+                                                    finalValue:Transform.move(220, my: 420).scale(0.15, sy: 0.15),
+                                                    animationDuration: 7.0)
+        
+        super.addAnimation(cloud1ShapeAnimation)
+        super.addAnimation(cloud2ShapeAnimation)
+        super.addAnimation(cloud3ShapeAnimation)
         
 
     }

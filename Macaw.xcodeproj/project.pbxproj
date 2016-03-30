@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5742238E1CA5414E001EE463 /* AnimationLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238D1CA5414E001EE463 /* AnimationLoop.swift */; };
+		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
+		574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574223911CA55360001EE463 /* AnimationSubscription.swift */; };
+		574BDD921CAA7FC50031D313 /* IntInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD911CAA7FC50031D313 /* IntInterpolation.swift */; };
+		574BDD941CAA80070031D313 /* TypeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD931CAA80070031D313 /* TypeInterpolation.swift */; };
+		574BDD961CAA861B0031D313 /* CGFloatInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */; };
+		574BDD981CAA86CC0031D313 /* CGPointInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */; };
+		574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */; };
+		574BDD9C1CAAA5D60031D313 /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */; };
 		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; };
 		B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0086C551C789758008A4F69 /* GroupRenderer.swift */; };
 		B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0097E071C706CAB00350E43 /* ObservableValue.swift */; };
@@ -68,6 +77,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5742238D1CA5414E001EE463 /* AnimationLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationLoop.swift; sourceTree = "<group>"; };
+		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		574223911CA55360001EE463 /* AnimationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSubscription.swift; sourceTree = "<group>"; };
+		574BDD911CAA7FC50031D313 /* IntInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntInterpolation.swift; sourceTree = "<group>"; };
+		574BDD931CAA80070031D313 /* TypeInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeInterpolation.swift; sourceTree = "<group>"; };
+		574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatInterpolation.swift; sourceTree = "<group>"; };
+		574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointInterpolation.swift; sourceTree = "<group>"; };
+		574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
+		574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformInterpolation.swift; sourceTree = "<group>"; };
 		585C04471C27CFB100335FF2 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		B0086C551C789758008A4F69 /* GroupRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRenderer.swift; sourceTree = "<group>"; };
 		B0097E071C706CAB00350E43 /* ObservableValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
@@ -141,6 +159,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5742238C1CA540F8001EE463 /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				574BDD901CAA7F490031D313 /* extensions */,
+				5742238D1CA5414E001EE463 /* AnimationLoop.swift */,
+				5742238F1CA5448C001EE463 /* Animation.swift */,
+				574223911CA55360001EE463 /* AnimationSubscription.swift */,
+				574BDD931CAA80070031D313 /* TypeInterpolation.swift */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
+		574BDD901CAA7F490031D313 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				574BDD911CAA7FC50031D313 /* IntInterpolation.swift */,
+				574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */,
+				574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */,
+				574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */,
+				574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		585C04461C27CFB100335FF2 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +219,7 @@
 		B02E75E11C160FF200D1971D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				5742238C1CA540F8001EE463 /* animation */,
 				B03275B01C78772F000BDD33 /* model */,
 				585C04461C27CFB100335FF2 /* views */,
 				B03F88BC1C1C6A9300F24FFC /* events */,
@@ -373,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B03275FD1C78772F000BDD33 /* Move.swift in Sources */,
+				574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */,
 				B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */,
 				B032760E1C78772F000BDD33 /* MouseButton.swift in Sources */,
 				B03276061C78772F000BDD33 /* RoundRect.swift in Sources */,
@@ -392,6 +436,7 @@
 				B03275FB1C78772F000BDD33 /* Line.swift in Sources */,
 				B032760A1C78772F000BDD33 /* Transform.swift in Sources */,
 				B032760C1C78772F000BDD33 /* Cursor.swift in Sources */,
+				574BDD941CAA80070031D313 /* TypeInterpolation.swift in Sources */,
 				B03275EF1C78772F000BDD33 /* LineCap.swift in Sources */,
 				B03275F71C78772F000BDD33 /* Ellipse.swift in Sources */,
 				B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */,
@@ -399,11 +444,13 @@
 				B03275E61C78772F000BDD33 /* AspectRatio.swift in Sources */,
 				B03276071C78772F000BDD33 /* SCubic.swift in Sources */,
 				B03276031C78772F000BDD33 /* Polyline.swift in Sources */,
+				574BDD961CAA861B0031D313 /* CGFloatInterpolation.swift in Sources */,
 				B03275FC1C78772F000BDD33 /* Locus.swift in Sources */,
 				B03275F41C78772F000BDD33 /* Circle.swift in Sources */,
 				B03276011C78772F000BDD33 /* Point.swift in Sources */,
 				B03276141C78772F000BDD33 /* Text.swift in Sources */,
 				B03276051C78772F000BDD33 /* Rect.swift in Sources */,
+				574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */,
 				B03275FF1C78772F000BDD33 /* PathSegment.swift in Sources */,
 				B03276041C78772F000BDD33 /* Quadratic.swift in Sources */,
 				B03275F21C78772F000BDD33 /* Stroke.swift in Sources */,
@@ -414,6 +461,7 @@
 				B032761F1C7885B2000BDD33 /* TextRenderer.swift in Sources */,
 				B03276131C78772F000BDD33 /* Shape.swift in Sources */,
 				B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */,
+				574BDD981CAA86CC0031D313 /* CGPointInterpolation.swift in Sources */,
 				B03276001C78772F000BDD33 /* PLine.swift in Sources */,
 				B03275F91C78772F000BDD33 /* HLine.swift in Sources */,
 				B03275FA1C78772F000BDD33 /* Insets.swift in Sources */,
@@ -427,8 +475,12 @@
 				B03275F51C78772F000BDD33 /* Close.swift in Sources */,
 				B03275F01C78772F000BDD33 /* LineJoin.swift in Sources */,
 				B03276091C78772F000BDD33 /* SQuadratic.swift in Sources */,
+				574BDD921CAA7FC50031D313 /* IntInterpolation.swift in Sources */,
+				574BDD9C1CAAA5D60031D313 /* TransformInterpolation.swift in Sources */,
+				5742238E1CA5414E001EE463 /* AnimationLoop.swift in Sources */,
 				B03275ED1C78772F000BDD33 /* FontWeight.swift in Sources */,
 				B03275F61C78772F000BDD33 /* Cubic.swift in Sources */,
+				574223901CA5448C001EE463 /* Animation.swift in Sources */,
 				585C04481C27CFB100335FF2 /* MacawView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

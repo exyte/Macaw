@@ -34,6 +34,10 @@ public class Node: Drawable  {
 		super.init(
 			tag: tag
 		)
+        
+//        self.posProperty.addListener { (oldValue, newValue) in
+//            self.pos = newValue
+//        }
 	}
 
 	// GENERATED NOT

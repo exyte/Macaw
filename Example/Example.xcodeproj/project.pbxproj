@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24BE07011C6B923300B5882F /* sweet.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BE07001C6B923300B5882F /* sweet.png */; };
 		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
 		24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */; };
 		24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */; };
@@ -59,7 +58,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		24BE07001C6B923300B5882F /* sweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sweet.png; path = ../../sweet/plugins/com.exyte.sweet.examples/img/sweet.png; sourceTree = "<group>"; };
 		24BE07031C6DF1F000B5882F /* BasePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
 		24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondPageCustomView.swift; sourceTree = "<group>"; };
 		24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPageViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 		24BE06FF1C6B91C800B5882F /* img */ = {
 			isa = PBXGroup;
 			children = (
-				24BE07001C6B923300B5882F /* sweet.png */,
 			);
 			name = img;
 			sourceTree = "<group>";
@@ -225,7 +222,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24BE07011C6B923300B5882F /* sweet.png in Resources */,
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
 				B02E75F61C16104900D1971D /* Main.storyboard in Resources */,

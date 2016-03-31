@@ -15,6 +15,9 @@ class AnimationLoop {
     }
     
     dynamic private func onFrameUpdate(displayLink: CADisplayLink) {
+        
+        var toRemove = [AnimationSubscription]()
+        
         animationSubscriptions.forEach { subscription in
             
             guard let animation = subscription.anim else {
@@ -31,8 +34,21 @@ class AnimationLoop {
             
             let timePosition = displayLink.timestamp - startTime
             let position = timePosition / animation.getDuration()
+            
+            if position > 1.0 {
+                toRemove.append(subscription)
+            }
+            
             subscription.moveToTimeFrame(position, advance: 0)
-            rendererCall?()
+        }
+        
+        rendererCall?()
+        
+        // Removing
+        toRemove.forEach { subsription in
+            if let index = animationSubscriptions.indexOf ({ $0 === subsription }) {
+                animationSubscriptions.removeAtIndex(index)
+            }
         }
     }
 }

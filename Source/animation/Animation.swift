@@ -1,11 +1,11 @@
 import Foundation
 
-public protocol Animation {
+public protocol CommonAnimation {
     func animate(progress: Double)
     func getDuration() -> Double
 }
 
-public class LinearAnimation<T: InterpolatingType>: Animation {
+public class Animation<T: InterpolatingType>: CommonAnimation {
     
     var property: ObservableValue<T>?
     
@@ -13,12 +13,16 @@ public class LinearAnimation<T: InterpolatingType>: Animation {
     var final:    T?
     var duration: Double = 0
     
-    public init(observableProperty: ObservableValue<T>?, startValue: T, finalValue: T, animationDuration: Double) {
+    public required init(observableProperty: ObservableValue<T>?, startValue: T?, finalValue: T?, animationDuration: Double) {
         property = observableProperty
         start    = startValue
         final    = finalValue
         duration = animationDuration
         
+    }
+    
+    public convenience init(observableProperty: ObservableValue<T>?, finalValue: T, animationDuration: Double) {
+        self.init(observableProperty: observableProperty, startValue: observableProperty?.get(), finalValue: finalValue, animationDuration: animationDuration )
     }
     
     public func animate(progress: Double) {

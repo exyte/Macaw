@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		573AA69D1CAD730C00F30607 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA69C1CAD730C00F30607 /* AnimationSequence.swift */; };
 		5742238E1CA5414E001EE463 /* AnimationLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238D1CA5414E001EE463 /* AnimationLoop.swift */; };
 		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
 		574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574223911CA55360001EE463 /* AnimationSubscription.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		573AA69C1CAD730C00F30607 /* AnimationSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSequence.swift; sourceTree = "<group>"; };
 		5742238D1CA5414E001EE463 /* AnimationLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationLoop.swift; sourceTree = "<group>"; };
 		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		574223911CA55360001EE463 /* AnimationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSubscription.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				5742238F1CA5448C001EE463 /* Animation.swift */,
 				574223911CA55360001EE463 /* AnimationSubscription.swift */,
 				574BDD931CAA80070031D313 /* TypeInterpolation.swift */,
+				573AA69C1CAD730C00F30607 /* AnimationSequence.swift */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				B03275EE1C78772F000BDD33 /* LinearGradient.swift in Sources */,
 				B03275E71C78772F000BDD33 /* Baseline.swift in Sources */,
 				B03275F11C78772F000BDD33 /* Stop.swift in Sources */,
+				573AA69D1CAD730C00F30607 /* AnimationSequence.swift in Sources */,
 				B03276171C788162000BDD33 /* ShapeRenderer.swift in Sources */,
 				B03275EA1C78772F000BDD33 /* Fill.swift in Sources */,
 				B03275F51C78772F000BDD33 /* Close.swift in Sources */,

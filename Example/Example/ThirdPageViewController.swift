@@ -131,24 +131,23 @@ class ThirdPageCustomView: MacawView {
         
         super.init(node: group, coder: aDecoder)
         
-        let cloud1ShapeAnimation =  LinearAnimation(observableProperty: cloud1.posProperty,
-                                                   startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
-                                                   finalValue:Transform.move(120, my: 120).scale(0.3, sy: 0.3),
-                                                   animationDuration: 7.0)
+        let cloud1ShapeAnimation =  Animation(observableProperty: cloud1.posProperty,
+                                              finalValue:Transform.move(120, my: 120).scale(0.3, sy: 0.3),
+                                              animationDuration: 3.0)
         
-        let cloud2ShapeAnimation =  LinearAnimation(observableProperty: cloud2.posProperty,
-                                                   startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
-                                                   finalValue:Transform.move(100, my: 320).scale(0.075, sy: 0.075),
-                                                   animationDuration: 7.0)
+        let cloud2ShapeAnimation =  Animation(observableProperty: cloud2.posProperty,
+                                              finalValue:Transform.move(100, my: 320).scale(0.075, sy: 0.075),
+                                              animationDuration: 3.0)
         
-        let cloud3ShapeAnimation =  LinearAnimation(observableProperty: cloud3.posProperty,
-                                                    startValue:Transform().move(220, my: 320).scale(0.15, sy: 0.15),
-                                                    finalValue:Transform.move(220, my: 420).scale(0.15, sy: 0.15),
-                                                    animationDuration: 7.0)
-        
-        super.addAnimation(cloud1ShapeAnimation)
-        super.addAnimation(cloud2ShapeAnimation)
-        super.addAnimation(cloud3ShapeAnimation)
+        let cloud3ShapeAnimation =  Animation(observableProperty: cloud3.posProperty,
+                                              finalValue:Transform.move(220, my: 420).scale(0.15, sy: 0.15),
+                                              animationDuration: 3.0)
+
+        let animationSequence = AnimationSequence(animations: [cloud1ShapeAnimation, cloud2ShapeAnimation, cloud3ShapeAnimation])
+        super.addAnimation(animationSequence)
+//        super.addAnimation(cloud1ShapeAnimation)
+//        super.addAnimation(cloud2ShapeAnimation)
+//        super.addAnimation(cloud3ShapeAnimation)
         
 
     }

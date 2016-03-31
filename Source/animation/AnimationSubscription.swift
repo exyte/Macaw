@@ -2,11 +2,11 @@ import Foundation
 
 class AnimationSubscription {
     
-    var anim: Animation?
+    var anim: CommonAnimation?
     
     var startTime: CFTimeInterval?
     
-    init( animation: Animation ) {
+    init( animation: CommonAnimation ) {
         anim = animation
     }
     

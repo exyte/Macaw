@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		573AA6A01CAE346900F30607 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA69F1CAE346900F30607 /* AnimationSequence.swift */; };
 		573AA6A21CAE34BA00F30607 /* RepetitiveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */; };
+		573AA6A41CAE402C00F30607 /* RevertedAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */; };
+		573AA6A61CAE41D400F30607 /* LoopedAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */; };
 		5742238E1CA5414E001EE463 /* AnimationLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238D1CA5414E001EE463 /* AnimationLoop.swift */; };
 		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
 		574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574223911CA55360001EE463 /* AnimationSubscription.swift */; };
@@ -81,6 +83,8 @@
 /* Begin PBXFileReference section */
 		573AA69F1CAE346900F30607 /* AnimationSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSequence.swift; sourceTree = "<group>"; };
 		573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepetitiveAnimation.swift; sourceTree = "<group>"; };
+		573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevertedAnimation.swift; sourceTree = "<group>"; };
+		573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoopedAnimation.swift; sourceTree = "<group>"; };
 		5742238D1CA5414E001EE463 /* AnimationLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationLoop.swift; sourceTree = "<group>"; };
 		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		574223911CA55360001EE463 /* AnimationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSubscription.swift; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 			children = (
 				573AA69F1CAE346900F30607 /* AnimationSequence.swift */,
 				573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */,
+				573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */,
+				573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -452,6 +458,8 @@
 				B032760C1C78772F000BDD33 /* Cursor.swift in Sources */,
 				574BDD941CAA80070031D313 /* TypeInterpolation.swift in Sources */,
 				B03275EF1C78772F000BDD33 /* LineCap.swift in Sources */,
+				573AA6A41CAE402C00F30607 /* RevertedAnimation.swift in Sources */,
+				573AA6A61CAE41D400F30607 /* LoopedAnimation.swift in Sources */,
 				B03275F71C78772F000BDD33 /* Ellipse.swift in Sources */,
 				B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */,
 				B032760F1C78772F000BDD33 /* Group.swift in Sources */,

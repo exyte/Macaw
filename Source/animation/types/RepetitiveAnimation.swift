@@ -1,8 +1,19 @@
 import Foundation
 
+
 public enum RepetitiveAnimationType {
     case Finite
     case Infinite
+}
+
+public extension CommonAnimation {
+    public func infiniteLoop() -> CommonAnimation {
+        return RepetitiveAnimation(animation: self)
+    }
+    
+    public func loop(count: Int) -> CommonAnimation {
+        return RepetitiveAnimation(animation: self, count: count)
+    }
 }
 
 public class RepetitiveAnimation: CommonAnimation {

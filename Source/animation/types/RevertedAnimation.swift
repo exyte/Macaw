@@ -1,5 +1,12 @@
 import Foundation
 
+
+public extension CommonAnimation {
+    public func revert() -> CommonAnimation {
+        return RevertedAnimation(animation: self)
+    }
+}
+
 public class RevertedAnimation: CommonAnimation {
     var originalAnimation: CommonAnimation?
     

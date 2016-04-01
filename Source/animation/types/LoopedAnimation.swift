@@ -1,5 +1,11 @@
 import Foundation
 
+public extension CommonAnimation {
+    public func looped() -> CommonAnimation {
+        return LoopedAnimation(animation: self)
+    }
+}
+
 public class LoopedAnimation: CommonAnimation {
     var loopedlAnimation: CommonAnimation?
     

@@ -1,5 +1,16 @@
 import Foundation
 
+public extension SequenceType where Generator.Element: CommonAnimation{
+    public func sequence() -> CommonAnimation {
+        let sequence = AnimationSequence(animations:[])
+        self.forEach { animation in
+            sequence.addAnimation(animation)
+        }
+        
+        return sequence
+    }
+}
+
 public class AnimationSequence: CommonAnimation {
     
     var sequence: [CommonAnimation] = []

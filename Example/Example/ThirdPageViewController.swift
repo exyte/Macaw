@@ -143,10 +143,9 @@ class ThirdPageCustomView: MacawView {
                                               finalValue:Transform.move(220, my: 420).scale(0.15, sy: 0.15),
                                               animationDuration: 1.5)
 
-        let animationSequence = AnimationSequence(animations: [cloud1ShapeAnimation, cloud2ShapeAnimation, cloud3ShapeAnimation])
-        let loopedAnimation = LoopedAnimation(animation:animationSequence)
-        let animationLoop = RepetitiveAnimation(animation: loopedAnimation)
-        super.addAnimation(animationLoop)
+        let animation = [cloud1ShapeAnimation, cloud2ShapeAnimation, cloud3ShapeAnimation].sequence().looped().infiniteLoop()
+        super.addAnimation(animation)
+        
 //        super.addAnimation(cloud1ShapeAnimation)
 //        super.addAnimation(cloud2ShapeAnimation)
 //        super.addAnimation(cloud3ShapeAnimation)

@@ -147,7 +147,7 @@ class ThirdPageCustomView: MacawView {
             cloud1ShapeAnimation,
             cloud2ShapeAnimation,
             cloud3ShapeAnimation
-            ].sequence().looped().infiniteLoop()
+            ].sequence().easeOut().looped().infiniteLoop()
         super.addAnimation(animation)
         
 //        super.addAnimation(cloud1ShapeAnimation)

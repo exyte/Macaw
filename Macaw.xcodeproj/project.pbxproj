@@ -20,6 +20,7 @@
 		574BDD981CAA86CC0031D313 /* CGPointInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */; };
 		574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */; };
 		574BDD9C1CAAA5D60031D313 /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */; };
+		5754E63F1CB3B70D00657DA3 /* EasingAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */; };
 		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; };
 		B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0086C551C789758008A4F69 /* GroupRenderer.swift */; };
 		B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0097E071C706CAB00350E43 /* ObservableValue.swift */; };
@@ -94,6 +95,7 @@
 		574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointInterpolation.swift; sourceTree = "<group>"; };
 		574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
 		574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformInterpolation.swift; sourceTree = "<group>"; };
+		5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingAnimations.swift; sourceTree = "<group>"; };
 		585C04471C27CFB100335FF2 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		B0086C551C789758008A4F69 /* GroupRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRenderer.swift; sourceTree = "<group>"; };
 		B0097E071C706CAB00350E43 /* ObservableValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */,
 				573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */,
 				573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */,
+				5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				B03276031C78772F000BDD33 /* Polyline.swift in Sources */,
 				574BDD961CAA861B0031D313 /* CGFloatInterpolation.swift in Sources */,
 				B03275FC1C78772F000BDD33 /* Locus.swift in Sources */,
+				5754E63F1CB3B70D00657DA3 /* EasingAnimations.swift in Sources */,
 				B03275F41C78772F000BDD33 /* Circle.swift in Sources */,
 				B03276011C78772F000BDD33 /* Point.swift in Sources */,
 				B03276141C78772F000BDD33 /* Text.swift in Sources */,

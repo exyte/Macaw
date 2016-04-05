@@ -2,15 +2,15 @@ import Foundation
 
 class AnimationSubscription {
     
-    var anim: CommonAnimation?
+    let anim: Animatable
     
     var startTime: CFTimeInterval?
     
-    init( animation: CommonAnimation ) {
+    init( animation: Animatable ) {
         anim = animation
     }
     
     func moveToTimeFrame(position: Double, advance: Double) {
-        anim?.animate(position)
+        anim.animate(position)
     }
 }

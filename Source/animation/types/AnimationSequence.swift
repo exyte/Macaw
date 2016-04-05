@@ -1,7 +1,7 @@
 import Foundation
 
-public extension SequenceType where Generator.Element: CommonAnimation{
-    public func sequence() -> CommonAnimation {
+public extension SequenceType where Generator.Element: Animatable{
+    public func sequence() -> Animatable {
         let sequence = AnimationSequence(animations:[])
         self.forEach { animation in
             sequence.addAnimation(animation)
@@ -11,20 +11,20 @@ public extension SequenceType where Generator.Element: CommonAnimation{
     }
 }
 
-public class AnimationSequence: CommonAnimation {
+public class AnimationSequence: Animatable {
     
-    var sequence: [CommonAnimation] = []
+    var sequence: [Animatable] = []
     
     
-    public required init(animations: [CommonAnimation]) {
+    public required init(animations: [Animatable]) {
         sequence.appendContentsOf(animations)
     }
     
-    public convenience init(animation: CommonAnimation) {
+    public convenience init(animation: Animatable) {
         self.init(animations: [animation])
     }
     
-    public func addAnimation(animation: CommonAnimation) {
+    public func addAnimation(animation: Animatable) {
         sequence.append(animation)
     }
     

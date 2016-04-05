@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol InterpolatingType {
+public protocol Interpolable {
     func interpolate(endValue: Self, progress: Double) -> Self
 }
 

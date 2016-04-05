@@ -6,22 +6,22 @@ public enum RepetitiveAnimationType {
     case Infinite
 }
 
-public extension CommonAnimation {
-    public func infiniteLoop() -> CommonAnimation {
+public extension Animatable {
+    public func infiniteLoop() -> Animatable {
         return RepetitiveAnimation(animation: self)
     }
     
-    public func loop(count: Int) -> CommonAnimation {
+    public func loop(count: Int) -> Animatable {
         return RepetitiveAnimation(animation: self, count: count)
     }
 }
 
-public class RepetitiveAnimation: CommonAnimation {
+public class RepetitiveAnimation: Animatable {
     
-    var loopAnimation: CommonAnimation?
-    var loopsCount = 0
+    let loopAnimation: Animatable
+    var loopsCount: Int
     
-    public required init(animation: CommonAnimation, type: RepetitiveAnimationType, count: Int) {
+    public required init(animation: Animatable, type: RepetitiveAnimationType, count: Int) {
         loopAnimation = animation
         loopsCount    = count
         
@@ -30,11 +30,11 @@ public class RepetitiveAnimation: CommonAnimation {
         }
     }
     
-    public convenience init(animation: CommonAnimation, count: Int) {
+    public convenience init(animation: Animatable, count: Int) {
         self.init(animation: animation, type: .Finite, count: count)
     }
     
-    public convenience init(animation: CommonAnimation) {
+    public convenience init(animation: Animatable) {
         self.init(animation: animation, type: .Infinite, count: 0)
     }
     
@@ -42,14 +42,10 @@ public class RepetitiveAnimation: CommonAnimation {
         let progressInterval = 1.0 / Double(loopsCount)
         let relativeProgress = (progress % progressInterval) * Double(loopsCount)
         
-        loopAnimation?.animate(relativeProgress)
+        loopAnimation.animate(relativeProgress)
     }
     
     public func getDuration() -> Double {
-        guard let duration = loopAnimation?.getDuration() else {
-            return 0
-        }
-    
-        return Double(loopsCount) * duration
+        return Double(loopsCount) * loopAnimation.getDuration()
     }
 }

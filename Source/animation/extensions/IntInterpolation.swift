@@ -1,8 +1,7 @@
 import Foundation
 
-extension Int: InterpolatingType {
+extension Int: Interpolable {
     public func interpolate(endValue: Int, progress: Double) -> Int {
-
-        return Int(Double(self) * (1.0 - progress) + Double(endValue) * progress)
+        return Int(Double(self) + Double(endValue - self) * progress)
     }
 }

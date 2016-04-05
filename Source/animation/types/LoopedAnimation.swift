@@ -1,27 +1,23 @@
 import Foundation
 
-public extension CommonAnimation {
-    public func looped() -> CommonAnimation {
+public extension Animatable {
+    public func looped() -> Animatable {
         return LoopedAnimation(animation: self)
     }
 }
 
-public class LoopedAnimation: CommonAnimation {
-    var loopedlAnimation: CommonAnimation?
+public class LoopedAnimation: Animatable {
+    let loopedlAnimation: Animatable
     
-    public required init(animation: CommonAnimation) {
+    public required init(animation: Animatable) {
         loopedlAnimation = AnimationSequence(animations: [animation, RevertedAnimation(animation: animation)])
     }
     
     public func animate(progress: Double) {
-        loopedlAnimation?.animate(progress)
+        loopedlAnimation.animate(progress)
     }
     
     public func getDuration() -> Double {
-        guard let duration = loopedlAnimation?.getDuration() else {
-            return 0.0
-        }
-        
-        return duration
+        return loopedlAnimation.getDuration()
     }
 }

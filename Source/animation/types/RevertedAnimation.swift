@@ -1,28 +1,24 @@
 import Foundation
 
 
-public extension CommonAnimation {
-    public func revert() -> CommonAnimation {
+public extension Animatable {
+    public func revert() -> Animatable {
         return RevertedAnimation(animation: self)
     }
 }
 
-public class RevertedAnimation: CommonAnimation {
-    var originalAnimation: CommonAnimation?
+public class RevertedAnimation: Animatable {
+    let originalAnimation: Animatable
     
-    public required init(animation: CommonAnimation) {
+    public required init(animation: Animatable) {
         originalAnimation = animation
     }
     
     public func animate(progress: Double) {
-        originalAnimation?.animate(1.0 - progress)
+        originalAnimation.animate(1.0 - progress)
     }
     
     public func getDuration() -> Double {
-        guard let duration = originalAnimation?.getDuration() else {
-            return 0.0
-        }
-        
-        return duration
+        return originalAnimation.getDuration()
     }
 }

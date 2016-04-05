@@ -20,10 +20,6 @@ class AnimationLoop {
         
         animationSubscriptions.forEach { subscription in
             
-            guard let animation = subscription.anim else {
-                return
-            }
-            
             if subscription.startTime == .None {
                 subscription.startTime = displayLink.timestamp
             }
@@ -33,7 +29,7 @@ class AnimationLoop {
             }
             
             let timePosition = displayLink.timestamp - startTime
-            let position = timePosition / animation.getDuration()
+            let position = timePosition / subscription.anim.getDuration()
             
             if position > 1.0 {
                 toRemove.append(subscription)

@@ -1,41 +1,34 @@
 import Foundation
 
-public protocol CommonAnimation {
+
+public protocol Animatable {
     func animate(progress: Double)
     func getDuration() -> Double
 }
 
-public class Animation<T: InterpolatingType>: CommonAnimation {
+public class Animation<T: Interpolable>: Animatable {
     
-    var property: ObservableValue<T>?
+    let value: ObservableValue<T>
     
-    var start:    T?
-    var final:    T?
-    var duration: Double = 0
+    let start:    T
+    let final:    T
+    let duration: Double
     
-    public required init(observableProperty: ObservableValue<T>?, startValue: T?, finalValue: T?, animationDuration: Double) {
-        property = observableProperty
+    public required init(observableValue: ObservableValue<T>, startValue: T, finalValue: T, animationDuration: Double) {
+        value    = observableValue
         start    = startValue
         final    = finalValue
         duration = animationDuration
         
     }
     
-    public convenience init(observableProperty: ObservableValue<T>?, finalValue: T, animationDuration: Double) {
-        self.init(observableProperty: observableProperty, startValue: observableProperty?.get(), finalValue: finalValue, animationDuration: animationDuration )
+    public convenience init(observableValue: ObservableValue<T>, finalValue: T, animationDuration: Double) {
+        self.init(observableValue: observableValue, startValue: observableValue.get(), finalValue: finalValue, animationDuration: animationDuration )
     }
     
     public func animate(progress: Double) {
         
-        guard let start = start else {
-            return
-        }
-        
-        guard let final = final else {
-            return
-        }
-        
-        property?.set(start.interpolate(final, progress: progress))
+        value.set(start.interpolate(final, progress: progress))
     }
     
     public func getDuration() -> Double {

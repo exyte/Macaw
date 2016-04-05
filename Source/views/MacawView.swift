@@ -30,7 +30,7 @@ public class MacawView: UIView {
         renderer.render()
     }
     
-    public func addAnimation(animation: CommonAnimation) {
+    public func addAnimation(animation: Animatable) {
         let subscription = AnimationSubscription(animation: animation)
         self.loop?.animationSubscriptions.append(subscription)
     }

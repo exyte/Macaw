@@ -1,7 +1,7 @@
 import UIKit
 
-extension CGFloat: InterpolatingType {
+extension CGFloat: Interpolable {
     public func interpolate(endValue: CGFloat, progress: Double) -> CGFloat {
-        return self * CGFloat(1.0 - progress) + endValue * CGFloat(progress)
+        return self +  (endValue - self) * CGFloat(progress)
     }
 }

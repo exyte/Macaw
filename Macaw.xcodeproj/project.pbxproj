@@ -15,7 +15,7 @@
 		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
 		574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574223911CA55360001EE463 /* AnimationSubscription.swift */; };
 		574BDD921CAA7FC50031D313 /* IntInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD911CAA7FC50031D313 /* IntInterpolation.swift */; };
-		574BDD941CAA80070031D313 /* TypeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD931CAA80070031D313 /* TypeInterpolation.swift */; };
+		574BDD941CAA80070031D313 /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD931CAA80070031D313 /* Interpolable.swift */; };
 		574BDD961CAA861B0031D313 /* CGFloatInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */; };
 		574BDD981CAA86CC0031D313 /* CGPointInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */; };
 		574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */; };
@@ -89,7 +89,7 @@
 		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		574223911CA55360001EE463 /* AnimationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSubscription.swift; sourceTree = "<group>"; };
 		574BDD911CAA7FC50031D313 /* IntInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntInterpolation.swift; sourceTree = "<group>"; };
-		574BDD931CAA80070031D313 /* TypeInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeInterpolation.swift; sourceTree = "<group>"; };
+		574BDD931CAA80070031D313 /* Interpolable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolable.swift; sourceTree = "<group>"; };
 		574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatInterpolation.swift; sourceTree = "<group>"; };
 		574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointInterpolation.swift; sourceTree = "<group>"; };
 		574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 				5742238D1CA5414E001EE463 /* AnimationLoop.swift */,
 				5742238F1CA5448C001EE463 /* Animation.swift */,
 				574223911CA55360001EE463 /* AnimationSubscription.swift */,
-				574BDD931CAA80070031D313 /* TypeInterpolation.swift */,
+				574BDD931CAA80070031D313 /* Interpolable.swift */,
 			);
 			path = animation;
 			sourceTree = "<group>";
@@ -456,7 +456,7 @@
 				B03275FB1C78772F000BDD33 /* Line.swift in Sources */,
 				B032760A1C78772F000BDD33 /* Transform.swift in Sources */,
 				B032760C1C78772F000BDD33 /* Cursor.swift in Sources */,
-				574BDD941CAA80070031D313 /* TypeInterpolation.swift in Sources */,
+				574BDD941CAA80070031D313 /* Interpolable.swift in Sources */,
 				B03275EF1C78772F000BDD33 /* LineCap.swift in Sources */,
 				573AA6A41CAE402C00F30607 /* RevertedAnimation.swift in Sources */,
 				573AA6A61CAE41D400F30607 /* LoopedAnimation.swift in Sources */,

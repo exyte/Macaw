@@ -1,9 +1,9 @@
 import Foundation
 
 
-public protocol Animatable {
-    func animate(progress: Double)
-    func getDuration() -> Double
+public class Animatable {
+    func animate(progress: Double) {}
+    func getDuration() -> Double{ return 0}
 }
 
 public class Animation<T: Interpolable>: Animatable {
@@ -26,12 +26,12 @@ public class Animation<T: Interpolable>: Animatable {
         self.init(observableValue: observableValue, startValue: observableValue.get(), finalValue: finalValue, animationDuration: animationDuration )
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         
         value.set(start.interpolate(final, progress: progress))
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return duration
     }
 }

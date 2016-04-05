@@ -19,11 +19,11 @@ public class EaseInAnimation: Animatable {
         originalAnimation = animation
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         originalAnimation.animate(pow(progress, 2.0))
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return originalAnimation.getDuration()
     }
 }
@@ -35,11 +35,11 @@ public class EaseOutAnimation: Animatable {
         originalAnimation = animation
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         originalAnimation.animate(pow(progress, 0.5))
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return originalAnimation.getDuration()
     }
 }

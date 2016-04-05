@@ -1,7 +1,7 @@
 import Foundation
 
 public extension SequenceType where Generator.Element: Animatable{
-    public func sequence() -> Animatable {
+    public func animationSequence() -> Animatable {
         let sequence = AnimationSequence(animations:[])
         self.forEach { animation in
             sequence.addAnimation(animation)
@@ -28,7 +28,7 @@ public class AnimationSequence: Animatable {
         sequence.append(animation)
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         var progressOffset = 0.0
         let totalDuration = getDuration()
         for animation in sequence {
@@ -51,7 +51,7 @@ public class AnimationSequence: Animatable {
         }
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return sequence.map { $0.getDuration() }.reduce(0, combine: +)
     }
 }

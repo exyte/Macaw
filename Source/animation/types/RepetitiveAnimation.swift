@@ -38,14 +38,14 @@ public class RepetitiveAnimation: Animatable {
         self.init(animation: animation, type: .Infinite, count: 0)
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         let progressInterval = 1.0 / Double(loopsCount)
         let relativeProgress = (progress % progressInterval) * Double(loopsCount)
         
         loopAnimation.animate(relativeProgress)
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return Double(loopsCount) * loopAnimation.getDuration()
     }
 }

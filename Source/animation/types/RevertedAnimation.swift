@@ -14,11 +14,11 @@ public class RevertedAnimation: Animatable {
         originalAnimation = animation
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         originalAnimation.animate(1.0 - progress)
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return originalAnimation.getDuration()
     }
 }

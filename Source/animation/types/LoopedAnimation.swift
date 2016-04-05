@@ -13,11 +13,11 @@ public class LoopedAnimation: Animatable {
         loopedlAnimation = AnimationSequence(animations: [animation, RevertedAnimation(animation: animation)])
     }
     
-    public func animate(progress: Double) {
+    public override func animate(progress: Double) {
         loopedlAnimation.animate(progress)
     }
     
-    public func getDuration() -> Double {
+    public override func getDuration() -> Double {
         return loopedlAnimation.getDuration()
     }
 }

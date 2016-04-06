@@ -26,6 +26,8 @@ public class Animatable {
 	var paused = false
 	public var currentProgress: Double?
 
+	public var progressCall: ((Double) -> ())?
+
 	func animate(progress: Double) { }
 	func getDuration() -> Double { return 0 }
 
@@ -56,6 +58,7 @@ public class Animation<T: Interpolable>: Animatable {
 	public override func animate(progress: Double) {
 
 		value.set(start.interpolate(final, progress: progress))
+		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {

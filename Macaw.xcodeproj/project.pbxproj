@@ -200,7 +200,6 @@
 		574BDD901CAA7F490031D313 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				57982D541CB508F100111DAA /* paths */,
 				574BDD911CAA7FC50031D313 /* IntInterpolation.swift */,
 				574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */,
 				574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */,
@@ -209,14 +208,6 @@
 			);
 			path = extensions;
 			sourceTree = "<group>";
-		};
-		57982D541CB508F100111DAA /* paths */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = paths;
-			path = Source/animation/paths;
-			sourceTree = SOURCE_ROOT;
 		};
 		585C04461C27CFB100335FF2 /* views */ = {
 			isa = PBXGroup;

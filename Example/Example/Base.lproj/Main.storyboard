@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Ku-fM-19f">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Base Page View Controller-->
@@ -89,14 +90,24 @@
                                     <action selector="onPlayerBtnClicked" destination="y1S-j5-FMS" eventType="touchUpInside" id="69e-Z7-WVS"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="oo7-ju-RJS">
+                                <rect key="frame" x="18" y="489" width="564" height="31"/>
+                                <connections>
+                                    <action selector="onProgressChanged:" destination="y1S-j5-FMS" eventType="valueChanged" id="JZ1-0H-Otd"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="oo7-ju-RJS" firstAttribute="leading" secondItem="y1S-j5-FMS" secondAttribute="leadingMargin" id="dW6-Wv-aqm"/>
+                            <constraint firstItem="myZ-CN-l6C" firstAttribute="top" secondItem="oo7-ju-RJS" secondAttribute="bottom" constant="25" id="hcG-xO-NqK"/>
                             <constraint firstItem="myZ-CN-l6C" firstAttribute="centerX" secondItem="y1S-j5-FMS" secondAttribute="centerX" id="iiN-tB-5cf"/>
+                            <constraint firstItem="oo7-ju-RJS" firstAttribute="trailing" secondItem="y1S-j5-FMS" secondAttribute="trailingMargin" id="nFW-LZ-lMi"/>
                             <constraint firstItem="1ea-S4-NTm" firstAttribute="top" secondItem="myZ-CN-l6C" secondAttribute="bottom" constant="34" id="sUz-cy-GZo"/>
                         </constraints>
                         <connections>
                             <outlet property="playerBtn" destination="myZ-CN-l6C" id="mBO-we-5tC"/>
+                            <outlet property="progressSlider" destination="oo7-ju-RJS" id="g4N-sP-hPU"/>
                         </connections>
                     </view>
                 </viewController>

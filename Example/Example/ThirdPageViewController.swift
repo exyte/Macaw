@@ -6,6 +6,7 @@ import Macaw
 class ThirdPageCustomView: MacawView {
 
 	@IBOutlet var playerBtn: UIButton?
+	@IBOutlet var progressSlider: UISlider?
 
 	let animations: [Animatable]
 	var paused = true
@@ -19,6 +20,14 @@ class ThirdPageCustomView: MacawView {
 		} else {
 			playerBtn?.setTitle("Pause", forState: .Normal)
 			animations.play()
+		}
+	}
+
+	@IBAction func onProgressChanged(sender: UISlider) {
+		animations[1].currentProgress = Double(sender.value)
+
+		if paused {
+			self.renderAnimation()
 		}
 	}
 
@@ -179,11 +188,15 @@ class ThirdPageCustomView: MacawView {
 			function: { t in
 
 				return Transform.move(50.0 + 300 * t, my: 100 + 50 * sin(M_PI * t * 6.0)).scale(0.15, sy: 0.15)
-			}, animationDuration: 3.0).looped().infiniteLoop()
-
+			}, animationDuration: 6.0).revert()
 		animations = [animation1, animation2]
 
 		super.init(node: group, coder: aDecoder)
+
+		animation2.progressCall = { progress in
+			self.progressSlider?.setValue(Float(progress), animated: false)
+		}
+
 		super.addAnimation(animation1, autoPlay: false)
 		super.addAnimation(animation2, autoPlay: false)
 	}

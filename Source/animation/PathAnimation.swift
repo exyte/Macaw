@@ -49,9 +49,10 @@ public class PathAnimation<T: Interpolable>: Animatable {
 
 		var path = [AnimationPathFrame<T>]()
 		// 60 fps
-		let fps = 60
-		let dt = 1.0 / Double(fps)
-		for i in 0 ... 59 {
+		let fps = 60.0
+		let n = fps * animationDuration
+		let dt = 1.0 / n
+		for i in 0 ... Int(n) {
 			let position = dt * Double(i)
 			let value = function(position)
 			path.append(AnimationPathFrame(value: value, position: position))

@@ -45,6 +45,21 @@ public class PathAnimation<T: Interpolable>: Animatable {
 		pathSegments = segments
 	}
 
+	public convenience init(observableValue: ObservableValue<T>, function: (Double) -> T, animationDuration: Double) {
+
+		var path = [AnimationPathFrame<T>]()
+		// 60 fps
+		let fps = 60
+		let dt = 1.0 / Double(fps)
+		for i in 0 ... 59 {
+			let position = dt * Double(i)
+			let value = function(position)
+			path.append(AnimationPathFrame(value: value, position: position))
+		}
+
+		self.init(observableValue: observableValue, path: path, animationDuration: animationDuration)
+	}
+
 	public override func animate(progress: Double) {
 
 		// Cache

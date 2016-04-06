@@ -21,7 +21,7 @@
 		574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */; };
 		574BDD9C1CAAA5D60031D313 /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */; };
 		5754E63F1CB3B70D00657DA3 /* EasingAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */; };
-		575C9AC81CB4D35200CB572C /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C9AC71CB4D35200CB572C /* PathAnimation.swift */; };
+		57982D531CB508E600111DAA /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57982D521CB508E600111DAA /* PathAnimation.swift */; };
 		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; };
 		B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0086C551C789758008A4F69 /* GroupRenderer.swift */; };
 		B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0097E071C706CAB00350E43 /* ObservableValue.swift */; };
@@ -97,7 +97,7 @@
 		574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
 		574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformInterpolation.swift; sourceTree = "<group>"; };
 		5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingAnimations.swift; sourceTree = "<group>"; };
-		575C9AC71CB4D35200CB572C /* PathAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathAnimation.swift; sourceTree = "<group>"; };
+		57982D521CB508E600111DAA /* PathAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathAnimation.swift; sourceTree = "<group>"; };
 		585C04471C27CFB100335FF2 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		B0086C551C789758008A4F69 /* GroupRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRenderer.swift; sourceTree = "<group>"; };
 		B0097E071C706CAB00350E43 /* ObservableValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
@@ -179,7 +179,6 @@
 				573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */,
 				573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */,
 				5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */,
-				575C9AC71CB4D35200CB572C /* PathAnimation.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -191,6 +190,7 @@
 				574BDD901CAA7F490031D313 /* extensions */,
 				5742238D1CA5414E001EE463 /* AnimationLoop.swift */,
 				5742238F1CA5448C001EE463 /* Animation.swift */,
+				57982D521CB508E600111DAA /* PathAnimation.swift */,
 				574223911CA55360001EE463 /* AnimationSubscription.swift */,
 				574BDD931CAA80070031D313 /* Interpolable.swift */,
 			);
@@ -200,6 +200,7 @@
 		574BDD901CAA7F490031D313 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				57982D541CB508F100111DAA /* paths */,
 				574BDD911CAA7FC50031D313 /* IntInterpolation.swift */,
 				574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */,
 				574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */,
@@ -208,6 +209,14 @@
 			);
 			path = extensions;
 			sourceTree = "<group>";
+		};
+		57982D541CB508F100111DAA /* paths */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = paths;
+			path = Source/animation/paths;
+			sourceTree = SOURCE_ROOT;
 		};
 		585C04461C27CFB100335FF2 /* views */ = {
 			isa = PBXGroup;
@@ -502,7 +511,7 @@
 				B03275F11C78772F000BDD33 /* Stop.swift in Sources */,
 				573AA6A01CAE346900F30607 /* AnimationSequence.swift in Sources */,
 				B03276171C788162000BDD33 /* ShapeRenderer.swift in Sources */,
-				575C9AC81CB4D35200CB572C /* PathAnimation.swift in Sources */,
+				57982D531CB508E600111DAA /* PathAnimation.swift in Sources */,
 				B03275EA1C78772F000BDD33 /* Fill.swift in Sources */,
 				B03275F51C78772F000BDD33 /* Close.swift in Sources */,
 				B03275F01C78772F000BDD33 /* LineJoin.swift in Sources */,

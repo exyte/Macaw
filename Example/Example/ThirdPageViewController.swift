@@ -116,32 +116,31 @@ class ThirdPageCustomView: MacawView {
 			)
 		}
 
-		let cloud1 = cloudExample()
+		// let cloud1 = cloudExample()
 		let cloud2 = cloudExample()
 		let cloud3 = cloudExample()
+		let cloud4 = cloudExample()
 
 		let group = Group(
 			contents: [
-				cloud1,
+				// cloud1,
 				cloud2,
-				cloud3
+				cloud3,
+				cloud4
 			],
 			pos: Transform().move(-80, my: -100)
 		)
 
 		super.init(node: group, coder: aDecoder)
 
-		let cloud1ShapeAnimation = Animation(observableValue: cloud1.posProperty,
-			finalValue: Transform.move(120, my: 120).scale(0.3, sy: 0.3),
-			animationDuration: 1.5)
+		// Animation 1
+//		let cloud1ShapeAnimation = Animation(observableValue: cloud1.posProperty,
+//			finalValue: Transform.move(120, my: 320).scale(0.3, sy: 0.3),
+//			animationDuration: 1.5)
 
 		let cloud2ShapeAnimation = Animation(observableValue: cloud2.posProperty,
 			finalValue: Transform.move(100, my: 320).scale(0.075, sy: 0.075),
 			animationDuration: 1.5)
-
-//		let cloud3ShapeAnimation = Animation(observableValue: cloud3.posProperty,
-//			finalValue: Transform.move(220, my: 420).scale(0.15, sy: 0.15),
-//			animationDuration: 1.5)
 
 		let path = [
 			AnimationPathFrameMake(Transform.move(220, my: 320 + 50 * sin(0.0)).scale(0.15, sy: 0.15), position: 0.0),
@@ -154,11 +153,20 @@ class ThirdPageCustomView: MacawView {
 			path: path,
 			animationDuration: 3.0)
 		let animation = [
-			cloud1ShapeAnimation,
+			// cloud1ShapeAnimation,
 			cloud2ShapeAnimation.easeIn(),
 			cloud3ShapeAnimation.easeOut()
 		].animationSequence().looped().infiniteLoop()
 		super.addAnimation(animation)
+
+		// Animation 2
+
+		let cloud4ShapeAnimation = PathAnimation(observableValue: cloud4.posProperty,
+			function: { t in
+
+				return Transform.move(50.0 + 300 * t, my: 100 + 50 * sin(M_PI * t * 6.0)).scale(0.15, sy: 0.15)
+			}, animationDuration: 3.0).looped().infiniteLoop()
+		super.addAnimation(cloud4ShapeAnimation)
 	}
 
 	required init?(node: Node, coder aDecoder: NSCoder) {

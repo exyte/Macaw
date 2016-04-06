@@ -5,6 +5,23 @@ import Macaw
 
 class ThirdPageCustomView: MacawView {
 
+	@IBOutlet var playerBtn: UIButton?
+
+	let animations: [Animatable]
+	var paused = true
+
+	@IBAction func onPlayerBtnClicked() {
+		paused = !paused
+
+		if paused {
+			playerBtn?.setTitle("Play", forState: .Normal)
+			animations.pause()
+		} else {
+			playerBtn?.setTitle("Pause", forState: .Normal)
+			animations.play()
+		}
+	}
+
 	required init?(coder aDecoder: NSCoder) {
 
 		func cloudExample() -> Group {
@@ -131,8 +148,6 @@ class ThirdPageCustomView: MacawView {
 			pos: Transform().move(-80, my: -100)
 		)
 
-		super.init(node: group, coder: aDecoder)
-
 		// Animation 1
 //		let cloud1ShapeAnimation = Animation(observableValue: cloud1.posProperty,
 //			finalValue: Transform.move(120, my: 320).scale(0.3, sy: 0.3),
@@ -152,24 +167,29 @@ class ThirdPageCustomView: MacawView {
 		let cloud3ShapeAnimation = PathAnimation(observableValue: cloud3.posProperty,
 			path: path,
 			animationDuration: 3.0)
-		let animation = [
+		let animation1 = [
 			// cloud1ShapeAnimation,
 			cloud2ShapeAnimation.easeIn(),
 			cloud3ShapeAnimation.easeOut()
 		].animationSequence().looped().infiniteLoop()
-		super.addAnimation(animation)
 
 		// Animation 2
 
-		let cloud4ShapeAnimation = PathAnimation(observableValue: cloud4.posProperty,
+		let animation2 = PathAnimation(observableValue: cloud4.posProperty,
 			function: { t in
 
 				return Transform.move(50.0 + 300 * t, my: 100 + 50 * sin(M_PI * t * 6.0)).scale(0.15, sy: 0.15)
 			}, animationDuration: 3.0).looped().infiniteLoop()
-		super.addAnimation(cloud4ShapeAnimation)
+
+		animations = [animation1, animation2]
+
+		super.init(node: group, coder: aDecoder)
+		super.addAnimation(animation1, autoPlay: false)
+		super.addAnimation(animation2, autoPlay: false)
 	}
 
 	required init?(node: Node, coder aDecoder: NSCoder) {
+		animations = []
 		super.init(node: node, coder: aDecoder)
 	}
 }

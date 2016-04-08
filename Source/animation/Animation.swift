@@ -1,25 +1,25 @@
 import Foundation
 
 public extension SequenceType where Generator.Element: Animatable {
-	func play() {
+	func playAnimation() {
 		self.forEach { animation in
 			animation.play()
 		}
 	}
 
-	func pause() {
+	func pauseAnimation() {
 		self.forEach { animation in
 			animation.pause()
 		}
 	}
 
-	func remove() {
+	func removeAnimations() {
 		self.forEach { animation in
 			animation.remove()
 		}
 	}
 
-	func moveToPosition(position: Double) {
+	func moveToAnimationPosition(position: Double) {
 		self.forEach { animation in
 			animation.moveToPosition(position)
 		}

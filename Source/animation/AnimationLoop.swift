@@ -3,10 +3,12 @@ import QuartzCore
 
 class AnimationLoop {
 
+	typealias RenderCall = (() -> ())
+
 	var displayLink: CADisplayLink?
 
 	private var animationSubscriptions: [AnimationSubscription] = []
-	var rendererCall: (() -> ())?
+	var rendererCall: RenderCall?
 
 	init() {
 		displayLink = CADisplayLink(target: self, selector: #selector(onFrameUpdate(_:)))

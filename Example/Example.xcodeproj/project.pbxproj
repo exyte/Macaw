@@ -17,6 +17,7 @@
 		574EC43D1CB7DE7F0063F317 /* PathExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4321CB7DE7F0063F317 /* PathExampleView.swift */; };
 		574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */; };
 		574EC43F1CB7DE7F0063F317 /* TextExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4361CB7DE7F0063F317 /* TextExampleView.swift */; };
+		574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4401CB7E2440063F317 /* MenuViewController.swift */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		574EC4321CB7DE7F0063F317 /* PathExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathExampleView.swift; sourceTree = "<group>"; };
 		574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapesExampleView.swift; sourceTree = "<group>"; };
 		574EC4361CB7DE7F0063F317 /* TextExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextExampleView.swift; sourceTree = "<group>"; };
+		574EC4401CB7E2440063F317 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Example/MenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02E75F51C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				574EC4311CB7DE7F0063F317 /* Path */,
 				574EC4331CB7DE7F0063F317 /* Shapes */,
 				574EC4351CB7DE7F0063F317 /* Text */,
+				574EC4401CB7E2440063F317 /* MenuViewController.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
 				574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */,
 				574EC4391CB7DE7F0063F317 /* CleanerView.swift in Sources */,
+				574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */,
 				574EC43D1CB7DE7F0063F317 /* PathExampleView.swift in Sources */,
 				574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */,
 				574EC4381CB7DE7F0063F317 /* CleanersGraphics.swift in Sources */,

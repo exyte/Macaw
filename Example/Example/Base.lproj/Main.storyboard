@@ -13,6 +13,53 @@
             </objects>
             <point key="canvasLocation" x="600" y="-222"/>
         </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="Q2v-yA-vKZ">
+            <objects>
+                <viewController storyboardIdentifier="MenuViewController" id="Lio-Wb-HhB" customClass="MenuViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8s3-hc-SY1"/>
+                        <viewControllerLayoutGuide type="bottom" id="O1M-e7-IPo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AMM-V6-LHK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="PrB-pf-YOR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="menu_cell" id="6q0-BY-xeB">
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6q0-BY-xeB" id="CU1-RT-JgB">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Lio-Wb-HhB" id="b1O-3K-zpD"/>
+                                    <outlet property="delegate" destination="Lio-Wb-HhB" id="AdN-Vi-EY0"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="PrB-pf-YOR" secondAttribute="trailing" constant="-20" id="A0y-qf-oNZ"/>
+                            <constraint firstItem="PrB-pf-YOR" firstAttribute="top" secondItem="AMM-V6-LHK" secondAttribute="topMargin" id="IuX-ia-EfI"/>
+                            <constraint firstItem="PrB-pf-YOR" firstAttribute="leading" secondItem="AMM-V6-LHK" secondAttribute="leadingMargin" constant="-20" id="LU5-M2-jgz"/>
+                            <constraint firstItem="O1M-e7-IPo" firstAttribute="top" secondItem="PrB-pf-YOR" secondAttribute="bottom" id="LtP-6W-WwD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="PrB-pf-YOR" id="Ec3-5A-IBg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d53-r7-NNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-838" y="470"/>
+        </scene>
         <!--Shapes Example-->
         <scene sceneID="tne-QT-ifu">
             <objects>

@@ -4,7 +4,9 @@ import Foundation
 class BasePageViewController: UIPageViewController {
 
 	private lazy var orderedViewControllers: [UIViewController] = {
-		return [self.newMacawViewController("FirstPageViewController"),
+		return [
+			self.newMacawViewController("MenuViewController"),
+			self.newMacawViewController("FirstPageViewController"),
 			self.newMacawViewController("SecondPageViewController"),
 			self.newMacawViewController("ThirdPageViewController"),
 			self.newMacawViewController("FourthPageViewController"),
@@ -22,11 +24,16 @@ class BasePageViewController: UIPageViewController {
 		super.viewDidLoad()
 		dataSource = self
 
-		if let firstViewController = orderedViewControllers.last {
+		if let firstViewController = orderedViewControllers.first {
 			setViewControllers([firstViewController],
 				direction: .Forward,
 				animated: true,
 				completion: nil)
+		}
+
+		if let menuCtrl = orderedViewControllers.first as? MenuViewController {
+			menuCtrl.viewControllers = orderedViewControllers.filter { $0 != menuCtrl }
+			menuCtrl.pageViewController = self
 		}
 	}
 }

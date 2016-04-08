@@ -31,10 +31,6 @@ public class MacawView: UIView {
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {
 		let subscription = AnimationSubscription(animation: animation, paused: !autoPlay)
-		self.loop?.animationSubscriptions.append(subscription)
-	}
-
-	public func renderAnimation() {
-		self.loop?.renderManually()
+		self.loop?.addSubscription(subscription)
 	}
 }

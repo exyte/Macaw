@@ -15,7 +15,6 @@ public class LoopedAnimation: Animatable {
 
 	public override func animate(progress: Double) {
 		loopedlAnimation.animate(progress)
-		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {

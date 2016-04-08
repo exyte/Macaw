@@ -67,7 +67,7 @@ public class PathAnimation<T: Interpolable>: Animatable {
 		if let cachedSegment = cachedSegment {
 			if cachedSegment.contains(progress) {
 				value.set(iterpolate(cachedSegment, position: progress))
-				progressCall?(progress)
+				currentProgress.set(progress)
 				return
 			}
 		}
@@ -77,7 +77,7 @@ public class PathAnimation<T: Interpolable>: Animatable {
 			if segment.contains(progress) {
 				cachedSegment = segment
 				value.set(iterpolate(segment, position: progress))
-				progressCall?(progress)
+				currentProgress.set(progress)
 				return
 			}
 		}

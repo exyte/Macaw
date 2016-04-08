@@ -42,7 +42,6 @@ public class RepetitiveAnimation: Animatable {
 		let relativeProgress = (progress % progressInterval) * Double(loopsCount)
 
 		loopAnimation.animate(relativeProgress)
-		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {

@@ -24,16 +24,25 @@ public class Animatable {
 
 	var shouldBeRemoved = false
 	var paused = false
-	public var currentProgress: Double?
 
-	public var progressCall: ((Double) -> ())?
+	var shouldUpdateSubscription = false
+
+	public let currentProgress = ObservableValue<Double>(value: 0)
 
 	func animate(progress: Double) { }
 	func getDuration() -> Double { return 0 }
 
-	func play() { paused = false }
+	func play() {
+		paused = false
+		shouldUpdateSubscription = true
+	}
 	func pause() { paused = true }
 	func remove() { shouldBeRemoved = true }
+
+	public func moveToPosition(position: Double) {
+		shouldUpdateSubscription = true
+		currentProgress.set(position)
+	}
 }
 
 public class Animation<T: Interpolable>: Animatable {
@@ -58,7 +67,7 @@ public class Animation<T: Interpolable>: Animatable {
 	public override func animate(progress: Double) {
 
 		value.set(start.interpolate(final, progress: progress))
-		progressCall?(progress)
+		currentProgress.set(progress)
 	}
 
 	public override func getDuration() -> Double {

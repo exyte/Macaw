@@ -15,7 +15,6 @@ public class RevertedAnimation: Animatable {
 
 	public override func animate(progress: Double) {
 		originalAnimation.animate(1.0 - progress)
-		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {

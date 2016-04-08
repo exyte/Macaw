@@ -48,8 +48,6 @@ public class AnimationSequence: Animatable {
 			animation.animate(relativeProgress)
 			break
 		}
-
-		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {

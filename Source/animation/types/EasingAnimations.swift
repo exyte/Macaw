@@ -21,7 +21,6 @@ public class EaseInAnimation: Animatable {
 
 	public override func animate(progress: Double) {
 		originalAnimation.animate(pow(progress, 2.0))
-		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {
@@ -38,7 +37,6 @@ public class EaseOutAnimation: Animatable {
 
 	public override func animate(progress: Double) {
 		originalAnimation.animate(pow(progress, 0.5))
-		progressCall?(progress)
 	}
 
 	public override func getDuration() -> Double {

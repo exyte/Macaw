@@ -11,7 +11,7 @@ class AnimationSubscription {
 		anim.paused = paused
 	}
 
-	func moveToTimeFrame(position: Double) {
+	func  moveToTimeFrame(position: Double) {
 		anim.animate(position)
 	}
 }

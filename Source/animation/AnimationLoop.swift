@@ -5,7 +5,7 @@ class AnimationLoop {
 
 	var displayLink: CADisplayLink?
 
-	var animationSubscriptions: [AnimationSubscription] = []
+	private var animationSubscriptions: [AnimationSubscription] = []
 	var rendererCall: (() -> ())?
 
 	init() {
@@ -16,19 +16,24 @@ class AnimationLoop {
 
 	dynamic private func onFrameUpdate(displayLink: CADisplayLink) {
 
-		var toRemove = [AnimationSubscription]()
 		let timestamp = displayLink.timestamp
+
+		var toRemove = [AnimationSubscription]()
+		var shouldRender = false
 
 		animationSubscriptions.forEach { subscription in
 
-			// Handle manually set position
-			if !subscription.anim.paused {
-				if let pausedPosition = subscription.anim.currentProgress {
-					subscription.anim.currentProgress = .None
-					subscription.startTime = timestamp - subscription.anim.getDuration() * pausedPosition
-					subscription.moveToTimeFrame(pausedPosition)
-					return
-				}
+			let animation = subscription.anim
+
+			if animation.paused {
+				return
+			}
+
+			shouldRender = true
+
+			if animation.shouldUpdateSubscription {
+				animation.shouldUpdateSubscription = false
+				subscription.startTime = timestamp - animation.getDuration() * animation.currentProgress.get()
 			}
 
 			// Calculating current position
@@ -41,25 +46,19 @@ class AnimationLoop {
 			}
 
 			let timePosition = timestamp - startTime
-			let position = timePosition / subscription.anim.getDuration()
+			let position = timePosition / animation.getDuration()
 
-			if subscription.anim.shouldBeRemoved {
+			if animation.shouldBeRemoved {
 				toRemove.append(subscription)
 			}
 
-			// Saving paused position
-			if subscription.anim.paused {
-				if subscription.anim.currentProgress == .None {
-					subscription.anim.currentProgress = position
-				}
-
-				return
-			}
-
+			animation.currentProgress.set(position)
 			subscription.moveToTimeFrame(position)
 		}
 
-		rendererCall?()
+		if shouldRender {
+			rendererCall?()
+		}
 
 		// Removing
 		toRemove.forEach { subsription in
@@ -69,22 +68,21 @@ class AnimationLoop {
 		}
 	}
 
-	func renderManually() {
-		guard let timestamp = displayLink?.timestamp else {
+	func addSubscription(subscription: AnimationSubscription) {
+		animationSubscriptions.append(subscription)
+
+		let animation = subscription.anim
+		if !animation.paused {
 			return
 		}
 
-		animationSubscriptions.forEach { subscription in
-
-			// Handle manually set position
-			guard let pausedPosition = subscription.anim.currentProgress else {
+		animation.currentProgress.addListener { (oldValue, newValue) in
+			if !subscription.anim.paused {
 				return
 			}
 
-			subscription.startTime = timestamp - subscription.anim.getDuration() * pausedPosition
-			subscription.moveToTimeFrame(pausedPosition)
+			subscription.moveToTimeFrame(newValue)
+			self.rendererCall?()
 		}
-
-		rendererCall?()
 	}
 }

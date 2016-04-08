@@ -24,11 +24,7 @@ class ThirdPageCustomView: MacawView {
 	}
 
 	@IBAction func onProgressChanged(sender: UISlider) {
-		animations[1].currentProgress = Double(sender.value)
-
-		if paused {
-			self.renderAnimation()
-		}
+		animations[1].moveToPosition(Double(sender.value)) // currentProgress.set(Double(sender.value))
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -193,8 +189,12 @@ class ThirdPageCustomView: MacawView {
 
 		super.init(node: group, coder: aDecoder)
 
-		animation2.progressCall = { progress in
-			self.progressSlider?.setValue(Float(progress), animated: false)
+//		animation2.progressCall = { progress in
+//			self.progressSlider?.setValue(Float(progress), animated: false)
+//		}
+
+		animation2.currentProgress.addListener { (oldValue, newValue) in
+			self.progressSlider?.setValue(Float(newValue), animated: false)
 		}
 
 		super.addAnimation(animation1, autoPlay: false)

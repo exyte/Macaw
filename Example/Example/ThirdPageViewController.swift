@@ -16,10 +16,10 @@ class ThirdPageCustomView: MacawView {
 
 		if paused {
 			playerBtn?.setTitle("Play", forState: .Normal)
-			animations.pause()
+			animations.pauseAnimation()
 		} else {
 			playerBtn?.setTitle("Pause", forState: .Normal)
-			animations.play()
+			animations.playAnimation()
 		}
 	}
 

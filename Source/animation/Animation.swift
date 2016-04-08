@@ -18,6 +18,12 @@ public extension SequenceType where Generator.Element: Animatable {
 			animation.remove()
 		}
 	}
+
+	func moveToPosition(position: Double) {
+		self.forEach { animation in
+			animation.moveToPosition(position)
+		}
+	}
 }
 
 public class Animatable {

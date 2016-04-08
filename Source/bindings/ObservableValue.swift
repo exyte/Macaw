@@ -7,11 +7,11 @@ public class ObservableValue<T> {
 		self.value = value
 	}
 
-	public func get() -> T {
+	func get() -> T {
 		return value
 	}
 
-	public func set(newValue: T) {
+	func set(newValue: T) {
 		let oldValue = value
 		value = newValue
 		valueChanged(oldValue, newValue: value)

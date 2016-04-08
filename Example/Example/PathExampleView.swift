@@ -3,7 +3,7 @@ import Foundation
 import UIKit
 import Macaw
 
-class ThirdPageCustomView: MacawView {
+class PathExampleView: MacawView {
 
 	@IBOutlet var playerBtn: UIButton?
 	@IBOutlet var progressSlider: UISlider?

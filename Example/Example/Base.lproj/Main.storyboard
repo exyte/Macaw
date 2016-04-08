@@ -13,15 +13,15 @@
             </objects>
             <point key="canvasLocation" x="600" y="-222"/>
         </scene>
-        <!--1-->
+        <!--Shapes Example-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="FirstPageViewController" title="1" id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstPageViewController" title="Shapes Example" id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="FirstPageCustomView" customModule="Example">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="ShapesExampleView" customModule="Example">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,15 +31,15 @@
             </objects>
             <point key="canvasLocation" x="-143" y="470"/>
         </scene>
-        <!--4-->
+        <!--Diagram Example-->
         <scene sceneID="9k9-HH-Zyi">
             <objects>
-                <viewController storyboardIdentifier="FourthPageViewController" title="4" id="gN7-6l-y4c" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FourthPageViewController" title="Diagram Example" id="gN7-6l-y4c" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dqJ-0d-65w"/>
                         <viewControllerLayoutGuide type="bottom" id="vC4-Sb-Gn5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0iI-qX-aYP" customClass="FourthPageCustomView" customModule="Example" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="0iI-qX-aYP" customClass="DiagramExampleView" customModule="Example" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,15 +49,15 @@
             </objects>
             <point key="canvasLocation" x="-143" y="1195"/>
         </scene>
-        <!--2-->
+        <!--Text Example-->
         <scene sceneID="4lA-Eh-Fzd">
             <objects>
-                <viewController storyboardIdentifier="SecondPageViewController" title="2" id="S7g-lw-yqJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecondPageViewController" title="Text Example" id="S7g-lw-yqJ" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TkD-5m-m0W"/>
                         <viewControllerLayoutGuide type="bottom" id="gHg-rd-GIN"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zdH-7U-xJg" customClass="SecondPageCustomView" customModule="Example" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="zdH-7U-xJg" customClass="TextExampleView" customModule="Example" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -67,15 +67,15 @@
             </objects>
             <point key="canvasLocation" x="600" y="470"/>
         </scene>
-        <!--3-->
+        <!--Path Example-->
         <scene sceneID="vwB-cZ-5dI">
             <objects>
-                <viewController storyboardIdentifier="ThirdPageViewController" title="3" id="IrQ-al-Owp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThirdPageViewController" title="Path Example" id="IrQ-al-Owp" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bl7-8Z-ZUm"/>
                         <viewControllerLayoutGuide type="bottom" id="1ea-S4-NTm"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="y1S-j5-FMS" customClass="ThirdPageCustomView" customModule="Example" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="y1S-j5-FMS" customClass="PathExampleView" customModule="Example" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -115,15 +115,15 @@
             </objects>
             <point key="canvasLocation" x="1339" y="470"/>
         </scene>
-        <!--6-->
+        <!--Cleaner Example-->
         <scene sceneID="oJI-xh-u5X">
             <objects>
-                <viewController storyboardIdentifier="SixthPageViewController" title="6" id="74N-4W-w39" customClass="SixthPageViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CleanerExampleController" title="Cleaner Example" id="74N-4W-w39" customClass="CleanerExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6ZD-bS-1od"/>
                         <viewControllerLayoutGuide type="bottom" id="ams-3I-029"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9mn-31-84J" customClass="SixthPageCustomView" customModule="Example" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="9mn-31-84J" customClass="CleanerView" customModule="Example" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -173,10 +173,10 @@
             </objects>
             <point key="canvasLocation" x="1339" y="1195"/>
         </scene>
-        <!--5-->
+        <!--Model Listeners Example-->
         <scene sceneID="v8O-OB-49M">
             <objects>
-                <viewController storyboardIdentifier="FifthPageViewController" title="5" id="2oO-On-aPq" customClass="ModelListenersViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ModelListenersExampleController" title="Model Listeners Example" id="2oO-On-aPq" customClass="ModelListenersExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vWD-H2-e5Z"/>
                         <viewControllerLayoutGuide type="bottom" id="cC5-N8-0KK"/>
@@ -185,7 +185,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmK-mv-1Zm" customClass="FifthPageCustomView" customModule="Example" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmK-mv-1Zm" customClass="RectShapeView" customModule="Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" maximumValue="200" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Kxj-dt-Vo1">

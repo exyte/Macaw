@@ -8,21 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
-		24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */; };
-		24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */; };
-		24BE072C1C6DF98000B5882F /* FourthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */; };
-		580079D81C254FA500331E27 /* FirstPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580079D71C254FA500331E27 /* FirstPageCustomView.swift */; };
+		24BE07281C6DF5AE00B5882F /* TextExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07271C6DF5AE00B5882F /* TextExampleView.swift */; };
+		24BE072A1C6DF5EF00B5882F /* PathExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07291C6DF5EF00B5882F /* PathExampleView.swift */; };
+		24BE072C1C6DF98000B5882F /* DiagramExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE072B1C6DF98000B5882F /* DiagramExampleView.swift */; };
+		580079D81C254FA500331E27 /* ShapesExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580079D71C254FA500331E27 /* ShapesExampleView.swift */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
-		B02E75F31C16104900D1971D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F21C16104900D1971D /* ViewController.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
 		B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F91C16104900D1971D /* LaunchScreen.storyboard */; };
 		B02E76101C16111D00D1971D /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02E760D1C16108E00D1971D /* Macaw.framework */; };
 		B02E76121C16113A00D1971D /* Macaw.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B02E760D1C16108E00D1971D /* Macaw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B03275AD1C786DF9000BDD33 /* FifthPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */; };
-		B03275AF1C78732A000BDD33 /* ModelListenersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */; };
-		B0A531031C7B5463006B842A /* SixthPageCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A531021C7B5463006B842A /* SixthPageCustomView.swift */; };
-		B0C643B71C7C66E500A0B5CD /* SixthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C643B61C7C66E500A0B5CD /* SixthPageViewController.swift */; };
+		B03275AD1C786DF9000BDD33 /* RectShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AC1C786DF9000BDD33 /* RectShapeView.swift */; };
+		B03275AF1C78732A000BDD33 /* ModelListenersExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275AE1C78732A000BDD33 /* ModelListenersExampleController.swift */; };
+		B0A531031C7B5463006B842A /* CleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A531021C7B5463006B842A /* CleanerView.swift */; };
+		B0C643B71C7C66E500A0B5CD /* CleanerExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C643B61C7C66E500A0B5CD /* CleanerExampleController.swift */; };
 		B0C643B91C7C6AC400A0B5CD /* CleanersGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C643B81C7C6AC400A0B5CD /* CleanersGraphics.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,22 +58,21 @@
 
 /* Begin PBXFileReference section */
 		24BE07031C6DF1F000B5882F /* BasePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
-		24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondPageCustomView.swift; sourceTree = "<group>"; };
-		24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPageViewController.swift; sourceTree = "<group>"; };
-		24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthPageViewController.swift; sourceTree = "<group>"; };
-		580079D71C254FA500331E27 /* FirstPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstPageCustomView.swift; sourceTree = "<group>"; };
+		24BE07271C6DF5AE00B5882F /* TextExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextExampleView.swift; sourceTree = "<group>"; };
+		24BE07291C6DF5EF00B5882F /* PathExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathExampleView.swift; sourceTree = "<group>"; };
+		24BE072B1C6DF98000B5882F /* DiagramExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramExampleView.swift; sourceTree = "<group>"; };
+		580079D71C254FA500331E27 /* ShapesExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapesExampleView.swift; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B02E75F21C16104900D1971D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B02E75F51C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B02E75F71C16104900D1971D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B02E75FA1C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02E75FC1C16104900D1971D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B02E76081C16108E00D1971D /* Macaw.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Macaw.xcodeproj; path = ../Macaw.xcodeproj; sourceTree = "<group>"; };
-		B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FifthPageCustomView.swift; sourceTree = "<group>"; };
-		B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelListenersViewController.swift; sourceTree = "<group>"; };
-		B0A531021C7B5463006B842A /* SixthPageCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SixthPageCustomView.swift; sourceTree = "<group>"; };
-		B0C643B61C7C66E500A0B5CD /* SixthPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SixthPageViewController.swift; sourceTree = "<group>"; };
+		B03275AC1C786DF9000BDD33 /* RectShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectShapeView.swift; sourceTree = "<group>"; };
+		B03275AE1C78732A000BDD33 /* ModelListenersExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelListenersExampleController.swift; sourceTree = "<group>"; };
+		B0A531021C7B5463006B842A /* CleanerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerView.swift; sourceTree = "<group>"; };
+		B0C643B61C7C66E500A0B5CD /* CleanerExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerExampleController.swift; sourceTree = "<group>"; };
 		B0C643B81C7C6AC400A0B5CD /* CleanersGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanersGraphics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,20 +117,19 @@
 			isa = PBXGroup;
 			children = (
 				B02E75F01C16104900D1971D /* AppDelegate.swift */,
-				B02E75F21C16104900D1971D /* ViewController.swift */,
 				B02E75F41C16104900D1971D /* Main.storyboard */,
 				B02E75F71C16104900D1971D /* Assets.xcassets */,
 				B02E75F91C16104900D1971D /* LaunchScreen.storyboard */,
 				B02E75FC1C16104900D1971D /* Info.plist */,
 				24BE07031C6DF1F000B5882F /* BasePageViewController.swift */,
-				580079D71C254FA500331E27 /* FirstPageCustomView.swift */,
-				24BE07271C6DF5AE00B5882F /* SecondPageCustomView.swift */,
-				24BE07291C6DF5EF00B5882F /* ThirdPageViewController.swift */,
-				24BE072B1C6DF98000B5882F /* FourthPageViewController.swift */,
-				B03275AC1C786DF9000BDD33 /* FifthPageCustomView.swift */,
-				B03275AE1C78732A000BDD33 /* ModelListenersViewController.swift */,
-				B0A531021C7B5463006B842A /* SixthPageCustomView.swift */,
-				B0C643B61C7C66E500A0B5CD /* SixthPageViewController.swift */,
+				580079D71C254FA500331E27 /* ShapesExampleView.swift */,
+				24BE07271C6DF5AE00B5882F /* TextExampleView.swift */,
+				24BE07291C6DF5EF00B5882F /* PathExampleView.swift */,
+				24BE072B1C6DF98000B5882F /* DiagramExampleView.swift */,
+				B03275AC1C786DF9000BDD33 /* RectShapeView.swift */,
+				B03275AE1C78732A000BDD33 /* ModelListenersExampleController.swift */,
+				B0A531021C7B5463006B842A /* CleanerView.swift */,
+				B0C643B61C7C66E500A0B5CD /* CleanerExampleController.swift */,
 				B0C643B81C7C6AC400A0B5CD /* CleanersGraphics.swift */,
 			);
 			path = Example;
@@ -235,17 +232,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B03275AD1C786DF9000BDD33 /* FifthPageCustomView.swift in Sources */,
-				580079D81C254FA500331E27 /* FirstPageCustomView.swift in Sources */,
-				B02E75F31C16104900D1971D /* ViewController.swift in Sources */,
-				B03275AF1C78732A000BDD33 /* ModelListenersViewController.swift in Sources */,
-				B0A531031C7B5463006B842A /* SixthPageCustomView.swift in Sources */,
+				B03275AD1C786DF9000BDD33 /* RectShapeView.swift in Sources */,
+				580079D81C254FA500331E27 /* ShapesExampleView.swift in Sources */,
+				B03275AF1C78732A000BDD33 /* ModelListenersExampleController.swift in Sources */,
+				B0A531031C7B5463006B842A /* CleanerView.swift in Sources */,
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
-				24BE072A1C6DF5EF00B5882F /* ThirdPageViewController.swift in Sources */,
-				24BE07281C6DF5AE00B5882F /* SecondPageCustomView.swift in Sources */,
-				B0C643B71C7C66E500A0B5CD /* SixthPageViewController.swift in Sources */,
+				24BE072A1C6DF5EF00B5882F /* PathExampleView.swift in Sources */,
+				24BE07281C6DF5AE00B5882F /* TextExampleView.swift in Sources */,
+				B0C643B71C7C66E500A0B5CD /* CleanerExampleController.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
-				24BE072C1C6DF98000B5882F /* FourthPageViewController.swift in Sources */,
+				24BE072C1C6DF98000B5882F /* DiagramExampleView.swift in Sources */,
 				B0C643B91C7C6AC400A0B5CD /* CleanersGraphics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

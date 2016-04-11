@@ -60,10 +60,28 @@
             </objects>
             <point key="canvasLocation" x="-838" y="470"/>
         </scene>
-        <!--Shapes Example-->
+        <!--Animations-->
+        <scene sceneID="VYW-qe-yGd">
+            <objects>
+                <viewController storyboardIdentifier="AnimationsExampleController" title="Animations" id="eXI-AD-PfC" customClass="AnimationsExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1il-ra-UhK"/>
+                        <viewControllerLayoutGuide type="bottom" id="h7n-RV-r4V"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="q5g-Hn-BZw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jj7-oX-mAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-838" y="1195"/>
+        </scene>
+        <!--Shapes-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="FirstPageViewController" title="Shapes Example" id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstPageViewController" title="Shapes" id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -78,10 +96,10 @@
             </objects>
             <point key="canvasLocation" x="-143" y="470"/>
         </scene>
-        <!--Diagram Example-->
+        <!--Diagram-->
         <scene sceneID="9k9-HH-Zyi">
             <objects>
-                <viewController storyboardIdentifier="FourthPageViewController" title="Diagram Example" id="gN7-6l-y4c" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FourthPageViewController" title="Diagram" id="gN7-6l-y4c" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dqJ-0d-65w"/>
                         <viewControllerLayoutGuide type="bottom" id="vC4-Sb-Gn5"/>
@@ -96,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="-143" y="1195"/>
         </scene>
-        <!--Text Example-->
+        <!--Text-->
         <scene sceneID="4lA-Eh-Fzd">
             <objects>
-                <viewController storyboardIdentifier="SecondPageViewController" title="Text Example" id="S7g-lw-yqJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecondPageViewController" title="Text" id="S7g-lw-yqJ" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TkD-5m-m0W"/>
                         <viewControllerLayoutGuide type="bottom" id="gHg-rd-GIN"/>
@@ -114,10 +132,10 @@
             </objects>
             <point key="canvasLocation" x="600" y="470"/>
         </scene>
-        <!--Path Example-->
+        <!--Path-->
         <scene sceneID="vwB-cZ-5dI">
             <objects>
-                <viewController storyboardIdentifier="ThirdPageViewController" title="Path Example" id="IrQ-al-Owp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThirdPageViewController" title="Path" id="IrQ-al-Owp" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bl7-8Z-ZUm"/>
                         <viewControllerLayoutGuide type="bottom" id="1ea-S4-NTm"/>
@@ -162,10 +180,10 @@
             </objects>
             <point key="canvasLocation" x="1339" y="470"/>
         </scene>
-        <!--Cleaner Example-->
+        <!--Cleaner-->
         <scene sceneID="oJI-xh-u5X">
             <objects>
-                <viewController storyboardIdentifier="CleanerExampleController" title="Cleaner Example" id="74N-4W-w39" customClass="CleanerExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CleanerExampleController" title="Cleaner" id="74N-4W-w39" customClass="CleanerExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6ZD-bS-1od"/>
                         <viewControllerLayoutGuide type="bottom" id="ams-3I-029"/>
@@ -220,10 +238,10 @@
             </objects>
             <point key="canvasLocation" x="1339" y="1195"/>
         </scene>
-        <!--Model Listeners Example-->
+        <!--Model Listeners-->
         <scene sceneID="v8O-OB-49M">
             <objects>
-                <viewController storyboardIdentifier="ModelListenersExampleController" title="Model Listeners Example" id="2oO-On-aPq" customClass="ModelListenersExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ModelListenersExampleController" title="Model Listeners" id="2oO-On-aPq" customClass="ModelListenersExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vWD-H2-e5Z"/>
                         <viewControllerLayoutGuide type="bottom" id="cC5-N8-0KK"/>

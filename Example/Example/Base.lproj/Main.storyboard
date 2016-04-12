@@ -68,10 +68,22 @@
                         <viewControllerLayoutGuide type="top" id="1il-ra-UhK"/>
                         <viewControllerLayoutGuide type="bottom" id="h7n-RV-r4V"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="q5g-Hn-BZw">
+                    <view key="view" contentMode="scaleToFill" id="Jgi-h5-gmK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STd-gH-3Yz" customClass="AnimationsView" customModule="Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="STd-gH-3Yz" firstAttribute="top" secondItem="Jgi-h5-gmK" secondAttribute="topMargin" id="13u-Ym-dLv"/>
+                            <constraint firstItem="h7n-RV-r4V" firstAttribute="top" secondItem="STd-gH-3Yz" secondAttribute="bottom" id="6YV-tE-3h1"/>
+                            <constraint firstItem="STd-gH-3Yz" firstAttribute="leading" secondItem="Jgi-h5-gmK" secondAttribute="leadingMargin" constant="-20" id="Lrk-FG-4Z9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="STd-gH-3Yz" secondAttribute="trailing" constant="-20" id="gh5-Tv-7xe"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj7-oX-mAc" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -1,9 +1,22 @@
-//
-//  AnimationsView.swift
-//  Example
-//
-//  Created by Victor Sukochev on 12/04/16.
-//  Copyright © 2016 Exyte. All rights reserved.
-//
+import UIKit
+import Macaw
 
-import Foundation
+class AnimationsView: MacawView {
+
+	required init?(coder aDecoder: NSCoder) {
+
+		let group = Group(
+			contents: [
+				pieChart(),
+				arc()
+			],
+			pos: Transform().move(0.0, my: 0.0)
+		)
+
+		super.init(node: group, coder: aDecoder)
+	}
+
+	required init?(node: Node, coder aDecoder: NSCoder) {
+		super.init(node: node, coder: aDecoder)
+	}
+}

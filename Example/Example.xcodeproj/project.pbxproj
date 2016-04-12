@@ -19,6 +19,8 @@
 		574EC43F1CB7DE7F0063F317 /* TextExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4361CB7DE7F0063F317 /* TextExampleView.swift */; };
 		574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4401CB7E2440063F317 /* MenuViewController.swift */; };
 		574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */; };
+		575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B51CBD14AF00BD3C2E /* AnimationsView.swift */; };
+		575129B81CBD18B800BD3C2E /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B71CBD18B800BD3C2E /* PieChart.swift */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
@@ -71,6 +73,8 @@
 		574EC4361CB7DE7F0063F317 /* TextExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextExampleView.swift; sourceTree = "<group>"; };
 		574EC4401CB7E2440063F317 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Example/MenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsExampleController.swift; sourceTree = "<group>"; };
+		575129B51CBD14AF00BD3C2E /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsView.swift; sourceTree = "<group>"; };
+		575129B71CBD18B800BD3C2E /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02E75F51C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */,
+				575129B51CBD14AF00BD3C2E /* AnimationsView.swift */,
+				575129B71CBD18B800BD3C2E /* PieChart.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -305,11 +311,13 @@
 				574EC43F1CB7DE7F0063F317 /* TextExampleView.swift in Sources */,
 				574EC43C1CB7DE7F0063F317 /* RectShapeView.swift in Sources */,
 				574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */,
+				575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */,
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				574EC43A1CB7DE7F0063F317 /* DiagramExampleView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
 				574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */,
 				574EC4391CB7DE7F0063F317 /* CleanerView.swift in Sources */,
+				575129B81CBD18B800BD3C2E /* PieChart.swift in Sources */,
 				574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */,
 				574EC43D1CB7DE7F0063F317 /* PathExampleView.swift in Sources */,
 				574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */,

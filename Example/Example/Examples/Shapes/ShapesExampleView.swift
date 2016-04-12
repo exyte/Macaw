@@ -6,7 +6,6 @@
 //  Copyright © 2015 Exyte. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Macaw
 

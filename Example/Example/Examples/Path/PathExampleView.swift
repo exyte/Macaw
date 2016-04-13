@@ -7,7 +7,8 @@ class PathExampleView: MacawView {
 	@IBOutlet var playerBtn: UIButton?
 	@IBOutlet var progressSlider: UISlider?
 
-	let animations: [Animatable]
+	// let animations: [Animatable]
+	var animation = [Animatable]()
 	var paused = true
 
 	@IBAction func onPlayerBtnClicked() {
@@ -15,15 +16,15 @@ class PathExampleView: MacawView {
 
 		if paused {
 			playerBtn?.setTitle("Play", forState: .Normal)
-			animations.pauseAnimation()
+			animation.pauseAnimation()
 		} else {
 			playerBtn?.setTitle("Pause", forState: .Normal)
-			animations.playAnimation()
+			animation.playAnimation()
 		}
 	}
 
 	@IBAction func onProgressChanged(sender: UISlider) {
-		animations[1].moveToPosition(Double(sender.value)) // currentProgress.set(Double(sender.value))
+		animation.moveToAnimationPosition(Double(sender.value)) // currentProgress.set(Double(sender.value))
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -137,71 +138,99 @@ class PathExampleView: MacawView {
 			)
 		}
 
-		// let cloud1 = cloudExample()
-		let cloud2 = cloudExample()
-		let cloud3 = cloudExample()
-		let cloud4 = cloudExample()
+		/*
+		 // let cloud1 = cloudExample()
+		 let cloud2 = cloudExample()
+		 let cloud3 = cloudExample()
+		 let cloud4 = cloudExample()
 
-		let group = Group(
-			contents: [
-				// cloud1,
-				cloud2,
-				cloud3,
-				cloud4
-			],
-			pos: Transform().move(-80, my: -100)
-		)
+		 let group = Group(
+		 contents: [
+		 // cloud1,
+		 cloud2,
+		 cloud3,
+		 cloud4
+		 ],
+		 pos: Transform().move(-80, my: -100)
+		 )
 
-		// Animation 1
-//		let cloud1ShapeAnimation = Animation(observableValue: cloud1.posProperty,
-//			finalValue: Transform.move(120, my: 320).scale(0.3, sy: 0.3),
-//			animationDuration: 1.5)
 
-		let cloud2ShapeAnimation = Animation(observableValue: cloud2.posProperty,
-			finalValue: Transform.move(100, my: 320).scale(0.075, sy: 0.075),
-			animationDuration: 1.5)
+		 // Animation 1
+		 //		let cloud1ShapeAnimation = Animation(observableValue: cloud1.posProperty,
+		 //			finalValue: Transform.move(120, my: 320).scale(0.3, sy: 0.3),
+		 //			animationDuration: 1.5)
 
-		let path = [
-			AnimationPathFrameMake(Transform.move(220, my: 320 + 50 * sin(0.0)).scale(0.15, sy: 0.15), position: 0.0),
-			AnimationPathFrameMake(Transform.move(180, my: 320 + 50 * sin(M_PI * 0.5)).scale(0.15, sy: 0.15), position: 0.25),
-			AnimationPathFrameMake(Transform.move(140, my: 320 + 50 * sin(M_PI)).scale(0.15, sy: 0.15), position: 0.5),
-			AnimationPathFrameMake(Transform.move(100, my: 320 + 50 * sin(M_PI * 1.5)).scale(0.15, sy: 0.15), position: 0.75),
-			AnimationPathFrameMake(Transform.move(60, my: 320 + 50 * sin(M_PI * 2.0)).scale(0.15, sy: 0.15), position: 1.0)
-		]
-		let cloud3ShapeAnimation = PathAnimation(observableValue: cloud3.posProperty,
-			path: path,
-			animationDuration: 3.0)
-		let animation1 = [
-			// cloud1ShapeAnimation,
-			cloud2ShapeAnimation.easeIn(),
-			cloud3ShapeAnimation.easeOut()
-		].animationSequence().looped().infiniteLoop()
+		 let cloud2ShapeAnimation = Animation(observableValue: cloud2.posProperty,
+		 finalValue: Transform.move(100, my: 320).scale(0.075, sy: 0.075),
+		 animationDuration: 1.5)
 
-		// Animation 2
+		 let path = [
+		 AnimationPathFrameMake(Transform.move(220, my: 320 + 50 * sin(0.0)).scale(0.15, sy: 0.15), position: 0.0),
+		 AnimationPathFrameMake(Transform.move(180, my: 320 + 50 * sin(M_PI * 0.5)).scale(0.15, sy: 0.15), position: 0.25),
+		 AnimationPathFrameMake(Transform.move(140, my: 320 + 50 * sin(M_PI)).scale(0.15, sy: 0.15), position: 0.5),
+		 AnimationPathFrameMake(Transform.move(100, my: 320 + 50 * sin(M_PI * 1.5)).scale(0.15, sy: 0.15), position: 0.75),
+		 AnimationPathFrameMake(Transform.move(60, my: 320 + 50 * sin(M_PI * 2.0)).scale(0.15, sy: 0.15), position: 1.0)
+		 ]
+		 let cloud3ShapeAnimation = PathAnimation(observableValue: cloud3.posProperty,
+		 path: path,
+		 animationDuration: 3.0)
+		 let animation1 = [
+		 // cloud1ShapeAnimation,
+		 cloud2ShapeAnimation.easeIn(),
+		 cloud3ShapeAnimation.easeOut()
+		 ].animationSequence().looped().infiniteLoop()
 
-		let animation2 = PathAnimation(observableValue: cloud4.posProperty,
-			function: { t in
+		 // Animation 2
 
-				return Transform.move(50.0 + 300 * t, my: 100 + 50 * sin(M_PI * t * 6.0)).scale(0.15, sy: 0.15)
-			}, animationDuration: 6.0).revert()
-		animations = [animation1, animation2]
+		 let animation2 = PathAnimation(observableValue: cloud4.posProperty,
+		 function: { t in
 
-		super.init(node: group, coder: aDecoder)
+		 return Transform.move(50.0 + 300 * t, my: 100 + 50 * sin(M_PI * t * 6.0)).scale(0.15, sy: 0.15)
+		 }, animationDuration: 6.0).revert()
+		 animations = [animation1, animation2]
 
-//		animation2.progressCall = { progress in
-//			self.progressSlider?.setValue(Float(progress), animated: false)
-//		}
+		 super.init(node: group, coder: aDecoder)
 
-		animation2.currentProgress.addListener { (oldValue, newValue) in
-			self.progressSlider?.setValue(Float(newValue), animated: false)
+		 //		animation2.progressCall = { progress in
+		 //			self.progressSlider?.setValue(Float(progress), animated: false)
+		 //		}
+
+		 animation2.currentProgress.addListener { (oldValue, newValue) in
+		 self.progressSlider?.setValue(Float(newValue), animated: false)
+		 }
+
+		 super.addAnimation(animation1, autoPlay: false)
+		 super.addAnimation(animation2, autoPlay: false)
+		 */
+
+		let n = 100
+		let g = 800.0
+		var clouds = [Node]()
+		for _ in 0 ... (n - 1) {
+			let cloud = cloudExample()
+			let velocity = Point(x: -700 + Double(rand() % 1400),
+				y: -700 + Double(rand() % 1400))
+			let flying = PathAnimation(observableValue: cloud.posProperty, function: { t in
+				let x = velocity.x * t
+				let y = velocity.y * t + g * t * t;
+				return Transform.move(100.0 + x, my: 100 + y).scale(0.05, sy: 0.05)
+				}, animationDuration: 10.0)
+			animation.append(flying)
+			clouds.append(cloud)
 		}
 
-		super.addAnimation(animation1, autoPlay: false)
-		super.addAnimation(animation2, autoPlay: false)
+		let group = Group(
+			contents: clouds,
+			pos: Transform().move(-80, my: -100))
+		super.init(node: group, coder: aDecoder)
+
+		animation.forEach { anim in
+			super.addAnimation(anim, autoPlay: false)
+		}
 	}
 
 	required init?(node: Node, coder aDecoder: NSCoder) {
-		animations = []
+		// animations = []
 		super.init(node: node, coder: aDecoder)
 	}
 }

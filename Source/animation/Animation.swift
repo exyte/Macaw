@@ -1,13 +1,13 @@
 import Foundation
 
 public extension SequenceType where Generator.Element: Animatable {
-	func playAnimation() {
+	func playAnimations() {
 		self.forEach { animation in
 			animation.play()
 		}
 	}
 
-	func pauseAnimation() {
+	func pauseAnimations() {
 		self.forEach { animation in
 			animation.pause()
 		}
@@ -19,7 +19,7 @@ public extension SequenceType where Generator.Element: Animatable {
 		}
 	}
 
-	func moveToAnimationPosition(position: Double) {
+	func moveAnimationsToPosition(position: Double) {
 		self.forEach { animation in
 			animation.moveToPosition(position)
 		}

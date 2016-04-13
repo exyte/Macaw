@@ -16,15 +16,15 @@ class PathExampleView: MacawView {
 
 		if paused {
 			playerBtn?.setTitle("Play", forState: .Normal)
-			animation.pauseAnimation()
+			animation.pauseAnimations()
 		} else {
 			playerBtn?.setTitle("Pause", forState: .Normal)
-			animation.playAnimation()
+			animation.playAnimations()
 		}
 	}
 
 	@IBAction func onProgressChanged(sender: UISlider) {
-		animation.moveToAnimationPosition(Double(sender.value)) // currentProgress.set(Double(sender.value))
+		animation.moveAnimationsToPosition(Double(sender.value)) // currentProgress.set(Double(sender.value))
 	}
 
 	required init?(coder aDecoder: NSCoder) {

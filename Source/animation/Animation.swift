@@ -26,6 +26,10 @@ public extension SequenceType where Generator.Element: Animatable {
 	}
 }
 
+enum AnimationType {
+	case Transition
+}
+
 public class Animatable {
 
 	var shouldBeRemoved = false

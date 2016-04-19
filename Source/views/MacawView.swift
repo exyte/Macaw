@@ -6,7 +6,7 @@ public class MacawView: UIView {
 	var node: Node!
 	var context: RenderContext!
 	var renderer: NodeRenderer!
-	var loop: AnimationLoop?
+	// var loop: AnimationLoop?
 
 	public required init?(node: Node, coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -14,10 +14,10 @@ public class MacawView: UIView {
 		self.node = node
 		self.context = RenderContext(view: self)
 		self.renderer = RenderUtils.createNodeRenderer(node, context: context)!
-		self.loop = AnimationLoop()
-		self.loop?.rendererCall = {
-			self.setNeedsDisplay()
-		}
+//		self.loop = AnimationLoop()
+//		self.loop?.rendererCall = {
+//			self.setNeedsDisplay()
+//		}
 	}
 
 	public convenience required init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,7 @@ public class MacawView: UIView {
 	}
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {
-		let subscription = AnimationSubscription(animation: animation, paused: !autoPlay)
-		self.loop?.addSubscription(subscription)
+		// let subscription = AnimationSubscription(animation: animation, paused: !autoPlay)
+		// self.loop?.addSubscription(subscription)
 	}
 }

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 public extension SequenceType where Generator.Element: Animatable {
 	func playAnimations() {
@@ -27,10 +27,14 @@ public extension SequenceType where Generator.Element: Animatable {
 }
 
 enum AnimationType {
-	case Transition
+	case Unknown
+	case AffineTransformation
 }
 
 public class Animatable {
+
+	var layer: CAShapeLayer?
+	var type = AnimationType.Unknown
 
 	var shouldBeRemoved = false
 	var paused = false

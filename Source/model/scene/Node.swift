@@ -25,6 +25,8 @@ public class Node: Drawable  {
 		get { return clipProperty.get() }
 		set(val) { clipProperty.set(val) }
 	}
+    
+    public var animating = false
 
 	public init(pos: Transform, opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
 		self.posProperty = ObservableValue<Transform>(value: pos)	

@@ -1,6 +1,6 @@
 import Foundation
 
-public class Shape: Node  {
+public class Shape: Node {
 
 	public let formProperty: ObservableValue<Locus>
 	public var form: Locus {
@@ -21,9 +21,9 @@ public class Shape: Node  {
 	}
 
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.formProperty = ObservableValue<Locus>(value: form)	
-		self.fillProperty = ObservableValue<Fill?>(value: fill)	
-		self.strokeProperty = ObservableValue<Stroke?>(value: stroke)	
+		self.formProperty = ObservableValue<Locus>(value: form)
+		self.fillProperty = ObservableValue<Fill?>(value: fill)
+		self.strokeProperty = ObservableValue<Stroke?>(value: stroke)
 		super.init(
 			pos: pos,
 			opaque: opaque,
@@ -32,5 +32,4 @@ public class Shape: Node  {
 			tag: tag
 		)
 	}
-
 }

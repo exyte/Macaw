@@ -1,7 +1,16 @@
 import UIKit
 
 public class AnimationProducer {
+
+	let sceneLayer: CALayer
+
+	public required init(layer: CALayer) {
+		sceneLayer = layer
+	}
+
 	public func addAnimation(animation: Animatable) {
+		animation.shape?.animating = true
+
 		switch animation.type {
 		case .Unknown:
 			return
@@ -14,6 +23,10 @@ public class AnimationProducer {
 		guard let transformAnimation = animation as? TransformAnimation else {
 			return
 		}
+
+//		guard let bounds = animation.shape?.bounds() else {
+//			return
+//		}
 
 		let cgTransformStart = transfomToCG(transformAnimation.start)
 		let cgTransformFinal = transfomToCG(transformAnimation.final)
@@ -57,7 +70,14 @@ public class AnimationProducer {
 		let group = CAAnimationGroup()
 		group.animations = [translationX, translationY, scaleX, scaleY]
 
-		animation.layer?.addAnimation(group, forKey: .None)
+		let layer = ShapeLayer()
+		layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
+		layer.shape = animation.shape
+		layer.setNeedsDisplay()
+
+		sceneLayer.addSublayer(layer)
+
+		layer.addAnimation(group, forKey: .None)
 	}
 }
 

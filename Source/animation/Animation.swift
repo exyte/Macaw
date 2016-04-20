@@ -33,7 +33,7 @@ enum AnimationType {
 
 public class Animatable {
 
-	var layer: CAShapeLayer?
+	var shape: Shape?
 	var type = AnimationType.Unknown
 
 	var shouldBeRemoved = false

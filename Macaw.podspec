@@ -15,29 +15,32 @@ Pod::Spec.new do |s|
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
 #   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
+#   * Finally, don't worry about the indent, CocoaPods strips it!
 #  s.description      = <<-DESC
 #                       DESC
 
-  s.homepage         = "https://github.com/exyte/Macaw"
+  s.homepage         = 'https://github.com/exyte/Macaw'
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { "Igor Zapletnev" => "igor.zapletnev@gmail.com" }
-  s.source           = { :git => "https://github.com/exyte/Macaw.git", :tag => s.version.to_s }
+  s.author           = { 'Igor Zapletnev' => 'igor.zapletnev@gmail.com' }
+  s.source           = { :git => 'https://github.com/exyte/Macaw.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = [
-     'Source/*.swift', 
+     'Source/*.swift',
+     'Source/animation/*.swift',
+     'Source/animation/extensions/*.swift',
+     'Source/animation/types/*.swift',
+     'Source/bindings/*.swift',
+     'Source/events/*.swift',
      'Source/model/draw/*.swift',
      'Source/model/geom2d/*.swift',
      'Source/model/input/*.swift',
      'Source/model/scene/*.swift',
-     'Source/bindings/*.swift', 
-     'Source/events/*.swift', 
-     'Source/render/*.swift', 
+     'Source/render/*.swift',
      'Source/views/*.swift'
   ]
   # s.resource_bundles = {
@@ -46,5 +49,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'SWXMLHash', '~> 2.3.0'
 end

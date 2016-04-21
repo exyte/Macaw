@@ -17,8 +17,7 @@ class ShapeRenderer: NodeRenderer {
 
     func render() {
         setGeometry(shape.form, ctx: ctx.cgContext!)
-        setFill(shape.fill, ctx: ctx.cgContext!)
-        setStroke(shape.stroke, ctx: ctx.cgContext!)
+        drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!)
     }
     
     private func hook() {
@@ -343,11 +342,27 @@ class ShapeRenderer: NodeRenderer {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
     
+    private func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?) {
+        if fill != nil && stroke != nil {
+            setFill(fill, ctx: ctx)
+            setStroke(stroke, ctx: ctx)
+            CGContextDrawPath(ctx, .FillStroke)
+            return
+        }
+        if fill != nil {
+            setFill(fill, ctx: ctx)
+            CGContextDrawPath(ctx, .Fill)
+        }
+        if stroke != nil {
+            setStroke(stroke, ctx: ctx)
+            CGContextDrawPath(ctx, .Stroke)
+        }
+    }
+    
     private func setFill(fill: Fill?, ctx: CGContext?) {
         if fill != nil {
             if let color = fill as? Color {
                 CGContextSetFillColorWithColor(ctx, RenderUtils.mapColor(color))
-                CGContextFillPath(ctx)
             } else if let gradient = fill as? LinearGradient {
                 var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
                 var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
@@ -385,7 +400,6 @@ class ShapeRenderer: NodeRenderer {
                     dashPointer.dealloc(dashes.count)
                 }
                 CGContextSetStrokeColorWithColor(ctx, RenderUtils.mapColor(color))
-                CGContextStrokePath(ctx)
             } else {
                 print("Unsupported stroke fill: \(stroke!.fill)")
             }

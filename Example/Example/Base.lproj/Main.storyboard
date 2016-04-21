@@ -90,6 +90,24 @@
             </objects>
             <point key="canvasLocation" x="-838" y="1195"/>
         </scene>
+        <!--SVG-->
+        <scene sceneID="7mv-yr-foI">
+            <objects>
+                <viewController storyboardIdentifier="SVGExampleViewController" title="SVG" id="mKW-eb-P6k" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TsH-he-yyr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ohj-O3-2uP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="anZ-To-3Vj" customClass="SVGExampleView" customModule="Example" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W3h-lx-w4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-838" y="1917"/>
+        </scene>
         <!--Shapes-->
         <scene sceneID="tne-QT-ifu">
             <objects>

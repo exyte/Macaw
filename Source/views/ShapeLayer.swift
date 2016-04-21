@@ -1,7 +1,7 @@
 import UIKit
 
 class ShapeLayer: CALayer {
-	var shape: Shape?
+	var shape: Group?
 
 	override func drawInContext(ctx: CGContext) {
 		guard let shape = shape else {
@@ -10,6 +10,6 @@ class ShapeLayer: CALayer {
 
 		let renderContext = RenderContext(view: .None)
 		renderContext.cgContext = ctx
-		ShapeRenderer(shape: shape, ctx: renderContext).render()
+		GroupRenderer(group: shape, ctx: renderContext, inBounds: true).render()
 	}
 }

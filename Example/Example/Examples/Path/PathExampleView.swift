@@ -203,18 +203,47 @@ class PathExampleView: MacawView {
 		 super.addAnimation(animation2, autoPlay: false)
 		 */
 
-		let n = 100
-		let g = 800.0
+// 2
+		/*
+		 let n = 100
+		 let g = 800.0
+		 var clouds = [Node]()
+		 for _ in 0 ... (n - 1) {
+		 let cloud = cloudExample()
+		 let velocity = Point(x: -700 + Double(rand() % 1400),
+		 y: -700 + Double(rand() % 1400))
+		 let flying = PathAnimation(observableValue: cloud.posProperty, function: { t in
+		 let x = velocity.x * t
+		 let y = velocity.y * t + g * t * t;
+		 return Transform.move(100.0 + x, my: 100 + y).scale(0.05, sy: 0.05)
+		 }, animationDuration: 10.0)
+		 animation.append(flying)
+		 clouds.append(cloud)
+		 }
+
+		 let group = Group(
+		 contents: clouds,
+		 pos: Transform().move(-80, my: -100))
+		 super.init(node: group, coder: aDecoder)
+
+		 animation.forEach { anim in
+		 super.addAnimation(anim, autoPlay: false)
+		 }
+
+		 */
+
+		let n = 200
+		// let g = 800.0
 		var clouds = [Node]()
 		for _ in 0 ... (n - 1) {
 			let cloud = cloudExample()
-			let velocity = Point(x: -700 + Double(rand() % 1400),
+			let velocity = Point(x: -1000 + Double(rand() % 2000),
 				y: -700 + Double(rand() % 1400))
-			let flying = PathAnimation(observableValue: cloud.posProperty, function: { t in
-				let x = velocity.x * t
-				let y = velocity.y * t + g * t * t;
-				return Transform.move(100.0 + x, my: 100 + y).scale(0.05, sy: 0.05)
-				}, animationDuration: 10.0)
+			let flying = TransformAnimation(animatedShape: cloud,
+				observableValue: cloud.posProperty,
+				startValue: Transform.move(0.0, my: 0.0).scale(0.3, sy: 0.3),
+				finalValue: Transform.move(velocity.x, my: velocity.y).scale(0.3, sy: 0.3),
+				animationDuration: 1.0)
 			animation.append(flying)
 			clouds.append(cloud)
 		}
@@ -223,14 +252,16 @@ class PathExampleView: MacawView {
 			contents: clouds,
 			pos: Transform().move(-80, my: -100))
 		super.init(node: group, coder: aDecoder)
-
-		animation.forEach { anim in
-			super.addAnimation(anim, autoPlay: false)
-		}
 	}
 
 	required init?(node: Node, coder aDecoder: NSCoder) {
 		// animations = []
 		super.init(node: node, coder: aDecoder)
+	}
+
+	func testAnimation() {
+		animation.forEach { anim in
+			super.addAnimation(anim, autoPlay: false)
+		}
 	}
 }

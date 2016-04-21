@@ -7,10 +7,12 @@ class GroupRenderer: NodeRenderer {
 		get { return group }
 	}
 	let group: Group
+	let renderInBounds: Bool
 
-	init(group: Group, ctx: RenderContext) {
+	init(group: Group, ctx: RenderContext, inBounds: Bool = false) {
 		self.group = group
 		self.ctx = ctx
+		self.renderInBounds = inBounds
 		hook()
 	}
 
@@ -27,7 +29,10 @@ class GroupRenderer: NodeRenderer {
 		contentRenderers.forEach { renderer in
 			if let rendererVal = renderer {
 				CGContextSaveGState(ctx.cgContext)
-				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
+				if !renderInBounds {
+					CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
+				}
+
 				setClip(rendererVal.node)
 				rendererVal.render()
 				CGContextRestoreGState(ctx.cgContext)

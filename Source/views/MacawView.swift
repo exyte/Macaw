@@ -37,5 +37,6 @@ public class MacawView: UIView {
 		// let subscription = AnimationSubscription(animation: animation, paused: !autoPlay)
 		// self.loop?.addSubscription(subscription)
 		animationProducer?.addAnimation(animation)
+		self.setNeedsDisplay()
 	}
 }

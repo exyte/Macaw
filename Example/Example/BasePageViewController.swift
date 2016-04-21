@@ -8,7 +8,7 @@ class BasePageViewController: UIPageViewController {
 			self.newMacawViewController("MenuViewController"),
 			self.newMacawViewController("FirstPageViewController"),
 			self.newMacawViewController("SecondPageViewController"),
-			self.newMacawViewController("ThirdPageViewController"),
+			self.newMacawViewController("PathExampleController"),
 			self.newMacawViewController("FourthPageViewController"),
 			self.newMacawViewController("AnimationsExampleController"),
 			self.newMacawViewController("ModelListenersExampleController"),

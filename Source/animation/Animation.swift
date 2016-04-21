@@ -33,7 +33,7 @@ enum AnimationType {
 
 public class Animatable {
 
-	var shape: Shape?
+	var shape: Group?
 	var type = AnimationType.Unknown
 
 	var shouldBeRemoved = false
@@ -44,7 +44,7 @@ public class Animatable {
 	public let currentProgress = ObservableValue<Double>(value: 0)
 
 	func animate(progress: Double) { }
-	func getDuration() -> Double { return 0 }
+	func  getDuration() -> Double { return 0 }
 
 	func play() {
 		paused = false

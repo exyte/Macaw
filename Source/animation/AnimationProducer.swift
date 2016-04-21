@@ -47,37 +47,41 @@ public class AnimationProducer {
 
 		// layer.setAffineTransform(cgTransformStart)
 
-		let scaleX = CABasicAnimation(keyPath: "scale.x")
+		let scaleX = CABasicAnimation(keyPath: "transform.scale.x")
 		scaleX.fromValue = startScaleX
 		scaleX.toValue = finalScaleX
 		scaleX.duration = animation.getDuration()
 
-		let scaleY = CABasicAnimation(keyPath: "scale.y")
+		let scaleY = CABasicAnimation(keyPath: "transform.scale.y")
 		scaleY.fromValue = startScaleY
 		scaleY.toValue = finalScaleY
 		scaleY.duration = animation.getDuration()
 
-		let translationX = CABasicAnimation(keyPath: "translation.x")
+		let translationX = CABasicAnimation(keyPath: "transform.translation.x")
 		translationX.fromValue = startX
 		translationX.toValue = finalX
 		translationX.duration = animation.getDuration()
 
-		let translationY = CABasicAnimation(keyPath: "translation.y")
+		let translationY = CABasicAnimation(keyPath: "transform.translation.y")
 		translationY.fromValue = startY
 		translationY.toValue = finalY
 		translationY.duration = animation.getDuration()
 
 		let group = CAAnimationGroup()
 		group.animations = [translationX, translationY, scaleX, scaleY]
+		group.autoreverses = true
+		group.repeatCount = 100
 
 		let layer = ShapeLayer()
+		// layer.backgroundColor = UIColor.greenColor().CGColor
 		layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
 		layer.shape = animation.shape
 		layer.setNeedsDisplay()
 
 		sceneLayer.addSublayer(layer)
 
-		layer.addAnimation(group, forKey: .None)
+		// layer.setAffineTransform(cgTransformFinal)
+		layer.addAnimation(group, forKey: "flying")
 	}
 }
 

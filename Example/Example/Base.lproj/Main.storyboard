@@ -147,7 +147,7 @@
         <!--Path-->
         <scene sceneID="vwB-cZ-5dI">
             <objects>
-                <viewController storyboardIdentifier="ThirdPageViewController" title="Path" id="IrQ-al-Owp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PathExampleController" title="Path" id="IrQ-al-Owp" customClass="PathExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bl7-8Z-ZUm"/>
                         <viewControllerLayoutGuide type="bottom" id="1ea-S4-NTm"/>
@@ -187,6 +187,9 @@
                             <outlet property="progressSlider" destination="oo7-ju-RJS" id="g4N-sP-hPU"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="sceneView" destination="y1S-j5-FMS" id="Gys-cw-jYu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asF-Da-v23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

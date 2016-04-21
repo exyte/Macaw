@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
+		5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5708F7E51CC8A783002AA500 /* PathExampleController.swift */; };
 		574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */; };
 		574EC4381CB7DE7F0063F317 /* CleanersGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */; };
 		574EC4391CB7DE7F0063F317 /* CleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42B1CB7DE7F0063F317 /* CleanerView.swift */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		24BE07031C6DF1F000B5882F /* BasePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
+		5708F7E51CC8A783002AA500 /* PathExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathExampleController.swift; sourceTree = "<group>"; };
 		574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerExampleController.swift; sourceTree = "<group>"; };
 		574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanersGraphics.swift; sourceTree = "<group>"; };
 		574EC42B1CB7DE7F0063F317 /* CleanerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				574EC4321CB7DE7F0063F317 /* PathExampleView.swift */,
+				5708F7E51CC8A783002AA500 /* PathExampleController.swift */,
 			);
 			path = Path;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				574EC43F1CB7DE7F0063F317 /* TextExampleView.swift in Sources */,
 				574EC43C1CB7DE7F0063F317 /* RectShapeView.swift in Sources */,
 				574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */,
+				5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */,
 				575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */,
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				574EC43A1CB7DE7F0063F317 /* DiagramExampleView.swift in Sources */,

@@ -31,3 +31,25 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+Pods/Manifest.lock
+Pods/Pods.xcodeproj/project.pbxproj
+Pods/SWXMLHash/LICENSE
+Pods/SWXMLHash/README.md
+Pods/SWXMLHash/Source/SWXMLHash+TypeConversion.swift
+Pods/SWXMLHash/Source/SWXMLHash.swift
+Pods/Target Support Files/Pods-Macaw/Info.plist
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw-acknowledgements.markdown
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw-acknowledgements.plist
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw-dummy.m
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw-frameworks.sh
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw-resources.sh
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw-umbrella.h
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw.debug.xcconfig
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw.modulemap
+Pods/Target Support Files/Pods-Macaw/Pods-Macaw.release.xcconfig
+Pods/Target Support Files/SWXMLHash/Info.plist
+Pods/Target Support Files/SWXMLHash/SWXMLHash-dummy.m
+Pods/Target Support Files/SWXMLHash/SWXMLHash-prefix.pch
+Pods/Target Support Files/SWXMLHash/SWXMLHash-umbrella.h
+Pods/Target Support Files/SWXMLHash/SWXMLHash.modulemap
+Pods/Target Support Files/SWXMLHash/SWXMLHash.xcconfig

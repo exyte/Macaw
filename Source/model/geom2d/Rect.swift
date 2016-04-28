@@ -31,4 +31,8 @@ public class Rect: Locus {
 			w: max(self.x + self.w, rect.x + rect.w),
 			h: max(self.y + self.h, rect.y + rect.h))
 	}
+
+	class func zero() -> Rect {
+		return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
+	}
 }

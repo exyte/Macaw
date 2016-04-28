@@ -32,4 +32,8 @@ public class Shape: Node {
 			tag: tag
 		)
 	}
+
+	override public func bounds() -> Rect? {
+		return form.bounds()
+	}
 }

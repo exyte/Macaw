@@ -45,7 +45,14 @@ private func moveBounds(move: Move) -> Rect {
 }
 
 private func cubicBounds(cubic: Cubic) -> Rect {
-	return Rect.zero()
+
+	let p0 = Point(x: 0, y: 0)
+	let p1 = Point(x: cubic.x1, y: cubic.y1)
+	let p2 = Point(x: cubic.x2, y: cubic.y2)
+	let p3 = Point(x: cubic.x, y: cubic.y)
+
+	let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
+	return boundsForFunc(bezier3)
 }
 
 private func sCubicBounds(sCubic: SCubic) -> Rect {

@@ -220,7 +220,7 @@ class ShapeRenderer: NodeRenderer {
 			}
 		}
 
-		func S(x2: Double, y2: Double, x: Double, y: Double) {
+		func  S(x2: Double, y2: Double, x: Double, y: Double) {
 			if let cur = currentPoint {
 				let nextCubic = CGPointMake(CGFloat(x2), CGFloat(y2))
 				let next = CGPointMake(CGFloat(x), CGFloat(y))

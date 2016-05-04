@@ -5,43 +5,53 @@ func pathBounds(path: Path) -> Rect? {
 		return .None
 	}
 
-	var bounds = pathSegmentBounds(firstSegment)
+	let firstSegmentInfo = pathSegmenInfo(firstSegment)
+	var bounds = firstSegmentInfo.0
+	var currentPoint = firstSegmentInfo.1
+
 	for segment in path.segments {
-		if let segmentBounds = pathSegmentBounds(segment) {
+		let segmentInfo = pathSegmenInfo(segment)
+		if let segmentBounds = segmentInfo.0 {
 			bounds = bounds?.union(segmentBounds)
 		}
+
+		currentPoint = segmentInfo.1
 	}
 
 	return bounds
 }
 
-func pathSegmentBounds(segment: PathSegment) -> Rect? {
+func pathSegmenInfo(segment: PathSegment) -> (Rect?, Point?) {
 
 	if let move = segment as? Move {
-		return moveBounds(move)
+		return (moveBounds(move), Point(x: move.x, y: move.y))
 	}
 
 	if let cubic = segment as? Cubic {
-		return cubicBounds(cubic)
+		return (cubicBounds(cubic), Point(x: cubic.x, y: cubic.y))
 	}
 
-	if let sCubic = segment as? SCubic {
-		return sCubicBounds(sCubic)
-	}
+//	if let sCubic = segment as? SCubic {
+//		return sCubicBounds(sCubic)
+//	}
 
 	if let hLine = segment as? HLine {
-		return hLineBounds(hLine)
+		return (hLineBounds(hLine), Point(x: hLine.x, y: 0.0))
+	}
+
+	if let vLine = segment as? VLine {
+		return (vLineBounds(vLine), Point(x: 0.0, y: vLine.y))
 	}
 
 	if let pLine = segment as? PLine {
-		return pLineBounds(pLine)
+		return (pLineBounds(pLine), Point(x: pLine.x, y: pLine.y))
 	}
 
-	return .None
+	return (.None, .None)
 }
 
 private func moveBounds(move: Move) -> Rect {
-	return Rect.zero()
+	return Rect(x: move.x, y: move.y, w: 0.0, h: 0.0)
 }
 
 private func cubicBounds(cubic: Cubic) -> Rect {
@@ -52,6 +62,8 @@ private func cubicBounds(cubic: Cubic) -> Rect {
 	let p3 = Point(x: cubic.x, y: cubic.y)
 
 	let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
+
+	// TODO: Replace with accurate implementation via derivative
 	return boundsForFunc(bezier3)
 }
 
@@ -60,9 +72,13 @@ private func sCubicBounds(sCubic: SCubic) -> Rect {
 }
 
 private func hLineBounds(hLine: HLine) -> Rect {
-	return Rect.zero()
+	return Rect(x: 0.0, y: 0.0, w: hLine.x, h: 0.0)
+}
+
+private func vLineBounds(vLine: VLine) -> Rect {
+	return Rect(x: 0.0, y: 0.0, w: 0.0, h: vLine.y)
 }
 
 private func pLineBounds(pLine: PLine) -> Rect {
-	return Rect.zero()
+	return Rect(x: pLine.x, y: pLine.y, w: 0.0, h: 0.0)
 }

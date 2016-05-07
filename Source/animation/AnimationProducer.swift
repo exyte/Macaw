@@ -24,6 +24,10 @@ public class AnimationProducer {
 			return
 		}
 
+		guard let shape = animation.shape else {
+			return
+		}
+
 //		guard let bounds = animation.shape?.bounds() else {
 //			return
 //		}
@@ -74,8 +78,15 @@ public class AnimationProducer {
 
 		let layer = ShapeLayer()
 		// layer.backgroundColor = UIColor.greenColor().CGColor
-		layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
-		layer.shape = animation.shape
+		layer.borderWidth = 1.0
+		layer.borderColor = UIColor.blueColor().CGColor
+
+		if let shapeBounds = shape.bounds() {
+			// layer.frame = shapeBounds.cgRect()
+			layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
+		}
+
+		layer.shape = shape
 		layer.setNeedsDisplay()
 
 		sceneLayer.addSublayer(layer)

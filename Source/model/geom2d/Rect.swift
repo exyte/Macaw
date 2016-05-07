@@ -32,6 +32,15 @@ public class Rect: Locus {
 			h: max(self.y + self.h, rect.y + rect.h))
 	}
 
+	// GENERATED NOT
+	public func move(offset: Point) -> Rect {
+		return Rect(
+			x: self.x + offset.x,
+			y: self.y + offset.y,
+			w: self.w,
+			h: self.h)
+	}
+
 	class func zero() -> Rect {
 		return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
 	}

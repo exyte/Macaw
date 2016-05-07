@@ -34,6 +34,11 @@ public class Shape: Node {
 	}
 
 	override public func bounds() -> Rect? {
+
+		if let path = form as? Path {
+			return pathBounds(path)
+		}
+
 		return form.bounds()
 	}
 }

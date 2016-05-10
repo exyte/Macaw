@@ -29,7 +29,7 @@ public class Group: Node {
 				return
 			}
 
-			union = union.union(nodeBounds)
+			union = union.union(nodeBounds.applyTransform(pos))
 		}
 
 		return union

@@ -1,43 +1,44 @@
 import Foundation
+import RxSwift
 
 public class MouseButton {
 
-	public let pressedProperty: ObservableValue<Bool>
+	public let pressedVar: Variable<Bool>
 	public var pressed: Bool {
-		get { return pressedProperty.get() }
-		set(val) { pressedProperty.set(val) }
+		get { return pressedVar.value }
+		set(val) { pressedVar.value = val }
 	}
 
-	public let onPressProperty: ObservableValue<Signal>
+	public let onPressVar: Variable<Signal>
 	public var onPress: Signal {
-		get { return onPressProperty.get() }
-		set(val) { onPressProperty.set(val) }
+		get { return onPressVar.value }
+		set(val) { onPressVar.value = val }
 	}
 
-	public let onReleaseProperty: ObservableValue<Signal>
+	public let onReleaseVar: Variable<Signal>
 	public var onRelease: Signal {
-		get { return onReleaseProperty.get() }
-		set(val) { onReleaseProperty.set(val) }
+		get { return onReleaseVar.value }
+		set(val) { onReleaseVar.value = val }
 	}
 
-	public let onClickProperty: ObservableValue<Signal>
+	public let onClickVar: Variable<Signal>
 	public var onClick: Signal {
-		get { return onClickProperty.get() }
-		set(val) { onClickProperty.set(val) }
+		get { return onClickVar.value }
+		set(val) { onClickVar.value = val }
 	}
 
-	public let onDoubleClickProperty: ObservableValue<Signal>
+	public let onDoubleClickVar: Variable<Signal>
 	public var onDoubleClick: Signal {
-		get { return onDoubleClickProperty.get() }
-		set(val) { onDoubleClickProperty.set(val) }
+		get { return onDoubleClickVar.value }
+		set(val) { onDoubleClickVar.value = val }
 	}
 
 	public init(pressed: Bool = false, onPress: Signal, onRelease: Signal, onClick: Signal, onDoubleClick: Signal) {
-		self.pressedProperty = ObservableValue<Bool>(value: pressed)	
-		self.onPressProperty = ObservableValue<Signal>(value: onPress)	
-		self.onReleaseProperty = ObservableValue<Signal>(value: onRelease)	
-		self.onClickProperty = ObservableValue<Signal>(value: onClick)	
-		self.onDoubleClickProperty = ObservableValue<Signal>(value: onDoubleClick)	
+		self.pressedVar = Variable<Bool>(pressed)	
+		self.onPressVar = Variable<Signal>(onPress)	
+		self.onReleaseVar = Variable<Signal>(onRelease)	
+		self.onClickVar = Variable<Signal>(onClick)	
+		self.onDoubleClickVar = Variable<Signal>(onDoubleClick)	
 	}
 
 }

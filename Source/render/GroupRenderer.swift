@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class GroupRenderer: NodeRenderer {
     var ctx: RenderContext
@@ -7,6 +8,7 @@ class GroupRenderer: NodeRenderer {
         get { return group }
     }
     let group: Group
+    let disposeBag = DisposeBag()
     
     init(group: Group, ctx: RenderContext) {
         self.group = group
@@ -15,10 +17,12 @@ class GroupRenderer: NodeRenderer {
     }
     
     func hook() {
-        func onGroupChange(old: [Node], new: [Node]) {
+        func onGroupChange(new: [Node]) {
             ctx.view.setNeedsDisplay()
         }
-        group.contentsProperty.addListener(onGroupChange)
+        group.contentsVar.asObservable().subscribeNext { new in
+            onGroupChange(new)
+        }.addDisposableTo(disposeBag)
     }
     
     func render() {

@@ -21,10 +21,12 @@ class ShapeRenderer: NodeRenderer {
     }
     
     private func hook() {
-        func onFormChange(old: Locus, new: Locus) {
+        func onFormChange(new: Locus) {
             ctx.view.setNeedsDisplay()
         }
-        shape.formProperty.addListener(onFormChange)
+        let _ = shape.formVar.asObservable().subscribeNext { newForm in
+            onFormChange(newForm)
+        }
     }
     
     private func setGeometry(locus: Locus, ctx: CGContext) {

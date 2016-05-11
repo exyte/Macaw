@@ -35,7 +35,7 @@ class AnimationLoop {
 
 			if animation.shouldUpdateSubscription {
 				animation.shouldUpdateSubscription = false
-				subscription.startTime = timestamp - animation.getDuration() * animation.currentProgress.get()
+				subscription.startTime = timestamp - animation.getDuration() * animation.currentProgress.value
 			}
 
 			// Calculating current position
@@ -54,7 +54,7 @@ class AnimationLoop {
 				toRemove.append(subscription)
 			}
 
-			animation.currentProgress.set(position)
+			animation.currentProgress.value = position
 			subscription.moveToTimeFrame(position)
 		}
 
@@ -78,13 +78,13 @@ class AnimationLoop {
 			return
 		}
 
-		animation.currentProgress.addListener { (oldValue, newValue) in
-			if !subscription.anim.paused {
-				return
-			}
-
-			subscription.moveToTimeFrame(newValue)
-			self.rendererCall?()
-		}
+        let _ = animation.currentProgress.asObservable().subscribeNext { newValue in
+            if !subscription.anim.paused {
+                return
+            }
+            
+            subscription.moveToTimeFrame(newValue)
+            self.rendererCall?()
+        }
 	}
 }

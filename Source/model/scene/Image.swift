@@ -1,50 +1,51 @@
 import Foundation
+import RxSwift
 
 public class Image: Node  {
 
-	public let srcProperty: ObservableValue<String>
+	public let srcVar: Variable<String>
 	public var src: String {
-		get { return srcProperty.get() }
-		set(val) { srcProperty.set(val) }
+		get { return srcVar.value }
+		set(val) { srcVar.value = val }
 	}
 
-	public let xAlignProperty: ObservableValue<Align>
+	public let xAlignVar: Variable<Align>
 	public var xAlign: Align {
-		get { return xAlignProperty.get() }
-		set(val) { xAlignProperty.set(val) }
+		get { return xAlignVar.value }
+		set(val) { xAlignVar.value = val }
 	}
 
-	public let yAlignProperty: ObservableValue<Align>
+	public let yAlignVar: Variable<Align>
 	public var yAlign: Align {
-		get { return yAlignProperty.get() }
-		set(val) { yAlignProperty.set(val) }
+		get { return yAlignVar.value }
+		set(val) { yAlignVar.value = val }
 	}
 
-	public let aspectRatioProperty: ObservableValue<AspectRatio>
+	public let aspectRatioVar: Variable<AspectRatio>
 	public var aspectRatio: AspectRatio {
-		get { return aspectRatioProperty.get() }
-		set(val) { aspectRatioProperty.set(val) }
+		get { return aspectRatioVar.value }
+		set(val) { aspectRatioVar.value = val }
 	}
 
-	public let wProperty: ObservableValue<Int>
+	public let wVar: Variable<Int>
 	public var w: Int {
-		get { return wProperty.get() }
-		set(val) { wProperty.set(val) }
+		get { return wVar.value }
+		set(val) { wVar.value = val }
 	}
 
-	public let hProperty: ObservableValue<Int>
+	public let hVar: Variable<Int>
 	public var h: Int {
-		get { return hProperty.get() }
-		set(val) { hProperty.set(val) }
+		get { return hVar.value }
+		set(val) { hVar.value = val }
 	}
 
 	public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.srcProperty = ObservableValue<String>(value: src)	
-		self.xAlignProperty = ObservableValue<Align>(value: xAlign)	
-		self.yAlignProperty = ObservableValue<Align>(value: yAlign)	
-		self.aspectRatioProperty = ObservableValue<AspectRatio>(value: aspectRatio)	
-		self.wProperty = ObservableValue<Int>(value: w)	
-		self.hProperty = ObservableValue<Int>(value: h)	
+		self.srcVar = Variable<String>(src)	
+		self.xAlignVar = Variable<Align>(xAlign)	
+		self.yAlignVar = Variable<Align>(yAlign)	
+		self.aspectRatioVar = Variable<AspectRatio>(aspectRatio)	
+		self.wVar = Variable<Int>(w)	
+		self.hVar = Variable<Int>(h)	
 		super.init(
 			pos: pos,
 			opaque: opaque,

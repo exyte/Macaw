@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 public struct AnimationPathFrame<T: Interpolable> {
 
@@ -21,13 +22,13 @@ public struct AnimationPathSegment<T: Interpolable> {
 
 public class PathAnimation<T: Interpolable>: Animatable {
 
-	let value: ObservableValue<T>
+	let value: Variable<T>
 	let pathSegments: [AnimationPathSegment<T>]
 	let duration: Double
 
 	var cachedSegment: AnimationPathSegment<T>?
 
-	public required init(observableValue: ObservableValue<T>, path: [AnimationPathFrame<T>], animationDuration: Double) {
+	public required init(observableValue: Variable<T>, path: [AnimationPathFrame<T>], animationDuration: Double) {
 		value = observableValue
 		duration = animationDuration
 
@@ -45,7 +46,7 @@ public class PathAnimation<T: Interpolable>: Animatable {
 		pathSegments = segments
 	}
 
-	public convenience init(observableValue: ObservableValue<T>, function: (Double) -> T, animationDuration: Double) {
+	public convenience init(observableValue: Variable<T>, function: (Double) -> T, animationDuration: Double) {
 
 		var path = [AnimationPathFrame<T>]()
 		// 60 fps
@@ -66,8 +67,8 @@ public class PathAnimation<T: Interpolable>: Animatable {
 		// Cache
 		if let cachedSegment = cachedSegment {
 			if cachedSegment.contains(progress) {
-				value.set(iterpolate(cachedSegment, position: progress))
-				currentProgress.set(progress)
+				value.value = iterpolate(cachedSegment, position: progress)
+				currentProgress.value = progress
 				return
 			}
 		}
@@ -76,8 +77,8 @@ public class PathAnimation<T: Interpolable>: Animatable {
 		for segment in pathSegments {
 			if segment.contains(progress) {
 				cachedSegment = segment
-				value.set(iterpolate(segment, position: progress))
-				currentProgress.set(progress)
+				value.value = iterpolate(segment, position: progress)
+				currentProgress.value = progress
 				return
 			}
 		}

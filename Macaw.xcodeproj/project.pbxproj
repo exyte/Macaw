@@ -26,7 +26,6 @@
 		66AE19D21CC8C6B300B78B5E /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AE19D11CC8C6B300B78B5E /* SVGParser.swift */; };
 		AD9EDEE3709C1668BED1B1BF /* Pods_Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */; };
 		B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0086C551C789758008A4F69 /* GroupRenderer.swift */; };
-		B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0097E071C706CAB00350E43 /* ObservableValue.swift */; };
 		B03275E51C78772F000BDD33 /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275B21C78772F000BDD33 /* Align.swift */; };
 		B03275E61C78772F000BDD33 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275B31C78772F000BDD33 /* AspectRatio.swift */; };
 		B03275E71C78772F000BDD33 /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275B41C78772F000BDD33 /* Baseline.swift */; };
@@ -81,7 +80,6 @@
 		B03276231C78882A000BDD33 /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03276221C78882A000BDD33 /* ImageRenderer.swift */; };
 		B03276271C789217000BDD33 /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03276261C789217000BDD33 /* RenderContext.swift */; };
 		B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F88BD1C1C6A9E00F24FFC /* Signal.swift */; };
-		B07B544B1CA3F92B0056CA74 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07B544A1CA3F92B0056CA74 /* Disposable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,7 +103,6 @@
 		66AE19D11CC8C6B300B78B5E /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVGParser.swift; path = svg/SVGParser.swift; sourceTree = "<group>"; };
 		8A680FA7BCDE96402C10D8D2 /* Pods-Macaw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.release.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.release.xcconfig"; sourceTree = "<group>"; };
 		B0086C551C789758008A4F69 /* GroupRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRenderer.swift; sourceTree = "<group>"; };
-		B0097E071C706CAB00350E43 /* ObservableValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
 		B02E75D61C160F8D00D1971D /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E76131C1612A900D1971D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B03275B21C78772F000BDD33 /* Align.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Align.swift; sourceTree = "<group>"; };
@@ -162,7 +159,6 @@
 		B03276221C78882A000BDD33 /* ImageRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRenderer.swift; sourceTree = "<group>"; };
 		B03276261C789217000BDD33 /* RenderContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderContext.swift; sourceTree = "<group>"; };
 		B03F88BD1C1C6A9E00F24FFC /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
-		B07B544A1CA3F92B0056CA74 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -241,15 +237,6 @@
 			name = svg;
 			sourceTree = "<group>";
 		};
-		B0097E061C706CA500350E43 /* bindings */ = {
-			isa = PBXGroup;
-			children = (
-				B0097E071C706CAB00350E43 /* ObservableValue.swift */,
-				B07B544A1CA3F92B0056CA74 /* Disposable.swift */,
-			);
-			path = bindings;
-			sourceTree = "<group>";
-		};
 		B02E75CC1C160F8D00D1971D = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +263,6 @@
 				B03275B01C78772F000BDD33 /* model */,
 				585C04461C27CFB100335FF2 /* views */,
 				B03F88BC1C1C6A9300F24FFC /* events */,
-				B0097E061C706CA500350E43 /* bindings */,
 				B03276151C787996000BDD33 /* render */,
 				B02E76131C1612A900D1971D /* Info.plist */,
 			);
@@ -537,7 +523,6 @@
 				573AA6A41CAE402C00F30607 /* RevertedAnimation.swift in Sources */,
 				573AA6A61CAE41D400F30607 /* LoopedAnimation.swift in Sources */,
 				B03275F71C78772F000BDD33 /* Ellipse.swift in Sources */,
-				B0097E081C706CAB00350E43 /* ObservableValue.swift in Sources */,
 				B032760F1C78772F000BDD33 /* Group.swift in Sources */,
 				B03275E61C78772F000BDD33 /* AspectRatio.swift in Sources */,
 				B03276071C78772F000BDD33 /* SCubic.swift in Sources */,
@@ -565,7 +550,6 @@
 				B03276001C78772F000BDD33 /* PLine.swift in Sources */,
 				B03275F91C78772F000BDD33 /* HLine.swift in Sources */,
 				B03275FA1C78772F000BDD33 /* Insets.swift in Sources */,
-				B07B544B1CA3F92B0056CA74 /* Disposable.swift in Sources */,
 				B03276101C78772F000BDD33 /* Image.swift in Sources */,
 				B03275EE1C78772F000BDD33 /* LinearGradient.swift in Sources */,
 				B03275E71C78772F000BDD33 /* Baseline.swift in Sources */,

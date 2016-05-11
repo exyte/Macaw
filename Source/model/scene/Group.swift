@@ -20,7 +20,11 @@ public class Group: Node {
 	}
 
 	override public func bounds() -> Rect? {
-		guard var union = contents.first?.bounds() else {
+		guard let firstPos = contents.first?.pos else {
+			return .None
+		}
+
+		guard var union = contents.first?.bounds()?.applyTransform(firstPos) else {
 			return .None
 		}
 
@@ -29,9 +33,11 @@ public class Group: Node {
 				return
 			}
 
-			union = union.union(nodeBounds.applyTransform(pos))
+			print("Node bounds: \(nodeBounds.description())")
+			union = union.union(nodeBounds.applyTransform(node.pos))
+			print("Union after transformation: \(union.description())")
 		}
 
-		return union
+		return union // .applyTransform(pos)
 	}
 }

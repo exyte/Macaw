@@ -82,8 +82,8 @@ public class AnimationProducer {
 		layer.borderColor = UIColor.blueColor().CGColor
 
 		if let shapeBounds = shape.bounds() {
-			// layer.frame = shapeBounds.cgRect()
-			layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
+			layer.frame = shapeBounds.cgRect()
+			// layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
 		}
 
 		layer.shape = shape

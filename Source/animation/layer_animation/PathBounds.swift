@@ -1,5 +1,5 @@
 
-func  pathBounds(path: Path) -> Rect? {
+func pathBounds(path: Path) -> Rect? {
 
 	guard let firstSegment = path.segments.first else {
 		return .None
@@ -9,15 +9,22 @@ func  pathBounds(path: Path) -> Rect? {
 	var bounds = firstSegmentInfo.0
 	var currentPoint = firstSegmentInfo.1 ?? Point.zero()
 
+	print("New path - \(path.segments.count) segments")
+	print("Initial bounds \(bounds!.description())")
+	print("Initial point  \(currentPoint.description())")
+
 	for segment in path.segments {
 		let segmentInfo = pathSegmenInfo(segment)
 		if let segmentBounds = segmentInfo.0 {
 			if segment.absolute {
+				print("Absolute segment")
 				bounds = bounds?.union(segmentBounds)
 			} else {
-				bounds = bounds?.union(segmentBounds).move(currentPoint)
+				bounds = bounds?.union(segmentBounds.move(currentPoint))
 			}
 		}
+
+		print("Total bounds \(bounds!.description())")
 
 		if let segmentLastPoint = segmentInfo.1 {
 			if segment.absolute {
@@ -26,6 +33,8 @@ func  pathBounds(path: Path) -> Rect? {
 				currentPoint = currentPoint.add(segmentLastPoint)
 			}
 		}
+
+		print("Updated point  \(currentPoint.description())")
 	}
 
 	return bounds

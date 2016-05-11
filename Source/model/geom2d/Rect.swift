@@ -28,8 +28,8 @@ public class Rect: Locus {
 		return Rect(
 			x: min(self.x, rect.x),
 			y: min(self.y, rect.y),
-			w: max(self.x + self.w, rect.x + rect.w),
-			h: max(self.y + self.h, rect.y + rect.h))
+			w: max(self.x + self.w, rect.x + rect.w) - min(self.x, rect.x),
+			h: max(self.y + self.h, rect.y + rect.h) - min(self.y, rect.y))
 	}
 
 	// GENERATED NOT

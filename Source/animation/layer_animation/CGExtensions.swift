@@ -21,10 +21,18 @@ extension Rect {
 		let cgTransform = RenderUtils.mapTransform(transform)
 		return Rect(cgRect: CGRectApplyAffineTransform(self.cgRect(), cgTransform))
 	}
+
+	func description() -> String {
+		return "x: \(self.x) y:\(self.y) w:\(self.w) h:\(self.h)"
+	}
 }
 
 extension Point {
 	func cgPoint() -> CGPoint {
 		return CGPoint(x: self.x, y: self.y)
+	}
+
+	func description() -> String {
+		return "x: \(self.x) y:\(self.y)"
 	}
 }

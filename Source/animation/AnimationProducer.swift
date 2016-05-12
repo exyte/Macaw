@@ -75,6 +75,7 @@ public class AnimationProducer {
 		group.animations = [translationX, translationY, scaleX, scaleY]
 		group.autoreverses = true
 		group.repeatCount = 100
+		group.duration = animation.getDuration()
 
 		let layer = ShapeLayer()
 		// layer.backgroundColor = UIColor.greenColor().CGColor
@@ -82,7 +83,9 @@ public class AnimationProducer {
 		layer.borderColor = UIColor.blueColor().CGColor
 
 		if let shapeBounds = shape.bounds() {
-			layer.frame = shapeBounds.cgRect()
+			print("Shape bounds: \(shapeBounds.description())")
+			let cgRect = shapeBounds.cgRect()
+			layer.frame = CGRectMake(0.0, 0.0, cgRect.width, cgRect.height)
 			// layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
 		}
 

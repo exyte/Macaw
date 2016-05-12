@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class GroupRenderer: NodeRenderer {
+class  GroupRenderer: NodeRenderer {
 	var ctx: RenderContext
 	var node: Node {
 		get { return group }

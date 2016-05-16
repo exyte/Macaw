@@ -1,4 +1,4 @@
-import UIKit
+import Swift_CAAnimation_Closure
 
 public class AnimationProducer {
 
@@ -74,13 +74,20 @@ public class AnimationProducer {
 		let group = CAAnimationGroup()
 		group.animations = [translationX, translationY, scaleX, scaleY]
 		group.autoreverses = true
-		group.repeatCount = 100
+		group.repeatCount = 2
 		group.duration = animation.getDuration()
 
 		let layer = ShapeLayer()
 		// layer.backgroundColor = UIColor.greenColor().CGColor
 		// layer.borderWidth = 1.0
 		// layer.borderColor = UIColor.blueColor().CGColor
+		group.completion = { finished in
+			if !finished {
+				return
+			}
+
+			layer.removeFromSuperlayer()
+		}
 
 		if let shapeBounds = shape.bounds() {
 			print("Shape bounds: \(shapeBounds.description())")

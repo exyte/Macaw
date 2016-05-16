@@ -1,13 +1,16 @@
 PODS:
   - RxSwift (2.4)
+  - Swift-CAAnimation-Closure (1.4)
   - SWXMLHash (2.3.1)
 
 DEPENDENCIES:
   - RxSwift (~> 2.4)
+  - Swift-CAAnimation-Closure (~> 1.0)
   - SWXMLHash (~> 2.3.0)
 
 SPEC CHECKSUMS:
   RxSwift: 67b9ef4e8b34fb394e200e754c6a09cc16559f94
+  Swift-CAAnimation-Closure: 9229ece23497fe8c073587ac63f14e74b64f483a
   SWXMLHash: 795c66e74f4cc9473ad6465c6653c5a6f59f417e
 
 COCOAPODS: 0.39.0

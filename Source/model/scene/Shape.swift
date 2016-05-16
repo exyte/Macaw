@@ -1,29 +1,30 @@
 import Foundation
+import RxSwift
 
 public class Shape: Node {
 
-	public let formProperty: ObservableValue<Locus>
+	public let formVar: Variable<Locus>
 	public var form: Locus {
-		get { return formProperty.get() }
-		set(val) { formProperty.set(val) }
+		get { return formVar.value }
+		set(val) { formVar.value = val }
 	}
 
-	public let fillProperty: ObservableValue<Fill?>
+	public let fillVar: Variable<Fill?>
 	public var fill: Fill? {
-		get { return fillProperty.get() }
-		set(val) { fillProperty.set(val) }
+		get { return fillVar.value }
+		set(val) { fillVar.value = val }
 	}
 
-	public let strokeProperty: ObservableValue<Stroke?>
+	public let strokeVar: Variable<Stroke?>
 	public var stroke: Stroke? {
-		get { return strokeProperty.get() }
-		set(val) { strokeProperty.set(val) }
+		get { return strokeVar.value }
+		set(val) { strokeVar.value = val }
 	}
 
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.formProperty = ObservableValue<Locus>(value: form)
-		self.fillProperty = ObservableValue<Fill?>(value: fill)
-		self.strokeProperty = ObservableValue<Stroke?>(value: stroke)
+		self.formVar = Variable<Locus>(form)
+		self.fillVar = Variable<Fill?>(fill)
+		self.strokeVar = Variable<Stroke?>(stroke)
 		super.init(
 			pos: pos,
 			opaque: opaque,

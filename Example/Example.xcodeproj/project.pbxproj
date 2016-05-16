@@ -22,6 +22,8 @@
 		574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */; };
 		575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B51CBD14AF00BD3C2E /* AnimationsView.swift */; };
 		575129B81CBD18B800BD3C2E /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B71CBD18B800BD3C2E /* PieChart.swift */; };
+		66AE19D71CC8C7EA00B78B5E /* SVGExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AE19D61CC8C7EA00B78B5E /* SVGExampleViewController.swift */; };
+		66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66AE19DA1CC8CB3C00B78B5E /* tiger.svg */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
@@ -77,6 +79,8 @@
 		574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsExampleController.swift; sourceTree = "<group>"; };
 		575129B51CBD14AF00BD3C2E /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsView.swift; sourceTree = "<group>"; };
 		575129B71CBD18B800BD3C2E /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
+		66AE19D61CC8C7EA00B78B5E /* SVGExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVGExampleViewController.swift; path = SVG/SVGExampleViewController.swift; sourceTree = "<group>"; };
+		66AE19DA1CC8CB3C00B78B5E /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = Example/Assets/SVG/tiger.svg; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02E75F51C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 		574EC4271CB7DE7F0063F317 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				66AE19D31CC8C7A100B78B5E /* SVG */,
 				574EC4421CBB607E0063F317 /* Animations */,
 				574EC4281CB7DE7F0063F317 /* Cleaner */,
 				574EC42C1CB7DE7F0063F317 /* Diagram */,
@@ -182,9 +187,34 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		66AE19D31CC8C7A100B78B5E /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				66AE19D61CC8C7EA00B78B5E /* SVGExampleViewController.swift */,
+			);
+			name = SVG;
+			sourceTree = "<group>";
+		};
+		66AE19D81CC8CAB000B78B5E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				66AE19D91CC8CAB600B78B5E /* SVG */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		66AE19D91CC8CAB600B78B5E /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
+			);
+			name = SVG;
+			sourceTree = "<group>";
+		};
 		B02E75E41C16104900D1971D = {
 			isa = PBXGroup;
 			children = (
+				66AE19D81CC8CAB000B78B5E /* Assets */,
 				24BE06FF1C6B91C800B5882F /* img */,
 				B02E75EF1C16104900D1971D /* Example */,
 				B02E75EE1C16104900D1971D /* Products */,
@@ -300,6 +330,7 @@
 			files = (
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
+				66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */,
 				B02E75F61C16104900D1971D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +347,7 @@
 				574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */,
 				5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */,
 				575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */,
+				66AE19D71CC8C7EA00B78B5E /* SVGExampleViewController.swift in Sources */,
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				574EC43A1CB7DE7F0063F317 /* DiagramExampleView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,

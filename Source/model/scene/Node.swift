@@ -1,45 +1,42 @@
 import Foundation
+import RxSwift
 
 public class Node: Drawable  {
 
-	public let posProperty: ObservableValue<Transform>
+	public let posVar: Variable<Transform>
 	public var pos: Transform {
-		get { return posProperty.get() }
-		set(val) { posProperty.set(val) }
+		get { return posVar.value }
+		set(val) { posVar.value = val }
 	}
 
-	public let opaqueProperty: ObservableValue<NSObject>
+	public let opaqueVar: Variable<NSObject>
 	public var opaque: NSObject {
-		get { return opaqueProperty.get() }
-		set(val) { opaqueProperty.set(val) }
+		get { return opaqueVar.value }
+		set(val) { opaqueVar.value = val }
 	}
 
-	public let visibleProperty: ObservableValue<NSObject>
+	public let visibleVar: Variable<NSObject>
 	public var visible: NSObject {
-		get { return visibleProperty.get() }
-		set(val) { visibleProperty.set(val) }
+		get { return visibleVar.value }
+		set(val) { visibleVar.value = val }
 	}
 
-	public let clipProperty: ObservableValue<Locus?>
+	public let clipVar: Variable<Locus?>
 	public var clip: Locus? {
-		get { return clipProperty.get() }
-		set(val) { clipProperty.set(val) }
+		get { return clipVar.value }
+		set(val) { clipVar.value = val }
 	}
     
     public var animating = false
 
 	public init(pos: Transform, opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.posProperty = ObservableValue<Transform>(value: pos)	
-		self.opaqueProperty = ObservableValue<NSObject>(value: opaque)	
-		self.visibleProperty = ObservableValue<NSObject>(value: visible)	
-		self.clipProperty = ObservableValue<Locus?>(value: clip)	
+		self.posVar = Variable<Transform>(pos)	
+		self.opaqueVar = Variable<NSObject>(opaque)	
+		self.visibleVar = Variable<NSObject>(visible)	
+		self.clipVar = Variable<Locus?>(clip)	
 		super.init(
 			tag: tag
 		)
-        
-//        self.posProperty.addListener { (oldValue, newValue) in
-//            self.pos = newValue
-//        }
 	}
 
 	// GENERATED NOT

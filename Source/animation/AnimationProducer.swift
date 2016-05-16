@@ -79,8 +79,8 @@ public class AnimationProducer {
 
 		let layer = ShapeLayer()
 		// layer.backgroundColor = UIColor.greenColor().CGColor
-		layer.borderWidth = 1.0
-		layer.borderColor = UIColor.blueColor().CGColor
+		// layer.borderWidth = 1.0
+		// layer.borderColor = UIColor.blueColor().CGColor
 
 		if let shapeBounds = shape.bounds() {
 			print("Shape bounds: \(shapeBounds.description())")

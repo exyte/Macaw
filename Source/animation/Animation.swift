@@ -1,4 +1,5 @@
-import UIKit
+import Foundation
+import RxSwift
 
 public extension SequenceType where Generator.Element: Animatable {
 	func playAnimations() {
@@ -41,10 +42,10 @@ public class Animatable {
 
 	var shouldUpdateSubscription = false
 
-	public let currentProgress = ObservableValue<Double>(value: 0)
+	public let currentProgress = Variable<Double>(0)
 
 	func animate(progress: Double) { }
-	func  getDuration() -> Double { return 0 }
+	func getDuration() -> Double { return 0 }
 
 	func play() {
 		paused = false
@@ -55,33 +56,33 @@ public class Animatable {
 
 	public func moveToPosition(position: Double) {
 		shouldUpdateSubscription = true
-		currentProgress.set(position)
+		currentProgress.value = position
 	}
 }
 
 public class Animation<T: Interpolable>: Animatable {
 
-	let value: ObservableValue<T>
+	let value: Variable<T>
 
 	let start: T
 	let final: T
 	let duration: Double
 
-	public required init(observableValue: ObservableValue<T>, startValue: T, finalValue: T, animationDuration: Double) {
+	public required init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
 		value = observableValue
 		start = startValue
 		final = finalValue
 		duration = animationDuration
 	}
 
-	public convenience init(observableValue: ObservableValue<T>, finalValue: T, animationDuration: Double) {
-		self.init(observableValue: observableValue, startValue: observableValue.get(), finalValue: finalValue, animationDuration: animationDuration)
+	public convenience init(observableValue: Variable<T>, finalValue: T, animationDuration: Double) {
+		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
 	}
 
 	public override func animate(progress: Double) {
 
-		value.set(start.interpolate(final, progress: progress))
-		currentProgress.set(progress)
+		value.value = start.interpolate(final, progress: progress)
+		currentProgress.value = progress
 	}
 
 	public override func getDuration() -> Double {

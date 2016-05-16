@@ -10,6 +10,6 @@ class ShapeLayer: CALayer {
 
 		let renderContext = RenderContext(view: .None)
 		renderContext.cgContext = ctx
-		GroupRenderer(group: shape, ctx: renderContext, inBounds: false).render()
+		GroupRenderer(group: shape, ctx: renderContext).render()
 	}
 }

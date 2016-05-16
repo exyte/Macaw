@@ -1,38 +1,38 @@
 import Foundation
 import UIKit
+import RxSwift
 
-class  GroupRenderer: NodeRenderer {
+class GroupRenderer: NodeRenderer {
 	var ctx: RenderContext
 	var node: Node {
 		get { return group }
 	}
 	let group: Group
-	let renderInBounds: Bool
+	let disposeBag = DisposeBag()
 
-	init(group: Group, ctx: RenderContext, inBounds: Bool = false) {
+	init(group: Group, ctx: RenderContext) {
 		self.group = group
 		self.ctx = ctx
-		self.renderInBounds = inBounds
 		hook()
 	}
 
 	func hook() {
-		func onGroupChange(old: [Node], new: [Node]) {
+		func onGroupChange(new: [Node]) {
 			ctx.view?.setNeedsDisplay()
 		}
-		group.contentsProperty.addListener(onGroupChange)
+		group.contentsVar.asObservable().subscribeNext { new in
+			onGroupChange(new)
+		}.addDisposableTo(disposeBag)
 	}
 
 	func render() {
 		let staticContents = group.contents.filter { !$0.animating }
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+
 		contentRenderers.forEach { renderer in
 			if let rendererVal = renderer {
 				CGContextSaveGState(ctx.cgContext)
-				if !renderInBounds {
-					CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
-				}
-
+				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
 				setClip(rendererVal.node)
 				rendererVal.render()
 				CGContextRestoreGState(ctx.cgContext)

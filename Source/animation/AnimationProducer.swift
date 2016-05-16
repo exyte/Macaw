@@ -85,8 +85,9 @@ public class AnimationProducer {
 		if let shapeBounds = shape.bounds() {
 			print("Shape bounds: \(shapeBounds.description())")
 			let cgRect = shapeBounds.cgRect()
-			layer.frame = CGRectMake(0.0, 0.0, cgRect.width, cgRect.height)
-			// layer.frame = CGRectMake(0.0, 0.0, 100.0, 100.0)
+			layer.frame = CGRectMake(0.0, 0.0,
+				cgRect.width + cgRect.origin.x,
+				cgRect.height + cgRect.origin.y)
 		}
 
 		layer.shape = shape

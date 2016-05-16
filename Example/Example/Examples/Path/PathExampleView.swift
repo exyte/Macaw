@@ -232,7 +232,7 @@ class PathExampleView: MacawView {
 
 		 */
 
-		let n = 40
+		let n = 20
 		// let g = 800.0
 		var clouds = [Node]()
 		for _ in 0 ... (n - 1) {

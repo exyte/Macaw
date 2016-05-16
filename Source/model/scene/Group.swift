@@ -34,9 +34,7 @@ public class Group: Node {
 				return
 			}
 
-			print("Node bounds: \(nodeBounds.description())")
 			union = union.union(nodeBounds.applyTransform(node.pos))
-			print("Union after transformation: \(union.description())")
 		}
 
 		return union // .applyTransform(pos)

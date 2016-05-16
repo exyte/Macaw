@@ -22,6 +22,12 @@
 		574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */; };
 		575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B51CBD14AF00BD3C2E /* AnimationsView.swift */; };
 		575129B81CBD18B800BD3C2E /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B71CBD18B800BD3C2E /* PieChart.swift */; };
+		57A9DAB91CEA1502009635C7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DAB81CEA1502009635C7 /* RxSwift.framework */; };
+		57A9DABA1CEA1502009635C7 /* RxSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DAB81CEA1502009635C7 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57A9DABC1CEA151E009635C7 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DABB1CEA151E009635C7 /* SWXMLHash.framework */; };
+		57A9DABD1CEA151E009635C7 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DABB1CEA151E009635C7 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57A9DABF1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DABE1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework */; };
+		57A9DAC01CEA162F009635C7 /* Swift_CAAnimation_Closure.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DABE1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		66AE19D71CC8C7EA00B78B5E /* SVGExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AE19D61CC8C7EA00B78B5E /* SVGExampleViewController.swift */; };
 		66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66AE19DA1CC8CB3C00B78B5E /* tiger.svg */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
@@ -56,7 +62,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				57A9DABA1CEA1502009635C7 /* RxSwift.framework in Copy Frameworks */,
 				B02E76121C16113A00D1971D /* Macaw.framework in Copy Frameworks */,
+				57A9DABD1CEA151E009635C7 /* SWXMLHash.framework in Copy Frameworks */,
+				57A9DAC01CEA162F009635C7 /* Swift_CAAnimation_Closure.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +88,9 @@
 		574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsExampleController.swift; sourceTree = "<group>"; };
 		575129B51CBD14AF00BD3C2E /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsView.swift; sourceTree = "<group>"; };
 		575129B71CBD18B800BD3C2E /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
+		57A9DAB81CEA1502009635C7 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = RxSwift.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Release-iphoneos/RxSwift.framework"; sourceTree = "<absolute>"; };
+		57A9DABB1CEA151E009635C7 /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SWXMLHash.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Release-iphoneos/SWXMLHash.framework"; sourceTree = "<absolute>"; };
+		57A9DABE1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Swift_CAAnimation_Closure.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Release-iphoneos/Swift_CAAnimation_Closure.framework"; sourceTree = "<absolute>"; };
 		66AE19D61CC8C7EA00B78B5E /* SVGExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVGExampleViewController.swift; path = SVG/SVGExampleViewController.swift; sourceTree = "<group>"; };
 		66AE19DA1CC8CB3C00B78B5E /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = Example/Assets/SVG/tiger.svg; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +107,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57A9DAB91CEA1502009635C7 /* RxSwift.framework in Frameworks */,
 				B02E76101C16111D00D1971D /* Macaw.framework in Frameworks */,
+				57A9DABC1CEA151E009635C7 /* SWXMLHash.framework in Frameworks */,
+				57A9DABF1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +229,9 @@
 		B02E75E41C16104900D1971D = {
 			isa = PBXGroup;
 			children = (
+				57A9DABE1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework */,
+				57A9DABB1CEA151E009635C7 /* SWXMLHash.framework */,
+				57A9DAB81CEA1502009635C7 /* RxSwift.framework */,
 				66AE19D81CC8CAB000B78B5E /* Assets */,
 				24BE06FF1C6B91C800B5882F /* img */,
 				B02E75EF1C16104900D1971D /* Example */,

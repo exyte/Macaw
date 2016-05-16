@@ -34,12 +34,16 @@ public class AnimationProducer {
 
 		let cgTransformStart = transfomToCG(transformAnimation.start)
 		let cgTransformFinal = transfomToCG(transformAnimation.final)
+		let cgInitialTransform = transfomToCG(shape.pos)
 
 		// Small workaround
 		let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+		let initRect = CGRectApplyAffineTransform(rect, cgInitialTransform)
 		let startRect = CGRectApplyAffineTransform(rect, cgTransformStart)
 		let finalRect = CGRectApplyAffineTransform(rect, cgTransformFinal)
 
+		let initScaleX = initRect.width
+		let initScaleY = initRect.height
 		let startX = startRect.origin.x
 		let startY = startRect.origin.y
 		let finalX = finalRect.origin.x
@@ -81,28 +85,34 @@ public class AnimationProducer {
 		// layer.backgroundColor = UIColor.greenColor().CGColor
 		// layer.borderWidth = 1.0
 		// layer.borderColor = UIColor.blueColor().CGColor
+
+		unowned let uSelf = self
+
 		group.completion = { finished in
 			if !finished {
 				return
 			}
 
 			layer.removeFromSuperlayer()
+			animation.shape?.animating = false
+			uSelf.sceneLayer.setNeedsDisplay()
 		}
 
 		if let shapeBounds = shape.bounds() {
-			print("Shape bounds: \(shapeBounds.description())")
 			let cgRect = shapeBounds.cgRect()
-			layer.frame = CGRectMake(0.0, 0.0,
+			let origFrame = CGRectMake(0.0, 0.0,
 				cgRect.width + cgRect.origin.x,
 				cgRect.height + cgRect.origin.y)
+
+			// layer.frame = origFrame
+			layer.frame = CGRectApplyAffineTransform(origFrame, cgInitialTransform)
+			layer.renderTransform = CGAffineTransformMakeScale(initScaleX, initScaleY)
 		}
 
 		layer.shape = shape
 		layer.setNeedsDisplay()
 
 		sceneLayer.addSublayer(layer)
-
-		// layer.setAffineTransform(cgTransformFinal)
 		layer.addAnimation(group, forKey: "flying")
 	}
 }

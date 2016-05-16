@@ -2,6 +2,7 @@ import UIKit
 
 class ShapeLayer: CALayer {
 	var shape: Group?
+	var renderTransform: CGAffineTransform?
 
 	override func drawInContext(ctx: CGContext) {
 		guard let shape = shape else {
@@ -10,6 +11,11 @@ class ShapeLayer: CALayer {
 
 		let renderContext = RenderContext(view: .None)
 		renderContext.cgContext = ctx
+
+		if let renderTransform = renderTransform {
+			CGContextConcatCTM(ctx, renderTransform)
+		}
+
 		GroupRenderer(group: shape, ctx: renderContext).render()
 	}
 }

@@ -232,7 +232,7 @@ class ShapeRenderer: NodeRenderer {
 				}
 				bezierPath.addCurveToPoint(next, controlPoint1: xy1!, controlPoint2: nextCubic)
 				setCubicPoint(next, cubic: nextCubic)
-			}
+            }
 		}
 
 		func a(rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {

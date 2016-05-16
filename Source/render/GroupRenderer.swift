@@ -20,13 +20,13 @@ class GroupRenderer: NodeRenderer {
         func onGroupChange(new: [Node]) {
             ctx.view.setNeedsDisplay()
         }
-        group.contentsVar.asObservable().subscribeNext { new in
-            onGroupChange(new)
+        group.contents.rx_events().subscribeNext { new in
+            onGroupChange(self.group.contents.elements)
         }.addDisposableTo(disposeBag)
     }
     
     func render() {
-        let contentRenderers = group.contents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+        let contentRenderers = self.group.contents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
         contentRenderers.forEach { renderer in
             if let rendererVal = renderer {
                 CGContextSaveGState(ctx.cgContext)

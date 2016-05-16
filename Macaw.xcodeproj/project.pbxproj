@@ -26,6 +26,7 @@
 		66AE19D21CC8C6B300B78B5E /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AE19D11CC8C6B300B78B5E /* SVGParser.swift */; };
 		AD9EDEE3709C1668BED1B1BF /* Pods_Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */; };
 		B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0086C551C789758008A4F69 /* GroupRenderer.swift */; };
+		B0090DBF1CEA1EDD0018D77C /* ObservableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0090DBE1CEA1EDD0018D77C /* ObservableList.swift */; };
 		B03275E51C78772F000BDD33 /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275B21C78772F000BDD33 /* Align.swift */; };
 		B03275E61C78772F000BDD33 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275B31C78772F000BDD33 /* AspectRatio.swift */; };
 		B03275E71C78772F000BDD33 /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03275B41C78772F000BDD33 /* Baseline.swift */; };
@@ -103,6 +104,7 @@
 		66AE19D11CC8C6B300B78B5E /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVGParser.swift; path = svg/SVGParser.swift; sourceTree = "<group>"; };
 		8A680FA7BCDE96402C10D8D2 /* Pods-Macaw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.release.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.release.xcconfig"; sourceTree = "<group>"; };
 		B0086C551C789758008A4F69 /* GroupRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRenderer.swift; sourceTree = "<group>"; };
+		B0090DBE1CEA1EDD0018D77C /* ObservableList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableList.swift; sourceTree = "<group>"; };
 		B02E75D61C160F8D00D1971D /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E76131C1612A900D1971D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B03275B21C78772F000BDD33 /* Align.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Align.swift; sourceTree = "<group>"; };
@@ -237,6 +239,14 @@
 			name = svg;
 			sourceTree = "<group>";
 		};
+		B0090DBD1CEA1ECE0018D77C /* bindings */ = {
+			isa = PBXGroup;
+			children = (
+				B0090DBE1CEA1EDD0018D77C /* ObservableList.swift */,
+			);
+			path = bindings;
+			sourceTree = "<group>";
+		};
 		B02E75CC1C160F8D00D1971D = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				66AE19D01CC8C66E00B78B5E /* svg */,
+				B0090DBD1CEA1ECE0018D77C /* bindings */,
 				5742238C1CA540F8001EE463 /* animation */,
 				B03275B01C78772F000BDD33 /* model */,
 				585C04461C27CFB100335FF2 /* views */,
@@ -567,6 +578,7 @@
 				B03275ED1C78772F000BDD33 /* FontWeight.swift in Sources */,
 				B03275F61C78772F000BDD33 /* Cubic.swift in Sources */,
 				66AE19D21CC8C6B300B78B5E /* SVGParser.swift in Sources */,
+				B0090DBF1CEA1EDD0018D77C /* ObservableList.swift in Sources */,
 				574223901CA5448C001EE463 /* Animation.swift in Sources */,
 				585C04481C27CFB100335FF2 /* MacawView.swift in Sources */,
 			);

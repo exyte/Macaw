@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
 		5743EC8C1CEB55A400547004 /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5743EC8B1CEB55A400547004 /* TransformGenerator.swift */; };
+		5743EC8E1CEB725200547004 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5743EC8D1CEB725200547004 /* TimingFunction.swift */; };
 		57A9DAAA1CE9D497009635C7 /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAA91CE9D497009635C7 /* AnimationProducer.swift */; };
 		57A9DAB01CE9D4B6009635C7 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAAC1CE9D4B6009635C7 /* CGExtensions.swift */; };
 		57A9DAB11CE9D4B6009635C7 /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAAD1CE9D4B6009635C7 /* FuncBounds.swift */; };
@@ -80,6 +81,7 @@
 		0D10CB2117557903E2D9F24D /* Pods-Macaw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.debug.xcconfig"; sourceTree = "<group>"; };
 		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		5743EC8B1CEB55A400547004 /* TransformGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformGenerator.swift; sourceTree = "<group>"; };
+		5743EC8D1CEB725200547004 /* TimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingFunction.swift; sourceTree = "<group>"; };
 		57A9DAA91CE9D497009635C7 /* AnimationProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationProducer.swift; sourceTree = "<group>"; };
 		57A9DAAC1CE9D4B6009635C7 /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
 		57A9DAAD1CE9D4B6009635C7 /* FuncBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncBounds.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				5743EC8B1CEB55A400547004 /* TransformGenerator.swift */,
+				5743EC8D1CEB725200547004 /* TimingFunction.swift */,
 			);
 			path = animation_generators;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				B032760C1C78772F000BDD33 /* Cursor.swift in Sources */,
 				B03275EF1C78772F000BDD33 /* LineCap.swift in Sources */,
 				B03275F71C78772F000BDD33 /* Ellipse.swift in Sources */,
+				5743EC8E1CEB725200547004 /* TimingFunction.swift in Sources */,
 				B032760F1C78772F000BDD33 /* Group.swift in Sources */,
 				B03275E61C78772F000BDD33 /* AspectRatio.swift in Sources */,
 				B03276071C78772F000BDD33 /* SCubic.swift in Sources */,

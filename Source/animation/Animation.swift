@@ -6,6 +6,14 @@ enum AnimationType {
 	case AffineTransformation
 }
 
+public enum TimingFunction {
+	case Default
+	case Linear
+	case EaseIn
+	case EaseOut
+	case EaseInEaseOut
+}
+
 public class Animatable {
 
 	var shape: Group?
@@ -14,6 +22,7 @@ public class Animatable {
 	// Options
 	public var repeatCount = 0.0
 	public var autoreverses = false
+	public var timingFunction = TimingFunction.Default
 
 	func getDuration() -> Double { return 0 }
 }

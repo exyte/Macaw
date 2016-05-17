@@ -159,6 +159,7 @@ class PathExampleView: MacawView {
 
 			flying.autoreverses = true
 			flying.repeatCount = 2.0
+			flying.timingFunction = .EaseOut
 
 			animation.append(flying)
 			clouds.append(cloud)

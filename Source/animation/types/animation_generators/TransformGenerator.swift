@@ -33,6 +33,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 
 	generatedAnim.autoreverses = animation.autoreverses
 	generatedAnim.repeatCount = Float(animation.repeatCount)
+	generatedAnim.timingFunction = caTimingFunction(animation.timingFunction)
 
 	// Creating animated layer
 	let layer = ShapeLayer()
@@ -98,8 +99,8 @@ func transformAnimationByValues(startValue: Transform, finalValue: Transform, du
 	let startScaleY = startRect.height
 	let finalScaleX = finalRect.width
 	let finalScaleY = finalRect.height
-	var startAngle = atan2(cgTransformStart.b, cgTransformStart.a)
-	var finalAngle = atan2(cgTransformFinal.b, cgTransformFinal.a)
+	let startAngle = atan2(cgTransformStart.b, cgTransformStart.a)
+	let finalAngle = atan2(cgTransformFinal.b, cgTransformFinal.a)
 
 	let scaleX = CABasicAnimation(keyPath: "transform.scale.x")
 	scaleX.fromValue = startScaleX

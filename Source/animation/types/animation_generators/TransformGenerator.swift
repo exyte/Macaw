@@ -98,6 +98,8 @@ func transformAnimationByValues(startValue: Transform, finalValue: Transform, du
 	let startScaleY = startRect.height
 	let finalScaleX = finalRect.width
 	let finalScaleY = finalRect.height
+	var startAngle = atan2(cgTransformStart.b, cgTransformStart.a)
+	var finalAngle = atan2(cgTransformFinal.b, cgTransformFinal.a)
 
 	let scaleX = CABasicAnimation(keyPath: "transform.scale.x")
 	scaleX.fromValue = startScaleX
@@ -119,8 +121,13 @@ func transformAnimationByValues(startValue: Transform, finalValue: Transform, du
 	translationY.toValue = finalY
 	translationY.duration = duration
 
+	let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
+	rotation.fromValue = fixedAngle(startAngle)
+	rotation.toValue = fixedAngle(finalAngle)
+	rotation.duration = duration
+
 	let group = CAAnimationGroup()
-	group.animations = [translationX, translationY, scaleX, scaleY]
+	group.animations = [translationX, translationY, scaleX, scaleY, rotation]
 	group.duration = duration
 
 	return group
@@ -132,6 +139,7 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 	var scaleYValues = [CGFloat]()
 	var xValues = [CGFloat]()
 	var yValues = [CGFloat]()
+	var rotationValues = [CGFloat]()
 	var timeValues = [Double]()
 
 	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
@@ -147,6 +155,9 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 		yValues.append(transformedRect.origin.y)
 		scaleXValues.append(transformedRect.width)
 		scaleYValues.append(transformedRect.height)
+
+		let angle = atan2(cgTransform.b, cgTransform.a)
+		rotationValues.append(fixedAngle(angle))
 	}
 
 	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
@@ -169,9 +180,18 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 	scaleYAnimation.values = scaleYValues
 	scaleYAnimation.keyTimes = timeValues
 
+	let rotationAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+	rotationAnimation.duration = duration
+	rotationAnimation.values = rotationValues
+	rotationAnimation.keyTimes = timeValues
+
 	let group = CAAnimationGroup()
-	group.animations = [xAnimation, yAnimation, scaleXAnimation, scaleYAnimation]
+	group.animations = [xAnimation, yAnimation, scaleXAnimation, scaleYAnimation, rotationAnimation]
 	group.duration = duration
 
 	return group
+}
+
+func fixedAngle(angle: CGFloat) -> CGFloat {
+	return angle > -0.0000000000000000000000001 ? angle : CGFloat(2.0 * M_PI) + angle
 }

@@ -131,14 +131,14 @@ class PathExampleView: MacawView {
 			let flying = TransformAnimation(animatedShape: cloud,
 				observableValue: cloud.posVar,
 				startValue: Transform(),
-				finalValue: Transform.move(velocity.x, my: velocity.y).scale(0.15, sy: 0.15),
+				finalValue: Transform.move(velocity.x, my: velocity.y).scale(0.15, sy: 0.15).rotate(2.0 * M_PI),
 				animationDuration: 4.0)
 
 			flying.autoreverses = true
 			flying.repeatCount = 2.0
 
 			// animation.append(flying)
-			clouds.append(cloud)
+			// clouds.append(cloud)
 		}
 
 		// static nodes
@@ -154,14 +154,13 @@ class PathExampleView: MacawView {
 					let x = velocity.x * sin(2.0 * M_PI * t)
 					let y = velocity.y * cos(2.0 * M_PI * t)
 
-					return Transform.move(x, my: y).scale(1.0 - sin(2.0 * M_PI * t) * 0.5, sy: 1.0 - sin(2.0 * M_PI * t) * 0.5)
+					return Transform.move(x, my: y).scale(1.0 - sin(2.0 * M_PI * t) * 0.5, sy: 1.0 - sin(2.0 * M_PI * t) * 0.5).rotate(2.0 * M_PI * t)
 				}, animationDuration: 4.0)
 
 			flying.autoreverses = true
 			flying.repeatCount = 2.0
 
 			animation.append(flying)
-
 			clouds.append(cloud)
 		}
 

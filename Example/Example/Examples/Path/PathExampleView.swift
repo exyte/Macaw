@@ -4,11 +4,7 @@ import Macaw
 
 class PathExampleView: MacawView {
 
-	@IBOutlet var playerBtn: UIButton?
-	@IBOutlet var progressSlider: UISlider?
-
 	var animation = [Animatable]()
-	var paused = true
 
 	required init?(coder aDecoder: NSCoder) {
 

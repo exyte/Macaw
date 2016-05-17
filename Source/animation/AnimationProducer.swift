@@ -35,19 +35,23 @@ public class AnimationProducer {
 		let initScaleX = initRect.width
 		let initScaleY = initRect.height
 
-		// Creating proper animation group
-		var group: CAAnimationGroup?
+		// Creating proper animation
+		var generatedAnimation: CAAnimation?
 
 		if let start = transformAnimation.start, final = transformAnimation.final {
-			group = transformAnimationGroupByValues(start, finalValue: final, duration: animation.getDuration())
-		}
-
-		guard let groupAnim = group else {
+			generatedAnimation = transformAnimationByValues(start, finalValue: final, duration: animation.getDuration())
+		} else if let valueFunc = transformAnimation.vFunc {
+			generatedAnimation = transformAnimationByFunc(valueFunc, duration: animation.getDuration())
+		} else {
 			return
 		}
 
-		groupAnim.autoreverses = animation.autoreverses
-		groupAnim.repeatCount = Float(animation.repeatCount)
+		guard let generatedAnim = generatedAnimation else {
+			return
+		}
+
+		generatedAnim.autoreverses = animation.autoreverses
+		generatedAnim.repeatCount = Float(animation.repeatCount)
 
 		// Creating animated layer
 		let layer = ShapeLayer()
@@ -57,7 +61,7 @@ public class AnimationProducer {
 
 		unowned let uSelf = self
 
-		groupAnim.completion = { finished in
+		generatedAnim.completion = { finished in
 			if !finished {
 				return
 			}
@@ -82,7 +86,7 @@ public class AnimationProducer {
 		layer.setNeedsDisplay()
 
 		sceneLayer.addSublayer(layer)
-		layer.addAnimation(groupAnim, forKey: "flying")
+		layer.addAnimation(generatedAnim, forKey: "flying")
 	}
 }
 
@@ -96,7 +100,7 @@ func transfomToCG(transform: Transform) -> CGAffineTransform {
 		CGFloat(transform.dy))
 }
 
-private func transformAnimationGroupByValues(startValue: Transform, finalValue: Transform, duration: Double) -> CAAnimationGroup {
+private func transformAnimationByValues(startValue: Transform, finalValue: Transform, duration: Double) -> CAAnimation {
 
 	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
 
@@ -139,6 +143,56 @@ private func transformAnimationGroupByValues(startValue: Transform, finalValue: 
 
 	let group = CAAnimationGroup()
 	group.animations = [translationX, translationY, scaleX, scaleY]
+	group.duration = duration
+
+	return group
+}
+
+private func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double) -> CAAnimation {
+
+	var scaleXValues = [CGFloat]()
+	var scaleYValues = [CGFloat]()
+	var xValues = [CGFloat]()
+	var yValues = [CGFloat]()
+	var timeValues = [Double]()
+
+	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+
+	for t in 0.0.stride(to: 1.0, by: 0.05) {
+
+		let value = valueFunc(t)
+		let cgTransform = transfomToCG(value)
+		let transformedRect = CGRectApplyAffineTransform(rect, cgTransform)
+
+		timeValues.append(t)
+		xValues.append(transformedRect.origin.x)
+		yValues.append(transformedRect.origin.y)
+		scaleXValues.append(transformedRect.width)
+		scaleYValues.append(transformedRect.height)
+	}
+
+	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+	xAnimation.duration = duration
+	xAnimation.values = xValues
+	xAnimation.keyTimes = timeValues
+
+	let yAnimation = CAKeyframeAnimation(keyPath: "transform.translation.y")
+	yAnimation.duration = duration
+	yAnimation.values = yValues
+	yAnimation.keyTimes = timeValues
+
+	let scaleXAnimation = CAKeyframeAnimation(keyPath: "transform.scale.x")
+	scaleXAnimation.duration = duration
+	scaleXAnimation.values = scaleXValues
+	scaleXAnimation.keyTimes = timeValues
+
+	let scaleYAnimation = CAKeyframeAnimation(keyPath: "transform.scale.y")
+	scaleYAnimation.duration = duration
+	scaleYAnimation.values = scaleYValues
+	scaleYAnimation.keyTimes = timeValues
+
+	let group = CAAnimationGroup()
+	group.animations = [xAnimation, yAnimation, scaleXAnimation, scaleYAnimation]
 	group.duration = duration
 
 	return group

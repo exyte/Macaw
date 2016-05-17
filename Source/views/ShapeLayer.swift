@@ -1,6 +1,6 @@
 import UIKit
 
-class ShapeLayer: CALayer {
+class ShapeLayer: CAShapeLayer {
 	var shape: Group?
 	var renderTransform: CGAffineTransform?
 

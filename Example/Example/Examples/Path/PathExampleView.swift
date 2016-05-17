@@ -232,7 +232,7 @@ class PathExampleView: MacawView {
 
 		 */
 
-		let n = 40
+		let n = 200
 		// let g = 800.0
 		var clouds = [Node]()
 		for _ in 0 ... (n - 1) {
@@ -242,7 +242,7 @@ class PathExampleView: MacawView {
 			let flying = TransformAnimation(animatedShape: cloud,
 				observableValue: cloud.posVar,
 				startValue: Transform(),
-				finalValue: Transform.move(velocity.x, my: velocity.y).scale(1.0, sy: 1.0),
+				finalValue: Transform.move(velocity.x, my: velocity.y).scale(0.15, sy: 0.15),
 				animationDuration: 4.0)
 			animation.append(flying)
 			clouds.append(cloud)

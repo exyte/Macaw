@@ -14,7 +14,6 @@ func pathBounds(path: Path) -> Rect? {
 		let segmentInfo = pathSegmenInfo(segment, currentPoint: currentPoint, currentBezierPoint: cubicBezierPoint)
 		if let segmentBounds = segmentInfo.0 {
 			if segment.absolute {
-				print("Absolute segment")
 				bounds = bounds?.union(segmentBounds)
 			} else {
 				bounds = bounds?.union(segmentBounds.move(currentPoint))

@@ -44,7 +44,6 @@ public class Animatable {
 
 	public let currentProgress = Variable<Double>(0)
 
-	func animate(progress: Double) { }
 	func getDuration() -> Double { return 0 }
 
 	func play() {
@@ -60,7 +59,7 @@ public class Animatable {
 	}
 }
 
-public class Animation<T: Interpolable>: Animatable {
+public class Animation<T>: Animatable {
 
 	let value: Variable<T>
 
@@ -77,12 +76,6 @@ public class Animation<T: Interpolable>: Animatable {
 
 	public convenience init(observableValue: Variable<T>, finalValue: T, animationDuration: Double) {
 		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
-	}
-
-	public override func animate(progress: Double) {
-
-		value.value = start.interpolate(final, progress: progress)
-		currentProgress.value = progress
 	}
 
 	public override func getDuration() -> Double {

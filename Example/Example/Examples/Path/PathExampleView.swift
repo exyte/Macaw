@@ -118,7 +118,7 @@ class PathExampleView: MacawView {
 		}
 
 		let n = 200
-		let m = 20
+		let m = 50
 
 		var clouds = [Node]()
 

@@ -1,32 +1,6 @@
 import Foundation
 import RxSwift
 
-public extension SequenceType where Generator.Element: Animatable {
-	func playAnimations() {
-		self.forEach { animation in
-			animation.play()
-		}
-	}
-
-	func pauseAnimations() {
-		self.forEach { animation in
-			animation.pause()
-		}
-	}
-
-	func removeAnimations() {
-		self.forEach { animation in
-			animation.remove()
-		}
-	}
-
-	func moveAnimationsToPosition(position: Double) {
-		self.forEach { animation in
-			animation.moveToPosition(position)
-		}
-	}
-}
-
 enum AnimationType {
 	case Unknown
 	case AffineTransformation
@@ -37,26 +11,11 @@ public class Animatable {
 	var shape: Group?
 	var type = AnimationType.Unknown
 
-	var shouldBeRemoved = false
-	var paused = false
-
-	var shouldUpdateSubscription = false
-
-	public let currentProgress = Variable<Double>(0)
+	// Options
+	public var  repeatCount = 0.0
+	public var autoreverses = false
 
 	func getDuration() -> Double { return 0 }
-
-	func play() {
-		paused = false
-		shouldUpdateSubscription = true
-	}
-	func pause() { paused = true }
-	func remove() { shouldBeRemoved = true }
-
-	public func moveToPosition(position: Double) {
-		shouldUpdateSubscription = true
-		currentProgress.value = position
-	}
 }
 
 public class Animation<T>: Animatable {

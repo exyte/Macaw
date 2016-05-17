@@ -28,10 +28,6 @@ public class AnimationProducer {
 			return
 		}
 
-//		guard let bounds = animation.shape?.bounds() else {
-//			return
-//		}
-
 		let cgTransformStart = transfomToCG(transformAnimation.start)
 		let cgTransformFinal = transfomToCG(transformAnimation.final)
 		let cgInitialTransform = transfomToCG(shape.pos)
@@ -77,8 +73,8 @@ public class AnimationProducer {
 
 		let group = CAAnimationGroup()
 		group.animations = [translationX, translationY, scaleX, scaleY]
-		group.autoreverses = true
-		group.repeatCount = 2
+		group.autoreverses = animation.autoreverses
+		group.repeatCount = Float(animation.repeatCount)
 		group.duration = animation.getDuration()
 
 		let layer = ShapeLayer()

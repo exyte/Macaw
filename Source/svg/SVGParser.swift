@@ -170,7 +170,7 @@ public class SVGParser {
 						PathCommand(
 							type: getCommandType(commandChar),
 							expression: commandString,
-							absolute: true
+							absolute: isAbsolute(commandChar)
 						)
 					)
 				}
@@ -204,7 +204,7 @@ public class SVGParser {
 		let characterSet = NSMutableCharacterSet()
 		characterSet.addCharactersInString(" ")
 		characterSet.addCharactersInString(",")
-		var commandParams = command.expression.componentsSeparatedByCharactersInSet(characterSet)
+		let commandParams = command.expression.componentsSeparatedByCharactersInSet(characterSet)
 		var separatedValues = [String]()
 		commandParams.forEach { param in
 			separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
@@ -222,7 +222,8 @@ public class SVGParser {
 				return .None
 			}
 
-			return Move(x: x, y: y, absolute: true)
+			return Move(x: x, y: y, absolute: command.absolute)
+
 		case .LineTo:
 			print("LineTo \(commandParams.count)")
 			if commandParams.count < 2 {
@@ -233,7 +234,8 @@ public class SVGParser {
 				return .None
 			}
 
-			return PLine(x: x, y: y, absolute: true)
+			return PLine(x: x, y: y, absolute: command.absolute)
+
 		case .LineH:
 			print("LineHorizontal \(separatedValues.count)")
 			if separatedValues.count < 1 {
@@ -244,7 +246,7 @@ public class SVGParser {
 				return .None
 			}
 
-			return HLine(x: x, absolute: true)
+			return HLine(x: x, absolute: command.absolute)
 
 		case .LineV:
 			print("LineVertical \(separatedValues.count)")
@@ -256,7 +258,7 @@ public class SVGParser {
 				return .None
 			}
 
-			return VLine(y: y, absolute: true)
+			return VLine(y: y, absolute: command.absolute)
 
 		case .CurveTo:
 			print("CurveTo \(separatedValues.count)")
@@ -273,7 +275,8 @@ public class SVGParser {
 					return .None
 			}
 
-			return Cubic(x1: x1, y1: y1, x2: x2, y2: y2, x: x, y: y, absolute: true)
+			return Cubic(x1: x1, y1: y1, x2: x2, y2: y2, x: x, y: y, absolute: command.absolute)
+
 		case .ClosePath:
 			print("Close Path")
 			return Close()
@@ -332,6 +335,37 @@ public class SVGParser {
 			return true
 		default:
 			return false
+		}
+	}
+
+	private func isAbsolute(character: Character) -> Bool {
+		switch character {
+		case moveToAbsolute:
+			return true
+		case moveToRelative:
+			return false
+		case lineToAbsolute:
+			return true
+		case lineToRelative:
+			return false
+		case lineHorizontalAbsolute:
+			return true
+		case lineHorizontalRelative:
+			return false
+		case lineVerticalAbsolute:
+			return true
+		case lineVerticalRelative:
+			return false
+		case curveToAbsolute:
+			return true
+		case curveToRelative:
+			return false
+		case closePathAbsolute:
+			return true
+		case closePathRelative:
+			return false
+		default:
+			return true
 		}
 	}
 

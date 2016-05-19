@@ -7,7 +7,7 @@ class AnimationsView: MacawView {
 		let path = NSBundle.mainBundle().pathForResource("sunset-tree", ofType: "svg")
 		let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
 
-		let transform = Transform().move(150, my: 150).scale(0.8, sy: 0.8)
+		let transform = Transform().move(100, my: 100).scale(10, sy: 10)
 		let parser = SVGParser(text, pos: transform)
 		let tigerNode = parser.parse()
 

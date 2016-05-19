@@ -16,6 +16,6 @@ class ShapeLayer: CAShapeLayer {
 			CGContextConcatCTM(ctx, renderTransform)
 		}
 
-		GroupRenderer(group: shape, ctx: renderContext).render()
+		GroupRenderer(group: shape, ctx: renderContext).render(true)
 	}
 }

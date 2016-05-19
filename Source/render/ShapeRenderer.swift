@@ -15,7 +15,7 @@ class ShapeRenderer: NodeRenderer {
 		hook()
 	}
 
-	func render() {
+	func render(force: Bool) {
 		setGeometry(shape.form, ctx: ctx.cgContext!)
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!)
 	}

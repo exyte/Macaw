@@ -6,19 +6,19 @@ class AnimationsView: MacawView {
 	var animation: TransformAnimation?
 
 	required init?(coder aDecoder: NSCoder) {
-		let path = NSBundle.mainBundle().pathForResource("tree", ofType: "svg")
+		let path = NSBundle.mainBundle().pathForResource("tiger", ofType: "svg")
 		let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
 
-		let transform = Transform().move(0, my: 0).scale(0.1, sy: 0.1)
+		let transform = Transform().move(0, my: 0).scale(0.5, sy: 0.5)
 		let parser = SVGParser(text, pos: transform)
 		let tigerNode = parser.parse()
 
 		print("Bounds: \(tigerNode.bounds()!.description())")
 
 		animation = TransformAnimation(animatedShape: tigerNode, observableValue: tigerNode.posVar,
-			startValue: Transform().scale(0.2, sy: 0.2),
-			finalValue: Transform().scale(0.4, sy: 0.4),
-			animationDuration: 8.0)
+			startValue: Transform().scale(1.0, sy: 1.0),
+			finalValue: Transform().scale(0.5, sy: 0.5).rotate(M_PI),
+			animationDuration: 2.0)
 		animation?.autoreverses = true
 
 		super.init(node: tigerNode, coder: aDecoder)
@@ -30,7 +30,7 @@ class AnimationsView: MacawView {
 
 	func testAnimation() {
 		if let animation = animation {
-			// self.addAnimation(animation)
+			self.addAnimation(animation)
 		}
 	}
 }

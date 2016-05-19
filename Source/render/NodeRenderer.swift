@@ -2,8 +2,8 @@ import Foundation
 import UIKit
 
 protocol NodeRenderer {
-    var ctx: RenderContext { get }
-    var node: Node { get }
+	var ctx: RenderContext { get }
+	var node: Node { get }
 
-    func render()
+	func render(force: Bool)
 }

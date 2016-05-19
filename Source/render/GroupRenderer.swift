@@ -25,8 +25,23 @@ class GroupRenderer: NodeRenderer {
 		}.addDisposableTo(disposeBag)
 	}
 
-	func render() {
-		let staticContents = group.contents.filter { !$0.animating }
+	func render(force: Bool) {
+
+		var staticContents: [Node]
+		if !force {
+
+			// Cutting animated content
+			if group.animating {
+				return
+			}
+
+			staticContents = group.contents.filter { !$0.animating }
+		} else {
+
+			// Rendering entire node
+			staticContents = group.contents
+		}
+
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
 		print("Renderers: \(contentRenderers.flatMap{$0}.count)")
 
@@ -35,7 +50,7 @@ class GroupRenderer: NodeRenderer {
 				CGContextSaveGState(ctx.cgContext)
 				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
 				setClip(rendererVal.node)
-				rendererVal.render()
+				rendererVal.render(force)
 				CGContextRestoreGState(ctx.cgContext)
 			}
 		}

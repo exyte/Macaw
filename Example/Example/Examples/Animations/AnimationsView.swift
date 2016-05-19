@@ -9,7 +9,7 @@ class AnimationsView: MacawView {
 		let path = NSBundle.mainBundle().pathForResource("tiger", ofType: "svg")
 		let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
 
-		let transform = Transform().move(0, my: 0).scale(0.5, sy: 0.5)
+		let transform = Transform().move(150, my: 200).scale(0.5, sy: 0.5)
 		let parser = SVGParser(text, pos: transform)
 		let tigerNode = parser.parse()
 
@@ -17,9 +17,10 @@ class AnimationsView: MacawView {
 
 		animation = TransformAnimation(animatedShape: tigerNode, observableValue: tigerNode.posVar,
 			startValue: Transform().scale(1.0, sy: 1.0),
-			finalValue: Transform().scale(0.5, sy: 0.5).rotate(M_PI),
+			finalValue: Transform().scale(0.5, sy: 0.5).rotate(2.0 * M_PI),
 			animationDuration: 2.0)
 		animation?.autoreverses = true
+		animation?.repeatCount = 10.0
 
 		super.init(node: tigerNode, coder: aDecoder)
 	}

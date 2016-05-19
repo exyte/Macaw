@@ -205,15 +205,20 @@ public class SVGParser {
 		characterSet.addCharactersInString(" ")
 		characterSet.addCharactersInString(",")
 		var commandParams = command.expression.componentsSeparatedByCharactersInSet(characterSet)
-		print("Params: \(commandParams)")
+		var separatedValues = [String]()
+		commandParams.forEach { param in
+			separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
+		}
+
+		print("Params: \(separatedValues)")
 		switch command.type {
 		case .MoveTo:
-			print("MoveTo \(commandParams.count)")
-			if commandParams.count < 2 {
+			print("MoveTo \(separatedValues.count)")
+			if separatedValues.count < 2 {
 				return .None
 			}
 
-			guard let x = Double(commandParams[0]), y = Double(commandParams[1]) else {
+			guard let x = Double(separatedValues[0]), y = Double(separatedValues[1]) else {
 				return .None
 			}
 
@@ -224,47 +229,47 @@ public class SVGParser {
 				return .None
 			}
 
-			guard let x = Double(commandParams[0]), y = Double(commandParams[1]) else {
+			guard let x = Double(separatedValues[0]), y = Double(separatedValues[1]) else {
 				return .None
 			}
 
 			return PLine(x: x, y: y, absolute: true)
 		case .LineH:
-			print("LineHorizontal \(commandParams.count)")
-			if commandParams.count < 1 {
+			print("LineHorizontal \(separatedValues.count)")
+			if separatedValues.count < 1 {
 				return .None
 			}
 
-			guard let x = Double(commandParams[0]) else {
+			guard let x = Double(separatedValues[0]) else {
 				return .None
 			}
 
 			return HLine(x: x, absolute: true)
 
 		case .LineV:
-			print("LineVertical \(commandParams.count)")
-			if commandParams.count < 1 {
+			print("LineVertical \(separatedValues.count)")
+			if separatedValues.count < 1 {
 				return .None
 			}
 
-			guard let y = Double(commandParams[0]) else {
+			guard let y = Double(separatedValues[0]) else {
 				return .None
 			}
 
 			return VLine(y: y, absolute: true)
 
 		case .CurveTo:
-			print("CurveTo \(commandParams.count)")
-			if commandParams.count < 6 {
+			print("CurveTo \(separatedValues.count)")
+			if separatedValues.count < 6 {
 				return .None
 			}
 
-			guard let x1 = Double(commandParams[0]),
-				y1 = Double(commandParams[1]),
-				x2 = Double(commandParams[2]),
-				y2 = Double(commandParams[3]),
-				x = Double(commandParams[4]),
-				y = Double(commandParams[5]) else {
+			guard let x1 = Double(separatedValues[0]),
+				y1 = Double(separatedValues[1]),
+				x2 = Double(separatedValues[2]),
+				y2 = Double(separatedValues[3]),
+				x = Double(separatedValues[4]),
+				y = Double(separatedValues[5]) else {
 					return .None
 			}
 
@@ -275,6 +280,28 @@ public class SVGParser {
 		default:
 			return nil
 		}
+	}
+
+	private func separateNegativeValuesIfNeeded(expression: String) -> [String] {
+
+		var values = [String]()
+		var value = String()
+		for c in expression.characters {
+			if c == "-" {
+				if value.characters.count != 0 {
+					values.append(value)
+					value = String()
+				}
+			}
+
+			value.append(c)
+		}
+
+		if value.characters.count != 0 {
+			values.append(value)
+		}
+
+		return values
 	}
 
 	private func isCommandCharacter(character: Character) -> Bool {

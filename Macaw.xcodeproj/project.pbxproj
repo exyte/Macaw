@@ -7,21 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		573AA6A01CAE346900F30607 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA69F1CAE346900F30607 /* AnimationSequence.swift */; };
-		573AA6A21CAE34BA00F30607 /* RepetitiveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */; };
-		573AA6A41CAE402C00F30607 /* RevertedAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */; };
-		573AA6A61CAE41D400F30607 /* LoopedAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */; };
-		5742238E1CA5414E001EE463 /* AnimationLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238D1CA5414E001EE463 /* AnimationLoop.swift */; };
 		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
-		574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574223911CA55360001EE463 /* AnimationSubscription.swift */; };
-		574BDD921CAA7FC50031D313 /* IntInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD911CAA7FC50031D313 /* IntInterpolation.swift */; };
-		574BDD941CAA80070031D313 /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD931CAA80070031D313 /* Interpolable.swift */; };
-		574BDD961CAA861B0031D313 /* CGFloatInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */; };
-		574BDD981CAA86CC0031D313 /* CGPointInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */; };
-		574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */; };
-		574BDD9C1CAAA5D60031D313 /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */; };
-		5754E63F1CB3B70D00657DA3 /* EasingAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */; };
-		57982D531CB508E600111DAA /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57982D521CB508E600111DAA /* PathAnimation.swift */; };
+		5743EC8C1CEB55A400547004 /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5743EC8B1CEB55A400547004 /* TransformGenerator.swift */; };
+		5743EC8E1CEB725200547004 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5743EC8D1CEB725200547004 /* TimingFunction.swift */; };
+		57A9DAAA1CE9D497009635C7 /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAA91CE9D497009635C7 /* AnimationProducer.swift */; };
+		57A9DAB01CE9D4B6009635C7 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAAC1CE9D4B6009635C7 /* CGExtensions.swift */; };
+		57A9DAB11CE9D4B6009635C7 /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAAD1CE9D4B6009635C7 /* FuncBounds.swift */; };
+		57A9DAB21CE9D4B6009635C7 /* PathBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAAE1CE9D4B6009635C7 /* PathBounds.swift */; };
+		57A9DAB31CE9D4B6009635C7 /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAAF1CE9D4B6009635C7 /* PathFunctions.swift */; };
+		57A9DAB51CE9D645009635C7 /* TransformAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAB41CE9D645009635C7 /* TransformAnimation.swift */; };
+		57A9DAB71CE9D69B009635C7 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9DAB61CE9D69B009635C7 /* ShapeLayer.swift */; };
 		585C04481C27CFB100335FF2 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C04471C27CFB100335FF2 /* MacawView.swift */; };
 		66AE19D21CC8C6B300B78B5E /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AE19D11CC8C6B300B78B5E /* SVGParser.swift */; };
 		AD9EDEE3709C1668BED1B1BF /* Pods_Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */; };
@@ -85,21 +80,16 @@
 
 /* Begin PBXFileReference section */
 		0D10CB2117557903E2D9F24D /* Pods-Macaw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.debug.xcconfig"; sourceTree = "<group>"; };
-		573AA69F1CAE346900F30607 /* AnimationSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSequence.swift; sourceTree = "<group>"; };
-		573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepetitiveAnimation.swift; sourceTree = "<group>"; };
-		573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevertedAnimation.swift; sourceTree = "<group>"; };
-		573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoopedAnimation.swift; sourceTree = "<group>"; };
-		5742238D1CA5414E001EE463 /* AnimationLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationLoop.swift; sourceTree = "<group>"; };
 		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
-		574223911CA55360001EE463 /* AnimationSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSubscription.swift; sourceTree = "<group>"; };
-		574BDD911CAA7FC50031D313 /* IntInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntInterpolation.swift; sourceTree = "<group>"; };
-		574BDD931CAA80070031D313 /* Interpolable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolable.swift; sourceTree = "<group>"; };
-		574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatInterpolation.swift; sourceTree = "<group>"; };
-		574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointInterpolation.swift; sourceTree = "<group>"; };
-		574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
-		574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformInterpolation.swift; sourceTree = "<group>"; };
-		5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasingAnimations.swift; sourceTree = "<group>"; };
-		57982D521CB508E600111DAA /* PathAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathAnimation.swift; sourceTree = "<group>"; };
+		5743EC8B1CEB55A400547004 /* TransformGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformGenerator.swift; sourceTree = "<group>"; };
+		5743EC8D1CEB725200547004 /* TimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingFunction.swift; sourceTree = "<group>"; };
+		57A9DAA91CE9D497009635C7 /* AnimationProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationProducer.swift; sourceTree = "<group>"; };
+		57A9DAAC1CE9D4B6009635C7 /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
+		57A9DAAD1CE9D4B6009635C7 /* FuncBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncBounds.swift; sourceTree = "<group>"; };
+		57A9DAAE1CE9D4B6009635C7 /* PathBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathBounds.swift; sourceTree = "<group>"; };
+		57A9DAAF1CE9D4B6009635C7 /* PathFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathFunctions.swift; sourceTree = "<group>"; };
+		57A9DAB41CE9D645009635C7 /* TransformAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformAnimation.swift; sourceTree = "<group>"; };
+		57A9DAB61CE9D69B009635C7 /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
 		585C04471C27CFB100335FF2 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		66AE19D11CC8C6B300B78B5E /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVGParser.swift; path = svg/SVGParser.swift; sourceTree = "<group>"; };
 		8A680FA7BCDE96402C10D8D2 /* Pods-Macaw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.release.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,11 +178,8 @@
 		573AA69E1CAE346900F30607 /* types */ = {
 			isa = PBXGroup;
 			children = (
-				573AA69F1CAE346900F30607 /* AnimationSequence.swift */,
-				573AA6A11CAE34BA00F30607 /* RepetitiveAnimation.swift */,
-				573AA6A31CAE402C00F30607 /* RevertedAnimation.swift */,
-				573AA6A51CAE41D400F30607 /* LoopedAnimation.swift */,
-				5754E63E1CB3B70D00657DA3 /* EasingAnimations.swift */,
+				5743EC8A1CEB559100547004 /* animation_generators */,
+				57A9DAB41CE9D645009635C7 /* TransformAnimation.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -200,33 +187,39 @@
 		5742238C1CA540F8001EE463 /* animation */ = {
 			isa = PBXGroup;
 			children = (
+				57A9DAAB1CE9D4B6009635C7 /* layer_animation */,
 				573AA69E1CAE346900F30607 /* types */,
-				574BDD901CAA7F490031D313 /* extensions */,
-				5742238D1CA5414E001EE463 /* AnimationLoop.swift */,
 				5742238F1CA5448C001EE463 /* Animation.swift */,
-				57982D521CB508E600111DAA /* PathAnimation.swift */,
-				574223911CA55360001EE463 /* AnimationSubscription.swift */,
-				574BDD931CAA80070031D313 /* Interpolable.swift */,
+				57A9DAA91CE9D497009635C7 /* AnimationProducer.swift */,
 			);
 			path = animation;
 			sourceTree = "<group>";
 		};
-		574BDD901CAA7F490031D313 /* extensions */ = {
+		5743EC8A1CEB559100547004 /* animation_generators */ = {
 			isa = PBXGroup;
 			children = (
-				574BDD911CAA7FC50031D313 /* IntInterpolation.swift */,
-				574BDD951CAA861B0031D313 /* CGFloatInterpolation.swift */,
-				574BDD971CAA86CC0031D313 /* CGPointInterpolation.swift */,
-				574BDD991CAAA5540031D313 /* DoubleInterpolation.swift */,
-				574BDD9B1CAAA5D60031D313 /* TransformInterpolation.swift */,
+				5743EC8B1CEB55A400547004 /* TransformGenerator.swift */,
+				5743EC8D1CEB725200547004 /* TimingFunction.swift */,
 			);
-			path = extensions;
+			path = animation_generators;
+			sourceTree = "<group>";
+		};
+		57A9DAAB1CE9D4B6009635C7 /* layer_animation */ = {
+			isa = PBXGroup;
+			children = (
+				57A9DAAC1CE9D4B6009635C7 /* CGExtensions.swift */,
+				57A9DAAD1CE9D4B6009635C7 /* FuncBounds.swift */,
+				57A9DAAE1CE9D4B6009635C7 /* PathBounds.swift */,
+				57A9DAAF1CE9D4B6009635C7 /* PathFunctions.swift */,
+			);
+			path = layer_animation;
 			sourceTree = "<group>";
 		};
 		585C04461C27CFB100335FF2 /* views */ = {
 			isa = PBXGroup;
 			children = (
 				585C04471C27CFB100335FF2 /* MacawView.swift */,
+				57A9DAB61CE9D69B009635C7 /* ShapeLayer.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -509,12 +502,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B03275FD1C78772F000BDD33 /* Move.swift in Sources */,
-				574223921CA55360001EE463 /* AnimationSubscription.swift in Sources */,
 				B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */,
 				B032760E1C78772F000BDD33 /* MouseButton.swift in Sources */,
 				B03276061C78772F000BDD33 /* RoundRect.swift in Sources */,
 				B03275EC1C78772F000BDD33 /* FontStyle.swift in Sources */,
 				B03276191C7884C7000BDD33 /* RenderUtils.swift in Sources */,
+				57A9DAB21CE9D4B6009635C7 /* PathBounds.swift in Sources */,
 				B03275F31C78772F000BDD33 /* Arc.swift in Sources */,
 				B03276121C78772F000BDD33 /* Node.swift in Sources */,
 				B03276211C788687000BDD33 /* NodeRenderer.swift in Sources */,
@@ -522,6 +515,7 @@
 				B03275E51C78772F000BDD33 /* Align.swift in Sources */,
 				B03276021C78772F000BDD33 /* Polygon.swift in Sources */,
 				B032760D1C78772F000BDD33 /* Mouse.swift in Sources */,
+				57A9DAAA1CE9D497009635C7 /* AnimationProducer.swift in Sources */,
 				B03275FE1C78772F000BDD33 /* Path.swift in Sources */,
 				B03275EB1C78772F000BDD33 /* Font.swift in Sources */,
 				B03275E81C78772F000BDD33 /* Color.swift in Sources */,
@@ -529,52 +523,46 @@
 				B03275FB1C78772F000BDD33 /* Line.swift in Sources */,
 				B032760A1C78772F000BDD33 /* Transform.swift in Sources */,
 				B032760C1C78772F000BDD33 /* Cursor.swift in Sources */,
-				574BDD941CAA80070031D313 /* Interpolable.swift in Sources */,
 				B03275EF1C78772F000BDD33 /* LineCap.swift in Sources */,
-				573AA6A41CAE402C00F30607 /* RevertedAnimation.swift in Sources */,
-				573AA6A61CAE41D400F30607 /* LoopedAnimation.swift in Sources */,
 				B03275F71C78772F000BDD33 /* Ellipse.swift in Sources */,
+				5743EC8E1CEB725200547004 /* TimingFunction.swift in Sources */,
 				B032760F1C78772F000BDD33 /* Group.swift in Sources */,
 				B03275E61C78772F000BDD33 /* AspectRatio.swift in Sources */,
 				B03276071C78772F000BDD33 /* SCubic.swift in Sources */,
 				B03276031C78772F000BDD33 /* Polyline.swift in Sources */,
-				574BDD961CAA861B0031D313 /* CGFloatInterpolation.swift in Sources */,
 				B03275FC1C78772F000BDD33 /* Locus.swift in Sources */,
-				5754E63F1CB3B70D00657DA3 /* EasingAnimations.swift in Sources */,
 				B03275F41C78772F000BDD33 /* Circle.swift in Sources */,
 				B03276011C78772F000BDD33 /* Point.swift in Sources */,
 				B03276141C78772F000BDD33 /* Text.swift in Sources */,
+				57A9DAB31CE9D4B6009635C7 /* PathFunctions.swift in Sources */,
 				B03276051C78772F000BDD33 /* Rect.swift in Sources */,
-				574BDD9A1CAAA5540031D313 /* DoubleInterpolation.swift in Sources */,
 				B03275FF1C78772F000BDD33 /* PathSegment.swift in Sources */,
 				B03276041C78772F000BDD33 /* Quadratic.swift in Sources */,
+				57A9DAB51CE9D645009635C7 /* TransformAnimation.swift in Sources */,
 				B03275F21C78772F000BDD33 /* Stroke.swift in Sources */,
+				5743EC8C1CEB55A400547004 /* TransformGenerator.swift in Sources */,
 				B03276271C789217000BDD33 /* RenderContext.swift in Sources */,
 				B032760B1C78772F000BDD33 /* VLine.swift in Sources */,
 				B03276081C78772F000BDD33 /* Size.swift in Sources */,
 				B03275F81C78772F000BDD33 /* Elliptical.swift in Sources */,
 				B032761F1C7885B2000BDD33 /* TextRenderer.swift in Sources */,
 				B03276131C78772F000BDD33 /* Shape.swift in Sources */,
-				573AA6A21CAE34BA00F30607 /* RepetitiveAnimation.swift in Sources */,
 				B0086C561C789758008A4F69 /* GroupRenderer.swift in Sources */,
-				574BDD981CAA86CC0031D313 /* CGPointInterpolation.swift in Sources */,
 				B03276001C78772F000BDD33 /* PLine.swift in Sources */,
 				B03275F91C78772F000BDD33 /* HLine.swift in Sources */,
+				57A9DAB01CE9D4B6009635C7 /* CGExtensions.swift in Sources */,
 				B03275FA1C78772F000BDD33 /* Insets.swift in Sources */,
 				B03276101C78772F000BDD33 /* Image.swift in Sources */,
 				B03275EE1C78772F000BDD33 /* LinearGradient.swift in Sources */,
 				B03275E71C78772F000BDD33 /* Baseline.swift in Sources */,
 				B03275F11C78772F000BDD33 /* Stop.swift in Sources */,
-				573AA6A01CAE346900F30607 /* AnimationSequence.swift in Sources */,
 				B03276171C788162000BDD33 /* ShapeRenderer.swift in Sources */,
-				57982D531CB508E600111DAA /* PathAnimation.swift in Sources */,
+				57A9DAB11CE9D4B6009635C7 /* FuncBounds.swift in Sources */,
 				B03275EA1C78772F000BDD33 /* Fill.swift in Sources */,
 				B03275F51C78772F000BDD33 /* Close.swift in Sources */,
 				B03275F01C78772F000BDD33 /* LineJoin.swift in Sources */,
 				B03276091C78772F000BDD33 /* SQuadratic.swift in Sources */,
-				574BDD921CAA7FC50031D313 /* IntInterpolation.swift in Sources */,
-				574BDD9C1CAAA5D60031D313 /* TransformInterpolation.swift in Sources */,
-				5742238E1CA5414E001EE463 /* AnimationLoop.swift in Sources */,
+				57A9DAB71CE9D69B009635C7 /* ShapeLayer.swift in Sources */,
 				B03275ED1C78772F000BDD33 /* FontWeight.swift in Sources */,
 				B03275F61C78772F000BDD33 /* Cubic.swift in Sources */,
 				66AE19D21CC8C6B300B78B5E /* SVGParser.swift in Sources */,

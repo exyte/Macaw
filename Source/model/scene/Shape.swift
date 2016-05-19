@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node  {
+public class Shape: Node {
 
 	public let formVar: Variable<Locus>
 	public var form: Locus {
@@ -22,9 +22,9 @@ public class Shape: Node  {
 	}
 
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.formVar = Variable<Locus>(form)	
-		self.fillVar = Variable<Fill?>(fill)	
-		self.strokeVar = Variable<Stroke?>(stroke)	
+		self.formVar = Variable<Locus>(form)
+		self.fillVar = Variable<Fill?>(fill)
+		self.strokeVar = Variable<Stroke?>(stroke)
 		super.init(
 			pos: pos,
 			opaque: opaque,
@@ -34,4 +34,12 @@ public class Shape: Node  {
 		)
 	}
 
+	override public func bounds() -> Rect? {
+
+		if let path = form as? Path {
+			return pathBounds(path)
+		}
+
+		return form.bounds()
+	}
 }

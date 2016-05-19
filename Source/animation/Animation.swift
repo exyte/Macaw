@@ -1,80 +1,63 @@
 import Foundation
 import RxSwift
 
-public extension SequenceType where Generator.Element: Animatable {
-	func playAnimations() {
-		self.forEach { animation in
-			animation.play()
-		}
-	}
+enum AnimationType {
+	case Unknown
+	case AffineTransformation
+}
 
-	func pauseAnimations() {
-		self.forEach { animation in
-			animation.pause()
-		}
-	}
-
-	func removeAnimations() {
-		self.forEach { animation in
-			animation.remove()
-		}
-	}
-
-	func moveAnimationsToPosition(position: Double) {
-		self.forEach { animation in
-			animation.moveToPosition(position)
-		}
-	}
+public enum TimingFunction {
+	case Default
+	case Linear
+	case EaseIn
+	case EaseOut
+	case EaseInEaseOut
 }
 
 public class Animatable {
 
-	var shouldBeRemoved = false
-	var paused = false
+	var shape: Group?
+	var type = AnimationType.Unknown
 
-	var shouldUpdateSubscription = false
+	// Options
+	public var repeatCount = 0.0
+	public var autoreverses = false
+	public var timingFunction = TimingFunction.Default
 
-	public let currentProgress = Variable<Double>(0)
-
-	func animate(progress: Double) { }
 	func getDuration() -> Double { return 0 }
-
-	func play() {
-		paused = false
-		shouldUpdateSubscription = true
-	}
-	func pause() { paused = true }
-	func remove() { shouldBeRemoved = true }
-
-	public func moveToPosition(position: Double) {
-		shouldUpdateSubscription = true
-		currentProgress.value = position
-	}
 }
 
-public class Animation<T: Interpolable>: Animatable {
+// Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
+public class Animation<T>: Animatable {
 
 	let value: Variable<T>
 
-	let start: T
-	let final: T
+	var start: T?
+	var final: T?
+	var vFunc: ((Double) -> T)?
+
 	let duration: Double
 
-	public required init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
+	public required init(observableValue: Variable<T>, animationDuration: Double) {
 		value = observableValue
+		duration = animationDuration
+	}
+
+	public convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
+		self.init(observableValue: observableValue, animationDuration: animationDuration)
+
 		start = startValue
 		final = finalValue
-		duration = animationDuration
+	}
+
+	public convenience init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double) {
+		self.init(observableValue: observableValue, animationDuration: animationDuration)
+
+		vFunc = valueFunc
 	}
 
 	public convenience init(observableValue: Variable<T>, finalValue: T, animationDuration: Double) {
 		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
-	}
-
-	public override func animate(progress: Double) {
-
-		value.value = start.interpolate(final, progress: progress)
-		currentProgress.value = progress
 	}
 
 	public override func getDuration() -> Double {

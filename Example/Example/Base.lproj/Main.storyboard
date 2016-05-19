@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Ku-fM-19f">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Ku-fM-19f">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -85,6 +85,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="STd-gH-3Yz" secondAttribute="trailing" constant="-20" id="gh5-Tv-7xe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="animView" destination="STd-gH-3Yz" id="Pyc-z1-atc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj7-oX-mAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -165,7 +168,7 @@
         <!--Path-->
         <scene sceneID="vwB-cZ-5dI">
             <objects>
-                <viewController storyboardIdentifier="ThirdPageViewController" title="Path" id="IrQ-al-Owp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PathExampleController" title="Path" id="IrQ-al-Owp" customClass="PathExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bl7-8Z-ZUm"/>
                         <viewControllerLayoutGuide type="bottom" id="1ea-S4-NTm"/>
@@ -173,38 +176,11 @@
                     <view key="view" contentMode="scaleToFill" id="y1S-j5-FMS" customClass="PathExampleView" customModule="Example" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-CN-l6C">
-                                <rect key="frame" x="276" y="544" width="48" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="Jge-rD-lfB"/>
-                                    <constraint firstAttribute="height" constant="22" id="LHt-QV-KDv"/>
-                                </constraints>
-                                <state key="normal" title="Play"/>
-                                <connections>
-                                    <action selector="onPlayerBtnClicked" destination="y1S-j5-FMS" eventType="touchUpInside" id="69e-Z7-WVS"/>
-                                </connections>
-                            </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="oo7-ju-RJS">
-                                <rect key="frame" x="18" y="489" width="564" height="31"/>
-                                <connections>
-                                    <action selector="onProgressChanged:" destination="y1S-j5-FMS" eventType="valueChanged" id="JZ1-0H-Otd"/>
-                                </connections>
-                            </slider>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="oo7-ju-RJS" firstAttribute="leading" secondItem="y1S-j5-FMS" secondAttribute="leadingMargin" id="dW6-Wv-aqm"/>
-                            <constraint firstItem="myZ-CN-l6C" firstAttribute="top" secondItem="oo7-ju-RJS" secondAttribute="bottom" constant="25" id="hcG-xO-NqK"/>
-                            <constraint firstItem="myZ-CN-l6C" firstAttribute="centerX" secondItem="y1S-j5-FMS" secondAttribute="centerX" id="iiN-tB-5cf"/>
-                            <constraint firstItem="oo7-ju-RJS" firstAttribute="trailing" secondItem="y1S-j5-FMS" secondAttribute="trailingMargin" id="nFW-LZ-lMi"/>
-                            <constraint firstItem="1ea-S4-NTm" firstAttribute="top" secondItem="myZ-CN-l6C" secondAttribute="bottom" constant="34" id="sUz-cy-GZo"/>
-                        </constraints>
-                        <connections>
-                            <outlet property="playerBtn" destination="myZ-CN-l6C" id="mBO-we-5tC"/>
-                            <outlet property="progressSlider" destination="oo7-ju-RJS" id="g4N-sP-hPU"/>
-                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="sceneView" destination="y1S-j5-FMS" id="Gys-cw-jYu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asF-Da-v23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

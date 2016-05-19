@@ -1,12 +1,12 @@
 import Foundation
 import RxSwift
 
-public class Group: Node  {
+public class Group: Node {
 
-	public var contents: ObservableArray<Node>
+	public var contentsVar: Variable<[Node]>
 
 	public init(contents: [Node] = [], pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.contents = ObservableArray<Node>(array: contents)	
+		self.contentsVar = Variable<[Node]>(contents)
 		super.init(
 			pos: pos,
 			opaque: opaque,
@@ -16,4 +16,23 @@ public class Group: Node  {
 		)
 	}
 
+	override public func bounds() -> Rect? {
+		guard let firstPos = contentsVar.value.first?.pos else {
+			return .None
+		}
+
+		guard var union = contentsVar.value.first?.bounds()?.applyTransform(firstPos) else {
+			return .None
+		}
+
+		contentsVar.value.forEach { node in
+			guard let nodeBounds = node.bounds() else {
+				return
+			}
+
+			union = union.union(nodeBounds.applyTransform(node.pos))
+		}
+
+		return union // .applyTransform(pos)
+	}
 }

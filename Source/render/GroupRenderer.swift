@@ -28,6 +28,7 @@ class GroupRenderer: NodeRenderer {
 	func render() {
 		let staticContents = group.contents.filter { !$0.animating }
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+		print("Renderers: \(contentRenderers.flatMap{$0}.count)")
 
 		contentRenderers.forEach { renderer in
 			if let rendererVal = renderer {

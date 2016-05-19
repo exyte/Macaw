@@ -1,6 +1,6 @@
 import UIKit
 
-extension Rect {
+public extension Rect {
 
 	convenience init(cgRect: CGRect) {
 		self.init(
@@ -22,7 +22,7 @@ extension Rect {
 		return Rect(cgRect: CGRectApplyAffineTransform(self.cgRect(), cgTransform))
 	}
 
-	func description() -> String {
+	public func description() -> String {
 		return "x: \(self.x) y:\(self.y) w:\(self.w) h:\(self.h)"
 	}
 }

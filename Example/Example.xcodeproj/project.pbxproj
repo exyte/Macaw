@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
 		5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5708F7E51CC8A783002AA500 /* PathExampleController.swift */; };
+		571B0FF61CEDDBD900A998E2 /* tree2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 571B0FF51CEDDBD900A998E2 /* tree2.svg */; };
 		5720C6B11CECA89E00090FC6 /* sunset-tree.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5720C6B01CECA89E00090FC6 /* sunset-tree.svg */; };
 		574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */; };
 		574EC4381CB7DE7F0063F317 /* CleanersGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */; };
@@ -22,6 +23,7 @@
 		574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4401CB7E2440063F317 /* MenuViewController.swift */; };
 		574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */; };
 		575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B51CBD14AF00BD3C2E /* AnimationsView.swift */; };
+		578791A11CEDCE8B008D85A1 /* tree.svg in Resources */ = {isa = PBXBuildFile; fileRef = 578791A01CEDCE8B008D85A1 /* tree.svg */; };
 		57A9DAB91CEA1502009635C7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DAB81CEA1502009635C7 /* RxSwift.framework */; };
 		57A9DABA1CEA1502009635C7 /* RxSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DAB81CEA1502009635C7 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57A9DABC1CEA151E009635C7 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57A9DABB1CEA151E009635C7 /* SWXMLHash.framework */; };
@@ -75,6 +77,7 @@
 /* Begin PBXFileReference section */
 		24BE07031C6DF1F000B5882F /* BasePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
 		5708F7E51CC8A783002AA500 /* PathExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathExampleController.swift; sourceTree = "<group>"; };
+		571B0FF51CEDDBD900A998E2 /* tree2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tree2.svg; path = Example/Assets/SVG/tree2.svg; sourceTree = "<group>"; };
 		5720C6B01CECA89E00090FC6 /* sunset-tree.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "sunset-tree.svg"; path = "Example/Assets/SVG/sunset-tree.svg"; sourceTree = "<group>"; };
 		574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerExampleController.swift; sourceTree = "<group>"; };
 		574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanersGraphics.swift; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 		574EC4401CB7E2440063F317 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Example/MenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsExampleController.swift; sourceTree = "<group>"; };
 		575129B51CBD14AF00BD3C2E /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsView.swift; sourceTree = "<group>"; };
+		578791A01CEDCE8B008D85A1 /* tree.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tree.svg; path = Example/Assets/SVG/tree.svg; sourceTree = "<group>"; };
 		57A9DAB81CEA1502009635C7 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = RxSwift.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Release-iphoneos/RxSwift.framework"; sourceTree = "<absolute>"; };
 		57A9DABB1CEA151E009635C7 /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SWXMLHash.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Release-iphoneos/SWXMLHash.framework"; sourceTree = "<absolute>"; };
 		57A9DABE1CEA162F009635C7 /* Swift_CAAnimation_Closure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Swift_CAAnimation_Closure.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Release-iphoneos/Swift_CAAnimation_Closure.framework"; sourceTree = "<absolute>"; };
@@ -220,6 +224,8 @@
 		66AE19D91CC8CAB600B78B5E /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				571B0FF51CEDDBD900A998E2 /* tree2.svg */,
+				578791A01CEDCE8B008D85A1 /* tree.svg */,
 				5720C6B01CECA89E00090FC6 /* sunset-tree.svg */,
 				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
 			);
@@ -347,7 +353,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
+				578791A11CEDCE8B008D85A1 /* tree.svg in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
+				571B0FF61CEDDBD900A998E2 /* tree2.svg in Resources */,
 				5720C6B11CECA89E00090FC6 /* sunset-tree.svg in Resources */,
 				66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */,
 				B02E75F61C16104900D1971D /* Main.storyboard in Resources */,

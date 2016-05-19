@@ -38,8 +38,8 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	// Creating animated layer
 	let layer = ShapeLayer()
 	// layer.backgroundColor = UIColor.greenColor().CGColor
-	// layer.borderWidth = 1.0
-	// layer.borderColor = UIColor.blueColor().CGColor
+	layer.borderWidth = 1.0
+	layer.borderColor = UIColor.blueColor().CGColor
 
 	generatedAnim.completion = { finished in
 		if !finished {

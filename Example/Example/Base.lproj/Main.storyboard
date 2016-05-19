@@ -85,6 +85,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="STd-gH-3Yz" secondAttribute="trailing" constant="-20" id="gh5-Tv-7xe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="animView" destination="STd-gH-3Yz" id="Pyc-z1-atc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj7-oX-mAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

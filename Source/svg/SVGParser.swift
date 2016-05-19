@@ -199,7 +199,7 @@ public class SVGParser {
 	}
 
 	private func parseCommand(command: PathCommand) -> PathSegment? {
-		print("Expression: \(command.expression)")
+		// print("Expression: \(command.expression)")
 
 		let characterSet = NSMutableCharacterSet()
 		characterSet.addCharactersInString(" ")
@@ -210,10 +210,10 @@ public class SVGParser {
 			separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
 		}
 
-		print("Params: \(separatedValues)")
+		// print("Params: \(separatedValues)")
 		switch command.type {
 		case .MoveTo:
-			print("MoveTo \(separatedValues.count)")
+			// print("MoveTo \(separatedValues.count)")
 			if separatedValues.count < 2 {
 				return .None
 			}
@@ -225,7 +225,7 @@ public class SVGParser {
 			return Move(x: x, y: y, absolute: command.absolute)
 
 		case .LineTo:
-			print("LineTo \(commandParams.count)")
+			// print("LineTo \(commandParams.count)")
 			if commandParams.count < 2 {
 				return .None
 			}
@@ -237,7 +237,7 @@ public class SVGParser {
 			return PLine(x: x, y: y, absolute: command.absolute)
 
 		case .LineH:
-			print("LineHorizontal \(separatedValues.count)")
+			// print("LineHorizontal \(separatedValues.count)")
 			if separatedValues.count < 1 {
 				return .None
 			}
@@ -249,7 +249,7 @@ public class SVGParser {
 			return HLine(x: x, absolute: command.absolute)
 
 		case .LineV:
-			print("LineVertical \(separatedValues.count)")
+			// print("LineVertical \(separatedValues.count)")
 			if separatedValues.count < 1 {
 				return .None
 			}
@@ -261,7 +261,7 @@ public class SVGParser {
 			return VLine(y: y, absolute: command.absolute)
 
 		case .CurveTo:
-			print("CurveTo \(separatedValues.count)")
+			// print("CurveTo \(separatedValues.count)")
 			if separatedValues.count < 6 {
 				return .None
 			}
@@ -278,7 +278,7 @@ public class SVGParser {
 			return Cubic(x1: x1, y1: y1, x2: x2, y2: y2, x: x, y: y, absolute: command.absolute)
 
 		case .ClosePath:
-			print("Close Path")
+			// print("Close Path")
 			return Close()
 		default:
 			return nil

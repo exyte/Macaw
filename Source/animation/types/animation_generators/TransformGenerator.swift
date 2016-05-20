@@ -149,7 +149,6 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 
 	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
 
-	// TODO: Calculate step dependant on duration
 	let step = 1.0 / (duration * 30.0)
 	for t in 0.0.stride(to: 1.0, by: step) {
 

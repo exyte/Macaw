@@ -27,20 +27,15 @@ class GroupRenderer: NodeRenderer {
 
 	func render(force: Bool) {
 
-		var staticContents: [Node]
 		if !force {
 
 			// Cutting animated content
 			if group.animating {
-				// return
+				return
 			}
-
-			staticContents = group.contentsVar.value//.filter { !$0.animating }
-		} else {
-
-			// Rendering entire node
-			staticContents = group.contentsVar.value
 		}
+
+		let staticContents = group.contentsVar.value.filter { !$0.animating }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
 		print("Renderers: \(contentRenderers.flatMap{$0}.count)")

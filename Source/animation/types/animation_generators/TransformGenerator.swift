@@ -57,7 +57,11 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 			cgRect.width + cgRect.origin.x,
 			cgRect.height + cgRect.origin.y)
 
-		// layer.frame = origFrame
+		// TODO: Correct layer sized using transform tree
+		// cgRect.origin.x >= 0.0 ? cgRect.width : cgRect.width + cgRect.origin.x,
+		// cgRect.origin.y >= 0.0 ? cgRect.height : cgRect.height + cgRect.origin.y)
+
+		layer.frame = origFrame
 		layer.frame = CGRectApplyAffineTransform(origFrame, cgInitialTransform)
 		layer.renderTransform = CGAffineTransformMakeScale(initScaleX, initScaleY)
 	}
@@ -145,7 +149,9 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 
 	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
 
-	for t in 0.0.stride(to: 1.0, by: 0.05) {
+	// TODO: Calculate step dependant on duration
+	let step = 1.0 / (duration * 30.0)
+	for t in 0.0.stride(to: 1.0, by: step) {
 
 		let value = valueFunc(t)
 		let cgTransform = transfomToCG(value)

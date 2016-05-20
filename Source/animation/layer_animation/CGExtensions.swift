@@ -27,12 +27,12 @@ public extension Rect {
 	}
 }
 
-extension Point {
-	func cgPoint() -> CGPoint {
+public extension Point {
+	public func cgPoint() -> CGPoint {
 		return CGPoint(x: self.x, y: self.y)
 	}
 
-	func description() -> String {
+	public func description() -> String {
 		return "x: \(self.x) y:\(self.y)"
 	}
 }

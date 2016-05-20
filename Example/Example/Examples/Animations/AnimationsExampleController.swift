@@ -7,6 +7,6 @@ class AnimationsExampleController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
-		animView?.testAnimation()
+		animView?.startAnimation()
 	}
 }

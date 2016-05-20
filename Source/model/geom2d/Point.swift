@@ -11,11 +11,11 @@ public class Point: Locus {
 		self.y = y
 	}
 
-	class func zero() -> Point {
+	public class func zero() -> Point {
 		return Point(x: 0.0, y: 0.0)
 	}
 
-	func add(point: Point) -> Point {
+	public func add(point: Point) -> Point {
 		return Point(
 			x: self.x + point.x,
 			y: self.y + point.y)

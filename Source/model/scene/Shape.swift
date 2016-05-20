@@ -36,8 +36,18 @@ public class Shape: Node {
 
 	override public func bounds() -> Rect? {
 
+		// TODO: Implement more form types
+
 		if let path = form as? Path {
 			return pathBounds(path)
+		}
+
+		if let circle = form as? Circle {
+			return Rect(
+				x: circle.cx - circle.r,
+				y: circle.cy - circle.r,
+				w: circle.r * 2.0,
+				h: circle.r * 2.0)
 		}
 
 		return form.bounds()

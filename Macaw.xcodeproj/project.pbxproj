@@ -698,6 +698,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw.Macaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};

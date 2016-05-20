@@ -17,7 +17,7 @@ class GroupRenderer: NodeRenderer {
 	}
 
 	func hook() {
-		func onGroupChange(new:  [Node]) {
+		func onGroupChange(new: [Node]) {
 			ctx.view?.setNeedsDisplay()
 		}
 		group.contentsVar.asObservable().subscribeNext { new in
@@ -32,10 +32,10 @@ class GroupRenderer: NodeRenderer {
 
 			// Cutting animated content
 			if group.animating {
-				return
+				// return
 			}
 
-			staticContents = group.contentsVar.value.filter { !$0.animating }
+			staticContents = group.contentsVar.value//.filter { !$0.animating }
 		} else {
 
 			// Rendering entire node

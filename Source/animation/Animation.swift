@@ -22,7 +22,7 @@ public class Animatable {
 	// Options
 	public var repeatCount = 0.0
 	public var autoreverses = false
-	public var timingFunction = TimingFunction.Default
+	public var timingFunction = TimingFunction.Linear
 
 	func getDuration() -> Double { return 0 }
 }

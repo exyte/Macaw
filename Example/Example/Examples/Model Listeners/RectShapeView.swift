@@ -24,7 +24,7 @@ class RectShapeView: MacawView {
 		super.init(node: rectShape, coder: aDecoder)
 	}
 
-	required init?(node: Node, coder aDecoder: NSCoder) {
+	required init?(node: Node?, coder aDecoder: NSCoder) {
 		super.init(node: node, coder: aDecoder)
 	}
 }

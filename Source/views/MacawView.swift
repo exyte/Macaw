@@ -3,21 +3,32 @@ import UIKit
 
 public class MacawView: UIView {
 
-	var node: Node!
+	public var node: Node? {
+		didSet {
+			guard let validNode = node else {
+				return
+			}
+
+			self.renderer = RenderUtils.createNodeRenderer(validNode, context: context)
+		}
+	}
+
 	var context: RenderContext!
-	var renderer: NodeRenderer!
+	var renderer: NodeRenderer?
 
 	var animationProducer: AnimationProducer?
 
-	public required init?(node: Node, coder aDecoder: NSCoder) {
+	public required init?(node: Node?, coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
 
-		self.node = node
 		self.context = RenderContext(view: self)
-		self.renderer = RenderUtils.createNodeRenderer(node, context: context)!
-
+		self.node = node
 		self.animationProducer = AnimationProducer(layer: self.layer)
+
+		if let validNode = node {
+			self.renderer = RenderUtils.createNodeRenderer(validNode, context: context)
+		}
 	}
 
 	public convenience required init?(coder aDecoder: NSCoder) {
@@ -26,7 +37,7 @@ public class MacawView: UIView {
 
 	override public func drawRect(rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
-		renderer.render(false)
+		renderer?.render(false)
 	}
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {

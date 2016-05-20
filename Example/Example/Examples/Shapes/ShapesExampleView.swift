@@ -143,7 +143,7 @@ class ShapesExampleView: MacawView {
 		super.init(node: group, coder: aDecoder)
 	}
 
-	required init?(node: Node, coder aDecoder: NSCoder) {
+	required init?(node: Node?, coder aDecoder: NSCoder) {
 		super.init(node: node, coder: aDecoder)
 	}
 }

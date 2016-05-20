@@ -26,7 +26,7 @@ class CleanerExampleController: UIViewController {
 
 	func update(newState: CleanState) {
 		let g = CleanersGraphics()
-		macawView.node.contentsVar.value.removeAll()
-		macawView.node.contentsVar.value.append(g.graphics(newState))
+		macawView.groupNode.contentsVar.value.removeAll()
+		macawView.groupNode.contentsVar.value.append(g.graphics(newState))
 	}
 }

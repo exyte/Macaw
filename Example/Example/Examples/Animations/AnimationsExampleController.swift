@@ -7,6 +7,12 @@ class AnimationsExampleController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
+		animView?.prepareAnimation()
+	}
+
+	@IBAction func startAnimationAction() {
+
+		animView?.prepareAnimation()
 		animView?.startAnimation()
 	}
 }

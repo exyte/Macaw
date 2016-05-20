@@ -7,9 +7,10 @@ class AnimationsView: MacawView {
 
 	required init?(coder aDecoder: NSCoder) {
 
-		let n = 50
+		let n = 150
 		let speed = 10.0
 		let startPoint = Point(x: 150.0, y: 150.0)
+		let r = 10.0
 		var ballNodes = [Group]()
 		var velocities = [Point]()
 		var positions = [Point]()
@@ -24,6 +25,7 @@ class AnimationsView: MacawView {
 			var pos = prevPos.add(velocity)
 			let scenePos = pos.add(startPoint)
 
+			// Borders
 			if scenePos.x < 0.0 || scenePos.x > 320.0 {
 				velocity = Point(x: -1.0 * velocity.x, y: velocity.y)
 				velocities[index] = velocity
@@ -41,11 +43,11 @@ class AnimationsView: MacawView {
 
 		for i in 0 ... (n - 1) {
 			let velocity = Point(
-				x: -0.5 * speed + Double(rand()) % speed,
-				y: -0.5 * speed + Double(rand()) % speed)
+				x: -0.5 * speed + speed * Double(rand() % 1000) / 1000.0,
+				y: -0.5 * speed + speed * Double(rand() % 1000) / 1000.0)
 			velocities.append(velocity)
 			positions.append(Point(x: 0.0, y: 0.0))
-			let circle = Circle(cx: startPoint.x, cy: startPoint.y, r: 10)
+			let circle = Circle(cx: startPoint.x, cy: startPoint.y, r: r)
 			let shape = Shape(
 				form: circle,
 				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(rand() % 6)]

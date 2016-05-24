@@ -40,12 +40,12 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		// let reversed = transformAnimation.autoreverses
 		// let count = transformAnimation.repeatCount + 1
 
-		layer.removeFromSuperlayer()
-
 		animation.shape?.posVar.value = transformAnimation.vFunc(animation.progress)
-
 		animation.shape?.animating = false
 		sceneLayer.setNeedsDisplay()
+
+		layer.removeFromSuperlayer()
+
 		animation.completion?()
 	}
 

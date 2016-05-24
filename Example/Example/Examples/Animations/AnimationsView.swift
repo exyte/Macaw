@@ -6,7 +6,7 @@ class AnimationsView: MacawView {
 	var animations = [TransformAnimation]()
 	var ballNodes = [Group]()
 
-	let n = 100
+	let n = 2
 	let speed = 20.0
 	let r = 10.0
 
@@ -87,9 +87,9 @@ class AnimationsView: MacawView {
 				return Transform().move(
 					pos.x,
 					my: pos.y)
-				}, animationDuration: 3.0)
+				}, animationDuration: 6.0)
 
-			animation.autoreverses = true
+			// animation.autoreverses = true
 
 			animations.append(animation)
 		}

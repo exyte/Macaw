@@ -36,13 +36,21 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	// layer.borderColor = UIColor.blueColor().CGColor
 
 	generatedAnim.completion = { finished in
+
+		// let reversed = transformAnimation.autoreverses
+		// let count = transformAnimation.repeatCount + 1
+
 		layer.removeFromSuperlayer()
 
-		animation.shape?.posVar.value = transformAnimation.vFunc(1.0)
+		animation.shape?.posVar.value = transformAnimation.vFunc(animation.progress)
 
 		animation.shape?.animating = false
 		sceneLayer.setNeedsDisplay()
 		animation.completion?()
+	}
+
+	generatedAnim.progress = { progress in
+		animation.progress = Double(progress)
 	}
 
 	if let shapeBounds = shape.bounds() {

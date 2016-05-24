@@ -39,6 +39,7 @@ public class Animatable {
 
 	// Private
 	var removeFunc: (() -> ())?
+	var progress = 0.0
 }
 
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html

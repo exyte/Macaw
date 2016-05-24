@@ -25,6 +25,8 @@ public class Animatable {
 	public var autoreverses = false
 	public var timingFunction = TimingFunction.Linear
 
+	public var completion: (() -> ())?
+
 	func getDuration() -> Double { return 0 }
 
 	public required init() {

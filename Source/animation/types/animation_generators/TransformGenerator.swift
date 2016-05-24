@@ -49,6 +49,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		layer.removeFromSuperlayer()
 		animation.shape?.animating = false
 		sceneLayer.setNeedsDisplay()
+		animation.completion?()
 	}
 
 	if let shapeBounds = shape.bounds() {

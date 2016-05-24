@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
 		5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5708F7E51CC8A783002AA500 /* PathExampleController.swift */; };
+		5710BA331CF4903C009E13C2 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA321CF4903C009E13C2 /* RxSwift.framework */; };
+		5710BA341CF4903C009E13C2 /* RxSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA321CF4903C009E13C2 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5710BA361CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA351CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework */; };
+		5710BA371CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA351CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5710BA391CF4903C009E13C2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA381CF4903C009E13C2 /* SWXMLHash.framework */; };
+		5710BA3A1CF4903C009E13C2 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA381CF4903C009E13C2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		571B0FF61CEDDBD900A998E2 /* tree2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 571B0FF51CEDDBD900A998E2 /* tree2.svg */; };
 		5720C6B11CECA89E00090FC6 /* sunset-tree.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5720C6B01CECA89E00090FC6 /* sunset-tree.svg */; };
 		574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */; };
@@ -58,7 +64,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5710BA341CF4903C009E13C2 /* RxSwift.framework in Copy Frameworks */,
 				B02E76121C16113A00D1971D /* Macaw.framework in Copy Frameworks */,
+				5710BA3A1CF4903C009E13C2 /* SWXMLHash.framework in Copy Frameworks */,
+				5710BA371CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +77,9 @@
 /* Begin PBXFileReference section */
 		24BE07031C6DF1F000B5882F /* BasePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageViewController.swift; sourceTree = "<group>"; };
 		5708F7E51CC8A783002AA500 /* PathExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathExampleController.swift; sourceTree = "<group>"; };
+		5710BA321CF4903C009E13C2 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = RxSwift.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Debug-iphonesimulator/RxSwift.framework"; sourceTree = "<absolute>"; };
+		5710BA351CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Swift_CAAnimation_Closure.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Debug-iphonesimulator/Swift_CAAnimation_Closure.framework"; sourceTree = "<absolute>"; };
+		5710BA381CF4903C009E13C2 /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SWXMLHash.framework; path = "/Users/Victor/Library/Developer/Xcode/DerivedData/Macaw-avwlwyxpsbzwuxfoqvtfsqmobryt/Build/Products/Debug-iphonesimulator/SWXMLHash.framework"; sourceTree = "<absolute>"; };
 		571B0FF51CEDDBD900A998E2 /* tree2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tree2.svg; path = Example/Assets/SVG/tree2.svg; sourceTree = "<group>"; };
 		5720C6B01CECA89E00090FC6 /* sunset-tree.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "sunset-tree.svg"; path = "Example/Assets/SVG/sunset-tree.svg"; sourceTree = "<group>"; };
 		574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerExampleController.swift; sourceTree = "<group>"; };
@@ -99,7 +111,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5710BA331CF4903C009E13C2 /* RxSwift.framework in Frameworks */,
 				B02E76101C16111D00D1971D /* Macaw.framework in Frameworks */,
+				5710BA391CF4903C009E13C2 /* SWXMLHash.framework in Frameworks */,
+				5710BA361CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +235,9 @@
 		B02E75E41C16104900D1971D = {
 			isa = PBXGroup;
 			children = (
+				5710BA381CF4903C009E13C2 /* SWXMLHash.framework */,
+				5710BA351CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework */,
+				5710BA321CF4903C009E13C2 /* RxSwift.framework */,
 				66AE19D81CC8CAB000B78B5E /* Assets */,
 				24BE06FF1C6B91C800B5882F /* img */,
 				B02E75EF1C16104900D1971D /* Example */,

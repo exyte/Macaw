@@ -18,6 +18,7 @@ public class Animatable {
 
 	var shape: Group?
 	var type = AnimationType.Unknown
+	let ID: String
 
 	// Options
 	public var repeatCount = 0.0
@@ -25,6 +26,17 @@ public class Animatable {
 	public var timingFunction = TimingFunction.Linear
 
 	func getDuration() -> Double { return 0 }
+
+	public required init() {
+		ID = NSUUID().UUIDString
+	}
+
+	public func remove() {
+		removeFunc?()
+	}
+
+	// Private
+	var removeFunc: (() -> ())?
 }
 
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html

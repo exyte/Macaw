@@ -70,7 +70,10 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	layer.setNeedsDisplay()
 
 	sceneLayer.addSublayer(layer)
-	layer.addAnimation(generatedAnim, forKey: "flying")
+	layer.addAnimation(generatedAnim, forKey: animation.ID)
+	animation.removeFunc = {
+		layer.removeAnimationForKey(animation.ID)
+	}
 }
 
 func transfomToCG(transform: Transform) -> CGAffineTransform {

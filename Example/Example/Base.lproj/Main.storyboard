@@ -75,6 +75,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STd-gH-3Yz" customClass="AnimationsView" customModule="Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxE-OJ-9po">
+                                        <rect key="frame" x="367" y="540" width="32" height="30"/>
+                                        <state key="normal" title="Stop"/>
+                                        <connections>
+                                            <action selector="stopAnimationAction" destination="eXI-AD-PfC" eventType="touchUpInside" id="gr4-LH-a9f"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cy-cc-TWk">
                                         <rect key="frame" x="283" y="540" width="34" height="30"/>
                                         <state key="normal" title="Start"/>
@@ -85,6 +92,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="dxE-OJ-9po" firstAttribute="centerY" secondItem="1cy-cc-TWk" secondAttribute="centerY" id="FDA-n3-Q60"/>
+                                    <constraint firstItem="dxE-OJ-9po" firstAttribute="leading" secondItem="1cy-cc-TWk" secondAttribute="trailing" constant="50" id="QOd-QE-hpT"/>
                                     <constraint firstItem="1cy-cc-TWk" firstAttribute="centerX" secondItem="STd-gH-3Yz" secondAttribute="centerX" id="aQ6-Gy-H2c"/>
                                     <constraint firstAttribute="bottom" secondItem="1cy-cc-TWk" secondAttribute="bottom" constant="30" id="oUL-Ly-xvm"/>
                                 </constraints>

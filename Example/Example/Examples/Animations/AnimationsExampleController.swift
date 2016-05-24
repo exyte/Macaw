@@ -15,4 +15,8 @@ class AnimationsExampleController: UIViewController {
 		animView?.prepareAnimation()
 		animView?.startAnimation()
 	}
+
+	@IBAction func stopAnimationAction() {
+		animView?.stopAnimation()
+	}
 }

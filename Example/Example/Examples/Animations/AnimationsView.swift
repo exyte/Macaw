@@ -3,7 +3,7 @@ import Macaw
 
 class AnimationsView: MacawView {
 
-	var animations = [TransformAnimation]()
+	var  animations = [TransformAnimation]()
 	var ballNodes = [Group]()
 
 	let n = 100
@@ -97,5 +97,11 @@ class AnimationsView: MacawView {
 		let node = Group(contents: ballNodes,
 			pos: Transform().move(0.0, my: 0.0))
 		self.node = node
+	}
+
+	func stopAnimation() {
+		animations.forEach { animation in
+			animation.remove()
+		}
 	}
 }

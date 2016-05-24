@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5710BA3D1CF4A0C5009E13C2 /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5710BA3C1CF4A0C5009E13C2 /* TransformInterpolation.swift */; };
+		5710BA3F1CF4A102009E13C2 /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5710BA3E1CF4A102009E13C2 /* Interpolable.swift */; };
+		5710BA411CF4A135009E13C2 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5710BA401CF4A135009E13C2 /* DoubleInterpolation.swift */; };
 		574223901CA5448C001EE463 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742238F1CA5448C001EE463 /* Animation.swift */; };
 		5743EC8C1CEB55A400547004 /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5743EC8B1CEB55A400547004 /* TransformGenerator.swift */; };
 		5743EC8E1CEB725200547004 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5743EC8D1CEB725200547004 /* TimingFunction.swift */; };
@@ -80,6 +83,9 @@
 
 /* Begin PBXFileReference section */
 		0D10CB2117557903E2D9F24D /* Pods-Macaw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.debug.xcconfig"; sourceTree = "<group>"; };
+		5710BA3C1CF4A0C5009E13C2 /* TransformInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformInterpolation.swift; sourceTree = "<group>"; };
+		5710BA3E1CF4A102009E13C2 /* Interpolable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolable.swift; sourceTree = "<group>"; };
+		5710BA401CF4A135009E13C2 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
 		5742238F1CA5448C001EE463 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		5743EC8B1CEB55A400547004 /* TransformGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformGenerator.swift; sourceTree = "<group>"; };
 		5743EC8D1CEB725200547004 /* TimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingFunction.swift; sourceTree = "<group>"; };
@@ -175,6 +181,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5710BA3B1CF4A0B1009E13C2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5710BA3C1CF4A0C5009E13C2 /* TransformInterpolation.swift */,
+				5710BA3E1CF4A102009E13C2 /* Interpolable.swift */,
+				5710BA401CF4A135009E13C2 /* DoubleInterpolation.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		573AA69E1CAE346900F30607 /* types */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +223,7 @@
 		57A9DAAB1CE9D4B6009635C7 /* layer_animation */ = {
 			isa = PBXGroup;
 			children = (
+				5710BA3B1CF4A0B1009E13C2 /* Extensions */,
 				57A9DAAC1CE9D4B6009635C7 /* CGExtensions.swift */,
 				57A9DAAD1CE9D4B6009635C7 /* FuncBounds.swift */,
 				57A9DAAE1CE9D4B6009635C7 /* PathBounds.swift */,
@@ -534,10 +551,12 @@
 				B03275F41C78772F000BDD33 /* Circle.swift in Sources */,
 				B03276011C78772F000BDD33 /* Point.swift in Sources */,
 				B03276141C78772F000BDD33 /* Text.swift in Sources */,
+				5710BA411CF4A135009E13C2 /* DoubleInterpolation.swift in Sources */,
 				57A9DAB31CE9D4B6009635C7 /* PathFunctions.swift in Sources */,
 				B03276051C78772F000BDD33 /* Rect.swift in Sources */,
 				B03275FF1C78772F000BDD33 /* PathSegment.swift in Sources */,
 				B03276041C78772F000BDD33 /* Quadratic.swift in Sources */,
+				5710BA3D1CF4A0C5009E13C2 /* TransformInterpolation.swift in Sources */,
 				57A9DAB51CE9D645009635C7 /* TransformAnimation.swift in Sources */,
 				B03275F21C78772F000BDD33 /* Stroke.swift in Sources */,
 				5743EC8C1CEB55A400547004 /* TransformGenerator.swift in Sources */,
@@ -558,6 +577,7 @@
 				B03275F11C78772F000BDD33 /* Stop.swift in Sources */,
 				B03276171C788162000BDD33 /* ShapeRenderer.swift in Sources */,
 				57A9DAB11CE9D4B6009635C7 /* FuncBounds.swift in Sources */,
+				5710BA3F1CF4A102009E13C2 /* Interpolable.swift in Sources */,
 				B03275EA1C78772F000BDD33 /* Fill.swift in Sources */,
 				B03275F51C78772F000BDD33 /* Close.swift in Sources */,
 				B03275F01C78772F000BDD33 /* LineJoin.swift in Sources */,

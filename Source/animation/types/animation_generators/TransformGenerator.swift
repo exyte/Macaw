@@ -19,13 +19,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
-	if let start = transformAnimation.start, final = transformAnimation.final {
-		generatedAnimation = transformAnimationByValues(start, finalValue: final, duration: animation.getDuration())
-	} else if let valueFunc = transformAnimation.vFunc {
-		generatedAnimation = transformAnimationByFunc(valueFunc, duration: animation.getDuration())
-	} else {
-		return
-	}
+	generatedAnimation = transformAnimationByFunc(transformAnimation.vFunc, duration: animation.getDuration())
 
 	guard let generatedAnim = generatedAnimation else {
 		return
@@ -44,11 +38,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	generatedAnim.completion = { finished in
 		layer.removeFromSuperlayer()
 
-		if let final = transformAnimation.final {
-			animation.shape?.posVar.value = final
-		} else if let valueFunc = transformAnimation.vFunc {
-			animation.shape?.posVar.value = valueFunc(1.0)
-		}
+		animation.shape?.posVar.value = transformAnimation.vFunc(1.0)
 
 		animation.shape?.animating = false
 		sceneLayer.setNeedsDisplay()
@@ -88,61 +78,6 @@ func transfomToCG(transform: Transform) -> CGAffineTransform {
 		CGFloat(transform.m22),
 		CGFloat(transform.dx),
 		CGFloat(transform.dy))
-}
-
-func transformAnimationByValues(startValue: Transform, finalValue: Transform, duration: Double) -> CAAnimation {
-
-	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
-
-	let cgTransformStart = transfomToCG(startValue)
-	let cgTransformFinal = transfomToCG(finalValue)
-
-	// Small workaround
-
-	let startRect = CGRectApplyAffineTransform(rect, cgTransformStart)
-	let finalRect = CGRectApplyAffineTransform(rect, cgTransformFinal)
-
-	let startX = startRect.origin.x
-	let startY = startRect.origin.y
-	let finalX = finalRect.origin.x
-	let finalY = finalRect.origin.y
-	let startScaleX = startRect.width
-	let startScaleY = startRect.height
-	let finalScaleX = finalRect.width
-	let finalScaleY = finalRect.height
-	let startAngle = atan2(cgTransformStart.b, cgTransformStart.a)
-	let finalAngle = atan2(cgTransformFinal.b, cgTransformFinal.a)
-
-	let scaleX = CABasicAnimation(keyPath: "transform.scale.x")
-	scaleX.fromValue = startScaleX
-	scaleX.toValue = finalScaleX
-	scaleX.duration = duration
-
-	let scaleY = CABasicAnimation(keyPath: "transform.scale.y")
-	scaleY.fromValue = startScaleY
-	scaleY.toValue = finalScaleY
-	scaleY.duration = duration
-
-	let translationX = CABasicAnimation(keyPath: "transform.translation.x")
-	translationX.fromValue = startX
-	translationX.toValue = finalX
-	translationX.duration = duration
-
-	let translationY = CABasicAnimation(keyPath: "transform.translation.y")
-	translationY.fromValue = startY
-	translationY.toValue = finalY
-	translationY.duration = duration
-
-	let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
-	rotation.fromValue = fixedAngle(startAngle)
-	rotation.toValue = fixedAngle(finalAngle)
-	rotation.duration = duration
-
-	let group = CAAnimationGroup()
-	group.animations = [translationX, translationY, scaleX, scaleY, rotation]
-	group.duration = duration
-
-	return group
 }
 
 func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double) -> CAAnimation {

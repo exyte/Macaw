@@ -33,7 +33,7 @@ public class Animatable {
 		ID = NSUUID().UUIDString
 	}
 
-	public func remove() {
+	public func stop() {
 		removeFunc?()
 	}
 

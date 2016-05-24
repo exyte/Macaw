@@ -42,11 +42,14 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	// layer.borderColor = UIColor.blueColor().CGColor
 
 	generatedAnim.completion = { finished in
-		if !finished {
-			return
+		layer.removeFromSuperlayer()
+
+		if let final = transformAnimation.final {
+			animation.shape?.posVar.value = final
+		} else if let valueFunc = transformAnimation.vFunc {
+			animation.shape?.posVar.value = valueFunc(1.0)
 		}
 
-		layer.removeFromSuperlayer()
 		animation.shape?.animating = false
 		sceneLayer.setNeedsDisplay()
 		animation.completion?()

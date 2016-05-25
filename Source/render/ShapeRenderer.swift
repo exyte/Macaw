@@ -237,11 +237,48 @@ class ShapeRenderer: NodeRenderer {
 		}
 
 		func a(rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
-			// XXX: implementx
+            if let cur = currentPoint {
+                A(rx, ry: ry, angle: angle, largeArc: largeArc, sweep: sweep, x: x + Double(cur.x), y: y + Double(cur.y))
+            }
 		}
 
 		func A(rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
-			// XXX: implementx
+            if let cur = currentPoint {
+                let x1 = Double(cur.x)
+                let y1 = Double(cur.y)
+                
+                // find arc center coordinates and points angles as per
+                // http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
+                let x1_ = cos(angle) * (x1 - x) / 2 + sin(angle) * (y1 - y) / 2;
+                let y1_ = -1 * sin(angle) * (x1 - x) / 2 + cos(angle) * (y1 - y) / 2;
+                // make sure the value under the root is positive
+                let underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
+                    / (rx * rx * y1_ * y1_ + ry * ry * x1_ * x1_);
+                var bigRoot = (underroot > 0) ? sqrt(underroot) : 0;
+                bigRoot = (bigRoot <= 1e-2) ? 0 : bigRoot;
+                let coef: Double = (sweep != largeArc) ? 1 : -1;
+                let cx_ = coef * bigRoot * rx * y1_ / ry;
+                let cy_ = -1 * coef * bigRoot * ry * x1_ / rx;
+                let cx = (cos(angle) * cx_ - sin(angle) * cy_ + (x1 + x) / 2);
+                let cy = (sin(angle) * cx_ + cos(angle) * cy_ + (y1 + y) / 2);
+                let t1 = -1 * atan2(y1 - cy, x1 - cx);
+                let t2 = atan2(y - cy, x - cx);
+                var delta = -(t1 + t2);
+                // recalculate delta depending on arc. Preserve rotation direction
+                if (largeArc) {
+                    let sg = copysign(1.0, delta);
+                    if (abs(delta) < M_PI) {
+                        delta = -1 * (sg * M_2_PI - delta);
+                    }
+                } else {
+                    let sg = copysign(1.0, delta);
+                    if (abs(delta) > M_PI) {
+                        delta = -1 * (sg * M_2_PI - delta);
+                    }
+                }
+                E(cx - rx, y: cy - ry, w: 2 * rx, h: 2 * ry, startAngle: t1, arcAngle: delta);
+                setPoint(CGPointMake(CGFloat(x), CGFloat(y)))
+            }
 		}
 
 		func E(x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
@@ -255,10 +292,7 @@ class ShapeRenderer: NodeRenderer {
 		func e(x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
 			// TODO: only circle now
 			if let cur = currentPoint {
-				let extent = CGFloat(startAngle)
-				let end = extent + CGFloat(arcAngle)
-				let center = CGPointMake(CGFloat(x + w / 2) + cur.x, CGFloat(y + h / 2) + cur.y)
-				bezierPath.addArcWithCenter(center, radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: true)
+                E(x + Double(cur.x), y: y + Double(cur.y), w: w, h: h, startAngle: startAngle, arcAngle: arcAngle)
 			}
 		}
 

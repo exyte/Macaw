@@ -11,7 +11,7 @@ class RenderUtils {
     }
     
     class func mapTransform(t: Transform) -> CGAffineTransform {
-        return CGAffineTransform(a: CGFloat(t.m11), b: CGFloat(t.m21), c: CGFloat(t.m12),
+        return CGAffineTransform(a: CGFloat(t.m11), b: CGFloat(t.m12), c: CGFloat(t.m21),
             d: CGFloat(t.m22), tx: CGFloat(t.dx), ty: CGFloat(t.dy))
     }
     

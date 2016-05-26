@@ -50,6 +50,14 @@ public class Shape: Node {
 				h: circle.r * 2.0)
 		}
 
+		if let ellipse = form as? Ellipse {
+			return Rect(
+				x: ellipse.cx - ellipse.rx,
+				y: ellipse.cy - ellipse.ry,
+				w: ellipse.rx * 2.0,
+				h: ellipse.ry * 2.0)
+		}
+
 		return form.bounds()
 	}
 }

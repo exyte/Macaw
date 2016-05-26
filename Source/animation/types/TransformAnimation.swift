@@ -3,9 +3,6 @@ import RxSwift
 public class TransformAnimation: Animation<Transform> {
 
 	public convenience init(animatedShape: Group, observableValue: Variable<Transform>, startValue: Transform, finalValue: Transform, animationDuration: Double, fps: UInt = 30) {
-//		self.init(observableValue: observableValue, startValue: startValue, finalValue: finalValue, animationDuration: animationDuration)
-//		type = .AffineTransformation
-//		shape = animatedShape
 
 		let interpolationFunc = { (t: Double) -> Transform in
 			return startValue.interpolate(finalValue, progress: t)

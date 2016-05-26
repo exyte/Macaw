@@ -48,11 +48,13 @@ public class Animation<T: Interpolable>: Animatable {
 	let value: Variable<T>
 	let vFunc: ((Double) -> T)
 	let duration: Double
+	let logicalFps: UInt
 
-	public init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double) {
+	public init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, fps: UInt = 30) {
 		value = observableValue
 		duration = animationDuration
 		vFunc = valueFunc
+		logicalFps = fps
 
 		super.init()
 	}

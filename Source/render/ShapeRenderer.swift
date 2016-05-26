@@ -301,7 +301,6 @@ class ShapeRenderer: NodeRenderer {
 				lineTo(initPoint)
 			}
 			bezierPath.closePath()
-			print("Path closed")
 		}
 
 		func setCubicPoint(p: CGPoint, cubic: CGPoint) {
@@ -396,7 +395,6 @@ class ShapeRenderer: NodeRenderer {
 			return
 		}
 
-		print("Default stroke settings")
 		CGContextSetLineWidth(ctx, 2.0)
 		CGContextSetStrokeColorWithColor(ctx, UIColor.blackColor().CGColor)
 		CGContextDrawPath(ctx, .Stroke)
@@ -432,7 +430,6 @@ class ShapeRenderer: NodeRenderer {
 	private func setStroke(stroke: Stroke?, ctx: CGContext?) {
 		if stroke != nil {
 			if let color = stroke!.fill as? Color {
-				print("Stroke width: \(stroke!.width)")
 				CGContextSetLineWidth(ctx, CGFloat(stroke!.width))
 				CGContextSetLineJoin(ctx, RenderUtils.mapLineJoin(stroke!.join))
 				CGContextSetLineCap(ctx, RenderUtils.mapLineCap(stroke!.cap))

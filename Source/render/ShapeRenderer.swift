@@ -301,7 +301,6 @@ class ShapeRenderer: NodeRenderer {
 				lineTo(initPoint)
 			}
 			bezierPath.closePath()
-			print("Path closed")
 		}
 
 		func setCubicPoint(p: CGPoint, cubic: CGPoint) {

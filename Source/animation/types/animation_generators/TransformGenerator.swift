@@ -37,10 +37,15 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 
 	generatedAnim.completion = { finished in
 
-		// let reversed = transformAnimation.autoreverses
-		// let count = transformAnimation.repeatCount + 1
+		let reversed = transformAnimation.autoreverses
+		let count = transformAnimation.repeatCount + 1
 
-		animation.shape?.posVar.value = transformAnimation.vFunc(animation.progress)
+		if (reversed || count > 0) {
+			animation.shape?.posVar.value = transformAnimation.vFunc(1.0)
+		} else {
+			animation.shape?.posVar.value = transformAnimation.vFunc(animation.progress)
+		}
+
 		animation.shape?.animating = false
 		sceneLayer.setNeedsDisplay()
 

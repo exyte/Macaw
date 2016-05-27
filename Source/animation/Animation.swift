@@ -16,7 +16,7 @@ public enum TimingFunction {
 
 public class Animatable {
 
-	var shape: Group?
+	var node: Node?
 	var type = AnimationType.Unknown
 	let ID: String
 

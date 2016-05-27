@@ -1,11 +1,11 @@
 import UIKit
 
 class ShapeLayer: CAShapeLayer {
-	var shape: Group?
+	var node: Node?
 	var renderTransform: CGAffineTransform?
 
 	override func drawInContext(ctx: CGContext) {
-		guard let shape = shape else {
+		guard let node = node else {
 			return
 		}
 
@@ -16,6 +16,7 @@ class ShapeLayer: CAShapeLayer {
 			CGContextConcatCTM(ctx, renderTransform)
 		}
 
-		GroupRenderer(group: shape, ctx: renderContext).render(true)
+		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext)
+		renderer?.render(true)
 	}
 }

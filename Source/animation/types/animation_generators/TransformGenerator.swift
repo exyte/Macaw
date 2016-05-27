@@ -5,12 +5,12 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		return
 	}
 
-	guard let shape = animation.shape else {
+	guard let node = animation.node else {
 		return
 	}
 
 	// Initial state
-	let cgInitialTransform = transfomToCG(shape.pos)
+	let cgInitialTransform = transfomToCG(node.pos)
 	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
 	let initRect = CGRectApplyAffineTransform(rect, cgInitialTransform)
 	let initScaleX = initRect.width
@@ -41,12 +41,12 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		let count = transformAnimation.repeatCount + 1
 
 		if (reversed || count > 0) {
-			animation.shape?.posVar.value = transformAnimation.vFunc(1.0)
+			animation.node?.posVar.value = transformAnimation.vFunc(1.0)
 		} else {
-			animation.shape?.posVar.value = transformAnimation.vFunc(animation.progress)
+			animation.node?.posVar.value = transformAnimation.vFunc(animation.progress)
 		}
 
-		animation.shape?.animating = false
+		animation.node?.animating = false
 		sceneLayer.setNeedsDisplay()
 
 		layer.removeFromSuperlayer()
@@ -58,7 +58,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		animation.progress = Double(progress)
 	}
 
-	if let shapeBounds = shape.bounds() {
+	if let shapeBounds = node.bounds() {
 		let cgRect = shapeBounds.cgRect()
 		let origFrame = CGRectMake(0.0, 0.0,
 			cgRect.width + cgRect.origin.x,
@@ -73,7 +73,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		layer.renderTransform = CGAffineTransformMakeScale(initScaleX, initScaleY)
 	}
 
-	layer.shape = shape
+	layer.node = node
 	layer.setNeedsDisplay()
 
 	sceneLayer.addSublayer(layer)

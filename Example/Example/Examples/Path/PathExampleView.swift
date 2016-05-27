@@ -128,7 +128,7 @@ class PathExampleView: MacawView {
 			let velocity = Point(
 				x: -1000 + Double(rand() % 2000),
 				y: -700 + Double(rand() % 1400))
-			let flying = TransformAnimation(animatedShape: cloud,
+			let flying = TransformAnimation(animatedNode: cloud,
 				observableValue: cloud.posVar,
 				startValue: Transform(),
 				finalValue: Transform.move(velocity.x, my: velocity.y).scale(0.15, sy: 0.15).rotate(2.0 * M_PI),
@@ -148,7 +148,7 @@ class PathExampleView: MacawView {
 				x: -200 + Double(rand() % 400),
 				y: -200 + Double(rand() % 400))
 
-			let flying = TransformAnimation(animatedShape: cloud,
+			let flying = TransformAnimation(animatedNode: cloud,
 				observableValue: cloud.posVar,
 				valueFunc: { t -> Transform in
 					let x = velocity.x * sin(2.0 * M_PI * t)

@@ -8,6 +8,8 @@ class PathExampleView: MacawView {
 
 	required init?(coder aDecoder: NSCoder) {
 
+		let startPoint = Point(x: 150.0, y: 150.0)
+
 		func cloudExample() -> Group {
 			func cloud1() -> Path {
 				return Path(segments: [
@@ -113,7 +115,7 @@ class PathExampleView: MacawView {
 
 			return Group(
 				contents: [cloud2Shape, lightningShape, cloud1Shape, cloud1Shape2],
-				pos: Transform.move(220, my: 320).scale(0.15, sy: 0.15)
+				pos: Transform.move(startPoint.x, my: startPoint.y).scale(0.15, sy: 0.15)
 			)
 		}
 
@@ -151,15 +153,17 @@ class PathExampleView: MacawView {
 			let flying = TransformAnimation(animatedNode: cloud,
 				observableValue: cloud.posVar,
 				valueFunc: { t -> Transform in
-					let x = velocity.x * sin(2.0 * M_PI * t)
-					let y = velocity.y * cos(2.0 * M_PI * t)
+					let x = startPoint.x + velocity.x * t // * sin(2.0 * M_PI * t)
+					let y = startPoint.y + velocity.y * t // * cos(2.0 * M_PI * t)
 
-					return Transform.move(x, my: y).scale(1.0 - sin(2.0 * M_PI * t) * 0.5, sy: 1.0 - sin(2.0 * M_PI * t) * 0.5).rotate(2.0 * M_PI * t)
+					return Transform.move(x, my: y).scale(0.15, sy: 0.15)
+					// .scale(1.0 - sin(2.0 * M_PI * t) * 0.5, sy: 1.0 - sin(2.0 * M_PI * t) * 0.5)
+					// .rotate(2.0 * M_PI * t)
 				}, animationDuration: 4.0)
 
-			flying.autoreverses = true
-			flying.repeatCount = 2.0
-			flying.timingFunction = .EaseOut
+			// flying.autoreverses = true
+			// flying.repeatCount = 2.0
+			// flying.timingFunction = .EaseOut
 
 			animation.append(flying)
 			clouds.append(cloud)
@@ -167,7 +171,7 @@ class PathExampleView: MacawView {
 
 		let group = Group(
 			contents: clouds,
-			pos: Transform().move(-80, my: -100))
+			pos: Transform())
 		super.init(node: group, coder: aDecoder)
 	}
 

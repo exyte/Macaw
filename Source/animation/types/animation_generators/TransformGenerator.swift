@@ -9,13 +9,6 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		return
 	}
 
-	// Initial state
-	let cgInitialTransform = transfomToCG(node.pos)
-	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
-	let initRect = CGRectApplyAffineTransform(rect, cgInitialTransform)
-	let initScaleX = initRect.width
-	let initScaleY = initRect.height
-
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
@@ -31,9 +24,9 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 
 	// Creating animated layer
 	let layer = ShapeLayer()
-	// layer.backgroundColor = UIColor.greenColor().CGColor
-	// layer.borderWidth = 1.0
-	// layer.borderColor = UIColor.blueColor().CGColor
+//	layer.backgroundColor = UIColor.greenColor().CGColor
+//	layer.borderWidth = 1.0
+//	layer.borderColor = UIColor.blueColor().CGColor
 
 	generatedAnim.completion = { finished in
 
@@ -64,13 +57,14 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 			cgRect.width + cgRect.origin.x,
 			cgRect.height + cgRect.origin.y)
 
+		// let origFrame = cgRect
+
 		// TODO: Correct layer sized using transform tree
 		// cgRect.origin.x >= 0.0 ? cgRect.width : cgRect.width + cgRect.origin.x,
 		// cgRect.origin.y >= 0.0 ? cgRect.height : cgRect.height + cgRect.origin.y)
 
-		layer.frame = origFrame
-		layer.frame = CGRectApplyAffineTransform(origFrame, cgInitialTransform)
-		layer.renderTransform = CGAffineTransformMakeScale(initScaleX, initScaleY)
+		layer.bounds = origFrame
+		layer.anchorPoint = CGPointMake(0.0, 0.0)
 	}
 
 	layer.node = node

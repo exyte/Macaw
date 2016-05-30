@@ -33,7 +33,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		let reversed = transformAnimation.autoreverses
 		let count = transformAnimation.repeatCount + 1
 
-		if (reversed || count > 0) {
+		if (reversed || count > 1) {
 			animation.node?.posVar.value = transformAnimation.vFunc(1.0)
 		} else {
 			animation.node?.posVar.value = transformAnimation.vFunc(animation.progress)

@@ -6,7 +6,7 @@ class AnimationsView: MacawView {
 	var animations = [TransformAnimation]()
 	var ballNodes = [Group]()
 
-	let n = 2
+	let n = 100
 	let speed = 20.0
 	let r = 10.0
 
@@ -31,7 +31,7 @@ class AnimationsView: MacawView {
 		animations.removeAll()
 		ballNodes.removeAll()
 
-		let startPoint = Point(x: Double(self.center.x), y: Double(self.center.y))
+		let startPos = Transform.move(Double(self.center.x), my: Double(self.center.y))
 
 		var velocities = [Point]()
 		var positions = [Point]()
@@ -42,7 +42,7 @@ class AnimationsView: MacawView {
 			var velocity = velocities[index]
 
 			var pos = prevPos.add(velocity)
-			let scenePos = pos.add(startPoint)
+			let scenePos = pos.add(Point(x: startPos.dx, y: startPos.dy))
 
 			// Borders
 			if scenePos.x < 0.0 || scenePos.x > Double(self.bounds.width) {
@@ -63,13 +63,13 @@ class AnimationsView: MacawView {
 		for i in 0 ... (n - 1) {
 
 			// Node
-			let circle = Circle(cx: startPoint.x, cy: startPoint.y, r: r)
+			let circle = Circle(cx: r, cy: r, r: r)
 			let shape = Shape(
 				form: circle,
 				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(rand() % 6)]
 			)
 
-			let ballGroup = Group(contents: [shape], pos: Transform())
+			let ballGroup = Group(contents: [shape], pos: startPos)
 			ballNodes.append(ballGroup)
 
 			// Animation
@@ -84,7 +84,7 @@ class AnimationsView: MacawView {
 				let pos = posForTime(t, index: i)
 				positions[i] = pos
 
-				return Transform().move(
+				return startPos.move(
 					pos.x,
 					my: pos.y)
 				}, animationDuration: 6.0)
@@ -94,8 +94,7 @@ class AnimationsView: MacawView {
 			animations.append(animation)
 		}
 
-		let node = Group(contents: ballNodes,
-			pos: Transform().move(0.0, my: 0.0))
+		let node = Group(contents: ballNodes)
 		self.node = node
 	}
 

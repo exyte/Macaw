@@ -10,11 +10,8 @@
 		24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE07031C6DF1F000B5882F /* BasePageViewController.swift */; };
 		5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5708F7E51CC8A783002AA500 /* PathExampleController.swift */; };
 		5710BA331CF4903C009E13C2 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA321CF4903C009E13C2 /* RxSwift.framework */; };
-		5710BA341CF4903C009E13C2 /* RxSwift.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA321CF4903C009E13C2 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5710BA361CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA351CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework */; };
-		5710BA371CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA351CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5710BA391CF4903C009E13C2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA381CF4903C009E13C2 /* SWXMLHash.framework */; };
-		5710BA3A1CF4903C009E13C2 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5710BA381CF4903C009E13C2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		571B0FF61CEDDBD900A998E2 /* tree2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 571B0FF51CEDDBD900A998E2 /* tree2.svg */; };
 		5720C6B11CECA89E00090FC6 /* sunset-tree.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5720C6B01CECA89E00090FC6 /* sunset-tree.svg */; };
 		574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */; };
@@ -64,10 +61,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5710BA341CF4903C009E13C2 /* RxSwift.framework in Copy Frameworks */,
 				B02E76121C16113A00D1971D /* Macaw.framework in Copy Frameworks */,
-				5710BA3A1CF4903C009E13C2 /* SWXMLHash.framework in Copy Frameworks */,
-				5710BA371CF4903C009E13C2 /* Swift_CAAnimation_Closure.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

@@ -79,7 +79,21 @@
 		B03276231C78882A000BDD33 /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03276221C78882A000BDD33 /* ImageRenderer.swift */; };
 		B03276271C789217000BDD33 /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03276261C789217000BDD33 /* RenderContext.swift */; };
 		B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F88BD1C1C6A9E00F24FFC /* Signal.swift */; };
+		C11A9F3E1D0724700028B402 /* triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = C11A9F3D1D0724700028B402 /* triangle.svg */; };
+		C1F9650A1D06F82B00C03BB5 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F965091D06F82B00C03BB5 /* MacawTests.swift */; };
+		C1F9650C1D06F82B00C03BB5 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02E75D61C160F8D00D1971D /* Macaw.framework */; };
+		C1F965131D07012300C03BB5 /* Pods_Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F965121D07012300C03BB5 /* Pods_Macaw.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C1F9650D1D06F82B00C03BB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B02E75CD1C160F8D00D1971D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B02E75D51C160F8D00D1971D;
+			remoteInfo = Macaw;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0D10CB2117557903E2D9F24D /* Pods-Macaw.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macaw.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macaw/Pods-Macaw.debug.xcconfig"; sourceTree = "<group>"; };
@@ -158,6 +172,12 @@
 		B03276261C789217000BDD33 /* RenderContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderContext.swift; sourceTree = "<group>"; };
 		B03F88BD1C1C6A9E00F24FFC /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C11A9F3D1D0724700028B402 /* triangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = triangle.svg; sourceTree = "<group>"; };
+		C1F965071D06F82B00C03BB5 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1F965091D06F82B00C03BB5 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
+		C1F9650B1D06F82B00C03BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1F965121D07012300C03BB5 /* Pods_Macaw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Macaw.framework; path = "Pods/../build/Debug-iphoneos/Pods_Macaw.framework"; sourceTree = "<group>"; };
+		C1FD30DB1D06EEDF00ED9A91 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/Macaw-fuqawvveoioyskgwaknphywvhrwf/Build/Products/Debug-iphonesimulator/RxSwift.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +186,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD9EDEE3709C1668BED1B1BF /* Pods_Macaw.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1F965041D06F82B00C03BB5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1F965131D07012300C03BB5 /* Pods_Macaw.framework in Frameworks */,
+				C1F9650C1D06F82B00C03BB5 /* Macaw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				B02E75E11C160FF200D1971D /* Source */,
+				C1F965081D06F82B00C03BB5 /* MacawTests */,
 				B02E75D71C160F8D00D1971D /* Products */,
 				549363F57810A86F4226A525 /* Pods */,
 				DB1EC634C50C9231DFC4041E /* Frameworks */,
@@ -271,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				B02E75D61C160F8D00D1971D /* Macaw.framework */,
+				C1F965071D06F82B00C03BB5 /* MacawTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -398,9 +429,29 @@
 			path = events;
 			sourceTree = "<group>";
 		};
+		C11A9F401D072C510028B402 /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				C11A9F3D1D0724700028B402 /* triangle.svg */,
+			);
+			name = SVG;
+			sourceTree = "<group>";
+		};
+		C1F965081D06F82B00C03BB5 /* MacawTests */ = {
+			isa = PBXGroup;
+			children = (
+				C11A9F401D072C510028B402 /* SVG */,
+				C1F965091D06F82B00C03BB5 /* MacawTests.swift */,
+				C1F9650B1D06F82B00C03BB5 /* Info.plist */,
+			);
+			path = MacawTests;
+			sourceTree = "<group>";
+		};
 		DB1EC634C50C9231DFC4041E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1F965121D07012300C03BB5 /* Pods_Macaw.framework */,
+				C1FD30DB1D06EEDF00ED9A91 /* RxSwift.framework */,
 				BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */,
 			);
 			name = Frameworks;
@@ -439,17 +490,39 @@
 			productReference = B02E75D61C160F8D00D1971D /* Macaw.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C1F965061D06F82B00C03BB5 /* MacawTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1F9650F1D06F82B00C03BB5 /* Build configuration list for PBXNativeTarget "MacawTests" */;
+			buildPhases = (
+				C1F965031D06F82B00C03BB5 /* Sources */,
+				C1F965041D06F82B00C03BB5 /* Frameworks */,
+				C1F965051D06F82B00C03BB5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C1F9650E1D06F82B00C03BB5 /* PBXTargetDependency */,
+			);
+			name = MacawTests;
+			productName = MacawTests;
+			productReference = C1F965071D06F82B00C03BB5 /* MacawTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B02E75CD1C160F8D00D1971D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Exyte;
 				TargetAttributes = {
 					B02E75D51C160F8D00D1971D = {
 						CreatedOnToolsVersion = 7.1.1;
+					};
+					C1F965061D06F82B00C03BB5 = {
+						CreatedOnToolsVersion = 7.3;
 					};
 				};
 			};
@@ -466,6 +539,7 @@
 			projectRoot = "";
 			targets = (
 				B02E75D51C160F8D00D1971D /* Macaw */,
+				C1F965061D06F82B00C03BB5 /* MacawTests */,
 			);
 		};
 /* End PBXProject section */
@@ -475,6 +549,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1F965051D06F82B00C03BB5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C11A9F3E1D0724700028B402 /* triangle.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,7 +674,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1F965031D06F82B00C03BB5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1F9650A1D06F82B00C03BB5 /* MacawTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C1F9650E1D06F82B00C03BB5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B02E75D51C160F8D00D1971D /* Macaw */;
+			targetProxy = C1F9650D1D06F82B00C03BB5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B02E75DC1C160F8D00D1971D /* Debug */ = {
@@ -616,6 +714,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -664,6 +763,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -722,6 +822,41 @@
 			};
 			name = Release;
 		};
+		C1F965101D06F82B00C03BB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D10CB2117557903E2D9F24D /* Pods-Macaw.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = MacawTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = exyte.MacawTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "";
+			};
+			name = Debug;
+		};
+		C1F965111D06F82B00C03BB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = MacawTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = exyte.MacawTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -739,6 +874,15 @@
 			buildConfigurations = (
 				B02E75DF1C160F8D00D1971D /* Debug */,
 				B02E75E01C160F8D00D1971D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1F9650F1D06F82B00C03BB5 /* Build configuration list for PBXNativeTarget "MacawTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1F965101D06F82B00C03BB5 /* Debug */,
+				C1F965111D06F82B00C03BB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

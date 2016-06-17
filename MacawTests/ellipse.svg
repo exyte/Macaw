@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg version="1.1" id="ellipse" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="210" width="400">
+  <ellipse cx="200" cy="80" rx="100" ry="50" style="fill:#ffff00;stroke:#800080;stroke-width:2" />
+</svg>

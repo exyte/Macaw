@@ -80,6 +80,13 @@
 		B03276271C789217000BDD33 /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03276261C789217000BDD33 /* RenderContext.swift */; };
 		B03F88BE1C1C6A9E00F24FFC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F88BD1C1C6A9E00F24FFC /* Signal.swift */; };
 		C11A9F3E1D0724700028B402 /* triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = C11A9F3D1D0724700028B402 /* triangle.svg */; };
+		C156C3EC1D11296400D2D1D6 /* roundRect.svg in Resources */ = {isa = PBXBuildFile; fileRef = C156C3EB1D11296400D2D1D6 /* roundRect.svg */; };
+		C1913A6C1D113BEA00214B9C /* line.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1913A6B1D113BEA00214B9C /* line.svg */; };
+		C1913A6E1D113C4E00214B9C /* rect.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1913A6D1D113C4E00214B9C /* rect.svg */; };
+		C1913A701D114FC100214B9C /* polygon.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1913A6F1D114FC100214B9C /* polygon.svg */; };
+		C1913A721D1193D200214B9C /* polyline.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1913A711D1193D200214B9C /* polyline.svg */; };
+		C1913A751D11971400214B9C /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1913A731D11971400214B9C /* circle.svg */; };
+		C1913A761D11971400214B9C /* ellipse.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1913A741D11971400214B9C /* ellipse.svg */; };
 		C1F9650A1D06F82B00C03BB5 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F965091D06F82B00C03BB5 /* MacawTests.swift */; };
 		C1F9650C1D06F82B00C03BB5 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02E75D61C160F8D00D1971D /* Macaw.framework */; };
 		C1F965131D07012300C03BB5 /* Pods_Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F965121D07012300C03BB5 /* Pods_Macaw.framework */; };
@@ -173,6 +180,13 @@
 		B03F88BD1C1C6A9E00F24FFC /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		BA114AD1025D7DA0B0DC35A8 /* Pods_Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C11A9F3D1D0724700028B402 /* triangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = triangle.svg; sourceTree = "<group>"; };
+		C156C3EB1D11296400D2D1D6 /* roundRect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = roundRect.svg; sourceTree = "<group>"; };
+		C1913A6B1D113BEA00214B9C /* line.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = line.svg; sourceTree = "<group>"; };
+		C1913A6D1D113C4E00214B9C /* rect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rect.svg; sourceTree = "<group>"; };
+		C1913A6F1D114FC100214B9C /* polygon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = polygon.svg; sourceTree = "<group>"; };
+		C1913A711D1193D200214B9C /* polyline.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = polyline.svg; sourceTree = "<group>"; };
+		C1913A731D11971400214B9C /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
+		C1913A741D11971400214B9C /* ellipse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ellipse.svg; sourceTree = "<group>"; };
 		C1F965071D06F82B00C03BB5 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F965091D06F82B00C03BB5 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		C1F9650B1D06F82B00C03BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -432,6 +446,13 @@
 		C11A9F401D072C510028B402 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				C1913A731D11971400214B9C /* circle.svg */,
+				C1913A741D11971400214B9C /* ellipse.svg */,
+				C1913A711D1193D200214B9C /* polyline.svg */,
+				C1913A6F1D114FC100214B9C /* polygon.svg */,
+				C1913A6D1D113C4E00214B9C /* rect.svg */,
+				C1913A6B1D113BEA00214B9C /* line.svg */,
+				C156C3EB1D11296400D2D1D6 /* roundRect.svg */,
 				C11A9F3D1D0724700028B402 /* triangle.svg */,
 			);
 			name = SVG;
@@ -556,7 +577,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1913A6E1D113C4E00214B9C /* rect.svg in Resources */,
+				C156C3EC1D11296400D2D1D6 /* roundRect.svg in Resources */,
+				C1913A721D1193D200214B9C /* polyline.svg in Resources */,
+				C1913A6C1D113BEA00214B9C /* line.svg in Resources */,
+				C1913A701D114FC100214B9C /* polygon.svg in Resources */,
 				C11A9F3E1D0724700028B402 /* triangle.svg in Resources */,
+				C1913A751D11971400214B9C /* circle.svg in Resources */,
+				C1913A761D11971400214B9C /* ellipse.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

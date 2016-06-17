@@ -5,6 +5,12 @@ public class SVGParser {
 
 	let groupTag = "g"
 	let pathTag = "path"
+    let lineTag = "line"
+    let rectTag = "rect"
+    let circleTag = "circle"
+    let ellipseTag = "ellipse"
+    let polygonTag = "polygon"
+    let polylineTag = "polyline"
 	let moveToAbsolute = Character("M")
 	let moveToRelative = Character("m")
 	let lineToAbsolute = Character("L")
@@ -17,11 +23,13 @@ public class SVGParser {
 	let curveToRelative = Character("c")
 	let closePathAbsolute = Character("Z")
 	let closePathRelative = Character("z")
+    let availableShapes: [String]
+    let availableStyleAttributes = ["stroke", "stroke-width", "fill"]
 
 	private let xmlString: String
 	private let position: Transform
 
-	private var shapes = [Shape]()
+	private var nodes = [Node]()
 
 	private enum PathCommandType {
 		case MoveTo
@@ -38,6 +46,7 @@ public class SVGParser {
 	public init(_ string: String, pos: Transform = Transform()) {
 		xmlString = string
 		position = pos
+        availableShapes = [groupTag, pathTag, lineTag, rectTag, circleTag, ellipseTag, polygonTag, polylineTag]
 	}
 
 	public func parse() -> Group {
@@ -45,7 +54,7 @@ public class SVGParser {
 		iterateThroughXmlTree(parsedXml.children)
 
 		let group = Group(
-			contents: shapes
+			contents: self.nodes
 		)
 		return group
 	}
@@ -53,54 +62,101 @@ public class SVGParser {
 	private func iterateThroughXmlTree(children: [XMLIndexer]) {
 		for child in children {
 			if let element = child.element {
-				if element.name == groupTag {
-					if let shape = parseGroup(child) {
-						shapes.append(shape)
-					}
-				}
+                //TODO: dirty hack. Need to figure out <svg> nesting
+                if element.name == "svg" {
+                    iterateThroughXmlTree(child.children)
+                } else if availableShapes.contains(element.name) {
+                    if let node = parseNode(child) {
+                        self.nodes.append(node)
+                    }
+                }
 			}
-			iterateThroughXmlTree(child.children)
 		}
 	}
+    
+    private func parseNode(node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+        if let element = node.element {
+            if node.children.isEmpty {
+                return parseShape(node, groupStyle: groupStyle)
+            } else if element.name == groupTag {
+                return parseGroup(node, groupStyle: groupStyle)
+            }
+        }
+        return nil
+    }
+    
+    private func parseShape(shape: XMLIndexer, groupStyle: [String: String] = [:]) -> Shape? {
+        if let element = shape.element {
+            let styleAttributes = getStyleAttributes(groupStyle, element: element)
+            switch element.name {
+            case pathTag:
+                if let path = parsePath(shape) {
+                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            case lineTag:
+                if let line = parseLine(shape) {
+                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            case rectTag:
+                if let rect = parseRect(shape) {
+                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            case circleTag:
+                if let circle = parseCircle(shape) {
+                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            case ellipseTag:
+                if let ellipse = parseEllipse(shape) {
+                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            case polygonTag:
+                if let polygon = parsePolygon(shape) {
+                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            case polylineTag:
+                if let polyline = parsePolyline(shape) {
+                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                }
+            default:
+                return nil
+            }
+        }
+        return nil
+    }
 
-	private func parseGroup(group: XMLIndexer) -> Shape? {
-		var childPath: XMLIndexer?
-		for child in group.children {
-			if let element = child.element {
-				if element.name == pathTag {
-					childPath = child
-				}
-			}
-		}
-
-		guard let element = group.element else {
-			return nil
-		}
-		var styleElements = [String: String]()
-		if let styleAttr = element.attributes["style"] {
-			let styleAttrParts = styleAttr.componentsSeparatedByString(";")
-
-			for styleAttrPart in styleAttrParts {
-				let currentStyle = styleAttrPart.componentsSeparatedByString(":")
-				if currentStyle.count == 2 {
-					styleElements.updateValue(currentStyle[1], forKey: currentStyle[0].stringByReplacingOccurrencesOfString(" ", withString: ""))
-				}
-			}
-		}
-
-		if childPath != nil {
-			if let path = parsePath(childPath!) {
-				let shape = Shape(
-					form: path,
-					fill: getFillColor(styleElements),
-					stroke: getStroke(styleElements),
-					pos: position
-				)
-				return shape
-			}
-		}
-		return nil
-	}
+    private func parseGroup(group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
+        guard let element = group.element else {
+            return nil
+        }
+        var groupNodes: [Node] = []
+        let groupStyle = getStyleAttributes(groupStyle, element: element)
+        for child in group.children {
+            if let node = parseNode(child, groupStyle: groupStyle) {
+                groupNodes.append(node)
+            }
+        }
+        return Group(contents: groupNodes)
+    }
+    
+    private func getStyleAttributes(groupAttributes: [String: String], element: XMLElement) -> [String: String] {
+        var styleAttributes: [String: String] = groupAttributes
+        if let style = element.attributes["style"] {
+            let styleParts = style.componentsSeparatedByString(";")
+            for styleAttribute in styleParts {
+                let currentStyle = styleAttribute.componentsSeparatedByString(":")
+                if currentStyle.count == 2 {
+                    styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0].stringByReplacingOccurrencesOfString(" ", withString: ""))
+                }
+            }
+        } else {
+            for availableAttribute in self.availableStyleAttributes {
+                if let styleAttribute = element.attributes[availableAttribute] {
+                    styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+                }
+            }
+        }
+        return styleAttributes
+    }
 
 	private func createColor(hexString: String) -> Color {
 		var cleanedHexString = hexString
@@ -150,6 +206,99 @@ public class SVGParser {
 		}
 		return width
 	}
+    
+    private func parseLine(line: XMLIndexer) -> Line? {
+        if let x1Attr = line.element!.attributes["x1"], x2Attr = line.element!.attributes["x2"],
+            y1Attr = line.element!.attributes["y1"], y2Attr = line.element!.attributes["y2"],
+            x1 = Double(x1Attr), x2 = Double(x2Attr), y1 = Double(y1Attr), y2 = Double(y2Attr) {
+            return Line(x1: x1, y1: y1, x2: x2, y2: y2)
+        }
+        return nil
+    }
+    
+    private func parseRect(rect: XMLIndexer) -> Locus? {
+        if let widthAttr = rect.element!.attributes["width"], heightAttr = rect.element!.attributes["height"],
+            width = Double(widthAttr), height = Double(heightAttr) {
+            var attributes: [String:Double] = [:]
+            if let xAttr = rect.element!.attributes["x"], x = Double(xAttr) {
+                attributes["x"] = x
+            }
+            if let yAttr = rect.element!.attributes["y"], y = Double(yAttr) {
+                attributes["y"] = y
+            }
+            if let rxAttr = rect.element!.attributes["rx"], rx = Double(rxAttr) {
+                attributes["rx"] = rx
+            }
+            if let ryAttr = rect.element!.attributes["ry"], ry = Double(ryAttr) {
+                attributes["ry"] = ry
+            }
+            let resultRect = Rect(x: attributes["x"] ?? 0, y: attributes["y"] ?? 0, w: width, h: height)
+            if attributes["rx"] != nil || attributes["ry"] != nil {
+                return RoundRect(rect: resultRect, rx: attributes["rx"] ?? 0, ry: attributes["ry"] ?? 0)
+            }
+            return resultRect
+        }
+        return nil
+    }
+    
+    private func parseCircle(circle: XMLIndexer) -> Circle? {
+        if let attributes = circle.element?.attributes, rAttr = attributes["r"], r = Double(rAttr) {
+            var cx: Double = 0
+            var cy: Double = 0
+            if let cxAttr = attributes["cx"], circleX = Double(cxAttr) {
+                cx = circleX
+            }
+            if let cyAttr = attributes["cy"], circleY = Double(cyAttr) {
+                cy = circleY
+            }
+            return Circle(cx: cx, cy: cy, r: r)
+        }
+        return nil
+    }
+    
+    private func parseEllipse(ellipse: XMLIndexer) -> Ellipse? {
+        if let attributes = ellipse.element?.attributes, rxAttr = attributes["rx"], rx = Double(rxAttr),
+            ryAttr = attributes["ry"], ry = Double(ryAttr) {
+            var cx: Double = 0
+            var cy: Double = 0
+            if let cxAttr = attributes["cx"], ellipseX = Double(cxAttr) {
+                cx = ellipseX
+            }
+            if let cyAttr = attributes["cy"], ellipseY = Double(cyAttr) {
+                cy = ellipseY
+            }
+            return Ellipse(cx: cx, cy: cy, rx: rx, ry: ry)
+        }
+        return nil
+    }
+    
+    private func parsePolygon(polygon: XMLIndexer) -> Polygon? {
+        if let points = polygon.element?.attributes["points"] {
+            return Polygon(points: parsePoints(points))
+        }
+        return nil
+    }
+    
+    private func parsePolyline(polyline: XMLIndexer) -> Polyline? {
+        if let points = polyline.element?.attributes["points"] {
+            return Polyline(points: parsePoints(points))
+        }
+        return nil
+    }
+    
+    private func parsePoints(pointsString: String) -> [Double] {
+        var resultPoints: [Double] = []
+        let pointPairs = pointsString.componentsSeparatedByString(" ")
+        for pointPair in pointPairs {
+            let points = pointPair.componentsSeparatedByString(",")
+            for point in points {
+                if let resultPoint = Double(point) {
+                    resultPoints.append(resultPoint)
+                }
+            }
+        }
+        return resultPoints
+    }
 
 	private func parsePath(path: XMLIndexer) -> Path? {
 		if let dAttr = path.element!.attributes["d"] {

@@ -22,7 +22,7 @@ pod "Macaw"
 
 ## Author
 
-Exyte.com
+exyte, [info@exyte.com](mailto:info@exyte.com)
 
 ## License
 

@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![Platform](https://img.shields.io/cocoapods/p/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 
+![Macaw](https://goo.gl/E2yudS)
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

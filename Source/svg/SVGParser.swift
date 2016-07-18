@@ -18,7 +18,7 @@ public class SVGParser {
     let availableStyleAttributes = ["stroke", "stroke-width", "fill"]
 
     private let xmlString: String
-    private let position: Transform
+    private let initialPosition: Transform
 
     private var nodes = [Node]()
 
@@ -35,8 +35,8 @@ public class SVGParser {
     private typealias PathCommand = (type: PathCommandType, expression: String, absolute: Bool)
 
     public init(_ string: String, pos: Transform = Transform()) {
-        xmlString = string
-        position = pos
+        self.xmlString = string
+        self.initialPosition = pos
     }
 
     public func parse() -> Group {
@@ -52,27 +52,28 @@ public class SVGParser {
             if let element = child.element {
                 if element.name == "svg" {
                     iterateThroughXmlTree(child.children)
-                } else if let node = parseNode(child) {
+                } else if let node = parseNode(child, groupPosition: self.initialPosition) {
                     self.nodes.append(node)
                 }
             }
         }
     }
 
-    private func parseNode(node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+    private func parseNode(node: XMLIndexer, groupStyle: [String: String] = [:], groupPosition: Transform = Transform()) -> Node? {
         if let element = node.element {
             if node.children.isEmpty {
-                return parseShape(node, groupStyle: groupStyle)
+                return parseShape(node, groupStyle: groupStyle, groupPosition: groupPosition)
             } else if element.name == "g" {
-                return parseGroup(node, groupStyle: groupStyle)
+                return parseGroup(node, groupStyle: groupStyle, groupPosition: groupPosition)
             }
         }
         return .None
     }
 
-    private func parseShape(shape: XMLIndexer, groupStyle: [String: String] = [:]) -> Shape? {
+    private func parseShape(shape: XMLIndexer, groupStyle: [String: String] = [:], groupPosition: Transform = Transform()) -> Shape? {
         if let element = shape.element {
             let styleAttributes = getStyleAttributes(groupStyle, element: element)
+            let position = getPosition(groupPosition, element: element)
             switch element.name {
             case "path":
                 if let path = parsePath(shape) {
@@ -110,18 +111,116 @@ public class SVGParser {
         return .None
     }
 
-    private func parseGroup(group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
+    private func parseGroup(group: XMLIndexer, groupStyle: [String: String] = [:], groupPosition: Transform = Transform()) -> Group? {
         guard let element = group.element else {
             return .None
         }
         var groupNodes: [Node] = []
-        let groupStyle = getStyleAttributes(groupStyle, element: element)
+        let style = getStyleAttributes(groupStyle, element: element)
+        let position = getPosition(groupPosition, element: element)
         group.children.forEach { child in
-            if let node = parseNode(child, groupStyle: groupStyle) {
+            if let node = parseNode(child, groupStyle: style, groupPosition: position) {
                 groupNodes.append(node)
             }
         }
         return Group(contents: groupNodes)
+    }
+    
+    private func getPosition(groupPosition: Transform = Transform(), element: XMLElement) -> Transform {
+        guard let transformAttribute = element.attributes["transform"] else {
+            return groupPosition
+        }
+        return parseTransformationAttribute(transformAttribute, transform: groupPosition)
+    }
+    
+    private func parseTransformationAttribute(attributes: String, transform: Transform) -> Transform {
+        do {
+            var finalTransform = transform
+            let transformPattern = "([a-z]+)\\(((\\d+\\.?\\d*\\s*,?\\s*)+)\\)"
+            let matcher = try NSRegularExpression(pattern: transformPattern, options: .CaseInsensitive)
+            let fullRange = NSRange(location: 0, length: attributes.characters.count)
+            if let matchedAttribute = matcher.firstMatchInString(attributes, options: .ReportCompletion, range: fullRange) {
+                let attributeName = (attributes as NSString).substringWithRange(matchedAttribute.rangeAtIndex(1))
+                let values = parseTransformValues((attributes as NSString).substringWithRange(matchedAttribute.rangeAtIndex(2)))
+                if values.isEmpty {
+                    return transform
+                }
+                switch attributeName {
+                case "translate":
+                    if let x = Double(values[0]) {
+                        var y: Double = 0
+                        if values.indices.contains(1) {
+                            y = Double(values[1]) ?? 0
+                        }
+                        finalTransform = transform.move(x, my: y)
+                    }
+                case "scale":
+                    if let x = Double(values[0]) {
+                        var y: Double = x
+                        if values.indices.contains(1) {
+                            y = Double(values[1]) ?? x
+                        }
+                        finalTransform = transform.scale(x, sy: y)
+                    }
+                case "rotate":
+                    if let angle = Double(values[0]) {
+                        if values.count == 1 {
+                            finalTransform = transform.rotate(angle)
+                        } else if values.count == 3 {
+                            if let x = Double(values[1]), y = Double(values[2]) {
+                                finalTransform = transform.move(x, my: y).rotate(angle).move(-x, my: -y)
+                            }
+                        }
+                    }
+                case "skewX":
+                    if let x = Double(values[0]) {
+                        finalTransform = transform.shear(x, shy: 0)
+                    }
+                case "skewY":
+                    if let y = Double(values[0]) {
+                        finalTransform = transform.shear(0, shy: y)
+                    }
+                case "matrix":
+                    if values.count != 6 {
+                        return transform
+                    }
+                    if let m11 = Double(values[0]), m12 = Double(values[1]),
+                        m21 = Double(values[2]), m22 = Double(values[3]),
+                        dx = Double(values[4]), dy = Double(values[5]) {
+                        
+                        let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
+                        finalTransform = concat(transform, t2: transformMatrix)
+                    }
+                default: break
+                }
+                let rangeToRemove = NSRange(location: 0, length: matchedAttribute.range.location + matchedAttribute.range.length)
+                let newAttributeString = (attributes as NSString).stringByReplacingCharactersInRange(rangeToRemove, withString: "")
+                return parseTransformationAttribute(newAttributeString, transform: finalTransform)
+            } else {
+                return transform
+            }
+        } catch {
+            return transform
+        }
+    }
+    
+    private func parseTransformValues(values: String, collectedValues: [String] = []) -> [String] {
+        var updatedValues: [String] = collectedValues
+        do {
+            let pattern = "\\d+\\.?\\d*"
+            let matcher = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
+            let fullRange = NSRange(location: 0, length: values.characters.count)
+            if let matchedValue = matcher.firstMatchInString(values, options: .ReportCompletion, range: fullRange) {
+                let value = (values as NSString).substringWithRange(matchedValue.range)
+                updatedValues.append(value)
+                let rangeToRemove = NSRange(location: 0, length: matchedValue.range.location + matchedValue.range.length)
+                let newValues = (values as NSString).stringByReplacingCharactersInRange(rangeToRemove, withString: "")
+                return parseTransformValues(newValues, collectedValues: updatedValues)
+            }
+        } catch {
+            
+        }
+        return updatedValues
     }
 
     private func getStyleAttributes(groupAttributes: [String: String], element: XMLElement) -> [String: String] {
@@ -399,8 +498,6 @@ public class SVGParser {
     }
 
     private func parseCommand(command: PathCommand) -> PathSegment? {
-        // print("Expression: \(command.expression)")
-
         let characterSet = NSMutableCharacterSet()
         characterSet.addCharactersInString(" ")
         characterSet.addCharactersInString(",")
@@ -409,11 +506,9 @@ public class SVGParser {
         commandParams.forEach { param in
             separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
         }
-
-        // print("Params: \(separatedValues)")
+        
         switch command.type {
         case .MoveTo:
-            // print("MoveTo \(separatedValues.count)")
             if separatedValues.count < 2 {
                 return .None
             }
@@ -425,7 +520,6 @@ public class SVGParser {
             return Move(x: x, y: y, absolute: command.absolute)
 
         case .LineTo:
-            // print("LineTo \(commandParams.count)")
             if commandParams.count < 2 {
                 return .None
             }
@@ -437,7 +531,6 @@ public class SVGParser {
             return PLine(x: x, y: y, absolute: command.absolute)
 
         case .LineH:
-            // print("LineHorizontal \(separatedValues.count)")
             if separatedValues.count < 1 {
                 return .None
             }
@@ -449,7 +542,6 @@ public class SVGParser {
             return HLine(x: x, absolute: command.absolute)
 
         case .LineV:
-            // print("LineVertical \(separatedValues.count)")
             if separatedValues.count < 1 {
                 return .None
             }
@@ -461,7 +553,6 @@ public class SVGParser {
             return VLine(y: y, absolute: command.absolute)
 
         case .CurveTo:
-            // print("CurveTo \(separatedValues.count)")
             if separatedValues.count < 6 {
                 return .None
             }
@@ -478,7 +569,6 @@ public class SVGParser {
             return Cubic(x1: x1, y1: y1, x2: x2, y2: y2, x: x, y: y, absolute: command.absolute)
 
         case .ClosePath:
-            // print("Close Path")
             return Close()
         default:
             return .None
@@ -598,5 +688,15 @@ public class SVGParser {
         default:
             return .None
         }
+    }
+    
+    private func concat(t1: Transform, t2: Transform) -> Transform {
+        let nm11 = t2.m11 * t1.m11 + t2.m12 * t1.m21
+        let nm21 = t2.m21 * t1.m11 + t2.m22 * t1.m21
+        let ndx = t2.dx * t1.m11 + t2.dy * t1.m21 + t1.dx
+        let nm12 = t2.m11 * t1.m12 + t2.m12 * t1.m22
+        let nm22 = t2.m21 * t1.m12 + t2.m22 * t1.m22
+        let ndy = t2.dx * t1.m12 + t2.dy * t1.m22 + t1.dy
+        return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
     }
 }

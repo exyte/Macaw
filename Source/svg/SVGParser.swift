@@ -15,7 +15,7 @@ public class SVGParser {
     let curveToRelative = Character("c")
     let closePathAbsolute = Character("Z")
     let closePathRelative = Character("z")
-    let availableStyleAttributes = ["stroke", "stroke-width", "fill"]
+    let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration"]
 
     private let xmlString: String
     private let initialPosition: Transform
@@ -62,7 +62,7 @@ public class SVGParser {
     private func parseNode(node: XMLIndexer, groupStyle: [String: String] = [:], groupPosition: Transform = Transform()) -> Node? {
         if let element = node.element {
             if node.children.isEmpty {
-                return parseShape(node, groupStyle: groupStyle, groupPosition: groupPosition)
+                return parseElement(node, groupStyle: groupStyle, groupPosition: groupPosition)
             } else if element.name == "g" {
                 return parseGroup(node, groupStyle: groupStyle, groupPosition: groupPosition)
             }
@@ -70,39 +70,45 @@ public class SVGParser {
         return .None
     }
 
-    private func parseShape(shape: XMLIndexer, groupStyle: [String: String] = [:], groupPosition: Transform = Transform()) -> Shape? {
-        if let element = shape.element {
+    private func parseElement(node: XMLIndexer, groupStyle: [String: String] = [:], groupPosition: Transform = Transform()) -> Node? {
+        if let element = node.element {
             let styleAttributes = getStyleAttributes(groupStyle, element: element)
             let position = getPosition(groupPosition, element: element)
             switch element.name {
             case "path":
-                if let path = parsePath(shape) {
+                if let path = parsePath(node) {
                     return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
             case "line":
-                if let line = parseLine(shape) {
+                if let line = parseLine(node) {
                     return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
             case "rect":
-                if let rect = parseRect(shape) {
+                if let rect = parseRect(node) {
                     return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
             case "circle":
-                if let circle = parseCircle(shape) {
+                if let circle = parseCircle(node) {
                     return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
             case "ellipse":
-                if let ellipse = parseEllipse(shape) {
+                if let ellipse = parseEllipse(node) {
                     return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
             case "polygon":
-                if let polygon = parsePolygon(shape) {
+                if let polygon = parsePolygon(node) {
                     return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
             case "polyline":
-                if let polyline = parsePolyline(shape) {
+                if let polyline = parsePolyline(node) {
                     return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
                 }
+            case "image":
+                return parseImage(node, pos: position)
+            case "text":
+                return parseText(node, fill: getFillColor(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes),
+                                 italic: getFontStyle(styleAttributes, style: "italic"), bold: getFontWeight(styleAttributes, style: "bold"),
+                                 underline: getTextDecoration(styleAttributes, decoration: "underline"), strike: getTextDecoration(styleAttributes, decoration: "line-through"), pos: position)
             default:
                 print("SVG parsing error. Shape \(element.name) not supported")
                 return .None
@@ -226,11 +232,11 @@ public class SVGParser {
     private func getStyleAttributes(groupAttributes: [String: String], element: XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
         if let style = element.attributes["style"] {
-            let styleParts = style.componentsSeparatedByString(";")
+            let styleParts = style.stringByReplacingOccurrencesOfString(" ", withString: "").componentsSeparatedByString(";")
             styleParts.forEach { styleAttribute in
                 let currentStyle = styleAttribute.componentsSeparatedByString(":")
                 if currentStyle.count == 2 {
-                    styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0].stringByReplacingOccurrencesOfString(" ", withString: ""))
+                    styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
                 }
             }
         } else {
@@ -295,115 +301,54 @@ public class SVGParser {
         guard let element = line.element else {
             return .None
         }
-
-        if let x1Attr = element.attributes["x1"],
-            x2Attr = element.attributes["x2"],
-            y1Attr = element.attributes["y1"],
-            y2Attr = element.attributes["y2"],
-
-            // Doubles
-            x1 = Double(x1Attr),
-            x2 = Double(x2Attr),
-            y1 = Double(y1Attr),
-            y2 = Double(y2Attr) {
-
-                return Line(x1: x1, y1: y1, x2: x2, y2: y2)
-        }
-
-        return .None
+        
+        return Line(x1: getDoubleValue(element, attribute: "x1") ?? 0,
+                    y1: getDoubleValue(element, attribute: "y1") ?? 0,
+                    x2: getDoubleValue(element, attribute: "x2") ?? 0,
+                    y2: getDoubleValue(element, attribute: "y2") ?? 0)
     }
 
     private func parseRect(rect: XMLIndexer) -> Locus? {
-        guard let element = rect.element else {
-            return .None
+        guard let element = rect.element,
+            width = getDoubleValue(element, attribute: "width"),
+            height = getDoubleValue(element, attribute: "height")
+            where width > 0 && height > 0  else {
+                
+                return .None
         }
-
-        if let widthAttr = element.attributes["width"],
-            heightAttr = element.attributes["height"],
-
-            // Doubles
-            width = Double(widthAttr),
-            height = Double(heightAttr) {
-
-                var attributes: [String: Double] = [:]
-                if let xAttr = element.attributes["x"], x = Double(xAttr) {
-                    attributes["x"] = x
-                }
-                if let yAttr = element.attributes["y"], y = Double(yAttr) {
-                    attributes["y"] = y
-                }
-                if let rxAttr = element.attributes["rx"], rx = Double(rxAttr) {
-                    attributes["rx"] = rx
-                }
-                if let ryAttr = element.attributes["ry"], ry = Double(ryAttr) {
-                    attributes["ry"] = ry
-                }
-                let resultRect = Rect(
-                    x: attributes["x"] ?? 0,
-                    y: attributes["y"] ?? 0,
-                    w: width, h: height)
-
-                if attributes["rx"] != nil || attributes["ry"] != nil {
-
-                    return RoundRect(rect: resultRect,
-                        rx: attributes["rx"] ?? 0,
-                        ry: attributes["ry"] ?? 0)
-                }
-
-                return resultRect
+        
+        let resultRect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0, w: width, h: height)
+        
+        let rxOpt = getDoubleValue(element, attribute: "rx")
+        let ryOpt = getDoubleValue(element, attribute: "ry")
+        if let rx = rxOpt, ry = ryOpt {
+            return RoundRect(rect: resultRect, rx: rx, ry: ry)
         }
-
-        return .None
+        let rOpt = rxOpt ?? ryOpt
+        if let r = rOpt where r >= 0 {
+            return RoundRect(rect: resultRect, rx: r, ry: r)
+        }
+        return resultRect
     }
 
     private func parseCircle(circle: XMLIndexer) -> Circle? {
-        guard let element = circle.element else {
+        guard let element = circle.element, r = getDoubleValue(element, attribute: "r") where r > 0 else {
             return .None
         }
-
-        if let rAttr = element.attributes["r"],
-            r = Double(rAttr) {
-
-                var cx: Double = 0
-                var cy: Double = 0
-                if let cxAttr = element.attributes["cx"], circleX = Double(cxAttr) {
-                    cx = circleX
-                }
-                if let cyAttr = element.attributes["cy"], circleY = Double(cyAttr) {
-                    cy = circleY
-                }
-
-                return Circle(cx: cx, cy: cy, r: r)
-        }
-
-        return .None
+        
+        return Circle(cx: getDoubleValue(element, attribute: "cx") ?? 0, cy: getDoubleValue(element, attribute: "cy") ?? 0, r: r)
     }
 
     private func parseEllipse(ellipse: XMLIndexer) -> Ellipse? {
-        guard let element = ellipse.element else {
-            return .None
+        guard let element = ellipse.element,
+            rx = getDoubleValue(element, attribute: "rx"),
+            ry = getDoubleValue(element, attribute: "ry")
+            where rx > 0 && ry > 0 else {
+                
+                return .None
         }
-
-        if let rxAttr = element.attributes["rx"],
-            ryAttr = element.attributes["ry"],
-
-            // Doubles
-            rx = Double(rxAttr),
-            ry = Double(ryAttr) {
-
-                var cx: Double = 0
-                var cy: Double = 0
-                if let cxAttr = element.attributes["cx"], ellipseX = Double(cxAttr) {
-                    cx = ellipseX
-                }
-                if let cyAttr = element.attributes["cy"], ellipseY = Double(cyAttr) {
-                    cy = ellipseY
-                }
-
-                return Ellipse(cx: cx, cy: cy, rx: rx, ry: ry)
-        }
-
-        return .None
+        
+        return Ellipse(cx: getDoubleValue(element, attribute: "cx") ?? 0, cy: getDoubleValue(element, attribute: "cy") ?? 0, rx: rx, ry: ry)
     }
 
     private func parsePolygon(polygon: XMLIndexer) -> Polygon? {
@@ -444,6 +389,29 @@ public class SVGParser {
         }
 
         return resultPoints
+    }
+    
+    private func parseImage(image: XMLIndexer, pos: Transform = Transform()) -> Image? {
+        guard let element = image.element, link = element.attributes["xlink:href"] else {
+            return .None
+        }
+        let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
+        return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, pos: position)
+    }
+    
+    private func parseText(text: XMLIndexer, fill: Fill?, fontName: String?, fontSize: Int?, italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, pos: Transform = Transform()) -> Text? {
+        guard let element = text.element, string = element.text else {
+            return .None
+        }
+        let font = Font(
+            name: fontName ?? "Serif",
+            size: fontSize ?? 12,
+            bold: bold ?? false,
+            italic: italic ?? false,
+            underline: underline ?? false,
+            strike: strike ?? false)
+        let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
+        return Text(text: string, font: font, fill: fill ?? Color.black, pos: position)
     }
 
     private func parsePath(path: XMLIndexer) -> Path? {
@@ -688,6 +656,61 @@ public class SVGParser {
         default:
             return .None
         }
+    }
+    
+    private func getDoubleValue(element: XMLElement, attribute: String) -> Double? {
+        guard let attributeValue = element.attributes[attribute], doubleValue = Double(attributeValue) else {
+            return .None
+        }
+        return doubleValue
+    }
+    
+    private func getIntValue(element: XMLElement, attribute: String) -> Int? {
+        guard let attributeValue = element.attributes[attribute], intValue = Int(attributeValue) else {
+            return .None
+        }
+        return intValue
+    }
+    
+    private func getFontName(attributes: [String: String]) -> String? {
+        return attributes["font-family"]
+    }
+    
+    private func getFontSize(attributes: [String: String]) -> Int? {
+        guard let fontSize = attributes["font-size"] else {
+            return .None
+        }
+        return Int(fontSize)
+    }
+    
+    private func getFontStyle(attributes: [String: String], style: String) -> Bool? {
+        guard let fontStyle = attributes["font-style"] else {
+            return .None
+        }
+        if fontStyle.lowercaseString == style {
+            return true
+        }
+        return false
+    }
+    
+    private func getFontWeight(attributes: [String: String], style: String) -> Bool? {
+        guard let fontWeight = attributes["font-weight"] else {
+            return .None
+        }
+        if fontWeight.lowercaseString == style {
+            return true
+        }
+        return false
+    }
+    
+    private func getTextDecoration(attributes: [String: String], decoration: String) -> Bool? {
+        guard let textDecoration = attributes["text-decoration"] else {
+            return .None
+        }
+        if textDecoration.containsString(decoration) {
+            return true
+        }
+        return false
     }
     
     private func concat(t1: Transform, t2: Transform) -> Transform {

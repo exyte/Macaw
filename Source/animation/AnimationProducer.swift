@@ -16,6 +16,9 @@ public class AnimationProducer {
 			return
 		case .AffineTransformation:
 			addTransformAnimation(animation, sceneLayer: sceneLayer)
+
+		case .Opacity:
+			addOpacityAnimation(animation, sceneLayer: sceneLayer)
 		}
 	}
 }

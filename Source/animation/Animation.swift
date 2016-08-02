@@ -4,6 +4,7 @@ import RxSwift
 enum AnimationType {
 	case Unknown
 	case AffineTransformation
+	case Opacity
 }
 
 public enum TimingFunction {

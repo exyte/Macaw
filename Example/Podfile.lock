@@ -12,7 +12,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Macaw:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   Macaw: db045fde6234e6e4d2336a66a4b56a0f2d72e009

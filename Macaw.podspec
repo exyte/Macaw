@@ -43,7 +43,8 @@ Pod::Spec.new do |s|
      'Source/model/input/*.swift',
      'Source/model/scene/*.swift',
      'Source/render/*.swift',
-     'Source/views/*.swift'
+     'Source/views/*.swift',
+     'Source/svg/*.swift'
   ]
   # s.resource_bundles = {
   #   'Macaw' => ['Pod/Assets/*.png']

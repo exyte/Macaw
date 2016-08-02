@@ -53,3 +53,4 @@ Pods/Target Support Files/SWXMLHash/SWXMLHash-prefix.pch
 Pods/Target Support Files/SWXMLHash/SWXMLHash-umbrella.h
 Pods/Target Support Files/SWXMLHash/SWXMLHash.modulemap
 Pods/Target Support Files/SWXMLHash/SWXMLHash.xcconfig
+contents.xcworkspacedata

@@ -16,41 +16,6 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
-#
 Pods/
-
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-Carthage/Checkouts
-
-Carthage/Build
-Pods/Manifest.lock
-Pods/Pods.xcodeproj/project.pbxproj
-Pods/SWXMLHash/LICENSE
-Pods/SWXMLHash/README.md
-Pods/SWXMLHash/Source/SWXMLHash+TypeConversion.swift
-Pods/SWXMLHash/Source/SWXMLHash.swift
-Pods/Target Support Files/Pods-Macaw/Info.plist
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw-acknowledgements.markdown
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw-acknowledgements.plist
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw-dummy.m
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw-frameworks.sh
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw-resources.sh
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw-umbrella.h
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw.debug.xcconfig
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw.modulemap
-Pods/Target Support Files/Pods-Macaw/Pods-Macaw.release.xcconfig
-Pods/Target Support Files/SWXMLHash/Info.plist
-Pods/Target Support Files/SWXMLHash/SWXMLHash-dummy.m
-Pods/Target Support Files/SWXMLHash/SWXMLHash-prefix.pch
-Pods/Target Support Files/SWXMLHash/SWXMLHash-umbrella.h
-Pods/Target Support Files/SWXMLHash/SWXMLHash.modulemap
-Pods/Target Support Files/SWXMLHash/SWXMLHash.xcconfig
 contents.xcworkspacedata
+.DS_Store

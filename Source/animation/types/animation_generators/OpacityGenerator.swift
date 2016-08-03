@@ -2,7 +2,7 @@
 import UIKit
 
 func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer) {
-	guard let transformAnimation = animation as? OpacityAnimation else {
+	guard let opacityAnimation = animation as? OpacityAnimation else {
 		return
 	}
 
@@ -11,10 +11,37 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer) {
 	}
 
 	// Creating proper animation
-	let generatedAnimation = opacityAnimationByFunc(transformAnimation.vFunc, duration: animation.getDuration(), fps: transformAnimation.logicalFps)
+	let generatedAnimation = opacityAnimationByFunc(opacityAnimation.vFunc, duration: animation.getDuration(), fps: opacityAnimation.logicalFps)
 	generatedAnimation.autoreverses = animation.autoreverses
 	generatedAnimation.repeatCount = Float(animation.repeatCount)
 	generatedAnimation.timingFunction = caTimingFunction(animation.timingFunction)
+
+	generatedAnimation.completion = { finished in
+
+		let reversed = opacityAnimation.autoreverses
+		let count = opacityAnimation.repeatCount + 1
+
+		if (reversed || count > 1) {
+			animation.node?.opacityVar.value = opacityAnimation.vFunc(1.0)
+		} else {
+			animation.node?.opacityVar.value = opacityAnimation.vFunc(animation.progress)
+		}
+
+		animation.node?.animating = false
+		animationCache.freeLayer(node)
+
+		animation.completion?()
+	}
+
+	generatedAnimation.progress = { progress in
+		animation.progress = Double(progress)
+	}
+
+	let layer = animationCache.layerForNode(node)
+	layer.addAnimation(generatedAnimation, forKey: animation.ID)
+	animation.removeFunc = {
+		layer.removeAnimationForKey(animation.ID)
+	}
 }
 
 func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps: UInt) -> CAAnimation {

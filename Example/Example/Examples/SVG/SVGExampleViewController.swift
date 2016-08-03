@@ -8,7 +8,7 @@ class SVGExampleView: MacawView {
 		let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
 
 		// let transform = Transform().move(150, my: 150).scale(0.8, sy: 0.8)
-		let parser = SVGParser(text)
+		let parser =  SVGParser(text)
 		let tigerNode = parser.parse()
 
 		super.init(node: tigerNode, coder: aDecoder)

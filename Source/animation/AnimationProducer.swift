@@ -6,6 +6,7 @@ public class AnimationProducer {
 
 	public required init(layer: CALayer) {
 		sceneLayer = layer
+		animationCache.sceneLayer = layer
 	}
 
 	public func addAnimation(animation: Animatable) {

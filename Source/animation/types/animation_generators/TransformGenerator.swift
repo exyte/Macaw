@@ -22,12 +22,6 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 	generatedAnim.repeatCount = Float(animation.repeatCount)
 	generatedAnim.timingFunction = caTimingFunction(animation.timingFunction)
 
-	// Creating animated layer
-	let layer = ShapeLayer()
-//	layer.backgroundColor = UIColor.greenColor().CGColor
-//	layer.borderWidth = 1.0
-//	layer.borderColor = UIColor.blueColor().CGColor
-
 	generatedAnim.completion = { finished in
 
 		let reversed = transformAnimation.autoreverses
@@ -40,9 +34,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		}
 
 		animation.node?.animating = false
-		sceneLayer.setNeedsDisplay()
-
-		layer.removeFromSuperlayer()
+		animationCache.freeLayer(node)
 
 		animation.completion?()
 	}
@@ -51,26 +43,8 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		animation.progress = Double(progress)
 	}
 
-	if let shapeBounds = node.bounds() {
-		let cgRect = shapeBounds.cgRect()
-		let origFrame = CGRectMake(0.0, 0.0,
-			cgRect.width + cgRect.origin.x,
-			cgRect.height + cgRect.origin.y)
+	let layer = animationCache.layerForNode(node)
 
-		// let origFrame = cgRect
-
-		// TODO: Correct layer sized using transform tree
-		// cgRect.origin.x >= 0.0 ? cgRect.width : cgRect.width + cgRect.origin.x,
-		// cgRect.origin.y >= 0.0 ? cgRect.height : cgRect.height + cgRect.origin.y)
-
-		layer.bounds = origFrame
-		layer.anchorPoint = CGPointMake(0.0, 0.0)
-	}
-
-	layer.node = node
-	layer.setNeedsDisplay()
-
-	sceneLayer.addSublayer(layer)
 	layer.addAnimation(generatedAnim, forKey: animation.ID)
 	animation.removeFunc = {
 		layer.removeAnimationForKey(animation.ID)

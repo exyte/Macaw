@@ -33,7 +33,6 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 			animation.node?.posVar.value = transformAnimation.vFunc(animation.progress)
 		}
 
-		animation.node?.animating = false
 		animationCache.freeLayer(node)
 
 		animation.completion?()

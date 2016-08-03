@@ -3,9 +3,6 @@ import RxSwift
 
 public class Node: Drawable {
 
-	// TODO: remove me please!
-	public var animating: Bool = false
-
 	public let posVar: Variable<Transform>
 	public var pos: Transform {
 		get { return posVar.value }

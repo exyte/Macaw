@@ -40,6 +40,8 @@ class AnimationCache {
 
 			sceneLayer?.addSublayer(layer)
 
+			layerCache[node] = CachedLayer(layer: layer)
+
 			return layer
 		}
 
@@ -64,5 +66,13 @@ class AnimationCache {
 
 			layerCache.removeValueForKey(node)
 		}
+	}
+
+	func isAnimating(node: Node) -> Bool {
+		if let _ = layerCache[node] {
+			return true
+		}
+
+		return false
 	}
 }

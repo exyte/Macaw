@@ -10,7 +10,6 @@ public class AnimationProducer {
 	}
 
 	public func addAnimation(animation: Animatable) {
-		animation.node?.animating = true
 
 		switch animation.type {
 		case .Unknown:

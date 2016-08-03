@@ -31,12 +31,12 @@ class GroupRenderer: NodeRenderer {
 		if !force {
 
 			// Cutting animated content
-			if group.animating {
+			if animationCache.isAnimating(group) {
 				return
 			}
 		}
 
-		let staticContents = group.contentsVar.filter { !$0.animating }
+		let staticContents = group.contentsVar.filter { !animationCache.isAnimating($0) }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
 

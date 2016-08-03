@@ -7,6 +7,7 @@ class GroupRenderer: NodeRenderer {
 	var node: Node {
 		get { return group }
 	}
+    
 	let group: Group
 	let disposeBag = DisposeBag()
 
@@ -50,6 +51,27 @@ class GroupRenderer: NodeRenderer {
 			}
 		}
 	}
+    
+    func detectTouches(location: CGPoint) -> [Shape] {
+        var touchedShapes = [Shape]()
+        let staticContents = group.contentsVar.filter { !animationCache.isAnimating($0) }
+        
+        let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+        
+        contentRenderers.forEach { renderer in
+            if let rendererVal = renderer {
+                CGContextSaveGState(ctx.cgContext)
+                CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
+                let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(rendererVal.node.pos.invert()))
+                setClip(rendererVal.node)
+                let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
+                touchedShapes.appendContentsOf(rendererVal.detectTouches(offsetLocation))
+                CGContextRestoreGState(ctx.cgContext)
+            }
+        }
+        
+        return touchedShapes
+    }
 
 	// TODO: extract to NodeRenderer
 	// TODO: path support

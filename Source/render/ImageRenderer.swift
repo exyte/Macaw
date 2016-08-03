@@ -7,6 +7,8 @@ class ImageRenderer: NodeRenderer {
 	var node: Node {
 		get { return image }
 	}
+    
+    var renderedPaths: [CGPath] = [CGPath]()
 
 	init(image: Image, ctx: RenderContext) {
 		self.image = image
@@ -40,6 +42,10 @@ class ImageRenderer: NodeRenderer {
 			uiimage.drawInRect(rect)
 		}
 	}
+    
+    func detectTouches(location: CGPoint) -> [Shape] {
+        return []
+    }
 
 	private func calculateMeetAspectRatio(image: Image, size: CGSize) -> CGRect {
 		let w = CGFloat(image.w)

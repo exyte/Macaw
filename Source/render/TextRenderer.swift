@@ -31,6 +31,10 @@ class TextRenderer: NodeRenderer {
 		message.drawInRect(CGRectMake(calculateAlignmentOffset(text, font: font), calculateBaselineOffset(text, font: font),
 			CGFloat(textSize.width), CGFloat(textSize.height)), withAttributes: textAttributes)
 	}
+    
+    func detectTouches(location: CGPoint) -> [Shape] {
+        return []
+    }
 
 	private func calculateBaselineOffset(text: Text, font: UIFont) -> CGFloat {
 		var baselineOffset = CGFloat(0)

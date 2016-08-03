@@ -49,3 +49,4 @@ public class Node: Drawable {
 		return Mouse(pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
 	}
 }
+

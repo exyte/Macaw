@@ -6,4 +6,6 @@ protocol NodeRenderer {
 	var node: Node { get }
 
 	func render(force: Bool, opacity: Double)
+    
+    func detectTouches(location: CGPoint) -> [Shape]
 }

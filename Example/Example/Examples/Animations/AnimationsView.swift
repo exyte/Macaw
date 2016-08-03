@@ -4,7 +4,7 @@ import RxSwift
 
 class AnimationsView: MacawView {
 
-	var animations = [TransformAnimation]()
+	var animations = [Animatable]()
 	var ballNodes = [Group]()
 
 	let n = 100
@@ -92,12 +92,10 @@ class AnimationsView: MacawView {
 
 			// animation.autoreverses = true
 
-			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, observableValue: ballGroup.opacityVar, startValue: 1.0, finalValue: 0.0, animationDuration: 5.0)
+			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, observableValue: ballGroup.opacityVar, startValue: 1.0, finalValue: 0.0, animationDuration: 6.0)
 
 			animations.append(animation)
-
-			if let opacityVar = ballGroup.opaqueVar as? Variable<Double> {
-			}
+			animations.append(opacityAnimation)
 		}
 
 		let node = Group(contents: ballNodes)

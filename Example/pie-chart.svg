@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="239px" height="258px" viewBox="0 0 239 258" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Pie chart</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M33.9231348,28.4983471 C27.0269914,30.7705724 19.6570698,32 12,32 C8.20448294,32 4.47952007,31.6979216 0.847841741,31.1164952 L4.68089486,1.33190277 C7.05377391,1.77067093 9.50010562,2 12,2 C16.1904376,2 20.2303748,1.35563113 24.0261314,0.160573559 L33.9231348,28.4983471 Z" id="path-1"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M15.4,47.8 C27.4,43.7 38.2,36.9 46.9,28.1 L18.4,0 C13.4,5.1 7.1,8.8 0,10.7 L10.3,45.2 C10.9,47.3 13.2,48.5 15.4,47.8 L15.4,47.8 Z" id="path-5"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M37.9,60.3 C51.9,45.3 60.8,25.4 61.9,3.5 L12,0 C11.7,10.8 7.2,20.6 0,27.6 L32.2,60.4 C33.7,62 36.4,61.9 37.9,60.3 L37.9,60.3 Z" id="path-8"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-10">
+            <feGaussianBlur stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M69.5999969,77.9 C71.8999969,78.1 73.8999969,76.4 73.9999969,74.1 L73.9999969,71 C73.9999969,43.8 63.1999969,19.2 45.5999969,1.2 C43.9999969,-0.4 41.4999969,-0.4 39.8999969,1.2 L0.199996948,40.8 C8.59999695,48.1 13.9999969,58.9 13.9999969,71 L13.9999969,72.8 L69.5999969,77.9 L69.5999969,77.9 Z" id="path-11"></path>
+        <path d="M171.260414,48.8999969 C173.160414,47.5999969 173.660414,44.9999969 172.260414,43.0999969 C152.060414,16.9999969 120.560414,0.199996948 85.0604141,0.199996948 C51.4604141,0.199996948 21.3604141,15.2999969 1.1604141,38.9999969 C-0.339585903,40.6999969 -0.0395859031,43.3999969 1.7604141,44.6999969 L53.7604141,85.1999969 C61.0604141,75.9999969 72.3604141,70.0999969 85.0604141,70.0999969 C97.7604141,70.0999969 109.060414,75.9999969 116.360414,85.1999969 L171.260414,48.8999969 L171.260414,48.8999969 Z" id="path-13"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-15">
+            <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.6 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Chart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3" transform="translate(-60.000000, -62.000000)">
+            <g id="Pie-chart" transform="translate(60.000000, 80.000000)">
+                <g id="Group-7" transform="translate(118.000000, 148.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#204E9F" xlink:href="#path-1"></use>
+                    <polygon id="Path-39" fill="#0F2F68" filter="url(#filter-3)" mask="url(#mask-2)" points="20.0090578 -11.0118762 29.5904757 52.2729101 45.2843668 20.8262995"></polygon>
+                    <polygon id="Path-40" fill="#0F2F68" filter="url(#filter-4)" mask="url(#mask-2)" points="8.23632812 -3.26855469 10.7880859 44.1445312 -13.1357422 34.8945312"></polygon>
+                </g>
+                <g id="Group-6" transform="translate(140.000000, 138.000000)">
+                    <mask id="mask-6" fill="white">
+                        <use xlink:href="#path-5"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#4C7BF3" xlink:href="#path-5"></use>
+                    <polygon id="Path-38" fill="#3263E4" filter="url(#filter-7)" mask="url(#mask-6)" points="7.7028953 -11.8051606 52.8526908 52.2962188 72.2710745 29.6277103"></polygon>
+                </g>
+                <g id="Group-5" transform="translate(158.000000, 111.000000)">
+                    <mask id="mask-9" fill="white">
+                        <use xlink:href="#path-8"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#4FCDFF" xlink:href="#path-8"></use>
+                    <polygon id="Path-37" fill="#2795C0" filter="url(#filter-10)" mask="url(#mask-9)" points="9.02919019 1.3980765 78.0963386 15.3871795 86.9042923 -20.2028634"></polygon>
+                </g>
+                <g id="Group-4" transform="translate(156.000000, 39.000000)">
+                    <mask id="mask-12" fill="white">
+                        <use xlink:href="#path-11"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#6FE621" xlink:href="#path-11"></use>
+                </g>
+                <g id="1" transform="translate(0.000000, 16.000000)" fill="#FB497C">
+                    <path d="M38.5000008,1.98778719 C14.8000008,25.4877872 0.200000763,58.0877872 0.200000763,94.0877872 C0.200000763,162.087787 52.4000008,217.887787 119.000001,223.587787 C121.300001,223.787787 123.300001,221.987787 123.300001,219.687787 L126.200001,133.787787 C106.000001,131.787787 90.1000008,114.787787 90.1000008,93.9877872 C90.1000008,82.4877872 95.0000008,72.0877872 102.700001,64.7877872 L44.3000008,2.08778719 C42.8000008,0.387787186 40.1000008,0.387787186 38.5000008,1.98778719 Z" id="Combined-Shape"></path>
+                </g>
+                <g id="Group-3" transform="translate(45.000000, 0.000000)">
+                    <mask id="mask-14" fill="white">
+                        <use xlink:href="#path-13"></use>
+                    </mask>
+                    <g id="Combined-Shape">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-15)" xlink:href="#path-13"></use>
+                        <use fill="#FFC760" fill-rule="evenodd" xlink:href="#path-13"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

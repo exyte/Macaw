@@ -23,7 +23,7 @@ public class Color: Fill  {
 	public static let purple: Color = Color( val: 0x800080 )
 
 	public init(val: Int = 0) {
-		self.val = val	
+		self.val = val
 	}
 
 	// GENERATED

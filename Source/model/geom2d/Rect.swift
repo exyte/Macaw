@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Rect: Locus {
+public class Rect: Locus  {
 
 	public let x: Double
 	public let y: Double
@@ -24,6 +24,7 @@ public class Rect: Locus {
 		return false
 	}
 
+
 	// GENERATED NOT
 	public func union(rect: Rect) -> Rect {
 		return Rect(
@@ -34,15 +35,16 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
+	class func zero() -> Rect {
+		return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
+	}
+
+	// GENERATED NOT
 	public func move(offset: Point) -> Rect {
 		return Rect(
 			x: self.x + offset.x,
 			y: self.y + offset.y,
 			w: self.w,
 			h: self.h)
-	}
-
-	class func zero() -> Rect {
-		return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
 	}
 }

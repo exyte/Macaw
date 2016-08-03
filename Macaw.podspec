@@ -36,6 +36,7 @@ Pod::Spec.new do |s|
      'Source/animation/layer_animation/extensions/*.swift',
      'Source/animation/types/*.swift',
      'Source/animation/types/animation_generators/*.swift',
+     'Source/animation/types/animation_generators/cache/*.swift',
      'Source/bindings/*.swift',
      'Source/events/*.swift',
      'Source/model/draw/*.swift',

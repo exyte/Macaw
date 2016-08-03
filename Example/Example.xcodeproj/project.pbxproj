@@ -31,6 +31,8 @@
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
 		B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F91C16104900D1971D /* LaunchScreen.storyboard */; };
+		B0A258851D50D81600829B35 /* SVGChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A258841D50D81600829B35 /* SVGChartsView.swift */; };
+		B0A258871D50DA1800829B35 /* pie-chart.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0A258861D50DA1800829B35 /* pie-chart.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,6 +76,8 @@
 		B02E75F71C16104900D1971D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B02E75FA1C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02E75FC1C16104900D1971D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0A258841D50D81600829B35 /* SVGChartsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGChartsView.swift; sourceTree = "<group>"; };
+		B0A258861D50DA1800829B35 /* pie-chart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "pie-chart.svg"; sourceTree = "<group>"; };
 		B1435E8977BA0B9A49C4E399 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				66AE19D61CC8C7EA00B78B5E /* SVGExampleViewController.swift */,
+				B0A258841D50D81600829B35 /* SVGChartsView.swift */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 				578791A01CEDCE8B008D85A1 /* tree.svg */,
 				5720C6B01CECA89E00090FC6 /* sunset-tree.svg */,
 				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
+				B0A258861D50DA1800829B35 /* pie-chart.svg */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -313,6 +319,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A258871D50DA1800829B35 /* pie-chart.svg in Resources */,
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				578791A11CEDCE8B008D85A1 /* tree.svg in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
@@ -384,6 +391,7 @@
 				5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */,
 				575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */,
 				66AE19D71CC8C7EA00B78B5E /* SVGExampleViewController.swift in Sources */,
+				B0A258851D50D81600829B35 /* SVGChartsView.swift in Sources */,
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				574EC43A1CB7DE7F0063F317 /* DiagramExampleView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,

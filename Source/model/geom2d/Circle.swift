@@ -8,9 +8,9 @@ public class Circle: Locus  {
 	public let r: Double
 
 	public init(cx: Double = 0, cy: Double = 0, r: Double = 0) {
-		self.cx = cx	
-		self.cy = cy	
-		self.r = r	
+		self.cx = cx
+		self.cy = cy
+		self.r = r
 	}
 
 }

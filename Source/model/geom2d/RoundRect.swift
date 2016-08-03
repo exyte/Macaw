@@ -8,9 +8,9 @@ public class RoundRect: Locus  {
 	public let ry: Double
 
 	public init(rect: Rect, rx: Double = 0, ry: Double = 0) {
-		self.rect = rect	
-		self.rx = rx	
-		self.ry = ry	
+		self.rect = rect
+		self.rx = rx
+		self.ry = ry
 	}
 
 }

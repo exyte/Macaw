@@ -44,7 +44,7 @@ class GroupRenderer: NodeRenderer {
 		let staticContents = group.contents.filter { !animationCache.isAnimating($0) }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
-
+        
 		contentRenderers.forEach { renderer in
 			CGContextSaveGState(ctx.cgContext)
 			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))

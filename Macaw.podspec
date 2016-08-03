@@ -42,7 +42,6 @@ Pod::Spec.new do |s|
      'Source/model/geom2d/*.swift',
      'Source/model/input/*.swift',
      'Source/model/scene/*.swift',
-     'Source/model/ext/*.swift',
      'Source/render/*.swift',
      'Source/views/*.swift',
      'Source/svg/*.swift'

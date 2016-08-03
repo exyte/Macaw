@@ -21,7 +21,7 @@ class GroupRenderer: NodeRenderer {
 			ctx.view?.setNeedsDisplay()
 		}
 
-		group.contentsVar.rx_elements().asObservable().subscribeNext { new in
+		group.contentsVar.rx_elements().subscribeNext { new in
 			onGroupChange(new)
 		}.addDisposableTo(disposeBag)
 	}

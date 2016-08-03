@@ -176,7 +176,7 @@ public class SVGParser {
     private func parseTransformationAttribute(attributes: String, transform: Transform = Transform()) -> Transform {
         do {
             var finalTransform = transform
-            let transformPattern = "([a-z]+)\\(((\\d+\\.?\\d*\\s*,?\\s*)+)\\)"
+            let transformPattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*\\s*,?\\s*)+)\\)"
             let matcher = try NSRegularExpression(pattern: transformPattern, options: .CaseInsensitive)
             let fullRange = NSRange(location: 0, length: attributes.characters.count)
             if let matchedAttribute = matcher.firstMatchInString(attributes, options: .ReportCompletion, range: fullRange) {
@@ -247,7 +247,7 @@ public class SVGParser {
     private func parseTransformValues(values: String, collectedValues: [String] = []) -> [String] {
         var updatedValues: [String] = collectedValues
         do {
-            let pattern = "\\d+\\.?\\d*"
+            let pattern = "\\-?\\d+\\.?\\d*"
             let matcher = try NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
             let fullRange = NSRange(location: 0, length: values.characters.count)
             if let matchedValue = matcher.firstMatchInString(values, options: .ReportCompletion, range: fullRange) {

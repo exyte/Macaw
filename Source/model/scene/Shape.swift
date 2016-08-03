@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node {
+public class Shape: Node  {
 
 	public let formVar: Variable<Locus>
 	public var form: Locus {
@@ -21,18 +21,21 @@ public class Shape: Node {
 		set(val) { strokeVar.value = val }
 	}
 
-	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
+	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.formVar = Variable<Locus>(form)
 		self.fillVar = Variable<Fill?>(fill)
 		self.strokeVar = Variable<Stroke?>(stroke)
 		super.init(
 			pos: pos,
 			opaque: opaque,
-			visible: visible,
+			opacity: opacity,
 			clip: clip,
-			tag: tag
+			visible: visible,
+			tag: tag,
+			bounds: bounds
 		)
 	}
+
 
 	// GENERATED NOT
 	override public func bounds() -> Rect? {

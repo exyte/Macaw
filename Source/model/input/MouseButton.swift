@@ -34,11 +34,11 @@ public class MouseButton {
 	}
 
 	public init(pressed: Bool = false, onPress: Signal, onRelease: Signal, onClick: Signal, onDoubleClick: Signal) {
-		self.pressedVar = Variable<Bool>(pressed)	
-		self.onPressVar = Variable<Signal>(onPress)	
-		self.onReleaseVar = Variable<Signal>(onRelease)	
-		self.onClickVar = Variable<Signal>(onClick)	
-		self.onDoubleClickVar = Variable<Signal>(onDoubleClick)	
+		self.pressedVar = Variable<Bool>(pressed)
+		self.onPressVar = Variable<Signal>(onPress)
+		self.onReleaseVar = Variable<Signal>(onRelease)
+		self.onClickVar = Variable<Signal>(onClick)
+		self.onDoubleClickVar = Variable<Signal>(onDoubleClick)
 	}
 
 }

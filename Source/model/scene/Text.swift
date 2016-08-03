@@ -33,18 +33,20 @@ public class Text: Node  {
 		set(val) { baselineVar.value = val }
 	}
 
-	public init(text: String, font: Font, fill: Fill, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.textVar = Variable<String>(text)	
-		self.fontVar = Variable<Font>(font)	
-		self.fillVar = Variable<Fill>(fill)	
-		self.alignVar = Variable<Align>(align)	
-		self.baselineVar = Variable<Baseline>(baseline)	
+	public init(text: String, font: Font, fill: Fill, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+		self.textVar = Variable<String>(text)
+		self.fontVar = Variable<Font>(font)
+		self.fillVar = Variable<Fill>(fill)
+		self.alignVar = Variable<Align>(align)
+		self.baselineVar = Variable<Baseline>(baseline)
 		super.init(
 			pos: pos,
 			opaque: opaque,
-			visible: visible,
+			opacity: opacity,
 			clip: clip,
-			tag: tag
+			visible: visible,
+			tag: tag,
+			bounds: bounds
 		)
 	}
 

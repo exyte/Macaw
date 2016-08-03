@@ -15,10 +15,10 @@ public class Node: Drawable {
 		set(val) { opaqueVar.value = val }
 	}
 
-	public let visibleVar: Variable<NSObject>
-	public var visible: NSObject {
-		get { return visibleVar.value }
-		set(val) { visibleVar.value = val }
+	public let opacityVar: Variable<Double>
+	public var opacity: Double {
+		get { return opacityVar.value }
+		set(val) { opacityVar.value = val }
 	}
 
 	public let clipVar: Variable<Locus?>
@@ -27,23 +27,25 @@ public class Node: Drawable {
 		set(val) { clipVar.value = val }
 	}
 
-	public init(pos: Transform, opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
+	public init(pos: Transform, opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.posVar = Variable<Transform>(pos)
 		self.opaqueVar = Variable<NSObject>(opaque)
-		self.visibleVar = Variable<NSObject>(visible)
+		self.opacityVar = Variable<Double>(opacity)
 		self.clipVar = Variable<Locus?>(clip)
 		super.init(
-			tag: tag
+			visible: visible,
+			tag: tag,
+			bounds: bounds
 		)
 	}
 
-	// GENERATED NOT
-	public func mouse() -> Mouse {
-		return Mouse(pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
-	}
 	// GENERATED NOT
 	public func bounds() -> Rect? {
 		return Rect()
 	}
 
+	// GENERATED NOT
+	public override func mouse() -> Mouse {
+		return Mouse(pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
+	}
 }

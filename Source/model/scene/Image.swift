@@ -39,19 +39,21 @@ public class Image: Node  {
 		set(val) { hVar.value = val }
 	}
 
-	public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, pos: Transform = Transform(), opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.srcVar = Variable<String>(src)	
-		self.xAlignVar = Variable<Align>(xAlign)	
-		self.yAlignVar = Variable<Align>(yAlign)	
-		self.aspectRatioVar = Variable<AspectRatio>(aspectRatio)	
-		self.wVar = Variable<Int>(w)	
-		self.hVar = Variable<Int>(h)	
+	public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+		self.srcVar = Variable<String>(src)
+		self.xAlignVar = Variable<Align>(xAlign)
+		self.yAlignVar = Variable<Align>(yAlign)
+		self.aspectRatioVar = Variable<AspectRatio>(aspectRatio)
+		self.wVar = Variable<Int>(w)
+		self.hVar = Variable<Int>(h)
 		super.init(
 			pos: pos,
 			opaque: opaque,
-			visible: visible,
+			opacity: opacity,
 			clip: clip,
-			tag: tag
+			visible: visible,
+			tag: tag,
+			bounds: bounds
 		)
 	}
 

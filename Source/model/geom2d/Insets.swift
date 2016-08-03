@@ -9,10 +9,10 @@ public class Insets {
 	public let left: Double
 
 	public init(top: Double = 0, right: Double = 0, bottom: Double = 0, left: Double = 0) {
-		self.top = top	
-		self.right = right	
-		self.bottom = bottom	
-		self.left = left	
+		self.top = top
+		self.right = right
+		self.bottom = bottom
+		self.left = left
 	}
 
 }

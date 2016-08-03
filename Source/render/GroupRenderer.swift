@@ -20,7 +20,8 @@ class GroupRenderer: NodeRenderer {
 		func onGroupChange(new: [Node]) {
 			ctx.view?.setNeedsDisplay()
 		}
-		group.contentsVar.asObservable().subscribeNext { new in
+
+		group.contentsVar.rx_elements().asObservable().subscribeNext { new in
 			onGroupChange(new)
 		}.addDisposableTo(disposeBag)
 	}
@@ -35,7 +36,7 @@ class GroupRenderer: NodeRenderer {
 			}
 		}
 
-		let staticContents = group.contentsVar.value.filter { !$0.animating }
+		let staticContents = group.contentsVar.filter { !$0.animating }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
 

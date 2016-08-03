@@ -34,11 +34,11 @@ public class Mouse {
 	}
 
 	public init(hover: Bool = false, pos: Point, onEnter: Signal, onExit: Signal, onWheel: Signal) {
-		self.hoverVar = Variable<Bool>(hover)	
-		self.posVar = Variable<Point>(pos)	
-		self.onEnterVar = Variable<Signal>(onEnter)	
-		self.onExitVar = Variable<Signal>(onExit)	
-		self.onWheelVar = Variable<Signal>(onWheel)	
+		self.hoverVar = Variable<Bool>(hover)
+		self.posVar = Variable<Point>(pos)
+		self.onEnterVar = Variable<Signal>(onEnter)
+		self.onExitVar = Variable<Signal>(onExit)
+		self.onWheelVar = Variable<Signal>(onWheel)
 	}
 
 	// GENERATED NOT

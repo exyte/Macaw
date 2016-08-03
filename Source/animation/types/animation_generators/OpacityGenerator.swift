@@ -22,13 +22,12 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer) {
 		let count = opacityAnimation.repeatCount + 1
 
 		if (reversed || count > 1) {
-			animation.node?.opacityVar.value = opacityAnimation.vFunc(1.0)
+			node.opacityVar.value = opacityAnimation.vFunc(1.0)
 		} else {
-			animation.node?.opacityVar.value = opacityAnimation.vFunc(animation.progress)
+			node.opacityVar.value = opacityAnimation.vFunc(animation.progress)
 		}
 
 		animationCache.freeLayer(node)
-
 		animation.completion?()
 	}
 

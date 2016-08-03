@@ -13,7 +13,7 @@ class TextRenderer: NodeRenderer {
 		self.ctx = ctx
 	}
 
-	func render(force: Bool) {
+	func render(force: Bool, opacity: Double) {
 		let message = text.text
 		var font: UIFont
 		if let customFont = UIFont(name: text.font.name, size: CGFloat(text.font.size)) {
@@ -23,6 +23,7 @@ class TextRenderer: NodeRenderer {
 		}
 		// positive NSBaselineOffsetAttributeName values don't work, couldn't find why
 		// for now move the rect itself
+
 		let textAttributes = [
 			NSFontAttributeName: font,
 			NSForegroundColorAttributeName: getTextColor(text.fill)]

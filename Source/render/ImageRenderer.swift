@@ -13,7 +13,7 @@ class ImageRenderer: NodeRenderer {
 		self.ctx = ctx
 	}
 
-	func render(force: Bool) {
+	func render(force: Bool,  opacity: Double) {
 		if let uiimage = UIImage(named: image.src) {
 			let imageSize = uiimage.size
 			var w = CGFloat(image.w)

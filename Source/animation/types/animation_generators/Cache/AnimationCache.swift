@@ -57,15 +57,14 @@ class AnimationCache {
 
 		cachedLayer.linksCounter -= 1
 
-		if cachedLayer.linksCounter == 0 {
-			let layer = cachedLayer.layer
-
-			sceneLayer?.setNeedsDisplay()
-
-			layer.removeFromSuperlayer()
-
-			layerCache.removeValueForKey(node)
+		if cachedLayer.linksCounter != 0 {
+			return
 		}
+
+		let layer = cachedLayer.layer
+		sceneLayer?.setNeedsDisplay()
+		layer.removeFromSuperlayer()
+		layerCache.removeValueForKey(node)
 	}
 
 	func isAnimating(node: Node) -> Bool {

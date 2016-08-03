@@ -26,7 +26,7 @@ class GroupRenderer: NodeRenderer {
 		}.addDisposableTo(disposeBag)
 	}
 
-	func render(force: Bool) {
+	func render(force: Bool, opacity: Double) {
 
 		if !force {
 
@@ -45,7 +45,7 @@ class GroupRenderer: NodeRenderer {
 				CGContextSaveGState(ctx.cgContext)
 				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
 				setClip(rendererVal.node)
-				rendererVal.render(force)
+				rendererVal.render(force, opacity: rendererVal.node.opacity * opacity)
 				CGContextRestoreGState(ctx.cgContext)
 			}
 		}

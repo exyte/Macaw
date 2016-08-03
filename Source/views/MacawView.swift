@@ -37,7 +37,12 @@ public class MacawView: UIView {
 
 	override public func drawRect(rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
-		renderer?.render(false)
+
+		if let node = node {
+			renderer?.render(false, opacity: node.opacity)
+		} else {
+			renderer?.render(false, opacity: 1.0)
+		}
 	}
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {

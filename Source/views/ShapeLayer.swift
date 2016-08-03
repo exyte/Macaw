@@ -17,6 +17,6 @@ class ShapeLayer: CAShapeLayer {
 		}
 
 		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext)
-		renderer?.render(true)
+		renderer?.render(true, opacity: 1.0)
 	}
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="357px" height="407px" viewBox="0 0 357 407" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="337" height="379"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="337" height="379" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="337" height="379" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <linearGradient x1="98.1033327%" y1="6.41223199%" x2="17.6769635%" y2="35.0271915%" id="linearGradient-5">
+            <stop stop-color="#30ECD5" offset="0%"></stop>
+            <stop stop-color="#FFDD33" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-6">
+            <stop stop-color="#6CF6E8" offset="0%"></stop>
+            <stop stop-color="#3AE8CB" stop-opacity="0.106346241" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="14.6562464%" x2="2.25070979%" y2="99.7397641%" id="linearGradient-7">
+            <stop stop-color="#2CF0DC" offset="0%"></stop>
+            <stop stop-color="#FFE232" stop-opacity="0.536882926" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Chart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="8" transform="translate(-18.000000, -96.000000)">
+            <g id="Group" transform="translate(16.000000, 65.000000)">
+                <g id="chart">
+                    <g id="Graduation" opacity="0.0402985075" transform="translate(31.000000, 73.000000)" fill="#D8D8D8">
+                        <rect id="Rectangle-178-Copy" x="0" y="255" width="337" height="1"></rect>
+                        <rect id="Rectangle-178-Copy-7" x="0" y="306" width="337" height="1"></rect>
+                        <rect id="Rectangle-178-Copy-2" x="0" y="204" width="337" height="1"></rect>
+                        <rect id="Rectangle-178-Copy-3" x="0" y="153" width="337" height="1"></rect>
+                        <rect id="Rectangle-178-Copy-4" x="0" y="102" width="337" height="1"></rect>
+                        <rect id="Rectangle-178-Copy-5" x="0" y="51" width="337" height="1"></rect>
+                        <rect id="Rectangle-178-Copy-6" x="0" y="0" width="337" height="1"></rect>
+                    </g>
+                    <g id="Graduation" transform="translate(0.000000, 63.000000)" font-weight="normal" font-family=".AppleSystemUIFont" fill="#6A7088" font-size="18" opacity="0.4">
+                        <g id="date" transform="translate(13.000000, 336.000000)">
+                            <text id="MON.">
+                                <tspan x="1.62548828" y="17">MO</tspan>
+                                <tspan x="7.07910156" y="38">N.</tspan>
+                            </text>
+                            <text id="FRI.">
+                                <tspan x="265.400391" y="17">FR</tspan>
+                                <tspan x="271.350586" y="38">I.</tspan>
+                            </text>
+                            <text id="SAT.">
+                                <tspan x="327.378418" y="17">SA</tspan>
+                                <tspan x="330.801758" y="38">T.</tspan>
+                            </text>
+                            <text id="TUE.">
+                                <tspan x="69.0292969" y="17">TU</tspan>
+                                <tspan x="73.3974609" y="38">E.</tspan>
+                            </text>
+                            <text id="WED.">
+                                <tspan x="132.359375" y="17">WE</tspan>
+                                <tspan x="137.619629" y="38">D.</tspan>
+                            </text>
+                            <text id="THU.">
+                                <tspan x="199.046875" y="17">TH</tspan>
+                                <tspan x="202.28125" y="38">U.</tspan>
+                            </text>
+                        </g>
+                        <text id="10">
+                            <tspan x="10.0185547" y="272">1</tspan>
+                            <tspan x="8.54638672" y="293">0</tspan>
+                        </text>
+                        <text id="50">
+                            <tspan x="8.64746094" y="221">5</tspan>
+                            <tspan x="8.54638672" y="242">0</tspan>
+                        </text>
+                        <text id="100">
+                            <tspan x="1.06494141" y="170">10</tspan>
+                            <tspan x="5.04638672" y="191">0</tspan>
+                        </text>
+                        <text id="150">
+                            <tspan x="2.33203125" y="119">15</tspan>
+                            <tspan x="10.0927734" y="140">0</tspan>
+                        </text>
+                        <text id="200">
+                            <tspan x="10.5585938" y="68">2</tspan>
+                            <tspan x="10.0927734" y="89">0</tspan>
+                            <tspan x="10.0927734" y="110">0</tspan>
+                        </text>
+                        <text id="250">
+                            <tspan x="10.5585938" y="17">2</tspan>
+                            <tspan x="10.2949219" y="38">5</tspan>
+                            <tspan x="10.0927734" y="59">0</tspan>
+                        </text>
+                    </g>
+                    <g id="line" transform="translate(31.000000, 0.000000)">
+                        <mask id="mask-3" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Rectangle-177" stroke="#979797" mask="url(#mask-2)" stroke-width="2" fill="#D8D8D8" opacity="0">
+                            <use mask="url(#mask-4)" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="Group-3" mask="url(#mask-3)">
+                            <g transform="translate(-58.000000, 31.000000)">
+                                <polyline id="Path-35" stroke="none" fill="url(#linearGradient-5)" opacity="0.122201493" points="57.2007336 223.178391 79.1340183 211.278641 94.6574787 228.111397 116.117592 214.468857 141.300781 218.8125 156.894531 196.328125 167.527344 198.550781 184.34375 184.472656 192.011719 191.882812 202.160156 184.214844 213.015625 202.957031 222.90625 154.542969 234.796875 146.355469 251.355469 110.019531 263.949219 172.25 272.652344 146.355469 283.765625 158.175781 293.398437 135.429688 316.328125 128.242188 316.328125 436.239306 14.0082454 436.239306 0.807579441 241.688567"></polyline>
+                                <polyline id="Path-35-Copy-2" stroke="#9E48FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1,8" fill-opacity="0.00999999978" fill="#D8D8D8" points="316.328125 128.242188 328.773438 141.074219 349.777344 121.332031 358.925781 136.410156 375.003906 134.667969 388.117188 148.039062 406.191406 129.257812"></polyline>
+                                <rect id="Rectangle-176" stroke="none" fill="url(#linearGradient-6)" x="316" y="0" width="1" height="359"></rect>
+                            </g>
+                        </g>
+                    </g>
+                    <polyline id="line-chart" stroke="url(#linearGradient-7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" fill="#D8D8D8" points="31 253.375633 53.2257055 241.949051 68.0805601 259.04631 88.8015264 244.55442 114.673901 249.792969 130.267651 227.308594 140.900464 229.53125 157.71687 215.453125 165.384839 222.863281 175.533276 215.195312 186.388745 233.9375 196.27937 185.523438 208.169995 177.335938 224.728589 141 237.322339 203.230469 246.025464 177.335938 257.138745 189.15625 266.771557 166.410156 289.701245 159.222656"></polyline>
+                </g>
+                <g id="point" transform="translate(282.000000, 151.000000)">
+                    <circle id="Oval-21" stroke="#FFFFFF" fill="#33374B" opacity="0.3" cx="8.5" cy="8.5" r="8.5"></circle>
+                    <circle id="Oval-21-Copy" fill="#FFFFFF" cx="8.5" cy="8.5" r="3.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

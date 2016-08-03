@@ -736,5 +736,5 @@ public class SVGParser {
 		let nm22 = t2.m21 * t1.m12 + t2.m22 * t1.m22
 		let ndy = t2.dx * t1.m12 + t2.dy * t1.m22 + t1.dy
 		return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
-	}
+    }
 }

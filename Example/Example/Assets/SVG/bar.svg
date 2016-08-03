@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="655px" height="198px" viewBox="0 0 655 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>bar</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Chart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="4" transform="translate(-83.000000, -319.000000)">
+            <g id="bar" transform="translate(83.000000, 319.000000)">
+                <rect id="Rectangle-126-Copy-21" fill="#FFF440" x="0" y="93" width="40" height="105"></rect>
+                <rect id="Rectangle-126-Copy-20" fill="#FFE43B" x="41" y="50" width="40" height="148"></rect>
+                <rect id="Rectangle-126-Copy-19" fill="#FFD936" x="82" y="78" width="40" height="120"></rect>
+                <rect id="Rectangle-126-Copy-18" fill="#FFC830" x="123" y="18" width="40" height="180"></rect>
+                <rect id="Rectangle-126-Copy-17" fill="#FFB92B" x="164" y="157" width="40" height="41"></rect>
+                <rect id="Rectangle-126-Copy-16" fill="#FFA724" x="205" y="78" width="40" height="120"></rect>
+                <rect id="Rectangle-126-Copy-15" fill="#FF961F" x="246" y="108" width="40" height="90"></rect>
+                <rect id="Rectangle-126-Copy-13" fill="#FF7714" x="328" y="50" width="40" height="148"></rect>
+                <rect id="Rectangle-126-Copy-12" fill="#FF650E" x="369" y="0" width="40" height="198"></rect>
+                <rect id="Rectangle-126-Copy-11" fill="#FF5508" x="410" y="66" width="40" height="132"></rect>
+                <rect id="Rectangle-126-Copy-22" fill="#FF4803" x="451" y="108" width="40" height="90"></rect>
+                <rect id="Rectangle-126-Copy-23" fill="#FF3D03" x="492" y="138" width="40" height="60"></rect>
+                <rect id="Rectangle-126-Copy-24" fill="#FF3C07" x="533" y="157" width="40" height="41"></rect>
+                <rect id="Rectangle-126-Copy-25" fill="#FF3205" x="574" y="138" width="40" height="60"></rect>
+                <rect id="Rectangle-126-Copy-26" fill="#FF2503" x="615" y="177" width="40" height="21"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

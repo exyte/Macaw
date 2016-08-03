@@ -33,7 +33,12 @@
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
 		B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F91C16104900D1971D /* LaunchScreen.storyboard */; };
 		B0A258851D50D81600829B35 /* SVGChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A258841D50D81600829B35 /* SVGChartsView.swift */; };
-		B0A258871D50DA1800829B35 /* pie-chart.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0A258861D50DA1800829B35 /* pie-chart.svg */; };
+		C1B159751D51BA8100D2FC13 /* pie-chart.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1B159741D51BA8100D2FC13 /* pie-chart.svg */; };
+		C1B1597B1D51DC8800D2FC13 /* 7.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1B159761D51DC8800D2FC13 /* 7.svg */; };
+		C1B1597C1D51DC8800D2FC13 /* bar.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1B159771D51DC8800D2FC13 /* bar.svg */; };
+		C1B1597D1D51DC8800D2FC13 /* charts2.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1B159781D51DC8800D2FC13 /* charts2.svg */; };
+		C1B1597E1D51DC8800D2FC13 /* Group.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1B159791D51DC8800D2FC13 /* Group.svg */; };
+		C1B1597F1D51DC8800D2FC13 /* Group3.svg in Resources */ = {isa = PBXBuildFile; fileRef = C1B1597A1D51DC8800D2FC13 /* Group3.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,8 +84,13 @@
 		B02E75FA1C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B02E75FC1C16104900D1971D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0A258841D50D81600829B35 /* SVGChartsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGChartsView.swift; sourceTree = "<group>"; };
-		B0A258861D50DA1800829B35 /* pie-chart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "pie-chart.svg"; sourceTree = "<group>"; };
 		B1435E8977BA0B9A49C4E399 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		C1B159741D51BA8100D2FC13 /* pie-chart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "pie-chart.svg"; path = "Example/Assets/SVG/pie-chart.svg"; sourceTree = "<group>"; };
+		C1B159761D51DC8800D2FC13 /* 7.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = 7.svg; path = Example/Assets/SVG/7.svg; sourceTree = "<group>"; };
+		C1B159771D51DC8800D2FC13 /* bar.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = bar.svg; path = Example/Assets/SVG/bar.svg; sourceTree = "<group>"; };
+		C1B159781D51DC8800D2FC13 /* charts2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = charts2.svg; path = Example/Assets/SVG/charts2.svg; sourceTree = "<group>"; };
+		C1B159791D51DC8800D2FC13 /* Group.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Group.svg; path = Example/Assets/SVG/Group.svg; sourceTree = "<group>"; };
+		C1B1597A1D51DC8800D2FC13 /* Group3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Group3.svg; path = Example/Assets/SVG/Group3.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,9 +237,14 @@
 			children = (
 				571B0FF51CEDDBD900A998E2 /* tree2.svg */,
 				578791A01CEDCE8B008D85A1 /* tree.svg */,
+				C1B159761D51DC8800D2FC13 /* 7.svg */,
+				C1B159771D51DC8800D2FC13 /* bar.svg */,
+				C1B159781D51DC8800D2FC13 /* charts2.svg */,
+				C1B159791D51DC8800D2FC13 /* Group.svg */,
+				C1B1597A1D51DC8800D2FC13 /* Group3.svg */,
 				5720C6B01CECA89E00090FC6 /* sunset-tree.svg */,
+				C1B159741D51BA8100D2FC13 /* pie-chart.svg */,
 				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
-				B0A258861D50DA1800829B35 /* pie-chart.svg */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -331,13 +346,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0A258871D50DA1800829B35 /* pie-chart.svg in Resources */,
+				C1B159751D51BA8100D2FC13 /* pie-chart.svg in Resources */,
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				578791A11CEDCE8B008D85A1 /* tree.svg in Resources */,
+				C1B1597D1D51DC8800D2FC13 /* charts2.svg in Resources */,
+				C1B1597E1D51DC8800D2FC13 /* Group.svg in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
+				C1B1597F1D51DC8800D2FC13 /* Group3.svg in Resources */,
 				571B0FF61CEDDBD900A998E2 /* tree2.svg in Resources */,
 				5720C6B11CECA89E00090FC6 /* sunset-tree.svg in Resources */,
+				C1B1597B1D51DC8800D2FC13 /* 7.svg in Resources */,
 				66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */,
+				C1B1597C1D51DC8800D2FC13 /* bar.svg in Resources */,
 				B02E75F61C16104900D1971D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

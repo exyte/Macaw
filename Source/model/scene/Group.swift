@@ -16,6 +16,7 @@ public class Group: Node {
 		)
 	}
 
+	// GENERATED NOT
 	override public func bounds() -> Rect? {
 		guard let firstPos = contentsVar.value.first?.pos else {
 			return .None

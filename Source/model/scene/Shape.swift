@@ -34,6 +34,7 @@ public class Shape: Node {
 		)
 	}
 
+	// GENERATED NOT
 	override public func bounds() -> Rect? {
 
 		// TODO: Implement more form types

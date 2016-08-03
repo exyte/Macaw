@@ -25,6 +25,11 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
+	class func zero() -> Rect {
+		return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
+	}
+
+	// GENERATED NOT
 	public func union(rect: Rect) -> Rect {
 		return Rect(
 			x: min(self.x, rect.x),
@@ -40,9 +45,5 @@ public class Rect: Locus {
 			y: self.y + offset.y,
 			w: self.w,
 			h: self.h)
-	}
-
-	class func zero() -> Rect {
-		return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
 	}
 }

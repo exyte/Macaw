@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Node: Drawable  {
+public class Node: Drawable {
 
 	public let posVar: Variable<Transform>
 	public var pos: Transform {
@@ -26,14 +26,12 @@ public class Node: Drawable  {
 		get { return clipVar.value }
 		set(val) { clipVar.value = val }
 	}
-    
-    public var animating = false
 
 	public init(pos: Transform, opaque: NSObject = true, visible: NSObject = true, clip: Locus? = nil, tag: [String] = []) {
-		self.posVar = Variable<Transform>(pos)	
-		self.opaqueVar = Variable<NSObject>(opaque)	
-		self.visibleVar = Variable<NSObject>(visible)	
-		self.clipVar = Variable<Locus?>(clip)	
+		self.posVar = Variable<Transform>(pos)
+		self.opaqueVar = Variable<NSObject>(opaque)
+		self.visibleVar = Variable<NSObject>(visible)
+		self.clipVar = Variable<Locus?>(clip)
 		super.init(
 			tag: tag
 		)

@@ -11,10 +11,12 @@ public class Point: Locus {
 		self.y = y
 	}
 
+	// GENERATED NOT
 	public class func zero() -> Point {
 		return Point(x: 0.0, y: 0.0)
 	}
 
+	// GENERATED NOT
 	public func add(point: Point) -> Point {
 		return Point(
 			x: self.x + point.x,

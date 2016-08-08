@@ -21,9 +21,9 @@ class AnimationCache {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
 
-			layer.backgroundColor = UIColor.greenColor().CGColor
-			layer.borderWidth = 1.0
-			layer.borderColor = UIColor.blueColor().CGColor
+//			layer.backgroundColor = UIColor.greenColor().CGColor
+//			layer.borderWidth = 1.0
+//			layer.borderColor = UIColor.blueColor().CGColor
 
 			if let shapeBounds = node.bounds() {
 				let cgRect = shapeBounds.cgRect()
@@ -34,11 +34,14 @@ class AnimationCache {
 
 				layer.bounds = origFrame
 				layer.anchorPoint = CGPointMake(0.0, 0.0)
+
 				layer.renderTransform = CGAffineTransformMakeTranslation(-1.0 * cgRect.origin.x, -1.0 * cgRect.origin.y)
 
-			}
+				let nodeTransform = RenderUtils.mapTransform(node.pos)
+				let layerTransform = CGAffineTransformMakeTranslation(cgRect.origin.x, cgRect.origin.y)
 
-			layer.transform = CATransform3DMakeAffineTransform(RenderUtils.mapTransform(node.pos))
+				layer.transform = CATransform3DMakeAffineTransform(CGAffineTransformConcat(nodeTransform, layerTransform))
+			}
 
 			layer.node = node
 			layer.setNeedsDisplay()

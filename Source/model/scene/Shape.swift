@@ -67,7 +67,7 @@ public class Shape: Node {
 			bounds = form.bounds()
 		}
 
-		return bounds.applyTransform(self.pos)
+		return bounds
 	}
 
 }

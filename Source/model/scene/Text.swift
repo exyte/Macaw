@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Text: Node  {
+public class Text: Node {
 
 	public let textVar: Variable<String>
 	public var text: String {
@@ -48,6 +48,12 @@ public class Text: Node  {
 			tag: tag,
 			bounds: bounds
 		)
+	}
+
+	// GENERATED NOT
+	override public func bounds() -> Rect? {
+		// TODO: need proper implementation
+		return Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0).applyTransform(self.pos)
 	}
 
 }

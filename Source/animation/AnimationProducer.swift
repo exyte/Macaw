@@ -19,6 +19,35 @@ public class AnimationProducer {
 
 		case .Opacity:
 			addOpacityAnimation(animation, sceneLayer: sceneLayer)
+		case .Sequence:
+			addAnimationSequence(animation)
 		}
+	}
+
+	private func addAnimationSequence(animationSequnce: Animatable) {
+
+		guard let sequence = animationSequnce as? AnimationSequence else {
+			return
+		}
+
+		var timers = [ClosureTimer]()
+		sequence.removeFunc = {
+			timers.forEach { timer in
+				timer.cancel()
+			}
+		}
+
+		var timeOffset: NSTimeInterval = 0.0
+
+		sequence.animations.forEach { animation in
+
+			let timer = ClosureTimer(time: timeOffset, closure: {
+				self.addAnimation(animation)
+			})
+
+			timer.start()
+			timeOffset += animation.getDuration()
+		}
+
 	}
 }

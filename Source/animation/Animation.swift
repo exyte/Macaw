@@ -5,6 +5,7 @@ enum AnimationType {
 	case Unknown
 	case AffineTransformation
 	case Opacity
+	case Sequence
 }
 
 public enum TimingFunction {

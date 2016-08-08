@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
      'Source/*.swift',
      'Source/animation/*.swift',
      'Source/animation/layer_animation/*.swift',
+     'Source/animation/layer_animation/utils/*.swift',
      'Source/animation/layer_animation/extensions/*.swift',
      'Source/animation/types/*.swift',
      'Source/animation/types/animation_generators/*.swift',

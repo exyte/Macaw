@@ -32,8 +32,8 @@ Pod::Spec.new do |s|
   s.source_files = [
      'Source/*.swift',
      'Source/animation/*.swift',
+     'Source/animation/utils/*.swift',
      'Source/animation/layer_animation/*.swift',
-     'Source/animation/layer_animation/utils/*.swift',
      'Source/animation/layer_animation/extensions/*.swift',
      'Source/animation/types/*.swift',
      'Source/animation/types/animation_generators/*.swift',

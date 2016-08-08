@@ -21,6 +21,8 @@ public class AnimationProducer {
 			addOpacityAnimation(animation, sceneLayer: sceneLayer)
 		case .Sequence:
 			addAnimationSequence(animation)
+		case .Combine:
+			addCombineAnimation(animation)
 		}
 	}
 
@@ -49,5 +51,15 @@ public class AnimationProducer {
 			timeOffset += animation.getDuration()
 		}
 
+	}
+
+	private func addCombineAnimation(combineAnimation: Animatable) {
+		guard let combine = combineAnimation as? CombineAnimation else {
+			return
+		}
+
+		combine.animations.forEach { animation in
+			self.addAnimation(animation)
+		}
 	}
 }

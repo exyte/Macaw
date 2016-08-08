@@ -24,17 +24,20 @@ class TextRenderer: NodeRenderer {
 		// positive NSBaselineOffsetAttributeName values don't work, couldn't find why
 		// for now move the rect itself
 
-		let textAttributes = [
-			NSFontAttributeName: font,
-			NSForegroundColorAttributeName: getTextColor(text.fill)]
-		let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
-		message.drawInRect(CGRectMake(calculateAlignmentOffset(text, font: font), calculateBaselineOffset(text, font: font),
-			CGFloat(textSize.width), CGFloat(textSize.height)), withAttributes: textAttributes)
+		if var color = text.fill as? Color {
+			color = RenderUtils.applyOpacity(color, opacity: opacity)
+			let textAttributes = [
+				NSFontAttributeName: font,
+				NSForegroundColorAttributeName: getTextColor(color)]
+			let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
+			message.drawInRect(CGRectMake(calculateAlignmentOffset(text, font: font), calculateBaselineOffset(text, font: font),
+				CGFloat(textSize.width), CGFloat(textSize.height)), withAttributes: textAttributes)
+		}
 	}
-    
-    func detectTouches(location: CGPoint) -> [Shape] {
-        return []
-    }
+
+	func detectTouches(location: CGPoint) -> [Shape] {
+		return []
+	}
 
 	private func calculateBaselineOffset(text: Text, font: UIFont) -> CGFloat {
 		var baselineOffset = CGFloat(0)

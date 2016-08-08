@@ -1,14 +1,14 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node  {
+public class Shape: Node {
 
 	public let formVar: Variable<Locus>
 	public var form: Locus {
 		get { return formVar.value }
 		set(val) { formVar.value = val }
 	}
-    
+
 	public let fillVar: Variable<Fill?>
 	public var fill: Fill? {
 		get { return fillVar.value }
@@ -20,12 +20,12 @@ public class Shape: Node  {
 		get { return strokeVar.value }
 		set(val) { strokeVar.value = val }
 	}
-    
-    public let onTap = PublishSubject<TapEvent>()
-    public let onPan = PublishSubject<PanEvent>()
-    public let onRotate = PublishSubject<RotateEvent>()
-    public let onPinch = PublishSubject<PinchEvent>()
-    
+
+	public let onTap = PublishSubject<TapEvent>()
+	public let onPan = PublishSubject<PanEvent>()
+	public let onRotate = PublishSubject<RotateEvent>()
+	public let onPinch = PublishSubject<PinchEvent>()
+
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.formVar = Variable<Locus>(form)
 		self.fillVar = Variable<Fill?>(fill)
@@ -41,33 +41,33 @@ public class Shape: Node  {
 		)
 	}
 
-
 	// GENERATED NOT
 	override public func bounds() -> Rect? {
 
 		// TODO: Implement more form types
 
+		var bounds = Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
 		if let path = form as? Path {
-			return pathBounds(path)
-		}
-
-		if let circle = form as? Circle {
-			return Rect(
+			bounds = pathBounds(path)!
+		} else if let circle = form as? Circle {
+			bounds = Rect(
 				x: circle.cx - circle.r,
 				y: circle.cy - circle.r,
 				w: circle.r * 2.0,
 				h: circle.r * 2.0)
-		}
-
-		if let ellipse = form as? Ellipse {
-			return Rect(
+		} else if let ellipse = form as? Ellipse {
+			bounds = Rect(
 				x: ellipse.cx - ellipse.rx,
 				y: ellipse.cy - ellipse.ry,
 				w: ellipse.rx * 2.0,
 				h: ellipse.ry * 2.0)
+		} else if let rect = form as? Rect {
+			bounds = rect
+		} else {
+			bounds = form.bounds()
 		}
 
-		return form.bounds()
+		return bounds.applyTransform(self.pos)
 	}
-    
+
 }

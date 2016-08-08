@@ -33,7 +33,7 @@ public class SVGParser {
     let curveToRelative = Character("c")
     let closePathAbsolute = Character("Z")
     let closePathRelative = Character("z")
-    let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration"]
+    let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration", "opacity", "fill-opacity", "stroke-opacity"]
 
     private let xmlString: String
     private let initialPosition: Transform
@@ -136,9 +136,9 @@ public class SVGParser {
                     return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "image":
-                return parseImage(node, pos: position)
+                return parseImage(node, opacity: getOpacity(styleAttributes), pos: position)
             case "text":
-                return parseText(node, fill: getFillColor(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes),
+                return parseText(node, fill: getFillColor(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes),
                                  italic: getFontStyle(styleAttributes, style: "italic"), bold: getFontWeight(styleAttributes, style: "bold"),
                                  underline: getTextDecoration(styleAttributes, decoration: "underline"), strike: getTextDecoration(styleAttributes, decoration: "line-through"), pos: position)
             case "use":
@@ -283,7 +283,7 @@ public class SVGParser {
         return styleAttributes
     }
 
-    private func createColor(hexString: String) -> Color {
+    private func createColor(hexString: String, opacity: Double = 1) -> Color {
         var cleanedHexString = hexString
         if hexString.hasPrefix("#") {
             cleanedHexString = hexString.stringByReplacingOccurrencesOfString("#", withString: "")
@@ -295,14 +295,18 @@ public class SVGParser {
         let red = CGFloat((rgbValue >> 16) & 0xff)
         let green = CGFloat((rgbValue >> 08) & 0xff)
         let blue = CGFloat((rgbValue >> 00) & 0xff)
-
-        return Color.rgb(r: Int(red), g: Int(green), b: Int(blue))
+        
+        return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 
     private func getFillColor(styleParts: [String: String]) -> Color? {
         var color: Color?
         if let fillColor = styleParts["fill"] {
-            color = createColor(fillColor.stringByReplacingOccurrencesOfString(" ", withString: ""))
+            var opacity: Double = 1
+            if let fillOpacity = styleParts["fill-opacity"] {
+                opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+            }
+            color = createColor(fillColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
         }
         return color
     }
@@ -310,7 +314,11 @@ public class SVGParser {
     private func getStroke(styleParts: [String: String]) -> Stroke? {
         var color: Color?
         if let strokeColor = styleParts["stroke"] {
-            color = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""))
+            var opacity: Double = 1
+            if let fillOpacity = styleParts["fill-opacity"] {
+                opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+            }
+            color = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
         }
         if let strokeColor = color {
             return Stroke(fill: strokeColor,
@@ -329,6 +337,13 @@ public class SVGParser {
             width = Double(strokeWidth)!
         }
         return width
+    }
+    
+    private func getOpacity(styleParts: [String: String]) -> Double {
+        if let opacityAttr = styleParts["opacity"] {
+            return Double(opacityAttr.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+        }
+        return 1
     }
 
     private func parseLine(line: XMLIndexer) -> Line? {
@@ -425,7 +440,7 @@ public class SVGParser {
         return resultPoints
     }
     
-    private func parseImage(image: XMLIndexer, pos: Transform = Transform()) -> Image? {
+    private func parseImage(image: XMLIndexer, opacity: Double, pos: Transform = Transform()) -> Image? {
         guard let element = image.element, link = element.attributes["xlink:href"] else {
             return .None
         }
@@ -433,7 +448,7 @@ public class SVGParser {
         return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, place: position)
     }
     
-    private func parseText(text: XMLIndexer, fill: Fill?, fontName: String?, fontSize: Int?, italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, pos: Transform = Transform()) -> Text? {
+    private func parseText(text: XMLIndexer, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, pos: Transform = Transform()) -> Text? {
         guard let element = text.element, string = element.text else {
             return .None
         }

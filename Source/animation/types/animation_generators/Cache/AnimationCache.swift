@@ -29,11 +29,12 @@ class AnimationCache {
 				let cgRect = shapeBounds.cgRect()
 
 				let origFrame = CGRectMake(0.0, 0.0,
-					cgRect.width + cgRect.origin.x,
-					cgRect.height + cgRect.origin.y)
+					cgRect.width,
+					cgRect.height)
 
 				layer.bounds = origFrame
 				layer.anchorPoint = CGPointMake(0.0, 0.0)
+				layer.renderTransform = CGAffineTransformMakeTranslation(-1.0 * cgRect.origin.x, -1.0 * cgRect.origin.y)
 
 			}
 

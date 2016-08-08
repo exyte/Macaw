@@ -53,7 +53,7 @@ public class Text: Node {
 	// GENERATED NOT
 	override public func bounds() -> Rect? {
 		// TODO: need proper implementation
-		return Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0).applyTransform(self.pos)
+		return Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0)
 	}
 
 }

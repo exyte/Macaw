@@ -27,6 +27,15 @@ class ShapesEventsExampleView: MacawView {
             shape1.fill = colors[randomIndex]
         }
         
+        
+        let group = Group(
+            contents: [
+                shape1
+            ]
+        )
+        
+        super.init(node: group, coder: aDecoder)
+        
         _ = shape1.onPan.subscribeNext { pan in
             let node = shape1 as Node
             let newPos = node.pos.move(Double(pan.dx), my: Double(pan.dy))
@@ -44,17 +53,10 @@ class ShapesEventsExampleView: MacawView {
         _ = shape1.onPinch.subscribeNext { pinch in
             let node = shape1 as Node
             let scale = Double(pinch.scale)
-            let newPos = node.pos.scale(scale, sy: scale)
+            var newPos = node.pos.scale(scale, sy: scale)
             node.pos = newPos
         }
-        
-                let group = Group(
-            contents: [
-                shape1
-            ]
-        )
-        
-        super.init(node: group, coder: aDecoder)
+
     }
     
     required init?(node: Node?, coder aDecoder: NSCoder) {

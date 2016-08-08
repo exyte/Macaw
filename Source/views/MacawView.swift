@@ -74,21 +74,15 @@ public class MacawView: UIView {
     }
     
     public func handlePan(recognizer: UIPanGestureRecognizer) {
-        // NOT WORKING YET
         var translation = recognizer.translationInView(self)
         recognizer.setTranslation(CGPointZero, inView: self)
         if let shape = self.selectedShape {
-            var translatedLocation = CGPointApplyAffineTransform(translation, RenderUtils.mapTransform(shape.pos.invert()))
-            if (translatedLocation.x == -translation.x) {
-                return
-            }
-            // moving left, supposed to move right
-            if Double(translatedLocation.x) > shape.pos.dx && translation.x < 0 {
-                translation.x = translation.x * -1
-            }
-            translatedLocation = translation
-            shape.onPan.onNext(PanEvent(dx: translatedLocation.x, dy: translatedLocation.y))
-
+            // get the rotation and scale of the shape and apply to the translation
+            let transform = shape.pos
+            let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
+            let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
+            var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))
+            shape.onPan.onNext(PanEvent(dx: translatedLocation.x / scale, dy: translatedLocation.y / scale))
         }
         setNeedsDisplay()
     }

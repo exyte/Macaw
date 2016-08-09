@@ -58,6 +58,12 @@ public class AnimationProducer {
 			return
 		}
 
+		combine.removeFunc = {
+			combine.animations.forEach { animation in
+				animation.removeFunc?()
+			}
+		}
+
 		combine.animations.forEach { animation in
 			self.addAnimation(animation)
 		}

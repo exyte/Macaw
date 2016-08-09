@@ -9,10 +9,15 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 		return
 	}
 
+	var offset = Point.zero()
+	if let shapeBounds = node.bounds() {
+		offset = Point(x: shapeBounds.x, y: shapeBounds.y)
+	}
+
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
-	generatedAnimation = transformAnimationByFunc(transformAnimation.vFunc, duration: animation.getDuration(), fps: transformAnimation.logicalFps)
+	generatedAnimation = transformAnimationByFunc(transformAnimation.vFunc, duration: animation.getDuration(), offset: offset, fps: transformAnimation.logicalFps)
 
 	guard let generatedAnim = generatedAnimation else {
 		return
@@ -59,7 +64,7 @@ func transfomToCG(transform: Transform) -> CGAffineTransform {
 		CGFloat(transform.dy))
 }
 
-func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double, fps: UInt) -> CAAnimation {
+func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double, offset: Point, fps: UInt) -> CAAnimation {
 
 	var scaleXValues = [CGFloat]()
 	var scaleYValues = [CGFloat]()
@@ -78,8 +83,8 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 		let transformedRect = CGRectApplyAffineTransform(rect, cgTransform)
 
 		timeValues.append(t)
-		xValues.append(transformedRect.origin.x)
-		yValues.append(transformedRect.origin.y)
+		xValues.append(transformedRect.origin.x + CGFloat(offset.x))
+		yValues.append(transformedRect.origin.y + CGFloat(offset.y))
 		scaleXValues.append(transformedRect.width)
 		scaleYValues.append(transformedRect.height)
 

@@ -92,7 +92,7 @@ class AnimationsView: MacawView {
 
 			// animation.autoreverses = true
 
-			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, observableValue: ballGroup.opacityVar, startValue: 1.0, finalValue: 0.0, animationDuration: 3.0)
+			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, observableValue: ballGroup.opacityVar, startValue: 0.1, finalValue: 1.0, animationDuration: 3.0)
 
 			animations.append([animation, opacityAnimation].combine())
 		}

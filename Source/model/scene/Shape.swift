@@ -67,6 +67,15 @@ public class Shape: Node {
 			bounds = form.bounds()
 		}
 
+		if let shapeStroke = self.stroke {
+			let r = shapeStroke.width / 2.0
+			bounds = Rect(
+				x: bounds.x - r,
+				y: bounds.y - r,
+				w: bounds.w + r * 2.0,
+				h: bounds.h + r * 2.0)
+		}
+
 		return bounds
 	}
 

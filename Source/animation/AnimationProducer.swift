@@ -48,7 +48,7 @@ public class AnimationProducer {
 			})
 
 			timer.start()
-			timeOffset += animation.getDuration()
+			timeOffset += animation.getDuration() - 0.1
 		}
 
 	}

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node {
+public class Shape: Node  {
 
 	public let formVar: Variable<Locus>
 	public var form: Locus {
@@ -26,7 +26,7 @@ public class Shape: Node {
 	public let onRotate = PublishSubject<RotateEvent>()
 	public let onPinch = PublishSubject<PinchEvent>()
 
-	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.formVar = Variable<Locus>(form)
 		self.fillVar = Variable<Fill?>(fill)
 		self.strokeVar = Variable<Stroke?>(stroke)
@@ -35,11 +35,13 @@ public class Shape: Node {
 			opaque: opaque,
 			opacity: opacity,
 			clip: clip,
+			effect: effect,
 			visible: visible,
 			tag: tag,
 			bounds: bounds
 		)
 	}
+
 
 	// GENERATED NOT
 	override public func bounds() -> Rect? {
@@ -78,5 +80,4 @@ public class Shape: Node {
 
 		return bounds
 	}
-
 }

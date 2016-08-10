@@ -1,22 +1,24 @@
 import Foundation
 import RxSwift
 
-public class Group: Node {
+public class Group: Node  {
 
 	public var contentsVar: ObservableArray<Node>
 
-	public init(contents: [Node] = [], pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(contents: [Node] = [], pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.contentsVar = ObservableArray<Node>(array: contents)
 		super.init(
 			pos: pos,
 			opaque: opaque,
 			opacity: opacity,
 			clip: clip,
+			effect: effect,
 			visible: visible,
 			tag: tag,
 			bounds: bounds
 		)
 	}
+
 
 	// GENERATED NOT
 	override public func bounds() -> Rect? {

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Node: Drawable {
+public class Node: Drawable  {
 
 	public let posVar: Variable<Transform>
 	public var pos: Transform {
@@ -27,17 +27,25 @@ public class Node: Drawable {
 		set(val) { clipVar.value = val }
 	}
 
-	public init(pos: Transform, opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public let effectVar: Variable<Effect?>
+	public var effect: Effect? {
+		get { return effectVar.value }
+		set(val) { effectVar.value = val }
+	}
+
+	public init(pos: Transform, opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.posVar = Variable<Transform>(pos)
 		self.opaqueVar = Variable<NSObject>(opaque)
 		self.opacityVar = Variable<Double>(opacity)
 		self.clipVar = Variable<Locus?>(clip)
+		self.effectVar = Variable<Effect?>(effect)
 		super.init(
 			visible: visible,
 			tag: tag,
 			bounds: bounds
 		)
 	}
+
 
 	// GENERATED NOT
 	public func bounds() -> Rect? {
@@ -49,4 +57,3 @@ public class Node: Drawable {
 		return Mouse(pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
 	}
 }
-

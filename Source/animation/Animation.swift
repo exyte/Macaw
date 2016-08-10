@@ -24,8 +24,11 @@ public class Animatable {
 	let ID: String
 
 	// Options
+
+	// NOT YET FULLY SUPPORTED
 	public var repeatCount = 0.0
 	public var autoreverses = false
+
 	public var timingFunction = TimingFunction.Linear
 
 	public var completion: (() -> ())?

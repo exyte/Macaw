@@ -29,22 +29,18 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 
 	generatedAnim.completion = { finished in
 
-		let reversed = transformAnimation.autoreverses
-		let count = transformAnimation.repeatCount + 1
-
-		if (reversed || count > 1) {
-			node.posVar.value = transformAnimation.vFunc(1.0)
-		} else {
-			node.posVar.value = transformAnimation.vFunc(animation.progress)
-		}
-
 		animationCache.freeLayer(node)
 		animation.completion?()
 	}
 
 	generatedAnim.progress = { progress in
-		animation.progress = Double(progress)
-        animation.onProgressUpdate?(Double(progress))
+
+		let t = Double(progress)
+		node.posVar.value = transformAnimation.vFunc(t)
+
+		animation.progress = t
+		animation.onProgressUpdate?(t)
+
 	}
 
 	let layer = animationCache.layerForNode(node)

@@ -49,7 +49,6 @@ class AnimationCache {
 			sceneLayer?.addSublayer(layer)
 
 			layerCache[node] = CachedLayer(layer: layer)
-			print("Node added to cache")
 			sceneLayer?.setNeedsDisplay()
 
 			return layer
@@ -73,7 +72,6 @@ class AnimationCache {
 
 		let layer = cachedLayer.layer
 		layerCache.removeValueForKey(node)
-		print("Node removed from cache")
 		sceneLayer?.setNeedsDisplay()
 		layer.removeFromSuperlayer()
 	}

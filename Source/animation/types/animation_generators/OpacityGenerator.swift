@@ -43,8 +43,6 @@ func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps
 	var opacityValues = [Double]()
 	var timeValues = [Double]()
 
-	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
-
 	let step = 1.0 / (duration * Double(fps))
 	for t in 0.0.stride(to: 1.0, by: step) {
 
@@ -53,6 +51,9 @@ func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps
 	}
 
 	let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
+	opacityAnimation.fillMode = kCAFillModeForwards
+	opacityAnimation.removedOnCompletion = false
+
 	opacityAnimation.duration = duration
 	opacityAnimation.values = opacityValues
 	opacityAnimation.keyTimes = timeValues

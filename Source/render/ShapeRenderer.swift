@@ -8,45 +8,53 @@ class ShapeRenderer: NodeRenderer {
 		get { return shape }
 	}
 	let shape: Shape
-    
-    init(shape: Shape, ctx: RenderContext) {
+
+	init(shape: Shape, ctx: RenderContext) {
 		self.shape = shape
 		self.ctx = ctx
 		hook()
 	}
 
 	func render(force: Bool, opacity: Double) {
+
+		if !force {
+			// Cutting animated content
+			if animationCache.isAnimating(shape) {
+				return
+			}
+		}
+
 		setGeometry(shape.form, ctx: ctx.cgContext!)
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
 	}
 
-    func detectTouches(location: CGPoint) -> [Shape] {
-        var touchedShapes = [Shape]()
-        
-        setGeometry(shape.form, ctx: ctx.cgContext!)
-        
-        var drawingMode: CGPathDrawingMode? = nil
-        if let _ = shape.stroke, _ = shape.fill {
-            drawingMode = .FillStroke
-        } else if let _ = shape.stroke {
-            drawingMode = .Stroke
-        } else if let _ = shape.fill {
-            drawingMode = .Fill
-        }
-        
-        var contains = false
-        if let mode = drawingMode {
-            contains = CGContextPathContainsPoint(ctx.cgContext!, location, mode)
-        }
-        if contains {
-            touchedShapes.append(shape)
-        }
-        
-        // Prepare for next figure hittesting - clear current context path
-        CGContextBeginPath(ctx.cgContext!)
-        return touchedShapes
-    }
-    
+	func detectTouches(location: CGPoint) -> [Shape] {
+		var touchedShapes = [Shape]()
+
+		setGeometry(shape.form, ctx: ctx.cgContext!)
+
+		var drawingMode: CGPathDrawingMode? = nil
+		if let _ = shape.stroke, _ = shape.fill {
+			drawingMode = .FillStroke
+		} else if let _ = shape.stroke {
+			drawingMode = .Stroke
+		} else if let _ = shape.fill {
+			drawingMode = .Fill
+		}
+
+		var contains = false
+		if let mode = drawingMode {
+			contains = CGContextPathContainsPoint(ctx.cgContext!, location, mode)
+		}
+		if contains {
+			touchedShapes.append(shape)
+		}
+
+		// Prepare for next figure hittesting - clear current context path
+		CGContextBeginPath(ctx.cgContext!)
+		return touchedShapes
+	}
+
 	private func hook() {
 		func onFormChange(new: Locus) {
 			ctx.view?.setNeedsDisplay()

@@ -14,6 +14,14 @@ class TextRenderer: NodeRenderer {
 	}
 
 	func render(force: Bool, opacity: Double) {
+
+		if !force {
+			// Cutting animated content
+			if animationCache.isAnimating(text) {
+				return
+			}
+		}
+
 		let message = text.text
 		var font: UIFont
 		if let customFont = UIFont(name: text.font.name, size: CGFloat(text.font.size)) {

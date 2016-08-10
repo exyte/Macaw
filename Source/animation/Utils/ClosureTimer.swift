@@ -22,7 +22,6 @@ class ClosureTimer {
 	func start() {
 		let currentTimer = NSTimer(fireDate: NSDate().dateByAddingTimeInterval(timeInterval), interval: 0.0, target: self, selector: #selector(launchClosure), userInfo: .None, repeats: false)
 		timer = currentTimer
-		currentTimer.tolerance = 0.05
 		NSRunLoop.currentRunLoop().addTimer(currentTimer, forMode: NSDefaultRunLoopMode)
 	}
 

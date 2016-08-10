@@ -33,6 +33,7 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer) {
 
 	generatedAnimation.progress = { progress in
 		animation.progress = Double(progress)
+		animation.onProgressUpdate?(Double(progress))
 	}
 
 	let layer = animationCache.layerForNode(node)

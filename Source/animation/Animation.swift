@@ -29,6 +29,7 @@ public class Animatable {
 	public var timingFunction = TimingFunction.Linear
 
 	public var completion: (() -> ())?
+	public var onProgressUpdate: ((Double) -> ())?
 
 	func getDuration() -> Double { return 0 }
 

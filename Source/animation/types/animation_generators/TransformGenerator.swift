@@ -44,6 +44,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
 
 	generatedAnim.progress = { progress in
 		animation.progress = Double(progress)
+        animation.onProgressUpdate?(Double(progress))
 	}
 
 	let layer = animationCache.layerForNode(node)

@@ -95,6 +95,7 @@ class AnimationsView: MacawView {
 			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, observableValue: ballGroup.opacityVar, startValue: 0.1, finalValue: 1.0, animationDuration: 3.0)
 
 			animations.append([animation, opacityAnimation].combine())
+			animations.append(animation)
 		}
 
 		let node = Group(contents: ballNodes)

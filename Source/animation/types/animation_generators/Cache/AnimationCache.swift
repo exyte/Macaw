@@ -47,7 +47,7 @@ class AnimationCache {
 			layerCache[node] = CachedLayer(layer: layer)
 
 			layer.node = node
-			layer.display()
+			layer.setNeedsDisplay()
 
 			return layer
 		}
@@ -70,7 +70,7 @@ class AnimationCache {
 
 		let layer = cachedLayer.layer
 		layerCache.removeValueForKey(node)
-		sceneLayer?.display()
+		sceneLayer?.setNeedsDisplay()
 		layer.removeFromSuperlayer()
 	}
 

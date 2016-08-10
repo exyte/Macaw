@@ -21,9 +21,9 @@ class AnimationCache {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
 
-			// layer.backgroundColor = UIColor.greenColor().CGColor
-			// layer.borderWidth = 1.0
-			// layer.borderColor = UIColor.blueColor().CGColor
+//			layer.backgroundColor = UIColor.greenColor().CGColor
+//			layer.borderWidth = 1.0
+//			layer.borderColor = UIColor.blueColor().CGColor
 
 			if let shapeBounds = node.bounds() {
 				let cgRect = shapeBounds.cgRect()
@@ -43,11 +43,13 @@ class AnimationCache {
 				layer.transform = CATransform3DMakeAffineTransform(CGAffineTransformConcat(nodeTransform, layerTransform))
 			}
 
-			sceneLayer?.addSublayer(layer)
-			layerCache[node] = CachedLayer(layer: layer)
-
 			layer.node = node
 			layer.setNeedsDisplay()
+			sceneLayer?.addSublayer(layer)
+
+			layerCache[node] = CachedLayer(layer: layer)
+			print("Node added to cache")
+			sceneLayer?.setNeedsDisplay()
 
 			return layer
 		}
@@ -70,11 +72,13 @@ class AnimationCache {
 
 		let layer = cachedLayer.layer
 		layerCache.removeValueForKey(node)
+		print("Node removed from cache")
 		sceneLayer?.setNeedsDisplay()
 		layer.removeFromSuperlayer()
 	}
 
 	func isAnimating(node: Node) -> Bool {
+
 		if let _ = layerCache[node] {
 			return true
 		}

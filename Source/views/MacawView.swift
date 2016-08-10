@@ -12,15 +12,15 @@ public class MacawView: UIView {
 			self.renderer = RenderUtils.createNodeRenderer(validNode, context: context)
 		}
 	}
-    
-    private var selectedShape: Shape? = nil
-    
+
+	private var selectedShape: Shape? = nil
+
 	var context: RenderContext!
 	var renderer: NodeRenderer?
-    
+
 	var animationProducer: AnimationProducer?
-    
-    var toRender = true
+
+	var toRender = true
 
 	public required init?(node: Node?, coder aDecoder: NSCoder) {
 
@@ -33,20 +33,20 @@ public class MacawView: UIView {
 		if let validNode = node {
 			self.renderer = RenderUtils.createNodeRenderer(validNode, context: context)
 		}
-        
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
-        let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
-        self.addGestureRecognizer(panRecognizer)
-        self.addGestureRecognizer(rotationRecognizer)
-        self.addGestureRecognizer(pinchRecognizer)
+
+		let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
+		let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
+		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+		self.addGestureRecognizer(panRecognizer)
+		self.addGestureRecognizer(rotationRecognizer)
+		self.addGestureRecognizer(pinchRecognizer)
 	}
 
 	public convenience required init?(coder aDecoder: NSCoder) {
 		self.init(node: Group(pos: Transform()), coder: aDecoder)
 	}
 
-    override public func drawRect(rect: CGRect) {
+	override public func drawRect(rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
 
 		if let node = node {
@@ -58,51 +58,50 @@ public class MacawView: UIView {
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {
 		animationProducer?.addAnimation(animation)
-		self.setNeedsDisplay()
 	}
-    
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.selectedShape = nil
-        for touch in touches {
-            let location = touch.locationInView(self)
-            let shapes = renderer?.detectTouches(location)
-            self.selectedShape = shapes?.first
-            if let shape = self.selectedShape {
-                shape.onTap.onNext(TapEvent(location: location))
-            }
-        }
-    }
-    
-    public func handlePan(recognizer: UIPanGestureRecognizer) {
-        var translation = recognizer.translationInView(self)
-        recognizer.setTranslation(CGPointZero, inView: self)
-        if let shape = self.selectedShape {
-            // get the rotation and scale of the shape and apply to the translation
-            let transform = shape.pos
-            let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
-            let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
-            var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))
-            shape.onPan.onNext(PanEvent(dx: translatedLocation.x / scale, dy: translatedLocation.y / scale))
-        }
-        setNeedsDisplay()
-    }
-    
-    public func handleRotation(recognizer: UIRotationGestureRecognizer) {
-        let rotation = recognizer.rotation
-        recognizer.rotation = 0
-        if let shape = self.selectedShape {
-            shape.onRotate.onNext(RotateEvent(radians: rotation))
-        }
-        setNeedsDisplay()
-    }
-    
-    public func handlePinch(recognizer: UIPinchGestureRecognizer) {
-        let scale = recognizer.scale
-        recognizer.scale = 1
-        if let shape = self.selectedShape {
-            shape.onPinch.onNext(PinchEvent(scale: scale))
-        }
-        setNeedsDisplay()
-    }
-    
+
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		self.selectedShape = nil
+		for touch in touches {
+			let location = touch.locationInView(self)
+			let shapes = renderer?.detectTouches(location)
+			self.selectedShape = shapes?.first
+			if let shape = self.selectedShape {
+				shape.onTap.onNext(TapEvent(location: location))
+			}
+		}
+	}
+
+	public func handlePan(recognizer: UIPanGestureRecognizer) {
+		var translation = recognizer.translationInView(self)
+		recognizer.setTranslation(CGPointZero, inView: self)
+		if let shape = self.selectedShape {
+			// get the rotation and scale of the shape and apply to the translation
+			let transform = shape.pos
+			let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
+			let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
+			var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))
+			shape.onPan.onNext(PanEvent(dx: translatedLocation.x / scale, dy: translatedLocation.y / scale))
+		}
+		setNeedsDisplay()
+	}
+
+	public func handleRotation(recognizer: UIRotationGestureRecognizer) {
+		let rotation = recognizer.rotation
+		recognizer.rotation = 0
+		if let shape = self.selectedShape {
+			shape.onRotate.onNext(RotateEvent(radians: rotation))
+		}
+		setNeedsDisplay()
+	}
+
+	public func handlePinch(recognizer: UIPinchGestureRecognizer) {
+		let scale = recognizer.scale
+		recognizer.scale = 1
+		if let shape = self.selectedShape {
+			shape.onPinch.onNext(PinchEvent(scale: scale))
+		}
+		setNeedsDisplay()
+	}
+
 }

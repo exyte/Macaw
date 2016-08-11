@@ -115,6 +115,9 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 	rotationAnimation.keyTimes = timeValues
 
 	let group = CAAnimationGroup()
+	group.fillMode = kCAFillModeForwards
+	group.removedOnCompletion = false
+
 	group.animations = [xAnimation, yAnimation, scaleXAnimation, scaleYAnimation, rotationAnimation]
 	group.duration = duration
 

@@ -51,9 +51,21 @@ public class Text: Node {
 	}
 
 	// GENERATED NOT
-	override internal func bounds() -> Rect? {
-		// TODO: need proper implementation
-		return Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0)
+	override internal func bounds() -> Rect {
+        let font: UIFont
+        if let f = self.font {
+            if let customFont = UIFont(name: f.name, size: CGFloat(f.size)) {
+                font = customFont
+            } else {
+                font = UIFont.systemFontOfSize(CGFloat(f.size))
+            }
+        } else {
+            font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+        }
+        var stringAttributes: [String: AnyObject] = [:]
+        stringAttributes[NSFontAttributeName] = font
+        let size = (text as NSString).sizeWithAttributes(stringAttributes)
+        return Rect(x: pos.dx, y: pos.dy, w: Double(size.width), h: Double(size.height))
 	}
 
 }

@@ -72,7 +72,7 @@ public class MacawView: UIView {
 		}
 	}
 
-	public func handlePan(recognizer: UIPanGestureRecognizer) {
+	func handlePan(recognizer: UIPanGestureRecognizer) {
 		var translation = recognizer.translationInView(self)
 		recognizer.setTranslation(CGPointZero, inView: self)
 		if let shape = self.selectedShape {
@@ -86,7 +86,7 @@ public class MacawView: UIView {
 		setNeedsDisplay()
 	}
 
-	public func handleRotation(recognizer: UIRotationGestureRecognizer) {
+	func handleRotation(recognizer: UIRotationGestureRecognizer) {
 		let rotation = recognizer.rotation
 		recognizer.rotation = 0
 		if let shape = self.selectedShape {
@@ -95,7 +95,7 @@ public class MacawView: UIView {
 		setNeedsDisplay()
 	}
 
-	public func handlePinch(recognizer: UIPinchGestureRecognizer) {
+	func handlePinch(recognizer: UIPinchGestureRecognizer) {
 		let scale = recognizer.scale
 		recognizer.scale = 1
 		if let shape = self.selectedShape {

@@ -42,13 +42,11 @@ class GroupRenderer: NodeRenderer {
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
 
 		contentRenderers.forEach { renderer in
-			if let rendererVal = renderer {
-				CGContextSaveGState(ctx.cgContext)
-				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
-				setClip(rendererVal.node)
-				rendererVal.render(force, opacity: rendererVal.node.opacity * opacity)
-				CGContextRestoreGState(ctx.cgContext)
-			}
+            CGContextSaveGState(ctx.cgContext)
+            CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
+            setClip(renderer.node)
+			renderer.render(force, opacity: renderer.node.opacity * opacity)
+			CGContextRestoreGState(ctx.cgContext)
 		}
 	}
 
@@ -59,15 +57,13 @@ class GroupRenderer: NodeRenderer {
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
 
 		contentRenderers.forEach { renderer in
-			if let rendererVal = renderer {
-				CGContextSaveGState(ctx.cgContext)
-				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(rendererVal.node.pos))
-				let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(rendererVal.node.pos.invert()))
-				setClip(rendererVal.node)
-				let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
-				touchedShapes.appendContentsOf(rendererVal.detectTouches(offsetLocation))
-				CGContextRestoreGState(ctx.cgContext)
-			}
+            CGContextSaveGState(ctx.cgContext)
+			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
+			let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(renderer.node.pos.invert()))
+			setClip(renderer.node)
+			let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
+			touchedShapes.appendContentsOf(renderer.detectTouches(offsetLocation))
+			CGContextRestoreGState(ctx.cgContext)
 		}
 
 		return touchedShapes

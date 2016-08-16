@@ -1,15 +1,16 @@
 import Foundation
 import UIKit
 
+///
+/// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
+/// You could create your own view extended from MacawView with predefined scene.
+///
 public class MacawView: UIView {
 
-	public var node: Node? {
+    /// Scene root node
+	public var node: Node = Group() {
 		didSet {
-			guard let validNode = node else {
-				return
-			}
-
-			self.renderer = RenderUtils.createNodeRenderer(validNode, context: context)
+			self.renderer = RenderUtils.createNodeRenderer(node, context: context)
 		}
 	}
 
@@ -22,17 +23,14 @@ public class MacawView: UIView {
 
 	var toRender = true
 
-	public required init?(node: Node?, coder aDecoder: NSCoder) {
+	public init?(node: Node, coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
 
 		self.context = RenderContext(view: self)
 		self.node = node
 		self.animationProducer = AnimationProducer(layer: self.layer)
-
-		if let validNode = node {
-			self.renderer = RenderUtils.createNodeRenderer(validNode, context: context)
-		}
+        self.renderer = RenderUtils.createNodeRenderer(node, context: context)
 
 		let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
 		let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
@@ -43,17 +41,12 @@ public class MacawView: UIView {
 	}
 
 	public convenience required init?(coder aDecoder: NSCoder) {
-		self.init(node: Group(pos: Transform()), coder: aDecoder)
+		self.init(node: Group(), coder: aDecoder)
 	}
 
 	override public func drawRect(rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
-
-		if let node = node {
-			renderer?.render(false, opacity: node.opacity)
-		} else {
-			renderer?.render(false, opacity: 1.0)
-		}
+        renderer?.render(false, opacity: node.opacity)
 	}
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {

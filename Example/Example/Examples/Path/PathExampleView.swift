@@ -175,11 +175,6 @@ class PathExampleView: MacawView {
 		super.init(node: group, coder: aDecoder)
 	}
 
-	required init?(node: Node?, coder aDecoder: NSCoder) {
-		// animations = []
-		super.init(node: node, coder: aDecoder)
-	}
-
 	func testAnimation() {
 		animation.forEach { anim in
 			super.addAnimation(anim, autoPlay: false)

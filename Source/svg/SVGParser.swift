@@ -1,7 +1,24 @@
 import Foundation
 import SWXMLHash
 
+///
+/// This class used to parse SVG file and build corresponding Macaw scene
+///
 public class SVGParser {
+
+    /// Parse an SVG file identified by the specified name and file extension.
+    /// - returns: Root node of the corresponding Macaw scene.
+    public class func parse(path path: String, ofType: String = "svg") -> Node {
+        let path = NSBundle.mainBundle().pathForResource(path, ofType: ofType)
+        let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+        return SVGParser.parse(text: text)
+    }
+
+    /// Parse the specified content of an SVG file.
+    /// - returns: Root node of the corresponding Macaw scene.
+    public class func parse(text text: String) -> Node {
+        return SVGParser(text).parse()
+    }
 
     let moveToAbsolute = Character("M")
     let moveToRelative = Character("m")
@@ -34,12 +51,12 @@ public class SVGParser {
 
     private typealias PathCommand = (type: PathCommandType, expression: String, absolute: Bool)
 
-    public init(_ string: String, pos: Transform = Transform()) {
+    private init(_ string: String, pos: Transform = Transform()) {
         self.xmlString = string
         self.initialPosition = pos
     }
 
-    public func parse() -> Group {
+    private func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
         iterateThroughXmlTree(parsedXml.children)
 

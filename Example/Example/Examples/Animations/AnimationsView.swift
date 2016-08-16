@@ -12,12 +12,7 @@ class AnimationsView: MacawView {
 	let r = 10.0
 
 	required init?(coder aDecoder: NSCoder) {
-
-		super.init(node: nil, coder: aDecoder)
-	}
-
-	required init?(node: Node?, coder aDecoder: NSCoder) {
-		super.init(node: node, coder: aDecoder)
+		super.init(node: Group(), coder: aDecoder)
 	}
 
 	func startAnimation() {

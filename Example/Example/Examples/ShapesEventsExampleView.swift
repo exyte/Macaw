@@ -53,13 +53,9 @@ class ShapesEventsExampleView: MacawView {
         _ = shape1.onPinch.subscribeNext { pinch in
             let node = shape1 as Node
             let scale = Double(pinch.scale)
-            var newPos = node.pos.scale(scale, sy: scale)
+            let newPos = node.pos.scale(scale, sy: scale)
             node.pos = newPos
         }
 
-    }
-    
-    required init?(node: Node?, coder aDecoder: NSCoder) {
-        super.init(node: node, coder: aDecoder)
     }
 }

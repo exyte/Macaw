@@ -3,11 +3,11 @@ import RxSwift
 
 public class Drawable {
 
-	public let visible: NSObject
+	public let visible: Bool
 	public let tag: [String]
 	public let bounds: Rect?
 
-	public init(visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.visible = visible
 		self.tag = tag
 		self.bounds = bounds

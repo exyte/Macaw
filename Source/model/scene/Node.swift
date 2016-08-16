@@ -9,8 +9,8 @@ public class Node: Drawable  {
 		set(val) { posVar.value = val }
 	}
 
-	public let opaqueVar: Variable<NSObject>
-	public var opaque: NSObject {
+	public let opaqueVar: Variable<Bool>
+	public var opaque: Bool {
 		get { return opaqueVar.value }
 		set(val) { opaqueVar.value = val }
 	}
@@ -33,9 +33,9 @@ public class Node: Drawable  {
 		set(val) { effectVar.value = val }
 	}
 
-	public init(pos: Transform, opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(pos: Transform, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.posVar = Variable<Transform>(pos)
-		self.opaqueVar = Variable<NSObject>(opaque)
+		self.opaqueVar = Variable<Bool>(opaque)
 		self.opacityVar = Variable<Double>(opacity)
 		self.clipVar = Variable<Locus?>(clip)
 		self.effectVar = Variable<Effect?>(effect)

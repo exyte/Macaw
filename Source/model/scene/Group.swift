@@ -5,7 +5,7 @@ public class Group: Node  {
 
 	public var contentsVar: ObservableArray<Node>
 
-	public init(contents: [Node] = [], pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(contents: [Node] = [], pos: Transform = Transform(), opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.contentsVar = ObservableArray<Node>(array: contents)
 		super.init(
 			pos: pos,

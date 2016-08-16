@@ -39,7 +39,7 @@ public class Image: Node  {
 		set(val) { hVar.value = val }
 	}
 
-	public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, pos: Transform = Transform(), opaque: NSObject = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: NSObject = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, pos: Transform = Transform(), opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.srcVar = Variable<String>(src)
 		self.xAlignVar = Variable<Align>(xAlign)
 		self.yAlignVar = Variable<Align>(yAlign)

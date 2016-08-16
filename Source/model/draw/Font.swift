@@ -5,12 +5,12 @@ public class Font {
 
 	public let name: String
 	public let size: Int
-	public let bold: NSObject
-	public let italic: NSObject
-	public let underline: NSObject
-	public let strike: NSObject
+	public let bold: Bool
+	public let italic: Bool
+	public let underline: Bool
+	public let strike: Bool
 
-	public init(name: String = "Serif", size: Int = 12, bold: NSObject = false, italic: NSObject = false, underline: NSObject = false, strike: NSObject = false) {
+	public init(name: String = "Serif", size: Int = 12, bold: Bool = false, italic: Bool = false, underline: Bool = false, strike: Bool = false) {
 		self.name = name
 		self.size = size
 		self.bold = bold

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Path: Locus  {
+public class Path: Locus {
 
 	public let segments: [PathSegment]
 

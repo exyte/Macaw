@@ -24,15 +24,18 @@ public final class Transform {
 		return Transform(m11: m11, m12: m12, m21: m21, m22: m22,
 			dx: mx * m11 + my * m21 + dx, dy: mx * m12 + my * m22 + dy)
 	}
+
 	// GENERATED NOT
 	public func scale(sx: Double, sy: Double) -> Transform {
 		return Transform(m11: m11 * sx, m12: m12 * sx, m21: m21 * sy, m22: m22 * sy, dx: dx, dy: dy)
 	}
+
 	// GENERATED NOT
 	public func shear(shx: Double, shy: Double) -> Transform {
 		return Transform(m11: m11 + m21 * shy, m12: m12 + m22 * shy,
 			m21: m11 * shx + m21, m22: m12 * shx + m22, dx: dx, dy: dy)
 	}
+
 	// GENERATED NOT
 	public func rotate(angle: Double) -> Transform {
 		let asin = sin(angle); let acos = cos(angle)
@@ -60,9 +63,9 @@ public final class Transform {
 		let asin = sin(angle); let acos = cos(angle)
 		return Transform(m11: acos, m12: asin, m21: -asin, m22: acos)
 	}
-    
-    // GENERATED NOT
-    public func invert() -> Transform {
+
+	// GENERATED NOT
+	public func invert() -> Transform {
         let det = self.m11 * self.m22 - self.m12 * self.m21
         if (det == 0) {
             return Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)

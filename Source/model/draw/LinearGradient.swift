@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class LinearGradient: Gradient  {
+public class LinearGradient: Gradient {
 
 	public let x1: Double
 	public let y1: Double

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Image: Node  {
+public class Image: Node {
 
 	public let srcVar: Variable<String>
 	public var src: String {

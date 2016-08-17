@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node  {
+public class Shape: Node {
 
 	public let formVar: Variable<Locus>
 	public var form: Locus {
@@ -42,7 +42,6 @@ public class Shape: Node  {
 		)
 	}
 
-
 	// GENERATED NOT
 	override public func bounds() -> Rect? {
 
@@ -80,4 +79,5 @@ public class Shape: Node  {
 
 		return bounds
 	}
+
 }

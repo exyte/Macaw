@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Circle: Locus  {
+public class Circle: Locus {
 
 	public let cx: Double
 	public let cy: Double

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class HLine: PathSegment  {
+public class HLine: PathSegment {
 
 	public let x: Double
 

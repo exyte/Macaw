@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class RadialGradient: Gradient  {
+public class RadialGradient: Gradient {
 
 	public let cx: Double
 	public let cy: Double

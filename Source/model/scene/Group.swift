@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Group: Node  {
+public class Group: Node {
 
 	public var contentsVar: ObservableArray<Node>
 
@@ -18,7 +18,6 @@ public class Group: Node  {
 			bounds: bounds
 		)
 	}
-
 
 	// GENERATED NOT
 	override public func bounds() -> Rect? {
@@ -42,4 +41,5 @@ public class Group: Node  {
 
 		return union
 	}
+
 }

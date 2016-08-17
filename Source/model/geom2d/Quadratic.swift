@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Quadratic: PathSegment  {
+public class Quadratic: PathSegment {
 
 	public let x1: Double
 	public let y1: Double

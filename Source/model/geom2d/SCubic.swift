@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class SCubic: PathSegment  {
+public class SCubic: PathSegment {
 
 	public let x2: Double
 	public let y2: Double

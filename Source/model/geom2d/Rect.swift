@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Rect: Locus  {
+public class Rect: Locus {
 
 	public let x: Double
 	public let y: Double
@@ -19,11 +19,11 @@ public class Rect: Locus  {
 	public func round(rx: Double, ry: Double) -> RoundRect {
 		return RoundRect(rect: Rect())
 	}
+
 	// GENERATED NOT
 	public func contains(locus: Locus) -> Bool {
 		return false
 	}
-
 
 	// GENERATED NOT
 	public func union(rect: Rect) -> Rect {
@@ -47,4 +47,5 @@ public class Rect: Locus  {
 			w: self.w,
 			h: self.h)
 	}
+
 }

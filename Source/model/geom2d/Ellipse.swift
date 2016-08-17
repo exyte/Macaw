@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Ellipse: Locus  {
+public class Ellipse: Locus {
 
 	public let cx: Double
 	public let cy: Double

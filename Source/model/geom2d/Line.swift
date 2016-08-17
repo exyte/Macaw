@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Line: Locus  {
+public class Line: Locus {
 
 	public let x1: Double
 	public let y1: Double

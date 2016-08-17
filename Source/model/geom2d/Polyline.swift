@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Polyline: Locus  {
+public class Polyline: Locus {
 
 	public let points: [Double]
 

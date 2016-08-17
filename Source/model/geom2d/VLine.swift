@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class VLine: PathSegment  {
+public class VLine: PathSegment {
 
 	public let y: Double
 

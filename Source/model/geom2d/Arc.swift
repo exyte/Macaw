@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Arc: Locus  {
+public class Arc: Locus {
 
 	public let ellipse: Ellipse
 	public let shift: Double

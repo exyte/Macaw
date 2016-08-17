@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Node: Drawable  {
+public class Node: Drawable {
 
 	public let posVar: Variable<Transform>
 	public var pos: Transform {
@@ -46,9 +46,9 @@ public class Node: Drawable  {
 		)
 	}
 
-
 	// GENERATED NOT
 	public func bounds() -> Rect? {
 		return Rect()
 	}
+
 }

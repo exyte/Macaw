@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Point: Locus  {
+public class Point: Locus {
 
 	public let x: Double
 	public let y: Double
@@ -10,7 +10,6 @@ public class Point: Locus  {
 		self.x = x
 		self.y = y
 	}
-
 
 	// GENERATED NOT
 	public func add(point: Point) -> Point {
@@ -22,5 +21,6 @@ public class Point: Locus  {
 	// GENERATED NOT
 	public class func zero() -> Point {
 		return Point(x: 0.0, y: 0.0)
-	}
+    }
+
 }

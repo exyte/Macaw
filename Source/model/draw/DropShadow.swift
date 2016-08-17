@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class DropShadow: Effect  {
+public class DropShadow: Effect {
 
 	public let radius: Double
 	public let offset: Point

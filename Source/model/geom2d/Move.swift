@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Move: PathSegment  {
+public class Move: PathSegment {
 
 	public let x: Double
 	public let y: Double

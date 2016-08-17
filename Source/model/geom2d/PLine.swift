@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class PLine: PathSegment  {
+public class PLine: PathSegment {
 
 	public let x: Double
 	public let y: Double

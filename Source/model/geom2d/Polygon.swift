@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Polygon: Locus  {
+public class Polygon: Locus {
 
 	public let points: [Double]
 

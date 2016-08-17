@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class GaussianBlur: Effect  {
+public class GaussianBlur: Effect {
 
 	public let radius: Double
 	public let input: Effect?

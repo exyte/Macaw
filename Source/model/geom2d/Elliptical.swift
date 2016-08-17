@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Elliptical: PathSegment  {
+public class Elliptical: PathSegment {
 
 	public let rx: Double
 	public let ry: Double

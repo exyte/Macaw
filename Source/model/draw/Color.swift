@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Color: Fill  {
+public class Color: Fill {
 
 	public let val: Int
 
@@ -30,14 +30,17 @@ public class Color: Fill  {
 	public func r() -> Int {
 		return ( ( val >> 16 ) & 0xff )
 	}
+
 	// GENERATED
 	public func g() -> Int {
 		return ( ( val >> 8 ) & 0xff )
 	}
+
 	// GENERATED
 	public func b() -> Int {
 		return ( val & 0xff )
 	}
+
 	// GENERATED
 	public func a() -> Int {
 		return ( 255 - ( ( val >> 24 ) & 0xff ) )

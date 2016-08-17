@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class RoundRect: Locus  {
+public class RoundRect: Locus {
 
 	public let rect: Rect
 	public let rx: Double

@@ -13,9 +13,4 @@ public class Drawable {
 		self.bounds = bounds
 	}
 
-	// GENERATED NOT
-	public func mouse() -> Mouse {
-		return Mouse(pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
-	}
-
 }

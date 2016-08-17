@@ -51,9 +51,4 @@ public class Node: Drawable  {
 	public func bounds() -> Rect? {
 		return Rect()
 	}
-
-	// GENERATED NOT
-	public override func mouse() -> Mouse {
-		return Mouse(pos: Point(), onEnter: Signal(), onExit: Signal(), onWheel: Signal())
-	}
 }

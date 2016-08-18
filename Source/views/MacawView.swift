@@ -7,10 +7,10 @@ import UIKit
 ///
 public class MacawView: UIView {
 
-    /// Scene root node
+	/// Scene root node
 	public var node: Node = Group() {
 		didSet {
-			self.renderer = RenderUtils.createNodeRenderer(node, context: context)
+			self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: animationCache)
 		}
 	}
 
@@ -23,14 +23,16 @@ public class MacawView: UIView {
 
 	var toRender = true
 
+	private let animationCache = AnimationCache()
+
 	public init?(node: Node, coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
 
 		self.context = RenderContext(view: self)
 		self.node = node
-		self.animationProducer = AnimationProducer(layer: self.layer)
-        self.renderer = RenderUtils.createNodeRenderer(node, context: context)
+		self.animationProducer = AnimationProducer(layer: self.layer, animationCache: animationCache)
+		self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: animationCache)
 
 		let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
 		let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
@@ -46,7 +48,7 @@ public class MacawView: UIView {
 
 	override public func drawRect(rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
-        renderer?.render(false, opacity: node.opacity)
+		renderer?.render(false, opacity: node.opacity)
 	}
 
 	public func addAnimation(animation: Animatable, autoPlay: Bool = true) {

@@ -9,9 +9,13 @@ class ShapeRenderer: NodeRenderer {
 	}
 	let shape: Shape
 
-	init(shape: Shape, ctx: RenderContext) {
+	let animationCache: AnimationCache
+
+	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache) {
 		self.shape = shape
 		self.ctx = ctx
+		self.animationCache = animationCache
+
 		hook()
 	}
 

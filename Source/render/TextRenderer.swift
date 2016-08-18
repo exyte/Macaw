@@ -8,9 +8,12 @@ class TextRenderer: NodeRenderer {
 		get { return text }
 	}
 
-	init(text: Text, ctx: RenderContext) {
+	let animationCache: AnimationCache
+
+	init(text: Text, ctx: RenderContext, animationCache: AnimationCache) {
 		self.text = text
 		self.ctx = ctx
+		self.animationCache = animationCache
 	}
 
 	func render(force: Bool, opacity: Double) {

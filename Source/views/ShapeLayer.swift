@@ -3,9 +3,14 @@ import UIKit
 class ShapeLayer: CAShapeLayer {
 	var node: Node?
 	var renderTransform: CGAffineTransform?
+	var animationCache: AnimationCache?
 
 	override func drawInContext(ctx: CGContext) {
 		guard let node = node else {
+			return
+		}
+
+		guard let animationCache = animationCache else {
 			return
 		}
 
@@ -16,7 +21,7 @@ class ShapeLayer: CAShapeLayer {
 			CGContextConcatCTM(ctx, renderTransform)
 		}
 
-		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext)
+		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache)
 		renderer.render(true, opacity: 1.0)
 	}
 }

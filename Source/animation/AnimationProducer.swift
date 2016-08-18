@@ -1,11 +1,13 @@
 import Swift_CAAnimation_Closure
 
-public class AnimationProducer {
+class AnimationProducer {
 
 	let sceneLayer: CALayer
+	let animationCache: AnimationCache
 
-	public required init(layer: CALayer) {
-		sceneLayer = layer
+	required init(layer: CALayer, animationCache: AnimationCache) {
+		self.sceneLayer = layer
+		self.animationCache = animationCache
 		animationCache.sceneLayer = layer
 	}
 
@@ -15,10 +17,10 @@ public class AnimationProducer {
 		case .Unknown:
 			return
 		case .AffineTransformation:
-			addTransformAnimation(animation, sceneLayer: sceneLayer)
+			addTransformAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache)
 
 		case .Opacity:
-			addOpacityAnimation(animation, sceneLayer: sceneLayer)
+			addOpacityAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache)
 		case .Sequence:
 			addAnimationSequence(animation)
 		case .Combine:

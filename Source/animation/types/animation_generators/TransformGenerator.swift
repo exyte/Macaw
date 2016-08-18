@@ -1,6 +1,6 @@
 import UIKit
 
-func addTransformAnimation(animation: Animatable, sceneLayer: CALayer) {
+func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animationCache: AnimationCache) {
 	guard let transformAnimation = animation as? TransformAnimation else {
 		return
 	}

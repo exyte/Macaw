@@ -8,12 +8,16 @@ class GroupRenderer: NodeRenderer {
 		get { return group }
 	}
 
+	var animationCache: AnimationCache
+
 	let group: Group
 	let disposeBag = DisposeBag()
 
-	init(group: Group, ctx: RenderContext) {
+	init(group: Group, ctx: RenderContext, animationCache: AnimationCache) {
 		self.group = group
 		self.ctx = ctx
+		self.animationCache = animationCache
+
 		hook()
 	}
 
@@ -39,12 +43,12 @@ class GroupRenderer: NodeRenderer {
 
 		let staticContents = group.contentsVar.filter { !animationCache.isAnimating($0) }
 
-		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 
 		contentRenderers.forEach { renderer in
-            CGContextSaveGState(ctx.cgContext)
-            CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
-            setClip(renderer.node)
+			CGContextSaveGState(ctx.cgContext)
+			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
+			setClip(renderer.node)
 			renderer.render(force, opacity: renderer.node.opacity * opacity)
 			CGContextRestoreGState(ctx.cgContext)
 		}
@@ -54,10 +58,10 @@ class GroupRenderer: NodeRenderer {
 		var touchedShapes = [Shape]()
 		let staticContents = group.contentsVar.filter { !animationCache.isAnimating($0) }
 
-		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx) }
+		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 
 		contentRenderers.forEach { renderer in
-            CGContextSaveGState(ctx.cgContext)
+			CGContextSaveGState(ctx.cgContext)
 			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
 			let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(renderer.node.pos.invert()))
 			setClip(renderer.node)

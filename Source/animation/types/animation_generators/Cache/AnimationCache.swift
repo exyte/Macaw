@@ -2,7 +2,6 @@
 import UIKit
 import Macaw
 
-let animationCache = AnimationCache()
 class AnimationCache {
 
 	class CachedLayer {
@@ -20,6 +19,7 @@ class AnimationCache {
 	func layerForNode(node: Node) -> ShapeLayer {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
+			layer.animationCache = self
 
 			// layer.backgroundColor = UIColor.greenColor().CGColor
 			// layer.borderWidth = 1.0

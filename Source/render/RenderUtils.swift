@@ -39,17 +39,17 @@ class RenderUtils {
 		return p
 	}
 
-	class func createNodeRenderer(node: Node, context: RenderContext) -> NodeRenderer {
+	class func createNodeRenderer(node: Node, context: RenderContext, animationCache: AnimationCache) -> NodeRenderer {
 		if let group = node as? Group {
-			return GroupRenderer(group: group, ctx: context)
+			return GroupRenderer(group: group, ctx: context, animationCache: animationCache)
 		} else if let shape = node as? Shape {
-			return ShapeRenderer(shape: shape, ctx: context)
+			return ShapeRenderer(shape: shape, ctx: context, animationCache: animationCache)
 		} else if let text = node as? Text {
-			return TextRenderer(text: text, ctx: context)
+			return TextRenderer(text: text, ctx: context, animationCache: animationCache)
 		} else if let image = node as? Image {
 			return ImageRenderer(image: image, ctx: context)
 		}
-        fatalError("Unsupported node: \(node)");
+		fatalError("Unsupported node: \(node)");
 	}
 
 	class func applyOpacity(color: Color, opacity: Double) -> Color {

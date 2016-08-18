@@ -4,6 +4,7 @@ import Foundation
 public class AnimationSequence: Animatable {
 
 	let animations: [Animatable]
+	var completionTimer: ClosureTimer?
 
 	required public init(animations: [Animatable]) {
 		self.animations = animations
@@ -12,7 +13,7 @@ public class AnimationSequence: Animatable {
 
 		type = .Sequence
 
-		let timer = ClosureTimer(time: getDuration()) {
+		completionTimer = ClosureTimer(time: getDuration()) {
 			self.completion?()
 		}
 	}

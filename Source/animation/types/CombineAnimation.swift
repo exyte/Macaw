@@ -11,17 +11,19 @@ import Foundation
 public class CombineAnimation: Animatable {
 
 	let animations: [Animatable]
+	var completionTimer: ClosureTimer?
 
 	required public init(animations: [Animatable]) {
 		self.animations = animations
 
 		super.init()
 
-		type = .Combine
-
-		let timer = ClosureTimer(time: getDuration()) {
+		completionTimer = ClosureTimer(time: getDuration()) {
 			self.completion?()
 		}
+
+		type = .Combine
+
 	}
 
 	override func getDuration() -> Double {

@@ -52,6 +52,7 @@ class AnimationProducer {
 			timer.start()
 			timeOffset += animation.getDuration()
 		}
+		sequence.completionTimer?.start()
 
 	}
 
@@ -69,5 +70,7 @@ class AnimationProducer {
 		combine.animations.forEach { animation in
 			self.addAnimation(animation)
 		}
+
+		combine.completionTimer?.start()
 	}
 }

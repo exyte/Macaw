@@ -1,12 +1,9 @@
-import Foundation
-import UIKit
+public class PinchEvent {
 
-public class PinchEvent: Signal {
-    
-    public var scale: CGFloat
-    
-    init(scale: CGFloat) {
+    public let scale: Double
+
+    init(scale: Double) {
         self.scale = scale
     }
-    
+
 }

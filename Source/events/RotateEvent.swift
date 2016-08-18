@@ -1,12 +1,9 @@
-import Foundation
-import UIKit
+public class RotateEvent {
 
-public class RotateEvent: Signal {
-    
-    public var radians: CGFloat
-    
-    init(radians: CGFloat) {
-        self.radians = radians
+    public let angle: Double
+
+    init(angle: Double) {
+        self.angle = angle
     }
-    
+
 }

@@ -62,7 +62,7 @@ public class MacawView: UIView {
 			let shapes = renderer?.detectTouches(location)
 			self.selectedShape = shapes?.first
 			if let shape = self.selectedShape {
-				shape.onTap.onNext(TapEvent(location: location))
+				shape.onTap.onNext(TapEvent(location: Point(x: Double(location.x), y: Double(location.y))))
 			}
 		}
 	}
@@ -76,22 +76,22 @@ public class MacawView: UIView {
 			let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
 			let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
 			var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))
-			shape.onPan.onNext(PanEvent(dx: translatedLocation.x / scale, dy: translatedLocation.y / scale))
+			shape.onPan.onNext(PanEvent(dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale)))
 		}
 		setNeedsDisplay()
 	}
 
 	func handleRotation(recognizer: UIRotationGestureRecognizer) {
-		let rotation = recognizer.rotation
+		let rotation = Double(recognizer.rotation)
 		recognizer.rotation = 0
 		if let shape = self.selectedShape {
-			shape.onRotate.onNext(RotateEvent(radians: rotation))
+			shape.onRotate.onNext(RotateEvent(angle: rotation))
 		}
 		setNeedsDisplay()
 	}
 
 	func handlePinch(recognizer: UIPinchGestureRecognizer) {
-		let scale = recognizer.scale
+		let scale = Double(recognizer.scale)
 		recognizer.scale = 1
 		if let shape = self.selectedShape {
 			shape.onPinch.onNext(PinchEvent(scale: scale))

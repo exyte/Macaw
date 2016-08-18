@@ -1,14 +1,11 @@
-import Foundation
-import UIKit
+public class PanEvent {
 
-public class PanEvent: Signal {
-    
-    public var dx: CGFloat
-    public var dy: CGFloat
-    
-    init(dx: CGFloat, dy: CGFloat) {
+    public let dx: Double
+    public let dy: Double
+
+    init(dx: Double, dy: Double) {
         self.dx = dx
         self.dy = dy
     }
-    
+
 }

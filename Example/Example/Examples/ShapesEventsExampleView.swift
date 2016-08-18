@@ -45,7 +45,7 @@ class ShapesEventsExampleView: MacawView {
         _ = shape1.onRotate.subscribeNext { rotate in
             let node = shape1 as Node
             var newPos = node.pos.move(75, my: 105)
-            newPos = newPos.rotate(Double(rotate.radians))
+            newPos = newPos.rotate(rotate.angle)
             newPos = newPos.move(-75, my: -105)
             node.pos = newPos
         }

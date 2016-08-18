@@ -1,12 +1,9 @@
-import Foundation
-import UIKit
+public class TapEvent {
 
-public class TapEvent: Signal {
-    
-    public var location: CGPoint
-    
-    init(location: CGPoint) {
+    public let location: Point
+
+    init(location: Point) {
         self.location = location
     }
-    
+
 }

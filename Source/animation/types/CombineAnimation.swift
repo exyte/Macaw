@@ -18,6 +18,10 @@ public class CombineAnimation: Animatable {
 		super.init()
 
 		type = .Combine
+
+		let timer = ClosureTimer(time: getDuration()) {
+			self.completion?()
+		}
 	}
 
 	override func getDuration() -> Double {

@@ -11,6 +11,10 @@ public class AnimationSequence: Animatable {
 		super.init()
 
 		type = .Sequence
+
+		let timer = ClosureTimer(time: getDuration()) {
+			self.completion?()
+		}
 	}
 
 	override func getDuration() -> Double {

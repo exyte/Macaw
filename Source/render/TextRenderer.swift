@@ -41,8 +41,15 @@ class TextRenderer: NodeRenderer {
 				NSFontAttributeName: font,
 				NSForegroundColorAttributeName: getTextColor(color)]
 			let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
+
+			guard let cgContext = ctx.cgContext else {
+				return
+			}
+
+			UIGraphicsPushContext(cgContext)
 			message.drawInRect(CGRectMake(calculateAlignmentOffset(text, font: font), calculateBaselineOffset(text, font: font),
 				CGFloat(textSize.width), CGFloat(textSize.height)), withAttributes: textAttributes)
+			UIGraphicsPopContext()
 		}
 	}
 

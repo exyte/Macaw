@@ -29,8 +29,8 @@ class AnimationCache {
 				let cgRect = shapeBounds.cgRect()
 
 				let origFrame = CGRectMake(0.0, 0.0,
-					cgRect.width,
-					cgRect.height)
+					round(cgRect.width),
+					round(cgRect.height))
 
 				layer.bounds = origFrame
 				layer.anchorPoint = CGPointMake(0.0, 0.0)

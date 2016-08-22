@@ -68,11 +68,12 @@ class ShapesExampleView: MacawView {
 			)
 		)
 
-		let arc = Arc(ellipse: Ellipse(cx: 250, cy: 250, rx: 50, ry: 50), shift: M_PI / 2, extent: M_PI / 2)
+		let arc = Arc(ellipse: Ellipse(cx: 250, cy: 300, rx: 35, ry: 60), shift: M_PI / 2, extent: M_PI)
 		let shape8 = Shape(
 			form: arc,
 			stroke: Stroke(
 				fill: Color.green,
+                width: 2,
 				cap: .round,
 				join: .round,
 				dashes: [3, 3]

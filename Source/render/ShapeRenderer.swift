@@ -95,24 +95,16 @@ class ShapeRenderer: NodeRenderer {
 				// http://stackoverflow.com/questions/11365775/how-to-draw-an-elliptical-arc-with-coregraphics
 				// input parameters
 				let ellipse = arc.ellipse
-				let left = CGFloat(ellipse.cx - ellipse.cx / 2)
-				let top = CGFloat(ellipse.cy - ellipse.cy / 2)
-				let width = CGFloat(ellipse.cx * 2)
-				let height = CGFloat(ellipse.ry * 2)
 				let startAngle = CGFloat(arc.shift)
 				let endAngle = startAngle + CGFloat(arc.extent)
-
-				let cx = left + width * 0.5
-				let cy = top + height * 0.5
-				let r = CGFloat(width * 0.5)
+				let r = CGFloat(ellipse.rx)
+                let scale = CGFloat(ellipse.ry / ellipse.rx)
 
 				let path = CGPathCreateMutable()
-				var t = CGAffineTransformMakeTranslation(cx, cy)
-				t = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, height / width), t);
+				var t = CGAffineTransformMakeTranslation(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
+				t = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, scale), t);
 				CGPathAddArc(path, &t, 0, 0, r, startAngle, endAngle, false)
-
 				CGContextAddPath(ctx, path)
-				CGContextStrokePath(ctx)
 			}
 		} else if let point = locus as? Point {
 			let path = UIBezierPath()
@@ -138,11 +130,11 @@ class ShapeRenderer: NodeRenderer {
 	}
 
 	private func toBezierPath(arc: Arc) -> UIBezierPath {
-		let extent = CGFloat(arc.extent)
-		let end = CGFloat(arc.shift) + extent
+		let shift = CGFloat(arc.shift)
+		let end = shift + CGFloat(arc.extent)
 		let ellipse = arc.ellipse
 		let center = CGPointMake(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
-		return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: extent, endAngle: end, clockwise: true)
+		return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: shift, endAngle: end, clockwise: true)
 	}
 
 	private func toBezierPath(points: [Double]) -> UIBezierPath {

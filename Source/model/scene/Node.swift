@@ -33,7 +33,7 @@ public class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
-	public init(pos: Transform, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.posVar = Variable<Transform>(pos)
 		self.opaqueVar = Variable<Bool>(opaque)
 		self.opacityVar = Variable<Double>(opacity)

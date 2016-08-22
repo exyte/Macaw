@@ -7,7 +7,7 @@ func pathBounds(path: Path) -> Rect? {
 
 	let firstSegmentInfo = pathSegmenInfo(firstSegment, currentPoint: .None, currentBezierPoint: .None)
 	var bounds = firstSegmentInfo.0
-	var currentPoint = firstSegmentInfo.1 ?? Point.zero()
+	var currentPoint = firstSegmentInfo.1 ?? Point.origin
 	var cubicBezierPoint: Point?
 
 	for segment in path.segments {

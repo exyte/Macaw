@@ -10,6 +10,8 @@ public final class Transform {
 	public let dx: Double
 	public let dy: Double
 
+	public static let identity: Transform = Transform(  )
+
 	public init(m11: Double = 1, m12: Double = 0, m21: Double = 0, m22: Double = 1, dx: Double = 0, dy: Double = 0) {
 		self.m11 = m11
 		self.m12 = m12

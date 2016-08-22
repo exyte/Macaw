@@ -33,7 +33,7 @@ public class Text: Node {
 		set(val) { baselineVar.value = val }
 	}
 
-	public init(text: String, font: Font? = nil, fill: Fill = Color.black, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform(), opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(text: String, font: Font? = nil, fill: Fill = Color.black, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.textVar = Variable<String>(text)
 		self.fontVar = Variable<Font?>(font)
 		self.fillVar = Variable<Fill>(fill)

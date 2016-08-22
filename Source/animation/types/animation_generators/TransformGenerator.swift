@@ -9,7 +9,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 		return
 	}
 
-	var offset = Point.zero()
+	var offset = Point.origin
 	if let shapeBounds = node.bounds() {
 		offset = Point(x: shapeBounds.x, y: shapeBounds.y)
 	}

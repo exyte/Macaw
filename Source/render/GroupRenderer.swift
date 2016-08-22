@@ -61,13 +61,15 @@ class GroupRenderer: NodeRenderer {
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 
 		contentRenderers.forEach { renderer in
-			CGContextSaveGState(ctx.cgContext)
-			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
-			let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(renderer.node.pos.invert()))
-			setClip(renderer.node)
-			let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
-			touchedShapes.appendContentsOf(renderer.detectTouches(offsetLocation))
-			CGContextRestoreGState(ctx.cgContext)
+            if let inverted = renderer.node.pos.invert() {
+                CGContextSaveGState(ctx.cgContext)
+                CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
+                let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
+                setClip(renderer.node)
+                let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
+                touchedShapes.appendContentsOf(renderer.detectTouches(offsetLocation))
+                CGContextRestoreGState(ctx.cgContext)
+            }
 		}
 
 		return touchedShapes

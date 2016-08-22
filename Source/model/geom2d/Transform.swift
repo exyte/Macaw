@@ -67,10 +67,10 @@ public final class Transform {
 	}
 
 	// GENERATED NOT
-	public func invert() -> Transform {
+	public func invert() -> Transform? {
         let det = self.m11 * self.m22 - self.m12 * self.m21
         if (det == 0) {
-            return Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
+            return nil
         }
         return Transform(m11: m22 / det, m12: -m12 / det, m21: -m21 / det, m22: m11 / det,
                          dx: (m21 * dy - m22 * dx) / det,

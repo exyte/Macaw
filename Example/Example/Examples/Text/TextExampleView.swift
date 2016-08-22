@@ -18,7 +18,6 @@ class TextExampleView: MacawView {
 
 		let text = Text(
 			text: "Toy top",
-			font: Font(),
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.top,
@@ -27,7 +26,6 @@ class TextExampleView: MacawView {
 
 		let text2 = Text(
 			text: "Toy alphabetic",
-			font: Font(),
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.alphabetic,
@@ -36,7 +34,6 @@ class TextExampleView: MacawView {
 
 		let text3 = Text(
 			text: "Toy bottom",
-			font: Font(),
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.bottom,
@@ -45,7 +42,6 @@ class TextExampleView: MacawView {
 
 		let text4 = Text(
 			text: "Toy middle",
-			font: Font(),
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.mid,
@@ -65,7 +61,6 @@ class TextExampleView: MacawView {
 
 		let text5 = Text(
 			text: "text",
-			font: Font(),
 			fill: Color.fuchsia,
 			align: Align.min,
 			baseline: Baseline.top,
@@ -74,7 +69,6 @@ class TextExampleView: MacawView {
 
 		let text6 = Text(
 			text: "text",
-			font: Font(),
 			fill: Color.blue,
 			align: Align.mid,
 			baseline: Baseline.top,
@@ -83,7 +77,6 @@ class TextExampleView: MacawView {
 
 		let text7 = Text(
 			text: "text",
-			font: Font(),
 			fill: Color.aqua,
 			align: Align.max,
 			baseline: Baseline.top,

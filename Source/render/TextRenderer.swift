@@ -26,12 +26,16 @@ class TextRenderer: NodeRenderer {
 		}
 
 		let message = text.text
-		var font: UIFont
-		if let customFont = UIFont(name: text.font.name, size: CGFloat(text.font.size)) {
-			font = customFont
-		} else {
-			font = UIFont.systemFontOfSize(CGFloat(text.font.size))
-		}
+        var font: UIFont
+        if let textFont = text.font {
+            if let customFont = UIFont(name: textFont.name, size: CGFloat(textFont.size)) {
+                font = customFont
+            } else {
+                font = UIFont.systemFontOfSize(CGFloat(textFont.size))
+            }
+        } else {
+            font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+        }
 		// positive NSBaselineOffsetAttributeName values don't work, couldn't find why
 		// for now move the rect itself
 

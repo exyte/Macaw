@@ -9,8 +9,8 @@ public class Text: Node {
 		set(val) { textVar.value = val }
 	}
 
-	public let fontVar: Variable<Font>
-	public var font: Font {
+	public let fontVar: Variable<Font?>
+	public var font: Font? {
 		get { return fontVar.value }
 		set(val) { fontVar.value = val }
 	}
@@ -33,9 +33,9 @@ public class Text: Node {
 		set(val) { baselineVar.value = val }
 	}
 
-	public init(text: String, font: Font, fill: Fill, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform(), opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(text: String, font: Font? = nil, fill: Fill = Color.black, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform(), opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
 		self.textVar = Variable<String>(text)
-		self.fontVar = Variable<Font>(font)
+		self.fontVar = Variable<Font?>(font)
 		self.fillVar = Variable<Fill>(fill)
 		self.alignVar = Variable<Align>(align)
 		self.baselineVar = Variable<Baseline>(baseline)

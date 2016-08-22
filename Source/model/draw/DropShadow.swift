@@ -8,7 +8,7 @@ public class DropShadow: Effect {
 	public let color: Color
 	public let input: Effect?
 
-	public init(radius: Double = 0, offset: Point, color: Color = .black, input: Effect? = nil) {
+	public init(radius: Double = 0, offset: Point, color: Color = Color.black, input: Effect? = nil) {
 		self.radius = radius
 		self.offset = offset
 		self.color = color

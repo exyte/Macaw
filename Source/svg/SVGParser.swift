@@ -420,13 +420,10 @@ public class SVGParser {
         guard let element = text.element, string = element.text else {
             return .None
         }
+        // TODO: handle italic/bold/underline/strike attributes
         let font = Font(
             name: fontName ?? "Serif",
-            size: fontSize ?? 12,
-            bold: bold ?? false,
-            italic: italic ?? false,
-            underline: underline ?? false,
-            strike: strike ?? false)
+            size: fontSize ?? 12)
         let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
         return Text(text: string, font: font, fill: fill ?? Color.black, pos: position)
     }

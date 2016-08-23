@@ -33,7 +33,7 @@ public class Text: Node {
 		set(val) { baselineVar.value = val }
 	}
 
-	public init(text: String, font: Font? = nil, fill: Fill = Color.black, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(text: String, font: Font? = nil, fill: Fill = Color.black, align: Align = .min, baseline: Baseline = .top, pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.textVar = Variable<String>(text)
 		self.fontVar = Variable<Font?>(font)
 		self.fillVar = Variable<Fill>(fill)
@@ -46,13 +46,12 @@ public class Text: Node {
 			clip: clip,
 			effect: effect,
 			visible: visible,
-			tag: tag,
-			bounds: bounds
+			tag: tag
 		)
 	}
 
 	// GENERATED NOT
-	override public func bounds() -> Rect? {
+	override internal func bounds() -> Rect? {
 		// TODO: need proper implementation
 		return Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0)
 	}

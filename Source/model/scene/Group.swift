@@ -5,7 +5,7 @@ public class Group: Node {
 
 	public var contents: ObservableArray<Node>
 
-	public init(contents: [Node] = [], pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(contents: [Node] = [], pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.contents = ObservableArray<Node>(array: contents)
 		super.init(
 			pos: pos,
@@ -14,13 +14,12 @@ public class Group: Node {
 			clip: clip,
 			effect: effect,
 			visible: visible,
-			tag: tag,
-			bounds: bounds
+			tag: tag
 		)
 	}
 
 	// GENERATED NOT
-	override public func bounds() -> Rect? {
+	override internal func bounds() -> Rect? {
 
 		guard let firstPos = contents.first?.pos else {
 			return .None

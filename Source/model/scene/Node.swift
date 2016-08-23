@@ -33,7 +33,7 @@ public class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
-	public init(pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
+	public init(pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.posVar = Variable<Transform>(pos)
 		self.opaqueVar = Variable<Bool>(opaque)
 		self.opacityVar = Variable<Double>(opacity)
@@ -41,13 +41,12 @@ public class Node: Drawable {
 		self.effectVar = Variable<Effect?>(effect)
 		super.init(
 			visible: visible,
-			tag: tag,
-			bounds: bounds
+			tag: tag
 		)
 	}
 
 	// GENERATED NOT
-	public func bounds() -> Rect? {
+	internal func bounds() -> Rect? {
 		return Rect()
 	}
 

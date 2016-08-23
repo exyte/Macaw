@@ -26,7 +26,7 @@ class GroupRenderer: NodeRenderer {
 			ctx.view?.setNeedsDisplay()
 		}
 
-		group.contentsVar.rx_elements().subscribeNext { new in
+		group.contents.rx_elements().subscribeNext { new in
 			onGroupChange(new)
 		}.addDisposableTo(disposeBag)
 	}
@@ -41,7 +41,7 @@ class GroupRenderer: NodeRenderer {
 			}
 		}
 
-		let staticContents = group.contentsVar.filter { !animationCache.isAnimating($0) }
+		let staticContents = group.contents.filter { !animationCache.isAnimating($0) }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 
@@ -56,7 +56,7 @@ class GroupRenderer: NodeRenderer {
 
 	func detectTouches(location: CGPoint) -> [Shape] {
 		var touchedShapes = [Shape]()
-		let staticContents = group.contentsVar.filter { !animationCache.isAnimating($0) }
+		let staticContents = group.contents.filter { !animationCache.isAnimating($0) }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 

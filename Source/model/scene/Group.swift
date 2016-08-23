@@ -3,10 +3,10 @@ import RxSwift
 
 public class Group: Node {
 
-	public var contentsVar: ObservableArray<Node>
+	public var contents: ObservableArray<Node>
 
 	public init(contents: [Node] = [], pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = [], bounds: Rect? = nil) {
-		self.contentsVar = ObservableArray<Node>(array: contents)
+		self.contents = ObservableArray<Node>(array: contents)
 		super.init(
 			pos: pos,
 			opaque: opaque,
@@ -22,16 +22,16 @@ public class Group: Node {
 	// GENERATED NOT
 	override public func bounds() -> Rect? {
 
-		guard let firstPos = contentsVar.first?.pos else {
+		guard let firstPos = contents.first?.pos else {
 			return .None
 		}
 
-		guard var union = contentsVar.first?.bounds()?.applyTransform(firstPos) else {
+		guard var union = contents.first?.bounds()?.applyTransform(firstPos) else {
 
 			return .None
 		}
 
-		contentsVar.forEach { node in
+		contents.forEach { node in
 			guard let nodeBounds = node.bounds() else {
 				return
 			}

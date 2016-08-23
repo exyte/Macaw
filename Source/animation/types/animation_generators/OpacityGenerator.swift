@@ -24,6 +24,12 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCa
 		node.opacityVar.value = opacityAnimation.vFunc(1.0)
 
 		animation.completion?()
+
+		if !finished {
+			animationRestorer.addRestoreClosure(completion)
+			return
+		}
+
 		completion()
 	}
 

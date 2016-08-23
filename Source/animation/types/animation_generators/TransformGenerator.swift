@@ -34,6 +34,12 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 
 		animationCache.freeLayer(node)
 		animation.completion?()
+
+		if !finished {
+			animationRestorer.addRestoreClosure(completion)
+			return
+		}
+
 		completion()
 	}
 

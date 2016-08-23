@@ -52,7 +52,16 @@ class AnimationProducer {
 		// Completion
 		if let completion = sequence.completion {
 			let completionAnimation = EmptyAnimation(completion: completion)
+
+			if let next = sequence.next {
+				completionAnimation.next = next
+			}
+
 			sequence.animations.last?.next = completionAnimation
+		} else {
+			if let next = sequence.next {
+				sequence.animations.last?.next = next
+			}
 		}
 
 		// Launching

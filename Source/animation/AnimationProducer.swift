@@ -67,22 +67,33 @@ class AnimationProducer {
 			return
 		}
 
-		// Attaching completion empty animation
-		if let next = combine.next {
-			// Looking for longest animation
-			var longestAnimation: Animatable?
-			combine.animations.forEach { animation in
-				guard let longest = longestAnimation else {
-					longestAnimation = animation
-					return
-				}
-
-				if longest.getDuration() < animation.getDuration() {
-					longestAnimation = animation
-				}
+		// Looking for longest animation
+		var longestAnimation: Animatable?
+		combine.animations.forEach { animation in
+			guard let longest = longestAnimation else {
+				longestAnimation = animation
+				return
 			}
 
-			longestAnimation?.next = next
+			if longest.getDuration() < animation.getDuration() {
+				longestAnimation = animation
+			}
+		}
+
+		// Attaching completion empty animation and potential next animation
+		if let completion = combine.completion {
+			let completionAnimation = EmptyAnimation(completion: completion)
+			if let next = combine.next {
+				completionAnimation.next = next
+			}
+
+			longestAnimation?.next = completionAnimation
+
+		} else {
+			if let next = combine.next {
+				longestAnimation?.next = next
+			}
+
 		}
 
 		combine.removeFunc = {

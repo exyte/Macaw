@@ -19,6 +19,8 @@ class AnimationRestorer {
 			self.restoreClosures.forEach { restoreClosure in
 				restoreClosure()
 			}
+
+			self.restoreClosures.removeAll()
 		}
 	}
 }

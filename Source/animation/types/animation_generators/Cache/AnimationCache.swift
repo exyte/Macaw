@@ -6,17 +6,19 @@ class AnimationCache {
 
 	class CachedLayer {
 		let layer: ShapeLayer
+		let animation: Animatable
 		var linksCounter = 1
 
-		required init(layer: ShapeLayer) {
+		required init(layer: ShapeLayer, animation: Animatable) {
 			self.layer = layer
+			self.animation = animation
 		}
 	}
 
 	var sceneLayer: CALayer?
 	var layerCache = [Node: CachedLayer]()
 
-	func layerForNode(node: Node) -> ShapeLayer {
+	func layerForNode(node: Node, animation: Animatable) -> ShapeLayer {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
 			layer.animationCache = self
@@ -48,7 +50,7 @@ class AnimationCache {
 			layer.setNeedsDisplay()
 			sceneLayer?.addSublayer(layer)
 
-			layerCache[node] = CachedLayer(layer: layer)
+			layerCache[node] = CachedLayer(layer: layer, animation: animation)
 			sceneLayer?.setNeedsDisplay()
 
 			return layer
@@ -83,5 +85,10 @@ class AnimationCache {
 		}
 
 		return false
+	}
+
+	func animations() -> [Animatable] {
+
+		return layerCache.map ({ $0.1.animation })
 	}
 }

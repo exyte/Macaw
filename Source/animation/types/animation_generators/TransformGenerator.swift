@@ -1,6 +1,6 @@
 import UIKit
 
-func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animationCache: AnimationCache) {
+func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
 	guard let transformAnimation = animation as? TransformAnimation else {
 		return
 	}
@@ -29,8 +29,12 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 
 	generatedAnim.completion = { finished in
 
+		animation.progress = 1.0
+		node.posVar.value = transformAnimation.vFunc(1.0)
+
 		animationCache.freeLayer(node)
 		animation.completion?()
+		completion()
 	}
 
 	generatedAnim.progress = { progress in
@@ -43,7 +47,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 
 	}
 
-	let layer = animationCache.layerForNode(node)
+	let layer = animationCache.layerForNode(node, animation: animation)
 
 	layer.addAnimation(generatedAnim, forKey: animation.ID)
 	animation.removeFunc = {

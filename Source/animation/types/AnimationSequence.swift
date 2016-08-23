@@ -4,7 +4,6 @@ import Foundation
 public class AnimationSequence: Animatable {
 
 	let animations: [Animatable]
-	var completionTimer: ClosureTimer?
 
 	required public init(animations: [Animatable]) {
 		self.animations = animations
@@ -12,10 +11,6 @@ public class AnimationSequence: Animatable {
 		super.init()
 
 		type = .Sequence
-
-		completionTimer = ClosureTimer(time: getDuration()) {
-			self.completion?()
-		}
 	}
 
 	override func getDuration() -> Double {

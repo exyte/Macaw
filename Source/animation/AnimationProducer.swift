@@ -9,6 +9,7 @@ class AnimationProducer {
 		self.sceneLayer = layer
 		self.animationCache = animationCache
 		animationCache.sceneLayer = layer
+
 	}
 
 	public func addAnimation(animation: Animatable) {
@@ -17,48 +18,71 @@ class AnimationProducer {
 		case .Unknown:
 			return
 		case .AffineTransformation:
-			addTransformAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache)
+			addTransformAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache, completion: {
+				if let next = animation.next {
+					self.addAnimation(next)
+				}
+			})
 
 		case .Opacity:
-			addOpacityAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache)
+			addOpacityAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache, completion: {
+				if let next = animation.next {
+					self.addAnimation(next)
+				}
+			})
 		case .Sequence:
 			addAnimationSequence(animation)
 		case .Combine:
 			addCombineAnimation(animation)
+		case .Empty:
+			executeCompletion(animation)
 		}
 	}
-
 	private func addAnimationSequence(animationSequnce: Animatable) {
-
 		guard let sequence = animationSequnce as? AnimationSequence else {
 			return
 		}
 
-		var timers = [ClosureTimer]()
-		sequence.removeFunc = {
-			timers.forEach { timer in
-				timer.cancel()
-			}
+		// Connecting animations
+		for i in 0..<(sequence.animations.count - 1) {
+			let animation = sequence.animations[i]
+			animation.next = sequence.animations[i + 1]
 		}
 
-		var timeOffset: NSTimeInterval = 0.0
-
-		sequence.animations.forEach { animation in
-
-			let timer = ClosureTimer(time: timeOffset, closure: {
-				self.addAnimation(animation)
-			})
-
-			timer.start()
-			timeOffset += animation.getDuration()
+		// Completion
+		if let completion = sequence.completion {
+			let completionAnimation = EmptyAnimation(completion: completion)
+			sequence.animations.last?.next = completionAnimation
 		}
-		sequence.completionTimer?.start()
 
+		// Launching
+		if let firstAnimation = sequence.animations.first {
+
+			self.addAnimation(firstAnimation)
+		}
 	}
 
 	private func addCombineAnimation(combineAnimation: Animatable) {
 		guard let combine = combineAnimation as? CombineAnimation else {
 			return
+		}
+
+		// Attaching completion empty animation
+		if let next = combine.next {
+			// Looking for longest animation
+			var longestAnimation: Animatable?
+			combine.animations.forEach { animation in
+				guard let longest = longestAnimation else {
+					longestAnimation = animation
+					return
+				}
+
+				if longest.getDuration() < animation.getDuration() {
+					longestAnimation = animation
+				}
+			}
+
+			longestAnimation?.next = next
 		}
 
 		combine.removeFunc = {
@@ -67,10 +91,13 @@ class AnimationProducer {
 			}
 		}
 
+		// Launching
 		combine.animations.forEach { animation in
 			self.addAnimation(animation)
 		}
+	}
 
-		combine.completionTimer?.start()
+	private func executeCompletion(emptyAnimation: Animatable) {
+		emptyAnimation.completion?()
 	}
 }

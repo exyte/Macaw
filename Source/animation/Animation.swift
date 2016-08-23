@@ -7,6 +7,7 @@ enum AnimationType {
 	case Opacity
 	case Sequence
 	case Combine
+	case Empty
 }
 
 public enum TimingFunction {
@@ -22,6 +23,7 @@ public class Animatable {
 	var node: Node?
 	var type = AnimationType.Unknown
 	let ID: String
+	var next: Animatable?
 
 	// Options
 
@@ -80,5 +82,15 @@ public class Animation<T: Interpolable>: Animatable {
 
 	public override func getDuration() -> Double {
 		return duration
+	}
+}
+
+// For sequence completion
+class EmptyAnimation: Animatable {
+	required init(completion: (() -> ())) {
+		super.init()
+
+		self.completion = completion
+		self.type = .Empty
 	}
 }

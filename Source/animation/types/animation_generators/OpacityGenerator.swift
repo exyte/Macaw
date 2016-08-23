@@ -1,7 +1,7 @@
 
 import UIKit
 
-func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCache: AnimationCache) {
+func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {
 		return
 	}
@@ -19,7 +19,12 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCa
 	generatedAnimation.completion = { finished in
 
 		animationCache.freeLayer(node)
+
+		animation.progress = 1.0
+		node.opacityVar.value = opacityAnimation.vFunc(1.0)
+
 		animation.completion?()
+		completion()
 	}
 
 	generatedAnimation.progress = { progress in
@@ -31,7 +36,7 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCa
 		animation.onProgressUpdate?(t)
 	}
 
-	let layer = animationCache.layerForNode(node)
+	let layer = animationCache.layerForNode(node, animation: animation)
 	layer.addAnimation(generatedAnimation, forKey: animation.ID)
 	animation.removeFunc = {
 		layer.removeAnimationForKey(animation.ID)

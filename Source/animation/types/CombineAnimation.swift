@@ -18,6 +18,7 @@ public class CombineAnimation: Animatable {
 		super.init()
 
 		type = .Combine
+		self.node = animations.first?.node
 
 	}
 

@@ -11,6 +11,7 @@ public class AnimationSequence: Animatable {
 		super.init()
 
 		type = .Sequence
+		self.node = animations.first?.node
 	}
 
 	override func getDuration() -> Double {

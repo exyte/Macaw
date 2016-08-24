@@ -42,6 +42,10 @@ public class Animatable {
 		ID = NSUUID().UUIDString
 	}
 
+	public func start() {
+		animationProducer.addAnimation(self)
+	}
+
 	public func stop() {
 		removeFunc?()
 	}
@@ -59,13 +63,17 @@ public class Animation<T: Interpolable>: Animatable {
 	let duration: Double
 	let logicalFps: UInt
 
-	public init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, fps: UInt = 30) {
+	public init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
 		value = observableValue
 		duration = animationDuration
 		vFunc = valueFunc
 		logicalFps = fps
 
 		super.init()
+
+		if autostart {
+			start()
+		}
 	}
 
 	public convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {

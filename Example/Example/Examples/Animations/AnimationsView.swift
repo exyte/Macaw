@@ -17,9 +17,7 @@ class AnimationsView: MacawView {
 
 	func startAnimation() {
 
-		animations.forEach { animation in
-			super.addAnimation(animation)
-		}
+		animations.combine().start()
 	}
 
 	func prepareAnimation() {

@@ -174,8 +174,8 @@ class PathExampleView: MacawView {
 	}
 
 	func testAnimation() {
-		animation.forEach { anim in
-			super.addAnimation(anim, autoPlay: false)
-		}
+//		animation.forEach { anim in
+//			super.addAnimation(anim, autoPlay: false)
+//		}
 	}
 }

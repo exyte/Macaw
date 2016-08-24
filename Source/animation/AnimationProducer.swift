@@ -1,31 +1,34 @@
 import Swift_CAAnimation_Closure
 
+let animationProducer = AnimationProducer()
 class AnimationProducer {
 
-	let sceneLayer: CALayer
-	let animationCache: AnimationCache
-
-	required init(layer: CALayer, animationCache: AnimationCache) {
-		self.sceneLayer = layer
-		self.animationCache = animationCache
-		animationCache.sceneLayer = layer
-
-	}
-
 	public func addAnimation(animation: Animatable) {
+
+		guard let node = animation.node else {
+			return
+		}
+
+		guard let macawView = nodesMap.getView(node) else {
+			return
+		}
+
+		guard let cache = macawView.animationCache else {
+			return
+		}
 
 		switch animation.type {
 		case .Unknown:
 			return
 		case .AffineTransformation:
-			addTransformAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache, completion: {
+			addTransformAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
 				if let next = animation.next {
 					self.addAnimation(next)
 				}
 			})
 
 		case .Opacity:
-			addOpacityAnimation(animation, sceneLayer: sceneLayer, animationCache: animationCache, completion: {
+			addOpacityAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
 				if let next = animation.next {
 					self.addAnimation(next)
 				}

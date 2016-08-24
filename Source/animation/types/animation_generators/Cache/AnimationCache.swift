@@ -15,8 +15,12 @@ class AnimationCache {
 		}
 	}
 
-	var sceneLayer: CALayer?
+	let sceneLayer: CALayer
 	var layerCache = [Node: CachedLayer]()
+
+	required init(sceneLayer: CALayer) {
+		self.sceneLayer = sceneLayer
+	}
 
 	func layerForNode(node: Node, animation: Animatable) -> ShapeLayer {
 		guard let cachedLayer = layerCache[node] else {
@@ -48,10 +52,10 @@ class AnimationCache {
 			layer.opacity = Float(node.opacity)
 			layer.node = node
 			layer.setNeedsDisplay()
-			sceneLayer?.addSublayer(layer)
+			sceneLayer.addSublayer(layer)
 
 			layerCache[node] = CachedLayer(layer: layer, animation: animation)
-			sceneLayer?.setNeedsDisplay()
+			sceneLayer.setNeedsDisplay()
 
 			return layer
 		}
@@ -74,7 +78,7 @@ class AnimationCache {
 
 		let layer = cachedLayer.layer
 		layerCache.removeValueForKey(node)
-		sceneLayer?.setNeedsDisplay()
+		sceneLayer.setNeedsDisplay()
 		layer.removeFromSuperlayer()
 	}
 

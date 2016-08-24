@@ -19,9 +19,6 @@ func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCa
 	generatedAnimation.completion = { finished in
 
 		animationCache.freeLayer(node)
-		if !animationCache.isAnimating(node) {
-			nodesMap.remove(node)
-		}
 
 		animation.progress = 1.0
 		node.opacityVar.value = opacityAnimation.vFunc(1.0)

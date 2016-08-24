@@ -75,7 +75,7 @@ class AnimationsView: MacawView {
 			velocities.append(velocity)
 			positions.append(Point(x: 0.0, y: 0.0))
 
-			let animation = TransformAnimation(animatedNode: ballGroup, observableValue: ballGroup.posVar, valueFunc: { t -> Transform in
+			let animation = TransformAnimation(animatedNode: ballGroup, valueFunc: { t -> Transform in
 
 				let pos = posForTime(t, index: i)
 				positions[i] = pos
@@ -87,7 +87,7 @@ class AnimationsView: MacawView {
 
 			// animation.autoreverses = true
 
-			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, observableValue: ballGroup.opacityVar, startValue: 0.1, finalValue: 1.0, animationDuration: 3.0)
+			let opacityAnimation = OpacityAnimation(animatedNode: ballGroup, startValue: 0.1, finalValue: 1.0, animationDuration: 3.0)
 
 			animations.append([animation, opacityAnimation].combine())
 		}

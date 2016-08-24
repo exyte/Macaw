@@ -5,6 +5,11 @@ class AnimationProducer {
 
 	public func addAnimation(animation: Animatable) {
 
+		if animation.type == .Empty {
+			executeCompletion(animation)
+			return
+		}
+
 		guard let node = animation.node else {
 			return
 		}

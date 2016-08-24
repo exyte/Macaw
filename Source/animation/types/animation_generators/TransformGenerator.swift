@@ -80,23 +80,28 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 	var rotationValues = [CGFloat]()
 	var timeValues = [Double]()
 
-	let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
-
 	let step = 1.0 / (duration * Double(fps))
 	for t in 0.0.stride(to: 1.0, by: step) {
 
 		let value = valueFunc(t)
-		let cgTransform = transfomToCG(value)
-		let transformedRect = CGRectApplyAffineTransform(rect, cgTransform)
+
+		let dx = value.dx
+		let dy = value.dy
+		let a = value.m11
+		let b = value.m12
+		let c = value.m21
+		let d = value.m22
+
+		let sx = a / fabs(a) * sqrt(a * a + b * b)
+		let sy = d / fabs(d) * sqrt(c * c + d * d)
+		let angle = atan2(-1.0 * b, a)
 
 		timeValues.append(t)
-		xValues.append(transformedRect.origin.x + CGFloat(offset.x))
-		yValues.append(transformedRect.origin.y + CGFloat(offset.y))
-		scaleXValues.append(transformedRect.width)
-		scaleYValues.append(transformedRect.height)
-
-		let angle = atan2(cgTransform.b, cgTransform.a)
-		rotationValues.append(fixedAngle(angle))
+		xValues.append(CGFloat(dx + offset.x))
+		yValues.append(CGFloat(dy + offset.y))
+		scaleXValues.append(CGFloat(sx))
+		scaleYValues.append(CGFloat(sy))
+		rotationValues.append(CGFloat(angle))
 	}
 
 	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")

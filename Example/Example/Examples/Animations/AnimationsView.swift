@@ -38,16 +38,15 @@ class AnimationsView: MacawView {
 			var velocity = velocities[index]
 
 			var pos = prevPos.add(velocity)
-			let scenePos = pos.add(Point(x: startPos.dx, y: startPos.dy))
 
 			// Borders
-			if scenePos.x < 0.0 || scenePos.x > Double(self.bounds.width) {
+			if pos.x < 0.0 || pos.x > Double(self.bounds.width) {
 				velocity = Point(x: -1.0 * velocity.x, y: velocity.y)
 				velocities[index] = velocity
 				pos = prevPos.add(velocity)
 			}
 
-			if scenePos.y < 0.0 || scenePos.y > Double(self.bounds.height) {
+			if pos.y < 0.0 || pos.y > Double(self.bounds.height) {
 				velocity = Point(x: velocity.x, y: -1.0 * velocity.y)
 				velocities[index] = velocity
 				pos = prevPos.add(velocity)
@@ -73,14 +72,14 @@ class AnimationsView: MacawView {
 				x: -0.5 * speed + speed * Double(rand() % 1000) / 1000.0,
 				y: -0.5 * speed + speed * Double(rand() % 1000) / 1000.0)
 			velocities.append(velocity)
-			positions.append(Point(x: 0.0, y: 0.0))
+			positions.append(Point(x: startPos.dx, y: startPos.dy))
 
 			let animation = TransformAnimation(animatedNode: ballGroup, valueFunc: { t -> Transform in
 
 				let pos = posForTime(t, index: i)
 				positions[i] = pos
 
-				return startPos.move(
+				return Transform().move(
 					pos.x,
 					my: pos.y)
 				}, animationDuration: 3.0)

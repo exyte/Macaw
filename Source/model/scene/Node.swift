@@ -43,6 +43,8 @@ public class Node: Drawable {
 			visible: visible,
 			tag: tag
 		)
+		self.posVar.node = self
+		self.opacityVar.node = self
 	}
 
 	// GENERATED NOT

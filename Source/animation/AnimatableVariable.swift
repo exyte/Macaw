@@ -10,6 +10,8 @@ import RxSwift
 
 public class AnimatableVariable<T: Interpolable> : Variable<T> {
 
+    internal var node: Node?
+
     public override init(_ value: T) {
         super.init(value)
     }

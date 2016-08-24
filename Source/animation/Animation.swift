@@ -102,3 +102,19 @@ class EmptyAnimation: Animatable {
 		self.type = .Empty
 	}
 }
+
+// MARK: - Animation Description
+
+public class AnimationDescription <T> {
+	public let valueFunc: (Double) -> T
+	public var duration = 0.0
+	public init(valueFunc: (Double) -> T, duration: Double = 1.0) {
+		self.valueFunc = valueFunc
+		self.duration = duration
+	}
+
+	public func t(duration: Double) -> AnimationDescription<T> {
+		return AnimationDescription(valueFunc: valueFunc, duration: duration)
+	}
+}
+

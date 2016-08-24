@@ -33,6 +33,10 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 		node.posVar.value = transformAnimation.vFunc(1.0)
 
 		animationCache.freeLayer(node)
+		if !animationCache.isAnimating(node) {
+			nodesMap.remove(node)
+		}
+
 		animation.completion?()
 
 		if !finished {

@@ -308,6 +308,9 @@ public class SVGParser {
     private func getStroke(styleParts: [String: String]) -> Stroke? {
         var color: Color?
         if let strokeColor = styleParts["stroke"] {
+            if strokeColor == "none" {
+                return .None
+            }
             var opacity: Double = 1
             if let fillOpacity = styleParts["fill-opacity"] {
                 opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
@@ -548,6 +551,7 @@ public class SVGParser {
     }
     
     private func getFont(attributes: [String: String] = [:], fontName: String?, fontSize: Int?, bold: Bool?, italic: Bool?, underline: Bool?, strike: Bool?) -> Font {
+        // font class is changed? where is bold/italic now?
         return Font(
             name: getFontName(attributes) ?? fontName ?? "Serif",
             size: getFontSize(attributes) ?? fontSize ?? 12)

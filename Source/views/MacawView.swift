@@ -9,6 +9,10 @@ public class MacawView: UIView {
 
 	/// Scene root node
 	public var node: Node = Group() {
+		willSet {
+			nodesMap.remove(node)
+		}
+
 		didSet {
 			nodesMap.add(node, view: self)
 
@@ -97,6 +101,10 @@ public class MacawView: UIView {
 			shape.onPinch.onNext(PinchEvent(scale: scale))
 		}
 		setNeedsDisplay()
+	}
+
+	deinit {
+		nodesMap.remove(node)
 	}
 
 }

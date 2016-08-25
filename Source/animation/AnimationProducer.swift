@@ -50,11 +50,31 @@ class AnimationProducer {
 		guard let sequence = animationSequnce as? AnimationSequence else {
 			return
 		}
+		// reversing
+		if sequence.autoreverses {
+			sequence.animations.forEach { animation in
+				animation.autoreverses = !animation.autoreverses
+			}
+		}
+
+		// Generating sequence
+		var sequenceAnimations = [Animatable]()
+		if sequence.repeatCount > 0.0001 {
+			for i in 0..<Int(sequence.repeatCount) {
+				sequenceAnimations.appendContentsOf(sequence.animations)
+			}
+		} else {
+			sequenceAnimations.appendContentsOf(sequence.animations)
+		}
+
+		if sequence.autoreverses {
+			sequenceAnimations = sequenceAnimations.reverse()
+		}
 
 		// Connecting animations
-		for i in 0..<(sequence.animations.count - 1) {
-			let animation = sequence.animations[i]
-			animation.next = sequence.animations[i + 1]
+		for i in 0..<(sequenceAnimations.count - 1) {
+			let animation = sequenceAnimations[i]
+			animation.next = sequenceAnimations[i + 1]
 		}
 
 		// Completion
@@ -65,22 +85,41 @@ class AnimationProducer {
 				completionAnimation.next = next
 			}
 
-			sequence.animations.last?.next = completionAnimation
+			sequenceAnimations.last?.next = completionAnimation
 		} else {
 			if let next = sequence.next {
-				sequence.animations.last?.next = next
+				sequenceAnimations.last?.next = next
 			}
 		}
 
 		// Launching
 		if let firstAnimation = sequence.animations.first {
-
 			self.addAnimation(firstAnimation)
 		}
 	}
 
 	private func addCombineAnimation(combineAnimation: Animatable) {
 		guard let combine = combineAnimation as? CombineAnimation else {
+			return
+		}
+
+		// Reversing
+		if combine.autoreverses {
+			combine.animations.forEach { animation in
+				animation.autoreverses = !animation.autoreverses
+			}
+		}
+
+		// repeat count
+		if combine.repeatCount > 0.00001 {
+			var sequence = [Animatable]()
+
+			for i in 0..<Int(combine.repeatCount) {
+				sequence.append(combine)
+			}
+
+			combine.repeatCount = 0.0
+			addAnimationSequence(sequence.sequence())
 			return
 		}
 

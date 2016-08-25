@@ -4,7 +4,7 @@ import RxSwift
 
 class AnimationsView: MacawView {
 
-	var animations = [Animatable]()
+	var animation = Animatable()
 	var ballNodes = [Group]()
 
 	let n = 100
@@ -16,14 +16,14 @@ class AnimationsView: MacawView {
 	}
 
 	func startAnimation() {
-
-		animations.combine().start()
+		animation.start()
 	}
 
 	func prepareAnimation() {
 
-		animations.removeAll()
 		ballNodes.removeAll()
+
+		var animations = [Animatable]()
 
 		let startPos = Transform.move(Double(self.center.x), my: Double(self.center.y))
 
@@ -87,13 +87,13 @@ class AnimationsView: MacawView {
 				ballGroup.opacityVar.animation((0.1 >> 1.0).t(3.0))].combine())
 		}
 
+		animation = animations.combine()
+
 		let node = Group(contents: ballNodes)
 		self.node = node
 	}
 
 	func stopAnimation() {
-		animations.forEach { animation in
-			animation.stop()
-		}
+		animation.stop()
 	}
 }

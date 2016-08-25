@@ -22,6 +22,12 @@ public class CombineAnimation: Animatable {
 
 		return 0.0
 	}
+
+	public override func stop() {
+		animations.forEach { animation in
+			animation.stop()
+		}
+	}
 }
 
 public extension SequenceType where Generator.Element: Animatable {

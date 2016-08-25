@@ -17,6 +17,12 @@ public class AnimationSequence: Animatable {
 	override func getDuration() -> Double {
 		return animations.map({ $0.getDuration() }).reduce(0, combine: { $0 + $1 })
 	}
+
+	public override func stop() {
+		animations.forEach { animation in
+			animation.stop()
+		}
+	}
 }
 
 public extension SequenceType where Generator.Element: Animatable {

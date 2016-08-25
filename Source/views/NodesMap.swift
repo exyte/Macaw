@@ -14,6 +14,7 @@ class NodesMap {
 		if let group = node as? Group {
 			group.contents.forEach { child in
 				self.add(child, view: view)
+				self.add(child, parent: node)
 			}
 		}
 	}

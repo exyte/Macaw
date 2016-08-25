@@ -1,10 +1,3 @@
-//
-//  CombineAnimation.swift
-//  Pods
-//
-//  Created by Victor Sukochev on 08/08/16.
-//
-//
 
 import Foundation
 

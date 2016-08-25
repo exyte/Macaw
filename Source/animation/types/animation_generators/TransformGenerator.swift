@@ -17,7 +17,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
-	generatedAnimation = transformAnimationByFunc(transformAnimation.vFunc, duration: animation.getDuration(), offset: offset, fps: transformAnimation.logicalFps)
+	generatedAnimation = transformAnimationByFunc(node, valueFunc: transformAnimation.vFunc, duration: animation.getDuration(), offset: offset, fps: transformAnimation.logicalFps)
 
 	guard let generatedAnim = generatedAnimation else {
 		return
@@ -71,7 +71,7 @@ func transfomToCG(transform: Transform) -> CGAffineTransform {
 		CGFloat(transform.dy))
 }
 
-func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double, offset: Point, fps: UInt) -> CAAnimation {
+func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, duration: Double, offset: Point, fps: UInt) -> CAAnimation {
 
 	var scaleXValues = [CGFloat]()
 	var scaleYValues = [CGFloat]()
@@ -83,7 +83,7 @@ func transformAnimationByFunc(valueFunc: (Double) -> Transform, duration: Double
 	let step = 1.0 / (duration * Double(fps))
 	for t in 0.0.stride(to: 1.0, by: step) {
 
-		let value = valueFunc(t)
+		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(t))
 
 		let dx = value.dx
 		let dy = value.dy

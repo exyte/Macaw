@@ -30,12 +30,20 @@ public extension AnimatableVariable {
 		let _ = OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
 	}
 
-	func animation(desc: OpacityAnimationDescription) -> Animatable {
+	public func animation(desc: OpacityAnimationDescription) -> Animatable {
 		guard let node = self.node else {
 			return EmptyAnimation(completion: { })
 		}
 
 		return OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+	}
+
+	public func animate(from: Double, to: Double, during: Double) {
+		self.animate((from >> to).t(during))
+	}
+
+	public func animation(from: Double, to: Double, during: Double) -> Animatable {
+		return self.animation((from >> to).t(during))
 	}
 
 }

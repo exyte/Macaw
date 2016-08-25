@@ -29,12 +29,20 @@ public extension AnimatableVariable {
 		let _ = TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
 	}
 
-	func animation(desc: TransformAnimationDescription) -> Animatable {
+	public func animation(desc: TransformAnimationDescription) -> Animatable {
 		guard let node = self.node else {
 			return EmptyAnimation(completion: { })
 		}
 
 		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+	}
+
+	public func animate(from: Transform, to: Transform, during: Double) {
+		self.animate((from >> to).t(during))
+	}
+
+	public func animation(from: Transform, to: Transform, during: Double) -> Animatable {
+		return self.animation((from >> to).t(during))
 	}
 
 }

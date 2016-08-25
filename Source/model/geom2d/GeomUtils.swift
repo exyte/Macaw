@@ -1,7 +1,5 @@
-
-import Foundation
-
 public class GeomUtils {
+
 	public class func concat(t1 t1: Transform, t2: Transform) -> Transform {
 		let nm11 = t2.m11 * t1.m11 + t2.m12 * t1.m21
 		let nm21 = t2.m21 * t1.m11 + t2.m22 * t1.m21
@@ -25,7 +23,6 @@ public class GeomUtils {
 		let moveAndRotate = GeomUtils.concat(t1: t1, t2: r)
 
 		return GeomUtils.concat(t1: moveAndRotate, t2: t2)
-
 	}
+    
 }
-

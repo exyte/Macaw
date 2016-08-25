@@ -39,7 +39,8 @@ public class SVGParser {
     private let initialPosition: Transform
 
     private var nodes = [Node]()
-    private var defs = [String : Node]()
+    private var defNodes = [String : Node]()
+    private var defFills = [String: Fill]()
 
     private enum PathCommandType {
         case MoveTo
@@ -97,7 +98,11 @@ public class SVGParser {
                 continue
             }
             if let node = parseNode(child) {
-                self.defs[id] = node
+                self.defNodes[id] = node
+                continue
+            }
+            if let fill = parseFill(child) {
+                self.defFills[id] = fill
             }
         }
     }
@@ -138,9 +143,7 @@ public class SVGParser {
             case "image":
                 return parseImage(node, opacity: getOpacity(styleAttributes), pos: position)
             case "text":
-                return parseText(node, fill: getFillColor(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes),
-                                 italic: getFontStyle(styleAttributes, style: "italic"), bold: getFontWeight(styleAttributes, style: "bold"),
-                                 underline: getTextDecoration(styleAttributes, decoration: "underline"), strike: getTextDecoration(styleAttributes, decoration: "line-through"), pos: position)
+                return parseText(node, fill: getFillColor(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), pos: position)
             case "use":
                 return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
             default:
@@ -149,6 +152,20 @@ public class SVGParser {
             }
         }
         return .None
+    }
+    
+    private func parseFill(fill: XMLIndexer) -> Fill? {
+        guard let element = fill.element else {
+            return .None
+        }
+        switch element.name {
+            case "linearGradient":
+                return parseLinearGradient(fill)
+            case "radialGradient":
+                return parseRadialGradient(fill)
+            default:
+                return .None
+        }
     }
 
     private func parseGroup(group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
@@ -229,7 +246,7 @@ public class SVGParser {
                     dx = Double(values[4]), dy = Double(values[5]) {
                     
                     let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = concat(transform, t2: transformMatrix)
+                    finalTransform = GeomUtils.concat(transform, t2: transformMatrix)
                 }
             default: break
             }
@@ -293,16 +310,24 @@ public class SVGParser {
         return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 
-    private func getFillColor(styleParts: [String: String]) -> Color? {
-        var color: Color?
-        if let fillColor = styleParts["fill"] {
-            var opacity: Double = 1
-            if let fillOpacity = styleParts["fill-opacity"] {
-                opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
-            }
-            color = createColor(fillColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+    private func getFillColor(styleParts: [String: String]) -> Fill? {
+        guard let fillColor = styleParts["fill"] else {
+            return .None
         }
-        return color
+        var opacity: Double = 1
+        if let fillOpacity = styleParts["fill-opacity"] {
+            opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+        }
+        if fillColor.hasPrefix("url") {
+            let index = fillColor.startIndex.advancedBy(4)
+            let id = fillColor.substringFromIndex(index)
+                .stringByReplacingOccurrencesOfString("(", withString: "")
+                .stringByReplacingOccurrencesOfString(")", withString: "")
+                .stringByReplacingOccurrencesOfString("#", withString: "")
+            return defFills[id]
+        } else {
+            return createColor(fillColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+        }
     }
 
     private func getStroke(styleParts: [String: String]) -> Stroke? {
@@ -447,7 +472,7 @@ public class SVGParser {
     
     
     private func parseText(text: XMLIndexer, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?,
-                           italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, pos: Transform = Transform()) -> Node? {
+                           pos: Transform = Transform()) -> Node? {
         guard let element = text.element else {
             return .None
         }
@@ -458,7 +483,7 @@ public class SVGParser {
 //        let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
 //        return Text(text: string, font: font, fill: fill ?? Color.black, place: position)
         if text.children.isEmpty {
-            return parseSimpleText(element, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, italic: italic, bold: bold, underline: underline, strike: strike)
+            return parseSimpleText(element, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize)
         } else {
             guard let matcher = SVGParserRegexHelper.getTextElementMatcher() else {
                 return .None
@@ -468,24 +493,24 @@ public class SVGParser {
             if let match = matcher.firstMatchInString(elementString, options: .ReportCompletion, range: fullRange) {
                 let tspans = (elementString as NSString).substringWithRange(match.rangeAtIndex(1))
                 return Group(contents: collectTspans(tspans, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize,
-                    italic: italic, bold: bold, underline: underline, strike: strike, bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)), pos: pos)
+                    bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
+                    pos: pos)
             }
         }
         return .None
     }
     
-    private func parseSimpleText(text: XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, pos: Transform = Transform()) -> Text? {
+    private func parseSimpleText(text: XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, pos: Transform = Transform()) -> Text? {
         guard let string = text.text else {
             return .None
         }
         let position = pos.move(dx: getDoubleValue(text, attribute: "x") ?? 0, dy: getDoubleValue(text, attribute: "y") ?? 0)
-        return Text(text: string, font: getFont(fontName: fontName, fontSize: fontSize, bold: bold, italic: italic, underline: underline, strike: strike), fill: fill ?? Color.black, opacity: opacity, pos: position)
+        return Text(text: string, font: getFont(fontName: fontName, fontSize: fontSize), fill: fill ?? Color.black, opacity: opacity, place: position)
     }
     
     //REFACTOR
     
-    private func collectTspans(tspan: String, collectedTspans: [Node] = [], withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?,
-                               italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, bounds: Rect) -> [Node] {
+    private func collectTspans(tspan: String, collectedTspans: [Node] = [], withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, bounds: Rect) -> [Node] {
         let fullString = tspan.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) as NSString
         //exit recursion
         if fullString.isEqualToString("") {
@@ -499,12 +524,11 @@ public class SVGParser {
             let tspanString = fullString.substringToIndex(closingTagRange.location + closingTagRange.length)
             let tspanXml = SWXMLHash.parse(tspanString)
             guard let indexer = tspanXml.children.first,
-                text = parseTspan(indexer, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize,
-                                  italic: italic, bold: bold, underline: underline, strike: strike, bounds: bounds) else {
+                text = parseTspan(indexer, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, bounds: bounds) else {
                                     
                                     //skip this element if it can't be parsed
                                     return collectTspans(fullString.substringFromIndex(closingTagRange.location + closingTagRange.length), collectedTspans: collectedTspans, fill: fill, opacity: opacity,
-                                                         fontName: fontName, fontSize: fontSize, italic: italic, bold: bold, underline: underline, strike: strike, bounds: bounds)
+                                                         fontName: fontName, fontSize: fontSize, bounds: bounds)
             }
             collection.append(text)
             let nextString = fullString.substringFromIndex(closingTagRange.location + closingTagRange.length) as NSString
@@ -512,7 +536,7 @@ public class SVGParser {
             if nextString.rangeOfCharacterFromSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substringFromIndex(closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, italic: italic, bold: bold, underline: underline, strike: strike, bounds: text.bounds())
+            return collectTspans(fullString.substringFromIndex(closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, bounds: text.bounds())
         }
         //parse as regular text element
         var textString: NSString
@@ -527,16 +551,16 @@ public class SVGParser {
             nextStringWhitespace = true
         }
         trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
-        let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontSize: fontSize, bold: bold, italic: italic, underline: underline, strike: strike),
+        let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontSize: fontSize),
                         fill: fill ?? Color.black, baseline: .alphabetic,
                         place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
         collection.append(text)
         return collectTspans(fullString.substringFromIndex(tagRange.location), collectedTspans: collection, withWhitespace: nextStringWhitespace, fill: fill, opacity: opacity,
-                             fontName: fontName, fontSize: fontSize, italic: italic, bold: bold, underline: underline, strike: strike, bounds: text.bounds())
+                             fontName: fontName, fontSize: fontSize, bounds: text.bounds())
     }
     
-    private func parseTspan(tspan: XMLIndexer, withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, italic: Bool?, bold: Bool?, underline: Bool?,
-                            strike: Bool?, bounds: Rect) -> Text? {
+    private func parseTspan(tspan: XMLIndexer, withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?,
+                            fontSize: Int?, bounds: Rect) -> Text? {
         
         guard let element = tspan.element, string = element.text else {
             return .None
@@ -546,12 +570,12 @@ public class SVGParser {
         let text = shouldAddWhitespace ? " \(string)" : string
         let attributes = getStyleAttributes([:], element: element)
         
-        return Text(text: text, font: getFont(attributes, fontName: fontName, fontSize: fontSize, bold: bold, italic: italic, underline: underline, strike: strike),
-                    fill: getFillColor(attributes) ?? fill ?? Color.black, baseline: .alphabetic, opacity: getOpacity(attributes) ?? opacity, place: pos)
+        return Text(text: text, font: getFont(attributes, fontName: fontName, fontSize: fontSize),
+                    fill: getFillColor(attributes) ?? fill ?? Color.black, baseline: .alphabetic,
+                    opacity: getOpacity(attributes) ?? opacity, place: pos)
     }
     
-    private func getFont(attributes: [String: String] = [:], fontName: String?, fontSize: Int?, bold: Bool?, italic: Bool?, underline: Bool?, strike: Bool?) -> Font {
-        // font class is changed? where is bold/italic now?
+    private func getFont(attributes: [String: String] = [:], fontName: String?, fontSize: Int?) -> Font {
         return Font(
             name: getFontName(attributes) ?? fontName ?? "Serif",
             size: getFontSize(attributes) ?? fontSize ?? 12)
@@ -588,7 +612,7 @@ public class SVGParser {
         if id.hasPrefix("#") {
             id = id.stringByReplacingOccurrencesOfString("#", withString: "")
         }
-        guard let referenceNode = self.defs[id], node = copyNode(referenceNode) else {
+        guard let referenceNode = self.defNodes[id], node = copyNode(referenceNode) else {
             return .None
         }
         node.place = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
@@ -608,6 +632,130 @@ public class SVGParser {
             return text
         }
         return node
+    }
+    
+    private func parseLinearGradient(gradient: XMLIndexer) -> Fill? {
+        guard let element = gradient.element else {
+            return .None
+        }
+        var parentGradient: LinearGradient?
+        if let link = element.attributes["xlink:href"]?.stringByReplacingOccurrencesOfString(" ", withString: "")
+            where link.hasPrefix("#") {
+            
+            let id = link.stringByReplacingOccurrencesOfString("#", withString: "")
+            parentGradient = defFills[id] as? LinearGradient
+        }
+        
+        var stopsArray: [Stop]?
+        if gradient.children.isEmpty {
+            stopsArray = parentGradient?.stops
+        } else {
+            stopsArray = parseStops(gradient.children)
+        }
+        
+        guard let stops = stopsArray else {
+            return .None
+        }
+        
+        switch stops.count {
+            case 0:
+                return .None
+            case 1:
+                return stops.first?.color
+            default:
+                break
+        }
+        
+        let x1 = getDoubleValue(element, attribute: "x1") ?? parentGradient?.x1 ?? 0
+        let y1 = getDoubleValue(element, attribute: "y1") ?? parentGradient?.y1 ?? 0
+        let x2 = getDoubleValue(element, attribute: "x2") ?? parentGradient?.x2 ?? 1
+        let y2 = getDoubleValue(element, attribute: "y2") ?? parentGradient?.y2 ?? 0
+        var userSpace = true
+        if let gradientUnits = element.attributes["gradientUnits"] where gradientUnits == "userSpaceOnUse" {
+            userSpace = false
+        } else if let parent = parentGradient {
+            userSpace = parent.userSpace
+        }
+        return LinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops)
+    }
+    
+    private func parseRadialGradient(gradient: XMLIndexer) -> Fill? {
+        guard let element = gradient.element else {
+            return .None
+        }
+        var parentGradient: RadialGradient?
+        if let link = element.attributes["xlink:href"]?.stringByReplacingOccurrencesOfString(" ", withString: "")
+            where link.hasPrefix("#") {
+            
+            let id = link.stringByReplacingOccurrencesOfString("#", withString: "")
+            parentGradient = defFills[id] as? RadialGradient
+        }
+        
+        var stopsArray: [Stop]?
+        if gradient.children.isEmpty {
+            stopsArray = parentGradient?.stops
+        } else {
+            stopsArray = parseStops(gradient.children)
+        }
+        
+        guard let stops = stopsArray else {
+            return .None
+        }
+        
+        switch stops.count {
+        case 0:
+            return .None
+        case 1:
+            return stops.first?.color
+        default:
+            break
+        }
+        
+        let cx = getDoubleValue(element, attribute: "cx") ?? parentGradient?.cx ?? 0.5
+        let cy = getDoubleValue(element, attribute: "cy") ?? parentGradient?.cy ?? 0.5
+        let fx = getDoubleValue(element, attribute: "fx") ?? parentGradient?.fx ?? cx
+        let fy = getDoubleValue(element, attribute: "fy") ?? parentGradient?.fy ?? cy
+        let r = getDoubleValue(element, attribute: "r") ?? parentGradient?.r ?? 0.5
+        var userSpace = true
+        if let gradientUnits = element.attributes["gradientUnits"] where gradientUnits == "userSpaceOnUse" {
+            userSpace = false
+        } else if let parent = parentGradient {
+            userSpace = parent.userSpace
+        }
+        return RadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops)
+    }
+    
+    private func parseStops(stops: [XMLIndexer]) -> [Stop] {
+        var result = [Stop]()
+        stops.forEach { stopXML in
+            if let stop = parseStop(stopXML) {
+                result.append(stop)
+            }
+        }
+        return result
+    }
+    
+    private func parseStop(stop: XMLIndexer) -> Stop? {
+        guard let element = stop.element else {
+            return .None
+        }
+        
+        var offset = getDoubleValue(element, attribute: "offset")
+        guard let _ = offset else {
+            return .None
+        }
+        if offset < 0 {
+            offset = 0
+        } else if offset > 1 {
+            offset = 1
+        }
+        var color = Color.black
+        if let stopColor = element.attributes["stop-color"] {
+            color = createColor(stopColor
+                .stringByReplacingOccurrencesOfString(" ", withString: ""))
+        }
+        
+        return Stop(offset: offset!, color: color)
     }
 
     private func parsePath(path: XMLIndexer) -> Path? {
@@ -910,16 +1058,6 @@ public class SVGParser {
             return true
         }
         return false
-    }
-    
-    func concat(t1: Transform, t2: Transform) -> Transform {
-        let nm11 = t2.m11 * t1.m11 + t2.m12 * t1.m21
-        let nm21 = t2.m21 * t1.m11 + t2.m22 * t1.m21
-        let ndx = t2.dx * t1.m11 + t2.dy * t1.m21 + t1.dx
-        let nm12 = t2.m11 * t1.m12 + t2.m12 * t1.m22
-        let nm22 = t2.m21 * t1.m12 + t2.m22 * t1.m22
-        let ndy = t2.dx * t1.m12 + t2.dy * t1.m22 + t1.dy
-        return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
     }
     
     private func copyNode(referenceNode: Node) -> Node? {

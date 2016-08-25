@@ -17,3 +17,24 @@ public class TransformAnimation: Animation<Transform> {
 		node = animatedNode
 	}
 }
+
+public typealias TransformAnimationDescription = AnimationDescription<Transform>
+
+public extension AnimatableVariable {
+	public func animate(desc: TransformAnimationDescription) {
+		guard let node = self.node else {
+			return
+		}
+
+		let _ = TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+	}
+
+	func animation(desc: TransformAnimationDescription) -> Animatable {
+		guard let node = self.node else {
+			return EmptyAnimation(completion: { })
+		}
+
+		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+	}
+
+}

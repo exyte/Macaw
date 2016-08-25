@@ -18,3 +18,24 @@ public class OpacityAnimation: Animation<Double> {
 		node = animatedNode
 	}
 }
+
+public typealias OpacityAnimationDescription = AnimationDescription<Double>
+
+public extension AnimatableVariable {
+	public func animate(desc: OpacityAnimationDescription) {
+		guard let node = self.node else {
+			return
+		}
+
+		let _ = OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+	}
+
+	func animation(desc: OpacityAnimationDescription) -> Animatable {
+		guard let node = self.node else {
+			return EmptyAnimation(completion: { })
+		}
+
+		return OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+	}
+
+}

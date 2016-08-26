@@ -45,12 +45,10 @@ class DiagramExampleView: MacawView {
 			}
 
 			func blueLine() -> Path {
-				return Path(segments: [
-					Move(x: 18.00, y: 234.00, absolute: true),
-					Cubic(x1: 50.16, y1: 202.39, x2: 70.88, y2: 213.58, x: 74.00, y: 213.00, absolute: true),
-					Cubic(x1: 164.00, y1: 231.00, x2: 117.00, y2: 115.00, x: 251.00, y: 144.00, absolute: true),
-					Cubic(x1: 298.00, y1: 159.54, x2: 348.00, y2: 111.00, x: 345.00, y: 98.00, absolute: true)
-				])
+                return MoveTo(x: 18.00, y: 234.00)
+                    .C(50.16, 202.39, 70.88, 213.58, 74.00, 213.00)
+                    .C(164.00, 231.00, 117.00, 115.00, 251.00, 144.00)
+                    .C(298.00, 159.54, 348.00, 111.00, 345.00, 98.00).build()
 			}
 
 			let blueLineShape = Shape(
@@ -64,12 +62,10 @@ class DiagramExampleView: MacawView {
 			)
 
 			func redLine() -> Path {
-				return Path(segments: [
-					Move(x: 18.00, y: 154.00, absolute: true),
-					Cubic(x1: 61.50, y1: 189.00, x2: 81.50, y2: 166.50, x: 85.50, y: 160.50, absolute: true),
-					Cubic(x1: 121.50, y1: 113.50, x2: 116.50, y2: 131.00, x: 208.50, y: 104.00, absolute: true),
-					Cubic(x1: 285.00, y1: 173.50, x2: 294.50, y2: 43.00, x: 350.50, y: 47.00, absolute: true)
-				])
+                return MoveTo(x: 18.00, y: 154.00)
+                    .C(61.50, 189.00, 81.50, 166.50, 85.50, 160.50)
+                    .C(121.50, 113.50, 116.50, 131.00, 208.50, 104.00)
+                    .C(285.00, 173.50, 294.50, 43.00, 350.50, 47.00).build()
 			}
 
 			let redLineShape = Shape(

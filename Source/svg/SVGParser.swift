@@ -499,7 +499,7 @@ public class SVGParser {
                 return .None
             }
 
-            return Move(x: x, y: y, absolute: command.absolute)
+            return PathSegment(type: command.absolute ? .M : .m, data: [x, y])
 
         case .LineTo:
             if commandParams.count < 2 {
@@ -510,7 +510,7 @@ public class SVGParser {
                 return .None
             }
 
-            return PLine(x: x, y: y, absolute: command.absolute)
+            return PathSegment(type: command.absolute ? .L : .l, data: [x, y])
 
         case .LineH:
             if separatedValues.count < 1 {
@@ -521,7 +521,7 @@ public class SVGParser {
                 return .None
             }
 
-            return HLine(x: x, absolute: command.absolute)
+            return PathSegment(type: command.absolute ? .H : .h, data: [x])
 
         case .LineV:
             if separatedValues.count < 1 {
@@ -532,7 +532,7 @@ public class SVGParser {
                 return .None
             }
 
-            return VLine(y: y, absolute: command.absolute)
+            return PathSegment(type: command.absolute ? .V : .v, data: [y])
 
         case .CurveTo:
             if separatedValues.count < 6 {
@@ -548,10 +548,10 @@ public class SVGParser {
                     return .None
             }
 
-            return Cubic(x1: x1, y1: y1, x2: x2, y2: y2, x: x, y: y, absolute: command.absolute)
+            return PathSegment(type: command.absolute ? .C : .c, data: [x1, y1, x2, y2, x, y])
 
         case .ClosePath:
-            return Close()
+            return PathSegment(type: .Z)
         default:
             return .None
         }

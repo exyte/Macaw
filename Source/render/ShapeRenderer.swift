@@ -354,54 +354,51 @@ class ShapeRenderer: NodeRenderer {
 
 		// TODO: think about this
 		for part in path.segments {
-			if let move = part as? Move {
-				if move.absolute {
-					M(move.x, y: move.y)
-				} else {
-					m(move.x, y: move.y)
-				}
-			} else if let pline = part as? PLine {
-				if pline.absolute {
-					L(pline.x, y: pline.y)
-				} else {
-					l(pline.x, y: pline.y)
-				}
-			} else if let hLine = part as? HLine {
-				if hLine.absolute {
-					H(hLine.x)
-				} else {
-					h(hLine.x)
-				}
-			} else if let vLine = part as? VLine {
-				if vLine.absolute {
-					V(vLine.y)
-				} else {
-					v(vLine.y)
-				}
-			} else if let cubic = part as? Cubic {
-				if cubic.absolute {
-					C(cubic.x1, y1: cubic.y1, x2: cubic.x2, y2: cubic.y2, x: cubic.x, y: cubic.y)
-				} else {
-					c(cubic.x1, y1: cubic.y1, x2: cubic.x2, y2: cubic.y2, x: cubic.x, y: cubic.y)
-				}
-			} else if let scubic = part as? SCubic {
-				if scubic.absolute {
-					S(scubic.x2, y2: scubic.y2, x: scubic.x, y: scubic.y)
-				} else {
-					s(scubic.x2, y2: scubic.y2, x: scubic.x, y: scubic.y)
-				}
-			} else if let elliptical = part as? Elliptical {
-				if elliptical.absolute {
-					A(elliptical.rx, ry: elliptical.ry, angle: elliptical.angle, largeArc: elliptical.largeArc, sweep: elliptical.sweep, x: elliptical.x, y: elliptical.y)
-				} else {
-					a(elliptical.rx, ry: elliptical.ry, angle: elliptical.angle, largeArc: elliptical.largeArc, sweep: elliptical.sweep, x: elliptical.x, y: elliptical.y)
-				}
-			} else if let _ = part as? Close {
-				Z()
-			}
+            let data = part.data
+            switch part.type {
+            case .M:
+                M(data[0], y: data[1])
+            case .m:
+                m(data[0], y: data[1])
+            case .L:
+                L(data[0], y: data[1])
+            case .l:
+                l(data[0], y: data[1])
+            case .H:
+                H(data[0])
+            case .h:
+                h(data[0])
+            case .V:
+                V(data[0])
+            case .v:
+                v(data[0])
+            case .C:
+                C(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+            case .c:
+                c(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+            case .S:
+                S(data[0], y2: data[1], x: data[2], y: data[3])
+            case .s:
+                s(data[0], y2: data[1], x: data[2], y: data[3])
+            case .A:
+                let flags = numToBools(data[3])
+                A(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+            case .a:
+                let flags = numToBools(data[3])
+                a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+            case .Z:
+                Z()
+            default:
+                fatalError("Unknown segment: \(part.type)")
+            }
 		}
 		return bezierPath
 	}
+
+    private func numToBools(num: Double) -> [Bool] {
+        let val: Int = Int(num);
+        return [(val & 1) > 0, (val & 2) > 0];
+    }
 
 	private func newCGRect(rect: Rect) -> CGRect {
 		return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))

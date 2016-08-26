@@ -137,14 +137,7 @@ class CleanersGraphics {
 		let cancel = text("CANCEL", 0, Color.white, 16)
 		cancel.pos = Transform().move(0, my: 0)
 
-		let cancelCross = Path(
-			segments: [
-				Move(x: 0, y: 0, absolute: true),
-				PLine(x: 6, y: 6),
-				Move(x: 6, y: 0, absolute: true),
-				PLine(x: -6, y: 6)
-			]
-		)
+		let cancelCross = MoveTo(x: 0, y: 0).l(6, 6).M(6, 0).l(-6, 6).build()
 		let cancelGroup = Group(contents: [
 			Shape(
 				form: cancelCross,

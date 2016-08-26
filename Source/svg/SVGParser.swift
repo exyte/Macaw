@@ -33,7 +33,7 @@ public class SVGParser {
     let curveToRelative = Character("c")
     let closePathAbsolute = Character("Z")
     let closePathRelative = Character("z")
-    let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration", "opacity", "fill-opacity", "stroke-opacity"]
+    let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration", "opacity", "fill-opacity", "stroke-opacity", "stop-color"]
 
     private let xmlString: String
     private let initialPosition: Transform
@@ -331,19 +331,30 @@ public class SVGParser {
     }
 
     private func getStroke(styleParts: [String: String]) -> Stroke? {
-        var color: Color?
-        if let strokeColor = styleParts["stroke"] {
-            if strokeColor == "none" {
-                return .None
-            }
-            var opacity: Double = 1
-            if let fillOpacity = styleParts["fill-opacity"] {
-                opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
-            }
-            color = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+        guard let strokeColor = styleParts["stroke"] else {
+            return .None
         }
-        if let strokeColor = color {
-            return Stroke(fill: strokeColor,
+        if strokeColor == "none" {
+            return .None
+        }
+        
+        var fill: Fill?
+        var opacity: Double = 1
+        if let fillOpacity = styleParts["fill-opacity"] {
+            opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+        }
+        if strokeColor.hasPrefix("url") {
+            let index = strokeColor.startIndex.advancedBy(4)
+            let id = strokeColor.substringFromIndex(index)
+                .stringByReplacingOccurrencesOfString("(", withString: "")
+                .stringByReplacingOccurrencesOfString(")", withString: "")
+                .stringByReplacingOccurrencesOfString("#", withString: "")
+            fill = defFills[id]
+        } else {
+            fill = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+        }
+        if let strokeFill = fill {
+            return Stroke(fill: strokeFill,
                 width: getStrokeWidth(styleParts),
                 cap: .round,
                 join: .round)
@@ -750,7 +761,7 @@ public class SVGParser {
             offset = 1
         }
         var color = Color.black
-        if let stopColor = element.attributes["stop-color"] {
+        if let stopColor = getStyleAttributes([:], element: element)["stop-color"] {
             color = createColor(stopColor
                 .stringByReplacingOccurrencesOfString(" ", withString: ""))
         }

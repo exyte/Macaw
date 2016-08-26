@@ -17,6 +17,20 @@ public class OpacityAnimation: Animation<Double> {
 		type = .Opacity
 		node = animatedNode
 	}
+
+	public override func reverse() -> Animatable {
+
+		let reversedFunc = { (t: Double) -> Double in
+			return self.vFunc(1.0 - t)
+		}
+
+		let reversedAnimation = OpacityAnimation(animatedNode: node!,
+			valueFunc: reversedFunc, animationDuration: duration, autostart: autostart, fps: logicalFps)
+		reversedAnimation.progress = progress
+		reversedAnimation.completion = completion
+
+		return reversedAnimation
+	}
 }
 
 public typealias OpacityAnimationDescription = AnimationDescription<Double>

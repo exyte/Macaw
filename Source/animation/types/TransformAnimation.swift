@@ -16,6 +16,20 @@ public class TransformAnimation: Animation<Transform> {
 		type = .AffineTransformation
 		node = animatedNode
 	}
+
+	public override func reverse() -> Animatable {
+
+		let reversedFunc = { (t: Double) -> Transform in
+			return self.vFunc(1.0 - t)
+		}
+
+		let reversedAnimation = TransformAnimation(animatedNode: node!,
+			valueFunc: reversedFunc, animationDuration: duration, autostart: autostart, fps: logicalFps)
+		reversedAnimation.progress = progress
+		reversedAnimation.completion = completion
+
+		return reversedAnimation
+	}
 }
 
 public typealias TransformAnimationDescription = AnimationDescription<Transform>

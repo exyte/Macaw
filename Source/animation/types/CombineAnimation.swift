@@ -23,6 +23,19 @@ public class CombineAnimation: Animatable {
 		return 0.0
 	}
 
+	public override func reverse() -> Animatable {
+		var reversedAnimations = [Animatable]()
+		animations.forEach { animation in
+			reversedAnimations.append(animation.reverse())
+		}
+
+		let combineReversed = reversedAnimations.combine()
+		combineReversed.completion = completion
+		combineReversed.progress = progress
+
+		return combineReversed
+	}
+
 	public override func stop() {
 		animations.forEach { animation in
 			animation.stop()

@@ -23,6 +23,19 @@ public class AnimationSequence: Animatable {
 			animation.stop()
 		}
 	}
+
+	public override func reverse() -> Animatable {
+		var reversedAnimations = [Animatable]()
+		animations.forEach { animation in
+			reversedAnimations.append(animation.reverse())
+		}
+
+		let reversedSequence = reversedAnimations.reverse().sequence()
+		reversedSequence.completion = completion
+		reversedSequence.progress = progress
+
+		return reversedSequence
+	}
 }
 
 public extension SequenceType where Generator.Element: Animatable {

@@ -50,6 +50,10 @@ public class Animatable {
 		removeFunc?()
 	}
 
+	public func reverse() -> Animatable {
+		return self
+	}
+
 	// Private
 	var removeFunc: (() -> ())?
 	var progress = 0.0
@@ -62,12 +66,14 @@ public class Animation<T: Interpolable>: Animatable {
 	let vFunc: ((Double) -> T)
 	let duration: Double
 	let logicalFps: UInt
+	let autostart: Bool
 
 	public init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
 		value = observableValue
 		duration = animationDuration
 		vFunc = valueFunc
 		logicalFps = fps
+		self.autostart = autostart
 
 		super.init()
 

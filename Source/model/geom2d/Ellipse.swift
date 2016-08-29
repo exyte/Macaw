@@ -16,7 +16,7 @@ public class Ellipse: Locus {
 	}
 
 	// GENERATED NOT
-	public func arc(shift: Double, extent: Double) -> Arc {
+	public func arc(shift shift: Double, extent: Double) -> Arc {
 		return Arc(ellipse: Ellipse())
 	}
 

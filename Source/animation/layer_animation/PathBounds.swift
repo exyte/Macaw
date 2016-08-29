@@ -14,9 +14,9 @@ func pathBounds(path: Path) -> Rect? {
 		let segmentInfo = pathSegmenInfo(segment, currentPoint: currentPoint, currentBezierPoint: cubicBezierPoint)
 		if let segmentBounds = segmentInfo.0 {
 			if segment.isAbsolute() {
-				bounds = bounds?.union(segmentBounds)
+				bounds = bounds?.union(rect: segmentBounds)
 			} else {
-				bounds = bounds?.union(segmentBounds.move(currentPoint))
+				bounds = bounds?.union(rect: segmentBounds.move(offset: currentPoint))
 			}
 		}
 

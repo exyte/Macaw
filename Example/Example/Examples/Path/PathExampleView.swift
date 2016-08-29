@@ -59,7 +59,7 @@ class PathExampleView: MacawView {
 
 			let cloud2Shape = Shape(
 				form: cloud2(),
-				place: Transform.scale(1.5, sy: 1.5).move(0, my: -100),
+				place: Transform.scale(sx: 1.5, sy: 1.5).move(dx: 0, dy: -100),
 				fill: Color(val: 0x60636e),
 				stroke: Stroke(
 					fill: Color(val: 0x7e8087),
@@ -71,11 +71,11 @@ class PathExampleView: MacawView {
 
 			let lightningShape = Shape(
 				form: lightning(),
-				place: Transform.move(375, my: 390).scale(3, sy: 3),
+				place: Transform.move(dx: 375, dy: 390).scale(sx: 3, sy: 3),
 				fill: LinearGradient(
 					userSpace: true,
 					stops: [
-						Stop(offset: 0, color: Color.rgb(250, g: 220, b: 0)),
+						Stop(offset: 0, color: Color.rgb(r: 250, g: 220, b: 0)),
 						Stop(offset: 1, color: Color(val: 0xeb6405))
 					],
 					y2: 1
@@ -84,12 +84,12 @@ class PathExampleView: MacawView {
 
 			let cloud1Shape = Shape(
 				form: cloud1(),
-				place: .move(120, my: 120),
+				place: .move(dx: 120, dy: 120),
 				fill: LinearGradient(
 					userSpace: false,
 					stops: [
 						Stop(offset: 0, color: Color(val: 0x2f3036)),
-						Stop(offset: 1, color: Color.rgba(47, g: 48, b: 54, a: 0.1))
+						Stop(offset: 1, color: Color.rgba(r: 47, g: 48, b: 54, a: 0.1))
 					],
 					y2: 1
 				)
@@ -97,7 +97,7 @@ class PathExampleView: MacawView {
 
 			let cloud1Shape2 = Shape(
 				form: cloud1(),
-				place: .move(120, my: 100),
+				place: .move(dx: 120, dy: 100),
 				fill: Color(val: 0x7b808c),
 				stroke: Stroke(
 					fill: Color(val: 0xaaacb3),
@@ -109,7 +109,7 @@ class PathExampleView: MacawView {
 
 			return Group(
 				contents: [cloud2Shape, lightningShape, cloud1Shape, cloud1Shape2],
-				place: Transform.move(startPoint.x, my: startPoint.y).scale(0.15, sy: 0.15)
+				place: Transform.move(dx: startPoint.x, dy: startPoint.y).scale(sx: 0.15, sy: 0.15)
 			)
 		}
 
@@ -126,7 +126,7 @@ class PathExampleView: MacawView {
 				y: -700 + Double(rand() % 1400))
 			let flying = TransformAnimation(animatedNode: cloud,
 				startValue: Transform(),
-				finalValue: Transform.move(velocity.x, my: velocity.y).scale(0.15, sy: 0.15).rotate(2.0 * M_PI),
+				finalValue: Transform.move(dx: velocity.x, dy: velocity.y).scale(sx: 0.15, sy: 0.15).rotate(angle: 2.0 * M_PI),
 				animationDuration: 4.0)
 
 			flying.autoreverses = true
@@ -148,7 +148,7 @@ class PathExampleView: MacawView {
 					let x = startPoint.x + velocity.x * t // * sin(2.0 * M_PI * t)
 					let y = startPoint.y + velocity.y * t // * cos(2.0 * M_PI * t)
 
-					return Transform.move(x, my: y).scale(0.15, sy: 0.15)
+					return Transform.move(dx: x, dy: y).scale(sx: 0.15, sy: 0.15)
 					// .scale(1.0 - sin(2.0 * M_PI * t) * 0.5, sy: 1.0 - sin(2.0 * M_PI * t) * 0.5)
 					// .rotate(2.0 * M_PI * t)
 				}, animationDuration: 4.0)

@@ -22,46 +22,46 @@ public final class Transform {
 	}
 
 	// GENERATED NOT
-	public func move(mx: Double, my: Double) -> Transform {
+	public func move(dx dx: Double, dy: Double) -> Transform {
 		return Transform(m11: m11, m12: m12, m21: m21, m22: m22,
-			dx: mx * m11 + my * m21 + dx, dy: mx * m12 + my * m22 + dy)
+			dx: dx * m11 + dy * m21 + self.dx, dy: dx * m12 + dy * m22 + self.dy)
 	}
 
 	// GENERATED NOT
-	public func scale(sx: Double, sy: Double) -> Transform {
+	public func scale(sx sx: Double, sy: Double) -> Transform {
 		return Transform(m11: m11 * sx, m12: m12 * sx, m21: m21 * sy, m22: m22 * sy, dx: dx, dy: dy)
 	}
 
 	// GENERATED NOT
-	public func shear(shx: Double, shy: Double) -> Transform {
+	public func shear(shx shx: Double, shy: Double) -> Transform {
 		return Transform(m11: m11 + m21 * shy, m12: m12 + m22 * shy,
 			m21: m11 * shx + m21, m22: m12 * shx + m22, dx: dx, dy: dy)
 	}
 
 	// GENERATED NOT
-	public func rotate(angle: Double) -> Transform {
+	public func rotate(angle angle: Double) -> Transform {
 		let asin = sin(angle); let acos = cos(angle)
 		return Transform(m11: acos * m11 + asin * m21, m12: acos * m12 + asin * m22,
 			m21: -asin * m11 + acos * m21, m22: -asin * m12 + acos * m22, dx: dx, dy: dy)
 	}
 
 	// GENERATED
-	public class func move(mx: Double, my: Double) -> Transform {
-		return Transform(dx: mx, dy: my)
+	public class func move(dx dx: Double, dy: Double) -> Transform {
+		return Transform(dx: dx, dy: dy)
 	}
 
 	// GENERATED
-	public class func scale(sx: Double, sy: Double) -> Transform {
+	public class func scale(sx sx: Double, sy: Double) -> Transform {
 		return Transform(m11: sx, m22: sy)
 	}
 
 	// GENERATED
-	public class func shear(shx: Double, shy: Double) -> Transform {
+	public class func shear(shx shx: Double, shy: Double) -> Transform {
 		return Transform(m12: shx, m21: shy)
 	}
 
 	// GENERATED NOT
-	public class func rotate(angle: Double) -> Transform {
+	public class func rotate(angle angle: Double) -> Transform {
 		let asin = sin(angle); let acos = cos(angle)
 		return Transform(m11: acos, m12: asin, m21: -asin, m22: acos)
 	}

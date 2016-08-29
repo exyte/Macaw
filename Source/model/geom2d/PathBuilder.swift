@@ -32,7 +32,7 @@ public class PathBuilder {
     }
 
     // GENERATED NOT
-    public func arcTo(rx: Double, _ ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) -> PathBuilder {
+    public func arcTo(rx rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) -> PathBuilder {
         return A(rx, ry, angle, largeArc, sweep, x, y)
     }
 

@@ -25,7 +25,7 @@ class AnimationsView: MacawView {
 
 		var animations = [Animatable]()
 
-		let startPos = Transform.move(Double(self.center.x), my: Double(self.center.y))
+		let startPos = Transform.move(dx: Double(self.center.x), dy: Double(self.center.y))
 
 		var velocities = [Point]()
 		var positions = [Point]()
@@ -78,8 +78,8 @@ class AnimationsView: MacawView {
 				positions[i] = pos
 
 				return Transform().move(
-					pos.x,
-					my: pos.y)
+					dx: pos.x,
+					dy: pos.y)
 				}, animationDuration: 3.0)
 
 			animations.append([

@@ -16,22 +16,13 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
-	public func round(rx: Double, ry: Double) -> RoundRect {
+	public func round(rx rx: Double, ry: Double) -> RoundRect {
 		return RoundRect(rect: Rect())
 	}
 
 	// GENERATED NOT
-	public func contains(locus: Locus) -> Bool {
+	public func contains(locus locus: Locus) -> Bool {
 		return false
-	}
-
-	// GENERATED NOT
-	public func union(rect: Rect) -> Rect {
-		return Rect(
-			x: min(self.x, rect.x),
-			y: min(self.y, rect.y),
-			w: max(self.x + self.w, rect.x + rect.w) - min(self.x, rect.x),
-			h: max(self.y + self.h, rect.y + rect.h) - min(self.y, rect.y))
 	}
 
 	// GENERATED NOT
@@ -40,12 +31,21 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
-	public func move(offset: Point) -> Rect {
+	public func move(offset offset: Point) -> Rect {
 		return Rect(
 			x: self.x + offset.x,
 			y: self.y + offset.y,
 			w: self.w,
 			h: self.h)
+	}
+
+	// GENERATED NOT
+	public func union(rect rect: Rect) -> Rect {
+		return Rect(
+			x: min(self.x, rect.x),
+			y: min(self.y, rect.y),
+			w: max(self.x + self.w, rect.x + rect.w) - min(self.x, rect.x),
+			h: max(self.y + self.h, rect.y + rect.h) - min(self.y, rect.y))
 	}
 
 }

@@ -17,7 +17,7 @@ class RectShapeView: MacawView {
 
 		let rectShape = Shape(
 			form: rect,
-			fill: Color.rgb(255, g: 0, b: 0)
+			fill: Color.rgb(r: 255, g: 0, b: 0)
 		)
 
 		self.rectShape = rectShape

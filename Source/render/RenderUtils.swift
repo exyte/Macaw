@@ -53,6 +53,6 @@ class RenderUtils {
 	}
 
 	class func applyOpacity(color: Color, opacity: Double) -> Color {
-		return Color.rgba(color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
+		return Color.rgba(r: color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
 	}
 }

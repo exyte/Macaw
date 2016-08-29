@@ -175,7 +175,7 @@ public class SVGParser {
                         if values.indices.contains(1) {
                             y = Double(values[1]) ?? 0
                         }
-                        finalTransform = transform.move(x, my: y)
+                        finalTransform = transform.move(dx: x, dy: y)
                     }
                 case "scale":
                     if let x = Double(values[0]) {
@@ -183,25 +183,25 @@ public class SVGParser {
                         if values.indices.contains(1) {
                             y = Double(values[1]) ?? x
                         }
-                        finalTransform = transform.scale(x, sy: y)
+                        finalTransform = transform.scale(sx: x, sy: y)
                     }
                 case "rotate":
                     if let angle = Double(values[0]) {
                         if values.count == 1 {
-                            finalTransform = transform.rotate(angle)
+                            finalTransform = transform.rotate(angle: angle)
                         } else if values.count == 3 {
                             if let x = Double(values[1]), y = Double(values[2]) {
-                                finalTransform = transform.move(x, my: y).rotate(angle).move(-x, my: -y)
+                                finalTransform = transform.move(dx: x, dy: y).rotate(angle: angle).move(dx: -x, dy: -y)
                             }
                         }
                     }
                 case "skewX":
                     if let x = Double(values[0]) {
-                        finalTransform = transform.shear(x, shy: 0)
+                        finalTransform = transform.shear(shx: x, shy: 0)
                     }
                 case "skewY":
                     if let y = Double(values[0]) {
-                        finalTransform = transform.shear(0, shy: y)
+                        finalTransform = transform.shear(shx: 0, shy: y)
                     }
                 case "matrix":
                     if values.count != 6 {
@@ -279,7 +279,7 @@ public class SVGParser {
         let green = CGFloat((rgbValue >> 08) & 0xff)
         let blue = CGFloat((rgbValue >> 00) & 0xff)
 
-        return Color.rgb(Int(red), g: Int(green), b: Int(blue))
+        return Color.rgb(r: Int(red), g: Int(green), b: Int(blue))
     }
 
     private func getFillColor(styleParts: [String: String]) -> Color? {
@@ -412,7 +412,7 @@ public class SVGParser {
         guard let element = image.element, link = element.attributes["xlink:href"] else {
             return .None
         }
-        let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
+        let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
         return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, place: position)
     }
     
@@ -424,7 +424,7 @@ public class SVGParser {
         let font = Font(
             name: fontName ?? "Serif",
             size: fontSize ?? 12)
-        let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
+        let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
         return Text(text: string, font: font, fill: fill ?? Color.black, place: position)
     }
 

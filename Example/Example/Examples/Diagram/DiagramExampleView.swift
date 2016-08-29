@@ -11,7 +11,7 @@ class DiagramExampleView: MacawView {
 			let rect = Rect(x: 10, y: 20, w: 355, h: 300)
 			let baseRect = Shape(
 				form: rect,
-				fill: Color.rgb(33, g: 39, b: 53)
+				fill: Color.rgb(r: 33, g: 39, b: 53)
 			)
 
 			var lines: [Node] = []
@@ -21,7 +21,7 @@ class DiagramExampleView: MacawView {
 				let line = Shape(
 					form: l,
 					stroke: Stroke(
-						fill: Color.rgb(60, g: 68, b: 80),
+                        fill: Color.rgb(r: 60, g: 68, b: 80),
 						width: 1,
 						cap: .round,
 						join: .round
@@ -39,7 +39,7 @@ class DiagramExampleView: MacawView {
 					fill: dateIndex != 5 ? Color.gray : Color.white,
 					align: Align.max,
 					baseline: Baseline.top,
-					place: .move(x, my: 300)
+					place: .move(dx: x, dy: 300)
 				)
 				dates.append(text)
 			}
@@ -54,7 +54,7 @@ class DiagramExampleView: MacawView {
 			let blueLineShape = Shape(
 				form: blueLine(),
 				stroke: Stroke(
-					fill: Color.rgb(62, g: 180, b: 254),
+                    fill: Color.rgb(r: 62, g: 180, b: 254),
 					width: 2,
 					cap: .round,
 					join: .round
@@ -71,7 +71,7 @@ class DiagramExampleView: MacawView {
 			let redLineShape = Shape(
 				form: redLine(),
 				stroke: Stroke(
-					fill: Color.rgb(255, g: 40, b: 105),
+					fill: Color.rgb(r: 255, g: 40, b: 105),
 					width: 2,
 					cap: .round,
 					join: .round
@@ -81,13 +81,13 @@ class DiagramExampleView: MacawView {
 			let outerCircle = Circle(cx: 220, cy: 140, r: 14)
 			let outerCircleShape = Shape(
 				form: outerCircle,
-				fill: Color.rgb(33, g: 39, b: 53)
+				fill: Color.rgb(r: 33, g: 39, b: 53)
 			)
 
 			let innerCircle = Circle(cx: 220, cy: 140, r: 9)
 			let innerCircleShape = Shape(
 				form: innerCircle,
-				fill: Color.rgb(62, g: 180, b: 254)
+				fill: Color.rgb(r: 62, g: 180, b: 254)
 			)
 
 			let textCloud = RoundRect(
@@ -98,13 +98,13 @@ class DiagramExampleView: MacawView {
 
 			let textCloudShape = Shape(
 				form: textCloud,
-				fill: Color.rgb(62, g: 180, b: 254)
+				fill: Color.rgb(r: 62, g: 180, b: 254)
 			)
 
 			let cloudTriangle = Polygon(points: [215, 115, 225, 115, 220, 123])
 			let cloudTriangleShape = Shape(
 				form: cloudTriangle,
-				fill: Color.rgb(62, g: 180, b: 254)
+				fill: Color.rgb(r: 62, g: 180, b: 254)
 			)
 
 			let numberText = Text(
@@ -113,7 +113,7 @@ class DiagramExampleView: MacawView {
 				fill: Color.white,
 				align: Align.max,
 				baseline: Baseline.top,
-				place: .move(238, my: 97)
+				place: .move(dx: 238, dy: 97)
 			)
 
 			let legend1 = RoundRect(
@@ -135,7 +135,7 @@ class DiagramExampleView: MacawView {
 			let legend1Circle = Circle(cx: 100, cy: 275, r: 8)
 			let legend1CircleShape = Shape(
 				form: legend1Circle,
-				fill: Color.rgb(62, g: 180, b: 254)
+				fill: Color.rgb(r: 62, g: 180, b: 254)
 			)
 
 			let legend1Text = Text(
@@ -144,7 +144,7 @@ class DiagramExampleView: MacawView {
 				fill: Color.white,
 				align: Align.max,
 				baseline: Baseline.top,
-				place: .move(155, my: 267)
+				place: .move(dx: 155, dy: 267)
 			)
 
 			let legend2 = RoundRect(
@@ -166,7 +166,7 @@ class DiagramExampleView: MacawView {
 			let legend2Circle = Circle(cx: 240, cy: 275, r: 8)
 			let legend2CircleShape = Shape(
 				form: legend2Circle,
-				fill: Color.rgb(255, g: 40, b: 105)
+				fill: Color.rgb(r: 255, g: 40, b: 105)
 			)
 
 			let legend2Text = Text(
@@ -175,7 +175,7 @@ class DiagramExampleView: MacawView {
 				fill: Color.gray,
 				align: Align.max,
 				baseline: Baseline.top,
-				place: .move(290, my: 267)
+				place: .move(dx: 290, dy: 267)
 			)
 
 			var groupContents = [Node]()
@@ -207,7 +207,7 @@ class DiagramExampleView: MacawView {
 			contents: [
 				chartExample()
 			],
-			place: .move(0, my: 0)
+			place: .move(dx: 0, dy: 0)
 		)
 
 		super.init(node: group, coder: aDecoder)

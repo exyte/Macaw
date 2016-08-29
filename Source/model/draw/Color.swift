@@ -47,18 +47,18 @@ public class Color: Fill {
 	}
 
 	// GENERATED
-	public class func rgbt(r: Int, g: Int, b: Int, t: Int) -> Color {
+	public class func rgbt(r r: Int, g: Int, b: Int, t: Int) -> Color {
 		return Color( val: ( ( ( ( ( t & 0xff ) << 24 ) | ( ( r & 0xff ) << 16 ) ) | ( ( g & 0xff ) << 8 ) ) | ( b & 0xff ) ) )
 	}
 
 	// GENERATED
-	public class func rgba(r: Int, g: Int, b: Int, a: Double) -> Color {
-		return rgbt( r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
+	public class func rgba(r r: Int, g: Int, b: Int, a: Double) -> Color {
+		return rgbt( r: r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
 	}
 
 	// GENERATED
-	public class func rgb(r: Int, g: Int, b: Int) -> Color {
-		return rgbt( r, g: g, b: b, t: 0 )
+	public class func rgb(r r: Int, g: Int, b: Int) -> Color {
+		return rgbt( r: r, g: g, b: b, t: 0 )
 	}
 
 }

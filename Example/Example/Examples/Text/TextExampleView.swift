@@ -21,7 +21,7 @@ class TextExampleView: MacawView {
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.top,
-			place: .move(10, my: 450)
+			place: .move(dx: 10, dy: 450)
 		)
 
 		let text2 = Text(
@@ -29,7 +29,7 @@ class TextExampleView: MacawView {
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.alphabetic,
-			place: .move(80, my: 450)
+			place: .move(dx: 80, dy: 450)
 		)
 
 		let text3 = Text(
@@ -37,7 +37,7 @@ class TextExampleView: MacawView {
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.bottom,
-			place: .move(180, my: 450)
+			place: .move(dx: 180, dy: 450)
 		)
 
 		let text4 = Text(
@@ -45,7 +45,7 @@ class TextExampleView: MacawView {
 			fill: Fill(),
 			align: Align.min,
 			baseline: Baseline.mid,
-			place: .move(250, my: 450)
+			place: .move(dx: 250, dy: 450)
 		)
 
 		let line3 = Line(x1: 50, y1: 470, x2: 50, y2: 600)
@@ -64,7 +64,7 @@ class TextExampleView: MacawView {
 			fill: Color.fuchsia,
 			align: Align.min,
 			baseline: Baseline.top,
-			place: .move(50, my: 480)
+			place: .move(dx: 50, dy: 480)
 		)
 
 		let text6 = Text(
@@ -72,7 +72,7 @@ class TextExampleView: MacawView {
 			fill: Color.blue,
 			align: Align.mid,
 			baseline: Baseline.top,
-			place: .move(50, my: 500)
+			place: .move(dx: 50, dy: 500)
 		)
 
 		let text7 = Text(
@@ -80,7 +80,7 @@ class TextExampleView: MacawView {
 			fill: Color.aqua,
 			align: Align.max,
 			baseline: Baseline.top,
-			place: .move(50, my: 520)
+			place: .move(dx: 50, dy: 520)
 		)
 
 		let image1 = Image(src: "../sweet.png",
@@ -89,7 +89,7 @@ class TextExampleView: MacawView {
 			aspectRatio: AspectRatio.slice,
 			w: 100,
 			h: 100,
-			place: .move(100, my: 520)
+			place: .move(dx: 100, dy: 520)
 		)
 
 		let leftImage1 = Line(x1: 100, y1: 520, x2: 100, y2: 620)
@@ -142,7 +142,7 @@ class TextExampleView: MacawView {
 			aspectRatio: AspectRatio.meet,
 			w: 100,
 			h: 100,
-			place: .move(250, my: 520)
+			place: .move(dx: 250, dy: 520)
 		)
 
 		let leftImage2 = Line(x1: 250, y1: 520, x2: 250, y2: 620)
@@ -211,7 +211,7 @@ class TextExampleView: MacawView {
 				l23,
 				l24,
 			],
-			place: .move(0, my: -400)
+			place: .move(dx: 0, dy: -400)
 		)
 
 		super.init(node: group, coder: aDecoder)

@@ -135,19 +135,19 @@ class CleanersGraphics {
 
 	func cancelGroup() -> Group {
 		let cancel = text("CANCEL", 0, Color.white, 16)
-		cancel.place = .move(0, my: 0)
+		cancel.place = .move(dx: 0, dy: 0)
 
 		let cancelCross = MoveTo(x: 0, y: 0).l(6, 6).M(6, 0).l(-6, 6).build()
 		let cancelGroup = Group(contents: [
 			Shape(
 				form: cancelCross,
 				stroke: Stroke(fill: Color.white, width: 1.3),
-				place: Transform.scale(3, sy: 3).move(-20, my: -7)
+				place: Transform.scale(sx: 3, sy: 3).move(dx: -20, dy: -7)
 			)
 		])
 		return Group(
 			contents: [cancel, cancelGroup],
-			place: .move(x + 20, my: y + r * 0.7)
+			place: .move(dx: x + 20, dy: y + r * 0.7)
 		)
 	}
 
@@ -167,7 +167,7 @@ class CleanersGraphics {
 			fill: color,
 			align: Align.mid,
 			baseline: Baseline.bottom,
-			place: .move(x, my: y)
+			place: .move(dx: x, dy: y)
 		)
 	}
 }

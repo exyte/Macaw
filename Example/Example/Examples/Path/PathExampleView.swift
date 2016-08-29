@@ -59,7 +59,7 @@ class PathExampleView: MacawView {
 
 			let cloud2Shape = Shape(
 				form: cloud2(),
-				pos: Transform.scale(1.5, sy: 1.5).move(0, my: -100),
+				place: Transform.scale(1.5, sy: 1.5).move(0, my: -100),
 				fill: Color(val: 0x60636e),
 				stroke: Stroke(
 					fill: Color(val: 0x7e8087),
@@ -71,7 +71,7 @@ class PathExampleView: MacawView {
 
 			let lightningShape = Shape(
 				form: lightning(),
-				pos: Transform.move(375, my: 390).scale(3, sy: 3),
+				place: Transform.move(375, my: 390).scale(3, sy: 3),
 				fill: LinearGradient(
 					userSpace: true,
 					stops: [
@@ -84,7 +84,7 @@ class PathExampleView: MacawView {
 
 			let cloud1Shape = Shape(
 				form: cloud1(),
-				pos: Transform.move(120, my: 120),
+				place: .move(120, my: 120),
 				fill: LinearGradient(
 					userSpace: false,
 					stops: [
@@ -97,7 +97,7 @@ class PathExampleView: MacawView {
 
 			let cloud1Shape2 = Shape(
 				form: cloud1(),
-				pos: Transform.move(120, my: 100),
+				place: .move(120, my: 100),
 				fill: Color(val: 0x7b808c),
 				stroke: Stroke(
 					fill: Color(val: 0xaaacb3),
@@ -109,7 +109,7 @@ class PathExampleView: MacawView {
 
 			return Group(
 				contents: [cloud2Shape, lightningShape, cloud1Shape, cloud1Shape2],
-				pos: Transform.move(startPoint.x, my: startPoint.y).scale(0.15, sy: 0.15)
+				place: Transform.move(startPoint.x, my: startPoint.y).scale(0.15, sy: 0.15)
 			)
 		}
 
@@ -161,9 +161,7 @@ class PathExampleView: MacawView {
 			clouds.append(cloud)
 		}
 
-		let group = Group(
-			contents: clouds,
-			pos: Transform())
+		let group = Group(contents: clouds)
 		super.init(node: group, coder: aDecoder)
 	}
 

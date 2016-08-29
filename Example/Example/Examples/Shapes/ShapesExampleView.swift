@@ -110,7 +110,7 @@ class ShapesExampleView: MacawView {
 		let box = Rect(w: 40, h: 40)
 		let shape11 = Shape(
 			form: box,
-			pos: Transform().move(120, my: 350),
+			place: .move(120, my: 350),
 			fill: LinearGradient(
 				userSpace: true,
 				stops: [

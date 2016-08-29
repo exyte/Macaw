@@ -3,10 +3,10 @@ import RxSwift
 
 public class Node: Drawable {
 
-	public let posVar: AnimatableVariable<Transform>
-	public var pos: Transform {
-		get { return posVar.value }
-		set(val) { posVar.value = val }
+	public let placeVar: AnimatableVariable<Transform>
+	public var place: Transform {
+		get { return placeVar.value }
+		set(val) { placeVar.value = val }
 	}
 
 	public let opaqueVar: Variable<Bool>
@@ -33,8 +33,8 @@ public class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
-	public init(pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
-		self.posVar = AnimatableVariable<Transform>(pos)
+	public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+		self.placeVar = AnimatableVariable<Transform>(place)
 		self.opaqueVar = Variable<Bool>(opaque)
 		self.opacityVar = AnimatableVariable<Double>(opacity)
 		self.clipVar = Variable<Locus?>(clip)
@@ -43,7 +43,7 @@ public class Node: Drawable {
 			visible: visible,
 			tag: tag
 		)
-		self.posVar.node = self
+		self.placeVar.node = self
 		self.opacityVar.node = self
 	}
 

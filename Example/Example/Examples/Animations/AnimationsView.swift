@@ -62,7 +62,7 @@ class AnimationsView: MacawView {
 				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(rand() % 6)]
 			)
 
-			let ballGroup = Group(contents: [shape], pos: startPos)
+			let ballGroup = Group(contents: [shape], place: startPos)
 			ballNodes.append(ballGroup)
 
 			// Animation

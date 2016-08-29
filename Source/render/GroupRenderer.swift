@@ -47,7 +47,7 @@ class GroupRenderer: NodeRenderer {
 
 		contentRenderers.forEach { renderer in
 			CGContextSaveGState(ctx.cgContext)
-			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
+			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
 			setClip(renderer.node)
 			renderer.render(force, opacity: renderer.node.opacity * opacity)
 			CGContextRestoreGState(ctx.cgContext)
@@ -61,9 +61,9 @@ class GroupRenderer: NodeRenderer {
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 
 		contentRenderers.forEach { renderer in
-            if let inverted = renderer.node.pos.invert() {
+            if let inverted = renderer.node.place.invert() {
                 CGContextSaveGState(ctx.cgContext)
-                CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.pos))
+                CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
                 let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
                 setClip(renderer.node)
                 let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)

@@ -76,7 +76,7 @@ public class MacawView: UIView {
 		recognizer.setTranslation(CGPointZero, inView: self)
 		if let shape = self.selectedShape {
 			// get the rotation and scale of the shape and apply to the translation
-			let transform = shape.pos
+			let transform = shape.place
 			let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
 			let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
 			var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))

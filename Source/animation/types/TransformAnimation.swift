@@ -12,7 +12,7 @@ public class TransformAnimation: Animation<Transform> {
 	}
 
 	public init(animatedNode: Node, valueFunc: (Double) -> Transform, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
-		super.init(observableValue: animatedNode.posVar, valueFunc: valueFunc, animationDuration: animationDuration, fps: fps)
+		super.init(observableValue: animatedNode.placeVar, valueFunc: valueFunc, animationDuration: animationDuration, fps: fps)
 		type = .AffineTransformation
 		node = animatedNode
 	}

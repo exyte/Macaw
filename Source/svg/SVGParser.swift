@@ -94,31 +94,31 @@ public class SVGParser {
             switch element.name {
             case "path":
                 if let path = parsePath(node) {
-                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "line":
                 if let line = parseLine(node) {
-                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "rect":
                 if let rect = parseRect(node) {
-                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "circle":
                 if let circle = parseCircle(node) {
-                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "ellipse":
                 if let ellipse = parseEllipse(node) {
-                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "polygon":
                 if let polygon = parsePolygon(node) {
-                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "polyline":
                 if let polyline = parsePolyline(node) {
-                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
                 }
             case "image":
                 return parseImage(node, pos: position)
@@ -413,7 +413,7 @@ public class SVGParser {
             return .None
         }
         let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
-        return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, pos: position)
+        return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, place: position)
     }
     
     private func parseText(text: XMLIndexer, fill: Fill?, fontName: String?, fontSize: Int?, italic: Bool?, bold: Bool?, underline: Bool?, strike: Bool?, pos: Transform = Transform()) -> Text? {
@@ -425,7 +425,7 @@ public class SVGParser {
             name: fontName ?? "Serif",
             size: fontSize ?? 12)
         let position = pos.move(getDoubleValue(element, attribute: "x") ?? 0, my: getDoubleValue(element, attribute: "y") ?? 0)
-        return Text(text: string, font: font, fill: fill ?? Color.black, pos: position)
+        return Text(text: string, font: font, fill: fill ?? Color.black, place: position)
     }
 
     private func parsePath(path: XMLIndexer) -> Path? {

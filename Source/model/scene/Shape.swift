@@ -26,12 +26,12 @@ public class Shape: Node {
 	public let onRotate = PublishSubject<RotateEvent>()
 	public let onPinch = PublishSubject<PinchEvent>()
 
-	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.formVar = Variable<Locus>(form)
 		self.fillVar = Variable<Fill?>(fill)
 		self.strokeVar = Variable<Stroke?>(stroke)
 		super.init(
-			pos: pos,
+			place: place,
 			opaque: opaque,
 			opacity: opacity,
 			clip: clip,

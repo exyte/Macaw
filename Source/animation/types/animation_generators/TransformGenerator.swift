@@ -30,7 +30,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 	generatedAnim.completion = { finished in
 
 		animation.progress = 1.0
-		node.posVar.value = transformAnimation.vFunc(1.0)
+		node.placeVar.value = transformAnimation.vFunc(1.0)
 
 		animationCache.freeLayer(node)
 		animation.completion?()
@@ -46,7 +46,7 @@ func addTransformAnimation(animation: Animatable, sceneLayer: CALayer, animation
 	generatedAnim.progress = { progress in
 
 		let t = Double(progress)
-		node.posVar.value = transformAnimation.vFunc(t)
+		node.placeVar.value = transformAnimation.vFunc(t)
 
 		animation.progress = t
 		animation.onProgressUpdate?(t)

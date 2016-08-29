@@ -5,10 +5,10 @@ public class Group: Node {
 
 	public var contents: ObservableArray<Node>
 
-	public init(contents: [Node] = [], pos: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+	public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.contents = ObservableArray<Node>(array: contents)
 		super.init(
-			pos: pos,
+			place: place,
 			opaque: opaque,
 			opacity: opacity,
 			clip: clip,
@@ -21,7 +21,7 @@ public class Group: Node {
 	// GENERATED NOT
 	override internal func bounds() -> Rect? {
 
-		guard let firstPos = contents.first?.pos else {
+		guard let firstPos = contents.first?.place else {
 			return .None
 		}
 
@@ -35,7 +35,7 @@ public class Group: Node {
 				return
 			}
 
-			union = union.union(nodeBounds.applyTransform(node.pos))
+			union = union.union(nodeBounds.applyTransform(node.place))
 		}
 
 		return union

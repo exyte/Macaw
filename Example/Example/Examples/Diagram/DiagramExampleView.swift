@@ -39,7 +39,7 @@ class DiagramExampleView: MacawView {
 					fill: dateIndex != 5 ? Color.gray : Color.white,
 					align: Align.max,
 					baseline: Baseline.top,
-					pos: Transform().move(x, my: 300)
+					place: .move(x, my: 300)
 				)
 				dates.append(text)
 			}
@@ -113,7 +113,7 @@ class DiagramExampleView: MacawView {
 				fill: Color.white,
 				align: Align.max,
 				baseline: Baseline.top,
-				pos: Transform().move(238, my: 97)
+				place: .move(238, my: 97)
 			)
 
 			let legend1 = RoundRect(
@@ -144,7 +144,7 @@ class DiagramExampleView: MacawView {
 				fill: Color.white,
 				align: Align.max,
 				baseline: Baseline.top,
-				pos: Transform().move(155, my: 267)
+				place: .move(155, my: 267)
 			)
 
 			let legend2 = RoundRect(
@@ -175,7 +175,7 @@ class DiagramExampleView: MacawView {
 				fill: Color.gray,
 				align: Align.max,
 				baseline: Baseline.top,
-				pos: Transform().move(290, my: 267)
+				place: .move(290, my: 267)
 			)
 
 			var groupContents = [Node]()
@@ -207,7 +207,7 @@ class DiagramExampleView: MacawView {
 			contents: [
 				chartExample()
 			],
-			pos: Transform().move(0, my: 0)
+			place: .move(0, my: 0)
 		)
 
 		super.init(node: group, coder: aDecoder)

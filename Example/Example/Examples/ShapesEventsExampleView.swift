@@ -38,23 +38,23 @@ class ShapesEventsExampleView: MacawView {
         
         _ = shape1.onPan.subscribeNext { pan in
             let node = shape1 as Node
-            let newPos = node.pos.move(Double(pan.dx), my: Double(pan.dy))
-            node.pos = newPos
+            let newPos = node.place.move(Double(pan.dx), my: Double(pan.dy))
+            node.place = newPos
         }
         
         _ = shape1.onRotate.subscribeNext { rotate in
             let node = shape1 as Node
-            var newPos = node.pos.move(75, my: 105)
+            var newPos = node.place.move(75, my: 105)
             newPos = newPos.rotate(rotate.angle)
             newPos = newPos.move(-75, my: -105)
-            node.pos = newPos
+            node.place = newPos
         }
         
         _ = shape1.onPinch.subscribeNext { pinch in
             let node = shape1 as Node
             let scale = Double(pinch.scale)
-            let newPos = node.pos.scale(scale, sy: scale)
-            node.pos = newPos
+            let newPos = node.place.scale(scale, sy: scale)
+            node.place = newPos
         }
 
     }

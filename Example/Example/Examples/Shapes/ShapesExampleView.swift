@@ -73,7 +73,7 @@ class ShapesExampleView: MacawView {
 			form: arc,
 			stroke: Stroke(
 				fill: Color.green,
-                width: 2,
+				width: 2,
 				cap: .round,
 				join: .round,
 				dashes: [3, 3]

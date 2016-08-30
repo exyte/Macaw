@@ -38,6 +38,8 @@ public class MacawView: UIView {
 		self.context = RenderContext(view: self)
 		self.node = node
 		self.animationCache = AnimationCache(sceneLayer: self.layer)
+
+		nodesMap.add(node, view: self)
 		if let cache = self.animationCache {
 			self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 		}

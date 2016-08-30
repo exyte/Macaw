@@ -28,8 +28,8 @@ class AnimationCache {
 			layer.animationCache = self
 
 			// layer.backgroundColor = UIColor.greenColor().CGColor
-			// layer.borderWidth = 1.0
-			// layer.borderColor = UIColor.blueColor().CGColor
+			layer.borderWidth = 1.0
+			layer.borderColor = UIColor.blueColor().CGColor
 
 			if let shapeBounds = node.bounds() {
 				let cgRect = shapeBounds.cgRect()

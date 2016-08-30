@@ -209,7 +209,7 @@ public class SVGParser {
                     if values.indices.contains(1) {
                         y = Double(values[1]) ?? 0
                     }
-                    finalTransform = transform.move(x, my: y)
+                    finalTransform = transform.move(dx: x, dy: y)
                 }
             case "scale":
                 if let x = Double(values[0]) {
@@ -217,25 +217,25 @@ public class SVGParser {
                     if values.indices.contains(1) {
                         y = Double(values[1]) ?? x
                     }
-                    finalTransform = transform.scale(x, sy: y)
+                    finalTransform = transform.scale(sx: x, sy: y)
                 }
             case "rotate":
                 if let angle = Double(values[0]) {
                     if values.count == 1 {
-                        finalTransform = transform.rotate(angle)
+                        finalTransform = transform.rotate(angle: angle)
                     } else if values.count == 3 {
                         if let x = Double(values[1]), y = Double(values[2]) {
-                            finalTransform = transform.move(x, my: y).rotate(angle).move(-x, my: -y)
+                            finalTransform = transform.move(dx: x, dy: y).rotate(angle: angle).move(dx: -x, dy: -y)
                         }
                     }
                 }
             case "skewX":
                 if let x = Double(values[0]) {
-                    finalTransform = transform.shear(x, shy: 0)
+                    finalTransform = transform.shear(shx: x, shy: 0)
                 }
             case "skewY":
                 if let y = Double(values[0]) {
-                    finalTransform = transform.shear(0, shy: y)
+                    finalTransform = transform.shear(shx: 0, shy: y)
                 }
             case "matrix":
                 if values.count != 6 {
@@ -246,7 +246,7 @@ public class SVGParser {
                     dx = Double(values[4]), dy = Double(values[5]) {
                     
                     let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = GeomUtils.concat(transform, t2: transformMatrix)
+                    finalTransform = GeomUtils.concat(t1: transform, t2: transformMatrix)
                 }
             default: break
             }
@@ -331,30 +331,19 @@ public class SVGParser {
     }
 
     private func getStroke(styleParts: [String: String]) -> Stroke? {
-        guard let strokeColor = styleParts["stroke"] else {
-            return .None
+        var color: Color?
+        if let strokeColor = styleParts["stroke"] {
+            if strokeColor == "none" {
+                return .None
+            }
+            var opacity: Double = 1
+            if let fillOpacity = styleParts["fill-opacity"] {
+                opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+            }
+            color = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
         }
-        if strokeColor == "none" {
-            return .None
-        }
-        
-        var fill: Fill?
-        var opacity: Double = 1
-        if let fillOpacity = styleParts["fill-opacity"] {
-            opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
-        }
-        if strokeColor.hasPrefix("url") {
-            let index = strokeColor.startIndex.advancedBy(4)
-            let id = strokeColor.substringFromIndex(index)
-                .stringByReplacingOccurrencesOfString("(", withString: "")
-                .stringByReplacingOccurrencesOfString(")", withString: "")
-                .stringByReplacingOccurrencesOfString("#", withString: "")
-            fill = defFills[id]
-        } else {
-            fill = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
-        }
-        if let strokeFill = fill {
-            return Stroke(fill: strokeFill,
+        if let strokeColor = color {
+            return Stroke(fill: strokeColor,
                 width: getStrokeWidth(styleParts),
                 cap: .round,
                 join: .round)
@@ -487,12 +476,6 @@ public class SVGParser {
         guard let element = text.element else {
             return .None
         }
-        // TODO: handle italic/bold/underline/strike attributes
-//        let font = Font(
-//            name: fontName ?? "Serif",
-//            size: fontSize ?? 12)
-//        let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
-//        return Text(text: string, font: font, fill: fill ?? Color.black, place: position)
         if text.children.isEmpty {
             return parseSimpleText(element, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize)
         } else {
@@ -505,7 +488,7 @@ public class SVGParser {
                 let tspans = (elementString as NSString).substringWithRange(match.rangeAtIndex(1))
                 return Group(contents: collectTspans(tspans, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize,
                     bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
-                    pos: pos)
+                    place: pos)
             }
         }
         return .None
@@ -677,10 +660,10 @@ public class SVGParser {
                 break
         }
         
-        let x1 = getDoubleValue(element, attribute: "x1") ?? parentGradient?.x1 ?? 0
-        let y1 = getDoubleValue(element, attribute: "y1") ?? parentGradient?.y1 ?? 0
-        let x2 = getDoubleValue(element, attribute: "x2") ?? parentGradient?.x2 ?? 1
-        let y2 = getDoubleValue(element, attribute: "y2") ?? parentGradient?.y2 ?? 0
+        let x1 = getDoubleValueFromPercentage(element, attribute: "x1") ?? parentGradient?.x1 ?? 0
+        let y1 = getDoubleValueFromPercentage(element, attribute: "y1") ?? parentGradient?.y1 ?? 0
+        let x2 = getDoubleValueFromPercentage(element, attribute: "x2") ?? parentGradient?.x2 ?? 1
+        let y2 = getDoubleValueFromPercentage(element, attribute: "y2") ?? parentGradient?.y2 ?? 0
         var userSpace = true
         if let gradientUnits = element.attributes["gradientUnits"] where gradientUnits == "userSpaceOnUse" {
             userSpace = false
@@ -751,7 +734,7 @@ public class SVGParser {
             return .None
         }
         
-        var offset = getDoubleValue(element, attribute: "offset")
+        var offset = getDoubleValueFromPercentage(element, attribute: "offset")
         guard let _ = offset else {
             return .None
         }
@@ -808,6 +791,15 @@ public class SVGParser {
                 commandString.append(character)
             }
         }
+        
+        if !commandString.isEmpty && !(commandChar == " ") {
+            pathCommands.append(
+                PathCommand(type: getCommandType(commandChar),
+                    expression: commandString,
+                    absolute: isAbsolute(commandChar)
+                )
+            )
+        }
 
         var commands = [PathSegment]()
 
@@ -824,11 +816,11 @@ public class SVGParser {
         let characterSet = NSMutableCharacterSet()
         characterSet.addCharactersInString(" ")
         characterSet.addCharactersInString(",")
-        let commandParams = command.expression.componentsSeparatedByCharactersInSet(characterSet)
-        var separatedValues = [String]()
-        commandParams.forEach { param in
-            separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
-        }
+        let separatedValues = command.expression.componentsSeparatedByCharactersInSet(characterSet)
+//        var separatedValues = [String]()
+//        commandParams.forEach { param in
+//            separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
+//        }
         
         switch command.type {
         case .MoveTo:
@@ -843,7 +835,7 @@ public class SVGParser {
             return PathSegment(type: command.absolute ? .M : .m, data: [x, y])
 
         case .LineTo:
-            if commandParams.count < 2 {
+            if separatedValues.count < 2 {
                 return .None
             }
 
@@ -897,7 +889,8 @@ public class SVGParser {
             return .None
         }
     }
-
+    
+    // is this really necessary? why?
     private func separateNegativeValuesIfNeeded(expression: String) -> [String] {
         var values = [String]()
         var value = String()
@@ -1018,6 +1011,21 @@ public class SVGParser {
             return .None
         }
         return doubleValue
+    }
+    
+    private func getDoubleValueFromPercentage(element: XMLElement, attribute: String) -> Double? {
+        guard let attributeValue = element.attributes[attribute] else {
+            return .None
+        }
+        if !attributeValue.containsString("%") {
+            return self.getDoubleValue(element, attribute: attribute)
+        } else {
+            let value = attributeValue.stringByReplacingOccurrencesOfString("%", withString: "")
+            if let doubleValue = Double(value) {
+                return doubleValue / 100
+            }
+        }
+        return .None
     }
     
     private func getIntValue(element: XMLElement, attribute: String) -> Int? {

@@ -25,7 +25,7 @@
             <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
         </filter>
     </defs>
-    <g id="Chart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Chart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-200) scale(0.8)">
         <g id="6" transform="translate(-9.000000, 0.000000)">
             <g id="Group" transform="translate(-51.000000, 0.000000)">
                 <g id="barleft" transform="translate(118.000000, 50.000000)" fill="url(#linearGradient-1)">
@@ -36,11 +36,11 @@
                 </g>
                 <g id="displaybg" transform="translate(431.000000, 42.000000)">
                     <g id="Rectangle-151-Copy">
-                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#000000" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
                         <use fill="#27283B" fill-rule="evenodd" xlink:href="#path-3"></use>
                     </g>
                     <g id="Rectangle-151-Copy-2">
-                        <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                        <use fill="#000000" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
                         <use fill="#27283B" fill-rule="evenodd" xlink:href="#path-5"></use>
                     </g>
                 </g>
@@ -105,7 +105,7 @@
                         <tspan x="331.003906" y="539">1</tspan>
                     </text>
                 </g>
-                <g id="Graduation" transform="translate(0.000000, 503.000000)" fill="#D8D8D8" opacity="0.2">
+                <g id="Graduation" transform="translate(0.000000, 503.000000)" fill="#000000" opacity="0.2">
                     <rect id="Rectangle-227-Copy-5" x="460" y="0" width="1" height="13"></rect>
                     <rect id="Rectangle-227-Copy-8" x="300" y="0" width="1" height="13"></rect>
                     <rect id="Rectangle-227-Copy-9" x="140" y="0" width="1" height="13"></rect>

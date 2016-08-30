@@ -65,7 +65,7 @@ public class Text: Node {
         var stringAttributes: [String: AnyObject] = [:]
         stringAttributes[NSFontAttributeName] = font
         let size = (text as NSString).sizeWithAttributes(stringAttributes)
-        return Rect(x: pos.dx, y: pos.dy, w: Double(size.width), h: Double(size.height))
+        return Rect(x: place.dx, y: place.dy, w: Double(size.width), h: Double(size.height))
 	}
 
 }

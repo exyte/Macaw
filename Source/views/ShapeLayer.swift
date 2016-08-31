@@ -21,6 +21,8 @@ class ShapeLayer: CAShapeLayer {
 			CGContextConcatCTM(ctx, renderTransform)
 		}
 
+		CGContextConcatCTM(ctx, RenderUtils.mapTransform(node.place))
+
 		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache)
 		renderer.render(true, opacity: 1.0)
 	}

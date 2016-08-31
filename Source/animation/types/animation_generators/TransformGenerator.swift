@@ -73,8 +73,6 @@ func transfomToCG(transform: Transform) -> CGAffineTransform {
 
 func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, duration: Double, offset: Point, fps: UInt) -> CAAnimation {
 
-	let compensation = node.place.invert() ?? Transform()
-
 	var scaleXValues = [CGFloat]()
 	var scaleYValues = [CGFloat]()
 	var xValues = [CGFloat]()
@@ -85,7 +83,7 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 	let step = 1.0 / (duration * Double(fps))
 	for t in 0.0.stride(to: 1.0, by: step) {
 
-		let value = GeomUtils.concat(t1: compensation, t2: AnimationUtils.absoluteTransform(node, pos: valueFunc(t)))
+		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(t))
 
 		let dx = value.dx
 		let dy = value.dy

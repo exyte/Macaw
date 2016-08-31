@@ -47,8 +47,7 @@ class GroupRenderer: NodeRenderer {
 
 		contentRenderers.forEach { renderer in
 			CGContextSaveGState(ctx.cgContext)
-			let transform = GeomUtils.concat(t1: self.node.place, t2: renderer.node.place)
-			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(transform))
+			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
 			setClip(renderer.node)
 			renderer.render(force, opacity: renderer.node.opacity * opacity)
 			CGContextRestoreGState(ctx.cgContext)

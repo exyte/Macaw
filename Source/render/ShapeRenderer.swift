@@ -98,7 +98,7 @@ class ShapeRenderer: NodeRenderer {
 				let startAngle = CGFloat(arc.shift)
 				let endAngle = startAngle + CGFloat(arc.extent)
 				let r = CGFloat(ellipse.rx)
-                let scale = CGFloat(ellipse.ry / ellipse.rx)
+				let scale = CGFloat(ellipse.ry / ellipse.rx)
 
 				let path = CGPathCreateMutable()
 				var t = CGAffineTransformMakeTranslation(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
@@ -354,51 +354,51 @@ class ShapeRenderer: NodeRenderer {
 
 		// TODO: think about this
 		for part in path.segments {
-            let data = part.data
-            switch part.type {
-            case .M:
-                M(data[0], y: data[1])
-            case .m:
-                m(data[0], y: data[1])
-            case .L:
-                L(data[0], y: data[1])
-            case .l:
-                l(data[0], y: data[1])
-            case .H:
-                H(data[0])
-            case .h:
-                h(data[0])
-            case .V:
-                V(data[0])
-            case .v:
-                v(data[0])
-            case .C:
-                C(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
-            case .c:
-                c(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
-            case .S:
-                S(data[0], y2: data[1], x: data[2], y: data[3])
-            case .s:
-                s(data[0], y2: data[1], x: data[2], y: data[3])
-            case .A:
-                let flags = numToBools(data[3])
-                A(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
-            case .a:
-                let flags = numToBools(data[3])
-                a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
-            case .Z:
-                Z()
-            default:
-                fatalError("Unknown segment: \(part.type)")
-            }
+			let data = part.data
+			switch part.type {
+			case .M:
+				M(data[0], y: data[1])
+			case .m:
+				m(data[0], y: data[1])
+			case .L:
+				L(data[0], y: data[1])
+			case .l:
+				l(data[0], y: data[1])
+			case .H:
+				H(data[0])
+			case .h:
+				h(data[0])
+			case .V:
+				V(data[0])
+			case .v:
+				v(data[0])
+			case .C:
+				C(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+			case .c:
+				c(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+			case .S:
+				S(data[0], y2: data[1], x: data[2], y: data[3])
+			case .s:
+				s(data[0], y2: data[1], x: data[2], y: data[3])
+			case .A:
+				let flags = numToBools(data[3])
+				A(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+			case .a:
+				let flags = numToBools(data[3])
+				a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+			case .Z:
+				Z()
+			default:
+				fatalError("Unknown segment: \(part.type)")
+			}
 		}
 		return bezierPath
 	}
 
-    private func numToBools(num: Double) -> [Bool] {
-        let val: Int = Int(num);
-        return [(val & 1) > 0, (val & 2) > 0];
-    }
+	private func numToBools(num: Double) -> [Bool] {
+		let val: Int = Int(num);
+		return [(val & 1) > 0, (val & 2) > 0];
+	}
 
 	private func newCGRect(rect: Rect) -> CGRect {
 		return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))

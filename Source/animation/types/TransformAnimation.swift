@@ -52,7 +52,7 @@ public extension AnimatableVariable {
 			return EmptyAnimation(completion: { })
 		}
 
-		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: false)
 	}
 
 	public func animate(from from: Transform, to: Transform, during: Double) {

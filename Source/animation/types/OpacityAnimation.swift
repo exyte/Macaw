@@ -53,7 +53,7 @@ public extension AnimatableVariable {
 			return EmptyAnimation(completion: { })
 		}
 
-		return OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+		return OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: false)
 	}
 
 	public func animate(from from: Double, to: Double, during: Double) {

@@ -44,7 +44,7 @@ class AnimationCache {
 
 				layer.renderTransform = CGAffineTransformMakeTranslation(-1.0 * cgRect.origin.x, -1.0 * cgRect.origin.y)
 
-				let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absoluteTransform(node, pos: Transform()))
+				let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
 				let layerTransform = CGAffineTransformMakeTranslation(cgRect.origin.x, cgRect.origin.y)
 
 				layer.transform = CATransform3DMakeAffineTransform(CGAffineTransformConcat(nodeTransform, layerTransform))

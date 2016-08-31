@@ -1,8 +1,8 @@
 import RxSwift
 
-public class TransformAnimation: Animation<Transform> {
+internal class TransformAnimation: AnimationImpl<Transform> {
 
-	public convenience init(animatedNode: Node, startValue: Transform, finalValue: Transform, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
+	convenience init(animatedNode: Node, startValue: Transform, finalValue: Transform, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
 
 		let interpolationFunc = { (t: Double) -> Transform in
 			return startValue.interpolate(finalValue, progress: t)
@@ -11,13 +11,13 @@ public class TransformAnimation: Animation<Transform> {
 		self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, autostart: autostart, fps: fps)
 	}
 
-	public init(animatedNode: Node, valueFunc: (Double) -> Transform, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
+	init(animatedNode: Node, valueFunc: (Double) -> Transform, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
 		super.init(observableValue: animatedNode.placeVar, valueFunc: valueFunc, animationDuration: animationDuration, fps: fps)
 		type = .AffineTransformation
 		node = animatedNode
 	}
 
-	public override func reverse() -> Animatable {
+	public override func reverse() -> Animation {
 
 		let reversedFunc = { (t: Double) -> Transform in
 			return self.vFunc(1.0 - t)
@@ -43,7 +43,7 @@ public extension AnimatableVariable {
 		let _ = TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
 	}
 
-	public func animation(desc: TransformAnimationDescription) -> Animatable {
+	public func animation(desc: TransformAnimationDescription) -> Animation {
 		guard let node = self.node else {
 			return EmptyAnimation(completion: { })
 		}
@@ -51,12 +51,20 @@ public extension AnimatableVariable {
 		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
 	}
 
-	public func animate(from: Transform, to: Transform, during: Double) {
+	public func animate(from from: Transform, to: Transform, during: Double) {
 		self.animate((from >> to).t(during))
 	}
 
-	public func animation(from: Transform, to: Transform, during: Double) -> Animatable {
+	public func animation(from from: Transform, to: Transform, during: Double) -> Animation {
 		return self.animation((from >> to).t(during))
+	}
+
+	public func animation(valueFunc valueFrunc: (Double) -> Transform, during: Double) -> Animation {
+		guard let node = self.node else {
+			return EmptyAnimation(completion: { })
+		}
+
+		return TransformAnimation(animatedNode: node, valueFunc: valueFrunc, animationDuration: during)
 	}
 
 }

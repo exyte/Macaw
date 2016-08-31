@@ -1,7 +1,7 @@
 
 import UIKit
 
-func addOpacityAnimation(animation: Animatable, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
+func addOpacityAnimation(animation: Animation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {
 		return
 	}

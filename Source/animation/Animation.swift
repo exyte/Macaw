@@ -18,12 +18,12 @@ public enum TimingFunction {
 	case EaseInEaseOut
 }
 
-public class Animatable {
+public class Animation {
 
 	var node: Node?
 	var type = AnimationType.Unknown
 	let ID: String
-	var next: Animatable?
+	var next: Animation?
 
 	// Options
 
@@ -50,7 +50,7 @@ public class Animatable {
 		removeFunc?()
 	}
 
-	public func reverse() -> Animatable {
+	public func reverse() -> Animation {
 		return self
 	}
 
@@ -60,7 +60,7 @@ public class Animatable {
 }
 
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
-public class Animation<T: Interpolable>: Animatable {
+internal class AnimationImpl<T: Interpolable>: Animation {
 
 	let value: Variable<T>
 	let vFunc: ((Double) -> T)
@@ -68,7 +68,7 @@ public class Animation<T: Interpolable>: Animatable {
 	let logicalFps: UInt
 	let autostart: Bool
 
-	public init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
+	init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
 		value = observableValue
 		duration = animationDuration
 		vFunc = valueFunc
@@ -82,7 +82,7 @@ public class Animation<T: Interpolable>: Animatable {
 		}
 	}
 
-	public convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
+	convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
 		let interpolationFunc = { (t: Double) -> T in
 			return startValue.interpolate(finalValue, progress: t)
 		}
@@ -90,7 +90,7 @@ public class Animation<T: Interpolable>: Animatable {
 		self.init(observableValue: observableValue, valueFunc: interpolationFunc, animationDuration: animationDuration)
 	}
 
-	public convenience init(observableValue: Variable<T>, finalValue: T, animationDuration: Double) {
+	convenience init(observableValue: Variable<T>, finalValue: T, animationDuration: Double) {
 		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
 	}
 
@@ -100,7 +100,7 @@ public class Animation<T: Interpolable>: Animatable {
 }
 
 // For sequence completion
-class EmptyAnimation: Animatable {
+class EmptyAnimation: Animation {
 	required init(completion: (() -> ())) {
 		super.init()
 

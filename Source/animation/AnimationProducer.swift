@@ -3,7 +3,7 @@ import Swift_CAAnimation_Closure
 let animationProducer = AnimationProducer()
 class AnimationProducer {
 
-	public func addAnimation(animation: Animatable) {
+	public func addAnimation(animation: Animation) {
 
 		if animation.type == .Empty {
 			executeCompletion(animation)
@@ -46,7 +46,7 @@ class AnimationProducer {
 			executeCompletion(animation)
 		}
 	}
-	private func addAnimationSequence(animationSequnce: Animatable) {
+	private func addAnimationSequence(animationSequnce: Animation) {
 		guard let sequence = animationSequnce as? AnimationSequence else {
 			return
 		}
@@ -58,7 +58,7 @@ class AnimationProducer {
 		}
 
 		// Generating sequence
-		var sequenceAnimations = [Animatable]()
+		var sequenceAnimations = [Animation]()
 		if sequence.repeatCount > 0.0001 {
 			for i in 0..<Int(sequence.repeatCount) {
 				sequenceAnimations.appendContentsOf(sequence.animations)
@@ -98,7 +98,7 @@ class AnimationProducer {
 		}
 	}
 
-	private func addCombineAnimation(combineAnimation: Animatable) {
+	private func addCombineAnimation(combineAnimation: Animation) {
 		guard let combine = combineAnimation as? CombineAnimation else {
 			return
 		}
@@ -112,7 +112,7 @@ class AnimationProducer {
 
 		// repeat count
 		if combine.repeatCount > 0.00001 {
-			var sequence = [Animatable]()
+			var sequence = [Animation]()
 
 			for i in 0..<Int(combine.repeatCount) {
 				sequence.append(combine)
@@ -124,7 +124,7 @@ class AnimationProducer {
 		}
 
 		// Looking for longest animation
-		var longestAnimation: Animatable?
+		var longestAnimation: Animation?
 		combine.animations.forEach { animation in
 			guard let longest = longestAnimation else {
 				longestAnimation = animation
@@ -164,7 +164,7 @@ class AnimationProducer {
 		}
 	}
 
-	private func executeCompletion(emptyAnimation: Animatable) {
+	private func executeCompletion(emptyAnimation: Animation) {
 		emptyAnimation.completion?()
 	}
 }

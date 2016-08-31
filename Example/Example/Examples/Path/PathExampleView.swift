@@ -4,7 +4,7 @@ import Macaw
 
 class PathExampleView: MacawView {
 
-	var animation: Animatable?
+	var animation: Animation?
 
 	required init?(coder aDecoder: NSCoder) {
 
@@ -120,10 +120,11 @@ class PathExampleView: MacawView {
 		let superposition = GeomUtils.concat(t1: Transform().move(dx: -100.0, dy: 0.0), t2: Transform())
 		animation = group.placeVar.animation((Transform().move(dx: -100.0, dy: 0.0) >> superposition).t(5.0))
 
+		// let test = Text(text: "Hello World!", place: .move(dx: 100, dy: 100))
 		super.init(node: group, coder: aDecoder)
 	}
 
 	func testAnimation() {
-		// animation?.start()
+		animation?.start()
 	}
 }

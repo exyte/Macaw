@@ -1,11 +1,11 @@
 
 import Foundation
 
-public class AnimationSequence: Animatable {
+internal class AnimationSequence: Animation {
 
-	let animations: [Animatable]
+	let animations: [Animation]
 
-	required public init(animations: [Animatable]) {
+	required init(animations: [Animation]) {
 		self.animations = animations
 
 		super.init()
@@ -24,8 +24,8 @@ public class AnimationSequence: Animatable {
 		}
 	}
 
-	public override func reverse() -> Animatable {
-		var reversedAnimations = [Animatable]()
+	public override func reverse() -> Animation {
+		var reversedAnimations = [Animation]()
 		animations.forEach { animation in
 			reversedAnimations.append(animation.reverse())
 		}
@@ -38,10 +38,10 @@ public class AnimationSequence: Animatable {
 	}
 }
 
-public extension SequenceType where Generator.Element: Animatable {
-	public func sequence() -> Animatable {
+public extension SequenceType where Generator.Element: Animation {
+	public func sequence() -> Animation {
 
-		var sequence = [Animatable]()
+		var sequence = [Animation]()
 		self.forEach { animation in
 			sequence.append(animation)
 		}

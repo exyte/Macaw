@@ -62,7 +62,7 @@ class AnimationsView: MacawView {
 				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(rand() % 6)]
 			)
 
-			let ballGroup = Group(contents: [shape], place: startPos)
+			let ballGroup = Group(contents: [shape])
 			ballNodes.append(ballGroup)
 
 			// Animation
@@ -90,6 +90,7 @@ class AnimationsView: MacawView {
 		animation = animations.combine()
 
 		let node = Group(contents: ballNodes)
+		node.place = Transform().move(dx: startPos.dx, dy: startPos.dy)
 		self.node = node
 	}
 

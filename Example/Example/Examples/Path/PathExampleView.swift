@@ -116,7 +116,9 @@ class PathExampleView: MacawView {
 		let group = Group(contents: [cloudExample()])
 		group.place = Transform().move(dx: -100.0, dy: 0.0)
 
-		animation = group.placeVar.animation((Transform() >> GeomUtils.centerRotation(node: group, angle: M_PI_2)).t(5.0))
+		let rotation = GeomUtils.centerRotation(node: group, angle: M_PI_2)
+		let superposition = GeomUtils.concat(t1: Transform().move(dx: -100.0, dy: 0.0), t2: rotation)
+		animation = group.placeVar.animation((Transform().move(dx: -100.0, dy: 0.0) >> superposition).t(5.0))
 
 		super.init(node: group, coder: aDecoder)
 	}

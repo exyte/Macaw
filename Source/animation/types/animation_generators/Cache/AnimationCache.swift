@@ -27,6 +27,7 @@ class AnimationCache {
 			let layer = ShapeLayer()
 			layer.animationCache = self
 
+			// Use to debug animation layers
 			// layer.backgroundColor = UIColor.greenColor().CGColor
 			// layer.borderWidth = 1.0
 			// layer.borderColor = UIColor.blueColor().CGColor
@@ -43,7 +44,7 @@ class AnimationCache {
 
 				layer.renderTransform = CGAffineTransformMakeTranslation(-1.0 * cgRect.origin.x, -1.0 * cgRect.origin.y)
 
-				let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
+				let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absoluteTransform(node, pos: Transform()))
 				let layerTransform = CGAffineTransformMakeTranslation(cgRect.origin.x, cgRect.origin.y)
 
 				layer.transform = CATransform3DMakeAffineTransform(CGAffineTransformConcat(nodeTransform, layerTransform))

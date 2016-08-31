@@ -15,6 +15,10 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		super.init(observableValue: animatedNode.placeVar, valueFunc: valueFunc, animationDuration: animationDuration, fps: fps)
 		type = .AffineTransformation
 		node = animatedNode
+
+		if autostart {
+			self.start()
+		}
 	}
 
 	public override func reverse() -> Animation {
@@ -24,7 +28,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		}
 
 		let reversedAnimation = TransformAnimation(animatedNode: node!,
-			valueFunc: reversedFunc, animationDuration: duration, autostart: autostart, fps: logicalFps)
+			valueFunc: reversedFunc, animationDuration: duration, fps: logicalFps)
 		reversedAnimation.progress = progress
 		reversedAnimation.completion = completion
 

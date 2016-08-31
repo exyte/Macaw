@@ -66,20 +66,14 @@ internal class AnimationImpl<T: Interpolable>: Animation {
 	let vFunc: ((Double) -> T)
 	let duration: Double
 	let logicalFps: UInt
-	let autostart: Bool
 
-	init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
+	init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, fps: UInt = 30) {
 		value = observableValue
 		duration = animationDuration
 		vFunc = valueFunc
 		logicalFps = fps
-		self.autostart = autostart
 
 		super.init()
-
-		if autostart {
-			start()
-		}
 	}
 
 	convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {

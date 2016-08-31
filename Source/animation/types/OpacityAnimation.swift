@@ -13,9 +13,13 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 	}
 
 	init(animatedNode: Node, valueFunc: (Double) -> Double, animationDuration: Double, autostart: Bool = false, fps: UInt = 30) {
-		super.init(observableValue: animatedNode.opacityVar, valueFunc: valueFunc, animationDuration: animationDuration, autostart: autostart, fps: fps)
+		super.init(observableValue: animatedNode.opacityVar, valueFunc: valueFunc, animationDuration: animationDuration, fps: fps)
 		type = .Opacity
 		node = animatedNode
+
+		if autostart {
+			self.start()
+		}
 	}
 
 	public override func reverse() -> Animation {
@@ -25,7 +29,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 		}
 
 		let reversedAnimation = OpacityAnimation(animatedNode: node!,
-			valueFunc: reversedFunc, animationDuration: duration, autostart: autostart, fps: logicalFps)
+			valueFunc: reversedFunc, animationDuration: duration, fps: logicalFps)
 		reversedAnimation.progress = progress
 		reversedAnimation.completion = completion
 

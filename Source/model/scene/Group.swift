@@ -38,7 +38,7 @@ public class Group: Node {
 			union = union.union(rect: nodeBounds.applyTransform(node.place))
 		}
 
-		return union.applyTransform(self.place)
+		return union
 	}
 
 }

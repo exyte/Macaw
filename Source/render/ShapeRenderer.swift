@@ -447,7 +447,8 @@ class ShapeRenderer: NodeRenderer {
 				var stops: [CGFloat] = []
 				for stop in gradient.stops {
 					stops.append(CGFloat(stop.offset))
-					colors.append(RenderUtils.mapColor(stop.color))
+                    let color = RenderUtils.applyOpacity(stop.color, opacity: opacity)
+					colors.append(RenderUtils.mapColor(color))
 				}
 				let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
 				CGContextClip(ctx)

@@ -35,7 +35,10 @@ public class SVGParser {
     let smoothCurveToRelative = Character("s")
     let closePathAbsolute = Character("Z")
     let closePathRelative = Character("z")
-    let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration", "opacity", "fill-opacity", "stroke-opacity", "stop-color"]
+    let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
+                                    "fill", "fill-opacity", "stop-color",
+                                    "font-family", "font-size",
+                                    "opacity"]
 
     private let xmlString: String
     private let initialPosition: Transform
@@ -162,12 +165,12 @@ public class SVGParser {
             return .None
         }
         switch element.name {
-            case "linearGradient":
-                return parseLinearGradient(fill)
-            case "radialGradient":
-                return parseRadialGradient(fill)
-            default:
-                return .None
+        case "linearGradient":
+            return parseLinearGradient(fill)
+        case "radialGradient":
+            return parseRadialGradient(fill)
+        default:
+            return .None
         }
     }
 
@@ -355,11 +358,13 @@ public class SVGParser {
         } else {
             fill = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
         }
+        
         if let strokeFill = fill {
             return Stroke(fill: strokeFill,
                 width: getStrokeWidth(styleParts),
-                cap: .round,
-                join: .round)
+                cap: getStrokeCap(styleParts),
+                join: getStrokeJoin(styleParts),
+                dashes: getStrokeDashes(styleParts))
         }
 
         return .None
@@ -372,6 +377,52 @@ public class SVGParser {
             width = Double(strokeWidth)!
         }
         return width
+    }
+    
+    private func getStrokeCap(styleParts: [String: String]) -> LineCap {
+        var cap = LineCap.round
+        if let strokeCap = styleParts["stroke-linecap"] {
+            switch strokeCap {
+            case "butt":
+                cap = .butt
+            case "square":
+                cap = .square
+            default:
+                break
+            }
+        }
+        return cap
+    }
+    
+    private func getStrokeJoin(styleParts: [String: String]) -> LineJoin {
+        var join = LineJoin.round
+        if let strokeJoin = styleParts["stroke-linejoin"] {
+            switch strokeJoin {
+            case "miter":
+                join = .miter
+            case "bevel":
+                join = .bevel
+            default:
+                break
+            }
+        }
+        return join
+    }
+    
+    private func getStrokeDashes(styleParts: [String: String]) -> [Double] {
+        var dashes = [Double]()
+        if let strokeDashes = styleParts["stroke-dasharray"] {
+            let characterSet = NSMutableCharacterSet()
+            characterSet.addCharactersInString(" ")
+            characterSet.addCharactersInString(",")
+            let separatedValues = strokeDashes.componentsSeparatedByCharactersInSet(characterSet)
+            separatedValues.forEach { value in
+                if let doubleValue = Double(value) {
+                    dashes.append(doubleValue)
+                }
+            }
+        }
+        return dashes
     }
     
     private func getOpacity(styleParts: [String: String]) -> Double {
@@ -665,12 +716,12 @@ public class SVGParser {
         }
         
         switch stops.count {
-            case 0:
-                return .None
-            case 1:
-                return stops.first?.color
-            default:
-                break
+        case 0:
+            return .None
+        case 1:
+            return stops.first?.color
+        default:
+            break
         }
         
         let x1 = getDoubleValueFromPercentage(element, attribute: "x1") ?? parentGradient?.x1 ?? 0

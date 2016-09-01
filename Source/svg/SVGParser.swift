@@ -31,6 +31,8 @@ public class SVGParser {
     let lineVerticalRelative = Character("v")
     let curveToAbsolute = Character("C")
     let curveToRelative = Character("c")
+    let smoothCurveToAbsolute = Character("S")
+    let smoothCurveToRelative = Character("s")
     let closePathAbsolute = Character("Z")
     let closePathRelative = Character("z")
     let availableStyleAttributes = ["stroke", "stroke-width", "fill", "font-family", "font-size", "font-style", "font-weight", "text-decoration", "opacity", "fill-opacity", "stroke-opacity", "stop-color"]
@@ -48,6 +50,7 @@ public class SVGParser {
         case LineV
         case LineH
         case CurveTo
+        case SmoothCurveTo
         case ClosePath
         case None
     }
@@ -114,31 +117,31 @@ public class SVGParser {
             switch element.name {
             case "path":
                 if let path = parsePath(node) {
-                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes))
                 }
             case "line":
                 if let line = parseLine(node) {
-                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position,opacity: getOpacity(styleAttributes))
                 }
             case "rect":
                 if let rect = parseRect(node) {
-                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position,opacity: getOpacity(styleAttributes))
                 }
             case "circle":
                 if let circle = parseCircle(node) {
-                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position,opacity: getOpacity(styleAttributes))
                 }
             case "ellipse":
                 if let ellipse = parseEllipse(node) {
-                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes))
                 }
             case "polygon":
                 if let polygon = parsePolygon(node) {
-                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes))
                 }
             case "polyline":
                 if let polyline = parsePolyline(node) {
-                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position)
+                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes))
                 }
             case "image":
                 return parseImage(node, opacity: getOpacity(styleAttributes), pos: position)
@@ -331,19 +334,29 @@ public class SVGParser {
     }
 
     private func getStroke(styleParts: [String: String]) -> Stroke? {
-        var color: Color?
-        if let strokeColor = styleParts["stroke"] {
-            if strokeColor == "none" {
-                return .None
-            }
-            var opacity: Double = 1
-            if let fillOpacity = styleParts["fill-opacity"] {
-                opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
-            }
-            color = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+        guard let strokeColor = styleParts["stroke"] else {
+            return .None
         }
-        if let strokeColor = color {
-            return Stroke(fill: strokeColor,
+        if strokeColor == "none" {
+            return .None
+        }
+        var opacity: Double = 1
+        if let strokeOpacity = styleParts["stroke-opacity"] {
+            opacity = Double(strokeOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1
+        }
+        var fill: Fill?
+        if strokeColor.hasPrefix("url") {
+            let index = strokeColor.startIndex.advancedBy(4)
+            let id = strokeColor.substringFromIndex(index)
+                .stringByReplacingOccurrencesOfString("(", withString: "")
+                .stringByReplacingOccurrencesOfString(")", withString: "")
+                .stringByReplacingOccurrencesOfString("#", withString: "")
+            fill = defFills[id]
+        } else {
+            fill = createColor(strokeColor.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+        }
+        if let strokeFill = fill {
+            return Stroke(fill: strokeFill,
                 width: getStrokeWidth(styleParts),
                 cap: .round,
                 join: .round)
@@ -816,11 +829,11 @@ public class SVGParser {
         let characterSet = NSMutableCharacterSet()
         characterSet.addCharactersInString(" ")
         characterSet.addCharactersInString(",")
-        let separatedValues = command.expression.componentsSeparatedByCharactersInSet(characterSet)
-//        var separatedValues = [String]()
-//        commandParams.forEach { param in
-//            separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
-//        }
+        let commandParams = command.expression.componentsSeparatedByCharactersInSet(characterSet)
+        var separatedValues = [String]()
+        commandParams.forEach { param in
+            separatedValues.appendContentsOf(separateNegativeValuesIfNeeded(param))
+        }
         
         switch command.type {
         case .MoveTo:
@@ -882,7 +895,21 @@ public class SVGParser {
             }
 
             return PathSegment(type: command.absolute ? .C : .c, data: [x1, y1, x2, y2, x, y])
-
+            
+        case .SmoothCurveTo:
+            if separatedValues.count < 4 {
+                return .None
+            }
+            
+            guard let x2 = Double(separatedValues[0]),
+                y2 = Double(separatedValues[1]),
+                x = Double(separatedValues[2]),
+                y = Double(separatedValues[3]) else {
+                    return .None
+            }
+            
+            return PathSegment(type: command.absolute ? .S : .s, data: [x2, y2, x, y])
+            
         case .ClosePath:
             return PathSegment(type: .Z)
         default:
@@ -890,17 +917,21 @@ public class SVGParser {
         }
     }
     
-    // is this really necessary? why?
     private func separateNegativeValuesIfNeeded(expression: String) -> [String] {
         var values = [String]()
         var value = String()
+        var e = false
 
         expression.characters.forEach { c in
-            if c == "-" {
+            if c == "e" {
+                e = true
+            }
+            if c == "-" && !e {
                 if value.characters.count != 0 {
                     values.append(value)
                     value = String()
                 }
+                e = false
             }
 
             value.append(c)
@@ -935,6 +966,10 @@ public class SVGParser {
             return true
         case curveToRelative:
             return true
+        case smoothCurveToAbsolute:
+            return true
+        case smoothCurveToRelative:
+            return true
         case closePathAbsolute:
             return true
         case closePathRelative:
@@ -965,6 +1000,10 @@ public class SVGParser {
         case curveToAbsolute:
             return true
         case curveToRelative:
+            return false
+        case smoothCurveToAbsolute:
+            return true
+        case smoothCurveToRelative:
             return false
         case closePathAbsolute:
             return true
@@ -997,6 +1036,10 @@ public class SVGParser {
             return .CurveTo
         case curveToRelative:
             return .CurveTo
+        case smoothCurveToAbsolute:
+            return .SmoothCurveTo
+        case smoothCurveToRelative:
+            return .SmoothCurveTo
         case closePathAbsolute:
             return .ClosePath
         case closePathRelative:

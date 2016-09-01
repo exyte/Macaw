@@ -12,6 +12,16 @@
 		57CAB11C1D78177900FD8E47 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */; };
 		57CAB11D1D78178000FD8E47 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57CAB1211D781F0000FD8E47 /* CAAnimation+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1201D781F0000FD8E47 /* CAAnimation+Closure.swift */; };
+		57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1221D782DFC00FD8E47 /* TestUtils.swift */; };
+		57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1251D7832E000FD8E47 /* circle.svg */; };
+		57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1261D7832E000FD8E47 /* ellipse.svg */; };
+		57CAB1301D7832E000FD8E47 /* group.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1271D7832E000FD8E47 /* group.svg */; };
+		57CAB1311D7832E000FD8E47 /* line.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1281D7832E000FD8E47 /* line.svg */; };
+		57CAB1321D7832E000FD8E47 /* polygon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1291D7832E000FD8E47 /* polygon.svg */; };
+		57CAB1331D7832E000FD8E47 /* polyline.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12A1D7832E000FD8E47 /* polyline.svg */; };
+		57CAB1341D7832E000FD8E47 /* rect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12B1D7832E000FD8E47 /* rect.svg */; };
+		57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12C1D7832E000FD8E47 /* roundRect.svg */; };
+		57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12D1D7832E000FD8E47 /* triangle.svg */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
 		57FCD2E71D76EB8E00CC0FB6 /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD2881D76EB8E00CC0FB6 /* AnimatableVariable.swift */; };
@@ -125,6 +135,16 @@
 		57CAB1181D78173F00FD8E47 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
 		57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = iOS/SWXMLHash.framework; sourceTree = "<group>"; };
 		57CAB1201D781F0000FD8E47 /* CAAnimation+Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAAnimation+Closure.swift"; sourceTree = "<group>"; };
+		57CAB1221D782DFC00FD8E47 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		57CAB1251D7832E000FD8E47 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
+		57CAB1261D7832E000FD8E47 /* ellipse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ellipse.svg; sourceTree = "<group>"; };
+		57CAB1271D7832E000FD8E47 /* group.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = group.svg; sourceTree = "<group>"; };
+		57CAB1281D7832E000FD8E47 /* line.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = line.svg; sourceTree = "<group>"; };
+		57CAB1291D7832E000FD8E47 /* polygon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = polygon.svg; sourceTree = "<group>"; };
+		57CAB12A1D7832E000FD8E47 /* polyline.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = polyline.svg; sourceTree = "<group>"; };
+		57CAB12B1D7832E000FD8E47 /* rect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rect.svg; sourceTree = "<group>"; };
+		57CAB12C1D7832E000FD8E47 /* roundRect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = roundRect.svg; sourceTree = "<group>"; };
+		57CAB12D1D7832E000FD8E47 /* triangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = triangle.svg; sourceTree = "<group>"; };
 		57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
@@ -249,6 +269,22 @@
 			path = "Swift-CAAnimation-Closure";
 			sourceTree = "<group>";
 		};
+		57CAB1241D7832E000FD8E47 /* svg */ = {
+			isa = PBXGroup;
+			children = (
+				57CAB1251D7832E000FD8E47 /* circle.svg */,
+				57CAB1261D7832E000FD8E47 /* ellipse.svg */,
+				57CAB1271D7832E000FD8E47 /* group.svg */,
+				57CAB1281D7832E000FD8E47 /* line.svg */,
+				57CAB1291D7832E000FD8E47 /* polygon.svg */,
+				57CAB12A1D7832E000FD8E47 /* polyline.svg */,
+				57CAB12B1D7832E000FD8E47 /* rect.svg */,
+				57CAB12C1D7832E000FD8E47 /* roundRect.svg */,
+				57CAB12D1D7832E000FD8E47 /* triangle.svg */,
+			);
+			path = svg;
+			sourceTree = "<group>";
+		};
 		57D2020D1D78044A00A90D4F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +348,8 @@
 		57FCD27A1D76EA4600CC0FB6 /* MacawTests */ = {
 			isa = PBXGroup;
 			children = (
+				57CAB1241D7832E000FD8E47 /* svg */,
+				57CAB1221D782DFC00FD8E47 /* TestUtils.swift */,
 				57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */,
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
@@ -626,6 +664,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
+				57CAB1301D7832E000FD8E47 /* group.svg in Resources */,
+				57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */,
+				57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */,
+				57CAB1331D7832E000FD8E47 /* polyline.svg in Resources */,
+				57CAB1311D7832E000FD8E47 /* line.svg in Resources */,
+				57CAB1321D7832E000FD8E47 /* polygon.svg in Resources */,
+				57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */,
+				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,6 +772,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,
+				57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

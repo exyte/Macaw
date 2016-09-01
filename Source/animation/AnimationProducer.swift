@@ -1,9 +1,8 @@
-import Swift_CAAnimation_Closure
 
 let animationProducer = AnimationProducer()
 class AnimationProducer {
 
-	public func addAnimation(animation: Animation) {
+	func addAnimation(animation: Animation) {
 
 		if animation.type == .Empty {
 			executeCompletion(animation)

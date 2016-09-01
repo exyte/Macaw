@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Macaw: aef82aed348fb0a2a5289f116a9a141952cc816e
+  Macaw: 4cf98a0cfb82aac3c5646fddb48e60673fe0204f
   RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
   Swift-CAAnimation-Closure: 9229ece23497fe8c073587ac63f14e74b64f483a
   SWXMLHash: 2f8c49af765718ad56020c4f875ec3ff22612f06

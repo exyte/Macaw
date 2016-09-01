@@ -46,7 +46,8 @@ Pod::Spec.new do |s|
      'Source/model/scene/*.swift',
      'Source/render/*.swift',
      'Source/views/*.swift',
-     'Source/svg/*.swift'
+     'Source/svg/*.swift',
+     'Source/thirdparty/Swift-CAAnimation-Closure/*.swift'
   ]
   # s.resource_bundles = {
   #   'Macaw' => ['Pod/Assets/*.png']

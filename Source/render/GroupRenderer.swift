@@ -45,13 +45,9 @@ class GroupRenderer: NodeRenderer {
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
         
-        CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(self.node.place))
-        
 		contentRenderers.forEach { renderer in
 			CGContextSaveGState(ctx.cgContext)
-            if !(renderer.node is Group) {
-                CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
-            }
+            CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
 			setClip(renderer.node)
 			renderer.render(force, opacity: renderer.node.opacity * opacity)
 			CGContextRestoreGState(ctx.cgContext)

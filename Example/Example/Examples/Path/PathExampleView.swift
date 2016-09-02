@@ -125,6 +125,6 @@ class PathExampleView: MacawView {
 	}
 
 	func testAnimation() {
-		animation?.start()
+		animation?.play()
 	}
 }

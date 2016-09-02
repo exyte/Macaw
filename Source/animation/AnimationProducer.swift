@@ -2,7 +2,7 @@
 let animationProducer = AnimationProducer()
 class AnimationProducer {
 
-	func addAnimation(animation: Animation) {
+	func addAnimation(animation: BasicAnimation) {
 
 		if animation.type == .Empty {
 			executeCompletion(animation)
@@ -57,7 +57,7 @@ class AnimationProducer {
 		}
 
 		// Generating sequence
-		var sequenceAnimations = [Animation]()
+		var sequenceAnimations = [BasicAnimation]()
 		if sequence.repeatCount > 0.0001 {
 			for i in 0..<Int(sequence.repeatCount) {
 				sequenceAnimations.appendContentsOf(sequence.animations)
@@ -123,7 +123,7 @@ class AnimationProducer {
 		}
 
 		// Looking for longest animation
-		var longestAnimation: Animation?
+		var longestAnimation: BasicAnimation?
 		combine.animations.forEach { animation in
 			guard let longest = longestAnimation else {
 				longestAnimation = animation
@@ -163,7 +163,7 @@ class AnimationProducer {
 		}
 	}
 
-	private func executeCompletion(emptyAnimation: Animation) {
+	private func executeCompletion(emptyAnimation: BasicAnimation) {
 		emptyAnimation.completion?()
 	}
 }

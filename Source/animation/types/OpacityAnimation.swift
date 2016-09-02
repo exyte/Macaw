@@ -18,7 +18,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 		node = animatedNode
 
 		if autostart {
-			self.start()
+			self.play()
 		}
 	}
 

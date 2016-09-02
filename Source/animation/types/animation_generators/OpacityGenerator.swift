@@ -1,7 +1,7 @@
 
 import UIKit
 
-func addOpacityAnimation(animation: Animation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
+func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {
 		return
 	}
@@ -14,7 +14,7 @@ func addOpacityAnimation(animation: Animation, sceneLayer: CALayer, animationCac
 	let generatedAnimation = opacityAnimationByFunc(opacityAnimation.vFunc, duration: animation.getDuration(), fps: opacityAnimation.logicalFps)
 	generatedAnimation.autoreverses = animation.autoreverses
 	generatedAnimation.repeatCount = Float(animation.repeatCount)
-	generatedAnimation.timingFunction = caTimingFunction(animation.timingFunction)
+	generatedAnimation.timingFunction = caTimingFunction(animation.easing)
 
 	generatedAnimation.completion = { finished in
 

@@ -4,7 +4,7 @@ import RxSwift
 
 class AnimationsView: MacawView {
 
-	var animation = Animation()
+	var animation: Animation?
 	var ballNodes = [Group]()
 
 	let n = 100
@@ -16,7 +16,7 @@ class AnimationsView: MacawView {
 	}
 
 	func startAnimation() {
-		animation.start()
+		animation!.play()
 	}
 
 	func prepareAnimation() {
@@ -95,6 +95,6 @@ class AnimationsView: MacawView {
 	}
 
 	func stopAnimation() {
-		animation.stop()
+		animation!.stop()
 	}
 }

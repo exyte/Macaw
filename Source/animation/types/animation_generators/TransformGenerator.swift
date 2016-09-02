@@ -1,6 +1,6 @@
 import UIKit
 
-func addTransformAnimation(animation: Animation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
+func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
 	guard let transformAnimation = animation as? TransformAnimation else {
 		return
 	}
@@ -25,7 +25,7 @@ func addTransformAnimation(animation: Animation, sceneLayer: CALayer, animationC
 
 	generatedAnim.autoreverses = animation.autoreverses
 	generatedAnim.repeatCount = Float(animation.repeatCount)
-	generatedAnim.timingFunction = caTimingFunction(animation.timingFunction)
+	generatedAnim.timingFunction = caTimingFunction(animation.easing)
 
 	generatedAnim.completion = { finished in
 

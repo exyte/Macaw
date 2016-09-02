@@ -17,7 +17,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		node = animatedNode
 
 		if autostart {
-			self.start()
+			self.play()
 		}
 	}
 

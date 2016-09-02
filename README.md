@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![License](https://img.shields.io/cocoapods/l/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![Platform](https://img.shields.io/cocoapods/p/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
-![Macaw Logo](https://cdn.rawgit.com/exyte/Macaw/master/macaw-logo.svg)
+<img src="https://github.com/exyte/Macaw/blob/master/logo.png" height="300">
 
 ## What is Macaw?
 

@@ -12,7 +12,6 @@ class BasePageViewController: UIPageViewController {
 			self.newMacawViewController("FourthPageViewController"),
 			self.newMacawViewController("AnimationsExampleController"),
 			self.newMacawViewController("ModelListenersExampleController"),
-			self.newMacawViewController("CleanerExampleController"),
 			self.newMacawViewController("SVGExampleViewController"),
 			self.newMacawViewController("SVGChartsViewController"),
 			self.newMacawViewController("EventsViewController")

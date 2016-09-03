@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Ku-fM-19f">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8Ku-fM-19f">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -225,64 +225,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asF-Da-v23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1339" y="470"/>
-        </scene>
-        <!--Cleaner-->
-        <scene sceneID="oJI-xh-u5X">
-            <objects>
-                <viewController storyboardIdentifier="CleanerExampleController" title="Cleaner" id="74N-4W-w39" customClass="CleanerExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6ZD-bS-1od"/>
-                        <viewControllerLayoutGuide type="bottom" id="ams-3I-029"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9mn-31-84J" customClass="CleanerView" customModule="Example" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYt-dx-26j">
-                                <rect key="frame" x="9" y="21" width="109" height="30"/>
-                                <state key="normal" title="PickUp Request"/>
-                                <connections>
-                                    <action selector="pickUpRequested:" destination="74N-4W-w39" eventType="touchUpInside" id="7P5-n1-vU0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ttg-ie-7Dw">
-                                <rect key="frame" x="9" y="65" width="95" height="30"/>
-                                <state key="normal" title="Now Cleaning"/>
-                                <connections>
-                                    <action selector="nowCleaning:" destination="74N-4W-w39" eventType="touchUpInside" id="6iR-nq-Nlx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFK-RO-f1C">
-                                <rect key="frame" x="9" y="109" width="37" height="30"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="cleanDone:" destination="74N-4W-w39" eventType="touchUpInside" id="8Un-Uz-GA4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ceg-4d-SBF">
-                                <rect key="frame" x="8" y="87" width="96" height="30"/>
-                                <state key="normal" title="Clothes Clean"/>
-                                <connections>
-                                    <action selector="clothesClean:" destination="74N-4W-w39" eventType="touchUpInside" id="AVc-Xr-VFb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5o-JG-y2H">
-                                <rect key="frame" x="9" y="43" width="131" height="30"/>
-                                <state key="normal" title="Cleaner on the way"/>
-                                <connections>
-                                    <action selector="cleanerOnWay:" destination="74N-4W-w39" eventType="touchUpInside" id="Rwd-VZ-thr"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="macawView" destination="9mn-31-84J" id="JgO-52-7Oq"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JJ1-FO-V0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1339" y="1195"/>
         </scene>
         <!--Model Listeners-->
         <scene sceneID="v8O-OB-49M">

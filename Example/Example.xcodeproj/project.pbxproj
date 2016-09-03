@@ -13,9 +13,6 @@
 		5708F7E61CC8A783002AA500 /* PathExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5708F7E51CC8A783002AA500 /* PathExampleController.swift */; };
 		571B0FF61CEDDBD900A998E2 /* tree2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 571B0FF51CEDDBD900A998E2 /* tree2.svg */; };
 		5720C6B11CECA89E00090FC6 /* sunset-tree.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5720C6B01CECA89E00090FC6 /* sunset-tree.svg */; };
-		574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */; };
-		574EC4381CB7DE7F0063F317 /* CleanersGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */; };
-		574EC4391CB7DE7F0063F317 /* CleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42B1CB7DE7F0063F317 /* CleanerView.swift */; };
 		574EC43A1CB7DE7F0063F317 /* DiagramExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42D1CB7DE7F0063F317 /* DiagramExampleView.swift */; };
 		574EC43B1CB7DE7F0063F317 /* ModelListenersExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC42F1CB7DE7F0063F317 /* ModelListenersExampleController.swift */; };
 		574EC43C1CB7DE7F0063F317 /* RectShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4301CB7DE7F0063F317 /* RectShapeView.swift */; };
@@ -63,9 +60,6 @@
 		5708F7E51CC8A783002AA500 /* PathExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathExampleController.swift; sourceTree = "<group>"; };
 		571B0FF51CEDDBD900A998E2 /* tree2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tree2.svg; path = Example/Assets/SVG/tree2.svg; sourceTree = "<group>"; };
 		5720C6B01CECA89E00090FC6 /* sunset-tree.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "sunset-tree.svg"; path = "Example/Assets/SVG/sunset-tree.svg"; sourceTree = "<group>"; };
-		574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerExampleController.swift; sourceTree = "<group>"; };
-		574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanersGraphics.swift; sourceTree = "<group>"; };
-		574EC42B1CB7DE7F0063F317 /* CleanerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerView.swift; sourceTree = "<group>"; };
 		574EC42D1CB7DE7F0063F317 /* DiagramExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramExampleView.swift; sourceTree = "<group>"; };
 		574EC42F1CB7DE7F0063F317 /* ModelListenersExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelListenersExampleController.swift; sourceTree = "<group>"; };
 		574EC4301CB7DE7F0063F317 /* RectShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectShapeView.swift; sourceTree = "<group>"; };
@@ -137,7 +131,6 @@
 				24B291221D523EF8000498B3 /* Events */,
 				66AE19D31CC8C7A100B78B5E /* SVG */,
 				574EC4421CBB607E0063F317 /* Animations */,
-				574EC4281CB7DE7F0063F317 /* Cleaner */,
 				574EC42C1CB7DE7F0063F317 /* Diagram */,
 				574EC42E1CB7DE7F0063F317 /* Model Listeners */,
 				574EC4311CB7DE7F0063F317 /* Path */,
@@ -146,16 +139,6 @@
 				574EC4401CB7E2440063F317 /* MenuViewController.swift */,
 			);
 			path = Examples;
-			sourceTree = "<group>";
-		};
-		574EC4281CB7DE7F0063F317 /* Cleaner */ = {
-			isa = PBXGroup;
-			children = (
-				574EC4291CB7DE7F0063F317 /* CleanerExampleController.swift */,
-				574EC42A1CB7DE7F0063F317 /* CleanersGraphics.swift */,
-				574EC42B1CB7DE7F0063F317 /* CleanerView.swift */,
-			);
-			path = Cleaner;
 			sourceTree = "<group>";
 		};
 		574EC42C1CB7DE7F0063F317 /* Diagram */ = {
@@ -448,12 +431,9 @@
 				24BE07041C6DF1F000B5882F /* BasePageViewController.swift in Sources */,
 				574EC43A1CB7DE7F0063F317 /* DiagramExampleView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
-				574EC4371CB7DE7F0063F317 /* CleanerExampleController.swift in Sources */,
-				574EC4391CB7DE7F0063F317 /* CleanerView.swift in Sources */,
 				574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */,
 				574EC43D1CB7DE7F0063F317 /* PathExampleView.swift in Sources */,
 				574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */,
-				574EC4381CB7DE7F0063F317 /* CleanersGraphics.swift in Sources */,
 				574EC43B1CB7DE7F0063F317 /* ModelListenersExampleController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

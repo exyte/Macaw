@@ -36,7 +36,8 @@ public class SVGParser {
     let closePathAbsolute = Character("Z")
     let closePathRelative = Character("z")
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "fill-opacity", "stop-color",
+                                    "fill", "fill-opacity",
+                                    "stop-color", "stop-opacity",
                                     "font-family", "font-size",
                                     "opacity"]
 
@@ -151,7 +152,7 @@ public class SVGParser {
             case "text":
                 return parseText(node, fill: getFillColor(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), pos: position)
             case "use":
-                return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position)
+                return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
             default:
                 print("SVG parsing error. Shape \(element.name) not supported")
                 return .None
@@ -665,7 +666,7 @@ public class SVGParser {
         return Transform().move(dx: xPos, dy: yPos)
     }
     
-    private func parseUse(use: XMLIndexer, fill: Fill?, stroke: Stroke?, pos: Transform) -> Node? {
+    private func parseUse(use: XMLIndexer, fill: Fill?, stroke: Stroke?, pos: Transform, opacity: Double) -> Node? {
         guard let element = use.element, link = element.attributes["xlink:href"] else {
             return .None
         }
@@ -677,6 +678,7 @@ public class SVGParser {
             return .None
         }
         node.place = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
+        node.opacity = opacity
         if let shape = node as? Shape {
             if let color = fill {
                 shape.fill = color
@@ -810,10 +812,14 @@ public class SVGParser {
         } else if offset > 1 {
             offset = 1
         }
+        var opacity: Double = 1
+        if let stopOpacity = getStyleAttributes([:], element: element)["stop-opacity"], doubleValue = Double(stopOpacity) {
+            opacity = doubleValue
+        }
         var color = Color.black
         if let stopColor = getStyleAttributes([:], element: element)["stop-color"] {
             color = createColor(stopColor
-                .stringByReplacingOccurrencesOfString(" ", withString: ""))
+                .stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
         }
         
         return Stop(offset: offset!, color: color)

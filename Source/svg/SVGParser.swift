@@ -320,6 +320,9 @@ public class SVGParser {
         guard let fillColor = styleParts["fill"] else {
             return .None
         }
+        if fillColor == "none" {
+            return .None
+        }
         var opacity: Double = 1
         if let fillOpacity = styleParts["fill-opacity"] {
             opacity = Double(fillOpacity.stringByReplacingOccurrencesOfString(" ", withString: "")) ?? 1

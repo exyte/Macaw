@@ -109,22 +109,25 @@ class PathExampleView: MacawView {
 
 			return Group(
 				contents: [cloud2Shape, lightningShape, cloud1Shape, cloud1Shape2],
-				place: Transform.move(dx: startPoint.x, dy: startPoint.y).scale(sx: 0.5, sy: 0.5)
+				place: Transform.move(dx: startPoint.x, dy: startPoint.y).scale(sx: 1.0, sy: 1.0)
 			)
 		}
 
+		let initialTransform = Transform().move(dx: -50.0, dy: 0.0).scale(sx: 1.0, sy: 1.0)
 		let group = Group(contents: [cloudExample()])
-		group.place = Transform().move(dx: -100.0, dy: 0.0)
+		group.place = initialTransform
 
 		let rotation = GeomUtils.centerRotation(node: group, angle: M_PI_4 / 4.0)
-		let superposition = GeomUtils.concat(t1: Transform().move(dx: -100.0, dy: 0.0), t2: Transform())
-		animation = group.placeVar.animation((Transform().move(dx: -100.0, dy: 0.0) >> superposition).t(5.0))
+		let superposition = GeomUtils.concat(t1: initialTransform, t2: rotation)
+		animation = group.placeVar.animation((initialTransform >> initialTransform.scale(sx: 0.15, sy: 0.15)).t(10.0))
 
 		// let test = Text(text: "Hello World!", place: .move(dx: 100, dy: 100))
 		super.init(node: group, coder: aDecoder)
 	}
 
 	func testAnimation() {
-		animation?.play()
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+			self.animation?.play()
+		}
 	}
 }

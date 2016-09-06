@@ -92,6 +92,33 @@ class AnimationCache {
 		return false
 	}
 
+	func isChildrenAnimating(group: Group) -> Bool {
+
+		for child in group.contents {
+			if isAnimating(child) {
+				return true
+			}
+
+			if let childGroup = child as? Group {
+				return isChildrenAnimating(childGroup)
+			}
+		}
+
+		return false
+	}
+
+	func containsAnimation(node: Node) -> Bool {
+		if isAnimating(node) {
+			return true
+		}
+
+		if let group = node as? Group {
+			return isChildrenAnimating(group)
+		}
+
+		return false
+	}
+
 	func animations() -> [Animation] {
 
 		return layerCache.map ({ $0.1.animation })

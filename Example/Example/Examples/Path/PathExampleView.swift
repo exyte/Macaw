@@ -5,6 +5,8 @@ import Macaw
 class PathExampleView: MacawView {
 
 	var animation: Animation?
+	let sceneGroup: Group
+	let initialTransform: Transform
 
 	required init?(coder aDecoder: NSCoder) {
 
@@ -113,21 +115,25 @@ class PathExampleView: MacawView {
 			)
 		}
 
-		let initialTransform = Transform().move(dx: -50.0, dy: 0.0).scale(sx: 1.0, sy: 1.0)
-		let group = Group(contents: [cloudExample()])
-		group.place = initialTransform
+		initialTransform = Transform().move(dx: -50.0, dy: 30.0).scale(sx: 1.0, sy: 1.0)
+		sceneGroup = Group(contents: [cloudExample()])
+		sceneGroup.place = initialTransform
 
-		let rotation = GeomUtils.centerRotation(node: group, angle: M_PI_4 / 4.0)
+		let rotation = GeomUtils.centerRotation(node: sceneGroup, angle: M_PI_4 / 4.0)
 		let superposition = GeomUtils.concat(t1: initialTransform, t2: rotation)
-		animation = group.placeVar.animation((initialTransform >> initialTransform.scale(sx: 0.15, sy: 0.15)).t(10.0))
+		// animation = group.placeVar.animation((initialTransform >> initialTransform.scale(sx: 0.15, sy: 0.15)).t(10.0))
 
 		// let test = Text(text: "Hello World!", place: .move(dx: 100, dy: 100))
-		super.init(node: group, coder: aDecoder)
+		super.init(node: sceneGroup, coder: aDecoder)
 	}
 
 	func testAnimation() {
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
 			self.animation?.play()
 		}
+	}
+
+	func updateScale(scale: Float) {
+		sceneGroup.place = initialTransform.scale(sx: Double(scale), sy: Double(scale))
 	}
 }

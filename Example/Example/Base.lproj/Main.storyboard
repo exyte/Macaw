@@ -216,7 +216,20 @@
                     <view key="view" contentMode="scaleToFill" id="y1S-j5-FMS" customClass="PathExampleView" customModule="Example" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Zi2-qo-k4Y">
+                                <rect key="frame" x="18" y="550" width="564" height="31"/>
+                                <connections>
+                                    <action selector="onScaleUpdate:" destination="IrQ-al-Owp" eventType="valueChanged" id="yt9-ax-PkY"/>
+                                </connections>
+                            </slider>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zi2-qo-k4Y" firstAttribute="trailing" secondItem="y1S-j5-FMS" secondAttribute="trailingMargin" id="0bg-Ie-059"/>
+                            <constraint firstItem="Zi2-qo-k4Y" firstAttribute="leading" secondItem="y1S-j5-FMS" secondAttribute="leadingMargin" id="4DW-LD-QD0"/>
+                            <constraint firstItem="1ea-S4-NTm" firstAttribute="top" secondItem="Zi2-qo-k4Y" secondAttribute="bottom" constant="20" id="GDi-ax-De5"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="y1S-j5-FMS" id="Gys-cw-jYu"/>

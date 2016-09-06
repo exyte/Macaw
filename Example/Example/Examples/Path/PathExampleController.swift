@@ -8,4 +8,8 @@ class PathExampleController: UIViewController {
 
 		sceneView?.testAnimation()
 	}
+
+	@IBAction func onScaleUpdate(slider: UISlider) {
+		sceneView?.updateScale(slider.value)
+	}
 }

@@ -8,6 +8,8 @@ class PathExampleView: MacawView {
 	let sceneGroup: Group
 	let initialTransform: Transform
 
+	var onScaleUpdate: ((Double) -> ())?
+
 	required init?(coder aDecoder: NSCoder) {
 
 		let startPoint = Point(x: 150.0, y: 150.0)
@@ -121,10 +123,18 @@ class PathExampleView: MacawView {
 
 		let rotation = GeomUtils.centerRotation(node: sceneGroup, angle: M_PI_4 / 4.0)
 		let superposition = GeomUtils.concat(t1: initialTransform, t2: rotation)
-		// animation = group.placeVar.animation((initialTransform >> initialTransform.scale(sx: 0.15, sy: 0.15)).t(10.0))
+		animation = sceneGroup.placeVar.animation((initialTransform >> initialTransform.scale(sx: 0.15, sy: 0.15)).t(10.0))
 
 		// let test = Text(text: "Hello World!", place: .move(dx: 100, dy: 100))
 		super.init(node: sceneGroup, coder: aDecoder)
+
+		sceneGroup.placeVar.asObservable().subscribeNext { transform in
+			let a = transform.m11
+			let b = transform.m12
+			let sx = a / fabs(a) * sqrt(a * a + b * b)
+
+			self.onScaleUpdate?(sx)
+		}
 	}
 
 	func testAnimation() {

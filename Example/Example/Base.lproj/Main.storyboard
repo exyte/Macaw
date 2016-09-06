@@ -233,6 +233,7 @@
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="y1S-j5-FMS" id="Gys-cw-jYu"/>
+                        <outlet property="slider" destination="Zi2-qo-k4Y" id="jKF-Vt-DvO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asF-Da-v23" userLabel="First Responder" sceneMemberID="firstResponder"/>

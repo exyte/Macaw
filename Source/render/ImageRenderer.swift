@@ -3,19 +3,29 @@ import UIKit
 
 class ImageRenderer: NodeRenderer {
 	let image: Image
-	let ctx: RenderContext
-	var node: Node {
-		get { return image }
-	}
-    
-    var renderedPaths: [CGPath] = [CGPath]()
+
+	var renderedPaths: [CGPath] = [CGPath]()
 
 	init(image: Image, ctx: RenderContext) {
 		self.image = image
-		self.ctx = ctx
+		super.init(node: image, ctx: ctx)
 	}
 
-	func render(force: Bool,  opacity: Double) {
+	override func node() -> Node {
+		return image
+	}
+
+	override func addObservers() {
+		super.addObservers()
+		observe(image.srcVar)
+		observe(image.xAlignVar)
+		observe(image.yAlignVar)
+		observe(image.aspectRatioVar)
+		observe(image.wVar)
+		observe(image.hVar)
+	}
+
+	override func render(force: Bool, opacity: Double) {
 		if let uiimage = UIImage(named: image.src) {
 			let imageSize = uiimage.size
 			var w = CGFloat(image.w)
@@ -42,10 +52,10 @@ class ImageRenderer: NodeRenderer {
 			uiimage.drawInRect(rect)
 		}
 	}
-    
-    func detectTouches(location: CGPoint) -> [Shape] {
-        return []
-    }
+
+	override func detectTouches(location: CGPoint) -> [Shape] {
+		return []
+	}
 
 	private func calculateMeetAspectRatio(image: Image, size: CGSize) -> CGRect {
 		let w = CGFloat(image.w)

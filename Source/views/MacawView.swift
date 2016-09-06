@@ -88,7 +88,6 @@ public class MacawView: UIView {
 			var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))
 			shape.onPan.onNext(PanEvent(dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale)))
 		}
-		setNeedsDisplay()
 	}
 
 	func handleRotation(recognizer: UIRotationGestureRecognizer) {
@@ -97,7 +96,6 @@ public class MacawView: UIView {
 		if let shape = self.selectedShape {
 			shape.onRotate.onNext(RotateEvent(angle: rotation))
 		}
-		setNeedsDisplay()
 	}
 
 	func handlePinch(recognizer: UIPinchGestureRecognizer) {
@@ -106,7 +104,6 @@ public class MacawView: UIView {
 		if let shape = self.selectedShape {
 			shape.onPinch.onNext(PinchEvent(scale: scale))
 		}
-		setNeedsDisplay()
 	}
 
 	deinit {

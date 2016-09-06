@@ -3,35 +3,27 @@ import UIKit
 import RxSwift
 
 class GroupRenderer: NodeRenderer {
-	var ctx: RenderContext
-	var node: Node {
-		get { return group }
-	}
 
 	var animationCache: AnimationCache
 
 	let group: Group
-	let disposeBag = DisposeBag()
 
 	init(group: Group, ctx: RenderContext, animationCache: AnimationCache) {
 		self.group = group
-		self.ctx = ctx
 		self.animationCache = animationCache
-
-		hook()
+		super.init(node: group, ctx: ctx)
 	}
 
-	func hook() {
-		func onGroupChange(new: [Node]) {
-			ctx.view?.setNeedsDisplay()
-		}
-
-		group.contents.rx_elements().subscribeNext { new in
-			onGroupChange(new)
-		}.addDisposableTo(disposeBag)
+	override func addObservers() {
+		super.addObservers()
+		observe(group.contents.rx_elements())
 	}
 
-	func render(force: Bool, opacity: Double) {
+	override func node() -> Node {
+		return group
+	}
+
+	override func render(force: Bool, opacity: Double) {
 
 		if !force {
 
@@ -44,28 +36,28 @@ class GroupRenderer: NodeRenderer {
 		let staticContents = group.contents.filter { !animationCache.isAnimating($0) }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
-        
+
 		contentRenderers.forEach { renderer in
 			CGContextSaveGState(ctx.cgContext)
-            CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
-			setClip(renderer.node)
-			renderer.render(force, opacity: renderer.node.opacity * opacity)
+			CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node().place))
+			setClip(renderer.node())
+			renderer.render(force, opacity: renderer.node().opacity * opacity)
 			CGContextRestoreGState(ctx.cgContext)
 		}
 	}
 
-	func detectTouches(location: CGPoint) -> [Shape] {
+	override func detectTouches(location: CGPoint) -> [Shape] {
 		var touchedShapes = [Shape]()
 		let staticContents = group.contents.filter { !animationCache.isAnimating($0) }
 
 		let contentRenderers = staticContents.map { RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }
 
 		contentRenderers.forEach { renderer in
-			if let inverted = renderer.node.place.invert() {
+			if let inverted = renderer.node().place.invert() {
 				CGContextSaveGState(ctx.cgContext)
-				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node.place))
+				CGContextConcatCTM(ctx.cgContext, RenderUtils.mapTransform(renderer.node().place))
 				let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
-				setClip(renderer.node)
+				setClip(renderer.node())
 				let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
 				touchedShapes.appendContentsOf(renderer.detectTouches(offsetLocation))
 				CGContextRestoreGState(ctx.cgContext)

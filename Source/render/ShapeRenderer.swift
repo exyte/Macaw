@@ -3,23 +3,28 @@ import UIKit
 
 class ShapeRenderer: NodeRenderer {
 
-	var ctx: RenderContext
-	var node: Node {
-		get { return shape }
-	}
 	let shape: Shape
 
 	let animationCache: AnimationCache
 
 	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache) {
 		self.shape = shape
-		self.ctx = ctx
 		self.animationCache = animationCache
-
-		hook()
+		super.init(node: shape, ctx: ctx)
 	}
 
-	func render(force: Bool, opacity: Double) {
+	override func node() -> Node {
+		return shape
+	}
+
+	override func addObservers() {
+		super.addObservers()
+		observe(shape.formVar)
+		observe(shape.fillVar)
+		observe(shape.strokeVar)
+	}
+
+	override func render(force: Bool, opacity: Double) {
 
 		if !force {
 			// Cutting animated content
@@ -32,7 +37,7 @@ class ShapeRenderer: NodeRenderer {
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
 	}
 
-	func detectTouches(location: CGPoint) -> [Shape] {
+	override func detectTouches(location: CGPoint) -> [Shape] {
 		var touchedShapes = [Shape]()
 
 		setGeometry(shape.form, ctx: ctx.cgContext!)
@@ -57,15 +62,6 @@ class ShapeRenderer: NodeRenderer {
 		// Prepare for next figure hittesting - clear current context path
 		CGContextBeginPath(ctx.cgContext!)
 		return touchedShapes
-	}
-
-	private func hook() {
-		func onFormChange(new: Locus) {
-			ctx.view?.setNeedsDisplay()
-		}
-		let _ = shape.formVar.asObservable().subscribeNext { newForm in
-			onFormChange(newForm)
-		}
 	}
 
 	private func setGeometry(locus: Locus, ctx: CGContext) {
@@ -405,20 +401,20 @@ class ShapeRenderer: NodeRenderer {
 	}
 
 	private func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double) {
-        var shouldStrokePath = false
-        if fill is Gradient || stroke?.fill is Gradient {
-            shouldStrokePath = true
-        }
-        
-        if let fill = fill, stroke = stroke {
-            let path = CGContextCopyPath(ctx)
-            setFill(fill, ctx: ctx, opacity: opacity)
-            if stroke.fill is Gradient && !(fill is Gradient) {
-                CGContextDrawPath(ctx, .Fill)
-            }
-            drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: .FillStroke)
-            return
-        }
+		var shouldStrokePath = false
+		if fill is Gradient || stroke?.fill is Gradient {
+			shouldStrokePath = true
+		}
+
+		if let fill = fill, stroke = stroke {
+			let path = CGContextCopyPath(ctx)
+			setFill(fill, ctx: ctx, opacity: opacity)
+			if stroke.fill is Gradient && !(fill is Gradient) {
+				CGContextDrawPath(ctx, .Fill)
+			}
+			drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: .FillStroke)
+			return
+		}
 
 		if let fill = fill {
 			setFill(fill, ctx: ctx, opacity: opacity)
@@ -427,7 +423,7 @@ class ShapeRenderer: NodeRenderer {
 		}
 
 		if let stroke = stroke {
-            drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, mode: .Stroke)
+			drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, mode: .Stroke)
 			return
 		}
 
@@ -437,86 +433,86 @@ class ShapeRenderer: NodeRenderer {
 	}
 
 	private func setFill(fill: Fill?, ctx: CGContext?, opacity: Double) {
-        guard let fill = fill else {
-            return
-        }
-        if let fillColor = fill as? Color {
-            let color = RenderUtils.applyOpacity(fillColor, opacity: opacity)
-            CGContextSetFillColorWithColor(ctx, RenderUtils.mapColor(color))
-        } else if let gradient = fill as? LinearGradient {
-            drawGradient(gradient, ctx: ctx, opacity: opacity)
-        } else {
-            print("Unsupported fill: \(fill)")
-        }
+		guard let fill = fill else {
+			return
+		}
+		if let fillColor = fill as? Color {
+			let color = RenderUtils.applyOpacity(fillColor, opacity: opacity)
+			CGContextSetFillColorWithColor(ctx, RenderUtils.mapColor(color))
+		} else if let gradient = fill as? LinearGradient {
+			drawGradient(gradient, ctx: ctx, opacity: opacity)
+		} else {
+			print("Unsupported fill: \(fill)")
+		}
 	}
-    
-    private func drawWithStroke(stroke: Stroke, ctx: CGContext?, opacity: Double, shouldStrokePath: Bool = false, path: CGPath? = nil, mode: CGPathDrawingMode) {
-        if let path = path where shouldStrokePath {
-            CGContextAddPath(ctx, path)
-        }
-        setStrokeAttributes(stroke, ctx: ctx)
-        
-        if stroke.fill is Gradient {
-            gradientStroke(stroke, ctx: ctx, opacity: opacity)
-            return
-        } else if stroke.fill is Color {
-            colorStroke(stroke, ctx: ctx, opacity: opacity)
-        }
-        
-        if shouldStrokePath {
-            CGContextStrokePath(ctx)
-        } else {
-            CGContextDrawPath(ctx, mode)
-        }
-    }
-    
-    private func setStrokeAttributes(stroke: Stroke, ctx: CGContext?) {
-        CGContextSetLineWidth(ctx, CGFloat(stroke.width))
-        CGContextSetLineJoin(ctx, RenderUtils.mapLineJoin(stroke.join))
-        CGContextSetLineCap(ctx, RenderUtils.mapLineCap(stroke.cap))
-        let dashes = stroke.dashes
-        if !dashes.isEmpty {
-            let dashPointer = RenderUtils.mapDash(dashes)
-            CGContextSetLineDash(ctx, 0, dashPointer, dashes.count)
-            dashPointer.dealloc(dashes.count)
-        }
-    }
+
+	private func drawWithStroke(stroke: Stroke, ctx: CGContext?, opacity: Double, shouldStrokePath: Bool = false, path: CGPath? = nil, mode: CGPathDrawingMode) {
+		if let path = path where shouldStrokePath {
+			CGContextAddPath(ctx, path)
+		}
+		setStrokeAttributes(stroke, ctx: ctx)
+
+		if stroke.fill is Gradient {
+			gradientStroke(stroke, ctx: ctx, opacity: opacity)
+			return
+		} else if stroke.fill is Color {
+			colorStroke(stroke, ctx: ctx, opacity: opacity)
+		}
+
+		if shouldStrokePath {
+			CGContextStrokePath(ctx)
+		} else {
+			CGContextDrawPath(ctx, mode)
+		}
+	}
+
+	private func setStrokeAttributes(stroke: Stroke, ctx: CGContext?) {
+		CGContextSetLineWidth(ctx, CGFloat(stroke.width))
+		CGContextSetLineJoin(ctx, RenderUtils.mapLineJoin(stroke.join))
+		CGContextSetLineCap(ctx, RenderUtils.mapLineCap(stroke.cap))
+		let dashes = stroke.dashes
+		if !dashes.isEmpty {
+			let dashPointer = RenderUtils.mapDash(dashes)
+			CGContextSetLineDash(ctx, 0, dashPointer, dashes.count)
+			dashPointer.dealloc(dashes.count)
+		}
+	}
 
 	private func colorStroke(stroke: Stroke, ctx: CGContext?, opacity: Double) {
-        guard let strokeColor = stroke.fill as? Color else {
-            return
-        }
-        let color = RenderUtils.applyOpacity(strokeColor, opacity: opacity)
-        CGContextSetStrokeColorWithColor(ctx, RenderUtils.mapColor(color))
+		guard let strokeColor = stroke.fill as? Color else {
+			return
+		}
+		let color = RenderUtils.applyOpacity(strokeColor, opacity: opacity)
+		CGContextSetStrokeColorWithColor(ctx, RenderUtils.mapColor(color))
 	}
-    
-    private func gradientStroke(stroke: Stroke, ctx: CGContext?, opacity: Double) {
-        guard let gradient = stroke.fill as? LinearGradient else {
-            return
-        }
-        CGContextReplacePathWithStrokedPath(ctx)
-        drawGradient(gradient, ctx: ctx, opacity: opacity)
-    }
-    
-    private func drawGradient(gradient: LinearGradient, ctx: CGContext?, opacity: Double) {
-        CGContextSaveGState(ctx)
-        var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
-        var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
-        if gradient.userSpace {
-            let bounds = CGContextGetPathBoundingBox(ctx)
-            start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
-            end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
-        }
-        var colors: [CGColor] = []
-        var stops: [CGFloat] = []
-        for stop in gradient.stops {
-            stops.append(CGFloat(stop.offset))
-            let color = RenderUtils.applyOpacity(stop.color, opacity: opacity)
-            colors.append(RenderUtils.mapColor(color))
-        }
-        CGContextClip(ctx)
-        let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
-        CGContextDrawLinearGradient(ctx, cgGradient, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
-        CGContextRestoreGState(ctx)
-    }
+
+	private func gradientStroke(stroke: Stroke, ctx: CGContext?, opacity: Double) {
+		guard let gradient = stroke.fill as? LinearGradient else {
+			return
+		}
+		CGContextReplacePathWithStrokedPath(ctx)
+		drawGradient(gradient, ctx: ctx, opacity: opacity)
+	}
+
+	private func drawGradient(gradient: LinearGradient, ctx: CGContext?, opacity: Double) {
+		CGContextSaveGState(ctx)
+		var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
+		var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
+		if gradient.userSpace {
+			let bounds = CGContextGetPathBoundingBox(ctx)
+			start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
+			end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
+		}
+		var colors: [CGColor] = []
+		var stops: [CGFloat] = []
+		for stop in gradient.stops {
+			stops.append(CGFloat(stop.offset))
+			let color = RenderUtils.applyOpacity(stop.color, opacity: opacity)
+			colors.append(RenderUtils.mapColor(color))
+		}
+		CGContextClip(ctx)
+		let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
+		CGContextDrawLinearGradient(ctx, cgGradient, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
+		CGContextRestoreGState(ctx)
+	}
 }

@@ -2,21 +2,30 @@ import Foundation
 import UIKit
 
 class TextRenderer: NodeRenderer {
-	var ctx: RenderContext
 	let text: Text
-	var node: Node {
-		get { return text }
-	}
 
 	let animationCache: AnimationCache
 
 	init(text: Text, ctx: RenderContext, animationCache: AnimationCache) {
 		self.text = text
-		self.ctx = ctx
 		self.animationCache = animationCache
+		super.init(node: text, ctx: ctx)
 	}
 
-	func render(force: Bool, opacity: Double) {
+	override func node() -> Node {
+		return text
+	}
+
+	override func addObservers() {
+		super.addObservers()
+		observe(text.textVar)
+		observe(text.fontVar)
+		observe(text.fillVar)
+		observe(text.alignVar)
+		observe(text.baselineVar)
+	}
+
+	override func render(force: Bool, opacity: Double) {
 
 		if !force {
 			// Cutting animated content
@@ -26,16 +35,16 @@ class TextRenderer: NodeRenderer {
 		}
 
 		let message = text.text
-        var font: UIFont
-        if let textFont = text.font {
-            if let customFont = UIFont(name: textFont.name, size: CGFloat(textFont.size)) {
-                font = customFont
-            } else {
-                font = UIFont.systemFontOfSize(CGFloat(textFont.size))
-            }
-        } else {
-            font = UIFont.systemFontOfSize(UIFont.systemFontSize())
-        }
+		var font: UIFont
+		if let textFont = text.font {
+			if let customFont = UIFont(name: textFont.name, size: CGFloat(textFont.size)) {
+				font = customFont
+			} else {
+				font = UIFont.systemFontOfSize(CGFloat(textFont.size))
+			}
+		} else {
+			font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+		}
 		// positive NSBaselineOffsetAttributeName values don't work, couldn't find why
 		// for now move the rect itself
 
@@ -57,7 +66,7 @@ class TextRenderer: NodeRenderer {
 		}
 	}
 
-	func detectTouches(location: CGPoint) -> [Shape] {
+	override func detectTouches(location: CGPoint) -> [Shape] {
 		return []
 	}
 

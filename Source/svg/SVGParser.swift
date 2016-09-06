@@ -774,11 +774,11 @@ public class SVGParser {
             break
         }
         
-        let cx = getDoubleValue(element, attribute: "cx") ?? parentGradient?.cx ?? 0.5
-        let cy = getDoubleValue(element, attribute: "cy") ?? parentGradient?.cy ?? 0.5
-        let fx = getDoubleValue(element, attribute: "fx") ?? parentGradient?.fx ?? cx
-        let fy = getDoubleValue(element, attribute: "fy") ?? parentGradient?.fy ?? cy
-        let r = getDoubleValue(element, attribute: "r") ?? parentGradient?.r ?? 0.5
+        let cx = getDoubleValueFromPercentage(element, attribute: "cx") ?? parentGradient?.cx ?? 0.5
+        let cy = getDoubleValueFromPercentage(element, attribute: "cy") ?? parentGradient?.cy ?? 0.5
+        let fx = getDoubleValueFromPercentage(element, attribute: "fx") ?? parentGradient?.fx ?? cx
+        let fy = getDoubleValueFromPercentage(element, attribute: "fy") ?? parentGradient?.fy ?? cy
+        let r = getDoubleValueFromPercentage(element, attribute: "r") ?? parentGradient?.r ?? 0.5
         var userSpace = true
         if let gradientUnits = element.attributes["gradientUnits"] where gradientUnits == "userSpaceOnUse" {
             userSpace = false

@@ -62,6 +62,7 @@ class GroupRenderer: NodeRenderer {
 				touchedShapes.appendContentsOf(renderer.detectTouches(offsetLocation))
 				CGContextRestoreGState(ctx.cgContext)
 			}
+			renderer.dispose()
 		}
 
 		return touchedShapes

@@ -23,5 +23,6 @@ class ShapeLayer: CAShapeLayer {
 
 		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache)
 		renderer.render(true, opacity: 1.0)
+		renderer.dispose()
 	}
 }

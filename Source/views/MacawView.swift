@@ -15,7 +15,7 @@ public class MacawView: UIView {
 
 		didSet {
 			nodesMap.add(node, view: self)
-
+			self.renderer?.dispose()
 			if let cache = animationCache {
 				self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 			}

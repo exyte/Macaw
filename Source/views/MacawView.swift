@@ -69,7 +69,10 @@ public class MacawView: UIView {
 		self.selectedShape = nil
 		for touch in touches {
 			let location = touch.locationInView(self)
+			CGContextSaveGState(self.context.cgContext)
+			CGContextConcatCTM(self.context.cgContext, RenderUtils.mapTransform(node.place))
 			let shapes = renderer?.detectTouches(location)
+			CGContextRestoreGState(self.context.cgContext)
 			self.selectedShape = shapes?.first
 			if let shape = self.selectedShape {
 				shape.onTap.onNext(TapEvent(location: Point(x: Double(location.x), y: Double(location.y))))

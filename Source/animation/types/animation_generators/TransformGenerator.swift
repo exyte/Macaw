@@ -9,15 +9,10 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 		return
 	}
 
-	var offset = Point.origin
-	if let shapeBounds = node.bounds() {
-		offset = Point(x: shapeBounds.x, y: shapeBounds.y)
-	}
-
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
-	generatedAnimation = transformAnimationByFunc(node, valueFunc: transformAnimation.vFunc, duration: animation.getDuration(), offset: offset, fps: transformAnimation.logicalFps)
+	generatedAnimation = transformAnimationByFunc(node, valueFunc: transformAnimation.vFunc, duration: animation.getDuration(), fps: transformAnimation.logicalFps)
 
 	guard let generatedAnim = generatedAnimation else {
 		return
@@ -71,7 +66,7 @@ func transfomToCG(transform: Transform) -> CGAffineTransform {
 		CGFloat(transform.dy))
 }
 
-func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, duration: Double, offset: Point, fps: UInt) -> CAAnimation {
+func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, duration: Double, fps: UInt) -> CAAnimation {
 
 	var scaleXValues = [CGFloat]()
 	var scaleYValues = [CGFloat]()
@@ -97,8 +92,8 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 		let angle = atan2(-1.0 * b, a)
 
 		timeValues.append(t)
-		xValues.append(CGFloat(dx + offset.x))
-		yValues.append(CGFloat(dy + offset.y))
+		xValues.append(CGFloat(dx))
+		yValues.append(CGFloat(dy))
 		scaleXValues.append(CGFloat(sx))
 		scaleYValues.append(CGFloat(sy))
 		rotationValues.append(CGFloat(angle))
@@ -133,7 +128,7 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 	group.fillMode = kCAFillModeForwards
 	group.removedOnCompletion = false
 
-	group.animations = [xAnimation, yAnimation, scaleXAnimation, scaleYAnimation, rotationAnimation]
+	group.animations = [scaleXAnimation, scaleYAnimation, rotationAnimation, xAnimation, yAnimation]
 	group.duration = duration
 
 	return group

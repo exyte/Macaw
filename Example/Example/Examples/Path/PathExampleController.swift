@@ -9,7 +9,7 @@ class PathExampleController: UIViewController {
 
 		sceneView?.testAnimation()
 		sceneView?.onScaleUpdate = { scale in
-			self.slider?.value = Float(scale)
+			// self.slider?.value = Float(scale)
 
 		}
 	}

@@ -40,7 +40,10 @@ class AnimationCache {
 					round(cgRect.height))
 
 				layer.bounds = origFrame
-				layer.anchorPoint = CGPointMake(0.0, 0.0)
+				layer.anchorPoint = CGPointMake(
+						-1.0 * cgRect.origin.x / cgRect.width,
+						-1.0 * cgRect.origin.y / cgRect.height
+				)
 
 				layer.renderTransform = CGAffineTransformMakeTranslation(-1.0 * cgRect.origin.x, -1.0 * cgRect.origin.y)
 

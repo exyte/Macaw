@@ -384,7 +384,7 @@ public class SVGParser {
     }
     
     private func getStrokeCap(styleParts: [String: String]) -> LineCap {
-        var cap = LineCap.round
+        var cap = LineCap.square
         if let strokeCap = styleParts["stroke-linecap"] {
             switch strokeCap {
             case "butt":
@@ -399,7 +399,7 @@ public class SVGParser {
     }
     
     private func getStrokeJoin(styleParts: [String: String]) -> LineJoin {
-        var join = LineJoin.round
+        var join = LineJoin.miter
         if let strokeJoin = styleParts["stroke-linejoin"] {
             switch strokeJoin {
             case "miter":

@@ -458,7 +458,6 @@ class ShapeRenderer: NodeRenderer {
 		} else if stroke.fill is Color {
 			colorStroke(stroke, ctx: ctx, opacity: opacity)
 		}
-
 		if shouldStrokePath {
 			CGContextStrokePath(ctx)
 		} else {
@@ -516,22 +515,28 @@ class ShapeRenderer: NodeRenderer {
             let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
             CGContextDrawLinearGradient(ctx, cgGradient, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
         } else if let gradient = gradient as? RadialGradient {
-            var bounds = CGContextGetPathBoundingBox(ctx)
-            var scaleX: CGFloat = 1
-            var scaleY: CGFloat = 1
-            if bounds.width > bounds.height {
-                scaleY = bounds.height / bounds.width
-            } else {
-                scaleX = bounds.width / bounds.height
+            var innerCenter = CGPointMake(CGFloat(gradient.fx), CGFloat(gradient.fy))
+            var outerCenter = CGPointMake(CGFloat(gradient.cx), CGFloat(gradient.cy))
+            var radius = CGFloat(gradient.r)
+            if gradient.userSpace {
+                var bounds = CGContextGetPathBoundingBox(ctx)
+                var scaleX: CGFloat = 1
+                var scaleY: CGFloat = 1
+                if bounds.width > bounds.height {
+                    scaleY = bounds.height / bounds.width
+                } else {
+                    scaleX = bounds.width / bounds.height
+                }
+                CGContextScaleCTM(ctx, scaleX, scaleY)
+                bounds = CGContextGetPathBoundingBox(ctx)
+                innerCenter = CGPointMake(innerCenter.x * bounds.width + bounds.minX, innerCenter.y * bounds.height + bounds.minY)
+                outerCenter = CGPointMake(outerCenter.x * bounds.width + bounds.minX, outerCenter.y * bounds.height + bounds.minY)
+                radius = min(radius * bounds.width, radius * bounds.height)
+
             }
-            CGContextScaleCTM(ctx, scaleX, scaleY)
-            bounds = CGContextGetPathBoundingBox(ctx)
-            let startCenter = CGPointMake(CGFloat(gradient.fx) * bounds.width + bounds.minX, CGFloat(gradient.fy) * bounds.height + bounds.minY)
-            let endCenter = CGPointMake(CGFloat(gradient.cx) * bounds.width + bounds.minX, CGFloat(gradient.cy) * bounds.height + bounds.minY)
-            let radius = min(CGFloat(gradient.r) * bounds.width, CGFloat(gradient.r) * bounds.height)
             CGContextClip(ctx)
             let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
-            CGContextDrawRadialGradient(ctx, cgGradient, startCenter, 0, endCenter, radius, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
+            CGContextDrawRadialGradient(ctx, cgGradient, innerCenter, 0, outerCenter, radius, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
         }
         CGContextRestoreGState(ctx)
     }

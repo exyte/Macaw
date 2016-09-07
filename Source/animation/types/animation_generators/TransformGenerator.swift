@@ -89,7 +89,7 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 
 		let sx = a / fabs(a) * sqrt(a * a + b * b)
 		let sy = d / fabs(d) * sqrt(c * c + d * d)
-		let angle = atan2(-1.0 * b, a)
+		let angle = atan2(b, a)
 
 		timeValues.append(t)
 		xValues.append(CGFloat(dx))

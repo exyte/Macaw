@@ -117,13 +117,13 @@ class PathExampleView: MacawView {
 			)
 		}
 
-		initialTransform = Transform().move(dx: -50.0, dy: 30.0) // .scale(sx: 0.5, sy: 0.5)
+		initialTransform = Transform().move(dx: -50.0, dy: 30.0).scale(sx: 0.5, sy: 0.5)
 		sceneGroup = Group(contents: [cloudExample()])
 		sceneGroup.place = initialTransform
 
 		let rotation = GeomUtils.centerRotation(node: sceneGroup, angle: M_PI_4)
 		let superposition = GeomUtils.concat(t1: initialTransform, t2: rotation)
-		animation = sceneGroup.placeVar.animation((initialTransform >> initialTransform.scale(sx: 0.5, sy: 0.5)).t(10.0))
+		animation = sceneGroup.placeVar.animation((initialTransform >> initialTransform.rotate(angle: M_PI_4)).t(10.0))
 
 		// let test = Text(text: "Hello World!", place: .move(dx: 100, dy: 100))
 		super.init(node: sceneGroup, coder: aDecoder)
@@ -144,6 +144,6 @@ class PathExampleView: MacawView {
 	}
 
 	func updateScale(scale: Float) {
-		sceneGroup.place = initialTransform.scale(sx: Double(scale), sy: Double(scale))
+		sceneGroup.place = initialTransform.rotate(angle: M_PI_4 * Double(scale))
 	}
 }

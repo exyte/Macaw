@@ -49,7 +49,12 @@ class ImageRenderer: NodeRenderer {
 					rect = CGRectMake(0, 0, w, h)
 				}
 			}
-			uiimage.drawInRect(rect)
+
+			CGContextScaleCTM(ctx.cgContext, 1.0, -1.0)
+			CGContextTranslateCTM(ctx.cgContext, 0.0, -1.0 * rect.height)
+
+			CGContextSetAlpha(ctx.cgContext, CGFloat(opacity))
+			CGContextDrawImage(ctx.cgContext, rect, uiimage.CGImage)
 		}
 	}
 

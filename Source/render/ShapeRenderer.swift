@@ -14,24 +14,14 @@ class ShapeRenderer: NodeRenderer {
 		return shape
 	}
 
-	override func addObservers() {
-		super.addObservers()
+	override func doAddObservers() {
+		super.doAddObservers()
 		observe(shape.formVar)
 		observe(shape.fillVar)
 		observe(shape.strokeVar)
 	}
 
-	override func render(force: Bool, opacity: Double) {
-
-		super.render(force, opacity: opacity)
-
-		if !force {
-			// Cutting animated content
-			if self.animationCache.isAnimating(shape) {
-				return
-			}
-		}
-
+	override func doRender(force: Bool, opacity: Double) {
 		setGeometry(shape.form, ctx: ctx.cgContext!)
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
 	}

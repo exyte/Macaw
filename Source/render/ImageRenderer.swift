@@ -15,8 +15,8 @@ class ImageRenderer: NodeRenderer {
 		return image
 	}
 
-	override func addObservers() {
-		super.addObservers()
+	override func doAddObservers() {
+		super.doAddObservers()
 		observe(image.srcVar)
 		observe(image.xAlignVar)
 		observe(image.yAlignVar)
@@ -25,9 +25,7 @@ class ImageRenderer: NodeRenderer {
 		observe(image.hVar)
 	}
 
-	override func render(force: Bool, opacity: Double) {
-		super.render(force, opacity: opacity)
-
+	override func doRender(force: Bool, opacity: Double) {
 		if let uiimage = UIImage(named: image.src) {
 			let imageSize = uiimage.size
 			var w = CGFloat(image.w)

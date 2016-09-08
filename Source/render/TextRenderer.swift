@@ -13,8 +13,8 @@ class TextRenderer: NodeRenderer {
 		return text
 	}
 
-	override func addObservers() {
-		super.addObservers()
+	override func doAddObservers() {
+		super.doAddObservers()
 		observe(text.textVar)
 		observe(text.fontVar)
 		observe(text.fillVar)
@@ -22,17 +22,7 @@ class TextRenderer: NodeRenderer {
 		observe(text.baselineVar)
 	}
 
-	override func render(force: Bool, opacity: Double) {
-
-		super.render(force, opacity: opacity)
-
-		if !force {
-			// Cutting animated content
-			if animationCache.isAnimating(text) {
-				return
-			}
-		}
-
+	override func doRender(force: Bool, opacity: Double) {
 		let message = text.text
 		var font: UIFont
 		if let textFont = text.font {

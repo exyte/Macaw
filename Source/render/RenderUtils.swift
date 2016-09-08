@@ -47,7 +47,7 @@ class RenderUtils {
 		} else if let text = node as? Text {
 			return TextRenderer(text: text, ctx: context, animationCache: animationCache)
 		} else if let image = node as? Image {
-			return ImageRenderer(image: image, ctx: context)
+			return ImageRenderer(image: image, ctx: context, animationCache: animationCache)
 		}
 		fatalError("Unsupported node: \(node)");
 	}

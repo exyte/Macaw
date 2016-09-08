@@ -6,9 +6,9 @@ class ImageRenderer: NodeRenderer {
 
 	var renderedPaths: [CGPath] = [CGPath]()
 
-	init(image: Image, ctx: RenderContext) {
+	init(image: Image, ctx: RenderContext, animationCache: AnimationCache) {
 		self.image = image
-		super.init(node: image, ctx: ctx)
+		super.init(node: image, ctx: ctx, animationCache: animationCache)
 	}
 
 	override func node() -> Node {
@@ -26,6 +26,8 @@ class ImageRenderer: NodeRenderer {
 	}
 
 	override func render(force: Bool, opacity: Double) {
+		super.render(force, opacity: opacity)
+
 		if let uiimage = UIImage(named: image.src) {
 			let imageSize = uiimage.size
 			var w = CGFloat(image.w)

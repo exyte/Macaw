@@ -5,12 +5,9 @@ class ShapeRenderer: NodeRenderer {
 
 	let shape: Shape
 
-	let animationCache: AnimationCache
-
 	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache) {
 		self.shape = shape
-		self.animationCache = animationCache
-		super.init(node: shape, ctx: ctx)
+		super.init(node: shape, ctx: ctx, animationCache: animationCache)
 	}
 
 	override func node() -> Node {
@@ -26,9 +23,11 @@ class ShapeRenderer: NodeRenderer {
 
 	override func render(force: Bool, opacity: Double) {
 
+		super.render(force, opacity: opacity)
+
 		if !force {
 			// Cutting animated content
-			if animationCache.isAnimating(shape) {
+			if self.animationCache.isAnimating(shape) {
 				return
 			}
 		}
@@ -484,61 +483,61 @@ class ShapeRenderer: NodeRenderer {
 		let color = RenderUtils.applyOpacity(strokeColor, opacity: opacity)
 		CGContextSetStrokeColorWithColor(ctx, RenderUtils.mapColor(color))
 	}
-    
-    private func gradientStroke(stroke: Stroke, ctx: CGContext?, opacity: Double) {
-        guard let gradient = stroke.fill as? Gradient else {
-            return
-        }
-        CGContextReplacePathWithStrokedPath(ctx)
-        drawGradient(gradient, ctx: ctx, opacity: opacity)
-    }
-    
-    private func drawGradient(gradient: Gradient, ctx: CGContext?, opacity: Double) {
-        CGContextSaveGState(ctx)
-        var colors: [CGColor] = []
-        var stops: [CGFloat] = []
-        for stop in gradient.stops {
-            stops.append(CGFloat(stop.offset))
-            let color = RenderUtils.applyOpacity(stop.color, opacity: opacity)
-            colors.append(RenderUtils.mapColor(color))
-        }
-        
-        if let gradient = gradient as? LinearGradient {
-            var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
-            var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
-            if gradient.userSpace {
-                let bounds = CGContextGetPathBoundingBox(ctx)
-                start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
-                end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
-            }
-            CGContextClip(ctx)
-            let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
-            CGContextDrawLinearGradient(ctx, cgGradient, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
-        } else if let gradient = gradient as? RadialGradient {
-            var innerCenter = CGPointMake(CGFloat(gradient.fx), CGFloat(gradient.fy))
-            var outerCenter = CGPointMake(CGFloat(gradient.cx), CGFloat(gradient.cy))
-            var radius = CGFloat(gradient.r)
-            if gradient.userSpace {
-                var bounds = CGContextGetPathBoundingBox(ctx)
-                var scaleX: CGFloat = 1
-                var scaleY: CGFloat = 1
-                if bounds.width > bounds.height {
-                    scaleY = bounds.height / bounds.width
-                } else {
-                    scaleX = bounds.width / bounds.height
-                }
-                CGContextScaleCTM(ctx, scaleX, scaleY)
-                bounds = CGContextGetPathBoundingBox(ctx)
-                innerCenter = CGPointMake(innerCenter.x * bounds.width + bounds.minX, innerCenter.y * bounds.height + bounds.minY)
-                outerCenter = CGPointMake(outerCenter.x * bounds.width + bounds.minX, outerCenter.y * bounds.height + bounds.minY)
-                radius = min(radius * bounds.width, radius * bounds.height)
 
-            }
-            CGContextClip(ctx)
-            let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
-            CGContextDrawRadialGradient(ctx, cgGradient, innerCenter, 0, outerCenter, radius, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
-        }
-        CGContextRestoreGState(ctx)
-    }
-    
+	private func gradientStroke(stroke: Stroke, ctx: CGContext?, opacity: Double) {
+		guard let gradient = stroke.fill as? Gradient else {
+			return
+		}
+		CGContextReplacePathWithStrokedPath(ctx)
+		drawGradient(gradient, ctx: ctx, opacity: opacity)
+	}
+
+	private func drawGradient(gradient: Gradient, ctx: CGContext?, opacity: Double) {
+		CGContextSaveGState(ctx)
+		var colors: [CGColor] = []
+		var stops: [CGFloat] = []
+		for stop in gradient.stops {
+			stops.append(CGFloat(stop.offset))
+			let color = RenderUtils.applyOpacity(stop.color, opacity: opacity)
+			colors.append(RenderUtils.mapColor(color))
+		}
+
+		if let gradient = gradient as? LinearGradient {
+			var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
+			var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
+			if gradient.userSpace {
+				let bounds = CGContextGetPathBoundingBox(ctx)
+				start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
+				end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
+			}
+			CGContextClip(ctx)
+			let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
+			CGContextDrawLinearGradient(ctx, cgGradient, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
+		} else if let gradient = gradient as? RadialGradient {
+			var innerCenter = CGPointMake(CGFloat(gradient.fx), CGFloat(gradient.fy))
+			var outerCenter = CGPointMake(CGFloat(gradient.cx), CGFloat(gradient.cy))
+			var radius = CGFloat(gradient.r)
+			if gradient.userSpace {
+				var bounds = CGContextGetPathBoundingBox(ctx)
+				var scaleX: CGFloat = 1
+				var scaleY: CGFloat = 1
+				if bounds.width > bounds.height {
+					scaleY = bounds.height / bounds.width
+				} else {
+					scaleX = bounds.width / bounds.height
+				}
+				CGContextScaleCTM(ctx, scaleX, scaleY)
+				bounds = CGContextGetPathBoundingBox(ctx)
+				innerCenter = CGPointMake(innerCenter.x * bounds.width + bounds.minX, innerCenter.y * bounds.height + bounds.minY)
+				outerCenter = CGPointMake(outerCenter.x * bounds.width + bounds.minX, outerCenter.y * bounds.height + bounds.minY)
+				radius = min(radius * bounds.width, radius * bounds.height)
+
+			}
+			CGContextClip(ctx)
+			let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
+			CGContextDrawRadialGradient(ctx, cgGradient, innerCenter, 0, outerCenter, radius, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
+		}
+		CGContextRestoreGState(ctx)
+	}
+
 }

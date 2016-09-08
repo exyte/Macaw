@@ -57,15 +57,6 @@ public class MacawView: UIView {
 	}
 
 	override public func drawRect(rect: CGRect) {
-
-		if let cache = animationCache {
-			if cache.containsAnimation(node) {
-				renderer?.removeObservers()
-			} else {
-				renderer?.addObservers()
-			}
-		}
-
 		self.context.cgContext = UIGraphicsGetCurrentContext()
 
 		CGContextSaveGState(self.context.cgContext)

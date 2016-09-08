@@ -4,14 +4,11 @@ import RxSwift
 
 class GroupRenderer: NodeRenderer {
 
-	var animationCache: AnimationCache
-
 	let group: Group
 
 	init(group: Group, ctx: RenderContext, animationCache: AnimationCache) {
 		self.group = group
-		self.animationCache = animationCache
-		super.init(node: group, ctx: ctx)
+		super.init(node: group, ctx: ctx, animationCache: animationCache)
 	}
 
 	override func addObservers() {
@@ -24,6 +21,8 @@ class GroupRenderer: NodeRenderer {
 	}
 
 	override func render(force: Bool, opacity: Double) {
+
+		super.render(force, opacity: opacity)
 
 		if !force {
 

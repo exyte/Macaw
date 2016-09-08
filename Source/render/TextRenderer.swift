@@ -4,12 +4,9 @@ import UIKit
 class TextRenderer: NodeRenderer {
 	let text: Text
 
-	let animationCache: AnimationCache
-
 	init(text: Text, ctx: RenderContext, animationCache: AnimationCache) {
 		self.text = text
-		self.animationCache = animationCache
-		super.init(node: text, ctx: ctx)
+		super.init(node: text, ctx: ctx, animationCache: animationCache)
 	}
 
 	override func node() -> Node {
@@ -26,6 +23,8 @@ class TextRenderer: NodeRenderer {
 	}
 
 	override func render(force: Bool, opacity: Double) {
+
+		super.render(force, opacity: opacity)
 
 		if !force {
 			// Cutting animated content

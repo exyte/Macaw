@@ -76,15 +76,20 @@ public class MacawView: UIView {
 
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		self.selectedShape = nil
-		for touch in touches {
-			let location = touch.locationInView(self)
-			CGContextSaveGState(self.context.cgContext)
-			CGContextConcatCTM(self.context.cgContext, RenderUtils.mapTransform(node.place))
-			let shapes = renderer?.detectTouches(location)
-			CGContextRestoreGState(self.context.cgContext)
-			self.selectedShape = shapes?.first
-			if let shape = self.selectedShape {
-				shape.onTap.onNext(TapEvent(location: Point(x: Double(location.x), y: Double(location.y))))
+		if let inverted = node.place.invert() {
+			for touch in touches {
+				let location = touch.locationInView(self)
+				let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
+				let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
+				CGContextSaveGState(self.context.cgContext)
+				CGContextConcatCTM(self.context.cgContext, RenderUtils.mapTransform(node.place))
+				let shapes = renderer?.detectTouches(offsetLocation)
+				CGContextRestoreGState(self.context.cgContext)
+				self.selectedShape = shapes?.first
+				if let shape = self.selectedShape {
+					shape.onTap.onNext(TapEvent(location: Point(x: Double(offsetLocation.x), y: Double(offsetLocation.y))))
+				}
+
 			}
 		}
 	}

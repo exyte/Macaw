@@ -10,19 +10,24 @@ public class GeomUtils {
 		return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
 	}
 
-	public class func centerRotation(node node: Node, angle: Double) -> Transform {
+	public class func centerRotation(node node: Node, place: Transform, angle: Double) -> Transform {
 		guard let bounds = node.bounds() else {
 			return Transform()
 		}
 
-		let center = Point(x: bounds.w / 2.0, y: bounds.h / 2.0)
-		let t1 = Transform.move(dx: -1.0 * center.x, dy: -1.0 * center.y)
-		let t2 = Transform.move(dx: center.x, dy: center.y)
+		let center = Point(x: bounds.x + bounds.w / 2.0, y: bounds.y + bounds.h / 2.0)
+		let move = Transform.move(dx: center.x, dy: center.y)
+
+		guard let moveInv = move.invert() else {
+			return Transform()
+		}
+
 		let r = Transform().rotate(angle: angle)
 
-		let moveAndRotate = GeomUtils.concat(t1: t1, t2: r)
+		let moveAndRotate = GeomUtils.concat(t1: moveInv, t2: r)
+		let returnToOrig = GeomUtils.concat(t1: moveAndRotate, t2: move)
 
-		return GeomUtils.concat(t1: moveAndRotate, t2: t2)
+		return GeomUtils.concat(t1: returnToOrig, t2: place)
 	}
-    
+
 }

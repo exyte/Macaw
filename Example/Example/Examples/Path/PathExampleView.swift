@@ -121,12 +121,11 @@ class PathExampleView: MacawView {
 		sceneGroup = Group(contents: [cloudExample()])
 		sceneGroup.place = initialTransform
 
-		let rotation = GeomUtils.centerRotation(node: sceneGroup, angle: M_PI_4)
-		let superposition = GeomUtils.concat(t1: initialTransform, t2: rotation)
-		animation = sceneGroup.placeVar.animation((initialTransform >> initialTransform.rotate(angle: M_PI_4)).t(10.0))
+		let rotation = GeomUtils.centerRotation(node: sceneGroup, place: initialTransform, angle: M_PI_4 / 2.0)
+		let superposition = GeomUtils.concat(t1: initialTransform, t2: GeomUtils.concat(t1: rotation, t2: initialTransform))
+		// animation = sceneGroup.placeVar.animation((initialTransform >> rotation).t(10.0))
 
-		// let test = Text(text: "Hello World!", place: .move(dx: 100, dy: 100))
-		super.init(node: sceneGroup, coder: aDecoder)
+		super.init(node: PathExampleView.newScene(), coder: aDecoder)
 
 		sceneGroup.placeVar.asObservable().subscribeNext { transform in
 			let a = transform.m11
@@ -144,6 +143,17 @@ class PathExampleView: MacawView {
 	}
 
 	func updateScale(scale: Float) {
-		sceneGroup.place = initialTransform.rotate(angle: M_PI_4 * Double(scale))
+		let rotation = GeomUtils.centerRotation(node: sceneGroup, place: initialTransform, angle: M_PI_4 * Double(scale))
+		sceneGroup.place = rotation// GeomUtils.concat(t1: rotation, t2: initialTransform)
+	}
+
+	private static func newScene() -> Node {
+		let shape = Shape(form: Rect(x: -50, y: -50, w: 100, h: 100), fill: Color.blue)
+		let t1 = Transform.identity
+		let t2 = GeomUtils.centerRotation(node: shape, place: Transform.identity, angle: M_PI_4) // Transform.rotate(angle: M_PI_4)
+		_ = shape.onTap.subscribeNext { tap in
+			shape.placeVar.animate(from: t1, to: t2, during: 2.0)
+		}
+		return Group(contents: [shape], place: .move(dx: 200, dy: 200))
 	}
 }

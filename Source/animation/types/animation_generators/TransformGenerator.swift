@@ -45,7 +45,6 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 
 		animation.progress = t
 		animation.onProgressUpdate?(t)
-
 	}
 
 	let layer = animationCache.layerForNode(node, animation: animation)
@@ -76,9 +75,15 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 	var timeValues = [Double]()
 
 	let step = 1.0 / (duration * Double(fps))
+	var dt = 0.0
 	for t in 0.0.stride(to: 1.0, by: step) {
 
-		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(t))
+		dt = t
+		if 1.0 - dt < step {
+			dt = 1.0
+		}
+        
+		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(dt))
 
 		let dx = value.dx
 		let dy = value.dy
@@ -91,12 +96,13 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 		let sy = d / fabs(d) * sqrt(c * c + d * d)
 		let angle = atan2(b, a)
 
-		timeValues.append(t)
+		timeValues.append(dt)
 		xValues.append(CGFloat(dx))
 		yValues.append(CGFloat(dy))
 		scaleXValues.append(CGFloat(sx))
 		scaleYValues.append(CGFloat(sy))
 		rotationValues.append(CGFloat(angle))
+
 	}
 
 	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")

@@ -55,10 +55,18 @@ func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps
 	var timeValues = [Double]()
 
 	let step = 1.0 / (duration * Double(fps))
+
+	var dt = 0.0
 	for t in 0.0.stride(to: 1.0, by: step) {
 
-		let value = valueFunc(t)
+		dt = t
+		if 1.0 - dt < step {
+			dt = 1.0
+		}
+
+		let value = valueFunc(dt)
 		opacityValues.append(value)
+		timeValues.append(dt)
 	}
 
 	let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")

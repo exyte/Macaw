@@ -240,6 +240,24 @@
             </objects>
             <point key="canvasLocation" x="1339" y="470"/>
         </scene>
+        <!--Transform-->
+        <scene sceneID="rdc-fb-hVp">
+            <objects>
+                <viewController storyboardIdentifier="TransformExampleController" title="Transform" id="ETt-ZG-4Pm" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xny-4z-bkO"/>
+                        <viewControllerLayoutGuide type="bottom" id="H90-y3-MSk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dvB-yS-FLM" customClass="TransformExampleView" customModule="Example" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IZc-VS-62C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2006" y="470"/>
+        </scene>
         <!--Model Listeners-->
         <scene sceneID="v8O-OB-49M">
             <objects>

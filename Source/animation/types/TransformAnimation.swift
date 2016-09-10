@@ -55,8 +55,8 @@ public extension AnimatableVariable {
 		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: false)
 	}
 
-	public func animate(from from: Transform, to: Transform, during: Double) {
-		self.animate((from >> to).t(during))
+	public func animate(from from: Transform? = nil, to: Transform, during: Double) {
+		self.animate(((from ?? node!.place) >> to).t(during))
 	}
 
 	public func animation(from from: Transform, to: Transform, during: Double) -> Animation {

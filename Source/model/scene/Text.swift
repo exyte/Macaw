@@ -52,20 +52,23 @@ public class Text: Node {
 
 	// GENERATED NOT
 	override internal func bounds() -> Rect {
-        let font: UIFont
-        if let f = self.font {
-            if let customFont = UIFont(name: f.name, size: CGFloat(f.size)) {
-                font = customFont
-            } else {
-                font = UIFont.systemFontOfSize(CGFloat(f.size))
-            }
-        } else {
-            font = UIFont.systemFontOfSize(UIFont.systemFontSize())
-        }
-        var stringAttributes: [String: AnyObject] = [:]
-        stringAttributes[NSFontAttributeName] = font
-        let size = (text as NSString).sizeWithAttributes(stringAttributes)
-        return Rect(x: place.dx, y: place.dy, w: Double(size.width), h: Double(size.height))
+		let font: UIFont
+		if let f = self.font {
+			if let customFont = UIFont(name: f.name, size: CGFloat(f.size)) {
+				font = customFont
+			} else {
+				font = UIFont.systemFontOfSize(CGFloat(f.size))
+			}
+		} else {
+			font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+		}
+		var stringAttributes: [String: AnyObject] = [:]
+		stringAttributes[NSFontAttributeName] = font
+		let size = (text as NSString).sizeWithAttributes(stringAttributes)
+		if (self.baseline == Baseline.bottom) {
+			return Rect(x: 0, y: -Double(size.height), w: Double(size.width), h: Double(size.height))
+		}
+		return Rect(x: 0, y: 0, w: Double(size.width), h: Double(size.height))
 	}
 
 }

@@ -77,7 +77,6 @@ class PathExampleView: MacawView {
 				form: lightning(),
 				place: Transform.move(dx: 375, dy: 390).scale(sx: 3, sy: 3),
 				fill: LinearGradient(
-					userSpace: true,
 					stops: [
 						Stop(offset: 0, color: Color.rgb(r: 250, g: 220, b: 0)),
 						Stop(offset: 1, color: Color(val: 0xeb6405))
@@ -90,7 +89,6 @@ class PathExampleView: MacawView {
 				form: cloud1(),
 				place: .move(dx: 120, dy: 120),
 				fill: LinearGradient(
-					userSpace: false,
 					stops: [
 						Stop(offset: 0, color: Color(val: 0x2f3036)),
 						Stop(offset: 1, color: Color.rgba(r: 47, g: 48, b: 54, a: 0.1))

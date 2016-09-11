@@ -495,7 +495,7 @@ class ShapeRenderer: NodeRenderer {
 		if let gradient = gradient as? LinearGradient {
 			var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
 			var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
-			if gradient.userSpace {
+			if !gradient.userSpace {
 				let bounds = CGContextGetPathBoundingBox(ctx)
 				start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
 				end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
@@ -507,7 +507,7 @@ class ShapeRenderer: NodeRenderer {
 			var innerCenter = CGPointMake(CGFloat(gradient.fx), CGFloat(gradient.fy))
 			var outerCenter = CGPointMake(CGFloat(gradient.cx), CGFloat(gradient.cy))
 			var radius = CGFloat(gradient.r)
-			if gradient.userSpace {
+			if !gradient.userSpace {
 				var bounds = CGContextGetPathBoundingBox(ctx)
 				var scaleX: CGFloat = 1
 				var scaleY: CGFloat = 1

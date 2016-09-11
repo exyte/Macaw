@@ -13,4 +13,9 @@ public class Circle: Locus {
 		self.r = r
 	}
 
+	// GENERATED NOT
+	public func arc(shift shift: Double, extent: Double) -> Arc {
+		return Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
+	}
+
 }

@@ -17,7 +17,7 @@ public class Rect: Locus {
 
 	// GENERATED NOT
 	public func round(rx rx: Double, ry: Double) -> RoundRect {
-		return RoundRect(rect: Rect())
+		return RoundRect(rect: self, rx: rx, ry: ry)
 	}
 
 	// GENERATED NOT

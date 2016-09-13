@@ -339,17 +339,33 @@ class ShapeRenderer: NodeRenderer {
 
 		// TODO: think about this
 		for part in path.segments {
-			let data = part.data
+			var data = part.data
 			switch part.type {
 			case .M:
 				M(data[0], y: data[1])
+                data.removeRange(Range(start: 0, end: 2))
+                while data.count >= 2 {
+                    L(data[0], y: data[1])
+                    data.removeRange(Range(start: 0, end: 2))
+                }
 			case .m:
 				m(data[0], y: data[1])
+                data.removeRange(Range(start: 0, end: 2))
+                while data.count >= 2 {
+                    l(data[0], y: data[1])
+                    data.removeRange(Range(start: 0, end: 2))
+                }
 			case .L:
-				L(data[0], y: data[1])
+                while data.count >= 2 {
+                    L(data[0], y: data[1])
+                    data.removeRange(Range(start: 0, end: 2))
+                }
 			case .l:
-				l(data[0], y: data[1])
-			case .H:
+                while data.count >= 2 {
+                    l(data[0], y: data[1])
+                    data.removeRange(Range(start: 0, end: 2))
+                }
+            case .H:
 				H(data[0])
 			case .h:
 				h(data[0])
@@ -358,13 +374,25 @@ class ShapeRenderer: NodeRenderer {
 			case .v:
 				v(data[0])
 			case .C:
-				C(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+                while data.count >= 6 {
+                    C(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+                    data.removeRange(Range(start: 0, end: 6))
+                }
 			case .c:
-				c(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+                while data.count >= 6 {
+                    c(data[0], y1: data[1], x2: data[2], y2: data[3], x: data[4], y: data[5])
+                    data.removeRange(Range(start: 0, end: 6))
+                }
 			case .S:
-				S(data[0], y2: data[1], x: data[2], y: data[3])
+                while data.count >= 4 {
+                    S(data[0], y2: data[1], x: data[2], y: data[3])
+                    data.removeRange(Range(start: 0, end: 4))
+                }
 			case .s:
-				s(data[0], y2: data[1], x: data[2], y: data[3])
+                while data.count >= 4 {
+                    s(data[0], y2: data[1], x: data[2], y: data[3])
+                    data.removeRange(Range(start: 0, end: 4))
+                }
 			case .A:
 				let flags = numToBools(data[3])
 				A(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])

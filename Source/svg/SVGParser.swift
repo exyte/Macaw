@@ -896,26 +896,32 @@ public class SVGParser {
 
 		switch command.type {
 		case .MoveTo:
-			if separatedValues.count < 2 {
-				return .None
-			}
+            var data = [Double]()
+            separatedValues.forEach { value in
+                if let double = Double(value) {
+                    data.append(double)
+                }
+            }
+            
+            if data.count < 2 {
+                return .None
+            }
 
-			guard let x = Double(separatedValues[0]), y = Double(separatedValues[1]) else {
-				return .None
-			}
-
-			return PathSegment(type: command.absolute ? .M : .m, data: [x, y])
+			return PathSegment(type: command.absolute ? .M : .m, data: data)
 
 		case .LineTo:
-			if separatedValues.count < 2 {
-				return .None
-			}
+            var data = [Double]()
+            separatedValues.forEach { value in
+                if let double = Double(value) {
+                    data.append(double)
+                }
+            }
+            
+            if data.count < 2 {
+                return .None
+            }
 
-			guard let x = Double(separatedValues[0]), y = Double(separatedValues[1]) else {
-				return .None
-			}
-
-			return PathSegment(type: command.absolute ? .L : .l, data: [x, y])
+			return PathSegment(type: command.absolute ? .L : .l, data: data)
 
 		case .LineH:
 			if separatedValues.count < 1 {
@@ -940,34 +946,32 @@ public class SVGParser {
 			return PathSegment(type: command.absolute ? .V : .v, data: [y])
 
 		case .CurveTo:
-			if separatedValues.count < 6 {
-				return .None
-			}
+            var data = [Double]()
+            separatedValues.forEach { value in
+                if let double = Double(value) {
+                    data.append(double)
+                }
+            }
+            
+            if data.count < 6 {
+                return .None
+            }
 
-			guard let x1 = Double(separatedValues[0]),
-				y1 = Double(separatedValues[1]),
-				x2 = Double(separatedValues[2]),
-				y2 = Double(separatedValues[3]),
-				x = Double(separatedValues[4]),
-				y = Double(separatedValues[5]) else {
-					return .None
-			}
-
-			return PathSegment(type: command.absolute ? .C : .c, data: [x1, y1, x2, y2, x, y])
+			return PathSegment(type: command.absolute ? .C : .c, data: data)
 
 		case .SmoothCurveTo:
-			if separatedValues.count < 4 {
-				return .None
-			}
+            var data = [Double]()
+            separatedValues.forEach { value in
+                if let double = Double(value) {
+                    data.append(double)
+                }
+            }
+            
+            if data.count < 4 {
+                return .None
+            }
 
-			guard let x2 = Double(separatedValues[0]),
-				y2 = Double(separatedValues[1]),
-				x = Double(separatedValues[2]),
-				y = Double(separatedValues[3]) else {
-					return .None
-			}
-
-			return PathSegment(type: command.absolute ? .S : .s, data: [x2, y2, x, y])
+			return PathSegment(type: command.absolute ? .S : .s, data: data)
 
 		case .ClosePath:
 			return PathSegment(type: .Z)

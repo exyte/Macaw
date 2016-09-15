@@ -44,7 +44,7 @@ public extension AnimatableVariable {
 			return
 		}
 
-		let _ = TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: true)
+		let _ = TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
 	}
 
 	public func animation(desc: TransformAnimationDescription) -> Animation {
@@ -52,7 +52,7 @@ public extension AnimatableVariable {
 			return EmptyAnimation(completion: { })
 		}
 
-		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, autostart: false)
+		return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
 	}
 
 	public func animate(from from: Transform? = nil, to: Transform, during: Double, delay: Double = 0.0) {

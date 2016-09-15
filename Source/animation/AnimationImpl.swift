@@ -27,6 +27,7 @@ class BasicAnimation: Animation {
 	var removeFunc: (() -> ())?
 	var progress = 0.0
 	var repeatCount = 0.0
+	var delay = 0.0
 	var autoreverses = false
 	var onProgressUpdate: ((Double) -> ())?
 	var easing = Easing.Ease
@@ -81,13 +82,15 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	let duration: Double
 	let logicalFps: UInt
 
-	init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, fps: UInt = 30) {
-		value = observableValue
-		duration = animationDuration
-		vFunc = valueFunc
-		logicalFps = fps
+	init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
+		self.value = observableValue
+		self.duration = animationDuration
+		self.vFunc = valueFunc
+		self.logicalFps = fps
 
 		super.init()
+
+		self.delay = delay
 	}
 
 	convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
@@ -123,12 +126,14 @@ class EmptyAnimation: BasicAnimation {
 public class AnimationDescription <T> {
 	public let valueFunc: (Double) -> T
 	public var duration = 0.0
-	public init(valueFunc: (Double) -> T, duration: Double = 1.0) {
+	public var delay = 0.0
+	public init(valueFunc: (Double) -> T, duration: Double = 1.0, delay: Double = 0.0) {
 		self.valueFunc = valueFunc
 		self.duration = duration
+		self.delay = delay
 	}
 
-	public func t(duration: Double) -> AnimationDescription<T> {
-		return AnimationDescription(valueFunc: valueFunc, duration: duration)
+	public func t(duration: Double, delay: Double = 0.0) -> AnimationDescription<T> {
+		return AnimationDescription(valueFunc: valueFunc, duration: duration, delay: delay)
 	}
 }

@@ -2,7 +2,14 @@
 let animationProducer = AnimationProducer()
 class AnimationProducer {
 
-	func addAnimation(animation: BasicAnimation) {
+	func addAnimation(animation: BasicAnimation, withoutDelay: Bool = false) {
+
+		if animation.delay > 0.0 && !withoutDelay {
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(animation.delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+				self.addAnimation(animation, withoutDelay: true)
+			})
+			return
+		}
 
 		if animation.type == .Empty {
 			executeCompletion(animation)

@@ -47,6 +47,7 @@ Pod::Spec.new do |s|
      'Source/render/*.swift',
      'Source/views/*.swift',
      'Source/svg/*.swift',
+     'Source/thirdparty/*.swift',
      'Source/thirdparty/Swift-CAAnimation-Closure/*.swift'
   ]
   # s.resource_bundles = {

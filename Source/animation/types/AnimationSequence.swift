@@ -5,13 +5,14 @@ internal class AnimationSequence: BasicAnimation {
 
 	let animations: [BasicAnimation]
 
-	required init(animations: [BasicAnimation]) {
+	required init(animations: [BasicAnimation], delay: Double = 0.0) {
 		self.animations = animations
 
 		super.init()
 
-		type = .Sequence
+		self.type = .Sequence
 		self.node = animations.first?.node
+		self.delay = delay
 	}
 
 	override func getDuration() -> Double {
@@ -30,7 +31,7 @@ internal class AnimationSequence: BasicAnimation {
 			reversedAnimations.append(animation.reverse() as! BasicAnimation)
 		}
 
-		let reversedSequence = reversedAnimations.reverse().sequence() as! BasicAnimation
+		let reversedSequence = reversedAnimations.reverse().sequence(delay: self.delay) as! BasicAnimation
 		reversedSequence.completion = completion
 		reversedSequence.progress = progress
 
@@ -39,12 +40,12 @@ internal class AnimationSequence: BasicAnimation {
 }
 
 public extension SequenceType where Generator.Element: Animation {
-	public func sequence() -> Animation {
+	public func sequence(delay delay: Double = 0.0) -> Animation {
 
 		var sequence = [BasicAnimation]()
 		self.forEach { animation in
 			sequence.append(animation as! BasicAnimation)
 		}
-		return AnimationSequence(animations: sequence)
+		return AnimationSequence(animations: sequence, delay: delay)
 	}
 }

@@ -19,7 +19,10 @@ public class MacawView: UIView {
 			if let cache = animationCache {
 				self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 			}
-			animationProducer.addStoredAnimations(node)
+
+			if let _ = superview {
+				animationProducer.addStoredAnimations(node)
+			}
 		}
 	}
 
@@ -33,11 +36,6 @@ public class MacawView: UIView {
 				return
 			}
 
-			if !nodeAddedViaInit {
-				return
-			}
-
-			nodeAddedViaInit = false
 			animationProducer.addStoredAnimations(node)
 		}
 	}
@@ -45,16 +43,11 @@ public class MacawView: UIView {
 	override public func didMoveToSuperview() {
 		super.didMoveToSuperview()
 
-		if !nodeAddedViaInit {
-			return
-		}
-
 		if !frameSetFirstTime {
 			return
-            
+
 		}
 
-		nodeAddedViaInit = false
 		animationProducer.addStoredAnimations(node)
 	}
 
@@ -64,7 +57,6 @@ public class MacawView: UIView {
 	var renderer: NodeRenderer?
 
 	var toRender = true
-	var nodeAddedViaInit = false
 	var frameSetFirstTime = false
 
 	internal var animationCache: AnimationCache?
@@ -81,8 +73,6 @@ public class MacawView: UIView {
 		if let cache = self.animationCache {
 			self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 		}
-
-		nodeAddedViaInit = true
 
 		let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
 		let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))

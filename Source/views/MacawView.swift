@@ -19,6 +19,7 @@ public class MacawView: UIView {
 			if let cache = animationCache {
 				self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 			}
+			animationProducer.addStoredAnimations(node)
 		}
 	}
 
@@ -43,6 +44,7 @@ public class MacawView: UIView {
 		if let cache = self.animationCache {
 			self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 		}
+		animationProducer.addStoredAnimations(node)
 
 		let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
 		let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))

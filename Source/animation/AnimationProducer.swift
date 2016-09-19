@@ -3,6 +3,8 @@ let animationProducer = AnimationProducer()
 
 class AnimationProducer {
 
+	var storedAnimations = [Node: BasicAnimation]()
+
 	func addAnimation(animation: BasicAnimation, withoutDelay: Bool = false) {
 
 		if animation.delay > 0.0 && !withoutDelay {
@@ -24,6 +26,7 @@ class AnimationProducer {
 		}
 
 		guard let macawView = nodesMap.getView(node) else {
+			storedAnimations[node] = animation
 			return
 		}
 
@@ -175,5 +178,20 @@ class AnimationProducer {
 
 	private func executeCompletion(emptyAnimation: BasicAnimation) {
 		emptyAnimation.completion?()
+	}
+
+	func addStoredAnimations(node: Node) {
+		if let animation = storedAnimations[node] {
+			addAnimation(animation)
+			storedAnimations.removeValueForKey(node)
+		}
+
+		guard let group = node as? Group else {
+			return
+		}
+
+		group.contents.forEach { child in
+			addStoredAnimations(child)
+		}
 	}
 }

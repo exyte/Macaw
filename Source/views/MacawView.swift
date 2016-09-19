@@ -27,6 +27,8 @@ public class MacawView: UIView {
 		didSet {
 			super.frame = frame
 
+			frameSetFirstTime = true
+
 			guard let _ = superview else {
 				return
 			}
@@ -47,6 +49,11 @@ public class MacawView: UIView {
 			return
 		}
 
+		if !frameSetFirstTime {
+			return
+            
+		}
+
 		nodeAddedViaInit = false
 		animationProducer.addStoredAnimations(node)
 	}
@@ -58,6 +65,7 @@ public class MacawView: UIView {
 
 	var toRender = true
 	var nodeAddedViaInit = false
+	var frameSetFirstTime = false
 
 	internal var animationCache: AnimationCache?
 

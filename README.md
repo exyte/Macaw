@@ -19,7 +19,7 @@ Get started with Macaw in several lines of code:
 class MyView: MacawView {
 
 	required init?(coder aDecoder: NSCoder) {
-		let text = Text(text: "Hello, World!", place: .move(dx: 100, dy: 100))
+		let text = Text(text: "Hello, World!", place: .move(dx: 145, dy: 100))
 		super.init(node: text, coder: aDecoder)
 	}
 

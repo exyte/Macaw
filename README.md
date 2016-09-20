@@ -9,17 +9,48 @@
 
 ## What is Macaw?
 
-Macaw is a powerful vector graphics library written in Swift. With Macaw you can easily build resizable and animatable custom graphic elements for your application without deep knowledge of iOS platform.
+Macaw is a powerful and easy-to-use vector graphics library written in Swift.
 
-## Features
-* Full SVG support
-* Different types of animation
-* Resizable graphics for different screen sizes
-* Bindings
+#### It's simple
 
-## Usage
+Get started with Macaw in several lines of code:
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+```swift
+class MyView: MacawView {
+
+	required init?(coder aDecoder: NSCoder) {
+		let text = Text(text: "Hello, World!", place: .move(dx: 100, dy: 100))
+		super.init(node: text, coder: aDecoder)
+	}
+
+}
+```
+
+<img src="https://www.dropbox.com/s/o4xe3eezk4zv901/macaw-readme-001.png?dl=1" width="450">
+
+#### It has SVG support
+
+Include Scalable Vector Graphics right into your application:
+
+```swift
+class SVGView: MacawView {
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(node: SVGParser.parse(path: "tiger"), coder: aDecoder)
+    }
+
+}
+```
+
+<img src="https://www.dropbox.com/s/p84o7komopmb2yn/macaw-howto-004.png?dl=1" width="450">
+
+#### It's powerful
+
+Affine transformations, user events, animation and various effects to build beautiful apps with Macaw:
+
+<img src="https://www.dropbox.com/s/l4di5aswo28ksix/periodic.gif?dl=1" width="508">
+
+Take a look at [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started) to learn more.
 
 ## Requirements
 
@@ -28,14 +59,20 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-Macaw is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Macaw is available through [CocoaPods](http://cocoapods.org).
+To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod "Macaw"
 ```
 
-## Examples
+## Building from sources
+
+To build Macaw from sources:
+* clone the repo `git@github.com:exyte/Macaw.git`
+* open terminal and run `cd <MacawRepo>/Example/`
+* run `pod install` to install all dependencies
+* run `open Example.xcworkspace/` to open project in the Xcode
 
 ## Author
 

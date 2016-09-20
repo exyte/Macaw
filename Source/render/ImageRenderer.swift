@@ -44,17 +44,17 @@ class ImageRenderer: NodeRenderer {
 					rect = calculateMeetAspectRatio(image, size: imageSize)
 				case AspectRatio.slice:
 					rect = calculateSliceAspectRatio(image, size: imageSize)
-					CGContextClipToRect(ctx.cgContext, CGRectMake(0, 0, w, h))
+					CGContextClipToRect(ctx.cgContext!, CGRectMake(0, 0, w, h))
 				default:
 					rect = CGRectMake(0, 0, w, h)
 				}
 			}
 
-			CGContextScaleCTM(ctx.cgContext, 1.0, -1.0)
-			CGContextTranslateCTM(ctx.cgContext, 0.0, -1.0 * rect.height)
+			CGContextScaleCTM(ctx.cgContext!, 1.0, -1.0)
+			CGContextTranslateCTM(ctx.cgContext!, 0.0, -1.0 * rect.height)
 
-			CGContextSetAlpha(ctx.cgContext, CGFloat(opacity))
-			CGContextDrawImage(ctx.cgContext, rect, uiimage.CGImage)
+			CGContextSetAlpha(ctx.cgContext!, CGFloat(opacity))
+			CGContextDrawImage(ctx.cgContext!, rect, uiimage.CGImage!)
 		}
 	}
 

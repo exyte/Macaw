@@ -89,10 +89,10 @@ public class MacawView: UIView {
 	override public func drawRect(rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
 
-		CGContextSaveGState(self.context.cgContext)
-		CGContextConcatCTM(self.context.cgContext, RenderUtils.mapTransform(node.place))
+		CGContextSaveGState(self.context.cgContext!)
+		CGContextConcatCTM(self.context.cgContext!, RenderUtils.mapTransform(node.place))
 		renderer?.render(false, opacity: node.opacity)
-		CGContextRestoreGState(self.context.cgContext)
+		CGContextRestoreGState(self.context.cgContext!)
 	}
 
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -102,10 +102,10 @@ public class MacawView: UIView {
 				let location = touch.locationInView(self)
 				let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
 				let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
-				CGContextSaveGState(self.context.cgContext)
-				CGContextConcatCTM(self.context.cgContext, RenderUtils.mapTransform(node.place))
+				CGContextSaveGState(self.context.cgContext!)
+				CGContextConcatCTM(self.context.cgContext!, RenderUtils.mapTransform(node.place))
 				let shapes = renderer?.detectTouches(offsetLocation)
-				CGContextRestoreGState(self.context.cgContext)
+				CGContextRestoreGState(self.context.cgContext!)
 				self.selectedShape = shapes?.first
 				if let shape = self.selectedShape {
 					shape.onTap.onNext(TapEvent(location: Point(x: Double(offsetLocation.x), y: Double(offsetLocation.y))))

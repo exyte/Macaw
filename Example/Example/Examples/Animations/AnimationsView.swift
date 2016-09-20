@@ -54,8 +54,7 @@ class AnimationsView: MacawView {
 		}
 
 		for i in 0 ... (n - 1) {
-            arc4random()
-
+            
 			// Node
 			let circle = Circle(cx: r, cy: r, r: r)
 			let shape = Shape(

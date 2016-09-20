@@ -1,3 +1,4 @@
+import Foundation
 
 let animationProducer = AnimationProducer()
 

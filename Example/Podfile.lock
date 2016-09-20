@@ -1,10 +1,8 @@
 PODS:
   - Macaw (0.1.0):
-    - RxSwift
-    - Swift-CAAnimation-Closure (~> 1.0)
+    - RxSwift (~> 2.0s)
     - SWXMLHash (~> 2.3.0)
   - RxSwift (2.6.0)
-  - Swift-CAAnimation-Closure (1.4)
   - SWXMLHash (2.3.2)
 
 DEPENDENCIES:
@@ -15,11 +13,10 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Macaw: f440797f9d71b878de88f489b6e9f9aee0ba6869
+  Macaw: 6d8c002627caf979148fd395770caf12112ecc2b
   RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
-  Swift-CAAnimation-Closure: 9229ece23497fe8c073587ac63f14e74b64f483a
   SWXMLHash: 2f8c49af765718ad56020c4f875ec3ff22612f06
 
-PODFILE CHECKSUM: 228ebdda766cd7e558e36c929c03097c7aedb2ed
+PODFILE CHECKSUM: 2b27ba53c0326bad26fb61b116044cf08cdac46d
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2

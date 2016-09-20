@@ -424,10 +424,10 @@ class ShapeRenderer: NodeRenderer {
 		}
 
 		if let fill = fill, stroke = stroke {
-			let path = CGContextCopyPath(ctx)
+			let path = CGContextCopyPath(ctx!)
 			setFill(fill, ctx: ctx, opacity: opacity)
 			if stroke.fill is Gradient && !(fill is Gradient) {
-				CGContextDrawPath(ctx, .Fill)
+				CGContextDrawPath(ctx!, .Fill)
 			}
 			drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: .FillStroke)
 			return
@@ -435,7 +435,7 @@ class ShapeRenderer: NodeRenderer {
 
 		if let fill = fill {
 			setFill(fill, ctx: ctx, opacity: opacity)
-			CGContextDrawPath(ctx, .Fill)
+			CGContextDrawPath(ctx!, .Fill)
 			return
 		}
 
@@ -444,9 +444,9 @@ class ShapeRenderer: NodeRenderer {
 			return
 		}
 
-		CGContextSetLineWidth(ctx, 2.0)
-		CGContextSetStrokeColorWithColor(ctx, UIColor.blackColor().CGColor)
-		CGContextDrawPath(ctx, .Stroke)
+		CGContextSetLineWidth(ctx!, 2.0)
+		CGContextSetStrokeColorWithColor(ctx!, UIColor.blackColor().CGColor)
+		CGContextDrawPath(ctx!, .Stroke)
 	}
 
 	private func setFill(fill: Fill?, ctx: CGContext?, opacity: Double) {
@@ -455,7 +455,7 @@ class ShapeRenderer: NodeRenderer {
 		}
 		if let fillColor = fill as? Color {
 			let color = RenderUtils.applyOpacity(fillColor, opacity: opacity)
-			CGContextSetFillColorWithColor(ctx, RenderUtils.mapColor(color))
+			CGContextSetFillColorWithColor(ctx!, RenderUtils.mapColor(color))
 		} else if let gradient = fill as? Gradient {
 			drawGradient(gradient, ctx: ctx, opacity: opacity)
 		} else {
@@ -465,7 +465,7 @@ class ShapeRenderer: NodeRenderer {
 
 	private func drawWithStroke(stroke: Stroke, ctx: CGContext?, opacity: Double, shouldStrokePath: Bool = false, path: CGPath? = nil, mode: CGPathDrawingMode) {
 		if let path = path where shouldStrokePath {
-			CGContextAddPath(ctx, path)
+			CGContextAddPath(ctx!, path)
 		}
 		setStrokeAttributes(stroke, ctx: ctx)
 
@@ -476,20 +476,20 @@ class ShapeRenderer: NodeRenderer {
 			colorStroke(stroke, ctx: ctx, opacity: opacity)
 		}
 		if shouldStrokePath {
-			CGContextStrokePath(ctx)
+			CGContextStrokePath(ctx!)
 		} else {
-			CGContextDrawPath(ctx, mode)
+			CGContextDrawPath(ctx!, mode)
 		}
 	}
 
 	private func setStrokeAttributes(stroke: Stroke, ctx: CGContext?) {
-		CGContextSetLineWidth(ctx, CGFloat(stroke.width))
-		CGContextSetLineJoin(ctx, RenderUtils.mapLineJoin(stroke.join))
-		CGContextSetLineCap(ctx, RenderUtils.mapLineCap(stroke.cap))
+		CGContextSetLineWidth(ctx!, CGFloat(stroke.width))
+		CGContextSetLineJoin(ctx!, RenderUtils.mapLineJoin(stroke.join))
+		CGContextSetLineCap(ctx!, RenderUtils.mapLineCap(stroke.cap))
 		let dashes = stroke.dashes
 		if !dashes.isEmpty {
 			let dashPointer = RenderUtils.mapDash(dashes)
-			CGContextSetLineDash(ctx, 0, dashPointer, dashes.count)
+			CGContextSetLineDash(ctx!, 0, dashPointer, dashes.count)
 			dashPointer.dealloc(dashes.count)
 		}
 	}
@@ -499,19 +499,19 @@ class ShapeRenderer: NodeRenderer {
 			return
 		}
 		let color = RenderUtils.applyOpacity(strokeColor, opacity: opacity)
-		CGContextSetStrokeColorWithColor(ctx, RenderUtils.mapColor(color))
+		CGContextSetStrokeColorWithColor(ctx!, RenderUtils.mapColor(color))
 	}
 
 	private func gradientStroke(stroke: Stroke, ctx: CGContext?, opacity: Double) {
 		guard let gradient = stroke.fill as? Gradient else {
 			return
 		}
-		CGContextReplacePathWithStrokedPath(ctx)
+		CGContextReplacePathWithStrokedPath(ctx!)
 		drawGradient(gradient, ctx: ctx, opacity: opacity)
 	}
 
 	private func drawGradient(gradient: Gradient, ctx: CGContext?, opacity: Double) {
-		CGContextSaveGState(ctx)
+		CGContextSaveGState(ctx!)
 		var colors: [CGColor] = []
 		var stops: [CGFloat] = []
 		for stop in gradient.stops {
@@ -524,19 +524,19 @@ class ShapeRenderer: NodeRenderer {
 			var start = CGPointMake(CGFloat(gradient.x1), CGFloat(gradient.y1))
 			var end = CGPointMake(CGFloat(gradient.x2), CGFloat(gradient.y2))
 			if !gradient.userSpace {
-				let bounds = CGContextGetPathBoundingBox(ctx)
+				let bounds = CGContextGetPathBoundingBox(ctx!)
 				start = CGPointMake(start.x * bounds.width + bounds.minX, start.y * bounds.height + bounds.minY)
 				end = CGPointMake(end.x * bounds.width + bounds.minX, end.y * bounds.height + bounds.minY)
 			}
-			CGContextClip(ctx)
+			CGContextClip(ctx!)
 			let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
-			CGContextDrawLinearGradient(ctx, cgGradient, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
+			CGContextDrawLinearGradient(ctx!, cgGradient!, start, end, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
 		} else if let gradient = gradient as? RadialGradient {
 			var innerCenter = CGPointMake(CGFloat(gradient.fx), CGFloat(gradient.fy))
 			var outerCenter = CGPointMake(CGFloat(gradient.cx), CGFloat(gradient.cy))
 			var radius = CGFloat(gradient.r)
 			if !gradient.userSpace {
-				var bounds = CGContextGetPathBoundingBox(ctx)
+				var bounds = CGContextGetPathBoundingBox(ctx!)
 				var scaleX: CGFloat = 1
 				var scaleY: CGFloat = 1
 				if bounds.width > bounds.height {
@@ -544,18 +544,18 @@ class ShapeRenderer: NodeRenderer {
 				} else {
 					scaleX = bounds.width / bounds.height
 				}
-				CGContextScaleCTM(ctx, scaleX, scaleY)
-				bounds = CGContextGetPathBoundingBox(ctx)
+				CGContextScaleCTM(ctx!, scaleX, scaleY)
+				bounds = CGContextGetPathBoundingBox(ctx!)
 				innerCenter = CGPointMake(innerCenter.x * bounds.width + bounds.minX, innerCenter.y * bounds.height + bounds.minY)
 				outerCenter = CGPointMake(outerCenter.x * bounds.width + bounds.minX, outerCenter.y * bounds.height + bounds.minY)
 				radius = min(radius * bounds.width, radius * bounds.height)
 
 			}
-			CGContextClip(ctx)
+			CGContextClip(ctx!)
 			let cgGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors, stops)
-			CGContextDrawRadialGradient(ctx, cgGradient, innerCenter, 0, outerCenter, radius, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
+			CGContextDrawRadialGradient(ctx!, cgGradient!, innerCenter, 0, outerCenter, radius, [.DrawsAfterEndLocation, .DrawsBeforeStartLocation])
 		}
-		CGContextRestoreGState(ctx)
+		CGContextRestoreGState(ctx!)
 	}
 
 }

@@ -3,7 +3,7 @@ import UIKit
 import Macaw
 
 class ModelListenersExampleController: UIViewController {
-	@IBOutlet weak var macawView: RectShapeView!
+	weak var macawView: RectShapeView!
 
 	@IBOutlet weak var heightStepper: UIStepper!
 	@IBOutlet weak var widthSteppter: UIStepper!

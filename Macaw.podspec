@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '2.3' }
 
   s.source_files = [
      'Source/*.swift',
@@ -57,6 +58,5 @@ Pod::Spec.new do |s|
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'SWXMLHash', '~> 2.3.0'
-  s.dependency 'RxSwift'
-  s.dependency 'Swift-CAAnimation-Closure', '~> 1.0'
+  s.dependency 'RxSwift', '~> 2.0s  '
 end

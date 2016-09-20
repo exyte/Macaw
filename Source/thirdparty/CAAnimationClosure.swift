@@ -9,7 +9,7 @@
 import QuartzCore
 
 /// CAAnimation Delegation class implementation
-class CAAnimationDelegate: NSObject {
+class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
     /// start: A block (closure) object to be executed when the animation starts. This block has no return value and takes no argument.
     var start: (() -> Void)?
     
@@ -35,7 +35,7 @@ class CAAnimationDelegate: NSObject {
 	
 	- parameter theAnimation: the animation about to start
 	*/
-    override func animationDidStart(theAnimation: CAAnimation) {
+    func animationDidStart(theAnimation: CAAnimation) {
         start?()
         if animating != nil {
             animationDuration = theAnimation.duration
@@ -50,7 +50,7 @@ class CAAnimationDelegate: NSObject {
 	- parameter theAnimation: the animation about to end
 	- parameter finished:     A Boolean value indicates whether or not the animations actually finished.
 	*/
-    override func animationDidStop(theAnimation: CAAnimation, finished: Bool) {
+    func animationDidStop(theAnimation: CAAnimation, finished: Bool) {
         completion?(finished)
         animatingTimer?.invalidate()
     }
@@ -72,17 +72,17 @@ public extension CAAnimation {
     /// A block (closure) object to be executed when the animation starts. This block has no return value and takes no argument.
     public var start: (() -> Void)? {
         set {
-			if let animationDelegate = delegate as? CAAnimationDelegate {
+			if let animationDelegate = delegate as? CAAnimationDelegateImpl {
 				animationDelegate.start = newValue
 			} else {
-				let animationDelegate = CAAnimationDelegate()
+				let animationDelegate = CAAnimationDelegateImpl()
 				animationDelegate.start = newValue
 				delegate = animationDelegate
 			}
         }
         
         get {
-			if let animationDelegate = delegate as? CAAnimationDelegate {
+			if let animationDelegate = delegate as? CAAnimationDelegateImpl {
 				return animationDelegate.start
 			}
 			
@@ -93,17 +93,17 @@ public extension CAAnimation {
     /// A block (closure) object to be executed when the animation ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished.
     public var completion: ((Bool) -> Void)? {
         set {
-			if let animationDelegate = delegate as? CAAnimationDelegate {
+			if let animationDelegate = delegate as? CAAnimationDelegateImpl {
 				animationDelegate.completion = newValue
 			} else {
-				let animationDelegate = CAAnimationDelegate()
+				let animationDelegate = CAAnimationDelegateImpl()
 				animationDelegate.completion = newValue
 				delegate = animationDelegate
 			}
         }
         
         get {
-			if let animationDelegate = delegate as? CAAnimationDelegate {
+			if let animationDelegate = delegate as? CAAnimationDelegateImpl {
 				return animationDelegate.completion
 			}
 			
@@ -114,17 +114,17 @@ public extension CAAnimation {
     /// A block (closure) object to be executed when the animation is animating. This block has no return value and takes a single CGFloat argument that indicates the progress of the animation (From 0 ..< 1)
     public var animating: ((CGFloat) -> Void)? {
         set {
-			if let animationDelegate = delegate as? CAAnimationDelegate {
+			if let animationDelegate = delegate as? CAAnimationDelegateImpl {
 				animationDelegate.animating = newValue
 			} else {
-				let animationDelegate = CAAnimationDelegate()
+				let animationDelegate = CAAnimationDelegateImpl()
 				animationDelegate.animating = newValue
 				delegate = animationDelegate
 			}
         }
         
         get {
-			if let animationDelegate = delegate as? CAAnimationDelegate {
+			if let animationDelegate = delegate as? CAAnimationDelegateImpl {
 				return animationDelegate.animating
 			}
 			

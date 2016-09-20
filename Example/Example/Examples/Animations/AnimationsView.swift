@@ -54,12 +54,12 @@ class AnimationsView: MacawView {
 		}
 
 		for i in 0 ... (n - 1) {
-
+            
 			// Node
 			let circle = Circle(cx: r, cy: r, r: r)
 			let shape = Shape(
 				form: circle,
-				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(rand() % 6)]
+				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(arc4random() % 6)]
 			)
 
 			let ballGroup = Group(contents: [shape])
@@ -67,8 +67,8 @@ class AnimationsView: MacawView {
 
 			// Animation
 			let velocity = Point(
-				x: -0.5 * speed + speed * Double(rand() % 1000) / 1000.0,
-				y: -0.5 * speed + speed * Double(rand() % 1000) / 1000.0)
+				x: -0.5 * speed + speed * Double(arc4random() % 1000) / 1000.0,
+				y: -0.5 * speed + speed * Double(arc4random() % 1000) / 1000.0)
 			velocities.append(velocity)
 			positions.append(Point(x: 0.0, y: 0.0))
 

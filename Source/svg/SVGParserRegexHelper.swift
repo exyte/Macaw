@@ -1,3 +1,5 @@
+import Foundation
+
 class SVGParserRegexHelper {
     
     private static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*\\s*,?\\s*)+)\\)"

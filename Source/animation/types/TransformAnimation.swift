@@ -38,7 +38,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 
 public typealias TransformAnimationDescription = AnimationDescription<Transform>
 
-public extension AnimatableVariable {
+public extension AnimatableVariable where T: TransformInterpolation {
 	public func animate(desc: TransformAnimationDescription) {
 		guard let node = self.node else {
 			return

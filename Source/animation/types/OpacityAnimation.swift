@@ -39,7 +39,8 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 
 public typealias OpacityAnimationDescription = AnimationDescription<Double>
 
-public extension AnimatableVariable {
+public extension AnimatableVariable where T: DoubleInterpolation  {
+   // public func animate(desc: AnimationDescription<T: Double>) {
 	public func animate(desc: OpacityAnimationDescription) {
 		guard let node = self.node else {
 			return
@@ -48,7 +49,7 @@ public extension AnimatableVariable {
 		let _ = OpacityAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
 	}
 
-	public func animation(desc: OpacityAnimationDescription) -> Animation {
+    public func animation(desc: OpacityAnimationDescription) -> Animation {
 		guard let node = self.node else {
 			return EmptyAnimation(completion: { })
 		}

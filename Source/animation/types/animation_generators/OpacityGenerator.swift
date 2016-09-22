@@ -11,7 +11,7 @@ func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animati
 	}
 
 	// Creating proper animation
-	let generatedAnimation = opacityAnimationByFunc(opacityAnimation.vFunc, duration: animation.getDuration(), fps: opacityAnimation.logicalFps)
+	let generatedAnimation = opacityAnimationByFunc(opacityAnimation.getVFunc(), duration: animation.getDuration(), fps: opacityAnimation.logicalFps)
 	generatedAnimation.autoreverses = animation.autoreverses
 	generatedAnimation.repeatCount = Float(animation.repeatCount)
 	generatedAnimation.timingFunction = caTimingFunction(animation.easing)
@@ -21,7 +21,7 @@ func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animati
 		animationCache.freeLayer(node)
 
 		animation.progress = 1.0
-		node.opacityVar.value = opacityAnimation.vFunc(1.0)
+		node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
 
 		animation.completion?()
 
@@ -36,7 +36,7 @@ func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animati
 	generatedAnimation.progress = { progress in
 
 		let t = Double(progress)
-		node.opacityVar.value = opacityAnimation.vFunc(t)
+		node.opacityVar.value = opacityAnimation.getVFunc()(t)
 
 		animation.progress = t
 		animation.onProgressUpdate?(t)

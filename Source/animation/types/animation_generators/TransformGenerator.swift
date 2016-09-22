@@ -12,7 +12,7 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
-	generatedAnimation = transformAnimationByFunc(node, valueFunc: transformAnimation.vFunc, duration: animation.getDuration(), fps: transformAnimation.logicalFps)
+	generatedAnimation = transformAnimationByFunc(node, valueFunc: transformAnimation.getVFunc(), duration: animation.getDuration(), fps: transformAnimation.logicalFps)
 
 	guard let generatedAnim = generatedAnimation else {
 		return
@@ -25,7 +25,7 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 	generatedAnim.completion = { finished in
 
 		animation.progress = 1.0
-		node.placeVar.value = transformAnimation.vFunc(1.0)
+		node.placeVar.value = transformAnimation.getVFunc()(1.0)
 
 		animationCache.freeLayer(node)
 		animation.completion?()
@@ -41,7 +41,7 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 	generatedAnim.progress = { progress in
 
 		let t = Double(progress)
-		node.placeVar.value = transformAnimation.vFunc(t)
+		node.placeVar.value = transformAnimation.getVFunc()(t)
 
 		animation.progress = t
 		animation.onProgressUpdate?(t)

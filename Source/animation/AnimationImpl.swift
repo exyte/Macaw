@@ -38,7 +38,12 @@ class BasicAnimation: Animation {
 		super.init()
 	}
 
-	override public func cycle(count count: Double) -> Animation {
+    override public func delay(delay: Double) -> Animation {
+        self.delay += delay
+        return self
+    }
+
+	override public func cycle(count: Double) -> Animation {
 		self.repeatCount = count
 		return self
 	}
@@ -78,13 +83,16 @@ class BasicAnimation: Animation {
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
 	let value: Variable<T>
-	let vFunc: ((Double) -> T)
+    let timeFactory: ((Node) -> ((Double) -> T))
 	let duration: Double
 	let logicalFps: UInt
+
+    private var vFunc: ((Double) -> T)?
 
 	init(observableValue: Variable<T>, valueFunc: (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
 		self.value = observableValue
 		self.duration = animationDuration
+        self.timeFactory = { (node) in return valueFunc }
 		self.vFunc = valueFunc
 		self.logicalFps = fps
 
@@ -92,6 +100,17 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
 		self.delay = delay
 	}
+    
+    init(observableValue: Variable<T>, factory: ((Node) -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
+        self.value = observableValue
+        self.duration = animationDuration
+        self.timeFactory = factory
+        self.logicalFps = fps
+        
+        super.init()
+        
+        self.delay = delay
+    }
 
 	convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
 		let interpolationFunc = { (t: Double) -> T in
@@ -108,6 +127,13 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	public override func getDuration() -> Double {
 		return duration
 	}
+
+    public func getVFunc() -> ((Double) -> T) {
+        if (vFunc == nil) {
+            vFunc = timeFactory(self.node!)
+        }
+        return vFunc!
+    }
 
 }
 

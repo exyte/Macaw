@@ -20,8 +20,12 @@ func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animati
 
 		animationCache.freeLayer(node)
 
-		animation.progress = 1.0
-		node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
+        if !animation.manualStop {
+            animation.progress = 1.0
+            node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
+        } else {
+            node.opacityVar.value = opacityAnimation.getVFunc()(animation.progress)
+        }
 
 		animation.completion?()
 

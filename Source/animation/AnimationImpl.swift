@@ -25,6 +25,7 @@ class BasicAnimation: Animation {
 	let ID: String
 	var next: BasicAnimation?
 	var removeFunc: (() -> ())?
+    var manualStop = false
 	var progress = 0.0
 	var repeatCount = 0.0
 	var delay = 0.0
@@ -68,6 +69,7 @@ class BasicAnimation: Animation {
 	}
 
 	override public func stop() {
+        manualStop = true
 		removeFunc?()
 	}
 

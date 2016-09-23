@@ -24,8 +24,12 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 
 	generatedAnim.completion = { finished in
 
-		animation.progress = 1.0
-		node.placeVar.value = transformAnimation.getVFunc()(1.0)
+        if !animation.manualStop {
+            animation.progress = 1.0
+            node.placeVar.value = transformAnimation.getVFunc()(1.0)
+        } else {
+            node.placeVar.value = transformAnimation.getVFunc()(animation.progress)
+        }
 
 		animationCache.freeLayer(node)
 		animation.completion?()

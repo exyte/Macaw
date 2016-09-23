@@ -26,7 +26,7 @@ class MyView: MacawView {
 }
 ```
 
-<img src="https://www.dropbox.com/s/o4xe3eezk4zv901/macaw-readme-001.png?dl=1" width="450">
+<img src="https://www.dropbox.com/s/o4xe3eezk4zv901/macaw-readme-001.png?dl=1" width="475">
 
 #### It has SVG support
 
@@ -42,13 +42,13 @@ class SVGView: MacawView {
 }
 ```
 
-<img src="https://www.dropbox.com/s/p84o7komopmb2yn/macaw-howto-004.png?dl=1" width="450">
+<img src="https://www.dropbox.com/s/p84o7komopmb2yn/macaw-howto-004.png?dl=1" width="475">
 
 #### It's powerful
 
 Affine transformations, user events, animation and various effects to build beautiful apps with Macaw:
 
-<img src="https://www.dropbox.com/s/l4di5aswo28ksix/periodic.gif?dl=1" width="508">
+<img src="https://www.dropbox.com/s/b6lspzzqa80ielk/periodic-ipad.gif?dl=1" width="600">
 
 Take a look at [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started) to learn more.
 

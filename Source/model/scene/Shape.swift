@@ -21,11 +21,6 @@ public class Shape: Node {
 		set(val) { strokeVar.value = val }
 	}
 
-	public let onTap = PublishSubject<TapEvent>()
-	public let onPan = PublishSubject<PanEvent>()
-	public let onRotate = PublishSubject<RotateEvent>()
-	public let onPinch = PublishSubject<PinchEvent>()
-
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.formVar = Variable<Locus>(form)
 		self.fillVar = Variable<Fill?>(fill)

@@ -46,7 +46,15 @@ class NodeRenderer {
 		fatalError("Unsupported")
 	}
 
-	final public func render(force: Bool, opacity: Double) {
+    final public func render(force: Bool, opacity: Double) {
+        CGContextSaveGState(ctx.cgContext!)
+        CGContextConcatCTM(ctx.cgContext!, RenderUtils.mapTransform(node().place))
+        applyClip()
+        directRender(force, opacity: node().opacity * opacity)
+        CGContextRestoreGState(ctx.cgContext!)
+    }
+
+	final func directRender(force: Bool = true, opacity: Double = 1.0) {
 		if animationCache.isAnimating(node()) {
 			self.removeObservers()
 			if (!force) {
@@ -62,9 +70,34 @@ class NodeRenderer {
 		fatalError("Unsupported")
 	}
 
-	public func detectTouches(location: CGPoint) -> [Shape] {
-		return []
-	}
+    public final func findNodeAt(location: CGPoint) -> Node? {
+        if (node().opaque) {
+            let place = node().place
+            if let inverted = place.invert() {
+                CGContextSaveGState(ctx.cgContext!)
+                CGContextConcatCTM(ctx.cgContext!, RenderUtils.mapTransform(place))
+                applyClip()
+                let loc = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
+                let result = doFindNodeAt(CGPoint(x: loc.x, y: loc.y))
+                CGContextRestoreGState(ctx.cgContext!)
+                return result
+            }
+        }
+        return nil
+    }
+
+    public func doFindNodeAt(location: CGPoint) -> Node? {
+        return nil
+    }
+
+    private func applyClip() {
+        let clip = node().clip
+        if let rect = clip as? Rect {
+            CGContextClipToRect(ctx.cgContext!, CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
+        } else if clip != nil {
+            RenderUtils.toBezierPath(clip!).addClip()
+        }
+    }
 
 	private func addObservers() {
 		if (!active) {

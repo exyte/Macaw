@@ -33,6 +33,11 @@ public class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
+    public let onTap = PublishSubject<TapEvent>()
+    public let onPan = PublishSubject<PanEvent>()
+    public let onRotate = PublishSubject<RotateEvent>()
+    public let onPinch = PublishSubject<PinchEvent>()
+
 	public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.placeVar = AnimatableVariable<Transform>(place)
 		self.opaqueVar = Variable<Bool>(opaque)

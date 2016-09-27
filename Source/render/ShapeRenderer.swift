@@ -26,9 +26,7 @@ class ShapeRenderer: NodeRenderer {
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
 	}
 
-	override func detectTouches(location: CGPoint) -> [Shape] {
-		var touchedShapes = [Shape]()
-
+	override func doFindNodeAt(location: CGPoint) -> Node? {
 		setGeometry(shape.form, ctx: ctx.cgContext!)
 
 		var drawingMode: CGPathDrawingMode? = nil
@@ -45,12 +43,12 @@ class ShapeRenderer: NodeRenderer {
 			contains = CGContextPathContainsPoint(ctx.cgContext!, location, mode)
 		}
 		if contains {
-			touchedShapes.append(shape)
+            return node()
 		}
 
 		// Prepare for next figure hittesting - clear current context path
 		CGContextBeginPath(ctx.cgContext!)
-		return touchedShapes
+		return nil
 	}
 
 	private func setGeometry(locus: Locus, ctx: CGContext) {
@@ -72,45 +70,8 @@ class ShapeRenderer: NodeRenderer {
 			let rx = ellipse.rx
 			let ry = ellipse.ry
 			CGContextAddEllipseInRect(ctx, CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
-		} else if let arc = locus as? Arc {
-			if arc.ellipse.rx == arc.ellipse.ry {
-				// Only circle arc supported for now
-				CGContextAddPath(ctx, toBezierPath(arc).CGPath)
-			} else {
-				// http://stackoverflow.com/questions/11365775/how-to-draw-an-elliptical-arc-with-coregraphics
-				// input parameters
-				let ellipse = arc.ellipse
-				let startAngle = CGFloat(arc.shift)
-				let endAngle = startAngle + CGFloat(arc.extent)
-				let r = CGFloat(ellipse.rx)
-				let scale = CGFloat(ellipse.ry / ellipse.rx)
-
-				let path = CGPathCreateMutable()
-				var t = CGAffineTransformMakeTranslation(CGFloat(ellipse.cx), CGFloat(ellipse.cy))
-				t = CGAffineTransformConcat(CGAffineTransformMakeScale(1.0, scale), t);
-				CGPathAddArc(path, &t, 0, 0, r, startAngle, endAngle, false)
-				CGContextAddPath(ctx, path)
-			}
-		} else if let point = locus as? Point {
-			let path = UIBezierPath()
-			path.moveToPoint(CGPointMake(CGFloat(point.x), CGFloat(point.y)))
-			path.addLineToPoint(CGPointMake(CGFloat(point.x), CGFloat(point.y)))
-			CGContextAddPath(ctx, path.CGPath)
-		} else if let line = locus as? Line {
-			let path = UIBezierPath()
-			path.moveToPoint(CGPointMake(CGFloat(line.x1), CGFloat(line.y1)))
-			path.addLineToPoint(CGPointMake(CGFloat(line.x2), CGFloat(line.y2)))
-			CGContextAddPath(ctx, path.CGPath)
-		} else if let polygon = locus as? Polygon {
-			let path = toBezierPath(polygon.points)
-			path.closePath()
-			CGContextAddPath(ctx, path.CGPath)
-		} else if let polygon = locus as? Polyline {
-			CGContextAddPath(ctx, toBezierPath(polygon.points).CGPath)
-		} else if let path = locus as? Path {
-			CGContextAddPath(ctx, toBezierPath(path).CGPath)
 		} else {
-			print("Unsupported locus: \(locus)")
+            CGContextAddPath(ctx, RenderUtils.toCGPath(locus))
 		}
 	}
 

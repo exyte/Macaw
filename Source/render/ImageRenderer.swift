@@ -27,40 +27,47 @@ class ImageRenderer: NodeRenderer {
 
 	override func doRender(force: Bool, opacity: Double) {
 		if let uiimage = UIImage(named: image.src) {
-			let imageSize = uiimage.size
-			var w = CGFloat(image.w)
-			var h = CGFloat(image.h)
-			var rect: CGRect
-			if ((w == 0 || w == imageSize.width) && (h == 0 || h == imageSize.height)) {
-				rect = CGRectMake(0, 0, imageSize.width, imageSize.height)
-			} else {
-				if (w == 0) {
-					w = imageSize.width * h / imageSize.height
-				} else if (h == 0) {
-					h = imageSize.height * w / imageSize.width
-				}
-				switch (image.aspectRatio) {
-				case AspectRatio.meet:
-					rect = calculateMeetAspectRatio(image, size: imageSize)
-				case AspectRatio.slice:
-					rect = calculateSliceAspectRatio(image, size: imageSize)
-					CGContextClipToRect(ctx.cgContext!, CGRectMake(0, 0, w, h))
-				default:
-					rect = CGRectMake(0, 0, w, h)
-				}
-			}
-
+			var rect = getRect(uiimage)
 			CGContextScaleCTM(ctx.cgContext!, 1.0, -1.0)
 			CGContextTranslateCTM(ctx.cgContext!, 0.0, -1.0 * rect.height)
-
 			CGContextSetAlpha(ctx.cgContext!, CGFloat(opacity))
 			CGContextDrawImage(ctx.cgContext!, rect, uiimage.CGImage!)
 		}
 	}
 
-	override func detectTouches(location: CGPoint) -> [Shape] {
-		return []
-	}
+    override func doFindNodeAt(location: CGPoint) -> Node? {
+        if let uiimage = UIImage(named: image.src) {
+            var rect = getRect(uiimage)
+            if (rect.contains(location)) {
+                return node()
+            }
+        }
+        return nil
+    }
+
+    private func getRect(uiimage: UIImage) -> CGRect {
+        let imageSize = uiimage.size
+        var w = CGFloat(image.w)
+        var h = CGFloat(image.h)
+        if ((w == 0 || w == imageSize.width) && (h == 0 || h == imageSize.height)) {
+            return CGRectMake(0, 0, imageSize.width, imageSize.height)
+        } else {
+            if (w == 0) {
+                w = imageSize.width * h / imageSize.height
+            } else if (h == 0) {
+                h = imageSize.height * w / imageSize.width
+            }
+            switch (image.aspectRatio) {
+            case AspectRatio.meet:
+                return calculateMeetAspectRatio(image, size: imageSize)
+            case AspectRatio.slice:
+                return calculateSliceAspectRatio(image, size: imageSize)
+                CGContextClipToRect(ctx.cgContext!, CGRectMake(0, 0, w, h))
+            default:
+                return CGRectMake(0, 0, w, h)
+            }
+        }
+    }
 
 	private func calculateMeetAspectRatio(image: Image, size: CGSize) -> CGRect {
 		let w = CGFloat(image.w)

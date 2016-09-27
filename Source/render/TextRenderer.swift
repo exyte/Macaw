@@ -24,40 +24,40 @@ class TextRenderer: NodeRenderer {
 
 	override func doRender(force: Bool, opacity: Double) {
 		let message = text.text
-		var font: UIFont
-		if let textFont = text.font {
-			if let customFont = UIFont(name: textFont.name, size: CGFloat(textFont.size)) {
-				font = customFont
-			} else {
-				font = UIFont.systemFontOfSize(CGFloat(textFont.size))
-			}
-		} else {
-			font = UIFont.systemFontOfSize(UIFont.systemFontSize())
-		}
+		let font = getUIFont()
 		// positive NSBaselineOffsetAttributeName values don't work, couldn't find why
 		// for now move the rect itself
-
 		if var color = text.fill as? Color {
 			color = RenderUtils.applyOpacity(color, opacity: opacity)
-			let textAttributes = [
-				NSFontAttributeName: font,
-				NSForegroundColorAttributeName: getTextColor(color)]
-			let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
-
-			guard let cgContext = ctx.cgContext else {
-				return
-			}
-
-			UIGraphicsPushContext(cgContext)
-			message.drawInRect(CGRectMake(calculateAlignmentOffset(text, font: font), calculateBaselineOffset(text, font: font),
-				CGFloat(textSize.width), CGFloat(textSize.height)), withAttributes: textAttributes)
+			UIGraphicsPushContext(ctx.cgContext!)
+            message.drawInRect(getBounds(font), withAttributes: [NSFontAttributeName: font,
+                NSForegroundColorAttributeName: getTextColor(color)])
 			UIGraphicsPopContext()
 		}
 	}
 
-	override func detectTouches(location: CGPoint) -> [Shape] {
-		return []
-	}
+    override func doFindNodeAt(location: CGPoint) -> Node? {
+        return getBounds(getUIFont()).contains(location) ? node() : nil
+    }
+
+    private func getUIFont() -> UIFont {
+        if let textFont = text.font {
+            if let customFont = UIFont(name: textFont.name, size: CGFloat(textFont.size)) {
+                return customFont
+            } else {
+                return UIFont.systemFontOfSize(CGFloat(textFont.size))
+            }
+        }
+        return UIFont.systemFontOfSize(UIFont.systemFontSize())
+    }
+
+    private func getBounds(font: UIFont) -> CGRect {
+        let textAttributes = [NSFontAttributeName: font]
+        let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
+        return CGRectMake(calculateAlignmentOffset(text, font: font),
+                          calculateBaselineOffset(text, font: font),
+                          CGFloat(textSize.width), CGFloat(textSize.height))
+    }
 
 	private func calculateBaselineOffset(text: Text, font: UIFont) -> CGFloat {
 		var baselineOffset = CGFloat(0)

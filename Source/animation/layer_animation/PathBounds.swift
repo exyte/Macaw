@@ -1,11 +1,11 @@
 
-func pathBounds(path: Path) -> Rect? {
+func pathBounds(_ path: Path) -> Rect? {
 
 	guard let firstSegment = path.segments.first else {
-		return .None
+		return .none
 	}
 
-	let firstSegmentInfo = pathSegmenInfo(firstSegment, currentPoint: .None, currentBezierPoint: .None)
+	let firstSegmentInfo = pathSegmenInfo(firstSegment, currentPoint: .none, currentBezierPoint: .none)
 	var bounds = firstSegmentInfo.0
 	var currentPoint = firstSegmentInfo.1 ?? Point.origin
 	var cubicBezierPoint: Point?
@@ -40,19 +40,19 @@ func pathBounds(path: Path) -> Rect? {
 	return bounds
 }
 
-func pathSegmenInfo(segment: PathSegment, currentPoint: Point?, currentBezierPoint: Point?)
+func pathSegmenInfo(_ segment: PathSegment, currentPoint: Point?, currentBezierPoint: Point?)
 	-> (Rect?, Point?, Point?) { // Bounds, last point, last bezier point TODO: Replace as struct
 
         let data = segment.data
         switch segment.type {
         case .m, .M:
             let point = Point(x: data[0], y: data[1])
-            return (Rect(x: point.x, y: point.y, w: 0.0, h: 0.0), point, .None)
+            return (Rect(x: point.x, y: point.y, w: 0.0, h: 0.0), point, .none)
         case .c, .C:
             return (cubicBounds(data), Point(x: data[4], y: data[5]), Point(x: data[2], y: data[3]))
         case .s, .S:
             guard let currentPoint = currentPoint else {
-                return (.None, .None, .None)
+                return (.none, .none, .none)
             }
             
             var p2 = currentPoint
@@ -66,17 +66,17 @@ func pathSegmenInfo(segment: PathSegment, currentPoint: Point?, currentBezierPoi
                     Point(x: data[2], y: data[3]),
                     Point(x: p2.x, y: p2.y))
         case .h, .H:
-            return (Rect(x: 0.0, y: 0.0, w: data[0], h: 0.0), Point(x: data[0], y: 0.0), .None)
+            return (Rect(x: 0.0, y: 0.0, w: data[0], h: 0.0), Point(x: data[0], y: 0.0), .none)
         case .v, .V:
-            return (Rect(x: 0.0, y: 0.0, w: 0.0, h: data[0]), Point(x: 0.0, y: data[0]), .None)
+            return (Rect(x: 0.0, y: 0.0, w: 0.0, h: data[0]), Point(x: 0.0, y: data[0]), .none)
         case .l, .L:
-            return (Rect(x: data[0], y: data[1], w: 0.0, h: 0.0), Point(x: data[0], y: data[1]), .None)
+            return (Rect(x: data[0], y: data[1], w: 0.0, h: 0.0), Point(x: data[0], y: data[1]), .none)
         default:
-            return (.None, .None, .None)
+            return (.none, .none, .none)
         }
 }
 
-private func cubicBounds(data: [Double]) -> Rect {
+private func cubicBounds(_ data: [Double]) -> Rect {
 	let p0 = Point(x: 0, y: 0)
 	let p1 = Point(x: data[0], y: data[1])
 	let p2 = Point(x: data[2], y: data[3])
@@ -88,7 +88,7 @@ private func cubicBounds(data: [Double]) -> Rect {
 	return boundsForFunc(bezier3)
 }
 
-private func sCubicBounds(data: [Double], currentPoint: Point, currentBezierPoint: Point?) -> Rect {
+private func sCubicBounds(_ data: [Double], currentPoint: Point, currentBezierPoint: Point?) -> Rect {
 
 	let p0 = Point(x: 0, y: 0)
 	let p1 = Point(x: data[0], y: data[1])

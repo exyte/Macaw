@@ -17,15 +17,15 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
     var completion: ((Bool) -> Void)?
     
     /// startTime: animation start date
-    private var startTime: NSDate!
-    private var animationDuration: NSTimeInterval!
-    private var animatingTimer: NSTimer!
+    fileprivate var startTime: Date!
+    fileprivate var animationDuration: TimeInterval!
+    fileprivate var animatingTimer: Timer!
     
     /// animating: A block (closure) object to be executed when the animation is animating. This block has no return value and takes a single CGFloat argument that indicates the progress of the animation (From 0 ..< 1)
     var animating: ((CGFloat) -> Void)? {
         willSet {
             if animatingTimer == nil {
-                animatingTimer = NSTimer(timeInterval: 0, target: self, selector: "animationIsAnimating:", userInfo: nil, repeats: true)
+                animatingTimer = Timer(timeInterval: 0, target: self, selector: #selector(CAAnimationDelegateImpl.animationIsAnimating(_:)), userInfo: nil, repeats: true)
             }
         }
     }
@@ -35,12 +35,12 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
 	
 	- parameter theAnimation: the animation about to start
 	*/
-    func animationDidStart(theAnimation: CAAnimation) {
+    func animationDidStart(_ theAnimation: CAAnimation) {
         start?()
         if animating != nil {
             animationDuration = theAnimation.duration
-            startTime = NSDate()
-            NSRunLoop.currentRunLoop().addTimer(animatingTimer, forMode: NSDefaultRunLoopMode)
+            startTime = Date()
+            RunLoop.current.add(animatingTimer, forMode: RunLoopMode.defaultRunLoopMode)
         }
     }
 	
@@ -50,7 +50,7 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
 	- parameter theAnimation: the animation about to end
 	- parameter finished:     A Boolean value indicates whether or not the animations actually finished.
 	*/
-    func animationDidStop(theAnimation: CAAnimation, finished: Bool) {
+    func animationDidStop(_ theAnimation: CAAnimation, finished: Bool) {
         completion?(finished)
         animatingTimer?.invalidate()
     }
@@ -60,8 +60,8 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
 	
 	- parameter timer: timer
 	*/
-    func animationIsAnimating(timer: NSTimer) {
-        let progress = CGFloat(NSDate().timeIntervalSinceDate(startTime) / animationDuration)
+    func animationIsAnimating(_ timer: Timer) {
+        let progress = CGFloat(Date().timeIntervalSince(startTime) / animationDuration)
         if progress <= 1.0 {
             animating?(progress)
         }
@@ -152,8 +152,8 @@ public extension CALayer {
 	- parameter key:        A string that identifies the animation. Only one animation per unique key is added to the layer. The special key kCATransition is automatically used for transition animations. You may specify nil for this parameter.
 	- parameter completion: A block object to be executed when the animation ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished before the completion handler was called. Default value is nil.
 	*/
-	func addAnimation(anim: CAAnimation, forKey key: String?, withCompletion completion: ((Bool) -> Void)?) {
+	func addAnimation(_ anim: CAAnimation, forKey key: String?, withCompletion completion: ((Bool) -> Void)?) {
 		anim.completion = completion
-		addAnimation(anim, forKey: key)
+		add(anim, forKey: key)
 	}
 }

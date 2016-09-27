@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-public class Font {
+open class Font {
 
-	public let name: String
-	public let size: Int
+	open let name: String
+	open let size: Int
 
 	public init(name: String = "Serif", size: Int = 12) {
 		self.name = name

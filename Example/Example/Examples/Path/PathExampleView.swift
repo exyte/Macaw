@@ -135,17 +135,17 @@ class PathExampleView: MacawView {
 	}
 
 	func testAnimation() {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)) {
 			self.animation?.play()
 		}
 	}
 
-	func updateScale(scale: Float) {
+	func updateScale(_ scale: Float) {
 		let rotation = GeomUtils.centerRotation(node: sceneGroup, place: initialTransform, angle: M_PI_4 * Double(scale))
 		sceneGroup.place = rotation// GeomUtils.concat(t1: rotation, t2: initialTransform)
 	}
 
-	private static func newScene() -> Node {
+	fileprivate static func newScene() -> Node {
 		let shape = Shape(form: Rect(x: -50, y: -50, w: 100, h: 100), fill: Color.blue)
 		let t1 = Transform.identity
 		let t2 = GeomUtils.centerRotation(node: shape, place: Transform.identity, angle: M_PI_4) // Transform.rotate(angle: M_PI_4)

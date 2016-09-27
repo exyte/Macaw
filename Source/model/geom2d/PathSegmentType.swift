@@ -4,7 +4,7 @@ public enum PathSegmentType {
 	case C
 	case Q
 	case A
-	case Z
+	case z
 	case H
 	case V
 	case S

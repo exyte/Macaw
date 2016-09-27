@@ -5,7 +5,7 @@ class ShapeLayer: CAShapeLayer {
 	var renderTransform: CGAffineTransform?
 	var animationCache: AnimationCache?
 
-	override func drawInContext(ctx: CGContext) {
+	override func draw(in ctx: CGContext) {
 		guard let node = node else {
 			return
 		}
@@ -14,11 +14,11 @@ class ShapeLayer: CAShapeLayer {
 			return
 		}
 
-		let renderContext = RenderContext(view: .None)
+		let renderContext = RenderContext(view: .none)
 		renderContext.cgContext = ctx
 
 		if let renderTransform = renderTransform {
-			CGContextConcatCTM(ctx, renderTransform)
+			ctx.concatenate(renderTransform)
 		}
 
 		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache)

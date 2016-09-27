@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public class AnimatableVariable<T: Interpolable> : Variable<T> {
+open class AnimatableVariable<T: Interpolable> : Variable<T> {
 
     internal var node: Node?
 

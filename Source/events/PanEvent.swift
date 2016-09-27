@@ -1,7 +1,7 @@
-public class PanEvent {
+open class PanEvent {
 
-    public let dx: Double
-    public let dy: Double
+    open let dx: Double
+    open let dy: Double
 
     init(dx: Double, dy: Double) {
         self.dx = dx

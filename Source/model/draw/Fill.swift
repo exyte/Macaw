@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Fill {
+open class Fill {
 
 	public init() {
 	}

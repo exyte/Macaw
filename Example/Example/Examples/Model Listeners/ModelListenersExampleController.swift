@@ -9,20 +9,20 @@ class ModelListenersExampleController: UIViewController {
 	@IBOutlet weak var widthSteppter: UIStepper!
 	@IBOutlet weak var radiusStepper: UIStepper!
 
-	@IBAction func onHeightChange(sender: AnyObject) {
+	@IBAction func onHeightChange(_ sender: AnyObject) {
 		updateForm()
 	}
 
-	@IBAction func onWidthChange(sender: AnyObject) {
+	@IBAction func onWidthChange(_ sender: AnyObject) {
 		updateForm()
 	}
 
-	@IBAction func onRadiusChange(sender: AnyObject) {
+	@IBAction func onRadiusChange(_ sender: AnyObject) {
 		updateForm()
 	}
 
 	func updateForm() {
-		let screenSize: CGRect = UIScreen.mainScreen().bounds
+		let screenSize: CGRect = UIScreen.main.bounds
 		let height = heightStepper.value
 		let width = widthSteppter.value
 		let radius = radiusStepper.value

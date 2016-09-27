@@ -1,30 +1,30 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node {
+open class Shape: Node {
 
-	public let formVar: Variable<Locus>
-	public var form: Locus {
+	open let formVar: Variable<Locus>
+	open var form: Locus {
 		get { return formVar.value }
 		set(val) { formVar.value = val }
 	}
 
-	public let fillVar: Variable<Fill?>
-	public var fill: Fill? {
+	open let fillVar: Variable<Fill?>
+	open var fill: Fill? {
 		get { return fillVar.value }
 		set(val) { fillVar.value = val }
 	}
 
-	public let strokeVar: Variable<Stroke?>
-	public var stroke: Stroke? {
+	open let strokeVar: Variable<Stroke?>
+	open var stroke: Stroke? {
 		get { return strokeVar.value }
 		set(val) { strokeVar.value = val }
 	}
 
-	public let onTap = PublishSubject<TapEvent>()
-	public let onPan = PublishSubject<PanEvent>()
-	public let onRotate = PublishSubject<RotateEvent>()
-	public let onPinch = PublishSubject<PinchEvent>()
+	open let onTap = PublishSubject<TapEvent>()
+	open let onPan = PublishSubject<PanEvent>()
+	open let onRotate = PublishSubject<RotateEvent>()
+	open let onPinch = PublishSubject<PinchEvent>()
 
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.formVar = Variable<Locus>(form)

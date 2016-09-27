@@ -6,9 +6,9 @@ class NodeRenderer {
 
 	let ctx: RenderContext
 
-	private let onNodeChange: (Any) -> Void
-	private let disposables = GroupDisposable()
-	private var active = false
+	fileprivate let onNodeChange: (Any) -> Void
+	fileprivate let disposables = GroupDisposable()
+	fileprivate var active = false
 	let animationCache: AnimationCache
 
 	init(node: Node, ctx: RenderContext, animationCache: AnimationCache) {
@@ -26,27 +26,27 @@ class NodeRenderer {
 		observe(node().effectVar)
 	}
 
-	func observe<E>(variable: Variable<E>) {
+	func observe<E>(_ variable: Variable<E>) {
 		observe(variable.asObservable())
 	}
 
-	func observe<E>(observable: Observable<E>) {
+	func observe<E>(_ observable: Observable<E>) {
 		addDisposable(observable.subscribeNext(onNodeChange))
 	}
 
-	func addDisposable(disposable: Disposable) {
+	func addDisposable(_ disposable: Disposable) {
 		disposable.addTo(disposables)
 	}
 
-	public func dispose() {
+	open func dispose() {
 		removeObservers()
 	}
 
-	public func node() -> Node {
+	open func node() -> Node {
 		fatalError("Unsupported")
 	}
 
-	final public func render(force: Bool, opacity: Double) {
+	final public func render(_ force: Bool, opacity: Double) {
 		if animationCache.isAnimating(node()) {
 			self.removeObservers()
 			if (!force) {
@@ -58,22 +58,22 @@ class NodeRenderer {
 		doRender(force, opacity: opacity)
 	}
 
-	func doRender(force: Bool, opacity: Double) {
+	func doRender(_ force: Bool, opacity: Double) {
 		fatalError("Unsupported")
 	}
 
-	public func detectTouches(location: CGPoint) -> [Shape] {
+	open func detectTouches(_ location: CGPoint) -> [Shape] {
 		return []
 	}
 
-	private func addObservers() {
+	fileprivate func addObservers() {
 		if (!active) {
 			active = true
 			doAddObservers()
 		}
 	}
 
-	private func removeObservers() {
+	fileprivate func removeObservers() {
 		if (active) {
 			active = false
 			disposables.dispose()

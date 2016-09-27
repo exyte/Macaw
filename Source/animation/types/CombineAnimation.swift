@@ -10,21 +10,21 @@ internal class CombineAnimation: BasicAnimation {
 
 		super.init()
 
-		self.type = .Combine
+		self.type = .combine
 		self.node = animations.first?.node
 		self.delay = delay
 
 	}
 
 	override func getDuration() -> Double {
-		if let maxElement = animations.map({ $0.getDuration() }).maxElement() {
+		if let maxElement = animations.map({ $0.getDuration() }).max() {
 			return maxElement
 		}
 
 		return 0.0
 	}
 
-	public override func reverse() -> Animation {
+	open override func reverse() -> Animation {
 		var reversedAnimations = [BasicAnimation]()
 		animations.forEach { animation in
 			reversedAnimations.append(animation.reverse() as! BasicAnimation)
@@ -37,15 +37,15 @@ internal class CombineAnimation: BasicAnimation {
 		return combineReversed
 	}
 
-	public override func stop() {
+	open override func stop() {
 		animations.forEach { animation in
 			animation.stop()
 		}
 	}
 }
 
-public extension SequenceType where Generator.Element: Animation {
-	public func combine(delay delay: Double = 0.0) -> Animation {
+public extension Sequence where Iterator.Element: Animation {
+	public func combine(delay: Double = 0.0) -> Animation {
 
 		var toCombine = [BasicAnimation]()
 		self.forEach { animation in

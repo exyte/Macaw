@@ -1,7 +1,7 @@
 
 import UIKit
 
-func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
+func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: @escaping (() -> ())) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {
 		return
 	}
@@ -47,13 +47,13 @@ func addOpacityAnimation(animation: BasicAnimation, sceneLayer: CALayer, animati
 	}
 
 	let layer = animationCache.layerForNode(node, animation: animation)
-	layer.addAnimation(generatedAnimation, forKey: animation.ID)
+	layer.add(generatedAnimation, forKey: animation.ID)
 	animation.removeFunc = {
-		layer.removeAnimationForKey(animation.ID)
+		layer.removeAnimation(forKey: animation.ID)
 	}
 }
 
-func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps: UInt) -> CAAnimation {
+func opacityAnimationByFunc(_ valueFunc: (Double) -> Double, duration: Double, fps: UInt) -> CAAnimation {
 
 	var opacityValues = [Double]()
 	var timeValues = [Double]()
@@ -61,7 +61,7 @@ func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps
 	let step = 1.0 / (duration * Double(fps))
 
 	var dt = 0.0
-	for t in 0.0.stride(to: 1.0, by: step) {
+	for t in stride(from: 0.0, to: 1.0, by: step) {
 
 		dt = t
 		if 1.0 - dt < step {
@@ -75,11 +75,11 @@ func opacityAnimationByFunc(valueFunc: (Double) -> Double, duration: Double, fps
 
 	let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
 	opacityAnimation.fillMode = kCAFillModeForwards
-	opacityAnimation.removedOnCompletion = false
+	opacityAnimation.isRemovedOnCompletion = false
 
 	opacityAnimation.duration = duration
 	opacityAnimation.values = opacityValues
-	opacityAnimation.keyTimes = timeValues
+	opacityAnimation.keyTimes = timeValues as [NSNumber]?
 
 	return opacityAnimation
 }

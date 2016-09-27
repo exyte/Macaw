@@ -6,7 +6,7 @@ class GroupRenderer: NodeRenderer {
 
 	let group: Group
 
-	private var renderers: [NodeRenderer] = []
+	fileprivate var renderers: [NodeRenderer] = []
 
 	init(group: Group, ctx: RenderContext, animationCache: AnimationCache) {
 		self.group = group
@@ -24,27 +24,27 @@ class GroupRenderer: NodeRenderer {
 		return group
 	}
 
-	override func doRender(force: Bool, opacity: Double) {
+	override func doRender(_ force: Bool, opacity: Double) {
 		renderers.forEach { renderer in
-			CGContextSaveGState(ctx.cgContext!)
-			CGContextConcatCTM(ctx.cgContext!, RenderUtils.mapTransform(renderer.node().place))
+			ctx.cgContext!.saveGState()
+			ctx.cgContext!.concatenate(RenderUtils.mapTransform(renderer.node().place))
 			setClip(renderer.node())
 			renderer.render(force, opacity: renderer.node().opacity * opacity)
-			CGContextRestoreGState(ctx.cgContext!)
+			ctx.cgContext!.restoreGState()
 		}
 	}
 
-	override func detectTouches(location: CGPoint) -> [Shape] {
+	override func detectTouches(_ location: CGPoint) -> [Shape] {
 		var touchedShapes = [Shape]()
 		renderers.forEach { renderer in
 			if let inverted = renderer.node().place.invert() {
-				CGContextSaveGState(ctx.cgContext!)
-				CGContextConcatCTM(ctx.cgContext!, RenderUtils.mapTransform(renderer.node().place))
-				let translatedLocation = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
+				ctx.cgContext!.saveGState()
+				ctx.cgContext!.concatenate(RenderUtils.mapTransform(renderer.node().place))
+				let translatedLocation = location.applying(RenderUtils.mapTransform(inverted))
 				setClip(renderer.node())
 				let offsetLocation = CGPoint(x: translatedLocation.x, y: translatedLocation.y)
-				touchedShapes.appendContentsOf(renderer.detectTouches(offsetLocation))
-				CGContextRestoreGState(ctx.cgContext!)
+				touchedShapes.append(contentsOf: renderer.detectTouches(offsetLocation))
+				ctx.cgContext!.restoreGState()
 			}
 		}
 
@@ -59,20 +59,20 @@ class GroupRenderer: NodeRenderer {
 
 	// TODO: extract to NodeRenderer
 	// TODO: path support
-	func setClip(node: Node) {
+	func setClip(_ node: Node) {
 		if let rect = node.clip as? Rect {
-			CGContextClipToRect(ctx.cgContext!, CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
+			ctx.cgContext!.clip(to: CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
 		}
 	}
 
-	private func updateRenderers() {
+	fileprivate func updateRenderers() {
 		var nodeToRenderer: [Node: NodeRenderer] = [:]
 		for renderer in renderers {
 			nodeToRenderer[renderer.node()] = renderer
 		}
 		self.renderers = []
 		for node in group.contents {
-			if let renderer = nodeToRenderer.removeValueForKey(node) {
+			if let renderer = nodeToRenderer.removeValue(forKey: node) {
 				self.renderers.append(renderer)
 			} else {
 				self.renderers.append(RenderUtils.createNodeRenderer(node, context: ctx, animationCache: animationCache))

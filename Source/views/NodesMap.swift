@@ -8,7 +8,7 @@ class NodesMap {
 	var map = [Node: MacawView]()
 
 	// MARK: - Macaw View
-	func add(node: Node, view: MacawView) {
+	func add(_ node: Node, view: MacawView) {
 		map[node] = view
 
 		if let group = node as? Group {
@@ -19,17 +19,17 @@ class NodesMap {
 		}
 	}
 
-	func getView(node: Node) -> MacawView? {
+	func getView(_ node: Node) -> MacawView? {
 		return map[node]
 	}
 
-	func remove(node: Node) {
-		map.removeValueForKey(node)
-		parentsMap.removeValueForKey(node)
+	func remove(_ node: Node) {
+		map.removeValue(forKey: node)
+		parentsMap.removeValue(forKey: node)
 	}
 
 	// MARK: - Parents
-	func add(node: Node, parent: Node) {
+	func add(_ node: Node, parent: Node) {
 		if var nodesSet = parentsMap[node] {
 			nodesSet.insert(parent)
 		} else {
@@ -37,7 +37,7 @@ class NodesMap {
 		}
 	}
 
-	func parents(node: Node) -> [Node] {
+	func parents(_ node: Node) -> [Node] {
 		guard let nodesSet = parentsMap[node] else {
 			return []
 		}

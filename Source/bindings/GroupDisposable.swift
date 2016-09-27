@@ -8,25 +8,25 @@
 
 import RxSwift
 
-public class GroupDisposable: Disposable {
+open class GroupDisposable: Disposable {
 
-	private var items: [Disposable] = []
+	fileprivate var items: [Disposable] = []
 
-	public func dispose() {
+	open func dispose() {
 		for disposable in items {
 			disposable.dispose()
 		}
 		items = []
 	}
 
-	public func add(item: Disposable) {
+	open func add(_ item: Disposable) {
 		items.append(item)
 	}
 
 }
 
 extension Disposable {
-	public func addTo(group: GroupDisposable) {
+	public func addTo(_ group: GroupDisposable) {
 		group.add(self)
 	}
 }

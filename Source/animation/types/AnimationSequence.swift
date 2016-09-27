@@ -10,28 +10,28 @@ internal class AnimationSequence: BasicAnimation {
 
 		super.init()
 
-		self.type = .Sequence
+		self.type = .sequence
 		self.node = animations.first?.node
 		self.delay = delay
 	}
 
 	override func getDuration() -> Double {
-		return animations.map({ $0.getDuration() }).reduce(0, combine: { $0 + $1 })
+		return animations.map({ $0.getDuration() }).reduce(0, { $0 + $1 })
 	}
 
-	public override func stop() {
+	open override func stop() {
 		animations.forEach { animation in
 			animation.stop()
 		}
 	}
 
-	public override func reverse() -> Animation {
+	open override func reverse() -> Animation {
 		var reversedAnimations = [BasicAnimation]()
 		animations.forEach { animation in
 			reversedAnimations.append(animation.reverse() as! BasicAnimation)
 		}
 
-		let reversedSequence = reversedAnimations.reverse().sequence(delay: self.delay) as! BasicAnimation
+		let reversedSequence = reversedAnimations.reversed().sequence(delay: self.delay) as! BasicAnimation
 		reversedSequence.completion = completion
 		reversedSequence.progress = progress
 
@@ -39,8 +39,8 @@ internal class AnimationSequence: BasicAnimation {
 	}
 }
 
-public extension SequenceType where Generator.Element: Animation {
-	public func sequence(delay delay: Double = 0.0) -> Animation {
+public extension Sequence where Iterator.Element: Animation {
+	public func sequence(delay: Double = 0.0) -> Animation {
 
 		var sequence = [BasicAnimation]()
 		self.forEach { animation in

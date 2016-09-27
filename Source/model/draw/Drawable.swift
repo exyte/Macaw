@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-public class Drawable {
+open class Drawable {
 
-	public let visible: Bool
-	public let tag: [String]
+	open let visible: Bool
+	open let tag: [String]
 
 	public init(visible: Bool = true, tag: [String] = []) {
 		self.visible = visible

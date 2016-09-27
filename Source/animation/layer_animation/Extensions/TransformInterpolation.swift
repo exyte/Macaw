@@ -5,7 +5,7 @@ public protocol TransformInterpolation: Interpolable {
 }
 
 extension Transform: TransformInterpolation {
-	public func interpolate(endValue: Transform, progress: Double) -> Transform {
+	public func interpolate(_ endValue: Transform, progress: Double) -> Transform {
 		return Transform(m11: self.m11.interpolate(endValue.m11, progress: progress),
 			m12: self.m12.interpolate(endValue.m12, progress: progress),
 			m21: self.m21.interpolate(endValue.m21, progress: progress),

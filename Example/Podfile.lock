@@ -1,9 +1,9 @@
 PODS:
   - Macaw (0.1.0):
-    - RxSwift (~> 2.0s)
-    - SWXMLHash (~> 2.3.0)
-  - RxSwift (2.6.0)
-  - SWXMLHash (2.3.2)
+    - RxSwift (= 3.0.0-beta.1)
+    - SWXMLHash (~> 3.0.0)
+  - RxSwift (3.0.0-beta.1)
+  - SWXMLHash (3.0.2)
 
 DEPENDENCIES:
   - Macaw (from `../`)
@@ -13,9 +13,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Macaw: 6d8c002627caf979148fd395770caf12112ecc2b
-  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
-  SWXMLHash: 2f8c49af765718ad56020c4f875ec3ff22612f06
+  Macaw: 34daf17a1bacaea417aef1eeb1647123d43d6af5
+  RxSwift: 0823e8d7969c23bfa9ddfb2afa4881e424a1a710
+  SWXMLHash: e0f6935971f01b06fb228cf435510d998ecde647
 
 PODFILE CHECKSUM: 151f0be871736eddfeeec5cda1747f8a81e679ef
 

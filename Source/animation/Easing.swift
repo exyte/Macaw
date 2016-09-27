@@ -7,9 +7,9 @@
 //
 
 public enum Easing {
-	case Ease
-	case Linear
-	case EaseIn
-	case EaseOut
-	case EaseInOut
+	case ease
+	case linear
+	case easeIn
+	case easeOut
+	case easeInOut
 }

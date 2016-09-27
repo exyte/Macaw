@@ -1,40 +1,40 @@
 import Foundation
 import RxSwift
 
-public class Image: Node {
+open class Image: Node {
 
-	public let srcVar: Variable<String>
-	public var src: String {
+	open let srcVar: Variable<String>
+	open var src: String {
 		get { return srcVar.value }
 		set(val) { srcVar.value = val }
 	}
 
-	public let xAlignVar: Variable<Align>
-	public var xAlign: Align {
+	open let xAlignVar: Variable<Align>
+	open var xAlign: Align {
 		get { return xAlignVar.value }
 		set(val) { xAlignVar.value = val }
 	}
 
-	public let yAlignVar: Variable<Align>
-	public var yAlign: Align {
+	open let yAlignVar: Variable<Align>
+	open var yAlign: Align {
 		get { return yAlignVar.value }
 		set(val) { yAlignVar.value = val }
 	}
 
-	public let aspectRatioVar: Variable<AspectRatio>
-	public var aspectRatio: AspectRatio {
+	open let aspectRatioVar: Variable<AspectRatio>
+	open var aspectRatio: AspectRatio {
 		get { return aspectRatioVar.value }
 		set(val) { aspectRatioVar.value = val }
 	}
 
-	public let wVar: Variable<Int>
-	public var w: Int {
+	open let wVar: Variable<Int>
+	open var w: Int {
 		get { return wVar.value }
 		set(val) { wVar.value = val }
 	}
 
-	public let hVar: Variable<Int>
-	public var h: Int {
+	open let hVar: Variable<Int>
+	open var h: Int {
 		get { return hVar.value }
 		set(val) { hVar.value = val }
 	}

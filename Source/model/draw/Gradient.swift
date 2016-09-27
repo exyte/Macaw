@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-public class Gradient: Fill {
+open class Gradient: Fill {
 
-	public let userSpace: Bool
-	public let stops: [Stop]
+	open let userSpace: Bool
+	open let stops: [Stop]
 
 	public init(userSpace: Bool = false, stops: [Stop] = []) {
 		self.userSpace = userSpace

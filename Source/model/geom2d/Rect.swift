@@ -1,12 +1,12 @@
 import Foundation
 import RxSwift
 
-public class Rect: Locus {
+open class Rect: Locus {
 
-	public let x: Double
-	public let y: Double
-	public let w: Double
-	public let h: Double
+	open let x: Double
+	open let y: Double
+	open let w: Double
+	open let h: Double
 
 	public init(x: Double = 0, y: Double = 0, w: Double = 0, h: Double = 0) {
 		self.x = x
@@ -16,12 +16,12 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
-	public func round(rx rx: Double, ry: Double) -> RoundRect {
+	open func round(rx: Double, ry: Double) -> RoundRect {
 		return RoundRect(rect: self, rx: rx, ry: ry)
 	}
 
 	// GENERATED NOT
-	public func contains(locus locus: Locus) -> Bool {
+	open func contains(locus: Locus) -> Bool {
 		return false
 	}
 
@@ -31,7 +31,7 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
-	public func move(offset offset: Point) -> Rect {
+	open func move(offset: Point) -> Rect {
 		return Rect(
 			x: self.x + offset.x,
 			y: self.y + offset.y,
@@ -40,7 +40,7 @@ public class Rect: Locus {
 	}
 
 	// GENERATED NOT
-	public func union(rect rect: Rect) -> Rect {
+	open func union(rect: Rect) -> Rect {
 		return Rect(
 			x: min(self.x, rect.x),
 			y: min(self.y, rect.y),

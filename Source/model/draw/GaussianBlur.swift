@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-public class GaussianBlur: Effect {
+open class GaussianBlur: Effect {
 
-	public let radius: Double
-	public let input: Effect?
+	open let radius: Double
+	open let input: Effect?
 
 	public init(radius: Double = 0, input: Effect? = nil) {
 		self.radius = radius

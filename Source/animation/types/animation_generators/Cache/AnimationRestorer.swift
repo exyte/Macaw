@@ -1,16 +1,16 @@
 import Foundation
 
 let animationRestorer = AnimationRestorer()
-public class AnimationRestorer {
+open class AnimationRestorer {
 	typealias RestoreClosure = () -> ()
 	var restoreClosures = [RestoreClosure]()
 
-	func addRestoreClosure(closure: RestoreClosure) {
+	func addRestoreClosure(_ closure: @escaping RestoreClosure) {
 		restoreClosures.append(closure)
 	}
 
-	public class func restore() {
-		dispatch_async(dispatch_get_main_queue()) {
+	open class func restore() {
+		DispatchQueue.main.async {
 			animationRestorer.restoreClosures.forEach { restoreClosure in
 				restoreClosure()
 			}

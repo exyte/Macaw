@@ -1,6 +1,6 @@
-public class RotateEvent {
+open class RotateEvent {
 
-    public let angle: Double
+    open let angle: Double
 
     init(angle: Double) {
         self.angle = angle

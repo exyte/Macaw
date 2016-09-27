@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-public class PathSegment {
+open class PathSegment {
 
-	public let type: PathSegmentType
-	public let data: [Double]
+	open let type: PathSegmentType
+	open let data: [Double]
 
 	public init(type: PathSegmentType = .M, data: [Double] = []) {
 		self.type = type
@@ -12,7 +12,7 @@ public class PathSegment {
 	}
 
 	// GENERATED NOT
-	public func isAbsolute() -> Bool {
+	open func isAbsolute() -> Bool {
         switch type {
         case .M, .L, .H, .V, .C, .S, .Q, .T, .A:
             return true

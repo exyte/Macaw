@@ -13,12 +13,12 @@ import Macaw
 
 class TransformExampleView: MacawView {
 
-	private static let transforms = [Transform.scale(sx: 2, sy: 2),
+	fileprivate static let transforms = [Transform.scale(sx: 2, sy: 2),
 		Transform.move(dx: 100, dy: 30),
 		Transform.rotate(angle: M_PI_4, x: 150, y: 80),
 		Transform.rotate(angle: M_PI_4)]
 
-	private static let titles = ["Transform.scale(sx: 2, sy: 2)",
+	fileprivate static let titles = ["Transform.scale(sx: 2, sy: 2)",
 		"Transform.move(dx: 100, dy: 30)",
 		"Transform.rotate(angle: M_PI_4, x: 150, y: 80)",
 		"Transform.rotate(angle: M_PI_4)"]
@@ -27,10 +27,10 @@ class TransformExampleView: MacawView {
 		super.init(node: TransformExampleView.newScene(), coder: aDecoder)
 	}
 
-	private static func newScene() -> Node {
+	fileprivate static func newScene() -> Node {
 		let shape = Shape(form: Rect(x: 0, y: 0, w: 50, h: 50), fill: Color.blue)
 		let textes = Group(place: .move(dx: 50, dy: 275))
-		for (i, item) in titles.enumerate() {
+		for (i, item) in titles.enumerated() {
 			let place = Transform.move(dx: 0, dy: Double(i * 25))
 			textes.contents.append(Text(text: item, baseline: .bottom, place: place, opacity: 0))
 		}
@@ -53,7 +53,7 @@ class TransformExampleView: MacawView {
 		return Group(contents: [newAxes(), shape, textes], place: .move(dx: 10, dy: 30))
 	}
 
-	private static func newAxes() -> Node {
+	fileprivate static func newAxes() -> Node {
 		var items: [Node] = []
 		let gray = Color(val: 0xF0F0F0)
 		for i in 1...20 {

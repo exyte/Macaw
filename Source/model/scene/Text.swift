@@ -1,34 +1,34 @@
 import UIKit
 import RxSwift
 
-public class Text: Node {
+open class Text: Node {
 
-	public let textVar: Variable<String>
-	public var text: String {
+	open let textVar: Variable<String>
+	open var text: String {
 		get { return textVar.value }
 		set(val) { textVar.value = val }
 	}
 
-	public let fontVar: Variable<Font?>
-	public var font: Font? {
+	open let fontVar: Variable<Font?>
+	open var font: Font? {
 		get { return fontVar.value }
 		set(val) { fontVar.value = val }
 	}
 
-	public let fillVar: Variable<Fill>
-	public var fill: Fill {
+	open let fillVar: Variable<Fill>
+	open var fill: Fill {
 		get { return fillVar.value }
 		set(val) { fillVar.value = val }
 	}
 
-	public let alignVar: Variable<Align>
-	public var align: Align {
+	open let alignVar: Variable<Align>
+	open var align: Align {
 		get { return alignVar.value }
 		set(val) { alignVar.value = val }
 	}
 
-	public let baselineVar: Variable<Baseline>
-	public var baseline: Baseline {
+	open let baselineVar: Variable<Baseline>
+	open var baseline: Baseline {
 		get { return baselineVar.value }
 		set(val) { baselineVar.value = val }
 	}
@@ -57,14 +57,14 @@ public class Text: Node {
 			if let customFont = UIFont(name: f.name, size: CGFloat(f.size)) {
 				font = customFont
 			} else {
-				font = UIFont.systemFontOfSize(CGFloat(f.size))
+				font = UIFont.systemFont(ofSize: CGFloat(f.size))
 			}
 		} else {
-			font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+			font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
 		}
 		var stringAttributes: [String: AnyObject] = [:]
 		stringAttributes[NSFontAttributeName] = font
-		let size = (text as NSString).sizeWithAttributes(stringAttributes)
+		let size = (text as NSString).size(attributes: stringAttributes)
 		if (self.baseline == Baseline.bottom) {
 			return Rect(x: 0, y: -Double(size.height), w: Double(size.width), h: Double(size.height))
 		}

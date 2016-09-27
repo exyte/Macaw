@@ -1,11 +1,11 @@
 import Foundation
 import RxSwift
 
-public class Circle: Locus {
+open class Circle: Locus {
 
-	public let cx: Double
-	public let cy: Double
-	public let r: Double
+	open let cx: Double
+	open let cy: Double
+	open let r: Double
 
 	public init(cx: Double = 0, cy: Double = 0, r: Double = 0) {
 		self.cx = cx
@@ -14,7 +14,7 @@ public class Circle: Locus {
 	}
 
 	// GENERATED NOT
-	public func arc(shift shift: Double, extent: Double) -> Arc {
+	open func arc(shift: Double, extent: Double) -> Arc {
 		return Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
 	}
 

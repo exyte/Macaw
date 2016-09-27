@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-public class Effect {
+open class Effect {
 
 	public init() {
 	}

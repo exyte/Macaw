@@ -1,9 +1,9 @@
 import Foundation
 import RxSwift
 
-public class Path: Locus {
+open class Path: Locus {
 
-	public let segments: [PathSegment]
+	open let segments: [PathSegment]
 
 	public init(segments: [PathSegment] = []) {
 		self.segments = segments

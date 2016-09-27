@@ -1,9 +1,9 @@
 import Foundation
 import RxSwift
 
-public class Group: Node {
+open class Group: Node {
 
-	public var contents: ObservableArray<Node>
+	open var contents: ObservableArray<Node>
 
 	public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.contents = ObservableArray<Node>(array: contents)
@@ -22,12 +22,12 @@ public class Group: Node {
 	override internal func bounds() -> Rect? {
 
 		guard let firstPos = contents.first?.place else {
-			return .None
+			return .none
 		}
 
 		guard var union = contents.first?.bounds()?.applyTransform(firstPos) else {
 
-			return .None
+			return .none
 		}
 
 		contents.forEach { node in

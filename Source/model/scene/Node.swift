@@ -1,34 +1,34 @@
 import Foundation
 import RxSwift
 
-public class Node: Drawable {
+open class Node: Drawable {
 
-	public let placeVar: AnimatableVariable<Transform>
-	public var place: Transform {
+	open let placeVar: AnimatableVariable<Transform>
+	open var place: Transform {
 		get { return placeVar.value }
 		set(val) { placeVar.value = val }
 	}
 
-	public let opaqueVar: Variable<Bool>
-	public var opaque: Bool {
+	open let opaqueVar: Variable<Bool>
+	open var opaque: Bool {
 		get { return opaqueVar.value }
 		set(val) { opaqueVar.value = val }
 	}
 
-	public let opacityVar: AnimatableVariable<Double>
-	public var opacity: Double {
+	open let opacityVar: AnimatableVariable<Double>
+	open var opacity: Double {
 		get { return opacityVar.value }
 		set(val) { opacityVar.value = val }
 	}
 
-	public let clipVar: Variable<Locus?>
-	public var clip: Locus? {
+	open let clipVar: Variable<Locus?>
+	open var clip: Locus? {
 		get { return clipVar.value }
 		set(val) { clipVar.value = val }
 	}
 
-	public let effectVar: Variable<Effect?>
-	public var effect: Effect? {
+	open let effectVar: Variable<Effect?>
+	open var effect: Effect? {
 		get { return effectVar.value }
 		set(val) { effectVar.value = val }
 	}

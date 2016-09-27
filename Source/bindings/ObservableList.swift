@@ -80,6 +80,14 @@ extension ObservableArray: Indexable {
     public var endIndex: Int {
         return elements.endIndex
     }
+    
+    public func formIndex(after i: inout Int) {
+        elements.formIndex(after: &i)
+    }
+    
+    public func index(after i: Int) -> Int {
+        elements.index(after: i)
+    }
 }
 
 extension ObservableArray: RangeReplaceableCollection {

@@ -29,7 +29,7 @@ open class Animation {
 		return self
 	}
 
-	open func onComplete(_: (() -> ())) -> Animation {
+	open func onComplete(_: @escaping (() -> ())) -> Animation {
 		return self
 	}
 }

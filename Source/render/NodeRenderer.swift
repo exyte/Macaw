@@ -19,16 +19,20 @@ class NodeRenderer {
 	}
 
 	func doAddObservers() {
-		observe(node().placeVar)
+		observeAnimatable(node().placeVar)
 		observe(node().opaqueVar)
-		observe(node().opacityVar)
+		observeAnimatable(node().opacityVar)
 		observe(node().clipVar)
 		observe(node().effectVar)
 	}
 
-	func observe<E>(_ variable: Variable<E>) {
+	func observeAnimatable<E>(_ variable: AnimatableVariable<E>) {
 		observe(variable.asObservable())
 	}
+    
+    func observe<E>(_ variable: Variable<E>) {
+        observe(variable.asObservable())
+    }
 
 	func observe<E>(_ observable: Observable<E>) {
 		addDisposable(observable.subscribeNext(onNodeChange))

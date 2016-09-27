@@ -84,14 +84,14 @@ class BasicAnimation: Animation {
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
-	let value: Variable<T>
+	let value: AnimatableVariable<T>
     let timeFactory: ((Node) -> ((Double) -> T))
 	let duration: Double
 	let logicalFps: UInt
 
     fileprivate var vFunc: ((Double) -> T)?
 
-	init(observableValue: Variable<T>, valueFunc: @escaping (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
+	init(observableValue: AnimatableVariable<T>, valueFunc: @escaping (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
 		self.value = observableValue
 		self.duration = animationDuration
         self.timeFactory = { (node) in return valueFunc }
@@ -103,7 +103,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 		self.delay = delay
 	}
     
-    init(observableValue: Variable<T>, factory: @escaping ((Node) -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
+    init(observableValue: AnimatableVariable<T>, factory: @escaping ((Node) -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
         self.value = observableValue
         self.duration = animationDuration
         self.timeFactory = factory
@@ -114,7 +114,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
         self.delay = delay
     }
 
-	convenience init(observableValue: Variable<T>, startValue: T, finalValue: T, animationDuration: Double) {
+	convenience init(observableValue: AnimatableVariable<T>, startValue: T, finalValue: T, animationDuration: Double) {
 		let interpolationFunc = { (t: Double) -> T in
 			return startValue.interpolate(finalValue, progress: t)
 		}
@@ -122,7 +122,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 		self.init(observableValue: observableValue, valueFunc: interpolationFunc, animationDuration: animationDuration)
 	}
 
-	convenience init(observableValue: Variable<T>, finalValue: T, animationDuration: Double) {
+	convenience init(observableValue: AnimatableVariable<T>, finalValue: T, animationDuration: Double) {
 		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
 	}
 

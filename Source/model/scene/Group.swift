@@ -6,7 +6,7 @@ open class Group: Node {
 	open var contents: ObservableArray<Node>
 
 	public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
-		self.contents = ObservableArray<Node>(array: contents)
+		self.contents = ObservableArray<Node>(contents)
 		super.init(
 			place: place,
 			opaque: opaque,

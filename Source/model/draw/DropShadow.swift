@@ -1,12 +1,12 @@
 import Foundation
 import RxSwift
 
-public class DropShadow: Effect {
+open class DropShadow: Effect {
 
-	public let radius: Double
-	public let offset: Point
-	public let color: Color
-	public let input: Effect?
+	open let radius: Double
+	open let offset: Point
+	open let color: Color
+	open let input: Effect?
 
 	public init(radius: Double = 0, offset: Point = Point.origin, color: Color = Color.black, input: Effect? = nil) {
 		self.radius = radius

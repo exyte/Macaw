@@ -7,7 +7,7 @@ class RectShapeView: MacawView {
 	var rectShape: Shape!
 
 	required init?(coder aDecoder: NSCoder) {
-		let screenSize: CGRect = UIScreen.mainScreen().bounds
+		let screenSize: CGRect = UIScreen.main.bounds
 
 		let rect = RoundRect(
 			rect: Rect(x: Double(screenSize.width / 2) - 50, y: Double(screenSize.height / 2) - 50, w: 100, h: 100),

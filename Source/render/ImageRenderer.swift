@@ -25,19 +25,19 @@ class ImageRenderer: NodeRenderer {
 		observe(image.hVar)
 	}
 
-	override func doRender(force: Bool, opacity: Double) {
+	override func doRender(_ force: Bool, opacity: Double) {
 		if let uiimage = UIImage(named: image.src) {
-			var rect = getRect(uiimage)
-			CGContextScaleCTM(ctx.cgContext!, 1.0, -1.0)
-			CGContextTranslateCTM(ctx.cgContext!, 0.0, -1.0 * rect.height)
-			CGContextSetAlpha(ctx.cgContext!, CGFloat(opacity))
-			CGContextDrawImage(ctx.cgContext!, rect, uiimage.CGImage!)
+			let rect = getRect(uiimage)
+			ctx.cgContext!.scaleBy(x: 1.0, y: -1.0)
+			ctx.cgContext!.translateBy(x: 0.0, y: -1.0 * rect.height)
+			ctx.cgContext!.setAlpha(CGFloat(opacity))
+			ctx.cgContext!.draw(uiimage.cgImage!, in: rect)
 		}
 	}
 
     override func doFindNodeAt(location: CGPoint) -> Node? {
         if let uiimage = UIImage(named: image.src) {
-            var rect = getRect(uiimage)
+            let rect = getRect(uiimage)
             if (rect.contains(location)) {
                 return node()
             }
@@ -45,12 +45,12 @@ class ImageRenderer: NodeRenderer {
         return nil
     }
 
-    private func getRect(uiimage: UIImage) -> CGRect {
+    fileprivate func getRect(_ uiimage: UIImage) -> CGRect {
         let imageSize = uiimage.size
         var w = CGFloat(image.w)
         var h = CGFloat(image.h)
         if ((w == 0 || w == imageSize.width) && (h == 0 || h == imageSize.height)) {
-            return CGRectMake(0, 0, imageSize.width, imageSize.height)
+            return CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
         } else {
             if (w == 0) {
                 w = imageSize.width * h / imageSize.height
@@ -62,14 +62,14 @@ class ImageRenderer: NodeRenderer {
                 return calculateMeetAspectRatio(image, size: imageSize)
             case AspectRatio.slice:
                 return calculateSliceAspectRatio(image, size: imageSize)
-                CGContextClipToRect(ctx.cgContext!, CGRectMake(0, 0, w, h))
+                ctx.cgContext!.clip(to: CGRect(x: 0, y: 0, width: w, height: h))
             default:
-                return CGRectMake(0, 0, w, h)
+                return CGRect(x: 0, y: 0, width: w, height: h)
             }
         }
     }
 
-	private func calculateMeetAspectRatio(image: Image, size: CGSize) -> CGRect {
+	fileprivate func calculateMeetAspectRatio(_ image: Image, size: CGSize) -> CGRect {
 		let w = CGFloat(image.w)
 		let h = CGFloat(image.h)
 		// destination and source aspect ratios
@@ -104,10 +104,10 @@ class ImageRenderer: NodeRenderer {
 		case Align.max:
 			destY = h - resultH
 		}
-		return CGRectMake(destX, destY, resultW, resultH)
+		return CGRect(x: destX, y: destY, width: resultW, height: resultH)
 	}
 
-	private func calculateSliceAspectRatio(image: Image, size: CGSize) -> CGRect {
+	fileprivate func calculateSliceAspectRatio(_ image: Image, size: CGSize) -> CGRect {
 		let w = CGFloat(image.w)
 		let h = CGFloat(image.h)
 		var srcX = CGFloat(0)
@@ -142,6 +142,6 @@ class ImageRenderer: NodeRenderer {
 				srcX = -(totalW - w)
 			}
 		}
-		return CGRectMake(srcX, srcY, totalW, totalH)
+		return CGRect(x: srcX, y: srcY, width: totalW, height: totalH)
 	}
 }

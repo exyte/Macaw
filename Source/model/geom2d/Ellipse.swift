@@ -1,12 +1,12 @@
 import Foundation
 import RxSwift
 
-public class Ellipse: Locus {
+open class Ellipse: Locus {
 
-	public let cx: Double
-	public let cy: Double
-	public let rx: Double
-	public let ry: Double
+	open let cx: Double
+	open let cy: Double
+	open let rx: Double
+	open let ry: Double
 
 	public init(cx: Double = 0, cy: Double = 0, rx: Double = 0, ry: Double = 0) {
 		self.cx = cx
@@ -16,7 +16,7 @@ public class Ellipse: Locus {
 	}
 
 	// GENERATED NOT
-	public func arc(shift shift: Double, extent: Double) -> Arc {
+	open func arc(shift: Double, extent: Double) -> Arc {
 		return Arc(ellipse: self, shift: shift, extent: extent)
 	}
 

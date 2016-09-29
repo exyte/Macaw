@@ -1,9 +1,9 @@
 import Foundation
 import RxSwift
 
-public class Polygon: Locus {
+open class Polygon: Locus {
 
-	public let points: [Double]
+	open let points: [Double]
 
 	public init(points: [Double] = []) {
 		self.points = points

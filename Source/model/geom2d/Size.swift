@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-public class Size {
+open class Size {
 
-	public let w: Double
-	public let h: Double
+	open let w: Double
+	open let h: Double
 
 	public init(w: Double = 0, h: Double = 0) {
 		self.w = w

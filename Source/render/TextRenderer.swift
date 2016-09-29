@@ -22,7 +22,7 @@ class TextRenderer: NodeRenderer {
 		observe(text.baselineVar)
 	}
 
-	override func doRender(force: Bool, opacity: Double) {
+	override func doRender(_ force: Bool, opacity: Double) {
 		let message = text.text
 		let font = getUIFont()
 		// positive NSBaselineOffsetAttributeName values don't work, couldn't find why
@@ -30,36 +30,32 @@ class TextRenderer: NodeRenderer {
 		if var color = text.fill as? Color {
 			color = RenderUtils.applyOpacity(color, opacity: opacity)
 			UIGraphicsPushContext(ctx.cgContext!)
-            message.drawInRect(getBounds(font), withAttributes: [NSFontAttributeName: font,
+            message.draw(in: getBounds(font), withAttributes: [NSFontAttributeName: font,
                 NSForegroundColorAttributeName: getTextColor(color)])
 			UIGraphicsPopContext()
 		}
 	}
 
-    override func doFindNodeAt(location: CGPoint) -> Node? {
-        return getBounds(getUIFont()).contains(location) ? node() : nil
-    }
-
-    private func getUIFont() -> UIFont {
+    fileprivate func getUIFont() -> UIFont {
         if let textFont = text.font {
             if let customFont = UIFont(name: textFont.name, size: CGFloat(textFont.size)) {
                 return customFont
             } else {
-                return UIFont.systemFontOfSize(CGFloat(textFont.size))
+                return UIFont.systemFont(ofSize: CGFloat(textFont.size))
             }
         }
-        return UIFont.systemFontOfSize(UIFont.systemFontSize())
+        return UIFont.systemFont(ofSize: UIFont.systemFontSize)
     }
 
-    private func getBounds(font: UIFont) -> CGRect {
+    fileprivate func getBounds(_ font: UIFont) -> CGRect {
         let textAttributes = [NSFontAttributeName: font]
-        let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
-        return CGRectMake(calculateAlignmentOffset(text, font: font),
-                          calculateBaselineOffset(text, font: font),
-                          CGFloat(textSize.width), CGFloat(textSize.height))
+        let textSize = NSString(string: text.text).size(attributes: textAttributes)
+        return CGRect(x: calculateAlignmentOffset(text, font: font),
+                          y: calculateBaselineOffset(text, font: font),
+                          width: CGFloat(textSize.width), height: CGFloat(textSize.height))
     }
 
-	private func calculateBaselineOffset(text: Text, font: UIFont) -> CGFloat {
+	fileprivate func calculateBaselineOffset(_ text: Text, font: UIFont) -> CGFloat {
 		var baselineOffset = CGFloat(0)
 		switch text.baseline {
 		case Baseline.alphabetic:
@@ -74,11 +70,11 @@ class TextRenderer: NodeRenderer {
 		return -baselineOffset
 	}
 
-	private func calculateAlignmentOffset(text: Text, font: UIFont) -> CGFloat {
+	fileprivate func calculateAlignmentOffset(_ text: Text, font: UIFont) -> CGFloat {
 		let textAttributes = [
 			NSFontAttributeName: font
 		]
-		let textSize = NSString(string: text.text).sizeWithAttributes(textAttributes)
+		let textSize = NSString(string: text.text).size(attributes: textAttributes)
 		var alignmentOffset = CGFloat(0)
 		switch text.align {
 		case Align.mid:
@@ -91,10 +87,10 @@ class TextRenderer: NodeRenderer {
 		return -alignmentOffset
 	}
 
-	private func getTextColor(fill: Fill) -> UIColor {
+	fileprivate func getTextColor(_ fill: Fill) -> UIColor {
 		if let color = fill as? Color {
-			return UIColor(CGColor: RenderUtils.mapColor(color))
+			return UIColor(cgColor: RenderUtils.mapColor(color))
 		}
-		return UIColor.blackColor()
+		return UIColor.black
 	}
 }

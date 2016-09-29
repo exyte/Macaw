@@ -22,7 +22,7 @@ class AnimationCache {
 		self.sceneLayer = sceneLayer
 	}
 
-	func layerForNode(node: Node, animation: Animation) -> ShapeLayer {
+	func layerForNode(_ node: Node, animation: Animation) -> ShapeLayer {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
 			layer.animationCache = self
@@ -35,17 +35,17 @@ class AnimationCache {
 			if let shapeBounds = node.bounds() {
 				let cgRect = shapeBounds.cgRect()
 
-				let origFrame = CGRectMake(0.0, 0.0,
-					round(cgRect.width),
-					round(cgRect.height))
+				let origFrame = CGRect(x: 0.0, y: 0.0,
+					width: round(cgRect.width),
+					height: round(cgRect.height))
 
 				layer.bounds = origFrame
-				layer.anchorPoint = CGPointMake(
-						-1.0 * cgRect.origin.x / cgRect.width,
-						-1.0 * cgRect.origin.y / cgRect.height
+				layer.anchorPoint = CGPoint(
+						x: -1.0 * cgRect.origin.x / cgRect.width,
+						y: -1.0 * cgRect.origin.y / cgRect.height
 				)
 
-				layer.renderTransform = CGAffineTransformMakeTranslation(-1.0 * cgRect.origin.x, -1.0 * cgRect.origin.y)
+				layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
 
 				let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
 				layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
@@ -67,7 +67,7 @@ class AnimationCache {
 		return cachedLayer.layer
 	}
 
-	func freeLayer(node: Node) {
+	func freeLayer(_ node: Node) {
 		guard let cachedLayer = layerCache[node] else {
 			return
 		}
@@ -79,12 +79,12 @@ class AnimationCache {
 		}
 
 		let layer = cachedLayer.layer
-		layerCache.removeValueForKey(node)
+		layerCache.removeValue(forKey: node)
 		sceneLayer.setNeedsDisplay()
 		layer.removeFromSuperlayer()
 	}
 
-	func isAnimating(node: Node) -> Bool {
+	func isAnimating(_ node: Node) -> Bool {
 
 		if let _ = layerCache[node] {
 			return true
@@ -93,7 +93,7 @@ class AnimationCache {
 		return false
 	}
 
-	func isChildrenAnimating(group: Group) -> Bool {
+	func isChildrenAnimating(_ group: Group) -> Bool {
 
 		for child in group.contents {
 			if isAnimating(child) {
@@ -108,7 +108,7 @@ class AnimationCache {
 		return false
 	}
 
-	func containsAnimation(node: Node) -> Bool {
+	func containsAnimation(_ node: Node) -> Bool {
 		if isAnimating(node) {
 			return true
 		}

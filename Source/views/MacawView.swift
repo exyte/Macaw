@@ -5,10 +5,10 @@ import UIKit
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
 /// You could create your own view extended from MacawView with predefined scene.
 ///
-public class MacawView: UIView {
+open class MacawView: UIView {
 
 	/// Scene root node
-	public var node: Node = Group() {
+	open var node: Node = Group() {
 		willSet {
 			nodesMap.remove(node)
 		}
@@ -26,7 +26,7 @@ public class MacawView: UIView {
 		}
 	}
 
-	override public var frame: CGRect {
+	override open var frame: CGRect {
 		didSet {
 			super.frame = frame
 
@@ -40,7 +40,7 @@ public class MacawView: UIView {
 		}
 	}
 
-	override public func didMoveToSuperview() {
+	override open func didMoveToSuperview() {
 		super.didMoveToSuperview()
 
 		if !frameSetFirstTime {
@@ -86,38 +86,38 @@ public class MacawView: UIView {
 		self.init(node: Group(), coder: aDecoder)
 	}
 
-	override public func drawRect(rect: CGRect) {
+	override open func draw(_ rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()
-		renderer?.render(false, opacity: node.opacity)
+		renderer?.render(force: false, opacity: node.opacity)
 	}
 
-	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		self.touched = nil
         for touch in touches {
-            let location = touch.locationInView(self)
-            self.touched = renderer!.findNodeAt(location)
+            let location = touch.location(in: self)
+            self.touched = renderer!.findNodeAt(location: location)
             if let node = self.touched {
                 let inverted = renderer!.node().place.invert()!
-                let loc = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
                 node.onTap.onNext(TapEvent(location: Point(x: Double(loc.x), y: Double(loc.y))))
             }
 		}
 	}
 
 	func handlePan(recognizer: UIPanGestureRecognizer) {
-		var translation = recognizer.translationInView(self)
-		recognizer.setTranslation(CGPointZero, inView: self)
+		let translation = recognizer.translation(in: self)
+		recognizer.setTranslation(CGPoint.zero, in: self)
 		if let node = self.touched {
 			// get the rotation and scale of the shape and apply to the translation
 			let transform = node.place
 			let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
 			let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
-			var translatedLocation = CGPointApplyAffineTransform(translation, CGAffineTransformMakeRotation(rotation))
+			let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
 			node.onPan.onNext(PanEvent(dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale)))
 		}
 	}
 
-	func handleRotation(recognizer: UIRotationGestureRecognizer) {
+	func handleRotation(_ recognizer: UIRotationGestureRecognizer) {
 		let rotation = Double(recognizer.rotation)
 		recognizer.rotation = 0
 		if let node = self.touched {
@@ -125,7 +125,7 @@ public class MacawView: UIView {
 		}
 	}
 
-	func handlePinch(recognizer: UIPinchGestureRecognizer) {
+	func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
 		let scale = Double(recognizer.scale)
 		recognizer.scale = 1
 		if let node = self.touched {

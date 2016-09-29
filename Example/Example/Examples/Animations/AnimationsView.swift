@@ -30,7 +30,7 @@ class AnimationsView: MacawView {
 		var velocities = [Point]()
 		var positions = [Point]()
 
-		func posForTime(t: Double, index: Int) -> Point {
+		func posForTime(_ t: Double, index: Int) -> Point {
 
 			let prevPos = positions[index]
 			var velocity = velocities[index]

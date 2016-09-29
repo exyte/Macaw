@@ -14,12 +14,12 @@ public extension Rect {
 		return CGRect(x: self.x, y: self.y, width: self.w, height: self.h)
 	}
 
-	func applyTransform(transform: Transform) -> Rect {
+	func applyTransform(_ transform: Transform) -> Rect {
 
 		// TODO: Rewrite using math
 
 		let cgTransform = RenderUtils.mapTransform(transform)
-		return Rect(cgRect: CGRectApplyAffineTransform(self.cgRect(), cgTransform))
+		return Rect(cgRect: self.cgRect().applying(cgTransform))
 	}
 
 	public func description() -> String {

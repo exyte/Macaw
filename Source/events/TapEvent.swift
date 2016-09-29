@@ -1,6 +1,6 @@
-public class TapEvent {
+open class TapEvent {
 
-    public let location: Point
+    open let location: Point
 
     init(location: Point) {
         self.location = location

@@ -1,6 +1,6 @@
 import UIKit
 
-func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: (() -> ())) {
+func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: @escaping (() -> ())) {
 	guard let transformAnimation = animation as? TransformAnimation else {
 		return
 	}
@@ -53,23 +53,23 @@ func addTransformAnimation(animation: BasicAnimation, sceneLayer: CALayer, anima
 
 	let layer = animationCache.layerForNode(node, animation: animation)
 
-	layer.addAnimation(generatedAnim, forKey: animation.ID)
+	layer.add(generatedAnim, forKey: animation.ID)
 	animation.removeFunc = {
-		layer.removeAnimationForKey(animation.ID)
+		layer.removeAnimation(forKey: animation.ID)
 	}
 }
 
-func transfomToCG(transform: Transform) -> CGAffineTransform {
-	return CGAffineTransformMake(
-		CGFloat(transform.m11),
-		CGFloat(transform.m12),
-		CGFloat(transform.m21),
-		CGFloat(transform.m22),
-		CGFloat(transform.dx),
-		CGFloat(transform.dy))
+func transfomToCG(_ transform: Transform) -> CGAffineTransform {
+	return CGAffineTransform(
+		a: CGFloat(transform.m11),
+		b: CGFloat(transform.m12),
+		c: CGFloat(transform.m21),
+		d: CGFloat(transform.m22),
+		tx: CGFloat(transform.dx),
+		ty: CGFloat(transform.dy))
 }
 
-func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, duration: Double, fps: UInt) -> CAAnimation {
+func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, duration: Double, fps: UInt) -> CAAnimation {
 
 	var scaleXValues = [CGFloat]()
 	var scaleYValues = [CGFloat]()
@@ -80,7 +80,7 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 
 	let step = 1.0 / (duration * Double(fps))
 	var dt = 0.0
-	for t in 0.0.stride(to: 1.0, by: step) {
+	for t in stride(from: 0.0, to: 1.0, by: step) {
 
 		dt = t
 		if 1.0 - dt < step {
@@ -112,31 +112,31 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
 	xAnimation.duration = duration
 	xAnimation.values = xValues
-	xAnimation.keyTimes = timeValues
+	xAnimation.keyTimes = timeValues as [NSNumber]?
 
 	let yAnimation = CAKeyframeAnimation(keyPath: "transform.translation.y")
 	yAnimation.duration = duration
 	yAnimation.values = yValues
-	yAnimation.keyTimes = timeValues
+	yAnimation.keyTimes = timeValues as [NSNumber]?
 
 	let scaleXAnimation = CAKeyframeAnimation(keyPath: "transform.scale.x")
 	scaleXAnimation.duration = duration
 	scaleXAnimation.values = scaleXValues
-	scaleXAnimation.keyTimes = timeValues
+	scaleXAnimation.keyTimes = timeValues as [NSNumber]?
 
 	let scaleYAnimation = CAKeyframeAnimation(keyPath: "transform.scale.y")
 	scaleYAnimation.duration = duration
 	scaleYAnimation.values = scaleYValues
-	scaleYAnimation.keyTimes = timeValues
+	scaleYAnimation.keyTimes = timeValues as [NSNumber]?
 
 	let rotationAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
 	rotationAnimation.duration = duration
 	rotationAnimation.values = rotationValues
-	rotationAnimation.keyTimes = timeValues
+	rotationAnimation.keyTimes = timeValues as [NSNumber]?
 
 	let group = CAAnimationGroup()
 	group.fillMode = kCAFillModeForwards
-	group.removedOnCompletion = false
+	group.isRemovedOnCompletion = false
 
 	group.animations = [scaleXAnimation, scaleYAnimation, rotationAnimation, xAnimation, yAnimation]
 	group.duration = duration
@@ -144,6 +144,6 @@ func transformAnimationByFunc(node: Node, valueFunc: (Double) -> Transform, dura
 	return group
 }
 
-func fixedAngle(angle: CGFloat) -> CGFloat {
+func fixedAngle(_ angle: CGFloat) -> CGFloat {
 	return angle > -0.0000000000000000000000001 ? angle : CGFloat(2.0 * M_PI) + angle
 }

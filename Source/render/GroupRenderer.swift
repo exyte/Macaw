@@ -6,7 +6,7 @@ class GroupRenderer: NodeRenderer {
 
 	let group: Group
 
-	private var renderers: [NodeRenderer] = []
+	fileprivate var renderers: [NodeRenderer] = []
 
 	init(group: Group, ctx: RenderContext, animationCache: AnimationCache) {
 		self.group = group
@@ -24,15 +24,15 @@ class GroupRenderer: NodeRenderer {
 		return group
 	}
 
-	override func doRender(force: Bool, opacity: Double) {
+	override func doRender(_ force: Bool, opacity: Double) {
 		renderers.forEach { renderer in
-			renderer.render(force, opacity: opacity)
+			renderer.render(force: force, opacity: opacity)
 		}
 	}
 
     override func doFindNodeAt(location: CGPoint) -> Node? {
-        for renderer in renderers.reverse() {
-            if let node = renderer.findNodeAt(location) {
+        for renderer in renderers.reversed() {
+            if let node = renderer.findNodeAt(location: location) {
                 return node
             }
         }
@@ -52,7 +52,7 @@ class GroupRenderer: NodeRenderer {
 		}
 		self.renderers = []
 		for node in group.contents {
-			if let renderer = nodeToRenderer.removeValueForKey(node) {
+			if let renderer = nodeToRenderer.removeValue(forKey: node) {
 				self.renderers.append(renderer)
 			} else {
 				self.renderers.append(RenderUtils.createNodeRenderer(node, context: ctx, animationCache: animationCache))

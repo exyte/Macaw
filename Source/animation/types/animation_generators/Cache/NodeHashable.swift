@@ -6,10 +6,10 @@ import Macaw
 extension Node: Hashable {
 	public var hashValue: Int {
 
-		return unsafeAddressOf(self).hashValue
+		return Unmanaged.passUnretained(self).toOpaque().hashValue
 	}
 }
 
 public func == (lhs: Node, rhs: Node) -> Bool {
-	return unsafeAddressOf(lhs) == unsafeAddressOf(rhs)
+	return Unmanaged.passUnretained(lhs).toOpaque() == Unmanaged.passUnretained(rhs).toOpaque()
 }

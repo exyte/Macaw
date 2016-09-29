@@ -1,35 +1,35 @@
-public class Animation {
+open class Animation {
 
 	internal init() {
 	}
 
-    public func play() {
+    open func play() {
     }
 
-    public func stop() {
+    open func stop() {
     }
 
-    public func easing(easing: Easing) -> Animation {
+    open func easing(_ easing: Easing) -> Animation {
         return self
     }
 
-    public func delay(delay: Double) -> Animation {
+    open func delay(_ delay: Double) -> Animation {
         return self
     }
 
-	public func cycle(count: Double) -> Animation {
+	open func cycle(_ count: Double) -> Animation {
 		return self
 	}
 
-    public func reverse() -> Animation {
+    open func reverse() -> Animation {
         return self
     }
 
-	public func autoreversed() -> Animation {
+	open func autoreversed() -> Animation {
 		return self
 	}
 
-	public func onComplete(_: (() -> ())) -> Animation {
+	open func onComplete(_: @escaping (() -> ())) -> Animation {
 		return self
 	}
 }

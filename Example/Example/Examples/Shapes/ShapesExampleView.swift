@@ -73,8 +73,8 @@ class ShapesExampleView: MacawView {
 		super.init(node: group, coder: aDecoder)
 	}
 
-	private static func newText(text: String, _ place: Transform, baseline: Baseline = .bottom) -> Text {
-		return Text(text: text, fill: Color.black, baseline: baseline, align: .mid, place: place)
+	fileprivate static func newText(_ text: String, _ place: Transform, baseline: Baseline = .bottom) -> Text {
+		return Text(text: text, fill: Color.black, align: .mid, baseline: baseline, place: place)
 	}
 
 }

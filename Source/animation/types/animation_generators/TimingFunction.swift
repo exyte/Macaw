@@ -1,16 +1,16 @@
 import UIKit
 
-func caTimingFunction(easing: Easing) -> CAMediaTimingFunction {
+func caTimingFunction(_ easing: Easing) -> CAMediaTimingFunction {
 	switch easing {
-	case .Ease:
+	case .ease:
 		return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
-	case .Linear:
+	case .linear:
 		return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-	case .EaseIn:
+	case .easeIn:
 		return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-	case .EaseOut:
+	case .easeOut:
 		return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-	case .EaseInOut:
+	case .easeInOut:
 		return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 	}
 }

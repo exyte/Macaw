@@ -1,22 +1,22 @@
 import Foundation
 import RxSwift
 
-public class Shape: Node {
+open class Shape: Node {
 
-	public let formVar: Variable<Locus>
-	public var form: Locus {
+	open let formVar: Variable<Locus>
+	open var form: Locus {
 		get { return formVar.value }
 		set(val) { formVar.value = val }
 	}
 
-	public let fillVar: Variable<Fill?>
-	public var fill: Fill? {
+	open let fillVar: Variable<Fill?>
+	open var fill: Fill? {
 		get { return fillVar.value }
 		set(val) { fillVar.value = val }
 	}
 
-	public let strokeVar: Variable<Stroke?>
-	public var stroke: Stroke? {
+	open let strokeVar: Variable<Stroke?>
+	open var stroke: Stroke? {
 		get { return strokeVar.value }
 		set(val) { strokeVar.value = val }
 	}

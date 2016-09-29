@@ -4,7 +4,7 @@ class PathExampleController: UIViewController {
 	var sceneView: PathExampleView?
 	@IBOutlet var slider: UISlider?
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
 		sceneView?.testAnimation()
@@ -14,7 +14,7 @@ class PathExampleController: UIViewController {
 		}
 	}
 
-	@IBAction func onScaleUpdate(slider: UISlider) {
+	@IBAction func onScaleUpdate(_ slider: UISlider) {
 		sceneView?.updateScale(slider.value)
 	}
 }

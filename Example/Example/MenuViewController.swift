@@ -10,11 +10,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		}
 	}
 
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		guard let count = viewControllers?.count else {
 			return 0
 		}
@@ -22,22 +22,22 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		return count
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("menu_cell")!
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "menu_cell")!
 
-		if let viewController = viewControllers?[indexPath.row] {
+		if let viewController = viewControllers?[(indexPath as NSIndexPath).row] {
 			cell.textLabel?.text = viewController.title
 		}
 
 		return cell
 	}
 
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		guard let selectedCtrl = viewControllers?[indexPath.row] else {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let selectedCtrl = viewControllers?[(indexPath as NSIndexPath).row] else {
 			return
 		}
 
 		pageViewController?.setViewControllers([selectedCtrl],
-			direction: .Forward, animated: true, completion: nil)
+			direction: .forward, animated: true, completion: nil)
 	}
 }

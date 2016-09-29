@@ -6,9 +6,9 @@ class NodeRenderer {
 
 	let ctx: RenderContext
 
-	private let onNodeChange: (Any) -> Void
-	private let disposables = GroupDisposable()
-	private var active = false
+	fileprivate let onNodeChange: (Any) -> Void
+	fileprivate let disposables = GroupDisposable()
+	fileprivate var active = false
 	let animationCache: AnimationCache
 
 	init(node: Node, ctx: RenderContext, animationCache: AnimationCache) {
@@ -19,39 +19,43 @@ class NodeRenderer {
 	}
 
 	func doAddObservers() {
-		observe(node().placeVar)
+		observeAnimatable(node().placeVar)
 		observe(node().opaqueVar)
-		observe(node().opacityVar)
+		observeAnimatable(node().opacityVar)
 		observe(node().clipVar)
 		observe(node().effectVar)
 	}
 
-	func observe<E>(variable: Variable<E>) {
+	func observeAnimatable<E>(_ variable: AnimatableVariable<E>) {
 		observe(variable.asObservable())
 	}
+    
+    func observe<E>(_ variable: Variable<E>) {
+        observe(variable.asObservable())
+    }
 
-	func observe<E>(observable: Observable<E>) {
+	func observe<E>(_ observable: Observable<E>) {
 		addDisposable(observable.subscribeNext(onNodeChange))
 	}
 
-	func addDisposable(disposable: Disposable) {
+	func addDisposable(_ disposable: Disposable) {
 		disposable.addTo(disposables)
 	}
 
-	public func dispose() {
+	open func dispose() {
 		removeObservers()
 	}
 
-	public func node() -> Node {
+	open func node() -> Node {
 		fatalError("Unsupported")
 	}
 
     final public func render(force: Bool, opacity: Double) {
-        CGContextSaveGState(ctx.cgContext!)
-        CGContextConcatCTM(ctx.cgContext!, RenderUtils.mapTransform(node().place))
+        ctx.cgContext!.saveGState()
+        ctx.cgContext!.concatenate(RenderUtils.mapTransform(node().place))
         applyClip()
-        directRender(force, opacity: node().opacity * opacity)
-        CGContextRestoreGState(ctx.cgContext!)
+        directRender(force: force, opacity: node().opacity * opacity)
+        ctx.cgContext!.restoreGState()
     }
 
 	final func directRender(force: Bool = true, opacity: Double = 1.0) {
@@ -66,7 +70,7 @@ class NodeRenderer {
 		doRender(force, opacity: opacity)
 	}
 
-	func doRender(force: Bool, opacity: Double) {
+	func doRender(_ force: Bool, opacity: Double) {
 		fatalError("Unsupported")
 	}
 
@@ -74,12 +78,12 @@ class NodeRenderer {
         if (node().opaque) {
             let place = node().place
             if let inverted = place.invert() {
-                CGContextSaveGState(ctx.cgContext!)
-                CGContextConcatCTM(ctx.cgContext!, RenderUtils.mapTransform(place))
+                ctx.cgContext!.saveGState()
+                ctx.cgContext!.concatenate(RenderUtils.mapTransform(place))
                 applyClip()
-                let loc = CGPointApplyAffineTransform(location, RenderUtils.mapTransform(inverted))
-                let result = doFindNodeAt(CGPoint(x: loc.x, y: loc.y))
-                CGContextRestoreGState(ctx.cgContext!)
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y))
+                ctx.cgContext!.restoreGState()
                 return result
             }
         }
@@ -93,7 +97,7 @@ class NodeRenderer {
     private func applyClip() {
         let clip = node().clip
         if let rect = clip as? Rect {
-            CGContextClipToRect(ctx.cgContext!, CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
+            ctx.cgContext!.clip(to: CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
         } else if clip != nil {
             RenderUtils.toBezierPath(clip!).addClip()
         }
@@ -106,7 +110,7 @@ class NodeRenderer {
 		}
 	}
 
-	private func removeObservers() {
+	fileprivate func removeObservers() {
 		if (active) {
 			active = false
 			disposables.dispose()

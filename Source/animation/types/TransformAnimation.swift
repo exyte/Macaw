@@ -11,9 +11,9 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
 	}
 
-	init(animatedNode: Node, valueFunc: (Double) -> Transform, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+	init(animatedNode: Node, valueFunc: @escaping (Double) -> Transform, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 		super.init(observableValue: animatedNode.placeVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
-		type = .AffineTransformation
+		type = .affineTransformation
 		node = animatedNode
 
 		if autostart {
@@ -21,9 +21,9 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		}
 	}
     
-    init(animatedNode: Node, factory: ((Node) -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedNode: Node, factory: @escaping ((Node) -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.placeVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
-        type = .AffineTransformation
+        type = .affineTransformation
         node = animatedNode
         
         if autostart {
@@ -31,7 +31,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
         }
     }
 
-	public override func reverse() -> Animation {
+	open override func reverse() -> Animation {
 
         let factory = { (node: Node) -> (Double) -> Transform in
             let original = self.timeFactory(node)
@@ -52,19 +52,19 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 public typealias TransformAnimationDescription = AnimationDescription<Transform>
 
 public extension AnimatableVariable where T: TransformInterpolation {
-	public func animate(desc: TransformAnimationDescription) {
+	public func animate(_ desc: TransformAnimationDescription) {
 		let _ = TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
 	}
 
-	public func animation(desc: TransformAnimationDescription) -> Animation {
+	public func animation(_ desc: TransformAnimationDescription) -> Animation {
 		return TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
 	}
 
-	public func animate(from from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
+	public func animate(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
 		self.animate(((from ?? node!.place) >> to).t(during, delay: delay))
 	}
 
-	public func animation(from from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+	public func animation(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
@@ -75,7 +75,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
 	}
 
-	public func animation(f: (Double) -> Transform, during: Double, delay: Double = 0.0) -> Animation {
+	public func animation(_ f: @escaping (Double) -> Transform, during: Double, delay: Double = 0.0) -> Animation {
 		return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
 	}
 

@@ -4,7 +4,7 @@ class AnimationsExampleController: UIViewController {
 
 	var animView: AnimationsView?
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
 		animView?.prepareAnimation()

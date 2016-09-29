@@ -88,7 +88,7 @@ class ShapeRenderer: NodeRenderer {
 				let path = CGMutablePath()
 				var t = CGAffineTransform(translationX: CGFloat(ellipse.cx), y: CGFloat(ellipse.cy))
 				t = CGAffineTransform(scaleX: 1.0, y: scale).concatenating(t);
-				CGPathAddArc(path, &t, 0, 0, r, startAngle, endAngle, false)
+                path.addArc(center: CGPoint.zero, radius: r, startAngle: startAngle, endAngle: endAngle, clockwise: false, transform: t)
 				ctx.addPath(path)
 			}
 		} else if let point = locus as? Point {
@@ -488,9 +488,12 @@ class ShapeRenderer: NodeRenderer {
 		ctx!.setLineCap(RenderUtils.mapLineCap(stroke.cap))
 		let dashes = stroke.dashes
 		if !dashes.isEmpty {
-			let dashPointer = RenderUtils.mapDash(dashes)
-			CGContextSetLineDash(ctx!, 0, dashPointer, dashes.count)
-			dashPointer.deallocateCapacity(dashes.count)
+            var floatDashes = [CGFloat]()
+            dashes.forEach { dash in
+                floatDashes.append(CGFloat(dash))
+            }
+            
+            ctx?.setLineDash(phase: 0.0, lengths: floatDashes)
 		}
 	}
 

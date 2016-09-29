@@ -180,7 +180,7 @@ class DiagramExampleView: MacawView {
 
 			var groupContents = [Node]()
 			groupContents.append(baseRect)
-			groupContents.appendContentsOf(lines)
+			groupContents.append(contentsOf: lines)
 			groupContents.append(blueLineShape)
 			groupContents.append(redLineShape)
 			groupContents.append(outerCircleShape)

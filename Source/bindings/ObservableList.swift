@@ -86,7 +86,7 @@ extension ObservableArray: Indexable {
     }
     
     public func index(after i: Int) -> Int {
-        elements.index(after: i)
+        return elements.index(after: i)
     }
 }
 
@@ -159,13 +159,13 @@ extension ObservableArray: RangeReplaceableCollection {
     public mutating func replaceSubrange<C : Collection>(_ subRange: Range<Int>, with newCollection: C) where C.Iterator.Element == Element {
         let oldCount = elements.count
         elements.replaceSubrange(subRange, with: newCollection)
-        guard let first = subRange.first else {
-            return
-        }
-        let newCount = elements.count
-        let end = first + (newCount - oldCount) + subRange.count
-        arrayDidChange(ArrayChangeEvent(inserted: Array(first..<end),
-            deleted: Array(subRange)))
+//        guard let first = subRange.first else {
+//            return
+//        }
+//        let newCount = elements.count
+//        let end = first + (newCount - oldCount) + subRange.count
+//        arrayDidChange(ArrayChangeEvent(inserted: Array(first..<end),
+//            deleted: Array(subRange)))
     }
     
     public mutating func popLast() -> Element? {
@@ -210,11 +210,11 @@ extension ObservableArray: Collection {
         }
         set {
             elements[bounds] = newValue
-            guard let first = bounds.first else {
-                return
-            }
-            arrayDidChange(ArrayChangeEvent(inserted: Array(first..<first + newValue.count),
-                deleted: Array(bounds)))
+//            guard let first = bounds.first else {
+//                return
+//            }
+//            arrayDidChange(ArrayChangeEvent(inserted: Array(first..<first + newValue.count),
+//                deleted: Array(bounds)))
         }
     }
 }

@@ -74,7 +74,7 @@ class ShapesExampleView: MacawView {
 	}
 
 	fileprivate static func newText(_ text: String, _ place: Transform, baseline: Baseline = .bottom) -> Text {
-		return Text(text: text, fill: Color.black, baseline: baseline, align: .mid, place: place)
+		return Text(text: text, fill: Color.black, align: .mid, baseline: baseline, place: place)
 	}
 
 }

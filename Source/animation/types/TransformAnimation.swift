@@ -11,7 +11,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
 	}
 
-	init(animatedNode: Node, valueFunc: (Double) -> Transform, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+	init(animatedNode: Node, valueFunc: @escaping (Double) -> Transform, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 		super.init(observableValue: animatedNode.placeVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
 		type = .affineTransformation
 		node = animatedNode
@@ -21,7 +21,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		}
 	}
     
-    init(animatedNode: Node, factory: ((Node) -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedNode: Node, factory: @escaping ((Node) -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.placeVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .affineTransformation
         node = animatedNode
@@ -75,7 +75,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
 	}
 
-	public func animation(_ f: (Double) -> Transform, during: Double, delay: Double = 0.0) -> Animation {
+	public func animation(_ f: @escaping (Double) -> Transform, during: Double, delay: Double = 0.0) -> Animation {
 		return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
 	}
 

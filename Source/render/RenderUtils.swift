@@ -32,7 +32,7 @@ class RenderUtils {
 	}
 
 	class func mapDash(_ dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
-		let p = UnsafeMutablePointer<CGFloat>(calloc(dashes.count, sizeof(CGFloat)))
+		let p = UnsafeMutablePointer<CGFloat>.allocate(capacity:dashes.count * MemoryLayout<CGFloat>.size)
 		for (index, item) in dashes.enumerated() {
 			p[index] = CGFloat(item)
 		}

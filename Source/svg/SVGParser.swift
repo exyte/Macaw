@@ -284,9 +284,10 @@ open class SVGParser {
 	fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: XMLElement) -> [String: String] {
 		var styleAttributes: [String: String] = groupAttributes
 		if let style = element.attributes["style"] {
-			let styleParts = style.stringByReplacingOccurrencesOfString(" ", withString: "").componentsSeparatedByString(";")
+            
+			let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
 			styleParts.forEach { styleAttribute in
-				let currentStyle = styleAttribute.componentsSeparatedByString(":")
+				let currentStyle = styleAttribute.components(separatedBy: ":")
 				if currentStyle.count == 2 {
 					styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
 				}
@@ -416,9 +417,9 @@ open class SVGParser {
 	fileprivate func getStrokeDashes(_ styleParts: [String: String]) -> [Double] {
 		var dashes = [Double]()
 		if let strokeDashes = styleParts["stroke-dasharray"] {
-			let characterSet = NSMutableCharacterSet()
-			characterSet.addCharacters(in: " ")
-			characterSet.addCharacters(in: ",")
+			var characterSet = CharacterSet()
+            characterSet.insert(" ")
+            characterSet.insert(",")
 			let separatedValues = strokeDashes.components(separatedBy: characterSet)
 			separatedValues.forEach { value in
 				if let doubleValue = Double(value) {
@@ -671,7 +672,7 @@ open class SVGParser {
 		}
 		var id = link
 		if id.hasPrefix("#") {
-			id = id.stringByReplacingOccurrencesOfString("#", withString: "")
+			id = id.replacingOccurrences(of: "#", with: "")
 		}
 		guard let referenceNode = self.defNodes[id], let node = copyNode(referenceNode) else {
 			return .none
@@ -701,10 +702,10 @@ open class SVGParser {
 			return .none
 		}
 		var parentGradient: LinearGradient?
-		if let link = element.attributes["xlink:href"]?.stringByReplacingOccurrencesOfString(" ", withString: "")
+		if let link = element.attributes["xlink:href"]?.replacingOccurrences(of: " ", with: "")
 		, link.hasPrefix("#") {
 
-			let id = link.stringByReplacingOccurrencesOfString("#", withString: "")
+			let id = link.replacingOccurrences(of: "#", with: "")
 			parentGradient = defFills[id] as? LinearGradient
 		}
 
@@ -746,10 +747,10 @@ open class SVGParser {
 			return .none
 		}
 		var parentGradient: RadialGradient?
-		if let link = element.attributes["xlink:href"]?.stringByReplacingOccurrencesOfString(" ", withString: "")
+		if let link = element.attributes["xlink:href"]?.replacingOccurrences(of: " ", with: "")
 		, link.hasPrefix("#") {
 
-			let id = link.stringByReplacingOccurrencesOfString("#", withString: "")
+			let id = link.replacingOccurrences(of: "#", with: "")
 			parentGradient = defFills[id] as? RadialGradient
 		}
 
@@ -802,10 +803,10 @@ open class SVGParser {
 			return .none
 		}
 
-		var offset = getDoubleValueFromPercentage(element, attribute: "offset")
-		guard let _ = offset else {
+		guard var offset = getDoubleValueFromPercentage(element, attribute: "offset") else {
 			return .none
 		}
+        
 		if offset < 0 {
 			offset = 0
 		} else if offset > 1 {
@@ -817,11 +818,10 @@ open class SVGParser {
 		}
 		var color = Color.black
 		if let stopColor = getStyleAttributes([:], element: element)["stop-color"] {
-			color = createColor(stopColor
-					.stringByReplacingOccurrencesOfString(" ", withString: ""), opacity: opacity)
+			color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
 		}
 
-		return Stop(offset: offset!, color: color)
+		return Stop(offset: offset, color: color)
 	}
 
 	fileprivate func parsePath(_ path: XMLIndexer) -> Path? {
@@ -885,9 +885,9 @@ open class SVGParser {
 	}
 
 	fileprivate func parseCommand(_ command: PathCommand) -> PathSegment? {
-		let characterSet = NSMutableCharacterSet()
-		characterSet.addCharacters(in: " ")
-		characterSet.addCharacters(in: ",")
+		var characterSet = CharacterSet()
+		characterSet.insert(" ")
+		characterSet.insert(",")
 		let commandParams = command.expression.components(separatedBy: characterSet)
 		var separatedValues = [String]()
 		commandParams.forEach { param in
@@ -1123,10 +1123,10 @@ open class SVGParser {
 		guard let attributeValue = element.attributes[attribute] else {
 			return .none
 		}
-		if !attributeValue.containsString("%") {
+        if !attributeValue.contains("%") {
 			return self.getDoubleValue(element, attribute: attribute)
 		} else {
-			let value = attributeValue.stringByReplacingOccurrencesOfString("%", withString: "")
+			let value = attributeValue.replacingOccurrences(of: "%", with: "")
 			if let doubleValue = Double(value) {
 				return doubleValue / 100
 			}

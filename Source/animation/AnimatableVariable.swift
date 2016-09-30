@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Foundation
 
 open class AnimatableVariable<T: Interpolable> {
     

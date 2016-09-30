@@ -3,10 +3,10 @@ import Macaw
 
 class TestUtils {
 
-	class func compareWithReferenceObject(fileName: String, referenceObject: AnyObject) -> Bool {
-		let bundle = NSBundle(forClass: TestUtils().dynamicType)
-		if let path = bundle.pathForResource(fileName, ofType: "svg") {
-			let content = try? NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+	class func compareWithReferenceObject(_ fileName: String, referenceObject: AnyObject) -> Bool {
+		let bundle = Bundle(for: type(of: TestUtils()))
+		if let path = bundle.path(forResource: fileName, ofType: "svg") {
+			let content = try? NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue)
 			if let svgString = content as? String {
 				let group = SVGParser.parse(text: svgString)
 				let referenceArray = TestUtils.prepareParametersList(Mirror(reflecting: referenceObject))
@@ -19,12 +19,12 @@ class TestUtils {
 		return false
 	}
 
-	class func prepareParametersList(mirror: Mirror) -> [(String, String)] {
+	class func prepareParametersList(_ mirror: Mirror) -> [(String, String)] {
 		var result: [(String, String)] = []
-		for (_, attribute) in mirror.children.enumerate() {
-			if let label = attribute.label where label == "_value" || label.characters.first != "_" {
-				result.append((label, String(attribute.value)))
-				result.appendContentsOf(prepareParametersList(Mirror(reflecting: attribute.value)))
+		for (_, attribute) in mirror.children.enumerated() {
+			if let label = attribute.label , label == "_value" || label.characters.first != "_" {
+				result.append((label, String(describing: attribute.value)))
+				result.append(contentsOf: prepareParametersList(Mirror(reflecting: attribute.value)))
 			}
 		}
 		return result

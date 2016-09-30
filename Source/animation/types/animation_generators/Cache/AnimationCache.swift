@@ -1,6 +1,5 @@
 
 import UIKit
-import Macaw
 
 class AnimationCache {
 

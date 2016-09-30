@@ -22,7 +22,7 @@ class ShapesEventsExampleView: MacawView {
         
         let colors = [Color.red, Color.aqua, Color.black, Color.blue, Color.fuchsia, Color.silver, Color.teal]
         
-        _ = shape1.onTap.subscribeNext { tap in
+        _ = shape1.onTap.subscribe { tap in
             let randomIndex = Int(arc4random_uniform(UInt32(colors.count)))
             shape1.fill = colors[randomIndex]
         }

@@ -1,5 +1,4 @@
 
-import Macaw
 
 // TODO: Implement better hash
 

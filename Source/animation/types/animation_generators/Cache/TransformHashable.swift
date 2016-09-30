@@ -1,5 +1,4 @@
 
-import Macaw
 
 extension Transform: Hashable {
 	public var hashValue: Int {

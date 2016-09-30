@@ -10,7 +10,7 @@ class AnimationProducer {
 
 		if animation.delay > 0.0 && !withoutDelay {
 
-			Timer.schedule(delay: animation.delay, handler: { _ in
+			let _ = Timer.schedule(delay: animation.delay, handler: { _ in
 				self.addAnimation(animation, withoutDelay: true)
 			})
 
@@ -73,7 +73,7 @@ class AnimationProducer {
 		// Generating sequence
 		var sequenceAnimations = [BasicAnimation]()
 		if sequence.repeatCount > 0.0001 {
-			for i in 0..<Int(sequence.repeatCount) {
+			for _ in 0..<Int(sequence.repeatCount) {
 				sequenceAnimations.append(contentsOf: sequence.animations)
 			}
 		} else {
@@ -127,7 +127,7 @@ class AnimationProducer {
 		if combine.repeatCount > 0.00001 {
 			var sequence = [Animation]()
 
-			for i in 0..<Int(combine.repeatCount) {
+			for _ in 0..<Int(combine.repeatCount) {
 				sequence.append(combine)
 			}
 

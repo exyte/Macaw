@@ -120,12 +120,12 @@ class PathExampleView: MacawView {
 		sceneGroup.place = initialTransform
 
 		let rotation = GeomUtils.centerRotation(node: sceneGroup, place: initialTransform, angle: M_PI_4 / 2.0)
-		let superposition = GeomUtils.concat(t1: initialTransform, t2: GeomUtils.concat(t1: rotation, t2: initialTransform))
+		_ = GeomUtils.concat(t1: initialTransform, t2: GeomUtils.concat(t1: rotation, t2: initialTransform))
 		// animation = sceneGroup.placeVar.animation((initialTransform >> rotation).t(10.0))
 
 		super.init(node: PathExampleView.newScene(), coder: aDecoder)
 
-		sceneGroup.placeVar.asObservable().subscribeNext { transform in
+		let _ = sceneGroup.placeVar.asObservable().subscribeNext { transform in
 			let a = transform.m11
 			let b = transform.m12
 			let sx = a / fabs(a) * sqrt(a * a + b * b)

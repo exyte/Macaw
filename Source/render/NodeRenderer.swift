@@ -35,7 +35,7 @@ class NodeRenderer {
     }
 
 	func observe<E>(_ observable: Observable<E>) {
-		addDisposable(observable.subscribeNext(onNodeChange))
+		addDisposable(observable.subscribe(onNext: onNodeChange))
 	}
 
 	func addDisposable(_ disposable: Disposable) {

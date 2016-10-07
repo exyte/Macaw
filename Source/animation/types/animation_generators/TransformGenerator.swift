@@ -80,7 +80,9 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 
 	let step = 1.0 / (duration * Double(fps))
 	var dt = 0.0
-	for t in stride(from: 0.0, to: 1.0, by: step) {
+    var tValue = Array(stride(from: 0.0, to: 1.0, by: step))
+    tValue.append(1.0)
+	for t in tValue {
 
 		dt = t
 		if 1.0 - dt < step {
@@ -106,7 +108,6 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 		scaleXValues.append(CGFloat(sx))
 		scaleYValues.append(CGFloat(sy))
 		rotationValues.append(CGFloat(angle))
-
 	}
 
 	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")

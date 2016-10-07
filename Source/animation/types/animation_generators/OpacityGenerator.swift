@@ -61,7 +61,9 @@ func opacityAnimationByFunc(_ valueFunc: (Double) -> Double, duration: Double, f
 	let step = 1.0 / (duration * Double(fps))
 
 	var dt = 0.0
-	for t in stride(from: 0.0, to: 1.0, by: step) {
+    var tValue = Array(stride(from: 0.0, to: 1.0, by: step))
+    tValue.append(1.0)
+	for t in tValue {
 
 		dt = t
 		if 1.0 - dt < step {

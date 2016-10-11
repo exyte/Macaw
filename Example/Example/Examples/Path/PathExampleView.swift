@@ -152,6 +152,6 @@ class PathExampleView: MacawView {
 		_ = shape.onTap.subscribeNext { tap in
 			shape.placeVar.animate(from: t1, to: t2, during: 2.0)
 		}
-		return Group(contents: [shape], place: .move(dx: 200, dy: 200))
+		return [shape].group(place:.move(dx: 200, dy: 200))
 	}
 }

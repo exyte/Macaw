@@ -48,8 +48,20 @@ class AnimationCache {
 
 				let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
 				layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
+                
+                // Clip
+                if let clip = AnimationUtils.absoluteClip(node: node) {
+                    let maskLayer = CAShapeLayer()
+                    let origPath = RenderUtils.toBezierPath(clip).cgPath
+                    var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+                    let clipPath = origPath.mutableCopy(using: &offsetTransform)
+                    maskLayer.path = clipPath
+                    layer.mask = maskLayer
+                }
 			}
 
+
+            
 			layer.opacity = Float(node.opacity)
 			layer.node = node
 			layer.setNeedsDisplay()

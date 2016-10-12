@@ -152,6 +152,8 @@ class PathExampleView: MacawView {
 		_ = shape.onTap.subscribeNext { tap in
 			shape.placeVar.animate(from: t1, to: t2, during: 2.0)
 		}
+        
+        shape.clip =  RoundRect(rect: Rect(x: 0.0, y: 0.0, w: 10, h: 10))
 		return [shape].group(place:.move(dx: 200, dy: 200))
 	}
 }

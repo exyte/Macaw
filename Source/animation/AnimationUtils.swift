@@ -16,4 +16,22 @@ class AnimationUtils {
 
 		return transform
 	}
+    
+    class func absoluteClip(node: Node) -> Locus? {
+        
+        if let _ = node.clip {
+            return node.clip
+        }
+        
+        var parent = nodesMap.parents(node).first
+        while parent != .none {
+            if let _ = parent?.clip {
+                return parent?.clip
+            }
+            
+            parent = nodesMap.parents(parent!).first
+        }
+        
+        return .none
+    }
 }

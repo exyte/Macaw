@@ -20,6 +20,11 @@ open class Rect: Locus {
 		return RoundRect(rect: self, rx: rx, ry: ry)
 	}
 
+    // GENERATED NOT
+    public func round(r r: Double) -> RoundRect {
+        return RoundRect(rect: self, rx: r, ry: r)
+    }
+
 	// GENERATED NOT
 	open func contains(locus: Locus) -> Bool {
 		return false

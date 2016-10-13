@@ -19,4 +19,15 @@ open class LinearGradient: Gradient {
 		)
 	}
 
+    public init(degree: Double = 0, from: Color, to: Color) {
+        self.x1 = degree >= 135 && degree < 270 ? 1 : 0
+        self.y1 = degree < 225 ? 0 : 1
+        self.x2 = degree < 90 || degree >= 315 ? 1 : 0
+        self.y2 = degree >= 45 && degree < 180 ? 1 : 0
+        super.init(
+            userSpace: false,
+            stops: [Stop(offset: 0, color: from), Stop(offset: 1, color: to)]
+        )
+    }
+
 }

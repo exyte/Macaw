@@ -92,6 +92,8 @@
 		38A998411D91888700AC4545 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A997EA1D91888700AC4545 /* MacawView.swift */; };
 		38A998421D91888700AC4545 /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A997EB1D91888700AC4545 /* NodesMap.swift */; };
 		38A998431D91888700AC4545 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A997EC1D91888700AC4545 /* ShapeLayer.swift */; };
+		572958941DB75E400044F97F /* GroupInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572958931DB75E400044F97F /* GroupInterpolation.swift */; };
+		572958961DB75E5F0044F97F /* ContentsAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572958951DB75E5F0044F97F /* ContentsAnimation.swift */; };
 		572A64601D9EB3B400C2CA9B /* ObservableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A645F1D9EB3B400C2CA9B /* ObservableArray.swift */; };
 		57CAB1191D78173F00FD8E47 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CAB1181D78173F00FD8E47 /* RxSwift.framework */; };
 		57CAB11A1D78175800FD8E47 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57CAB1181D78173F00FD8E47 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -222,6 +224,8 @@
 		38A997EA1D91888700AC4545 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		38A997EB1D91888700AC4545 /* NodesMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesMap.swift; sourceTree = "<group>"; };
 		38A997EC1D91888700AC4545 /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
+		572958931DB75E400044F97F /* GroupInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInterpolation.swift; sourceTree = "<group>"; };
+		572958951DB75E5F0044F97F /* ContentsAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsAnimation.swift; sourceTree = "<group>"; };
 		572A645F1D9EB3B400C2CA9B /* ObservableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableArray.swift; sourceTree = "<group>"; };
 		57CAB1181D78173F00FD8E47 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
 		57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = iOS/SWXMLHash.framework; sourceTree = "<group>"; };
@@ -308,6 +312,7 @@
 		38A9978F1D91888700AC4545 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				572958931DB75E400044F97F /* GroupInterpolation.swift */,
 				38A997901D91888700AC4545 /* AnimOperators.swift */,
 				38A997911D91888700AC4545 /* DoubleInterpolation.swift */,
 				38A997921D91888700AC4545 /* Interpolable.swift */,
@@ -324,6 +329,7 @@
 				38A997A21D91888700AC4545 /* CombineAnimation.swift */,
 				38A997A31D91888700AC4545 /* OpacityAnimation.swift */,
 				38A997A41D91888700AC4545 /* TransformAnimation.swift */,
+				572958951DB75E5F0044F97F /* ContentsAnimation.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -754,6 +760,7 @@
 				38A9983E1D91888700AC4545 /* SVGParserRegexHelper.swift in Sources */,
 				38A998081D91888700AC4545 /* PanEvent.swift in Sources */,
 				38A998301D91888700AC4545 /* Transform.swift in Sources */,
+				572958961DB75E5F0044F97F /* ContentsAnimation.swift in Sources */,
 				38A998401D91888700AC4545 /* NSTimer+Closure.swift in Sources */,
 				38A9981B1D91888700AC4545 /* RadialGradient.swift in Sources */,
 				38A998371D91888700AC4545 /* ImageRenderer.swift in Sources */,
@@ -769,6 +776,7 @@
 				38A998061D91888700AC4545 /* GroupDisposable.swift in Sources */,
 				38A998391D91888700AC4545 /* RenderContext.swift in Sources */,
 				38A997FA1D91888700AC4545 /* PathFunctions.swift in Sources */,
+				572958941DB75E400044F97F /* GroupInterpolation.swift in Sources */,
 				38A998261D91888700AC4545 /* Path.swift in Sources */,
 				38A997F61D91888700AC4545 /* Interpolable.swift in Sources */,
 				38A9982A1D91888700AC4545 /* Point.swift in Sources */,

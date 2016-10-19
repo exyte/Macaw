@@ -59,7 +59,8 @@ Take a look at [getting started guide](https://github.com/exyte/Macaw/wiki/Getti
 
 ## Installation
 
-Macaw is available through [CocoaPods](http://cocoapods.org).
+## [CocoaPods](http://cocoapods.org)
+
 To install it, simply add the following line to your Podfile:
 
 ```ruby

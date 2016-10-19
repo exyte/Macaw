@@ -19,3 +19,4 @@ DerivedData
 Pods/
 contents.xcworkspacedata
 .DS_Store
+.Macaw.podspec.swp

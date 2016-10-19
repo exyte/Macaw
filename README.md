@@ -51,7 +51,9 @@ Affine transformations, user events, animation and various effects to build beau
 
 <img src="https://www.dropbox.com/s/b6lspzzqa80ielk/periodic-ipad.gif?dl=1" width="600">
 
-Take a look at [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started) to learn more.
+## Documentation
+
+We're working hard to provide full documentation. Currently you can take a look at the [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started).
 
 ## Requirements
 

@@ -62,11 +62,12 @@ Take a look at [getting started guide](https://github.com/exyte/Macaw/wiki/Getti
 ## [CocoaPods](http://cocoapods.org)
 
 To install it, simply add the following line to your Podfile:
-
 ```ruby
 pod "Macaw", "0.7.0"
 ```
+
 ## [Carthage](http://github.com/Carthage/Carthage)
+
 ```ogdl
 github "Exyte/Macaw" ~> 0.7.0
 ```

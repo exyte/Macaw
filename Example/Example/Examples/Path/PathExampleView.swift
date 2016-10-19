@@ -156,8 +156,4 @@ class PathExampleView: MacawView {
         shape.clip =  RoundRect(rect: Rect(x: 0.0, y: 0.0, w: 10, h: 10))
 		return [shape].group(place:.move(dx: 200, dy: 200))
 	}
-    
-//    fileprivate static func contentsScene() -> Node {
-//        let shape = Shape(form: Arc( )
-//    }
-//}
+}

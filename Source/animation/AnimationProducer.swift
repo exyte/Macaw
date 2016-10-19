@@ -4,19 +4,7 @@ let animationProducer = AnimationProducer()
 
 class AnimationProducer {
 
-    
 	var storedAnimations = [Node: BasicAnimation]()
-    var displayLink: CADisplayLink?
-    
-    struct ContentAnimationDesc {
-        let animation: ContentsAnimation
-        let layer: CALayer
-        let cache: AnimationCache
-        let startDate: Date
-        let finishDate: Date
-    }
-    
-    var contentsAnimations = [ContentAnimationDesc]()
 
 	func addAnimation(_ animation: BasicAnimation, withoutDelay: Bool = false) {
 
@@ -67,14 +55,10 @@ class AnimationProducer {
 			addAnimationSequence(animation)
 		case .combine:
 			addCombineAnimation(animation)
-        case .contents:
-            addContentsAnimation(animation, cache: cache)
 		case .empty:
 			executeCompletion(animation)
 		}
 	}
-    
-    // MARK: - Sequence animation
 	fileprivate func addAnimationSequence(_ animationSequnce: Animation) {
 		guard let sequence = animationSequnce as? AnimationSequence else {
 			return
@@ -127,7 +111,6 @@ class AnimationProducer {
 		}
 	}
 
-    // MARK: - Combine animation
 	fileprivate func addCombineAnimation(_ combineAnimation: Animation) {
 		guard let combine = combineAnimation as? CombineAnimation else {
 			return
@@ -194,12 +177,10 @@ class AnimationProducer {
 		}
 	}
 
-    // MARK: - Empty Animation
 	fileprivate func executeCompletion(_ emptyAnimation: BasicAnimation) {
 		emptyAnimation.completion?()
 	}
-    
-    // MARK: - Stored animation
+
 	func addStoredAnimations(_ node: Node) {
 		if let animation = storedAnimations[node] {
 			addAnimation(animation)
@@ -214,63 +195,4 @@ class AnimationProducer {
 			addStoredAnimations(child)
 		}
 	}
-    
-    // MARK: - Contents animation
-    
-    func addContentsAnimation(_ animation: BasicAnimation, cache: AnimationCache) {
-        guard let contentsAnimation = animation as? ContentsAnimation else {
-            return
-        }
-        
-        guard let node = contentsAnimation.node else {
-            return
-        }
-        
-        let startDate = Date(timeInterval: contentsAnimation.delay, since: Date())
-        
-        let animationDesc = ContentAnimationDesc(
-            animation: contentsAnimation,
-            layer: cache.layerForNode(node, animation: contentsAnimation),
-            cache: cache,
-            startDate: Date(),
-            finishDate: Date(timeInterval: contentsAnimation.duration, since: startDate))
-        
-        contentsAnimations.append(animationDesc)
-        
-        if displayLink == .none {
-            displayLink = CADisplayLink(target: self, selector: #selector(updateContentAnimations))
-            displayLink?.frameInterval = 1
-            displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-        }
-        
-        
-    }
-    
-    @objc func updateContentAnimations() {
-        if contentsAnimations.count == 0 {
-            displayLink?.invalidate()
-            displayLink = .none
-        }
-        
-        let currentDate = Date()
-        for (index, animationDesc) in contentsAnimations.enumerated() {
-            
-            let animation = animationDesc.animation
-            guard let node = animation.node else {
-                continue
-            }
-            
-            let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration
-            if progress >= 1.0 {
-                animation.completion?()
-                contentsAnimations.remove(at: index)
-                animationDesc.cache.freeLayer(node)
-                continue
-            }
-            
-            animation.getVFunc()(progress)
-            animationDesc.layer.setNeedsDisplay()
-            animation.onProgressUpdate?(progress)
-        }
-    }
 }

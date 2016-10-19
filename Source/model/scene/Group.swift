@@ -3,15 +3,10 @@ import RxSwift
 
 open class Group: Node {
 
-	open var contentsVar: AnimatableVariable<[Node]>
-    open var contents: [Node] {
-        get { return contentsVar.value }
-        set(val) { contentsVar.value = val }
-    }
-
+	open var contents: ObservableArray<Node>
 
 	public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
-		self.contentsVar = AnimatableVariable<[Node]>(contents)
+		self.contents = ObservableArray<Node>(contents)
 		super.init(
 			place: place,
 			opaque: opaque,
@@ -21,8 +16,6 @@ open class Group: Node {
 			visible: visible,
 			tag: tag
 		)
-        
-        
 	}
 
 	// GENERATED NOT

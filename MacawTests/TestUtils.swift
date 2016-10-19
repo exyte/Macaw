@@ -11,7 +11,7 @@ class TestUtils {
 				let group = SVGParser.parse(text: svgString)
 				let referenceArray = TestUtils.prepareParametersList(Mirror(reflecting: referenceObject))
 				let parametersArray = TestUtils.prepareParametersList(Mirror(reflecting: group))
-				return referenceArray.elementsEqual(parametersArray, isEquivalent: { first, second in
+				return referenceArray.elementsEqual(parametersArray, by: { first, second in
 					return first.0 == second.0 && first.1 == second.1
 				})
 			}

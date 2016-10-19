@@ -1,6 +1,7 @@
 # Xcode
 #
 build/
+.build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -20,3 +21,4 @@ Pods/
 contents.xcworkspacedata
 .DS_Store
 .Macaw.podspec.swp
+.Package.swift.swp

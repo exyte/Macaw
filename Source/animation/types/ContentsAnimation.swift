@@ -18,14 +18,3 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
         }
     }
 }
-
-public typealias ContentsAnimationDescription = AnimationDescription<[Node]>
-
-public extension AnimatableVariable where T: GroupInterpolation {
-    
-    public func animation(_ f: @escaping (Double, [Node]) -> Void, during: Double, delay: Double = 0.0) -> Animation {
-        let group = node! as! Group
-        return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay)
-    }
-    
-}

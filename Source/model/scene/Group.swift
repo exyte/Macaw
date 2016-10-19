@@ -22,7 +22,7 @@ open class Group: Node {
 			tag: tag
 		)
         
-        self.contentsVar.node = self
+        
 	}
 
 	// GENERATED NOT

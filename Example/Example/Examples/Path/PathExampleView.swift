@@ -123,19 +123,7 @@ class PathExampleView: MacawView {
 		_ = GeomUtils.concat(t1: initialTransform, t2: GeomUtils.concat(t1: rotation, t2: initialTransform))
 		// animation = sceneGroup.placeVar.animation((initialTransform >> rotation).t(10.0))
 
-        let group = PathExampleView.newScene()
-		super.init(node: group , coder: aDecoder)
-        
-        let contentsAnim = group.contentsVar.animation({ t, nodes in
-                nodes.forEach { node in
-                    guard let shape = node as? Shape else {
-                        return
-                    }
-                    
-                    shape.fill = Color.rgb(r: Int(255.0 * t), g: Int(255.0 * (1.0 - t)), b: Int(255.0 * t))
-                }
-            }, during: 5.0)
-        contentsAnim.play()
+		super.init(node: PathExampleView.newScene(), coder: aDecoder)
 
 		let _ = sceneGroup.placeVar.asObservable().subscribeNext { transform in
 			let a = transform.m11
@@ -157,7 +145,7 @@ class PathExampleView: MacawView {
 		sceneGroup.place = rotation// GeomUtils.concat(t1: rotation, t2: initialTransform)
 	}
 
-	fileprivate static func newScene() -> Group {
+	fileprivate static func newScene() -> Node {
 		let shape = Shape(form: Rect(x: -50, y: -50, w: 100, h: 100), fill: Color.blue)
 		let t1 = Transform.identity
 		let t2 = GeomUtils.centerRotation(node: shape, place: Transform.identity, angle: M_PI_4) // Transform.rotate(angle: M_PI_4)
@@ -165,11 +153,11 @@ class PathExampleView: MacawView {
 			shape.placeVar.animate(from: t1, to: t2, during: 2.0)
 		}
         
-        // shape.clip =  RoundRect(rect: Rect(x: 0.0, y: 0.0, w: 10, h: 10))
+        shape.clip =  RoundRect(rect: Rect(x: 0.0, y: 0.0, w: 10, h: 10))
 		return [shape].group(place:.move(dx: 200, dy: 200))
 	}
     
 //    fileprivate static func contentsScene() -> Node {
 //        let shape = Shape(form: Arc( )
 //    }
-}
+//}

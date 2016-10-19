@@ -78,24 +78,24 @@ class MacawTests: XCTestCase {
 		let polyline = Polyline(points: [0, 40, 40, 40, 40, 80, 80, 80, 80, 120, 120, 120, 120, 160])
 
 		return Group(contents: [Shape(form: polyline,
-			stroke: Stroke(fill: Color.red, width: 4, cap: .round, join: .round),
-			fill: Color.white)])
+		                              fill: Color.white,
+		                              stroke: Stroke(fill: Color.red, width: 4, cap: .round, join: .round))])
 	}
 
 	func createCircleReferenceObject() -> Group {
 		let circle = Circle(cx: 50, cy: 50, r: 40)
 
 		return Group(contents: [Shape(form: circle,
-			stroke: Stroke(fill: Color.black, width: 3, cap: .round, join: .round),
-			fill: Color.red)])
+		                              fill: Color.red,
+		                              stroke: Stroke(fill: Color.black, width: 3, cap: .round, join: .round))])
 	}
 
 	func createEllipseReferenceObject() -> Group {
 		let ellipse = Ellipse(cx: 200, cy: 80, rx: 100, ry: 50)
 
 		return Group(contents: [Shape(form: ellipse,
-			stroke: Stroke(fill: Color.purple, width: 2, cap: .round, join: .round),
-			fill: Color.yellow)])
+		                              fill: Color.yellow,
+		                              stroke: Stroke(fill: Color.purple, width: 2, cap: .round, join: .round))])
 	}
 
 	func createGroupReferenceObject() -> Group {

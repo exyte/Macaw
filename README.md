@@ -1,6 +1,6 @@
 # Macaw
 
-[![CI Status](http://img.shields.io/travis/Igor Zapletnev/Macaw.svg?style=flat)](https://travis-ci.org/Igor Zapletnev/Macaw)
+[![CI Status](https://travis-ci.org/exyte/Macaw.svg?branch=0.7.0)](https://travis-ci.org/exyte/Macaw)
 [![Version](https://img.shields.io/cocoapods/v/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![License](https://img.shields.io/cocoapods/l/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![Platform](https://img.shields.io/cocoapods/p/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
@@ -63,7 +63,11 @@ Macaw is available through [CocoaPods](http://cocoapods.org).
 To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod "Macaw"
+pod "Macaw", "0.7.0"
+```
+## [Carthage](http://github.com/Carthage/Carthage)
+```ogdl
+github "Exyte/Macaw" ~> 0.7.0
 ```
 
 ## Building from sources

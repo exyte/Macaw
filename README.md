@@ -51,6 +51,10 @@ Affine transformations, user events, animation and various effects to build beau
 
 <img src="https://www.dropbox.com/s/b6lspzzqa80ielk/periodic-ipad.gif?dl=1" width="600">
 
+## Motivation
+
+Modern designs contain tons of illustrations and complex animations. Mobile developers have to spend a lot of time on converting designs into native views that will be resizable for different screens. With Macaw you can reduce development time to a minimum and describe all graphics in high level [scene](https://en.wikipedia.org/wiki/Scene_graph) elements. Or even render SVG graphics right from your design tool with Macaw events and animation support.
+
 ## Documentation
 
 We're working hard to provide full documentation. Currently you can take a look at the [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started).

@@ -17,7 +17,7 @@ class GroupRenderer: NodeRenderer {
 	override func doAddObservers() {
 		super.doAddObservers()
 		observe(group.contents.rx_elements())
-		addDisposable(group.contents.rx_elements().subscribeNext { event in self.updateRenderers() })
+		addDisposable(group.contents.rx_elements().subscribe { _ in self.updateRenderers() })
 	}
 
 	override func node() -> Node {

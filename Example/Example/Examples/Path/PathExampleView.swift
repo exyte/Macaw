@@ -125,7 +125,11 @@ class PathExampleView: MacawView {
 
 		super.init(node: PathExampleView.newScene(), coder: aDecoder)
 
-		let _ = sceneGroup.placeVar.asObservable().subscribeNext { transform in
+		let _ = sceneGroup.placeVar.asObservable().subscribe { event in
+            guard let transform  = event.element else {
+                return
+            }
+            
 			let a = transform.m11
 			let b = transform.m12
 			let sx = a / fabs(a) * sqrt(a * a + b * b)
@@ -149,7 +153,7 @@ class PathExampleView: MacawView {
 		let shape = Shape(form: Rect(x: -50, y: -50, w: 100, h: 100), fill: Color.blue)
 		let t1 = Transform.identity
 		let t2 = GeomUtils.centerRotation(node: shape, place: Transform.identity, angle: M_PI_4) // Transform.rotate(angle: M_PI_4)
-		_ = shape.onTap.subscribeNext { tap in
+		_ = shape.onTap.subscribe { _ in
 			shape.placeVar.animate(from: t1, to: t2, during: 2.0)
 		}
         

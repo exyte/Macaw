@@ -36,13 +36,21 @@ class ShapesEventsExampleView: MacawView {
         
         super.init(node: group, coder: aDecoder)
         
-        _ = shape1.onPan.subscribeNext { pan in
+        _ = shape1.onPan.subscribe { event in
+            guard let pan = event.element else {
+                return
+            }
+            
             let node = shape1 as Node
             let newPos = node.place.move(dx: Double(pan.dx), dy: Double(pan.dy))
             node.place = newPos
         }
         
-        _ = shape1.onRotate.subscribeNext { rotate in
+        _ = shape1.onRotate.subscribe { event in
+            guard let rotate = event.element else {
+                return
+            }
+            
             let node = shape1 as Node
             var newPos = node.place.move(dx: 75, dy: 105)
             newPos = newPos.rotate(angle: rotate.angle)
@@ -50,7 +58,11 @@ class ShapesEventsExampleView: MacawView {
             node.place = newPos
         }
         
-        _ = shape1.onPinch.subscribeNext { pinch in
+        _ = shape1.onPinch.subscribe { event  in
+            guard let pinch = event.element else {
+                return
+            }
+            
             let node = shape1 as Node
             let scale = Double(pinch.scale)
             let newPos = node.place.scale(sx: scale, sy: scale)

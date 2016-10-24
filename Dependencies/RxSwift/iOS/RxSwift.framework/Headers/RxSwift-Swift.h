@@ -110,11 +110,16 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_UNAVAILABLE __attribute__((unavailable))
 #endif
 #if defined(__has_feature) && __has_feature(modules)
+@import ObjectiveC;
 @import Foundation;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
+
+@interface NSObject (SWIFT_EXTENSION(RxSwift))
+@end
+
 
 @interface NSRecursiveLock (SWIFT_EXTENSION(RxSwift))
 - (void)performLocked:(void (^ _Nonnull)(void))action;

@@ -64,27 +64,46 @@ open class MacawView: UIView {
 	public init?(node: Node, coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
+        initializeView()
 
-		self.context = RenderContext(view: self)
 		self.node = node
-		self.animationCache = AnimationCache(sceneLayer: self.layer)
-
 		nodesMap.add(node, view: self)
 		if let cache = self.animationCache {
 			self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
 		}
-
-		let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
-		let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
-		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
-		self.addGestureRecognizer(panRecognizer)
-		self.addGestureRecognizer(rotationRecognizer)
-		self.addGestureRecognizer(pinchRecognizer)
 	}
 
+    public convenience init(node: Node, frame: CGRect) {
+        self.init(frame:frame)
+        
+        self.node = node
+        nodesMap.add(node, view: self)
+        if let cache = self.animationCache {
+            self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+        }
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        initializeView()
+    }
+    
 	public convenience required init?(coder aDecoder: NSCoder) {
 		self.init(node: Group(), coder: aDecoder)
 	}
+    
+    fileprivate func initializeView() {
+        self.context = RenderContext(view: self)
+        self.animationCache = AnimationCache(sceneLayer: self.layer)
+        
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
+        let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+        self.addGestureRecognizer(panRecognizer)
+        self.addGestureRecognizer(rotationRecognizer)
+        self.addGestureRecognizer(pinchRecognizer)
+    }
 
 	override open func draw(_ rect: CGRect) {
 		self.context.cgContext = UIGraphicsGetCurrentContext()

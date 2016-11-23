@@ -59,6 +59,10 @@ Modern designs contain tons of illustrations and complex animations. Mobile deve
 
 We're working hard to provide full documentation. Currently you can take a look at the [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started).
 
+## Examples
+
+[Macaw-Examples](https://github.com/exyte/macaw-examples) is a repository where you can find various usages of the `Macaw` library from simple charts to the complex periodic table.
+
 ## Requirements
 
 * iOS 8.0+ / Mac OS X 10.9+

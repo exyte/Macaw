@@ -7,19 +7,25 @@ import CoreGraphics
 ///
 open class SVGParser {
 
-	/// Parse an SVG file identified by the specified name and file extension.
-	/// - returns: Root node of the corresponding Macaw scene.
-	open class func parse(path: String, ofType: String = "svg") -> Node {
-		let path = Bundle.main.path(forResource: path, ofType: ofType)
-		let text = try! String(contentsOfFile: path!, encoding: String.Encoding.utf8)
-		return SVGParser.parse(text: text)
-	}
-
-	/// Parse the specified content of an SVG file.
-	/// - returns: Root node of the corresponding Macaw scene.
-	open class func parse(text: String) -> Node {
-		return SVGParser(text).parse()
-	}
+    /// Parse an SVG file identified by the specified bundle, name and file extension.
+    /// - returns: Root node of the corresponding Macaw scene.
+    open class func parse(bundle: Bundle, path: String, ofType: String = "svg") -> Node {
+        let path = bundle.path(forResource: path, ofType: ofType)
+        let text = try! String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+        return SVGParser.parse(text: text)
+    }
+    
+    /// Parse an SVG file identified by the specified name and file extension.
+    /// - returns: Root node of the corresponding Macaw scene.
+    open class func parse(path: String, ofType: String = "svg") -> Node {
+        return SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
+    }
+    
+    /// Parse the specified content of an SVG file.
+    /// - returns: Root node of the corresponding Macaw scene.
+    open class func parse(text: String) -> Node {
+        return SVGParser(text).parse()
+    }
 
 	let moveToAbsolute = Character("M")
 	let moveToRelative = Character("m")

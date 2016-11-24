@@ -109,6 +109,8 @@
 		57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12D1D7832E000FD8E47 /* triangle.svg */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		662808C41DE6BC9900A61B95 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662808C31DE6BC9900A61B95 /* CGFloat+Double.swift */; };
+		66EA4AE41DE5AE030011818C /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA4AE31DE5AE030011818C /* SVGView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,6 +241,8 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		662808C31DE6BC9900A61B95 /* CGFloat+Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Double.swift"; sourceTree = "<group>"; };
+		66EA4AE31DE5AE030011818C /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -461,6 +465,7 @@
 			children = (
 				38A997E41D91888700AC4545 /* SVGParser.swift */,
 				38A997E51D91888700AC4545 /* SVGParserRegexHelper.swift */,
+				66EA4AE31DE5AE030011818C /* SVGView.swift */,
 			);
 			path = svg;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 			children = (
 				38A997E71D91888700AC4545 /* CAAnimationClosure.swift */,
 				38A997E81D91888700AC4545 /* NSTimer+Closure.swift */,
+				662808C31DE6BC9900A61B95 /* CGFloat+Double.swift */,
 			);
 			path = thirdparty;
 			sourceTree = "<group>";
@@ -719,6 +725,7 @@
 				38A997ED1D91888700AC4545 /* AnimatableVariable.swift in Sources */,
 				38A9982F1D91888700AC4545 /* Size.swift in Sources */,
 				38A997FE1D91888700AC4545 /* TransformHashable.swift in Sources */,
+				662808C41DE6BC9900A61B95 /* CGFloat+Double.swift in Sources */,
 				38A997FF1D91888700AC4545 /* OpacityGenerator.swift in Sources */,
 				38A998321D91888700AC4545 /* Image.swift in Sources */,
 				38A998181D91888700AC4545 /* LinearGradient.swift in Sources */,
@@ -744,6 +751,7 @@
 				38A9983B1D91888700AC4545 /* ShapeRenderer.swift in Sources */,
 				38A998211D91888700AC4545 /* GeomUtils.swift in Sources */,
 				38A998131D91888700AC4545 /* Effect.swift in Sources */,
+				66EA4AE41DE5AE030011818C /* SVGView.swift in Sources */,
 				38A998141D91888700AC4545 /* Fill.swift in Sources */,
 				38A9983A1D91888700AC4545 /* RenderUtils.swift in Sources */,
 				38A998201D91888700AC4545 /* Ellipse.swift in Sources */,

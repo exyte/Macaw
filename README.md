@@ -31,17 +31,7 @@ class MyView: MacawView {
 
 #### It has SVG support
 
-Include Scalable Vector Graphics right into your application:
-
-```swift
-class SVGView: MacawView {
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(node: SVGParser.parse(path: "tiger"), coder: aDecoder)
-    }
-
-}
-```
+Include Scalable Vector Graphics right into your iOS application:
 
 <img src="https://www.dropbox.com/s/p84o7komopmb2yn/macaw-howto-004.png?dl=1" width="475">
 
@@ -57,7 +47,9 @@ Modern designs contain tons of illustrations and complex animations. Mobile deve
 
 ## Documentation
 
-We're working hard to provide full documentation. Currently you can take a look at the [getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started).
+We're working hard to provide full documentation. Currently you can take a look at next docs:
+* [Getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started)
+* [Render SVG file](https://github.com/exyte/Macaw/wiki/Render-SVG-file)
 
 ## Examples
 

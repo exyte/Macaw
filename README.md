@@ -47,7 +47,7 @@ Modern designs contain tons of illustrations and complex animations. Mobile deve
 
 ## Documentation
 
-We're working hard to provide full documentation. Currently you can take a look at next docs:
+We're working hard to provide full documentation. Currently you can take a look at the following docs:
 * [Getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started)
 * [Render SVG file](https://github.com/exyte/Macaw/wiki/Render-SVG-file)
 

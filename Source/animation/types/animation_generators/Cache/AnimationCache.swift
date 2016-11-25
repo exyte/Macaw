@@ -21,17 +21,18 @@ class AnimationCache {
 		self.sceneLayer = sceneLayer
 	}
 
-	func layerForNode(_ node: Node, animation: Animation) -> ShapeLayer {
+    func layerForNode(_ node: Node, animation: Animation, customBounds: Rect? = .none) -> ShapeLayer {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
 			layer.animationCache = self
 
 			// Use to debug animation layers
-			// layer.backgroundColor = UIColor.greenColor().CGColor
+			// layer.backgroundColor = UIColor.green.cgColor
 			// layer.borderWidth = 1.0
-			// layer.borderColor = UIColor.blueColor().CGColor
+			// layer.borderColor = UIColor.blue.cgColor
 
-			if let shapeBounds = node.bounds() {
+            let calculatedBounds = customBounds ?? node.bounds()
+			if let shapeBounds = calculatedBounds {
 				let cgRect = shapeBounds.cgRect()
 
 				let origFrame = CGRect(x: 0.0, y: 0.0,

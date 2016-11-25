@@ -56,8 +56,18 @@ open class Shape: Node {
 				y: ellipse.cy - ellipse.ry,
 				w: ellipse.rx * 2.0,
 				h: ellipse.ry * 2.0)
+        } else if let arc = form as? Arc {
+            let ellipse = arc.ellipse            
+            bounds = Rect(
+                x: ellipse.cx - ellipse.rx,
+                y: ellipse.cy - ellipse.ry,
+                w: ellipse.rx * 2.0,
+                h: ellipse.ry * 2.0)
+            
 		} else if let rect = form as? Rect {
 			bounds = rect
+        } else if let roundRect = form as? RoundRect {
+            bounds = roundRect.rect
 		} else {
 			bounds = form.bounds()
 		}

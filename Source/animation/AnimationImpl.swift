@@ -11,6 +11,7 @@ import RxSwift
 
 enum AnimationType {
 	case unknown
+    case contents
 	case affineTransformation
 	case opacity
 	case sequence

@@ -2,7 +2,7 @@ import UIKit
 
 open class SVGView: MacawView {
     
-    @IBInspectable var fileName: String? {
+    @IBInspectable open var fileName: String? {
         didSet {
             render()
         }

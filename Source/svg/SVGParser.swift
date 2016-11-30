@@ -235,10 +235,10 @@ open class SVGParser {
 			case "rotate":
 				if let angle = Double(values[0]) {
 					if values.count == 1 {
-						finalTransform = transform.rotate(angle: angle)
+						finalTransform = transform.rotate(angle: degreesToRadians(angle))
 					} else if values.count == 3 {
 						if let x = Double(values[1]), let y = Double(values[2]) {
-							finalTransform = transform.move(dx: x, dy: y).rotate(angle: angle).move(dx: -x, dy: -y)
+							finalTransform = transform.move(dx: x, dy: y).rotate(angle: degreesToRadians(angle)).move(dx: -x, dy: -y)
 						}
 					}
 				}
@@ -1219,4 +1219,9 @@ open class SVGParser {
 		}
 		return .none
 	}
+    
+    fileprivate func degreesToRadians(_ degrees: Double) -> Double {
+        return degrees * .pi / 180
+    }
+    
 }

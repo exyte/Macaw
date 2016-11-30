@@ -121,7 +121,7 @@ open class MacawView: UIView {
                 
                 var parent: Node? = node
                 while parent != .none {
-                    parent?.onTap.onNext(TapEvent(location: Point(x: Double(loc.x), y: Double(loc.y))))
+                    parent?.handleTap(TapEvent(location: Point(x: Double(loc.x), y: Double(loc.y))))
                     parent = nodesMap.parents(parent!).first
                 }
             }
@@ -137,7 +137,7 @@ open class MacawView: UIView {
             let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
             let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
             let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
-            node.onPan.onNext(PanEvent(dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale)))
+            node.handlePan(PanEvent(dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale)))
         }
     }
     
@@ -145,7 +145,7 @@ open class MacawView: UIView {
         let rotation = Double(recognizer.rotation)
         recognizer.rotation = 0
         if let node = self.touched {
-            node.onRotate.onNext(RotateEvent(angle: rotation))
+            node.handleRotate(RotateEvent(angle: rotation))
         }
     }
     
@@ -153,7 +153,7 @@ open class MacawView: UIView {
         let scale = Double(recognizer.scale)
         recognizer.scale = 1
         if let node = self.touched {
-            node.onPinch.onNext(PinchEvent(scale: scale))
+            node.handlePinch(PinchEvent(scale: scale))
         }
     }
     

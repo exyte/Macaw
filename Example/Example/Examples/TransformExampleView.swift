@@ -39,18 +39,19 @@ class TransformExampleView: MacawView {
 			combines.append(GeomUtils.concat(t1: transform, t2: combines.last!))
 		}
 		var state = 0
-		_ = shape.onTap.subscribe { _ in
- 
-			if (state < textes.contents.count) {
-				textes.contents[state].opacityVar.animate(from: 0.0, to: 1.0, during: 0.6)
-			} else {
-				for item in textes.contents {
-					item.opacityVar.animate(from: 1.0, to: 0.0, during: 0.6)
-				}
-			}
-			state = (state + 1) % 5;
-			shape.placeVar.animate(to: combines[state], during: 0.6)
-		}
+
+        shape.onTap { _ in
+            if (state < textes.contents.count) {
+                textes.contents[state].opacityVar.animate(from: 0.0, to: 1.0, during: 0.6)
+            } else {
+                for item in textes.contents {
+                    item.opacityVar.animate(from: 1.0, to: 0.0, during: 0.6)
+                }
+            }
+            state = (state + 1) % 5;
+            shape.placeVar.animate(to: combines[state], during: 0.6)
+        }
+        
 		return Group(contents: [newAxes(), shape, textes], place: .move(dx: 10, dy: 30))
 	}
 

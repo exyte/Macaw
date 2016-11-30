@@ -1,6 +1,5 @@
 import UIKit
 import Macaw
-import RxSwift
 
 class AnimationsView: MacawView {
 

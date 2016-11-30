@@ -1,6 +1,5 @@
 import Foundation
 import UIKit
-import RxSwift
 
 class GroupRenderer: NodeRenderer {
 
@@ -16,8 +15,10 @@ class GroupRenderer: NodeRenderer {
 
 	override func doAddObservers() {
 		super.doAddObservers()
-		observe(group.contentsVar.asObservable())
-		addDisposable(group.contentsVar.asObservable().subscribe { _ in self.updateRenderers() })
+        
+        group.contentsVar.onChange { _ in
+            self.updateRenderers()
+        }
 	}
 
 	override func node() -> Node {

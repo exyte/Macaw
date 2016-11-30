@@ -151,17 +151,13 @@ class PathExampleView: MacawView {
         
         super.init(node: group , coder: aDecoder)
 
-		let _ = sceneGroup.placeVar.asObservable().subscribe { event in
-            guard let transform  = event.element else {
-                return
-            }
+        sceneGroup.placeVar.onChange { transform in
+            let a = transform.m11
+            let b = transform.m12
+            let sx = a / fabs(a) * sqrt(a * a + b * b)
             
-			let a = transform.m11
-			let b = transform.m12
-			let sx = a / fabs(a) * sqrt(a * a + b * b)
-
-			self.onScaleUpdate?(sx)
-		}
+            self.onScaleUpdate?(sx)
+        }
 	}
 
 	func testAnimation() {

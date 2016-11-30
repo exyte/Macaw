@@ -1,6 +1,4 @@
 
-import RxSwift
-
 internal class OpacityAnimation: AnimationImpl<Double> {
 
 	convenience init(animatedNode: Node, startValue: Double, finalValue: Double, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {

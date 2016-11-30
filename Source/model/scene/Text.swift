@@ -1,5 +1,4 @@
 import UIKit
-import RxSwift
 
 open class Text: Node {
 

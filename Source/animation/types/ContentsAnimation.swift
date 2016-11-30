@@ -1,4 +1,3 @@
-import RxSwift
 
 internal class ContentsAnimation: AnimationImpl<[Node]> {
     

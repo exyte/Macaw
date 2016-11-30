@@ -6,13 +6,12 @@
 //
 //
 
-import RxSwift
 
-open class GroupDisposable: Disposable {
+open class GroupDisposable {
 
 	fileprivate var items: [Disposable] = []
 
-	open func dispose() {
+	open  func dispose() {
 		for disposable in items {
 			disposable.dispose()
 		}

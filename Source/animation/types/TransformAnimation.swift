@@ -1,4 +1,3 @@
-import RxSwift
 
 internal class TransformAnimation: AnimationImpl<Transform> {
 

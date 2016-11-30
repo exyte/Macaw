@@ -6,9 +6,14 @@
 //
 //
 
-import RxSwift
 import Foundation
 
+
+open class AnimatableVariable<T: Interpolable>: Variable<T> {
+    internal var node: Node?
+}
+
+/*
 open class AnimatableVariable<T: Interpolable> {
     
     internal var node: Node?
@@ -54,8 +59,8 @@ open class AnimatableVariable<T: Interpolable> {
     /**
      - returns: Canonical interface for push style sequence
      */
-    public func asObservable() -> Observable<T> {
-        return _subject
+//    public func asObservable() -> Observable<T> {
+//        return _subject
     }
     
     deinit {
@@ -63,3 +68,4 @@ open class AnimatableVariable<T: Interpolable> {
     }
     
 }
+*/

@@ -1,5 +1,4 @@
 import Foundation
-import RxSwift
 
 open class Node: Drawable {
 
@@ -33,10 +32,79 @@ open class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
-    public let onTap = PublishSubject<TapEvent>()
-    public let onPan = PublishSubject<PanEvent>()
-    public let onRotate = PublishSubject<RotateEvent>()
-    public let onPinch = PublishSubject<PinchEvent>()
+    var tapHandlers = [ChangeHandler<TapEvent>]()
+    var panHandlers = [ChangeHandler<PanEvent>]()
+    var rotateHandlers = [ChangeHandler<RotateEvent>]()
+    var pinchHandlers = [ChangeHandler<PinchEvent>]()
+    
+    @discardableResult public func onTap(_ f: @escaping (TapEvent) -> ()) -> Disposable  {
+        let handler = ChangeHandler<TapEvent>(f)
+        tapHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.tapHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.tapHandlers.remove(at: index)
+        })
+    }
+
+    @discardableResult public func onPan(_ f: @escaping (PanEvent) -> ()) -> Disposable  {
+        let handler = ChangeHandler<PanEvent>(f)
+        panHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.panHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.panHandlers.remove(at: index)
+        })
+    }
+    
+    @discardableResult public func onRotate(_ f: @escaping (RotateEvent) -> ()) -> Disposable  {
+        let handler = ChangeHandler<RotateEvent>(f)
+        rotateHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.rotateHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.rotateHandlers.remove(at: index)
+        })
+    }
+    
+    @discardableResult public func onPinch(_ f: @escaping (PinchEvent) -> ()) -> Disposable  {
+        let handler = ChangeHandler<PinchEvent>(f)
+        pinchHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.pinchHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.pinchHandlers.remove(at: index)
+        })
+    }
+    
+    func handleTap( _ event: TapEvent ) {
+        tapHandlers.forEach { handler in handler.handle(event) }
+    }
+    
+    func handlePan( _ event: PanEvent ) {
+        panHandlers.forEach { handler in handler.handle(event) }
+    }
+    
+    func handleRotate( _ event: RotateEvent ) {
+        rotateHandlers.forEach { handler in handler.handle(event) }
+    }
+    
+    func handlePinch( _ event: PinchEvent ) {
+        pinchHandlers.forEach { handler in handler.handle(event) }
+    }
+
 
 	public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.placeVar = AnimatableVariable<Transform>(place)

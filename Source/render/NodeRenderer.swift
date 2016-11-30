@@ -1,12 +1,11 @@
 import Foundation
 import UIKit
-import RxSwift
 
 class NodeRenderer {
 
 	let ctx: RenderContext
 
-	fileprivate let onNodeChange: (Any) -> Void
+	fileprivate let onNodeChange: ()->()
 	fileprivate let disposables = GroupDisposable()
 	fileprivate var active = false
 	let animationCache: AnimationCache
@@ -14,28 +13,24 @@ class NodeRenderer {
 	init(node: Node, ctx: RenderContext, animationCache: AnimationCache) {
 		self.ctx = ctx
 		self.animationCache = animationCache
-		onNodeChange = { (_: Any) in ctx.view?.setNeedsDisplay() }
+		onNodeChange = { ctx.view?.setNeedsDisplay() }
 		addObservers()
 	}
 
 	func doAddObservers() {
-		observeAnimatable(node().placeVar)
-		observe(node().opaqueVar)
-		observeAnimatable(node().opacityVar)
-		observe(node().clipVar)
-		observe(node().effectVar)
+        observe(node().placeVar)
+        observe(node().opaqueVar)
+        observe(node().opacityVar)
+        observe(node().clipVar)
+        observe(node().effectVar)
 	}
 
-	func observeAnimatable<E>(_ variable: AnimatableVariable<E>) {
-		observe(variable.asObservable())
-	}
-    
-    func observe<E>(_ variable: Variable<E>) {
-        observe(variable.asObservable())
-    }
-
-	func observe<E>(_ observable: Observable<E>) {
-		addDisposable(observable.subscribe(onNext: onNodeChange))
+    func observe<E>(_ v: Variable<E>) {
+        let disposable = v.onChange { _ in
+            self.onNodeChange()
+        }
+        
+        addDisposable(disposable)
 	}
 
 	func addDisposable(_ disposable: Disposable) {

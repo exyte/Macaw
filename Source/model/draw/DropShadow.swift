@@ -1,5 +1,4 @@
 import Foundation
-import RxSwift
 
 open class DropShadow: Effect {
 

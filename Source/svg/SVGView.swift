@@ -8,6 +8,12 @@ open class SVGView: MacawView {
         }
     }
     
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        
+        render()
+    }
+    
     private func render() {
         let viewBounds = self.bounds
         let svgNode = SVGParser.parse(

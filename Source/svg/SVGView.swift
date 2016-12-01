@@ -14,6 +14,7 @@ open class SVGView: MacawView {
         render()
     }
     
+    private let rootNode = Group()
     private func render() {
         let viewBounds = self.bounds
         let svgNode = SVGParser.parse(
@@ -122,7 +123,9 @@ open class SVGView: MacawView {
                 break
             }
         }
-        self.node = svgNode
+        
+        rootNode.contents = [svgNode]
+        self.node = rootNode
     }
     
     private func getMidX(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {

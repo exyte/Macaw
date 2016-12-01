@@ -92,11 +92,10 @@
 		38A998411D91888700AC4545 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A997EA1D91888700AC4545 /* MacawView.swift */; };
 		38A998421D91888700AC4545 /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A997EB1D91888700AC4545 /* NodesMap.swift */; };
 		38A998431D91888700AC4545 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A997EC1D91888700AC4545 /* ShapeLayer.swift */; };
-		572A64601D9EB3B400C2CA9B /* ObservableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572A645F1D9EB3B400C2CA9B /* ObservableArray.swift */; };
 		57653CA51DBA674200F6B64D /* ContentsAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57653CA41DBA674200F6B64D /* ContentsAnimation.swift */; };
 		57653CA91DBAF82B00F6B64D /* GroupInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57653CA81DBAF82B00F6B64D /* GroupInterpolation.swift */; };
-		57CAB1191D78173F00FD8E47 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CAB1181D78173F00FD8E47 /* RxSwift.framework */; };
-		57CAB11A1D78175800FD8E47 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57CAB1181D78173F00FD8E47 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5766F5821DF020620066E1B8 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766F5801DF020620066E1B8 /* Disposable.swift */; };
+		5766F5831DF020620066E1B8 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5766F5811DF020620066E1B8 /* Variable.swift */; };
 		57CAB11C1D78177900FD8E47 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */; };
 		57CAB11D1D78178000FD8E47 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1221D782DFC00FD8E47 /* TestUtils.swift */; };
@@ -133,7 +132,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				57CAB11D1D78178000FD8E47 /* SWXMLHash.framework in CopyFiles */,
-				57CAB11A1D78175800FD8E47 /* RxSwift.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,10 +224,10 @@
 		38A997EA1D91888700AC4545 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		38A997EB1D91888700AC4545 /* NodesMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesMap.swift; sourceTree = "<group>"; };
 		38A997EC1D91888700AC4545 /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
-		572A645F1D9EB3B400C2CA9B /* ObservableArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableArray.swift; sourceTree = "<group>"; };
 		57653CA41DBA674200F6B64D /* ContentsAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsAnimation.swift; sourceTree = "<group>"; };
 		57653CA81DBAF82B00F6B64D /* GroupInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInterpolation.swift; sourceTree = "<group>"; };
-		57CAB1181D78173F00FD8E47 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
+		5766F5801DF020620066E1B8 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
+		5766F5811DF020620066E1B8 /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
 		57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = iOS/SWXMLHash.framework; sourceTree = "<group>"; };
 		57CAB1221D782DFC00FD8E47 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		57CAB1251D7832E000FD8E47 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				57CAB11C1D78177900FD8E47 /* SWXMLHash.framework in Frameworks */,
-				57CAB1191D78173F00FD8E47 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +360,8 @@
 		38A997A51D91888700AC4545 /* bindings */ = {
 			isa = PBXGroup;
 			children = (
-				572A645F1D9EB3B400C2CA9B /* ObservableArray.swift */,
+				5766F5801DF020620066E1B8 /* Disposable.swift */,
+				5766F5811DF020620066E1B8 /* Variable.swift */,
 				38A997A61D91888700AC4545 /* GroupDisposable.swift */,
 			);
 			path = bindings;
@@ -515,27 +513,10 @@
 		57D2020D1D78044A00A90D4F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				57D2020E1D78044A00A90D4F /* RxSwift */,
 				57D202131D78044A00A90D4F /* SWXMLHash */,
 			);
 			path = Dependencies;
 			sourceTree = SOURCE_ROOT;
-		};
-		57D2020E1D78044A00A90D4F /* RxSwift */ = {
-			isa = PBXGroup;
-			children = (
-				57D2020F1D78044A00A90D4F /* iOS */,
-			);
-			path = RxSwift;
-			sourceTree = "<group>";
-		};
-		57D2020F1D78044A00A90D4F /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				57CAB1181D78173F00FD8E47 /* RxSwift.framework */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
 		};
 		57D202131D78044A00A90D4F /* SWXMLHash */ = {
 			isa = PBXGroup;
@@ -714,7 +695,6 @@
 				38A998031D91888700AC4545 /* CombineAnimation.swift in Sources */,
 				38A998361D91888700AC4545 /* GroupRenderer.swift in Sources */,
 				38A997F91D91888700AC4545 /* PathBounds.swift in Sources */,
-				572A64601D9EB3B400C2CA9B /* ObservableArray.swift in Sources */,
 				38A998271D91888700AC4545 /* PathBuilder.swift in Sources */,
 				38A9983C1D91888700AC4545 /* TextRenderer.swift in Sources */,
 				38A9981E1D91888700AC4545 /* Arc.swift in Sources */,
@@ -740,6 +720,7 @@
 				38A998341D91888700AC4545 /* Shape.swift in Sources */,
 				38A998111D91888700AC4545 /* Drawable.swift in Sources */,
 				38A998291D91888700AC4545 /* PathSegmentType.swift in Sources */,
+				5766F5821DF020620066E1B8 /* Disposable.swift in Sources */,
 				38A998411D91888700AC4545 /* MacawView.swift in Sources */,
 				38A998191D91888700AC4545 /* LineCap.swift in Sources */,
 				38A998051D91888700AC4545 /* TransformAnimation.swift in Sources */,
@@ -787,6 +768,7 @@
 				38A997FA1D91888700AC4545 /* PathFunctions.swift in Sources */,
 				38A998261D91888700AC4545 /* Path.swift in Sources */,
 				38A997F61D91888700AC4545 /* Interpolable.swift in Sources */,
+				5766F5831DF020620066E1B8 /* Variable.swift in Sources */,
 				38A9982A1D91888700AC4545 /* Point.swift in Sources */,
 				38A9981A1D91888700AC4545 /* LineJoin.swift in Sources */,
 				38A997F81D91888700AC4545 /* FuncBounds.swift in Sources */,

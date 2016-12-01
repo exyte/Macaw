@@ -37,14 +37,19 @@ class ShapeRenderer: NodeRenderer {
 		} else if let _ = shape.fill {
 			drawingMode = .fill
 		}
-
-		var contains = false
-		if let mode = drawingMode {
-			contains = ctx.cgContext!.pathContains(location, mode: mode)
-		}
-		if contains {
-            return node()
-		}
+        
+        var contains = false
+        if let mode = drawingMode {
+            for x in Int(location.x - 5.0)...Int(location.x + 5.0) {
+                for y in Int(location.y - 5.0)...Int(location.y + 5.0) {
+                    contains = ctx.cgContext!.pathContains(CGPoint(x: x, y: y), mode: mode)
+                    
+                    if contains {
+                        return node()
+                    }
+                }
+            }
+        }
 
 		// Prepare for next figure hittesting - clear current context path
 		ctx.cgContext!.beginPath()

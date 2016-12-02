@@ -23,6 +23,8 @@ open class MacawView: UIView {
             if let _ = superview {
                 animationProducer.addStoredAnimations(node)
             }
+            
+            self.setNeedsDisplay()
         }
     }
     

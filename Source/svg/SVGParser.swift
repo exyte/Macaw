@@ -53,6 +53,7 @@ open class SVGParser {
 	fileprivate var nodes = [Node]()
 	fileprivate var defNodes = [String: Node]()
 	fileprivate var defFills = [String: Fill]()
+    fileprivate var defMasks = [String: Locus]()
 
 	fileprivate enum PathCommandType {
 		case moveTo
@@ -117,6 +118,9 @@ open class SVGParser {
 			if let fill = parseFill(child) {
 				self.defFills[id] = fill
 			}
+            if let mask = parseMask(child) {
+                self.defMasks[id] = mask
+            }
 		}
 	}
 
@@ -159,6 +163,8 @@ open class SVGParser {
 				return parseText(node, fill: getFillColor(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), pos: position)
 			case "use":
 				return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
+            case "mask":
+                break
 			default:
 				print("SVG parsing error. Shape \(element.name) not supported")
 				return .none
@@ -692,6 +698,13 @@ open class SVGParser {
 			if let line = stroke {
 				shape.stroke = line
 			}
+            if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
+                let maskString = element.attributes["mask"] ?? ""
+                let fullRange = NSMakeRange(0, maskString.characters.count)
+                if let match = maskIdenitifierMatcher.firstMatch(in: maskString, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(maskString as NSString).substring(with: match.rangeAt(1))] {
+                        shape.clip = maskReferenceNode
+                }
+            }
 			return shape
 		}
 		if let text = node as? Text {
@@ -702,6 +715,27 @@ open class SVGParser {
 		}
 		return node
 	}
+    
+    fileprivate func parseMask(_ mask: XMLIndexer) -> Locus? {
+        guard let element = mask.element else {
+            return .none
+        }
+        var node: Node?
+        mask.children.forEach { indexer in
+            if let useNode = parseUse(indexer, fill: .none, stroke: .none, pos: Transform(), opacity: 0) {
+                node = useNode
+            } else if let contentNode = parseNode(indexer) {
+                node = contentNode
+            }
+        }
+        guard let shape = node as? Shape else {
+            return .none
+        }
+        if let circle = shape.form as? Circle {
+            return circle.arc(shift: 0, extent: degreesToRadians(360))
+        }
+        return shape.form
+    }
 
 	fileprivate func parseLinearGradient(_ gradient: XMLIndexer) -> Fill? {
 		guard let element = gradient.element else {

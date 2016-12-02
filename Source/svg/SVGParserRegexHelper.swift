@@ -5,10 +5,12 @@ class SVGParserRegexHelper {
     fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*\\s*,?\\s*)+)\\)"
     fileprivate static let transformPattern = "\\-?\\d+\\.?\\d*"
     fileprivate static let textElementPattern = "<text.*?>((?s:.*))<\\/text>"
+    fileprivate static let maskIdenitifierPattern = "url\\(#((?s:.*))\\)"
     
     fileprivate static var transformMatcher: NSRegularExpression?
     fileprivate static var transformAttributeMatcher: NSRegularExpression?
     fileprivate static var textElementMatcher: NSRegularExpression?
+    fileprivate static var maskIdenitifierMatcher: NSRegularExpression?
     
     class func getTransformAttributeMatcher() -> NSRegularExpression? {
         if self.transformAttributeMatcher == nil {
@@ -41,6 +43,17 @@ class SVGParserRegexHelper {
             }
         }
         return self.textElementMatcher
+    }
+    
+    class func getMaskIdenitifierMatcher() -> NSRegularExpression? {
+        if self.maskIdenitifierMatcher == nil {
+            do {
+                self.maskIdenitifierMatcher = try NSRegularExpression(pattern: maskIdenitifierPattern, options: .caseInsensitive)
+            } catch {
+                
+            }
+        }
+        return self.maskIdenitifierMatcher
     }
     
 }

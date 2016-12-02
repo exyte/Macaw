@@ -16,10 +16,10 @@ open class SVGView: MacawView {
     
     private let rootNode = Group()
     private func render() {
+        guard let svgNode = SVGParser.parse(path: fileName ?? "") else {
+            return
+        }
         let viewBounds = self.bounds
-        let svgNode = SVGParser.parse(
-            path: fileName ?? ""
-        )
         if let nodeBounds = svgNode.bounds()?.cgRect() {
             let svgWidth = nodeBounds.origin.x + nodeBounds.width
             let svgHeight = nodeBounds.origin.y + nodeBounds.height

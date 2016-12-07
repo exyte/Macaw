@@ -338,7 +338,7 @@ open class SVGParser {
 
 	fileprivate func getFillColor(_ styleParts: [String: String]) -> Fill? {
 		guard let fillColor = styleParts["fill"] else {
-			return .none
+			return Color.black
 		}
 		if fillColor == "none" {
 			return .none

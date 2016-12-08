@@ -59,7 +59,7 @@ open class SVGParser {
 	fileprivate var nodes = [Node]()
 	fileprivate var defNodes = [String: Node]()
 	fileprivate var defFills = [String: Fill]()
-    fileprivate var defMasks = [String: Locus]()
+    fileprivate var defMasks = [String: Shape]()
 
 	fileprivate enum PathCommandType {
 		case moveTo
@@ -347,6 +347,9 @@ open class SVGParser {
 		if let fillOpacity = styleParts["fill-opacity"] {
 			opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
 		}
+        if let defaultColor = SVGConstants.colorList[fillColor] {
+            return Color(val: defaultColor)
+        }
 		if fillColor.hasPrefix("url") {
 			let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
 			let id = fillColor.substring(from: index)
@@ -651,7 +654,7 @@ open class SVGParser {
 			let attributes = getStyleAttributes([:], element: element)
 
 			return Text(text: text, font: getFont(attributes, fontName: fontName, fontSize: fontSize),
-				fill: getFillColor(attributes) ?? fill ?? Color.black, baseline: .alphabetic,
+				fill: fill ?? getFillColor(attributes) ?? Color.black, baseline: .alphabetic,
 				place: pos, opacity: getOpacity(attributes) ?? opacity)
 	}
 
@@ -701,14 +704,15 @@ open class SVGParser {
 			if let color = fill {
 				shape.fill = color
 			}
-			if let line = stroke {
-				shape.stroke = line
-			}
+            if let line = stroke {
+                shape.stroke = line
+            }
             if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
                 let maskString = element.attributes["mask"] ?? ""
                 let fullRange = NSMakeRange(0, maskString.characters.count)
                 if let match = maskIdenitifierMatcher.firstMatch(in: maskString, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(maskString as NSString).substring(with: match.rangeAt(1))] {
-                        shape.clip = maskReferenceNode
+                    shape.clip = maskReferenceNode.form
+                    shape.fill = .none
                 }
             }
 			return shape
@@ -722,7 +726,7 @@ open class SVGParser {
 		return node
 	}
     
-    fileprivate func parseMask(_ mask: XMLIndexer) -> Locus? {
+    fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
         guard let element = mask.element else {
             return .none
         }
@@ -737,10 +741,15 @@ open class SVGParser {
         guard let shape = node as? Shape else {
             return .none
         }
+        let maskShape: Shape
         if let circle = shape.form as? Circle {
-            return circle.arc(shift: 0, extent: degreesToRadians(360))
+            maskShape = Shape(form: circle.arc(shift: 0, extent: degreesToRadians(360)))
+        } else {
+            maskShape = Shape(form: shape.form)
         }
-        return shape.form
+        let maskStyleAttributes = getStyleAttributes([:], element: element)
+        maskShape.fill = getFillColor(maskStyleAttributes)
+        return maskShape
     }
 
 	fileprivate func parseLinearGradient(_ gradient: XMLIndexer) -> Fill? {

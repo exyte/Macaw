@@ -111,6 +111,7 @@
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
 		662808C41DE6BC9900A61B95 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662808C31DE6BC9900A61B95 /* CGFloat+Double.swift */; };
+		6637F0B41DF95D9D009E28F9 /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6637F0B31DF95D9D009E28F9 /* SVGConstants.swift */; };
 		66EA4AE41DE5AE030011818C /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA4AE31DE5AE030011818C /* SVGView.swift */; };
 /* End PBXBuildFile section */
 
@@ -244,6 +245,7 @@
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		662808C31DE6BC9900A61B95 /* CGFloat+Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Double.swift"; sourceTree = "<group>"; };
+		6637F0B31DF95D9D009E28F9 /* SVGConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGConstants.swift; sourceTree = "<group>"; };
 		66EA4AE31DE5AE030011818C /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -467,6 +469,7 @@
 		38A997E31D91888700AC4545 /* svg */ = {
 			isa = PBXGroup;
 			children = (
+				6637F0B31DF95D9D009E28F9 /* SVGConstants.swift */,
 				38A997E41D91888700AC4545 /* SVGParser.swift */,
 				38A997E51D91888700AC4545 /* SVGParserRegexHelper.swift */,
 				66EA4AE31DE5AE030011818C /* SVGView.swift */,
@@ -765,6 +768,7 @@
 				38A998061D91888700AC4545 /* GroupDisposable.swift in Sources */,
 				57653CA51DBA674200F6B64D /* ContentsAnimation.swift in Sources */,
 				38A998391D91888700AC4545 /* RenderContext.swift in Sources */,
+				6637F0B41DF95D9D009E28F9 /* SVGConstants.swift in Sources */,
 				38A997FA1D91888700AC4545 /* PathFunctions.swift in Sources */,
 				38A998261D91888700AC4545 /* Path.swift in Sources */,
 				38A997F61D91888700AC4545 /* Interpolable.swift in Sources */,

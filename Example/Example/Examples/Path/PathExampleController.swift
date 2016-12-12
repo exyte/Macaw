@@ -1,7 +1,8 @@
 import UIKit
 
 class PathExampleController: UIViewController {
-	var sceneView: PathExampleView?
+    
+    @IBOutlet weak var sceneView: PathExampleView?
 	@IBOutlet var slider: UISlider?
 
 	override func viewDidAppear(_ animated: Bool) {

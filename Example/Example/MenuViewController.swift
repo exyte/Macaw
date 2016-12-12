@@ -1,43 +1,46 @@
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	@IBOutlet var tableView: UITableView?
-	var pageViewController: UIPageViewController?
-	var viewControllers: [UIViewController]? {
-		didSet {
-			tableView?.reloadData()
-		}
-	}
+    
+    fileprivate var viewControllers = [
+        "FirstPageViewController",
+        "SecondPageViewController",
+        "PathExampleController",
+        "TransformExampleController",
+        "FourthPageViewController",
+        "AnimationsExampleController",
+        "ModelListenersExampleController",
+        "SVGExampleViewController",
+        "SVGChartsViewController",
+        "EventsViewController"
+    ].map {
+        UIStoryboard(name: "Main", bundle: .none).instantiateViewController(withIdentifier: $0)
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView?.reloadData()
+    }
 
-	func numberOfSections(in tableView: UITableView) -> Int {
+	open func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		guard let count = viewControllers?.count else {
-			return 0
-		}
-
-		return count
+	open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewControllers.count
 	}
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menu_cell")!
-
-		if let viewController = viewControllers?[(indexPath as NSIndexPath).row] {
-			cell.textLabel?.text = viewController.title
-		}
-
+        cell.textLabel?.text = viewControllers[indexPath.row].title
 		return cell
 	}
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let selectedCtrl = viewControllers?[(indexPath as NSIndexPath).row] else {
-			return
-		}
-
-		pageViewController?.setViewControllers([selectedCtrl],
-			direction: .forward, animated: true, completion: nil)
+	open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		self.navigationController?.pushViewController(viewControllers[indexPath.row], animated: true)
 	}
+    
 }

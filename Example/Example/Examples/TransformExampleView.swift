@@ -52,7 +52,7 @@ class TransformExampleView: MacawView {
             shape.placeVar.animate(to: combines[state], during: 0.6)
         }
         
-		return Group(contents: [newAxes(), shape, textes], place: .move(dx: 10, dy: 30))
+		return Group(contents: [newAxes(), shape, textes], place: .move(dx: 10, dy: 10))
 	}
 
 	fileprivate static func newAxes() -> Node {

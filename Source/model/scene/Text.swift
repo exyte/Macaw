@@ -65,9 +65,44 @@ open class Text: Node {
         var stringAttributes: [String: AnyObject] = [:]
         stringAttributes[NSFontAttributeName] = font
         let size = (text as NSString).size(attributes: stringAttributes)
-        if (self.baseline == Baseline.bottom) {
-            return Rect(x: 0, y: -Double(size.height), w: Double(size.width), h: Double(size.height))
-        }
-        return Rect(x: 0, y: 0, w: Double(size.width), h: Double(size.height))
+        return Rect(
+            x: calculateAlignmentOffset(font: font),
+            y: calculateBaselineOffset(font: font),
+            w: size.width.doubleValue,
+            h: size.height.doubleValue
+        )
     }
+    
+    fileprivate func calculateBaselineOffset(font: UIFont) -> Double {
+        var baselineOffset = 0.0
+        switch baseline {
+        case .alphabetic:
+            baselineOffset = font.ascender.doubleValue
+        case .bottom:
+            baselineOffset = (font.ascender - font.descender).doubleValue
+        case .mid:
+            baselineOffset = ((font.ascender - font.descender) / 2).doubleValue
+        default:
+            break
+        }
+        return -baselineOffset
+    }
+    
+    fileprivate func calculateAlignmentOffset(font: UIFont) -> Double {
+        let textAttributes = [
+            NSFontAttributeName: font
+        ]
+        let textSize = NSString(string: text).size(attributes: textAttributes)
+        var alignmentOffset = 0.0
+        switch align {
+        case .mid:
+            alignmentOffset = (textSize.width / 2).doubleValue
+        case .max:
+            alignmentOffset = textSize.width.doubleValue
+        default:
+            break
+        }
+        return -alignmentOffset
+    }
+
 }

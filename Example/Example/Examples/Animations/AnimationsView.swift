@@ -15,7 +15,9 @@ class AnimationsView: MacawView {
 	}
 
 	func startAnimation() {
-		animation!.play()
+        if let animation = self.animation {
+            animation.play()
+        }
 	}
 
 	func prepareAnimation() {
@@ -94,6 +96,8 @@ class AnimationsView: MacawView {
 	}
 
 	func stopAnimation() {
-		animation!.stop()
+        if let animation = self.animation {
+            animation.stop()
+        }
 	}
 }

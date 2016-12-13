@@ -6,15 +6,9 @@ open class MenuViewController: UIViewController, UITableViewDataSource, UITableV
     
     fileprivate var viewControllers = [
         "FirstPageViewController",
-        "SecondPageViewController",
-        "PathExampleController",
         "TransformExampleController",
-        "FourthPageViewController",
         "AnimationsExampleController",
-        "ModelListenersExampleController",
-        "SVGExampleViewController",
-        "SVGChartsViewController",
-        "EventsViewController"
+        "SVGExampleViewController"
     ].map {
         UIStoryboard(name: "Main", bundle: .none).instantiateViewController(withIdentifier: $0)
     }

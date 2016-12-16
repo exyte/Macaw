@@ -5,10 +5,22 @@ class AnimationsView: MacawView {
 
 	var animation: Animation?
 	var ballNodes = [Group]()
+    var onComplete: (() -> ()) = {}
 
 	let n = 100
 	let speed = 20.0
 	let r = 10.0
+    
+    let ballColors = [
+        Color(val: 0x1abc9c),
+        Color(val: 0x2ecc71),
+        Color(val: 0x3498db),
+        Color(val: 0x9b59b6),
+        Color(val: 0xf1c40f),
+        Color(val: 0xe67e22),
+        Color(val: 0xe67e22),
+        Color(val: 0xe74c3c)
+    ]
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(node: Group(), coder: aDecoder)
@@ -21,12 +33,15 @@ class AnimationsView: MacawView {
 	}
 
 	func prepareAnimation() {
-
 		ballNodes.removeAll()
-
+        
 		var animations = [Animation]()
 
-		let startPos = Transform.move(dx: Double(self.center.x), dy: Double(self.center.y))
+        let screenBounds = UIScreen.main.bounds
+		let startPos = Transform.move(
+            dx: Double(screenBounds.width / 2) - r,
+            dy: Double(screenBounds.height / 2) - r
+        )
 
 		var velocities = [Point]()
 		var positions = [Point]()
@@ -55,12 +70,11 @@ class AnimationsView: MacawView {
 		}
 
 		for i in 0 ... (n - 1) {
-            
 			// Node
 			let circle = Circle(cx: r, cy: r, r: r)
 			let shape = Shape(
 				form: circle,
-				fill: [Color.red, Color.green, Color.blue, Color.yellow, Color.olive, Color.purple][Int(arc4random() % 6)]
+				fill: ballColors[Int(arc4random() % 7)]
 			)
 
 			let ballGroup = Group(contents: [shape])
@@ -73,31 +87,33 @@ class AnimationsView: MacawView {
 			velocities.append(velocity)
 			positions.append(Point(x: 0.0, y: 0.0))
 
-			let anim = ballGroup.placeVar.animation({ t -> Transform in
-
+			let anim = ballGroup.placeVar.animation({ t in
 				let pos = posForTime(t, index: i)
-				positions[i] = pos
-
+                positions[i] = pos
 				return Transform().move(
 					dx: pos.x,
 					dy: pos.y)
-				}, during: 3.0)
+            }, during: 3.0)
 
 			animations.append([
 				anim,
-				ballGroup.opacityVar.animation((0.1 >> 1.0).t(3.0))].combine())
+				ballGroup.opacityVar.animation((0.1 >> 1.0).t(3.0))
+            ].combine())
 		}
 
-		animation = animations.combine()
+        animation = animations.combine().autoreversed().onComplete {
+            self.completeAnimation()
+        }
 
 		let node = Group(contents: ballNodes)
 		node.place = Transform().move(dx: startPos.dx, dy: startPos.dy)
 		self.node = node
 	}
 
-	func stopAnimation() {
-        if let animation = self.animation {
-            animation.stop()
-        }
+	func completeAnimation() {
+        self.node = Group()
+        self.prepareAnimation()
+        self.onComplete()
 	}
+    
 }

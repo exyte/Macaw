@@ -9,33 +9,17 @@ class AnimationsExampleController: UIViewController {
         super.viewWillAppear(animated)
         
         actionButton?.layer.cornerRadius = 5
-        setActionButtonState(startAction: true)
+        
+        animView?.onComplete = {
+            self.actionButton?.isEnabled = true
+        }
+        animView?.prepareAnimation()
+        actionButton?.addTarget(self, action: #selector(startAnimationAction), for: .touchUpInside)
     }
-
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-
-		animView?.prepareAnimation()
-	}
-
-	func startAnimationAction() {
-		animView?.prepareAnimation()
-		animView?.startAnimation()
-        setActionButtonState(startAction: false)
-	}
-
-	func stopAnimationAction() {
-		animView?.stopAnimation()
-        setActionButtonState(startAction: true)
-	}
     
-    fileprivate func setActionButtonState(startAction: Bool) {
-        actionButton?.setTitle(startAction ? "Start" : "Stop", for: .normal)
-        actionButton?.addTarget(
-            self,
-            action: startAction ? #selector(startAnimationAction) : #selector(stopAnimationAction),
-            for: .touchUpInside
-        )
-    }
+	func startAnimationAction() {
+		animView?.startAnimation()
+        actionButton?.isEnabled = false
+	}
     
 }

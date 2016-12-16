@@ -124,6 +124,39 @@
             </objects>
             <point key="canvasLocation" x="-839.20000000000005" y="1194.1529235382309"/>
         </scene>
+        <!--Easing-->
+        <scene sceneID="ZAe-2t-Z9R">
+            <objects>
+                <viewController storyboardIdentifier="EasingExampleController" title="Easing" id="5fD-gT-uHp" customClass="EasingExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1QR-7I-eWk"/>
+                        <viewControllerLayoutGuide type="bottom" id="CoE-Lx-8hP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bik-Jl-wDq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unP-38-iK7" customClass="EasingView" customModule="Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="unP-38-iK7" firstAttribute="leading" secondItem="Bik-Jl-wDq" secondAttribute="leading" id="1qC-8Q-Z7D"/>
+                            <constraint firstAttribute="trailing" secondItem="unP-38-iK7" secondAttribute="trailing" id="B8M-oh-ct4"/>
+                            <constraint firstItem="unP-38-iK7" firstAttribute="top" secondItem="Bik-Jl-wDq" secondAttribute="top" id="Kdm-Q9-GrA"/>
+                            <constraint firstItem="CoE-Lx-8hP" firstAttribute="top" secondItem="unP-38-iK7" secondAttribute="bottom" id="zcd-bK-a9G"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="easingView" destination="unP-38-iK7" id="dW9-el-ak2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9x5-mT-7HL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1551.2" y="1916.4917541229386"/>
+        </scene>
         <!--SVG-->
         <scene sceneID="7mv-yr-foI">
             <objects>

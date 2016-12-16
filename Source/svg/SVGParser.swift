@@ -32,21 +32,7 @@ open class SVGParser {
     open class func parse(text: String) -> Node {
         return SVGParser(text).parse()
     }
-
-	let moveToAbsolute = Character("M")
-	let moveToRelative = Character("m")
-	let lineToAbsolute = Character("L")
-	let lineToRelative = Character("l")
-	let lineHorizontalAbsolute = Character("H")
-	let lineHorizontalRelative = Character("h")
-	let lineVerticalAbsolute = Character("V")
-	let lineVerticalRelative = Character("v")
-	let curveToAbsolute = Character("C")
-	let curveToRelative = Character("c")
-	let smoothCurveToAbsolute = Character("S")
-	let smoothCurveToRelative = Character("s")
-	let closePathAbsolute = Character("Z")
-	let closePathRelative = Character("z")
+    
 	let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
 		"fill", "fill-opacity",
 		"stop-color", "stop-opacity",
@@ -123,9 +109,11 @@ open class SVGParser {
 			}
 			if let fill = parseFill(child) {
 				self.defFills[id] = fill
+                continue
 			}
             if let mask = parseMask(child) {
                 self.defMasks[id] = mask
+                continue
             }
 		}
 	}
@@ -415,7 +403,7 @@ open class SVGParser {
                 return value.doubleValue
             }
 		}
-        return 0
+        return 1
 	}
 
 	fileprivate func getStrokeCap(_ styleParts: [String: String]) -> LineCap {
@@ -905,66 +893,43 @@ open class SVGParser {
 	}
 
 	fileprivate func parsePath(_ path: XMLIndexer) -> Path? {
-		if let dAttr = path.element!.attributes["d"] {
-			let pathSegments = parseCommands(dAttr)
-			return Path(segments: pathSegments)
+		if let dAttr = path.element?.attributes["d"] {
+            return Path(segments: parsePathCommands(dAttr))
 		}
 		return .none
 	}
+    
+    fileprivate func parsePathCommands(_ d: String) -> [PathSegment] {
+        var pathCommands = [PathCommand]()
+        var pathCommandName: NSString? = ""
+        var pathCommandValues: NSString? = ""
+        let scanner = Scanner(string: d)
+        let set = CharacterSet(charactersIn: SVGConstants.pathCommands.joined())
+        let charCount = d.characters.count
+        repeat {
+            scanner.scanCharacters(from: set, into: &pathCommandName)
+            scanner.scanUpToCharacters(from: set, into: &pathCommandValues)
+            pathCommands.append(
+                PathCommand(
+                    type: getCommandType(pathCommandName! as String),
+                    expression: pathCommandValues! as String,
+                    absolute: isAbsolute(pathCommandName! as String)
+                )
+            )
+            if scanner.scanLocation == charCount {
+                break
+            }
+        } while pathCommandValues!.length > 0
+        var commands = [PathSegment]()
+        pathCommands.forEach { command in
+            if let parsedCommand = parseCommand(command) {
+                commands.append(parsedCommand)
+            }
+        }
+        return commands
+    }
 
-	fileprivate func parseCommands(_ d: String) -> [PathSegment] {
-		var pathCommands = [PathCommand]()
-		var commandChar = Character(" ")
-		var commandString = ""
-
-		d.characters.forEach { character in
-			if isCommandCharacter(character) {
-				if !commandString.isEmpty {
-					pathCommands.append(
-						PathCommand(
-							type: getCommandType(commandChar),
-							expression: commandString,
-							absolute: isAbsolute(commandChar)
-						)
-					)
-				}
-				if character == closePathAbsolute || character == closePathRelative {
-					pathCommands.append(
-						PathCommand(
-							type: getCommandType(character),
-							expression: commandString,
-							absolute: true
-						)
-					)
-				}
-				commandString = ""
-				commandChar = character
-			} else {
-				commandString.append(character)
-			}
-		}
-
-		if !commandString.isEmpty && !(commandChar == " ") {
-			pathCommands.append(
-				PathCommand(type: getCommandType(commandChar),
-					expression: commandString,
-					absolute: isAbsolute(commandChar)
-				)
-			)
-		}
-
-		var commands = [PathSegment]()
-
-		pathCommands.forEach { command in
-			if let parsedCommand = parseCommand(command) {
-				commands.append(parsedCommand)
-			}
-		}
-
-		return commands
-	}
-
-	fileprivate func parseCommand(_ command: PathCommand) -> PathSegment? {
+    fileprivate func parseCommand(_ command: PathCommand) -> PathSegment? {
 		var characterSet = CharacterSet()
 		characterSet.insert(" ")
 		characterSet.insert(",")
@@ -1007,23 +972,23 @@ open class SVGParser {
 			if separatedValues.count < 1 {
 				return .none
 			}
-
-			guard let x = Double(separatedValues[0]) else {
-				return .none
-			}
-
-			return PathSegment(type: command.absolute ? .H : .h, data: [x])
+            
+            guard let x = Double(separatedValues[0]) else {
+                return .none
+            }
+            
+            return PathSegment(type: command.absolute ? .H : .h, data: [x])
 
 		case .lineV:
 			if separatedValues.count < 1 {
 				return .none
 			}
-
-			guard let y = Double(separatedValues[0]) else {
-				return .none
-			}
-
-			return PathSegment(type: command.absolute ? .V : .v, data: [y])
+            
+            guard let y = Double(separatedValues[0]) else {
+                return .none
+            }
+            
+            return PathSegment(type: command.absolute ? .V : .v, data: [y])
 
 		case .curveTo:
             var data = [Double]()
@@ -1064,128 +1029,93 @@ open class SVGParser {
 		var values = [String]()
 		var value = String()
 		var e = false
+        
+        expression.unicodeScalars.forEach { scalar in
+            if scalar == "e" {
+                e = true
+            }
+            if scalar == "-" && !e {
+                if !value.isEmpty {
+                    values.append(value)
+                    value = String()
+                }
+                e = false
+            }
+            
+            value.append("\(scalar)")
+        }
 
-		expression.characters.forEach { c in
-			if c == "e" {
-				e = true
-			}
-			if c == "-" && !e {
-				if value.characters.count != 0 {
-					values.append(value)
-					value = String()
-				}
-				e = false
-			}
-
-			value.append(c)
-		}
-
-		if value.characters.count != 0 {
+		if !value.isEmpty {
 			values.append(value)
 		}
 
 		return values
 	}
 
-	fileprivate func isCommandCharacter(_ character: Character) -> Bool {
-		switch character {
-		case moveToAbsolute:
+	fileprivate func isAbsolute(_ commandString: String) -> Bool {
+		switch commandString {
+		case SVGConstants.moveToAbsolute:
 			return true
-		case moveToRelative:
-			return true
-		case lineToAbsolute:
-			return true
-		case lineToRelative:
-			return true
-		case lineHorizontalAbsolute:
-			return true
-		case lineHorizontalRelative:
-			return true
-		case lineVerticalAbsolute:
-			return true
-		case lineVerticalRelative:
-			return true
-		case curveToAbsolute:
-			return true
-		case curveToRelative:
-			return true
-		case smoothCurveToAbsolute:
-			return true
-		case smoothCurveToRelative:
-			return true
-		case closePathAbsolute:
-			return true
-		case closePathRelative:
-			return true
-		default:
+		case SVGConstants.moveToRelative:
 			return false
-		}
-	}
-
-	fileprivate func isAbsolute(_ character: Character) -> Bool {
-		switch character {
-		case moveToAbsolute:
+		case SVGConstants.lineToAbsolute:
 			return true
-		case moveToRelative:
+		case SVGConstants.lineToRelative:
 			return false
-		case lineToAbsolute:
+		case SVGConstants.lineHorizontalAbsolute:
 			return true
-		case lineToRelative:
+		case SVGConstants.lineHorizontalRelative:
 			return false
-		case lineHorizontalAbsolute:
+		case SVGConstants.lineVerticalAbsolute:
 			return true
-		case lineHorizontalRelative:
+		case SVGConstants.lineVerticalRelative:
 			return false
-		case lineVerticalAbsolute:
+		case SVGConstants.curveToAbsolute:
 			return true
-		case lineVerticalRelative:
+		case SVGConstants.curveToRelative:
 			return false
-		case curveToAbsolute:
+		case SVGConstants.smoothCurveToAbsolute:
 			return true
-		case curveToRelative:
+		case SVGConstants.smoothCurveToRelative:
 			return false
-		case smoothCurveToAbsolute:
+		case SVGConstants.closePathAbsolute:
 			return true
-		case smoothCurveToRelative:
-			return false
-		case closePathAbsolute:
-			return true
-		case closePathRelative:
+		case SVGConstants.closePathRelative:
 			return false
 		default:
 			return true
 		}
 	}
 
-	fileprivate func getCommandType(_ character: Character) -> PathCommandType {
-		switch character {
-		case moveToAbsolute:
+	fileprivate func getCommandType(_ commandString: String) -> PathCommandType {
+		switch commandString {
+		case SVGConstants.moveToAbsolute:
 			return .moveTo
-		case moveToRelative:
+		case SVGConstants.moveToRelative:
 			return .moveTo
-		case lineToAbsolute:
+		case SVGConstants.lineToAbsolute:
 			return .lineTo
-		case lineToRelative:
+		case SVGConstants.lineToRelative:
 			return .lineTo
-		case lineVerticalAbsolute:
+		case SVGConstants.lineVerticalAbsolute:
 			return .lineV
-		case lineVerticalRelative:
+		case SVGConstants.lineVerticalRelative:
 			return .lineV
-		case lineHorizontalAbsolute:
+		case SVGConstants.lineHorizontalAbsolute:
 			return .lineH
-		case lineHorizontalRelative:
+		case SVGConstants.lineHorizontalRelative:
 			return .lineH
-		case curveToAbsolute:
+		case SVGConstants.curveToAbsolute:
 			return .curveTo
-		case curveToRelative:
+		case SVGConstants.curveToRelative:
 			return .curveTo
-		case smoothCurveToAbsolute:
+		case SVGConstants.smoothCurveToAbsolute:
 			return .smoothCurveTo
-		case smoothCurveToRelative:
+		case SVGConstants.smoothCurveToRelative:
 			return .smoothCurveTo
-		case closePathAbsolute:
+		case SVGConstants.closePathAbsolute:
 			return .closePath
-		case closePathRelative:
+		case SVGConstants.closePathRelative:
 			return .closePath
 		default:
 			return .none
@@ -1266,7 +1196,6 @@ open class SVGParser {
 	}
 
 	fileprivate func copyNode(_ referenceNode: Node) -> Node? {
-
 		let pos = referenceNode.place
 		let opaque = referenceNode.opaque
 		let visible = referenceNode.visible

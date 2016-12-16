@@ -153,4 +153,36 @@ open class SVGConstants {
         "yellowgreen": 0x9acd32
     ]
     
+    open static let moveToAbsolute = "M"
+    open static let moveToRelative = "m"
+    open static let lineToAbsolute = "L"
+    open static let lineToRelative = "l"
+    open static let lineHorizontalAbsolute = "H"
+    open static let lineHorizontalRelative = "h"
+    open static let lineVerticalAbsolute = "V"
+    open static let lineVerticalRelative = "v"
+    open static let curveToAbsolute = "C"
+    open static let curveToRelative = "c"
+    open static let smoothCurveToAbsolute = "S"
+    open static let smoothCurveToRelative = "s"
+    open static let closePathAbsolute = "Z"
+    open static let closePathRelative = "z"
+    
+    open static let pathCommands = [
+        moveToAbsolute,
+        moveToRelative,
+        lineToAbsolute,
+        lineToRelative,
+        lineHorizontalAbsolute,
+        lineHorizontalRelative,
+        lineVerticalAbsolute,
+        lineVerticalRelative,
+        curveToAbsolute,
+        curveToRelative,
+        smoothCurveToAbsolute,
+        smoothCurveToRelative,
+        closePathAbsolute,
+        closePathRelative
+    ]
+    
 }

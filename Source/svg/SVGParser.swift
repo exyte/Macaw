@@ -170,7 +170,7 @@ open class SVGParser {
 			case "use":
 				return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
             case "mask":
-                break
+                return parseMask(node)
 			default:
 				print("SVG parsing error. Shape \(element.name) not supported")
 				return .none
@@ -205,8 +205,18 @@ open class SVGParser {
 				groupNodes.append(node)
 			}
 		}
-		return Group(contents: groupNodes, place: position)
+        return Group(contents: groupNodes, place: position)
 	}
+    
+    fileprivate func getMask(mask: String) -> Locus? {
+        if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
+            let fullRange = NSMakeRange(0, mask.characters.count)
+            if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.rangeAt(1))] {
+                return maskReferenceNode.form
+            }
+        }
+        return .none
+    }
 
 	fileprivate func getPosition(_ element: XMLElement) -> Transform {
 		guard let transformAttribute = element.attributes["transform"] else {
@@ -397,12 +407,15 @@ open class SVGParser {
 	}
 
 	fileprivate func getStrokeWidth(_ styleParts: [String: String]) -> Double {
-		var width: Double = 1
 		if let strokeWidth = styleParts["stroke-width"] {
-			let strokeWidth = strokeWidth.replacingOccurrences(of: " ", with: "")
-			width = Double(strokeWidth)!
+            let characterSet = NSCharacterSet.decimalDigits.union(NSCharacterSet.punctuationCharacters).inverted
+            let digitsArray = strokeWidth.components(separatedBy: characterSet)
+            let digits = digitsArray.joined(separator: "")
+            if let value = NumberFormatter().number(from: digits) {
+                return value.doubleValue
+            }
 		}
-		return width
+        return 0
 	}
 
 	fileprivate func getStrokeCap(_ styleParts: [String: String]) -> LineCap {
@@ -500,16 +513,18 @@ open class SVGParser {
 		return Circle(cx: getDoubleValue(element, attribute: "cx") ?? 0, cy: getDoubleValue(element, attribute: "cy") ?? 0, r: r)
 	}
 
-	fileprivate func parseEllipse(_ ellipse: XMLIndexer) -> Ellipse? {
+	fileprivate func parseEllipse(_ ellipse: XMLIndexer) -> Arc? {
 		guard let element = ellipse.element,
 			let rx = getDoubleValue(element, attribute: "rx"),
 			let ry = getDoubleValue(element, attribute: "ry")
 		, rx > 0 && ry > 0 else {
-
 			return .none
-		}
-
-		return Ellipse(cx: getDoubleValue(element, attribute: "cx") ?? 0, cy: getDoubleValue(element, attribute: "cy") ?? 0, rx: rx, ry: ry)
+        }
+        return Arc(
+            ellipse: Ellipse(cx: getDoubleValue(element, attribute: "cx") ?? 0, cy: getDoubleValue(element, attribute: "cy") ?? 0, rx: rx, ry: ry),
+            shift: 0,
+            extent: degreesToRadians(360)
+        )
 	}
 
 	fileprivate func parsePolygon(_ polygon: XMLIndexer) -> Polygon? {
@@ -700,31 +715,41 @@ open class SVGParser {
 		}
 		node.place = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
 		node.opacity = opacity
-		if let shape = node as? Shape {
-			if let color = fill {
-				shape.fill = color
-			}
+        let maskString = element.attributes["mask"] ?? ""
+		return parseUseNode(node: node, fill: fill, stroke: stroke, mask: maskString)
+	}
+    
+    fileprivate func parseUseNode(node: Node, fill: Fill?, stroke: Stroke?, mask: String) -> Node {
+        if let shape = node as? Shape {
+            if let color = fill {
+                shape.fill = color
+            }
             if let line = stroke {
                 shape.stroke = line
             }
             if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-                let maskString = element.attributes["mask"] ?? ""
-                let fullRange = NSMakeRange(0, maskString.characters.count)
-                if let match = maskIdenitifierMatcher.firstMatch(in: maskString, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(maskString as NSString).substring(with: match.rangeAt(1))] {
+                let fullRange = NSMakeRange(0, mask.characters.count)
+                if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.rangeAt(1))] {
                     shape.clip = maskReferenceNode.form
                     shape.fill = .none
                 }
             }
-			return shape
-		}
-		if let text = node as? Text {
-			if let color = fill {
-				text.fill = color
-			}
-			return text
-		}
-		return node
-	}
+            return shape
+        }
+        if let text = node as? Text {
+            if let color = fill {
+                text.fill = color
+            }
+            return text
+        }
+        if let group = node as? Group {
+            group.contents.forEach { node in
+                parseUseNode(node: node, fill: fill, stroke: stroke, mask: mask)
+            }
+            return group
+        }
+        return node
+    }
     
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
         guard let element = mask.element else {

@@ -2,8 +2,12 @@ import UIKit
 
 open class SVGView: MacawView {
     
+    private let rootNode = Group()
+    private var svgNode: Node?
+    
     @IBInspectable open var fileName: String? {
         didSet {
+            parseSVG()
             render()
         }
     }
@@ -14,9 +18,12 @@ open class SVGView: MacawView {
         render()
     }
     
-    private let rootNode = Group()
-    private func render() {
-        guard let svgNode = SVGParser.parse(path: fileName ?? "") else {
+    fileprivate func parseSVG() {
+        svgNode = SVGParser.parse(path: fileName ?? "")
+    }
+    
+    fileprivate func render() {
+        guard let svgNode = self.svgNode else {
             return
         }
         let viewBounds = self.bounds
@@ -128,23 +135,23 @@ open class SVGView: MacawView {
         self.node = rootNode
     }
     
-    private func getMidX(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
+    fileprivate func getMidX(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
         let viewMidX = viewBounds.midX
         let nodeMidX = nodeBounds.midX + nodeBounds.origin.x
         return viewMidX - nodeMidX
     }
     
-    private func getMidY(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
+    fileprivate func getMidY(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
         let viewMidY = viewBounds.midY
         let nodeMidY = nodeBounds.midY + nodeBounds.origin.y
         return viewMidY - nodeMidY
     }
     
-    private func getBottom(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
+    fileprivate func getBottom(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
         return viewBounds.maxY - nodeBounds.maxY + nodeBounds.origin.y
     }
     
-    private func getRight(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
+    fileprivate func getRight(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
         return viewBounds.maxX - nodeBounds.maxX + nodeBounds.origin.x
     }
     

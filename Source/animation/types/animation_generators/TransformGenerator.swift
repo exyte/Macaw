@@ -71,11 +71,7 @@ func transfomToCG(_ transform: Transform) -> CGAffineTransform {
 
 func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, duration: Double, fps: UInt) -> CAAnimation {
 
-	var scaleXValues = [CGFloat]()
-	var scaleYValues = [CGFloat]()
-	var xValues = [CGFloat]()
-	var yValues = [CGFloat]()
-	var rotationValues = [CGFloat]()
+    var transformValues = [CATransform3D]()
 	var timeValues = [Double]()
 
 	let step = 1.0 / (duration * Double(fps))
@@ -90,59 +86,18 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 		}
         
 		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(dt))
-
-		let dx = value.dx
-		let dy = value.dy
-		let a = value.m11
-		let b = value.m12
-		let c = value.m21
-		let d = value.m22
-
-		let sx = a / fabs(a) * sqrt(a * a + b * b)
-		let sy = d / fabs(d) * sqrt(c * c + d * d)
-		let angle = atan2(b, a)
-
-		timeValues.append(dt)
-		xValues.append(CGFloat(dx))
-		yValues.append(CGFloat(dy))
-		scaleXValues.append(CGFloat(sx))
-		scaleYValues.append(CGFloat(sy))
-		rotationValues.append(CGFloat(angle))
+        let cgValue = CATransform3DMakeAffineTransform(RenderUtils.mapTransform(value))
+        transformValues.append(cgValue)
 	}
 
-	let xAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-	xAnimation.duration = duration
-	xAnimation.values = xValues
-	xAnimation.keyTimes = timeValues as [NSNumber]?
+    let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
+    transformAnimation.duration = duration
+    transformAnimation.values = transformValues
+    transformAnimation.keyTimes = timeValues as [NSNumber]?
+    transformAnimation.fillMode = kCAFillModeForwards
+    transformAnimation.isRemovedOnCompletion = false
 
-	let yAnimation = CAKeyframeAnimation(keyPath: "transform.translation.y")
-	yAnimation.duration = duration
-	yAnimation.values = yValues
-	yAnimation.keyTimes = timeValues as [NSNumber]?
-
-	let scaleXAnimation = CAKeyframeAnimation(keyPath: "transform.scale.x")
-	scaleXAnimation.duration = duration
-	scaleXAnimation.values = scaleXValues
-	scaleXAnimation.keyTimes = timeValues as [NSNumber]?
-
-	let scaleYAnimation = CAKeyframeAnimation(keyPath: "transform.scale.y")
-	scaleYAnimation.duration = duration
-	scaleYAnimation.values = scaleYValues
-	scaleYAnimation.keyTimes = timeValues as [NSNumber]?
-
-	let rotationAnimation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
-	rotationAnimation.duration = duration
-	rotationAnimation.values = rotationValues
-	rotationAnimation.keyTimes = timeValues as [NSNumber]?
-
-	let group = CAAnimationGroup()
-	group.fillMode = kCAFillModeForwards
-	group.isRemovedOnCompletion = false
-
-	group.animations = [scaleXAnimation, scaleYAnimation, rotationAnimation, xAnimation, yAnimation]
-	group.duration = duration
-
-	return group
+	return transformAnimation
 }
 
 func fixedAngle(_ angle: CGFloat) -> CGFloat {

@@ -1,9 +1,10 @@
-open class TapEvent {
+open class TapEvent : Event {
 
     open let location: Point
 
-    init(location: Point) {
-        self.location = location
+	init(node: Node, location: Point) {
+		self.location = location
+		super.init(node: node)
     }
 
 }

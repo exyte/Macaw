@@ -1,11 +1,12 @@
-open class PanEvent {
+open class PanEvent : Event {
 
     open let dx: Double
     open let dy: Double
 
-    init(dx: Double, dy: Double) {
+	init(node: Node, dx: Double, dy: Double) {
         self.dx = dx
         self.dy = dy
+		super.init(node: node)
     }
 
 }

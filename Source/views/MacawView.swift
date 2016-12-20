@@ -121,9 +121,13 @@ open class MacawView: UIView {
                 let inverted = renderer!.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
                 
+				let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 var parent: Node? = node
                 while parent != .none {
-                    parent?.handleTap(TapEvent(location: Point(x: Double(loc.x), y: Double(loc.y))))
+                    parent!.handleTap(event)
+					if (event.consumed) {
+						break;
+					}
                     parent = nodesMap.parents(parent!).first
                 }
             }
@@ -139,7 +143,15 @@ open class MacawView: UIView {
             let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
             let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
             let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
-            node.handlePan(PanEvent(dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale)))
+			let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale))
+			var parent: Node? = node
+			while parent != .none {
+				parent!.handlePan(event)
+				if (event.consumed) {
+					break;
+				}
+				parent = nodesMap.parents(parent!).first
+			}
         }
     }
     
@@ -147,15 +159,31 @@ open class MacawView: UIView {
         let rotation = Double(recognizer.rotation)
         recognizer.rotation = 0
         if let node = self.touched {
-            node.handleRotate(RotateEvent(angle: rotation))
+			let event = RotateEvent(node: node, angle: rotation)
+			var parent: Node? = node
+			while parent != .none {
+				parent!.handleRotate(event)
+				if (event.consumed) {
+					break;
+				}
+				parent = nodesMap.parents(parent!).first
+			}
         }
     }
-    
+	
     func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
         let scale = Double(recognizer.scale)
         recognizer.scale = 1
         if let node = self.touched {
-            node.handlePinch(PinchEvent(scale: scale))
+			let event = PinchEvent(node: node, scale: scale)
+			var parent: Node? = node
+			while parent != .none {
+				parent!.handlePinch(event)
+				if (event.consumed) {
+					break;
+				}
+				parent = nodesMap.parents(parent!).first
+			}
         }
     }
     

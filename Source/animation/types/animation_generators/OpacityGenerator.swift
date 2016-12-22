@@ -12,7 +12,6 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
 
 	// Creating proper animation
 	let generatedAnimation = opacityAnimationByFunc(opacityAnimation.getVFunc(), duration: animation.getDuration(), fps: opacityAnimation.logicalFps)
-	generatedAnimation.autoreverses = animation.autoreverses
 	generatedAnimation.repeatCount = Float(animation.repeatCount)
 	generatedAnimation.timingFunction = caTimingFunction(animation.easing)
 

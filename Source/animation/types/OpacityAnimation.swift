@@ -20,7 +20,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 		}
 	}
     
-    init(animatedNode: Node, factory: @escaping  ((Node) -> ((Double) -> Double)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedNode: Node, factory: @escaping  (() -> ((Double) -> Double)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.opacityVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .opacity
         node = animatedNode
@@ -31,8 +31,8 @@ internal class OpacityAnimation: AnimationImpl<Double> {
     }
 
 	open override func reverse() -> Animation {
-        let factory = { (node: Node) -> (Double) -> Double in
-            let original = self.timeFactory(node)
+        let factory = { () -> (Double) -> Double in
+            let original = self.timeFactory()
             return { (t: Double) -> Double in
                 return original(1.0 - t)
             }
@@ -66,9 +66,9 @@ public extension AnimatableVariable where T: DoubleInterpolation  {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
-        let factory = { (node: Node) -> (Double) -> Double in
-            let from = node.opacity
-            return { (t: Double) in return from.interpolate(to, progress: t) }
+        let origin = node!.opacity
+        let factory = { () -> (Double) -> Double in            
+            return { (t: Double) in return origin.interpolate(to, progress: t) }
         }
         return OpacityAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
     }

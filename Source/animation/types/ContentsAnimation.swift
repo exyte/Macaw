@@ -12,7 +12,7 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
         }
     }
     
-    init(animatedGroup: Group, factory: @escaping ((Node) -> ((Double) -> [Node])), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedGroup: Group, factory: @escaping (() -> ((Double) -> [Node])), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedGroup.contentsVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .contents
         node = animatedGroup
@@ -24,8 +24,8 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
 
     
     open override func reverse() -> Animation {
-        let factory = { (node: Node) -> (Double) -> [Node] in
-            let original = self.timeFactory(node)
+        let factory = { () -> (Double) -> [Node] in
+            let original = self.timeFactory()
             return { (t: Double) -> [Node] in
                 return original(1.0 - t)
             }

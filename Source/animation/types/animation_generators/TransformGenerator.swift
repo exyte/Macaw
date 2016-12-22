@@ -18,7 +18,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 		return
 	}
 
-	generatedAnim.autoreverses = animation.autoreverses
+	// generatedAnim.autoreverses = animation.autoreverses
 	generatedAnim.repeatCount = Float(animation.repeatCount)
 	generatedAnim.timingFunction = caTimingFunction(animation.easing)
 

@@ -56,6 +56,7 @@ class BasicAnimation: Animation {
 
 	override open func autoreversed() -> Animation {
 		self.autoreverses = true
+        
 		return self
 	}
 
@@ -85,17 +86,17 @@ class BasicAnimation: Animation {
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
 	let value: AnimatableVariable<T>
-    let timeFactory: ((Node) -> ((Double) -> T))
+    let timeFactory: (() -> ((Double) -> T))
 	let duration: Double
 	let logicalFps: UInt
 
-    fileprivate var vFunc: ((Double) -> T)?
+    private var vFunc: ((Double) -> T)?
 
 	init(observableValue: AnimatableVariable<T>, valueFunc: @escaping (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
 		self.value = observableValue
 		self.duration = animationDuration
         self.timeFactory = { (node) in return valueFunc }
-		self.vFunc = valueFunc
+		self.vFunc = .none
 		self.logicalFps = fps
 
 		super.init()
@@ -103,7 +104,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 		self.delay = delay
 	}
     
-    init(observableValue: AnimatableVariable<T>, factory: @escaping ((Node) -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
+    init(observableValue: AnimatableVariable<T>, factory: @escaping (() -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
         self.value = observableValue
         self.duration = animationDuration
         self.timeFactory = factory
@@ -131,9 +132,29 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	}
 
     open func getVFunc() -> ((Double) -> T) {
-        if (vFunc == nil) {
-            vFunc = timeFactory(self.node!)
+        if let vFunc = vFunc {
+            return vFunc
         }
+        
+        var timeFunc = { (t: Double) -> Double in
+            return t
+        }
+        
+        if autoreverses {
+            let original = timeFunc
+            timeFunc = { (t: Double) -> Double in
+                if t <= 0.5 {
+                    return original(t * 2.0)
+                } else {
+                    return original((1.0 - t) * 2.0)
+                }
+            }
+        }
+        
+        vFunc = { (t: Double) -> T in
+            return self.timeFactory()(timeFunc(t))
+        }
+        
         return vFunc!
     }
 

@@ -20,7 +20,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 		}
 	}
     
-    init(animatedNode: Node, factory: @escaping ((Node) -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedNode: Node, factory: @escaping (() -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.placeVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .affineTransformation
         node = animatedNode
@@ -32,8 +32,8 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 
 	open override func reverse() -> Animation {
 
-        let factory = { (node: Node) -> (Double) -> Transform in
-            let original = self.timeFactory(node)
+        let factory = { () -> (Double) -> Transform in
+            let original = self.timeFactory()
             return { (t: Double) -> Transform in
                 return original(1.0 - t)
             }
@@ -67,9 +67,10 @@ public extension AnimatableVariable where T: TransformInterpolation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
-        let factory = { (node: Node) -> (Double) -> Transform in
-            let from = node.place
-            return { (t: Double) in return from.interpolate(to, progress: t) }
+        
+        let origin = node!.place
+        let factory = { () -> (Double) -> Transform in
+            return { (t: Double) in return origin.interpolate(to, progress: t) }
         }
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
 	}

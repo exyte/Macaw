@@ -29,5 +29,14 @@ open class GeomUtils {
 
 		return GeomUtils.concat(t1: returnToOrig, t2: place)
 	}
+    
+    open class func centerScale(node: Node, sx: Double, sy: Double) -> Transform {
+        guard let bounds = node.bounds() else {
+            return Transform()
+        }
+
+        let center = Point(x: bounds.x + bounds.w / 2.0, y: bounds.y + bounds.h / 2.0)
+        return Transform.move(dx: center.x * (1.0 - sx), dy: center.y * (1.0 - sy)).scale(sx: sx, sy: sy)
+    }
 
 }

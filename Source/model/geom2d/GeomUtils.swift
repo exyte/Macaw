@@ -11,11 +11,8 @@ open class GeomUtils {
 	}
 
 	open class func centerRotation(node: Node, place: Transform, angle: Double) -> Transform {
-		guard let bounds = node.bounds() else {
-			return Transform()
-		}
-
-		let center = Point(x: bounds.x + bounds.w / 2.0, y: bounds.y + bounds.h / 2.0)
+		
+        let center = GeomUtils.center(node: node)
 		let move = Transform.move(dx: center.x, dy: center.y)
 
 		guard let moveInv = move.invert() else {
@@ -31,12 +28,16 @@ open class GeomUtils {
 	}
     
     open class func centerScale(node: Node, sx: Double, sy: Double) -> Transform {
-        guard let bounds = node.bounds() else {
-            return Transform()
-        }
-
-        let center = Point(x: bounds.x + bounds.w / 2.0, y: bounds.y + bounds.h / 2.0)
+        let center = GeomUtils.center(node: node)
         return Transform.move(dx: center.x * (1.0 - sx), dy: center.y * (1.0 - sy)).scale(sx: sx, sy: sy)
+    }
+    
+    open class func center(node: Node) -> Point {
+        guard let bounds = node.bounds() else {
+            return Point()
+        }
+        
+        return Point(x: bounds.x + bounds.w / 2.0, y: bounds.y + bounds.h / 2.0)
     }
 
 }

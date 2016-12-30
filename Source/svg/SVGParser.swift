@@ -158,7 +158,7 @@ open class SVGParser {
 			case "use":
 				return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
             case "mask":
-                return parseMask(node)
+                break
 			default:
 				print("SVG parsing error. Shape \(element.name) not supported")
 				return .none

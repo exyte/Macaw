@@ -135,6 +135,11 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	}
 
 	open override func getDuration() -> Double {
+        
+        if autoreverses {
+            return duration * 2.0
+        }
+        
 		return duration
 	}
 

@@ -47,7 +47,11 @@ class AnimationProducer {
                 self.addAnimation(animation)
             }
             
-            animation.next = reAdd
+            if let nextAnimation = animation.next {
+                nextAnimation.next = reAdd
+            } else {
+                animation.next = reAdd
+            }
         }
         
 
@@ -101,25 +105,21 @@ class AnimationProducer {
 		guard let sequence = animationSequnce as? AnimationSequence else {
 			return
 		}
-		// reversing
-		if sequence.autoreverses {
-			sequence.animations.forEach { animation in
-				animation.autoreverses = !animation.autoreverses
-			}
-		}
-
+        
 		// Generating sequence
 		var sequenceAnimations = [BasicAnimation]()
+        var cycleAnimations = sequence.animations
+        
+        if sequence.autoreverses {
+            cycleAnimations.append(contentsOf: sequence.animations.reversed())
+        }
+        
 		if sequence.repeatCount > 0.0001 {
 			for _ in 0..<Int(sequence.repeatCount) {
-				sequenceAnimations.append(contentsOf: sequence.animations)
+				sequenceAnimations.append(contentsOf: cycleAnimations)
 			}
 		} else {
-			sequenceAnimations.append(contentsOf: sequence.animations)
-		}
-
-		if sequence.autoreverses {
-			sequenceAnimations = sequenceAnimations.reversed()
+			sequenceAnimations.append(contentsOf: cycleAnimations)
 		}
 
 		// Connecting animations
@@ -158,7 +158,7 @@ class AnimationProducer {
 		// Reversing
 		if combine.autoreverses {
 			combine.animations.forEach { animation in
-				animation.autoreverses = !animation.autoreverses
+				animation.autoreverses = true
 			}
 		}
 

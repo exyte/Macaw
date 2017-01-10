@@ -16,7 +16,13 @@ internal class AnimationSequence: BasicAnimation {
 	}
 
 	override func getDuration() -> Double {
-		return animations.map({ $0.getDuration() }).reduce(0, { $0 + $1 })
+		let originalDuration  = animations.map({ $0.getDuration() }).reduce(0, { $0 + $1 })
+    
+        if autoreverses {
+            return originalDuration * 2.0
+        }
+        
+        return originalDuration
 	}
 
 	open override func stop() {

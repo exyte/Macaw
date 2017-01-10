@@ -20,7 +20,8 @@ class AnimationProducer {
     var contentsAnimations = [ContentAnimationDesc]()
 
 	func addAnimation(_ animation: BasicAnimation, withoutDelay: Bool = false) {
-
+    
+        // Delay - launching timer
 		if animation.delay > 0.0 && !withoutDelay {
 
 			let _ = Timer.schedule(delay: animation.delay, handler: { _ in
@@ -30,11 +31,27 @@ class AnimationProducer {
 			return
 		}
 
+        // Empty - executing completion
 		if animation.type == .empty {
 			executeCompletion(animation)
 			return
 		}
+        
+        // Cycle - attaching "re-add animation" logic
+        if animation.cycled {
+            if animation.manualStop {
+                return
+            }
+            
+            let reAdd = EmptyAnimation {
+                self.addAnimation(animation)
+            }
+            
+            animation.next = reAdd
+        }
+        
 
+        // General case
 		guard let node = animation.node else {
 			return
 		}

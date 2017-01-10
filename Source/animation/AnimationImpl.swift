@@ -28,6 +28,7 @@ class BasicAnimation: Animation {
     var manualStop = false
 	var progress = 0.0
 	var repeatCount = 0.0
+    var cycled = false
 	var delay = 0.0
 	var autoreverses = false
 	var onProgressUpdate: ((Double) -> ())?
@@ -59,6 +60,12 @@ class BasicAnimation: Animation {
         
 		return self
 	}
+    
+    override open func cycle() -> Animation {
+        self.cycled = true
+        
+        return self
+    }
 
 	override open func onComplete(_ f: @escaping (() -> ())) -> Animation {
 		self.completion = f

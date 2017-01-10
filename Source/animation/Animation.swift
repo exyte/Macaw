@@ -20,6 +20,10 @@ open class Animation {
 	open func cycle(_ count: Double) -> Animation {
 		return self
 	}
+    
+    open func cycle() -> Animation{
+        return self
+    }
 
     open func reverse() -> Animation {
         return self

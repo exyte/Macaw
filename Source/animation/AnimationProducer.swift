@@ -305,20 +305,28 @@ class AnimationProducer {
                 continue
             }
             
+            defer {
+                animationDesc.layer.setNeedsDisplay()
+                animationDesc.layer.displayIfNeeded()
+            }
+            
             let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration
             if progress >= 1.0 {
+                
+                // Final update
+                group.contents = animation.getVFunc()(1.0)
+                animation.onProgressUpdate?(1.0)
+                
+                // Finishing animation
                 animation.completion?()
                 contentsAnimations.remove(at: index)
                 animationDesc.cache.freeLayer(group)
-                
                 animationDesc.completion?()
                 continue
             }
             
-           let t = progressForTimingFunction(animation.easing, progress: progress)
-           group.contents = animation.getVFunc()(t)
-            animationDesc.layer.setNeedsDisplay()
-            animationDesc.layer.displayIfNeeded()
+            let t = progressForTimingFunction(animation.easing, progress: progress)
+            group.contents = animation.getVFunc()(t)
             animation.onProgressUpdate?(progress)
         }
     }

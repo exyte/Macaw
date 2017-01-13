@@ -23,18 +23,15 @@ class EasingView: MacawView {
 
             let fromCircle = Circle(cx: centerX - 100, cy: y, r: 25).stroke(with: fromStroke)
             let ToCircle = Circle(cx: centerX + 100, cy: y, r: 25).stroke(with: toStroke)
-            
-            let originPlace = fromCircle.place
             let toPlace = fromCircle.place.move(dx: 200, dy: 0)
 
             let toAnimation = fromCircle.placeVar.animation(to: toPlace).easing(easing)
-            let backAnimation = fromCircle.placeVar.animation(to: originPlace).easing(easing)
             
-            animations.append([toAnimation, backAnimation].sequence())
+            animations.append([toAnimation.autoreversed()].sequence())
             circlesNodes.append(Group(contents: [titleText, fromCircle, ToCircle]))
         }
         
-        animation = animations.combine().cycle(10)
+        animation = animations.combine().cycle()
         super.init(node: circlesNodes.group(), coder: aDecoder)
     }
     

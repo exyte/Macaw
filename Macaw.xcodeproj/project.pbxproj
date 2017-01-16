@@ -101,8 +101,6 @@
 		573525F21E0BC8FF00EB4AAB /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525941E0BC8FE00EB4AAB /* MacawView.swift */; };
 		573525F31E0BC8FF00EB4AAB /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525951E0BC8FE00EB4AAB /* NodesMap.swift */; };
 		573525F41E0BC8FF00EB4AAB /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525961E0BC8FE00EB4AAB /* ShapeLayer.swift */; };
-		57CAB11C1D78177900FD8E47 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */; };
-		57CAB11D1D78178000FD8E47 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1221D782DFC00FD8E47 /* TestUtils.swift */; };
 		57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1251D7832E000FD8E47 /* circle.svg */; };
 		57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1261D7832E000FD8E47 /* ellipse.svg */; };
@@ -113,6 +111,7 @@
 		57CAB1341D7832E000FD8E47 /* rect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12B1D7832E000FD8E47 /* rect.svg */; };
 		57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12C1D7832E000FD8E47 /* roundRect.svg */; };
 		57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12D1D7832E000FD8E47 /* triangle.svg */; };
+		57E559881E2C9C8E004339EB /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E559871E2C9C8E004339EB /* SWXMLHash.framework */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
 /* End PBXBuildFile section */
@@ -134,7 +133,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				57CAB11D1D78178000FD8E47 /* SWXMLHash.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +233,6 @@
 		573525941E0BC8FE00EB4AAB /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		573525951E0BC8FE00EB4AAB /* NodesMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesMap.swift; sourceTree = "<group>"; };
 		573525961E0BC8FE00EB4AAB /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
-		57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = iOS/SWXMLHash.framework; sourceTree = "<group>"; };
 		57CAB1221D782DFC00FD8E47 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		57CAB1251D7832E000FD8E47 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
 		57CAB1261D7832E000FD8E47 /* ellipse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ellipse.svg; sourceTree = "<group>"; };
@@ -246,6 +243,7 @@
 		57CAB12B1D7832E000FD8E47 /* rect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rect.svg; sourceTree = "<group>"; };
 		57CAB12C1D7832E000FD8E47 /* roundRect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = roundRect.svg; sourceTree = "<group>"; };
 		57CAB12D1D7832E000FD8E47 /* triangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = triangle.svg; sourceTree = "<group>"; };
+		57E559871E2C9C8E004339EB /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/iOS/SWXMLHash.framework; sourceTree = SOURCE_ROOT; };
 		57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
@@ -257,7 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57CAB11C1D78177900FD8E47 /* SWXMLHash.framework in Frameworks */,
+				57E559881E2C9C8E004339EB /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,20 +523,12 @@
 			path = svg;
 			sourceTree = "<group>";
 		};
-		57D2020D1D78044A00A90D4F /* Dependencies */ = {
+		57E559861E2C9C5D004339EB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				57D202131D78044A00A90D4F /* SWXMLHash */,
+				57E559871E2C9C8E004339EB /* SWXMLHash.framework */,
 			);
-			path = Dependencies;
-			sourceTree = SOURCE_ROOT;
-		};
-		57D202131D78044A00A90D4F /* SWXMLHash */ = {
-			isa = PBXGroup;
-			children = (
-				57CAB11B1D78177900FD8E47 /* SWXMLHash.framework */,
-			);
-			path = SWXMLHash;
+			name = Dependencies;
 			sourceTree = "<group>";
 		};
 		57FCD2621D76EA4600CC0FB6 = {
@@ -562,8 +552,8 @@
 		57FCD26E1D76EA4600CC0FB6 /* Macaw */ = {
 			isa = PBXGroup;
 			children = (
+				57E559861E2C9C5D004339EB /* Dependencies */,
 				573525271E0BC8FE00EB4AAB /* Source */,
-				57D2020D1D78044A00A90D4F /* Dependencies */,
 			);
 			path = Macaw;
 			sourceTree = "<group>";
@@ -926,6 +916,7 @@
 					"$(PROJECT_DIR)/Dependencies/RxSwift/iOS",
 					"$(PROJECT_DIR)/Dependencies/SWXMLHash",
 					"$(PROJECT_DIR)/Dependencies/SWXMLHash/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -950,6 +941,7 @@
 					"$(PROJECT_DIR)/Dependencies/RxSwift/iOS",
 					"$(PROJECT_DIR)/Dependencies/SWXMLHash",
 					"$(PROJECT_DIR)/Dependencies/SWXMLHash/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

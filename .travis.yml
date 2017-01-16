@@ -2,4 +2,5 @@ language: objective-c
 osx_image: xcode8.1
 
 script:
+  carthage update --platform iOS
   set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty;

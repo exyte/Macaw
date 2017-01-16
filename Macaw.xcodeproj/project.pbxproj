@@ -42,7 +42,6 @@
 		573525B71E0BC8FE00EB4AAB /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525501E0BC8FE00EB4AAB /* PinchEvent.swift */; };
 		573525B81E0BC8FE00EB4AAB /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525511E0BC8FE00EB4AAB /* RotateEvent.swift */; };
 		573525B91E0BC8FE00EB4AAB /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525521E0BC8FE00EB4AAB /* TapEvent.swift */; };
-		573525BA1E0BC8FE00EB4AAB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 573525531E0BC8FE00EB4AAB /* Info.plist */; };
 		573525BB1E0BC8FE00EB4AAB /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525561E0BC8FE00EB4AAB /* Align.swift */; };
 		573525BC1E0BC8FE00EB4AAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525571E0BC8FE00EB4AAB /* AspectRatio.swift */; };
 		573525BD1E0BC8FE00EB4AAB /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525581E0BC8FE00EB4AAB /* Baseline.swift */; };
@@ -662,7 +661,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				573525BA1E0BC8FE00EB4AAB /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,9 +911,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Dependencies/RxSwift/iOS",
-					"$(PROJECT_DIR)/Dependencies/SWXMLHash",
-					"$(PROJECT_DIR)/Dependencies/SWXMLHash/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
@@ -938,9 +933,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Dependencies/RxSwift/iOS",
-					"$(PROJECT_DIR)/Dependencies/SWXMLHash",
-					"$(PROJECT_DIR)/Dependencies/SWXMLHash/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";

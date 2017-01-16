@@ -1,5 +1,3 @@
-import Macaw
-
 open class SVGConstants {
     
     open static let colorList = [

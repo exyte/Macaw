@@ -5,6 +5,8 @@ branches:
     only:
     - master
 before_script:
-  - carthage update --platform iOS
+        - brew update
+        - brew outdated carthage || brew upgrade carthage
+        - carthage build --no-skip-current --platform iOS
 script:
   set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' | xcpretty;

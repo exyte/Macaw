@@ -65,6 +65,11 @@ class AnimationCache {
             
 			layer.opacity = Float(node.opacity)
 			layer.node = node
+            
+            if let animationScale = calculateAnimationScale(animation: animation) {
+                layer.contentsScale = animationScale
+            }
+            
 			layer.setNeedsDisplay()
 			sceneLayer.addSublayer(layer)
 
@@ -78,6 +83,42 @@ class AnimationCache {
 
 		return cachedLayer.layer
 	}
+    
+    private func calculateAnimationScale(animation: Animation) -> CGFloat? {
+        let defaultScale = UIScreen.main.scale
+        
+        guard let transformAnimation = animation as? TransformAnimation else {
+            return .none
+        }
+        
+        let animFunc = transformAnimation.getVFunc()
+        let origBounds = Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0)
+        
+        let startTransform = animFunc(0.0)
+        let startBounds = origBounds.applyTransform(startTransform)
+        var startArea = startBounds.w * startBounds.h
+        
+        // zero scale protection
+        if startArea == 0.0 {
+            startArea = 0.1
+        }
+        
+        var maxArea = startArea
+        var t = 0.0
+        let step = 0.1
+        while t <= 1.0 {
+            let currentTransform = animFunc(t)
+            let currentBounds = origBounds.applyTransform(currentTransform)
+            let currentArea = currentBounds.w * currentBounds.h
+            if maxArea < currentArea {
+                maxArea = currentArea
+            }
+            
+            t = t + step
+        }
+        
+        return defaultScale * CGFloat(sqrt(maxArea))
+    }
 
 	func freeLayer(_ node: Node) {
 		guard let cachedLayer = layerCache[node] else {

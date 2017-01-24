@@ -17,3 +17,9 @@ public func >> (a: Transform, b: Transform) -> TransformAnimationDescription {
 		return a.interpolate(b, progress: t)
 	})
 }
+
+public func >> (a: Locus, b: Locus) -> MorphingAnimationDescription {
+    return MorphingAnimationDescription(valueFunc: { t in
+        return a.interpolate(b, progress: t)
+    })
+}

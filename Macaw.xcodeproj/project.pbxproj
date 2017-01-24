@@ -321,8 +321,8 @@
 		5735252F1E0BC8FE00EB4AAB /* layer_animation */ = {
 			isa = PBXGroup;
 			children = (
-				573525301E0BC8FE00EB4AAB /* CGExtensions.swift */,
 				573525311E0BC8FE00EB4AAB /* Extensions */,
+				573525301E0BC8FE00EB4AAB /* CGExtensions.swift */,
 				573525371E0BC8FE00EB4AAB /* FuncBounds.swift */,
 				573525381E0BC8FE00EB4AAB /* PathBounds.swift */,
 				573525391E0BC8FE00EB4AAB /* PathFunctions.swift */,

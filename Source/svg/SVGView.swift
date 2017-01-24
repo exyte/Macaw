@@ -2,12 +2,32 @@ import UIKit
 
 open class SVGView: MacawView {
     
-    private let rootNode = Group()
-    private var svgNode: Node?
+    fileprivate let rootNode = Group()
+    fileprivate var svgNode: Node?
     
     @IBInspectable open var fileName: String? {
         didSet {
             parseSVG()
+            render()
+        }
+    }
+    
+    public init(node: Node, frame: CGRect) {
+        super.init(frame: frame)
+        svgNode = node
+    }
+    
+    override public init?(node: Node, coder aDecoder: NSCoder) {
+        super.init(node: Group(), coder: aDecoder)
+        svgNode = node
+    }
+    
+    override required public convenience init?(coder aDecoder: NSCoder) {
+        self.init(node: Group(), coder: aDecoder)
+    }
+    
+    open override var contentMode: UIViewContentMode {
+        didSet {
             render()
         }
     }

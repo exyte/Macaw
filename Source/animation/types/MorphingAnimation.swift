@@ -4,7 +4,7 @@ class MorphingAnimation:  AnimationImpl<Locus> {
     convenience init(animatedNode: Shape, startValue: Locus, finalValue: Locus, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         
         let interpolationFunc = { (t: Double) -> Locus in
-            return startValue.interpolate(finalValue, progress: t)
+            return finalValue//startValue.interpolate(finalValue, progress: t)
         }
         
         self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
@@ -54,7 +54,7 @@ public extension AnimatableVariable where T: MorphingAnimationDescription {
         
         let origin = (node as! Shape).form
         let factory = { () -> (Double) -> Locus in
-            return { (t: Double) in return origin.interpolate(to, progress: t) }
+            return { (t: Double) in return to }//origin.interpolate(to, progress: t) }
         }
 
         return MorphingAnimation(animatedNode: self.node as! Shape, factory: factory, animationDuration: during, delay: delay)

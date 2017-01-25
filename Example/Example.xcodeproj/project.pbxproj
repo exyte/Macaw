@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		48BC2FE8BD3BF26100D04E07 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A92F90D3D20D2A289BED45F /* Pods_Example.framework */; };
+		5747F9BD1E38B683004E338F /* MorphingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747F9BC1E38B683004E338F /* MorphingView.swift */; };
 		574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */; };
 		574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4401CB7E2440063F317 /* MenuViewController.swift */; };
 		574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		0A92F90D3D20D2A289BED45F /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		131DDFA4A9D164CC4B64C3E8 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		5747F9BC1E38B683004E338F /* MorphingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorphingView.swift; sourceTree = "<group>"; };
 		574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapesExampleView.swift; sourceTree = "<group>"; };
 		574EC4401CB7E2440063F317 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Example/MenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsExampleController.swift; sourceTree = "<group>"; };
@@ -76,9 +78,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5747F9BB1E38B660004E338F /* Morphing */ = {
+			isa = PBXGroup;
+			children = (
+				5747F9BC1E38B683004E338F /* MorphingView.swift */,
+			);
+			path = Morphing;
+			sourceTree = "<group>";
+		};
 		574EC4271CB7DE7F0063F317 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				5747F9BB1E38B660004E338F /* Morphing */,
 				6699B7CE1DFFE8B90072585E /* Transform */,
 				574EC4421CBB607E0063F317 /* Animations */,
 				574EC4331CB7DE7F0063F317 /* Shapes */,
@@ -313,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */,
+				5747F9BD1E38B683004E338F /* MorphingView.swift in Sources */,
 				575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */,
 				58E4D50C1D841C6E00EC8815 /* TransformExampleView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,

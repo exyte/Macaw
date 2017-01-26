@@ -40,28 +40,25 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
     }
 }
 
-public typealias ContentsAnimationDescription = AnimationDescription<[Node]>
-
 public extension AnimatableVariable where T: GroupInterpolation {
     
-    public func animation(_ f: @escaping (Double) -> [Node], during: Double, delay: Double = 0.0) -> Animation {
+    public func animation(_ f: @escaping (Double) -> [Node]) -> Animation {
+        let group = node! as! Group
+        return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: 1.0, delay: 0.0, autostart: false)
+    }
+    
+    public func animation(_ f: @escaping (Double) -> [Node], during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let group = node! as! Group
         return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: false)
     }
     
-    public func animate(_ f: @escaping (Double) -> [Node], during: Double, delay: Double = 0.0) {
+    public func animate(_ f: @escaping (Double) -> [Node]) {
+        let group = node! as! Group
+        let _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: 1.0, delay: 0.0, autostart: true)
+    }
+    
+    public func animate(_ f: @escaping (Double) -> [Node], during: Double = 1.0, delay: Double = 0.0) {
         let group = node! as! Group
         let _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: true)
     }
-    
-    public func animation(_ desc: ContentsAnimationDescription) -> Animation {
-        let group = node! as! Group
-        return ContentsAnimation(animatedGroup: group, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
-    }
-    
-    public func animate(_ desc: ContentsAnimationDescription) {
-        let group = node! as! Group
-        let _ = ContentsAnimation(animatedGroup: group, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
-    }
-    
 }

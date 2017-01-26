@@ -16,6 +16,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     }
     
     
+    
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(1.0)
     
@@ -56,10 +57,28 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     
     let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
     layer.path = RenderUtils.toCGPath(fromLocus)
-    layer.strokeColor = UIColor.black.cgColor
-    layer.lineWidth = 2.0
-    layer.fillColor = UIColor.clear.cgColor
     
+    // Stroke
+    if let stroke = shape.stroke {
+        if let color = stroke.fill as? Color {
+            layer.strokeColor = RenderUtils.mapColor(color)
+        } else {
+            layer.strokeColor = UIColor.black.cgColor
+        }
+        
+        layer.lineWidth = CGFloat(stroke.width)
+    } else {
+        layer.strokeColor = UIColor.black.cgColor
+        layer.lineWidth = 1.0
+    }
+    
+    // Fill
+    if let color = shape.fill as? Color {
+        layer.fillColor = RenderUtils.mapColor(color)
+    } else {
+        layer.fillColor = UIColor.clear.cgColor
+    }
+
     layer.add(generatedAnim, forKey: animation.ID)
     animation.removeFunc = {
         layer.removeAnimation(forKey: animation.ID)

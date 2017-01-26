@@ -21,7 +21,7 @@ class MorphingView: MacawView {
         //let form1 = Line(x1: 100.0, y1: 100.0, x2: 200.0, y2: 200.0)
         //let form2 = Line(x1: 100.0, y1: 200.0, x2: 200.0, y2: 100.0)
         
-        let shape = Shape(form: form1)
+        let shape = Shape(form: form1, fill: Color.aqua, stroke:Stroke(fill: Color.blue, width: 3.0))
         shape.place = Transform.move(dx: 50.0, dy: 50.0)
         shape.formVar.animate(to: form2, during:5.0)
         

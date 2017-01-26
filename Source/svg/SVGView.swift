@@ -39,7 +39,7 @@ open class SVGView: MacawView {
     }
     
     fileprivate func parseSVG() {
-        svgNode = SVGParser.parse(path: fileName ?? "")
+        svgNode = try? SVGParser.parse(path: fileName ?? "")
     }
     
     fileprivate func render() {

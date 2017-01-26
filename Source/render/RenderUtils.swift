@@ -123,6 +123,10 @@ class RenderUtils {
             return path
         } else if let polygon = locus as? Polyline {
             return pointsToPath(polygon.points)
+        } else if let rect = locus as? Rect {
+            return UIBezierPath(rect: rect.cgRect())
+        } else if let circle = locus as? Circle {
+            return UIBezierPath(ovalIn: circle.bounds().cgRect())
         } else if let path = locus as? Path {
             return toBezierPath(path)
         }

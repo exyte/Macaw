@@ -20,6 +20,11 @@ public func >> (a: Transform, b: Transform) -> TransformAnimationDescription {
 
 public func >> (a: Locus, b: Locus) -> MorphingAnimationDescription {
     return MorphingAnimationDescription(valueFunc: { t in
-        return a.interpolate(b, progress: t)
+        // return a.interpolate(b, progress: t)
+        if t == 0.0 {
+            return a
+        }
+        
+        return b
     })
 }

@@ -16,10 +16,11 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     }
     
     
+    let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(1.0)
     
     // Creating proper animation
-    let generatedAnim = pathAnimation(toLocus:toLocus, duration: animation.getDuration())
+    let generatedAnim = pathAnimation(from:fromLocus, to:toLocus, duration: animation.getDuration())
     
     generatedAnim.repeatCount = Float(animation.repeatCount)
     generatedAnim.timingFunction = caTimingFunction(animation.easing)
@@ -53,7 +54,11 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         animation.onProgressUpdate?(t)
     }
     
-    let layer = animationCache.layerForNode(shape, animation: animation)
+    let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
+    layer.path = RenderUtils.toCGPath(fromLocus)
+    layer.strokeColor = UIColor.black.cgColor
+    layer.lineWidth = 2.0
+    layer.fillColor = UIColor.clear.cgColor
     
     layer.add(generatedAnim, forKey: animation.ID)
     animation.removeFunc = {
@@ -61,11 +66,13 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     }
 }
 
-fileprivate func pathAnimation(toLocus: Locus, duration: Double) -> CAAnimation {
+fileprivate func pathAnimation(from:Locus, to: Locus, duration: Double) -> CAAnimation {
     
-    let toPath = RenderUtils.toCGPath(toLocus)
+    let fromPath = RenderUtils.toCGPath(from)
+    let toPath = RenderUtils.toCGPath(to)
     
     let animation = CABasicAnimation(keyPath: "path")
+    animation.fromValue = fromPath
     animation.toValue = toPath
     animation.duration = duration
     

@@ -33,6 +33,8 @@ open class Shape: Node {
 			visible: visible,
 			tag: tag
 		)
+        
+        self.formVar.node = self
 	}
 
 	// GENERATED NOT

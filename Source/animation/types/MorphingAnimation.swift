@@ -33,7 +33,7 @@ class MorphingAnimation:  AnimationImpl<Locus> {
 
 public typealias MorphingAnimationDescription = AnimationDescription<Locus>
 
-public extension AnimatableVariable where T: MorphingAnimationDescription {
+public extension AnimatableVariable where T: LocusInterpolation {
     public func animate(_ desc: MorphingAnimationDescription) {
         let _ = MorphingAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
     }

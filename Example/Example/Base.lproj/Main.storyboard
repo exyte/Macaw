@@ -204,18 +204,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7vb-6r-3PQ" customClass="MorphingView" customModule="Example" customModuleProvider="target">
-                                <rect key="frame" x="16" y="0.0" width="343" height="667"/>
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="7vb-6r-3PQ" secondAttribute="trailing" id="72B-og-c5S"/>
-                            <constraint firstItem="7vb-6r-3PQ" firstAttribute="top" secondItem="LXh-et-ru2" secondAttribute="topMargin" id="NTS-2N-wcN"/>
+                            <constraint firstItem="7vb-6r-3PQ" firstAttribute="top" secondItem="LXh-et-ru2" secondAttribute="topMargin" constant="64" id="NTS-2N-wcN"/>
                             <constraint firstAttribute="bottomMargin" secondItem="7vb-6r-3PQ" secondAttribute="bottom" id="cHd-Fl-NeC"/>
                             <constraint firstItem="7vb-6r-3PQ" firstAttribute="leading" secondItem="LXh-et-ru2" secondAttribute="leadingMargin" id="ms7-8m-W01"/>
                         </constraints>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SbB-io-Fqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,13 +14,15 @@ class MorphingView: MacawView {
     }
     
     class func newScene() -> Node {
-        let form1 = Rect(x: 100.0, y: 100.0, w: 100.0, h: 100.0)
-        //let form1 = Circle(cx: 150.0, cy: 150.0, r: 50.0)
-        let form2 = Circle(cx: 150.0, cy: 150.0, r: 25.0)
+        let form1 = Rect(x: 0.0, y: 0.0, w: 300.0, h: 300.0)
+        // let form2 = Rect(x: 50.0, y: 50.0, w: 200.0, h: 200.0)
+        // let form2 = Circle(cx: 150.0, cy: 150.0, r: 50.0)
+        let form2 = Circle(cx: 150.0, cy: 150.0, r: 150.0).arc(shift: 0, extent: 2.0 * M_PI)
         //let form1 = Line(x1: 100.0, y1: 100.0, x2: 200.0, y2: 200.0)
         //let form2 = Line(x1: 100.0, y1: 200.0, x2: 200.0, y2: 100.0)
         
         let shape = Shape(form: form1)
+        shape.place = Transform.move(dx: 50.0, dy: 50.0)
         shape.formVar.animate(to: form2, during:5.0)
         
         return shape

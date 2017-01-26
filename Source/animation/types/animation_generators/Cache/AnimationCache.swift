@@ -21,9 +21,10 @@ class AnimationCache {
 		self.sceneLayer = sceneLayer
 	}
 
-    func layerForNode(_ node: Node, animation: Animation, customBounds: Rect? = .none) -> ShapeLayer {
+    func layerForNode(_ node: Node, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
 		guard let cachedLayer = layerCache[node] else {
 			let layer = ShapeLayer()
+            layer.shouldRenderContent = shouldRenderContent
 			layer.animationCache = self
 
 			// Use to debug animation layers

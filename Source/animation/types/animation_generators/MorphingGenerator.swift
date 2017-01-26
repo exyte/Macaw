@@ -67,6 +67,9 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         }
         
         layer.lineWidth = CGFloat(stroke.width)
+        layer.lineCap = RenderUtils.mapLineCapToString(stroke.cap)
+        layer.lineJoin = RenderUtils.mapLineJoinToString(stroke.join)
+        layer.lineDashPattern = stroke.dashes.map{ NSNumber(value: $0)}
     } else {
         layer.strokeColor = UIColor.black.cgColor
         layer.lineWidth = 1.0

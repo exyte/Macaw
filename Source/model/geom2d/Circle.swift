@@ -11,6 +11,14 @@ open class Circle: Locus {
 		self.cy = cy
 		self.r = r
 	}
+    
+    override open func bounds() -> Rect {
+        return Rect(
+            x: cx - r,
+            y: cy - r,
+            w: 2.0 * r,
+            h: 2.0 * r)
+    }
 
 	// GENERATED NOT
 	open func arc(shift: Double, extent: Double) -> Arc {

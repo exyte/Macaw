@@ -102,6 +102,7 @@
 		573525F21E0BC8FF00EB4AAB /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525941E0BC8FE00EB4AAB /* MacawView.swift */; };
 		573525F31E0BC8FF00EB4AAB /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525951E0BC8FE00EB4AAB /* NodesMap.swift */; };
 		573525F41E0BC8FF00EB4AAB /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573525961E0BC8FE00EB4AAB /* ShapeLayer.swift */; };
+		575CFD6F1E3B295700E52383 /* SVGParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575CFD6E1E3B295700E52383 /* SVGParserError.swift */; };
 		57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1221D782DFC00FD8E47 /* TestUtils.swift */; };
 		57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1251D7832E000FD8E47 /* circle.svg */; };
 		57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1261D7832E000FD8E47 /* ellipse.svg */; };
@@ -235,6 +236,7 @@
 		573525941E0BC8FE00EB4AAB /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		573525951E0BC8FE00EB4AAB /* NodesMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesMap.swift; sourceTree = "<group>"; };
 		573525961E0BC8FE00EB4AAB /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
+		575CFD6E1E3B295700E52383 /* SVGParserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParserError.swift; sourceTree = "<group>"; };
 		57CAB1221D782DFC00FD8E47 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		57CAB1251D7832E000FD8E47 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
 		57CAB1261D7832E000FD8E47 /* ellipse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ellipse.svg; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				5735258B1E0BC8FE00EB4AAB /* SVGParser.swift */,
 				5735258C1E0BC8FE00EB4AAB /* SVGParserRegexHelper.swift */,
 				5735258D1E0BC8FE00EB4AAB /* SVGView.swift */,
+				575CFD6E1E3B295700E52383 /* SVGParserError.swift */,
 			);
 			path = svg;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				573525B41E0BC8FE00EB4AAB /* Variable.swift in Sources */,
 				573525C81E0BC8FE00EB4AAB /* LineJoin.swift in Sources */,
 				573525F01E0BC8FF00EB4AAB /* CGFloat+Double.swift in Sources */,
+				575CFD6F1E3B295700E52383 /* SVGParserError.swift in Sources */,
 				573525D91E0BC8FF00EB4AAB /* Polygon.swift in Sources */,
 				573525D01E0BC8FE00EB4AAB /* Insets.swift in Sources */,
 				573525EE1E0BC8FF00EB4AAB /* SVGView.swift in Sources */,

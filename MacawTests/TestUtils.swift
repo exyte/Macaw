@@ -8,7 +8,7 @@ class TestUtils {
 		if let path = bundle.path(forResource: fileName, ofType: "svg") {
 			let content = try? NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue)
 			if let svgString = content as? String {
-				let group = SVGParser.parse(text: svgString)
+				let group = try! SVGParser.parse(text: svgString)
 				let referenceArray = TestUtils.prepareParametersList(Mirror(reflecting: referenceObject))
 				let parametersArray = TestUtils.prepareParametersList(Mirror(reflecting: group))
 				return referenceArray.elementsEqual(parametersArray, by: { first, second in

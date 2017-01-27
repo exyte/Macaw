@@ -54,7 +54,12 @@ public extension AnimatableVariable where T: LocusInterpolation {
         
         let origin = (node as! Shape).form
         let factory = { () -> (Double) -> Locus in
-            return { (t: Double) in return to }//origin.interpolate(to, progress: t) }
+            return { (t: Double) in
+                if t == 0.0 {
+                    return origin
+                }
+                
+                return to }
         }
 
         return MorphingAnimation(animatedNode: self.node as! Shape, factory: factory, animationDuration: during, delay: delay)

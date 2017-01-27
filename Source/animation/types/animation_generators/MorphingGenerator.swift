@@ -17,16 +17,15 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         return
     }
     
-    
-    
     let fromLocus = morphingAnimation.getVFunc()(0.0)
-    let toLocus = morphingAnimation.getVFunc()(1.0)
+    let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     
     // Creating proper animation
     let generatedAnim = pathAnimation(from:fromLocus, to:toLocus, duration: animation.getDuration())
     
     generatedAnim.repeatCount = Float(animation.repeatCount)
     generatedAnim.timingFunction = caTimingFunction(animation.easing)
+    generatedAnim.autoreverses = animation.autoreverses
     
     generatedAnim.completion = { finished in
         

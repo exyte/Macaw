@@ -28,7 +28,8 @@ class MorphingView: MacawView {
                                                                        dashes:[30, 15]
         ))
         shape.place = Transform.move(dx: 50.0, dy: 50.0)
-        shape.formVar.animate(to: form2, during:5.0)
+        let anim = shape.formVar.animation(to: form2, during:1.5).autoreversed().cycle()
+        anim.play()
         
         return shape
     }

@@ -9,7 +9,8 @@ open class MenuViewController: UIViewController, UITableViewDataSource, UITableV
         "TransformExampleController",
         "AnimationsExampleController",
         "SVGExampleViewController",
-        "EasingExampleController"
+        "EasingExampleController",
+        "MorphingExampleController",
     ].map {
         UIStoryboard(name: "Main", bundle: .none).instantiateViewController(withIdentifier: $0)
     }

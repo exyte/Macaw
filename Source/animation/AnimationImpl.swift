@@ -15,6 +15,7 @@ enum AnimationType {
 	case opacity
 	case sequence
 	case combine
+    case morphing
 	case empty
 }
 

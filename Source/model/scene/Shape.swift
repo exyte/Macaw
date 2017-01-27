@@ -2,7 +2,7 @@ import Foundation
 
 open class Shape: Node {
 
-	open let formVar: Variable<Locus>
+	open let formVar: AnimatableVariable<Locus>
 	open var form: Locus {
 		get { return formVar.value }
 		set(val) { formVar.value = val }
@@ -21,7 +21,7 @@ open class Shape: Node {
 	}
 
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
-		self.formVar = Variable<Locus>(form)
+		self.formVar = AnimatableVariable<Locus>(form)
 		self.fillVar = Variable<Fill?>(fill)
 		self.strokeVar = Variable<Stroke?>(stroke)
 		super.init(
@@ -33,6 +33,8 @@ open class Shape: Node {
 			visible: visible,
 			tag: tag
 		)
+        
+        self.formVar.node = self
 	}
 
 	// GENERATED NOT

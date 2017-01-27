@@ -23,11 +23,27 @@ class RenderUtils {
         }
     }
     
+    class func mapLineJoinToString(_ join: LineJoin?) -> String {
+        switch join {
+        case LineJoin.round?: return kCALineJoinRound
+        case LineJoin.bevel?: return kCALineJoinBevel
+        default: return kCALineJoinMiter
+        }
+    }
+    
     class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
         switch cap {
         case LineCap.round?: return CGLineCap.round
         case LineCap.square?: return CGLineCap.square
         default: return CGLineCap.butt
+        }
+    }
+    
+    class func mapLineCapToString(_ cap: LineCap?) -> String {
+        switch cap {
+        case LineCap.round?: return kCALineCapRound
+        case LineCap.square?: return kCALineCapSquare
+        default: return kCALineCapButt
         }
     }
     
@@ -123,6 +139,10 @@ class RenderUtils {
             return path
         } else if let polygon = locus as? Polyline {
             return pointsToPath(polygon.points)
+        } else if let rect = locus as? Rect {
+            return UIBezierPath(rect: rect.cgRect())
+        } else if let circle = locus as? Circle {
+            return UIBezierPath(ovalIn: circle.bounds().cgRect())
         } else if let path = locus as? Path {
             return toBezierPath(path)
         }

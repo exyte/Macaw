@@ -70,3 +70,27 @@ public extension AnimatableVariable where T: LocusInterpolation {
     }
     
 }
+
+// MARK: - Group
+public extension AnimatableVariable where T: GroupInterpolation {
+    public func animation(from: Group? = nil, to: Group, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+        var fromNode = node as! Group
+        if let passedFromNode = from {
+            fromNode = passedFromNode
+        }
+        
+        let fromShapes = fromNode.contents.flatMap{$0 as? Shape}
+        let toShapes = to.contents.flatMap{$0 as? Shape}
+        let minPathsNumber = min(fromShapes.count, toShapes.count)
+        
+        var animations = [Animation]()
+        for i in 0..<minPathsNumber {
+            let fromShape = fromShapes[i]
+            let toShape = toShapes[i]
+            let animation = fromShape.formVar.animation(to: toShape.form, during: during, delay: delay);
+            animations.append(animation)
+        }
+        
+        return animations.combine()
+    }
+}

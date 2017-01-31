@@ -27,8 +27,7 @@ class MorphingView: MacawView {
             Shape(form: Line(x1: 90.0, y1: 210.0, x2: 210.0, y2: 90.0), stroke: Stroke(width: 6.0, cap: .round))
             ].group()
         
-        let anim = group1.contentsVar.animation(to: group2, during: 2.0, delay: 2.0)
-        anim.play()
+        group1.contentsVar.animate(to: group2, during: 2.0, delay: 2.0)
         
         return group1
         

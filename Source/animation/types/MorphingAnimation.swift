@@ -72,6 +72,7 @@ public extension AnimatableVariable where T: LocusInterpolation {
 }
 
 // MARK: - Group
+
 public extension AnimatableVariable where T: GroupInterpolation {
     public func animation(from: Group? = nil, to: Group, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         var fromNode = node as! Group
@@ -92,5 +93,9 @@ public extension AnimatableVariable where T: GroupInterpolation {
         }
         
         return animations.combine()
+    }
+    
+    public func animate(from: Group? = nil, to: Group, during: Double = 1.0, delay: Double = 0.0) {
+        animation(from: from, to: to, during: during, delay: delay).play()
     }
 }

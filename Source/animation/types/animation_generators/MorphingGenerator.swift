@@ -20,17 +20,14 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     
-    var offset = Point(x: 0.0, y: 0.0)
-    if let width = shape.stroke?.width  {
-        offset = Point(x: width / 2.0, y: width / 2.0)
-    }
+    let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
     
     // Creating proper animation
     let generatedAnim = pathAnimation(
         from:fromLocus,
         to:toLocus,
         duration: animation.getDuration(),
-        offset: offset)
+        renderTransform: layer.renderTransform!)
     
     generatedAnim.repeatCount = Float(animation.repeatCount)
     generatedAnim.timingFunction = caTimingFunction(animation.easing)
@@ -65,7 +62,6 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         animation.onProgressUpdate?(t)
     }
     
-    let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
     layer.path = RenderUtils.toCGPath(fromLocus)
     
     // Stroke
@@ -98,11 +94,11 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     }
 }
 
-fileprivate func pathAnimation(from:Locus, to: Locus, duration: Double, offset: Point) -> CAAnimation {
+fileprivate func pathAnimation(from:Locus, to: Locus, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
     
-    var offsetTransform = CGAffineTransform.init(translationX: CGFloat(offset.x), y: CGFloat(offset.y))
-    let fromPath = RenderUtils.toCGPath(from).copy(using: &offsetTransform)
-    let toPath = RenderUtils.toCGPath(to).copy(using: &offsetTransform)
+    var transform = renderTransform
+    let fromPath = RenderUtils.toCGPath(from).copy(using: &transform)
+    let toPath = RenderUtils.toCGPath(to).copy(using: &transform)
     
     let animation = CABasicAnimation(keyPath: "path")
     animation.fromValue = fromPath

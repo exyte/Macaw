@@ -92,6 +92,25 @@ public extension AnimatableVariable where T: GroupInterpolation {
             animations.append(animation)
         }
         
+        if fromShapes.count > minPathsNumber {
+            for i in minPathsNumber..<fromShapes.count {
+                let shapeToHide = fromShapes[i]
+                let animation = shapeToHide.opacityVar.animation(to: 0.0, during:during, delay: delay)
+                animations.append(animation)
+            }
+        }
+        
+        if toShapes.count > minPathsNumber {
+            for i in minPathsNumber..<toShapes.count {
+                let shapeToShow = toShapes[i]
+                shapeToShow.opacity = 0.0
+                fromNode.contents.append(shapeToShow)
+                
+                let animation = shapeToShow.opacityVar.animation(to: 1.0, during:during, delay: delay)
+                animations.append(animation)
+            }
+        }
+        
         return animations.combine()
     }
     

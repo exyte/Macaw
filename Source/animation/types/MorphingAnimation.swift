@@ -80,6 +80,7 @@ public extension AnimatableVariable where T: GroupInterpolation {
             fromNode = passedFromNode
         }
         
+        // Shapes on same hierarhy level
         let fromShapes = fromNode.contents.flatMap{$0 as? Shape}
         let toShapes = to.contents.flatMap{$0 as? Shape}
         let minPathsNumber = min(fromShapes.count, toShapes.count)
@@ -111,6 +112,32 @@ public extension AnimatableVariable where T: GroupInterpolation {
             }
         }
         
+        // Groups on same hierahy level
+        let fromGroups = fromNode.contents.flatMap{$0 as? Group}
+        let toGroups = to.contents.flatMap{$0 as? Group}
+        let minGroupsNumber = min(fromGroups.count, toGroups.count)
+        for i in 0..<minGroupsNumber {
+            let fromGroup = fromGroups[i]
+            let toGroup = toGroups[i]
+            let groupAnimation = fromGroup.contentsVar.animation(to: toGroup, during: during, delay: delay)
+            animations.append(groupAnimation)
+        }
+        
+        for i in minGroupsNumber..<fromGroups.count {
+            let groupToHide = fromGroups[i]
+            let animation = groupToHide.opacityVar.animation(to: 0.0, during:during, delay: delay)
+            animations.append(animation)
+        }
+        
+        for i in minGroupsNumber..<toGroups.count {
+            let groupToShow = toGroups[i]
+            groupToShow.opacity = 0.0
+            fromNode.contents.append(groupToShow)
+            
+            let animation = groupToShow.opacityVar.animation(to: 1.0, during:during, delay: delay)
+            animations.append(animation)
+        }
+    
         return animations.combine()
     }
     

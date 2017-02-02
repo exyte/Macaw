@@ -69,7 +69,13 @@ open class Shape: Node {
 			bounds = rect
         } else if let roundRect = form as? RoundRect {
             bounds = roundRect.rect
-		} else {
+        } else if let line = form as? Line {
+            bounds = Rect(
+                x: min(line.x1, line.x2),
+                y: min(line.y1, line.y2),
+                w: abs(line.x1 - line.x2),
+                h: abs(line.y1 - line.y2))
+        } else {
 			bounds = form.bounds()
 		}
 

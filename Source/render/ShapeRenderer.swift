@@ -406,7 +406,7 @@ class ShapeRenderer: NodeRenderer {
 			return
 		}
 
-		ctx!.setLineWidth(2.0)
+		ctx!.setLineWidth(1.0)
 		ctx!.setStrokeColor(UIColor.black.cgColor)
 		ctx!.drawPath(using: .stroke)
 	}

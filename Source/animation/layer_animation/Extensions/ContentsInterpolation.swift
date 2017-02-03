@@ -1,10 +1,8 @@
-import Foundation
-
-public protocol GroupInterpolation: Interpolable {
+public protocol ContentsInterpolation: Interpolable {
     
 }
 
-extension Array: GroupInterpolation {
+extension Array: ContentsInterpolation {
     public func interpolate(_ endValue: Array, progress: Double) -> Array {
         return self
     }

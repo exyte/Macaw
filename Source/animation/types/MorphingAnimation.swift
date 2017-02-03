@@ -4,7 +4,7 @@ class MorphingAnimation:  AnimationImpl<Locus> {
     convenience init(animatedNode: Shape, startValue: Locus, finalValue: Locus, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         
         let interpolationFunc = { (t: Double) -> Locus in
-            return finalValue//startValue.interpolate(finalValue, progress: t)
+            return finalValue
         }
         
         self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
@@ -73,8 +73,8 @@ public extension AnimatableVariable where T: LocusInterpolation {
 
 // MARK: - Group
 
-public extension AnimatableVariable where T: GroupInterpolation {
-    public func animation(from: Group? = nil, to: Group, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+public extension AnimatableVariable where T: ContentsInterpolation {
+    public func animation(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) -> Animation {
         var fromNode = node as! Group
         if let passedFromNode = from {
             fromNode = passedFromNode
@@ -82,7 +82,7 @@ public extension AnimatableVariable where T: GroupInterpolation {
         
         // Shapes on same hierarhy level
         let fromShapes = fromNode.contents.flatMap{$0 as? Shape}
-        let toShapes = to.contents.flatMap{$0 as? Shape}
+        let toShapes = to.flatMap{$0 as? Shape}
         let minPathsNumber = min(fromShapes.count, toShapes.count)
         
         var animations = [Animation]()
@@ -114,12 +114,12 @@ public extension AnimatableVariable where T: GroupInterpolation {
         
         // Groups on same hierahy level
         let fromGroups = fromNode.contents.flatMap{$0 as? Group}
-        let toGroups = to.contents.flatMap{$0 as? Group}
+        let toGroups = to.flatMap{$0 as? Group}
         let minGroupsNumber = min(fromGroups.count, toGroups.count)
         for i in 0..<minGroupsNumber {
             let fromGroup = fromGroups[i]
             let toGroup = toGroups[i]
-            let groupAnimation = fromGroup.contentsVar.animation(to: toGroup, during: during, delay: delay)
+            let groupAnimation = fromGroup.contentsVar.animation(to: toGroup.contents, during: during, delay: delay)
             animations.append(groupAnimation)
         }
         
@@ -141,7 +141,7 @@ public extension AnimatableVariable where T: GroupInterpolation {
         return animations.combine()
     }
     
-    public func animate(from: Group? = nil, to: Group, during: Double = 1.0, delay: Double = 0.0) {
+    public func animate(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) {
         animation(from: from, to: to, during: during, delay: delay).play()
     }
 }

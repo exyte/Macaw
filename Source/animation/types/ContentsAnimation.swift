@@ -40,7 +40,7 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
     }
 }
 
-public extension AnimatableVariable where T: GroupInterpolation {
+public extension AnimatableVariable where T: ContentsInterpolation {
     
     public func animation(_ f: @escaping (Double) -> [Node]) -> Animation {
         let group = node! as! Group

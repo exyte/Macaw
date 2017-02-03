@@ -101,6 +101,12 @@ class AnimationProducer {
                     self.addAnimation(next)
                 }
             })
+        case .shape:
+            addShapeAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+                if let next = animation.next {
+                    self.addAnimation(next)
+                }
+            })
 		case .empty:
 			executeCompletion(animation)
 		}

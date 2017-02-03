@@ -31,25 +31,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
   s.source_files = [
-     'Source/*.swift',
-     'Source/animation/*.swift',
-     'Source/animation/utils/*.swift',
-     'Source/animation/layer_animation/*.swift',
-     'Source/animation/layer_animation/extensions/*.swift',
-     'Source/animation/types/*.swift',
-     'Source/animation/types/animation_generators/*.swift',
-     'Source/animation/types/animation_generators/cache/*.swift',
-     'Source/bindings/*.swift',
-     'Source/events/*.swift',
-     'Source/model/draw/*.swift',
-     'Source/model/geom2d/*.swift',
-     'Source/model/input/*.swift',
-     'Source/model/scene/*.swift',
-     'Source/render/*.swift',
-     'Source/views/*.swift',
-     'Source/svg/*.swift',
-     'Source/thirdparty/*.swift',
-     'Source/thirdparty/Swift-CAAnimation-Closure/*.swift'
+     'Source/**/*.*'
   ]
   # s.resource_bundles = {
   #   'Macaw' => ['Pod/Assets/*.png']

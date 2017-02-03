@@ -9,7 +9,7 @@
 import UIKit
 
 func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: @escaping (() -> ())) {
-    guard let morphingAnimation = animation as? MorphingAnimation else {
+    guard let shapeAnimation = animation as? ShapeAnimation else {
         return
     }
     
@@ -17,13 +17,15 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         return
     }
     
-    let fromLocus = morphingAnimation.getVFunc()(0.0)
-    let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
+    let fromShape = shapeAnimation.getVFunc()(0.0)
+    let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
+    let fromLocus = fromShape.form
+    let toLocus = toShape.form
     
     let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
     
     // Creating proper animation
-    let generatedAnim = pathAnimation(
+    let generatedAnim = generateShapAnimation(
         from:fromLocus,
         to:toLocus,
         duration: animation.getDuration(),
@@ -37,9 +39,9 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         
         if !animation.manualStop {
             animation.progress = 1.0
-            shape.form = morphingAnimation.getVFunc()(1.0)
+            shape.form = toLocus//shapeAnimation.getVFunc()(1.0).form
         } else {
-            shape.form = morphingAnimation.getVFunc()(animation.progress)
+            shape.form = toLocus//shapeAnimation.getVFunc()(animation.progress).form
         }
         
         animationCache.freeLayer(shape)
@@ -56,13 +58,13 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     generatedAnim.progress = { progress in
         
         let t = Double(progress)
-        shape.form = morphingAnimation.getVFunc()(t)
+        shape.form = shapeAnimation.getVFunc()(t).form
         
         animation.progress = t
         animation.onProgressUpdate?(t)
     }
     
-    layer.path = RenderUtils.toCGPath(fromLocus)
+    layer.path = RenderUtils.toCGPath(fromShape.form)
     
     // Stroke
     if let stroke = shape.stroke {
@@ -94,7 +96,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     }
 }
 
-fileprivate func pathAnimation(from:Locus, to: Locus, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
+fileprivate func generateShapAnimation(from:Locus, to: Locus, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
     
     var transform = renderTransform
     let fromPath = RenderUtils.toCGPath(from).copy(using: &transform)

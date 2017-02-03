@@ -89,7 +89,7 @@ public extension AnimatableVariable where T: ContentsInterpolation {
         for i in 0..<minPathsNumber {
             let fromShape = fromShapes[i]
             let toShape = toShapes[i]
-            let animation = fromShape.formVar.animation(to: toShape.form, during: during, delay: delay);
+            let animation = ShapeAnimation(animatedNode: fromShape, finalValue: toShape, animationDuration: during, delay: delay)
             animations.append(animation)
         }
         

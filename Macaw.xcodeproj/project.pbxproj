@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		572CEFC71E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC51E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift */; };
 		572CEFC81E2CED4B008C7C83 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC61E2CED4B008C7C83 /* SWXMLHash.swift */; };
+		57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
+		57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */; };
+		57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */; };
+		57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */; };
 		57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1221D782DFC00FD8E47 /* TestUtils.swift */; };
 		57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1251D7832E000FD8E47 /* circle.svg */; };
 		57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1261D7832E000FD8E47 /* ellipse.svg */; };
@@ -28,7 +32,6 @@
 		57E5E1591E3B393900D1CB28 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */; };
 		57E5E15A1E3B393900D1CB28 /* AnimOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */; };
 		57E5E15B1E3B393900D1CB28 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */; };
-		57E5E15C1E3B393900D1CB28 /* GroupInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0ED1E3B393900D1CB28 /* GroupInterpolation.swift */; };
 		57E5E15D1E3B393900D1CB28 /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */; };
 		57E5E15E1E3B393900D1CB28 /* LocusInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EF1E3B393900D1CB28 /* LocusInterpolation.swift */; };
 		57E5E15F1E3B393900D1CB28 /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F01E3B393900D1CB28 /* TransformInterpolation.swift */; };
@@ -146,6 +149,10 @@
 /* Begin PBXFileReference section */
 		572CEFC51E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
 		572CEFC61E2CED4B008C7C83 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
+		57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsInterpolation.swift; sourceTree = "<group>"; };
+		57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimation.swift; sourceTree = "<group>"; };
+		57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimationGenerator.swift; sourceTree = "<group>"; };
+		57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeInterpolation.swift; sourceTree = "<group>"; };
 		57CAB1221D782DFC00FD8E47 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		57CAB1251D7832E000FD8E47 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
 		57CAB1261D7832E000FD8E47 /* ellipse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ellipse.svg; sourceTree = "<group>"; };
@@ -165,7 +172,6 @@
 		57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
 		57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimOperators.swift; sourceTree = "<group>"; };
 		57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
-		57E5E0ED1E3B393900D1CB28 /* GroupInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInterpolation.swift; sourceTree = "<group>"; };
 		57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolable.swift; sourceTree = "<group>"; };
 		57E5E0EF1E3B393900D1CB28 /* LocusInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocusInterpolation.swift; sourceTree = "<group>"; };
 		57E5E0F01E3B393900D1CB28 /* TransformInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformInterpolation.swift; sourceTree = "<group>"; };
@@ -358,9 +364,10 @@
 		57E5E0EA1E3B393900D1CB28 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */,
+				57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */,
 				57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */,
 				57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */,
-				57E5E0ED1E3B393900D1CB28 /* GroupInterpolation.swift */,
 				57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */,
 				57E5E0EF1E3B393900D1CB28 /* LocusInterpolation.swift */,
 				57E5E0F01E3B393900D1CB28 /* TransformInterpolation.swift */,
@@ -377,6 +384,7 @@
 				57E5E1011E3B393900D1CB28 /* ContentsAnimation.swift */,
 				57E5E1021E3B393900D1CB28 /* MorphingAnimation.swift */,
 				57E5E1031E3B393900D1CB28 /* OpacityAnimation.swift */,
+				57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */,
 				57E5E1041E3B393900D1CB28 /* TransformAnimation.swift */,
 			);
 			path = types;
@@ -387,6 +395,7 @@
 			children = (
 				57E5E0F61E3B393900D1CB28 /* Cache */,
 				57E5E0FB1E3B393900D1CB28 /* MorphingGenerator.swift */,
+				57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */,
 				57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */,
 				57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */,
 				57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */,
@@ -727,7 +736,6 @@
 				57E5E1781E3B393900D1CB28 /* TapEvent.swift in Sources */,
 				57E5E1861E3B393900D1CB28 /* LineCap.swift in Sources */,
 				57E5E1AE1E3B393900D1CB28 /* SVGView.swift in Sources */,
-				57E5E15C1E3B393900D1CB28 /* GroupInterpolation.swift in Sources */,
 				57E5E18B1E3B393900D1CB28 /* Arc.swift in Sources */,
 				57E5E1B21E3B393900D1CB28 /* MacawView.swift in Sources */,
 				57E5E19F1E3B393900D1CB28 /* Image.swift in Sources */,
@@ -740,7 +748,9 @@
 				57E5E1A41E3B393900D1CB28 /* ImageRenderer.swift in Sources */,
 				57E5E1621E3B393900D1CB28 /* PathFunctions.swift in Sources */,
 				57E5E16E1E3B393900D1CB28 /* MorphingAnimation.swift in Sources */,
+				57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */,
 				57E5E15F1E3B393900D1CB28 /* TransformInterpolation.swift in Sources */,
+				57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */,
 				57E5E1571E3B393900D1CB28 /* AnimationUtils.swift in Sources */,
 				57E5E1981E3B393900D1CB28 /* Polygon.swift in Sources */,
 				57E5E17C1E3B393900D1CB28 /* Baseline.swift in Sources */,
@@ -760,6 +770,7 @@
 				57E5E1611E3B393900D1CB28 /* PathBounds.swift in Sources */,
 				57E5E1561E3B393900D1CB28 /* AnimationProducer.swift in Sources */,
 				57E5E1811E3B393900D1CB28 /* Fill.swift in Sources */,
+				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
 				57E5E1871E3B393900D1CB28 /* LineJoin.swift in Sources */,
 				57E5E1881E3B393900D1CB28 /* RadialGradient.swift in Sources */,
 				57E5E1891E3B393900D1CB28 /* Stop.swift in Sources */,
@@ -792,6 +803,7 @@
 				57E5E19A1E3B393900D1CB28 /* Rect.swift in Sources */,
 				57E5E1941E3B393900D1CB28 /* PathBuilder.swift in Sources */,
 				57E5E1761E3B393900D1CB28 /* PinchEvent.swift in Sources */,
+				57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */,
 				57E5E1A31E3B393900D1CB28 /* GroupRenderer.swift in Sources */,
 				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,
 				57E5E1801E3B393900D1CB28 /* Effect.swift in Sources */,

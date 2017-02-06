@@ -10,6 +10,10 @@ class ShapeAnimation: AnimationImpl<Shape> {
     convenience init(animatedNode: Shape, finalValue: Shape, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         
         let interpolationFunc = { (t: Double) -> Shape in
+            if t == 0 {
+                return animatedNode
+            }
+            
             return finalValue
         }
         

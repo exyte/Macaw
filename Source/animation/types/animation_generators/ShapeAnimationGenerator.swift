@@ -19,15 +19,13 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     
     let fromShape = shapeAnimation.getVFunc()(0.0)
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
-    let fromLocus = fromShape.form
-    let toLocus = toShape.form
-    
+  
     let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
     
     // Creating proper animation
     let generatedAnim = generateShapAnimation(
-        from:fromLocus,
-        to:toLocus,
+        from:fromShape,
+        to:toShape,
         duration: animation.getDuration(),
         renderTransform: layer.renderTransform!)
     
@@ -39,10 +37,10 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         
         if !animation.manualStop {
             animation.progress = 1.0
-            shape.form = toLocus//shapeAnimation.getVFunc()(1.0).form
-        } else {
-            shape.form = toLocus//shapeAnimation.getVFunc()(animation.progress).form
         }
+        
+        shape.form = toShape.form
+        shape.stroke = toShape.stroke
         
         animationCache.freeLayer(shape)
         animation.completion?()
@@ -58,7 +56,9 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     generatedAnim.progress = { progress in
         
         let t = Double(progress)
-        shape.form = shapeAnimation.getVFunc()(t).form
+        let currentShape = shapeAnimation.getVFunc()(t)
+        shape.form = currentShape.form
+        shape.stroke = currentShape.stroke
         
         animation.progress = t
         animation.onProgressUpdate?(t)
@@ -96,16 +96,23 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     }
 }
 
-fileprivate func generateShapAnimation(from:Locus, to: Locus, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
+fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
     
+    // Path
     var transform = renderTransform
-    let fromPath = RenderUtils.toCGPath(from).copy(using: &transform)
-    let toPath = RenderUtils.toCGPath(to).copy(using: &transform)
+    let fromPath = RenderUtils.toCGPath(from.form).copy(using: &transform)
+    let toPath = RenderUtils.toCGPath(to.form).copy(using: &transform)
     
-    let animation = CABasicAnimation(keyPath: "path")
-    animation.fromValue = fromPath
-    animation.toValue = toPath
-    animation.duration = duration
+    let pathAnimation = CABasicAnimation(keyPath: "path")
+    pathAnimation.fromValue = fromPath
+    pathAnimation.toValue = toPath
+    pathAnimation.duration = duration
     
-    return animation
+    let group = CAAnimationGroup()
+    group.animations = [pathAnimation]
+    group.duration = duration
+    group.fillMode = kCAFillModeForwards
+    group.isRemovedOnCompletion = false
+    
+    return group
 }

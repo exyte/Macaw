@@ -20,6 +20,7 @@ open class Color: Fill {
 	open static let navy: Color = Color( val: 0x000080 )
 	open static let fuchsia: Color = Color( val: 0xFF00FF )
 	open static let purple: Color = Color( val: 0x800080 )
+    open static let clear: Color = Color.rgba(r: 0, g: 0, b: 0, a: 0)
 
 	public init(val: Int = 0) {
 		self.val = val

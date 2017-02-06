@@ -98,12 +98,13 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
 fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
     
+    let group = CAAnimationGroup()
+    
+    // Shape
     // Path
     var transform = renderTransform
     let fromPath = RenderUtils.toCGPath(from.form).copy(using: &transform)
     let toPath = RenderUtils.toCGPath(to.form).copy(using: &transform)
-    
-    let group = CAAnimationGroup()
     
     let pathAnimation = CABasicAnimation(keyPath: "path")
     pathAnimation.fromValue = fromPath
@@ -112,36 +113,52 @@ fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, 
     
      group.animations = [pathAnimation]
     
+    // Fill
+    let fromFillColor = from.fill as? Color ?? Color.clear
+    let toFillColor = to.fill as? Color ?? Color.clear
+    
+    let fillAnimation = CABasicAnimation(keyPath: "fillColor")
+    fillAnimation.fromValue = RenderUtils.mapColor(fromFillColor)
+    fillAnimation.toValue = RenderUtils.mapColor(toFillColor)
+    fillAnimation.duration = duration
+    
+    group.animations?.append(fillAnimation)
+    
+    
     // Stroke
-    if let fromStroke = from.stroke, let toStroke = to.stroke {
-        // Line width
-        let strokeWidthAnimation = CABasicAnimation(keyPath: "lineWidth")
-        strokeWidthAnimation.fromValue = fromStroke.width
-        strokeWidthAnimation.toValue = toStroke.width
-        strokeWidthAnimation.duration = duration
-        
-        group.animations?.append(strokeWidthAnimation)
-        
+    let fromStroke = from.stroke ?? Stroke(fill: Color.black, width: 1.0)
+    let toStroke = to.stroke ?? Stroke(fill: Color.black, width: 1.0)
+    
+    // Line width
+    let strokeWidthAnimation = CABasicAnimation(keyPath: "lineWidth")
+    strokeWidthAnimation.fromValue = fromStroke.width
+    strokeWidthAnimation.toValue = toStroke.width
+    strokeWidthAnimation.duration = duration
+    
+    group.animations?.append(strokeWidthAnimation)
+    
         // Line color
-        if let fromColor = fromStroke.fill as? Color, let toColor = toStroke.fill as? Color{
-            let strokeColorAnimation = CABasicAnimation(keyPath: "strokeColor")
-            strokeColorAnimation.fromValue = RenderUtils.mapColor(fromColor)
-            strokeColorAnimation.toValue = RenderUtils.mapColor(toColor)
-            strokeColorAnimation.duration = duration
-            
-            group.animations?.append(strokeColorAnimation)
-        }
-        
-        let dashPatternAnimation = CABasicAnimation(keyPath: "lineDashPattern")
-        dashPatternAnimation.fromValue = fromStroke.dashes
-        dashPatternAnimation.toValue = toStroke.dashes
-        dashPatternAnimation.duration = duration
-        
-        group.animations?.append(dashPatternAnimation)
-    }
+    let fromStrokeColor = fromStroke.fill as? Color ?? Color.black
+    let toStrokeColor = toStroke.fill as? Color ?? Color.black
+    
+    let strokeColorAnimation = CABasicAnimation(keyPath: "strokeColor")
+    strokeColorAnimation.fromValue = RenderUtils.mapColor(fromStrokeColor)
+    strokeColorAnimation.toValue = RenderUtils.mapColor(toStrokeColor)
+    strokeColorAnimation.duration = duration
+    
+    group.animations?.append(strokeColorAnimation)
     
     
-   
+    
+    // Dash pattern
+    let dashPatternAnimation = CABasicAnimation(keyPath: "lineDashPattern")
+    dashPatternAnimation.fromValue = fromStroke.dashes
+    dashPatternAnimation.toValue = toStroke.dashes
+    dashPatternAnimation.duration = duration
+    
+    group.animations?.append(dashPatternAnimation)
+    
+    // Group
     group.duration = duration
     group.fillMode = kCAFillModeForwards
     group.isRemovedOnCompletion = false

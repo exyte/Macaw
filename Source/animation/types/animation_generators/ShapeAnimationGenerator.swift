@@ -131,6 +131,13 @@ fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, 
             
             group.animations?.append(strokeColorAnimation)
         }
+        
+        let dashPatternAnimation = CABasicAnimation(keyPath: "lineDashPattern")
+        dashPatternAnimation.fromValue = fromStroke.dashes
+        dashPatternAnimation.toValue = toStroke.dashes
+        dashPatternAnimation.duration = duration
+        
+        group.animations?.append(dashPatternAnimation)
     }
     
     

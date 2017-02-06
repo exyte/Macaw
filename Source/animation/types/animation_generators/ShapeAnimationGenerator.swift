@@ -41,6 +41,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         
         shape.form = toShape.form
         shape.stroke = toShape.stroke
+        shape.fill = toShape.fill
         
         animationCache.freeLayer(shape)
         animation.completion?()
@@ -59,6 +60,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         let currentShape = shapeAnimation.getVFunc()(t)
         shape.form = currentShape.form
         shape.stroke = currentShape.stroke
+        shape.fill = currentShape.fill
         
         animation.progress = t
         animation.onProgressUpdate?(t)

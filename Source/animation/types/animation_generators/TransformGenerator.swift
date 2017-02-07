@@ -84,6 +84,7 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 			dt = 1.0
 		}
         
+        timeValues.append(dt)
 		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(dt))
         let cgValue = CATransform3DMakeAffineTransform(RenderUtils.mapTransform(value))
         transformValues.append(cgValue)

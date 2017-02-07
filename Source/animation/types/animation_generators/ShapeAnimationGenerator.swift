@@ -19,14 +19,16 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     
     let fromShape = shapeAnimation.getVFunc()(0.0)
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
+    let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
   
     let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
+    
     
     // Creating proper animation
     let generatedAnim = generateShapAnimation(
         from:fromShape,
         to:toShape,
-        duration: animation.getDuration(),
+        duration: duration,
         renderTransform: layer.renderTransform!)
     
     generatedAnim.repeatCount = Float(animation.repeatCount)

@@ -19,6 +19,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
+    let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
     
     let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
     
@@ -26,7 +27,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     let generatedAnim = pathAnimation(
         from:fromLocus,
         to:toLocus,
-        duration: animation.getDuration(),
+        duration: duration,
         renderTransform: layer.renderTransform!)
     
     generatedAnim.repeatCount = Float(animation.repeatCount)

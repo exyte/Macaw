@@ -39,9 +39,11 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
             animation.progress = 1.0
         }
         
-        shape.form = toShape.form
-        shape.stroke = toShape.stroke
-        shape.fill = toShape.fill
+        if !animation.autoreverses {
+            shape.form = toShape.form
+            shape.stroke = toShape.stroke
+            shape.fill = toShape.fill
+        }
         
         animationCache.freeLayer(shape)
         animation.completion?()
@@ -57,10 +59,13 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     generatedAnim.progress = { progress in
         
         let t = Double(progress)
-        let currentShape = shapeAnimation.getVFunc()(t)
-        shape.form = currentShape.form
-        shape.stroke = currentShape.stroke
-        shape.fill = currentShape.fill
+        
+        if !animation.autoreverses {
+            let currentShape = shapeAnimation.getVFunc()(t)
+            shape.form = currentShape.form
+            shape.stroke = currentShape.stroke
+            shape.fill = currentShape.fill
+        }
         
         animation.progress = t
         animation.onProgressUpdate?(t)

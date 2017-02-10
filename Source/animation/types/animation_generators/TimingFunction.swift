@@ -26,8 +26,7 @@ func progressForTimingFunction(_ easing: Easing, progress: Double) -> Double {
     case .easeIn:
         return t * t
     case .easeOut:
-        let p = 1.0 - t
-        return p * p + 1.0
+        return -(t * (t - 2))
     case .easeInOut:
         if t < 0.5 {
             return 2.0 * t * t

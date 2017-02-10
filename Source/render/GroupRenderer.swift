@@ -19,6 +19,7 @@ class GroupRenderer: NodeRenderer {
         group.contentsVar.onChange { _ in
             self.updateRenderers()
         }
+         observe(group.contentsVar)
 	}
 
 	override func node() -> Node {

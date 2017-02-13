@@ -32,10 +32,24 @@ open class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
+    var touchHandlers = [ChangeHandler<TouchEvent>]()
     var tapHandlers = [ChangeHandler<TapEvent>]()
     var panHandlers = [ChangeHandler<PanEvent>]()
     var rotateHandlers = [ChangeHandler<RotateEvent>]()
     var pinchHandlers = [ChangeHandler<PinchEvent>]()
+    
+    @discardableResult public func onTouch(_ f: @escaping (TouchEvent) -> ()) -> Disposable  {
+        let handler = ChangeHandler<TouchEvent>(f)
+        touchHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.touchHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.touchHandlers.remove(at: index)
+        })
+    }
     
     @discardableResult public func onTap(_ f: @escaping (TapEvent) -> ()) -> Disposable  {
         let handler = ChangeHandler<TapEvent>(f)
@@ -87,6 +101,10 @@ open class Node: Drawable {
             
             self.pinchHandlers.remove(at: index)
         })
+    }
+    
+    func handleTouch(_ event: TouchEvent) {
+        touchHandlers.forEach { handler in handler.handle(event) }
     }
     
     func handleTap( _ event: TapEvent ) {

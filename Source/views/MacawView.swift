@@ -54,6 +54,7 @@ open class MacawView: UIView {
     }
     
     private var touched: Node? = nil
+    var touchEvents = [TouchEvent: UITouch]()
     
     var context: RenderContext!
     var renderer: NodeRenderer?
@@ -125,16 +126,85 @@ open class MacawView: UIView {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
                 
-				let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+				let tapEvent = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let touchEvent = TouchEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)), state: .began)
+                
+                touchEvents[touchEvent] = touch
+                
                 var parent: Node? = node
                 while parent != .none {
-                    parent!.handleTap(event)
-					if (event.consumed) {
+                    
+                    parent!.handleTap(tapEvent)
+                    parent!.handleTouch(touchEvent)
+                    
+					if (tapEvent.consumed && touchEvent.consumed) {
 						break;
 					}
+                    
                     parent = nodesMap.parents(parent!).first
                 }
             }
+        }
+    }
+    
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for (touchEvent, uiTouch) in touchEvents {
+            if touches.contains(uiTouch) {
+                //let loc = location.applying(RenderUtils.mapTransform(inverted))
+                touchEvent.state = .moved
+                //touchEvent.location = Point(x: Double(loc.x), y: Double(loc.y))
+                
+                if let node = self.touched {
+                    var parent: Node? = node
+                    while parent != .none {
+                        parent!.handleTouch(touchEvent)
+                        
+                        if (touchEvent.consumed) {
+                            break;
+                        }
+                        
+                        parent = nodesMap.parents(parent!).first
+                    }
+                }
+            }
+        }
+    }
+    
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchesEnded(touches: touches, event: event)
+    }
+    
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchesEnded(touches: touches, event: event)
+    }
+    
+    private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
+        var eventsToRemove = [TouchEvent]()
+        
+        for (touchEvent, uiTouch) in touchEvents {
+            if touches.contains(uiTouch) {
+                eventsToRemove.append(touchEvent)
+                //let loc = location.applying(RenderUtils.mapTransform(inverted))
+                touchEvent.state = .ended
+                //touchEvent.location = Point(x: Double(loc.x), y: Double(loc.y))
+                
+                if let node = self.touched {
+                    var parent: Node? = node
+                    while parent != .none {
+                        parent!.handleTouch(touchEvent)
+                        
+                        if (touchEvent.consumed) {
+                            break;
+                        }
+                        
+                        parent = nodesMap.parents(parent!).first
+                    }
+                }
+            }
+        }
+        
+        eventsToRemove.forEach { touchEvent in
+            touchEvents.removeValue(forKey: touchEvent)
         }
     }
     

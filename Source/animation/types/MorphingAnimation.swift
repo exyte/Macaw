@@ -137,6 +137,29 @@ public extension AnimatableVariable where T: ContentsInterpolation {
             let animation = groupToShow.opacityVar.animation(to: 1.0, during:during, delay: delay)
             animations.append(animation)
         }
+        
+        
+        // Rest nodes
+        let fromNodes = fromNode.contents.filter {
+            return !($0 is Group || $0 is Shape)
+        }
+        
+        let toNodes = to.filter {
+            return !($0 is Group || $0 is Shape)
+        }
+        
+        fromNodes.forEach { node in
+            let animation = node.opacityVar.animation(to: 0.0, during:during, delay: delay)
+            animations.append(animation)
+        }
+        
+        toNodes.forEach { node in
+            node.opacity = 0.0
+            fromNode.contents.append(node)
+            
+            let animation = node.opacityVar.animation(to: 1.0, during:during, delay: delay)
+            animations.append(animation)
+        }
     
         return animations.combine()
     }

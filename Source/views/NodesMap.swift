@@ -35,6 +35,12 @@ class NodesMap {
 		} else {
 			parentsMap[node] = Set([parent])
 		}
+        
+        if let group = node as? Group {
+            group.contents.forEach { child in
+                self.add(child, parent: node)
+            }
+        }
 	}
 
 	func parents(_ node: Node) -> [Node] {

@@ -5,7 +5,19 @@ open class Group: Node {
 	open var contentsVar: AnimatableVariable<[Node]>
     open var contents: [Node] {
         get { return contentsVar.value }
-        set(val) { contentsVar.value = val }
+        set(val) {
+            contentsVar.value = val
+            
+            if let view = nodesMap.getView(self) {
+                val.forEach { subNode in
+                    nodesMap.add(subNode, view: view)
+                }
+            }
+            
+            val.forEach { subNode in
+                nodesMap.add(subNode, parent: self)
+            }
+        }
     }
 
 

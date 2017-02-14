@@ -148,11 +148,21 @@ open class MacawView: UIView {
     }
     
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let renderer = renderer else {
+            return
+        }
+        
         for (touchEvent, uiTouch) in touchEvents {
             if touches.contains(uiTouch) {
-                //let loc = location.applying(RenderUtils.mapTransform(inverted))
+        
+                var location = uiTouch.location(in: self)
+                if let inverted = renderer.node().place.invert() {
+                    location = location.applying(RenderUtils.mapTransform(inverted))
+                }
+                
+                touchEvent.location = Point(x: Double(location.x), y: Double(location.y))
+                
                 touchEvent.state = .moved
-                //touchEvent.location = Point(x: Double(loc.x), y: Double(loc.y))
                 
                 if let node = self.touched {
                     var parent: Node? = node
@@ -179,14 +189,25 @@ open class MacawView: UIView {
     }
     
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
+        guard let renderer = renderer else {
+            return
+        }
+        
         var eventsToRemove = [TouchEvent]()
         
         for (touchEvent, uiTouch) in touchEvents {
             if touches.contains(uiTouch) {
                 eventsToRemove.append(touchEvent)
-                //let loc = location.applying(RenderUtils.mapTransform(inverted))
+                
                 touchEvent.state = .ended
-                //touchEvent.location = Point(x: Double(loc.x), y: Double(loc.y))
+                
+                var location = uiTouch.location(in: self)
+                if let inverted = renderer.node().place.invert() {
+                    location = location.applying(RenderUtils.mapTransform(inverted))
+                }
+                
+                touchEvent.location = Point(x: Double(location.x), y: Double(location.y))
+                
                 
                 if let node = self.touched {
                     var parent: Node? = node
@@ -206,6 +227,8 @@ open class MacawView: UIView {
         eventsToRemove.forEach { touchEvent in
             touchEvents.removeValue(forKey: touchEvent)
         }
+        
+        self.touched = nil
     }
     
     func handlePan(recognizer: UIPanGestureRecognizer) {

@@ -14,7 +14,7 @@ public enum TouchEventState: Int {
 
 open class TouchEvent : Event, Hashable {
     
-    open let location: Point
+    open var location: Point
     open var state: TouchEventState
     
     init(node: Node, location: Point, state: TouchEventState) {

@@ -8,13 +8,13 @@ open class Shape: Node {
 		set(val) { formVar.value = val }
 	}
 
-	open let fillVar: Variable<Fill?>
+	open let fillVar: AnimatableVariable<Fill?>
 	open var fill: Fill? {
 		get { return fillVar.value }
 		set(val) { fillVar.value = val }
 	}
 
-	open let strokeVar: Variable<Stroke?>
+	open let strokeVar: AnimatableVariable<Stroke?>
 	open var stroke: Stroke? {
 		get { return strokeVar.value }
 		set(val) { strokeVar.value = val }
@@ -22,8 +22,8 @@ open class Shape: Node {
 
 	public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.formVar = AnimatableVariable<Locus>(form)
-		self.fillVar = Variable<Fill?>(fill)
-		self.strokeVar = Variable<Stroke?>(stroke)
+		self.fillVar = AnimatableVariable<Fill?>(fill)
+		self.strokeVar = AnimatableVariable<Stroke?>(stroke)
 		super.init(
 			place: place,
 			opaque: opaque,
@@ -35,6 +35,8 @@ open class Shape: Node {
 		)
         
         self.formVar.node = self
+        self.strokeVar.node = self
+        self.fillVar.node = self
 	}
 
 	// GENERATED NOT

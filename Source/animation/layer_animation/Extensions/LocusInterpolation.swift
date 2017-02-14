@@ -1,4 +1,3 @@
-
 public protocol LocusInterpolation: Interpolable {
     
 }

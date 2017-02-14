@@ -9,6 +9,6 @@
 import Foundation
 
 
-open class AnimatableVariable<T: Interpolable>: Variable<T> {
+open class AnimatableVariable<T>: Variable<T> {
     internal var node: Node?
 }

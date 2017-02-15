@@ -75,7 +75,11 @@ public extension AnimatableVariable {
         
         var safeFrom = from
         if safeFrom == nil {
-            safeFrom =  shape.stroke as! T
+            if let shapeStroke = shape.stroke as? T {
+                safeFrom = shapeStroke
+            } else {
+                safeFrom = Stroke(width: 1.0) as! T
+            }
         }
         
         shape.stroke = safeFrom
@@ -129,7 +133,11 @@ public extension AnimatableVariable {
         
         var safeFrom = from
         if safeFrom == nil {
-            safeFrom =  shape.fill as! T
+            if let shapeFill = shape.fill as? T {
+                safeFrom = shapeFill
+            } else {
+                safeFrom = Color.clear as! T
+            }
         }
         
         shape.fill = safeFrom

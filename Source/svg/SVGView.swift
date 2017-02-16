@@ -12,12 +12,12 @@ open class SVGView: MacawView {
         }
     }
     
-    public init(node: Node, frame: CGRect) {
+    public init(node: Node = Group(), frame: CGRect) {
         super.init(frame: frame)
         svgNode = node
     }
     
-    override public init?(node: Node, coder aDecoder: NSCoder) {
+    override public init?(node: Node = Group(), coder aDecoder: NSCoder) {
         super.init(node: Group(), coder: aDecoder)
         svgNode = node
     }

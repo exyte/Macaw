@@ -1,6 +1,6 @@
 import Foundation
 
-open class Color: Fill {
+open class Color: Fill, Equatable {
 
 	open let val: Int
 
@@ -60,10 +60,13 @@ open class Color: Fill {
 	open class func rgba(r: Int, g: Int, b: Int, a: Double) -> Color {
 		return rgbt( r: r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
 	}
-
+    
 	// GENERATED
 	open class func rgb(r: Int, g: Int, b: Int) -> Color {
 		return rgbt( r: r, g: g, b: b, t: 0 )
 	}
-
+    
+    public static func ==(lhs: Color, rhs: Color) -> Bool {
+        return lhs.val == rhs.val
+    }
 }

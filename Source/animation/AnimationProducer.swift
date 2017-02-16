@@ -323,6 +323,8 @@ class AnimationProducer {
             }
             
             let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration
+            
+            // Completion
             if progress >= 1.0 {
                 
                 // Final update
@@ -337,9 +339,16 @@ class AnimationProducer {
                 continue
             }
             
+
             let t = progressForTimingFunction(animation.easing, progress: progress)
             group.contents = animation.getVFunc()(t)
             animation.onProgressUpdate?(progress)
+            
+            // Manual stop
+            if animation.manualStop {
+                contentsAnimations.remove(at: index)
+                animationDesc.cache.freeLayer(group)
+            }
         }
     }
 }

@@ -26,7 +26,9 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
             node.opacityVar.value = opacityAnimation.getVFunc()(animation.progress)
         }
 
-		animation.completion?()
+        if !animation.cycled && !animation.manualStop {
+            animation.completion?()
+        }
 
 		if !finished {
 			animationRestorer.addRestoreClosure(completion)

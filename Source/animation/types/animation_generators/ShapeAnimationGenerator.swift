@@ -48,7 +48,10 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         }
         
         animationCache.freeLayer(shape)
-        animation.completion?()
+        
+        if !animation.cycled && !animation.manualStop {
+            animation.completion?()
+        }
         
         if !finished {
             animationRestorer.addRestoreClosure(completion)

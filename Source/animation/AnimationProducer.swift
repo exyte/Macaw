@@ -332,7 +332,10 @@ class AnimationProducer {
                 animation.onProgressUpdate?(1.0)
                 
                 // Finishing animation
-                animation.completion?()
+                if !animation.cycled {
+                    animation.completion?()
+                }
+                    
                 contentsAnimations.remove(at: index)
                 animationDesc.cache.freeLayer(group)
                 animationDesc.completion?()

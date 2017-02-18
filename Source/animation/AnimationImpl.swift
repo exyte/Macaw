@@ -28,6 +28,8 @@ class BasicAnimation: Animation {
 	var next: BasicAnimation?
 	var removeFunc: (() -> ())?
     var manualStop = false
+    var paused = false
+    var pausedProgress = 0.0
 	var progress = 0.0
 	var repeatCount = 0.0
     var cycled = false
@@ -75,6 +77,10 @@ class BasicAnimation: Animation {
 	}
 
 	override open func play() {
+
+        manualStop = false
+        paused = false
+        
 		animationProducer.addAnimation(self)
 	}
 
@@ -82,6 +88,11 @@ class BasicAnimation: Animation {
         manualStop = true
 		removeFunc?()
 	}
+    
+    override open func pause() {
+        paused = true
+        removeFunc?()
+    }
 
 	override open func reverse() -> Animation {
 		return self
@@ -94,7 +105,8 @@ class BasicAnimation: Animation {
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
-	let value: AnimatableVariable<T>
+	var variable: AnimatableVariable<T>
+    let initialValue: T
     let timeFactory: (() -> ((Double) -> T))
 	let duration: Double
 	let logicalFps: UInt
@@ -102,7 +114,8 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
     private var vFunc: ((Double) -> T)?
 
 	init(observableValue: AnimatableVariable<T>, valueFunc: @escaping (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
-		self.value = observableValue
+		self.variable = observableValue
+        self.initialValue = observableValue.value
 		self.duration = animationDuration
         self.timeFactory = { (node) in return valueFunc }
 		self.vFunc = .none
@@ -114,7 +127,8 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	}
     
     init(observableValue: AnimatableVariable<T>, factory: @escaping (() -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
-        self.value = observableValue
+        self.variable = observableValue
+        self.initialValue = observableValue.value
         self.duration = animationDuration
         self.timeFactory = factory
         self.logicalFps = fps
@@ -135,14 +149,25 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	convenience init(observableValue: AnimatableVariable<T>, finalValue: T, animationDuration: Double) {
 		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
 	}
-
-	open override func getDuration() -> Double {
+    
+    override open func play() {
         
-        if autoreverses {
-            return duration * 2.0
+        if manualStop {
+            variable.value = getVFunc()(0.0)
         }
         
-		return duration
+        if paused {
+            variable.value = getVFunc()(pausedProgress)
+        }
+        
+       super.play()
+    }
+
+	open override func getDuration() -> Double {
+        var totalDuration = autoreverses ? duration * 2.0 : duration
+        totalDuration = totalDuration * (1.0 - pausedProgress)
+        
+		return totalDuration
 	}
 
     open func getVFunc() -> ((Double) -> T) {

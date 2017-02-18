@@ -11,7 +11,10 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
 	}
 
 	// Creating proper animation
-	let generatedAnimation = opacityAnimationByFunc(opacityAnimation.getVFunc(), duration: animation.getDuration(), fps: opacityAnimation.logicalFps)
+    let generatedAnimation = opacityAnimationByFunc(opacityAnimation.getVFunc(),
+                                                    duration: animation.getDuration(),
+                                                    offset: animation.pausedProgress,
+                                                    fps: opacityAnimation.logicalFps)
 	generatedAnimation.repeatCount = Float(animation.repeatCount)
 	generatedAnimation.timingFunction = caTimingFunction(animation.easing)
 
@@ -19,14 +22,20 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
 
 		animationCache.freeLayer(node)
 
-        if !animation.manualStop {
+        if animation.paused {
+            animation.pausedProgress = animation.pausedProgress + animation.progress
+            node.opacityVar.value = opacityAnimation.getVFunc()(animation.pausedProgress)
+        } else if animation.manualStop {
+            animation.progress = 0.0
+            node.opacityVar.value = opacityAnimation.getVFunc()(0.0)
+        } else {
             animation.progress = 1.0
             node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
-        } else {
-            node.opacityVar.value = opacityAnimation.getVFunc()(animation.progress)
         }
 
-        if !animation.cycled && !animation.manualStop {
+        if  !animation.cycled &&
+            !animation.manualStop &&
+            !animation.paused {
             animation.completion?()
         }
 
@@ -54,7 +63,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
 	}
 }
 
-func opacityAnimationByFunc(_ valueFunc: (Double) -> Double, duration: Double, fps: UInt) -> CAAnimation {
+func opacityAnimationByFunc(_ valueFunc: (Double) -> Double, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
 	var opacityValues = [Double]()
 	var timeValues = [Double]()
@@ -71,7 +80,7 @@ func opacityAnimationByFunc(_ valueFunc: (Double) -> Double, duration: Double, f
 			dt = 1.0
 		}
 
-		let value = valueFunc(dt)
+		let value = valueFunc(offset + dt)
 		opacityValues.append(value)
 		timeValues.append(dt)
 	}

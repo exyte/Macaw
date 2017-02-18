@@ -12,7 +12,11 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 	// Creating proper animation
 	var generatedAnimation: CAAnimation?
 
-	generatedAnimation = transformAnimationByFunc(node, valueFunc: transformAnimation.getVFunc(), duration: animation.getDuration(), fps: transformAnimation.logicalFps)
+	generatedAnimation = transformAnimationByFunc(node,
+	                                              valueFunc: transformAnimation.getVFunc(),
+	                                              duration: animation.getDuration(),
+	                                              offset: animation.pausedProgress,
+	                                              fps: transformAnimation.logicalFps)
 
 	guard let generatedAnim = generatedAnimation else {
 		return
@@ -22,17 +26,23 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 	generatedAnim.timingFunction = caTimingFunction(animation.easing)
 
 	generatedAnim.completion = { finished in
-
-        if !animation.manualStop {
+        
+        if animation.paused {
+            animation.pausedProgress = animation.pausedProgress + animation.progress
+            node.placeVar.value = transformAnimation.getVFunc()(animation.pausedProgress)
+        } else if animation.manualStop {
+            animation.progress = 0.0
+            node.placeVar.value = transformAnimation.getVFunc()(0.0)
+        } else {
             animation.progress = 1.0
             node.placeVar.value = transformAnimation.getVFunc()(1.0)
-        } else {
-            node.placeVar.value = transformAnimation.getVFunc()(animation.progress)
         }
-
+        
 		animationCache.freeLayer(node)
         
-        if !animation.cycled && !animation.manualStop {
+        if !animation.cycled &&
+            !animation.manualStop &&
+            !animation.paused {
             animation.completion?()
         }
 
@@ -71,7 +81,7 @@ func transfomToCG(_ transform: Transform) -> CGAffineTransform {
 		ty: CGFloat(transform.dy))
 }
 
-func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, duration: Double, fps: UInt) -> CAAnimation {
+func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
     var transformValues = [CATransform3D]()
 	var timeValues = [Double]()
@@ -88,7 +98,7 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 		}
         
         timeValues.append(dt)
-		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(dt))
+		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(offset + dt))
         let cgValue = CATransform3DMakeAffineTransform(RenderUtils.mapTransform(value))
         transformValues.append(cgValue)
 	}

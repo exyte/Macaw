@@ -9,6 +9,10 @@ open class Animation {
     open func stop() {
     }
 
+    open func pause() {
+        
+    }
+    
     open func easing(_ easing: Easing) -> Animation {
         return self
     }

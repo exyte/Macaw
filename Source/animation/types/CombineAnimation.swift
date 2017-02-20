@@ -38,12 +38,16 @@ internal class CombineAnimation: BasicAnimation {
 	}
 
 	open override func stop() {
+        super.stop()
+        
 		animations.forEach { animation in
 			animation.stop()
 		}
 	}
     
     open override func pause() {
+        super.pause()
+        
         animations.forEach { animation in
             animation.pause()
         }

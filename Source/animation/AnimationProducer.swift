@@ -342,7 +342,6 @@ class AnimationProducer {
                 animationDesc.completion?()
                 continue
             }
-            
 
             let t = progressForTimingFunction(animation.easing, progress: progress)
             group.contents = animation.getVFunc()(t)

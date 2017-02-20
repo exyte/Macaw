@@ -42,6 +42,12 @@ internal class CombineAnimation: BasicAnimation {
 			animation.stop()
 		}
 	}
+    
+    open override func pause() {
+        animations.forEach { animation in
+            animation.pause()
+        }
+    }
 }
 
 public extension Sequence where Iterator.Element: Animation {

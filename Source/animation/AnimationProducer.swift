@@ -310,7 +310,9 @@ class AnimationProducer {
         }
         
         let currentDate = Date()
-        for (index, animationDesc) in contentsAnimations.enumerated() {
+        var animationsToRemove = [Animation]()
+        let count = contentsAnimations.count
+        for (index, animationDesc) in contentsAnimations.reversed().enumerated() {
             
             let animation = animationDesc.animation
             guard let group = animation.node as? Group else {
@@ -337,7 +339,7 @@ class AnimationProducer {
                     animation.completion?()
                 }
                     
-                contentsAnimations.remove(at: index)
+                contentsAnimations.remove(at: count - 1 - index)
                 animationDesc.cache.freeLayer(group)
                 animationDesc.completion?()
                 continue
@@ -350,7 +352,7 @@ class AnimationProducer {
             // Manual stop
             if animation.manualStop || animation.paused {
                 defer {
-                    contentsAnimations.remove(at: index)
+                    contentsAnimations.remove(at: count - 1 - index)
                     animationDesc.cache.freeLayer(group)
                 }
                 

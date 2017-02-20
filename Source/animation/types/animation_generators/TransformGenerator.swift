@@ -31,9 +31,11 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
             animation.pausedProgress = animation.pausedProgress + animation.progress
             node.placeVar.value = transformAnimation.getVFunc()(animation.pausedProgress)
         } else if animation.manualStop {
+            animation.pausedProgress = 0.0
             animation.progress = 0.0
             node.placeVar.value = transformAnimation.getVFunc()(0.0)
         } else {
+            animation.pausedProgress = 1.0
             animation.progress = 1.0
             node.placeVar.value = transformAnimation.getVFunc()(1.0)
         }

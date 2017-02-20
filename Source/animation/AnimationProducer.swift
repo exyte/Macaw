@@ -322,7 +322,7 @@ class AnimationProducer {
                 animationDesc.layer.displayIfNeeded()
             }
             
-            let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration
+            let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration + animation.pausedProgress
             
             // Completion
             if progress >= 1.0 {
@@ -330,6 +330,7 @@ class AnimationProducer {
                 // Final update
                 group.contents = animation.getVFunc()(1.0)
                 animation.onProgressUpdate?(1.0)
+                animation.pausedProgress = 1.0
                 
                 // Finishing animation
                 if !animation.cycled {
@@ -348,9 +349,18 @@ class AnimationProducer {
             animation.onProgressUpdate?(progress)
             
             // Manual stop
-            if animation.manualStop {
-                contentsAnimations.remove(at: index)
-                animationDesc.cache.freeLayer(group)
+            if animation.manualStop || animation.paused {
+                defer {
+                    contentsAnimations.remove(at: index)
+                    animationDesc.cache.freeLayer(group)
+                }
+                
+                if animation.manualStop {
+                    animation.pausedProgress = 0.0
+                    group.contents = animation.getVFunc()(0)
+                } else if animation.paused {
+                    animation.pausedProgress = progress
+                }
             }
         }
     }

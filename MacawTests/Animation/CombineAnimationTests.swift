@@ -42,22 +42,22 @@ class CombineAnimationTests: XCTestCase {
         
         // PAUSE
         let pauseExpectation = expectation(description: "pause expectation")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             pauseExpectation.fulfill()
         }
         
-        self.waitForExpectations(timeout: 7.0) { error in
+        self.waitForExpectations(timeout: 2.0) { error in
             XCTAssertNil(error, "Async test failed")
         }
         
         animation.pause()
         
         let pauseEffectExpectation = expectation(description: "pause effect expectation")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             pauseEffectExpectation.fulfill()
         }
         
-        self.waitForExpectations(timeout: 7.0) { error in
+        self.waitForExpectations(timeout: 2.0) { error in
             XCTAssertNil(error, "Async test failed")
         }
         
@@ -78,11 +78,11 @@ class CombineAnimationTests: XCTestCase {
         
         // STOP
         let stopExpectation = expectation(description: "stop expectation")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             stopExpectation.fulfill()
         }
         
-        self.waitForExpectations(timeout: 7.0) { error in
+        self.waitForExpectations(timeout: 2.0) { error in
             XCTAssertNil(error, "Async test failed")
         }
         

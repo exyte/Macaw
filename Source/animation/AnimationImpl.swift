@@ -86,11 +86,13 @@ class BasicAnimation: Animation {
 
 	override open func stop() {
         manualStop = true
+        paused = false
 		removeFunc?()
 	}
     
     override open func pause() {
         paused = true
+        manualStop = false
         removeFunc?()
     }
 

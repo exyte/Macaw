@@ -49,6 +49,7 @@ class CombineAnimationTests: XCTestCase {
         animation.pause()
         
         XCTAssert(animation.paused && anim1.paused && anim2.paused && anim3.paused, "Inner animations incorrect state: pause")
+        XCTAssert(!animation.manualStop && !anim1.manualStop && !anim2.manualStop && !anim3.manualStop, "Inner animations incorrect state: pause")
         XCTAssert(testGroup.place.dx != 0.0, "Transform animation wrong node state on pause")
         
         animation.play()
@@ -64,8 +65,9 @@ class CombineAnimationTests: XCTestCase {
             XCTAssertNil(error, "Async test failed")
         }
         
-        XCTAssert(animation.manualStop && anim1.manualStop && anim2.manualStop && anim3.manualStop, "Inner animations incorrect state: pause")
-       // XCTAssert(testGroup.place.dx == 0.0, "Transform animation wrong node state on stop")
+        XCTAssert(animation.manualStop && anim1.manualStop && anim2.manualStop && anim3.manualStop, "Inner animations incorrect state: stop")
+        XCTAssert(!animation.paused && !anim1.paused && !anim2.paused && !anim3.paused, "Inner animations incorrect state: stop")
+        XCTAssert(testGroup.place.dx == 0.0, "Transform animation wrong node state on stop")
     }
     
 }

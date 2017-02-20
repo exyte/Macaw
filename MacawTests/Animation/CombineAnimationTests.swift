@@ -70,6 +70,10 @@ class CombineAnimationTests: XCTestCase {
         XCTAssert(rect.w != 0.0 && rect.w != 1.0, "Contents animation wrong node state on pause")
         
         animation.play()
+        
+        XCTAssert(!animation.paused && !anim1.paused && !anim2.paused && !anim3.paused, "Inner animations incorrect state: play")
+        XCTAssert(!animation.manualStop && !anim1.manualStop && !anim2.manualStop && !anim3.manualStop, "Inner animations incorrect state: play")
+        
         animation.stop()
         
         // STOP

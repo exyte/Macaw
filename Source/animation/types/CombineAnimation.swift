@@ -36,6 +36,15 @@ internal class CombineAnimation: BasicAnimation {
 
 		return combineReversed
 	}
+    
+    open override func play() {
+        animations.forEach { animation in
+            animation.paused = false
+            animation.manualStop = false
+        }
+        
+        super.play()
+    }
 
 	open override func stop() {
         super.stop()

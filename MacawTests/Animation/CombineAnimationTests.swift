@@ -66,6 +66,9 @@ class CombineAnimationTests: XCTestCase {
         XCTAssert(testGroup.place.dx != 0.0 && testGroup.place.dx != 1.0, "Transform animation wrong node state on pause")
         XCTAssert(testGroup.opacity != 1.0 && testGroup.opacity != 0.0, "Opacity animation wrong node state on pause")
         
+        var rect = (testGroup.contents.first as! Shape).form as! Rect
+        XCTAssert(rect.w != 0.0 && rect.w != 1.0, "Contents animation wrong node state on pause")
+        
         animation.play()
         animation.stop()
         
@@ -83,6 +86,9 @@ class CombineAnimationTests: XCTestCase {
         XCTAssert(!animation.paused && !anim1.paused && !anim2.paused && !anim3.paused, "Inner animations incorrect state: stop")
         XCTAssert(testGroup.place.dx == 0.0, "Transform animation wrong node state on stop")
         XCTAssert(testGroup.opacity == 1.0, "Opacity animation wrong node state on stop")
+        
+        rect = (testGroup.contents.first as! Shape).form as! Rect
+        XCTAssert(rect.w == 0.0, "Contents animation wrong node state on stop")
     }
     
 }

@@ -6,6 +6,7 @@ class AnimationProducer {
 
     
 	var storedAnimations = [Node: BasicAnimation]()
+    var delayedAnimations = [BasicAnimation: Timer]()
     var displayLink: CADisplayLink?
     
     struct ContentAnimationDesc {
@@ -24,10 +25,13 @@ class AnimationProducer {
         // Delay - launching timer
 		if animation.delay > 0.0 && !withoutDelay {
 
-			let _ = Timer.schedule(delay: animation.delay, handler: { _ in
-				self.addAnimation(animation, withoutDelay: true)
+			let timer = Timer.schedule(delay: animation.delay, handler: { [weak self] _ in
+                self?.delayedAnimations.removeValue(forKey: animation)
+				self?.addAnimation(animation, withoutDelay: true)
 			})
-
+            
+            delayedAnimations[animation] = timer
+            
 			return
 		}
 
@@ -111,6 +115,15 @@ class AnimationProducer {
 			executeCompletion(animation)
 		}
 	}
+    
+    func removeDelayed(animation: BasicAnimation) {
+        guard let timer = delayedAnimations[animation] else {
+            return
+        }
+        
+        timer.invalidate()
+        delayedAnimations.removeValue(forKey: animation)
+    }
     
     // MARK: - Sequence animation
 	fileprivate func addAnimationSequence(_ animationSequnce: Animation) {

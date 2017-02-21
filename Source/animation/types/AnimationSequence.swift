@@ -26,10 +26,36 @@ internal class AnimationSequence: BasicAnimation {
 	}
 
 	open override func stop() {
-		animations.forEach { animation in
-			animation.stop()
-		}
+        super.stop()
+        
+        guard let active = (animations.filter { $0.isActive() }).first else {
+            return
+        }
+        
+        active.stop()
 	}
+    
+    open override func pause() {
+        super.pause()
+        
+        guard let active = (animations.filter { $0.isActive() }).first else {
+            return
+        }
+        
+        active.pause()
+    }
+    
+    open override func play() {
+        guard let active = (animations.filter { $0.isActive() }).first else {
+            super.play()
+            return
+        }
+        
+        manualStop = false
+        paused = false
+        
+        active.play()
+    }
 
 	open override func reverse() -> Animation {
 		var reversedAnimations = [BasicAnimation]()

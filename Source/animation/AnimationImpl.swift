@@ -20,7 +20,7 @@ enum AnimationType {
 	case empty
 }
 
-class BasicAnimation: Animation {
+class BasicAnimation: Animation, Hashable {
 
 	var node: Node?
 	var type = AnimationType.unknown
@@ -87,12 +87,22 @@ class BasicAnimation: Animation {
 	override open func stop() {
         manualStop = true
         paused = false
+        
+        if delay > 0.0 {
+            animationProducer.removeDelayed(animation: self)
+        }
+        
 		removeFunc?()
 	}
     
     override open func pause() {
         paused = true
         manualStop = false
+        
+        if delay > 0.0 {
+            animationProducer.removeDelayed(animation: self)
+        }
+        
         removeFunc?()
     }
 
@@ -101,7 +111,19 @@ class BasicAnimation: Animation {
 	}
 
 	func getDuration() -> Double { return 0 }
-
+    
+    func isActive() -> Bool {
+        return progress > 0.0 && progress < 1.0
+    }
+    
+    // MARK: - Hashable
+    public var hashValue: Int {
+        return ID.hashValue
+    }
+    
+    public static func ==(lhs: BasicAnimation, rhs: BasicAnimation) -> Bool {
+        return lhs.ID == rhs.ID
+    }
 }
 
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html

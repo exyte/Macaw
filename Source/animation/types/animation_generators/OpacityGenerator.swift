@@ -30,7 +30,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
             animation.progress = 0.0
             node.opacityVar.value = opacityAnimation.getVFunc()(0.0)
         } else if finished {
-            animation.pausedProgress = 1.0
+            animation.pausedProgress = 0.0
             animation.progress = 1.0
             node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
         }

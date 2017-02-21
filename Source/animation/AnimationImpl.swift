@@ -20,7 +20,7 @@ enum AnimationType {
 	case empty
 }
 
-class BasicAnimation: Animation, Hashable {
+class BasicAnimation: Animation {
 
 	var node: Node?
 	var type = AnimationType.unknown
@@ -111,12 +111,10 @@ class BasicAnimation: Animation, Hashable {
 	}
 
 	func getDuration() -> Double { return 0 }
-    
-    func isActive() -> Bool {
-        return progress > 0.0 && progress < 1.0
-    }
-    
-    // MARK: - Hashable
+}
+
+// MARK: - Hashable
+extension BasicAnimation: Hashable {
     public var hashValue: Int {
         return ID.hashValue
     }
@@ -125,6 +123,14 @@ class BasicAnimation: Animation, Hashable {
         return lhs.ID == rhs.ID
     }
 }
+
+// MARK: - Activity
+extension BasicAnimation {
+    func isActive() -> Bool {
+        return progress > 0.0 && progress < 1.0
+    }
+}
+
 
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {

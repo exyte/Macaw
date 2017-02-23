@@ -345,7 +345,7 @@ class AnimationProducer {
                 // Final update
                 group.contents = animation.getVFunc()(1.0)
                 animation.onProgressUpdate?(1.0)
-                animation.pausedProgress = 1.0
+                animation.pausedProgress = 0.0
                 
                 // Finishing animation
                 if !animation.cycled {

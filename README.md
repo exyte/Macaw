@@ -56,6 +56,11 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 [Macaw-Examples](https://github.com/exyte/macaw-examples) is a repository where you can find various usages of the `Macaw` library from simple charts to the complex periodic table.
 
+<img src="https://www.dropbox.com/s/xvvifi7gbre11sc/healthstat.gif?dl=1" height="280"> 
+<img src="https://www.dropbox.com/s/gwv5iqlpxzb77od/auxy.gif?dl=1" height="280">
+<img src="https://www.dropbox.com/s/5z15crzjxxbnbn7/streaks.gif?dl=1" height="280">
+<img src="https://www.dropbox.com/s/0syyxzzaa1qqumb/zova.gif?dl=1" height="280">
+
 ## Requirements
 
 * iOS 8.0+ / Mac OS X 10.9+

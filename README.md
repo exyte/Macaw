@@ -45,12 +45,17 @@ Affine transformations, user events, animation and various effects to build beau
 
 Modern designs contain tons of illustrations and complex animations. Mobile developers have to spend a lot of time on converting designs into native views that will be resizable for different screens. With Macaw you can reduce development time to a minimum and describe all graphics in high level [scene](https://en.wikipedia.org/wiki/Scene_graph) elements. Or even render SVG graphics right from your design tool with Macaw events and animation support.
 
-## Documentation
+## Resources
 
+### Docs
 We're working hard to provide full documentation. Currently you can take a look at the following docs:
 * [Getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started)
 * [Render SVG file](https://github.com/exyte/Macaw/wiki/Render-SVG-file)
 * [Content animation](https://github.com/exyte/Macaw/wiki/Content-animation)
+
+### Posts
+* [Replicating Apple Design Awarded Applications](https://medium.com/exyte/replicating-apple-design-awarded-applications-70e5df4c4b94#.ckt1hfnei)
+* [How friendly can drawing API be on iOS?](https://medium.com/exyte/how-friendly-can-drawing-api-be-on-ios-b3a818bf8105#.o9i35zcai)
 
 ## Examples
 

@@ -147,6 +147,11 @@ open class MacawView: UIView {
     }
     
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
         guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
@@ -184,6 +189,11 @@ open class MacawView: UIView {
     }
     
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
         guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
             return
         }

@@ -114,14 +114,14 @@ open class MacawView: UIView {
     }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let renderer = renderer else {
+        guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
         
         self.touched = nil
         for touch in touches {
             let location = touch.location(in: self)
-            self.touched = renderer.findNodeAt(location: location)
+            self.touched = renderer.findNodeAt(location: location, ctx: ctx)
             if let node = self.touched {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))

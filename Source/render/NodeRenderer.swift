@@ -47,10 +47,13 @@ class NodeRenderer {
     
     final public func render(force: Bool, opacity: Double) {
         ctx.cgContext!.saveGState()
+        defer {
+            ctx.cgContext!.restoreGState()
+        }
+        
         ctx.cgContext!.concatenate(RenderUtils.mapTransform(node().place))
         applyClip()
         directRender(force: force, opacity: node().opacity * opacity)
-        ctx.cgContext!.restoreGState()
     }
     
     final func directRender(force: Bool = true, opacity: Double = 1.0) {
@@ -69,23 +72,26 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
     
-    public final func findNodeAt(location: CGPoint) -> Node? {
+    public final func findNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
         if (node().opaque) {
             let place = node().place
             if let inverted = place.invert() {
-                ctx.cgContext!.saveGState()
-                ctx.cgContext!.concatenate(RenderUtils.mapTransform(place))
+                ctx.saveGState()
+                defer {
+                     ctx.restoreGState()
+                }
+                
+                ctx.concatenate(RenderUtils.mapTransform(place))
                 applyClip()
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
-                let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y))
-                ctx.cgContext!.restoreGState()
+                let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
                 return result
             }
         }
         return nil
     }
     
-    public func doFindNodeAt(location: CGPoint) -> Node? {
+    public func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
         return nil
     }
     

@@ -35,7 +35,7 @@ class ImageRenderer: NodeRenderer {
 		}
 	}
 
-    override func doFindNodeAt(location: CGPoint) -> Node? {
+    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
         if let uiimage = UIImage(named: image.src) {
             let rect = getRect(uiimage)
             if (rect.contains(location)) {

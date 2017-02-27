@@ -26,8 +26,8 @@ class ShapeRenderer: NodeRenderer {
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
 	}
 
-	override func doFindNodeAt(location: CGPoint) -> Node? {
-		setGeometry(shape.form, ctx: ctx.cgContext!)
+    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+		setGeometry(shape.form, ctx: ctx)
 
 		var drawingMode: CGPathDrawingMode? = nil
 		if let _ = shape.stroke, let _ = shape.fill {
@@ -40,7 +40,7 @@ class ShapeRenderer: NodeRenderer {
         
         var contains = false
         if let mode = drawingMode {
-            contains = ctx.cgContext!.pathContains(CGPoint(x: location.x, y: location.y), mode: mode)
+            contains = ctx.pathContains(CGPoint(x: location.x, y: location.y), mode: mode)
             
             if contains {
                 return node()
@@ -48,7 +48,7 @@ class ShapeRenderer: NodeRenderer {
         }
 
 		// Prepare for next figure hittesting - clear current context path
-		ctx.cgContext!.beginPath()
+		ctx.beginPath()
 		return .none
 	}
 

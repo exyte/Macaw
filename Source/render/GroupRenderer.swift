@@ -32,9 +32,9 @@ class GroupRenderer: NodeRenderer {
 		}
 	}
 
-    override func doFindNodeAt(location: CGPoint) -> Node? {
+    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
         for renderer in renderers.reversed() {
-            if let node = renderer.findNodeAt(location: location) {
+            if let node = renderer.findNodeAt(location: location, ctx: ctx) {
                 return node
             }
         }

@@ -54,7 +54,6 @@ open class MacawView: UIView {
     }
     
     private var touched: Node? = nil
-    var touchEvents = [TouchEvent: UITouch]()
     
     var context: RenderContext!
     var renderer: NodeRenderer?
@@ -114,6 +113,11 @@ open class MacawView: UIView {
     }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIGraphicsBeginImageContext(self.bounds.size)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
         guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
@@ -125,19 +129,14 @@ open class MacawView: UIView {
             if let node = self.touched {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
-                
-				let tapEvent = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
-                let touchEvent = TouchEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)), state: .began)
-                
-                touchEvents[touchEvent] = touch
+                let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
                 
                 var parent: Node? = node
                 while parent != .none {
                     
-                    parent!.handleTap(tapEvent)
-                    parent!.handleTouch(touchEvent)
+                    parent!.handleTouchPressed(touchEvent)
                     
-					if (tapEvent.consumed && touchEvent.consumed) {
+					if (touchEvent.consumed) {
 						break;
 					}
                     
@@ -148,33 +147,29 @@ open class MacawView: UIView {
     }
     
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let renderer = renderer else {
+        guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
         
-        for (touchEvent, uiTouch) in touchEvents {
-            if touches.contains(uiTouch) {
-        
-                var location = uiTouch.location(in: self)
-                if let inverted = renderer.node().place.invert() {
-                    location = location.applying(RenderUtils.mapTransform(inverted))
-                }
+        self.touched = nil
+        for touch in touches {
+            let location = touch.location(in: self)
+            self.touched = renderer.findNodeAt(location: location, ctx: ctx)
+            if let node = self.touched {
+                let inverted = renderer.node().place.invert()!
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
                 
-                touchEvent.location = Point(x: Double(location.x), y: Double(location.y))
-                
-                touchEvent.state = .moved
-                
-                if let node = self.touched {
-                    var parent: Node? = node
-                    while parent != .none {
-                        parent!.handleTouch(touchEvent)
-                        
-                        if (touchEvent.consumed) {
-                            break;
-                        }
-                        
-                        parent = nodesMap.parents(parent!).first
+                var parent: Node? = node
+                while parent != .none {
+                    
+                    parent!.handleTouchMoved(touchEvent)
+                    
+                    if (touchEvent.consumed) {
+                        break;
                     }
+                    
+                    parent = nodesMap.parents(parent!).first
                 }
             }
         }
@@ -189,43 +184,31 @@ open class MacawView: UIView {
     }
     
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
-        guard let renderer = renderer else {
+        guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
         
-        var eventsToRemove = [TouchEvent]()
-        
-        for (touchEvent, uiTouch) in touchEvents {
-            if touches.contains(uiTouch) {
-                eventsToRemove.append(touchEvent)
+        self.touched = nil
+        for touch in touches {
+            let location = touch.location(in: self)
+            self.touched = renderer.findNodeAt(location: location, ctx: ctx)
+            if let node = self.touched {
+                let inverted = renderer.node().place.invert()!
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
                 
-                touchEvent.state = .ended
-                
-                var location = uiTouch.location(in: self)
-                if let inverted = renderer.node().place.invert() {
-                    location = location.applying(RenderUtils.mapTransform(inverted))
-                }
-                
-                touchEvent.location = Point(x: Double(location.x), y: Double(location.y))
-                
-                
-                if let node = self.touched {
-                    var parent: Node? = node
-                    while parent != .none {
-                        parent!.handleTouch(touchEvent)
-                        
-                        if (touchEvent.consumed) {
-                            break;
-                        }
-                        
-                        parent = nodesMap.parents(parent!).first
+                var parent: Node? = node
+                while parent != .none {
+                    
+                    parent!.handleTouchReleased(touchEvent)
+                    
+                    if (touchEvent.consumed) {
+                        break;
                     }
+                    
+                    parent = nodesMap.parents(parent!).first
                 }
             }
-        }
-        
-        eventsToRemove.forEach { touchEvent in
-            touchEvents.removeValue(forKey: touchEvent)
         }
         
         self.touched = nil

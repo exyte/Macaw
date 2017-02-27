@@ -40,7 +40,7 @@ class TransformExampleView: MacawView {
 		}
 		var state = 0
 
-        shape.onTap { _ in
+        shape.onTouchPressed { _ in
             if (state < textes.contents.count) {
                 textes.contents[state].opacityVar.animate(from: 0.0, to: 1.0, during: 0.6)
             } else {

@@ -32,35 +32,50 @@ open class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
 
-    var touchHandlers = [ChangeHandler<TouchEvent>]()
-    var tapHandlers = [ChangeHandler<TapEvent>]()
+    var touchPressedHandlers = [ChangeHandler<TouchEvent>]()
+    var touchMovedHandlers = [ChangeHandler<TouchEvent>]()
+    var touchReleasedHandlers = [ChangeHandler<TouchEvent>]()
+    
     var panHandlers = [ChangeHandler<PanEvent>]()
     var rotateHandlers = [ChangeHandler<RotateEvent>]()
     var pinchHandlers = [ChangeHandler<PinchEvent>]()
     
-    @discardableResult public func onTouch(_ f: @escaping (TouchEvent) -> ()) -> Disposable  {
+    @discardableResult public func onTouchPressed (_ f: @escaping (TouchEvent) -> ()) -> Disposable {
         let handler = ChangeHandler<TouchEvent>(f)
-        touchHandlers.append(handler)
+        touchPressedHandlers.append(handler)
         
         return Disposable({
-            guard let index = self.touchHandlers.index(of: handler) else {
+            guard let index = self.touchPressedHandlers.index(of: handler) else {
                 return
             }
             
-            self.touchHandlers.remove(at: index)
+            self.touchPressedHandlers.remove(at: index)
         })
     }
     
-    @discardableResult public func onTap(_ f: @escaping (TapEvent) -> ()) -> Disposable  {
-        let handler = ChangeHandler<TapEvent>(f)
-        tapHandlers.append(handler)
+    @discardableResult public func onTouchMoved   (_ f: @escaping (TouchEvent) -> ()) -> Disposable {
+        let handler = ChangeHandler<TouchEvent>(f)
+        touchMovedHandlers.append(handler)
         
         return Disposable({
-            guard let index = self.tapHandlers.index(of: handler) else {
+            guard let index = self.touchMovedHandlers.index(of: handler) else {
                 return
             }
             
-            self.tapHandlers.remove(at: index)
+            self.touchMovedHandlers.remove(at: index)
+        })
+    }
+    
+    @discardableResult public func onTouchReleased(_ f: @escaping (TouchEvent) -> ()) -> Disposable {
+        let handler = ChangeHandler<TouchEvent>(f)
+        touchReleasedHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.touchReleasedHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.touchReleasedHandlers.remove(at: index)
         })
     }
 
@@ -103,12 +118,16 @@ open class Node: Drawable {
         })
     }
     
-    func handleTouch(_ event: TouchEvent) {
-        touchHandlers.forEach { handler in handler.handle(event) }
+    func handleTouchPressed(_ event: TouchEvent) {
+        touchPressedHandlers.forEach { handler in handler.handle(event) }
     }
     
-    func handleTap( _ event: TapEvent ) {
-        tapHandlers.forEach { handler in handler.handle(event) }
+    func handleTouchReleased(_ event: TouchEvent) {
+        touchReleasedHandlers.forEach { handler in handler.handle(event) }
+    }
+
+    func handleTouchMoved(_ event: TouchEvent) {
+        touchMovedHandlers.forEach { handler in handler.handle(event) }
     }
     
     func handlePan( _ event: PanEvent ) {

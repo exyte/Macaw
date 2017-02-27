@@ -6,29 +6,19 @@
 //
 //
 
-public enum TouchEventState: Int {
-    case began = 0
-    case moved = 1
-    case ended = 3
+
+public struct TouchPoint {
+    let id: Int
+    let location: Point
 }
 
-open class TouchEvent : Event, Hashable {
+public class TouchEvent : Event {
     
-    open var location: Point
-    open var state: TouchEventState
+    public  var point: TouchPoint
     
-    init(node: Node, location: Point, state: TouchEventState) {
-        self.location = location
-        self.state = state
+    public init(node: Node, point: TouchPoint) {
+        self.point = point
         
         super.init(node: node)
     }
-    
-    public var hashValue: Int {
-        return (location.x + location.y).hashValue
-    }
-}
-
-public func == (lhs: TouchEvent, rhs: TouchEvent) -> Bool {
-    return lhs.hashValue == rhs.hashValue
 }

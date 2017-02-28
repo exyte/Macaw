@@ -58,7 +58,33 @@ open class Group: Node {
 
 		return union
 	}
-
+    
+    override func shouldCheckForPressed() -> Bool {
+        var shouldCheck = false
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForPressed()
+        }
+        
+        return shouldCheck
+    }
+    
+    override func shouldCheckForMoved() -> Bool {
+        var shouldCheck = false
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForMoved()
+        }
+        
+        return shouldCheck
+    }
+    
+    override func shouldCheckForReleased() -> Bool {
+        var shouldCheck = false
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForReleased()
+        }
+        
+        return shouldCheck
+    }
 }
 
 public extension Array where Element: Node {

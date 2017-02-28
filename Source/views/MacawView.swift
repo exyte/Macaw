@@ -112,20 +112,31 @@ open class MacawView: UIView {
         renderer?.render(force: false, opacity: node.opacity)
     }
     
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    private func localContext( _ callback: (CGContext) -> ()) {
         UIGraphicsBeginImageContext(self.bounds.size)
-        defer {
-            UIGraphicsEndImageContext()
+        if let ctx = UIGraphicsGetCurrentContext() {
+            callback(ctx)
+        }
+        UIGraphicsEndImageContext()
+    }
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !self.node.shouldCheckForPressed() {
+            return
         }
         
-        guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
+        guard let renderer = renderer else {
             return
         }
         
         self.touched = nil
         for touch in touches {
             let location = touch.location(in: self)
-            self.touched = renderer.findNodeAt(location: location, ctx: ctx)
+            
+            localContext { ctx in
+                self.touched = renderer.findNodeAt(location: location, ctx: ctx)
+            }
+            
             if let node = self.touched {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
@@ -136,9 +147,9 @@ open class MacawView: UIView {
                     
                     parent!.handleTouchPressed(touchEvent)
                     
-					if (touchEvent.consumed) {
-						break;
-					}
+                    if (touchEvent.consumed) {
+                        break;
+                    }
                     
                     parent = nodesMap.parents(parent!).first
                 }
@@ -147,9 +158,8 @@ open class MacawView: UIView {
     }
     
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        UIGraphicsBeginImageContext(self.bounds.size)
-        defer {
-            UIGraphicsEndImageContext()
+        if !self.node.shouldCheckForMoved() {
+            return
         }
         
         guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
@@ -159,7 +169,7 @@ open class MacawView: UIView {
         self.touched = nil
         for touch in touches {
             let location = touch.location(in: self)
-            self.touched = renderer.findNodeAt(location: location, ctx: ctx)
+            
             if let node = self.touched {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
@@ -189,19 +199,17 @@ open class MacawView: UIView {
     }
     
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
-        UIGraphicsBeginImageContext(self.bounds.size)
-        defer {
-            UIGraphicsEndImageContext()
-        }
-        
-        guard let renderer = renderer, let ctx = UIGraphicsGetCurrentContext() else {
+        if !self.node.shouldCheckForReleased() {
             return
         }
         
-        self.touched = nil
+        guard let renderer = renderer else {
+            return
+        }
+        
         for touch in touches {
             let location = touch.location(in: self)
-            self.touched = renderer.findNodeAt(location: location, ctx: ctx)
+            
             if let node = self.touched {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
@@ -233,15 +241,15 @@ open class MacawView: UIView {
             let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
             let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
             let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
-			let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale))
-			var parent: Node? = node
-			while parent != .none {
-				parent!.handlePan(event)
-				if (event.consumed) {
-					break;
-				}
-				parent = nodesMap.parents(parent!).first
-			}
+            let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale))
+            var parent: Node? = node
+            while parent != .none {
+                parent!.handlePan(event)
+                if (event.consumed) {
+                    break;
+                }
+                parent = nodesMap.parents(parent!).first
+            }
         }
     }
     
@@ -249,31 +257,31 @@ open class MacawView: UIView {
         let rotation = Double(recognizer.rotation)
         recognizer.rotation = 0
         if let node = self.touched {
-			let event = RotateEvent(node: node, angle: rotation)
-			var parent: Node? = node
-			while parent != .none {
-				parent!.handleRotate(event)
-				if (event.consumed) {
-					break;
-				}
-				parent = nodesMap.parents(parent!).first
-			}
+            let event = RotateEvent(node: node, angle: rotation)
+            var parent: Node? = node
+            while parent != .none {
+                parent!.handleRotate(event)
+                if (event.consumed) {
+                    break;
+                }
+                parent = nodesMap.parents(parent!).first
+            }
         }
     }
-	
+    
     func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
         let scale = Double(recognizer.scale)
         recognizer.scale = 1
         if let node = self.touched {
-			let event = PinchEvent(node: node, scale: scale)
-			var parent: Node? = node
-			while parent != .none {
-				parent!.handlePinch(event)
-				if (event.consumed) {
-					break;
-				}
-				parent = nodesMap.parents(parent!).first
-			}
+            let event = PinchEvent(node: node, scale: scale)
+            var parent: Node? = node
+            while parent != .none {
+                parent!.handlePinch(event)
+                if (event.consumed) {
+                    break;
+                }
+                parent = nodesMap.parents(parent!).first
+            }
         }
     }
     

@@ -118,6 +118,8 @@ open class Node: Drawable {
         })
     }
     
+    // Helpers
+    
     func handleTouchPressed(_ event: TouchEvent) {
         touchPressedHandlers.forEach { handler in handler.handle(event) }
     }
@@ -141,7 +143,34 @@ open class Node: Drawable {
     func handlePinch( _ event: PinchEvent ) {
         pinchHandlers.forEach { handler in handler.handle(event) }
     }
+    
+    func shouldCheckForPressed() -> Bool {
+        return touchPressedHandlers.count > 0
+    }
+    
+    func shouldCheckForMoved() -> Bool {
+        return touchMovedHandlers.count > 0
+    }
 
+    
+    func shouldCheckForReleased() -> Bool {
+        return touchReleasedHandlers.count > 0
+    }
+
+    
+    func shouldCheckForPan() -> Bool {
+        return panHandlers.count > 0
+    }
+
+    
+    func shouldCheckForRotate() -> Bool {
+        return rotateHandlers.count > 0
+    }
+
+    
+    func shouldCheckForPinch() -> Bool {
+        return pinchHandlers.count > 0
+    }
 
 	public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.placeVar = AnimatableVariable<Transform>(place)

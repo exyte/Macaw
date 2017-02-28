@@ -85,6 +85,33 @@ open class Group: Node {
         
         return shouldCheck
     }
+    
+    override func shouldCheckForPan() -> Bool {
+        var shouldCheck = super.shouldCheckForPan()
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForPan()
+        }
+        
+        return shouldCheck
+    }
+    
+    override func shouldCheckForPinch() -> Bool {
+        var shouldCheck = super.shouldCheckForPinch()
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForPinch()
+        }
+        
+        return shouldCheck
+    }
+    
+    override func shouldCheckForRotate() -> Bool {
+        var shouldCheck = super.shouldCheckForRotate()
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForRotate()
+        }
+        
+        return shouldCheck
+    }
 }
 
 public extension Array where Element: Node {

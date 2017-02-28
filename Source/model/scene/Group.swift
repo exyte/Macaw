@@ -60,7 +60,7 @@ open class Group: Node {
 	}
     
     override func shouldCheckForPressed() -> Bool {
-        var shouldCheck = false
+        var shouldCheck = super.shouldCheckForPressed()
         contents.forEach { node in
             shouldCheck = shouldCheck || node.shouldCheckForPressed()
         }
@@ -69,7 +69,7 @@ open class Group: Node {
     }
     
     override func shouldCheckForMoved() -> Bool {
-        var shouldCheck = false
+        var shouldCheck = super.shouldCheckForMoved()
         contents.forEach { node in
             shouldCheck = shouldCheck || node.shouldCheckForMoved()
         }
@@ -78,7 +78,7 @@ open class Group: Node {
     }
     
     override func shouldCheckForReleased() -> Bool {
-        var shouldCheck = false
+        var shouldCheck = super.shouldCheckForReleased()
         contents.forEach { node in
             shouldCheck = shouldCheck || node.shouldCheckForReleased()
         }

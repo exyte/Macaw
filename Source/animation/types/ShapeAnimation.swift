@@ -11,7 +11,16 @@ class ShapeAnimation: AnimationImpl<Shape> {
         
         let interpolationFunc = { (t: Double) -> Shape in
             if t == 0 {
-                return animatedNode
+                return Shape(form: animatedNode.form,
+                             fill: animatedNode.fill,
+                             stroke: animatedNode.stroke,
+                             place: animatedNode.place,
+                             opaque: animatedNode.opaque,
+                             opacity: animatedNode.opacity,
+                             clip: animatedNode.clip,
+                             effect: animatedNode.effect,
+                             visible: animatedNode.visible,
+                             tag: animatedNode.tag)
             }
             
             return finalValue
@@ -38,6 +47,11 @@ class ShapeAnimation: AnimationImpl<Shape> {
         if autostart {
             self.play()
         }
+    }
+    
+    // Pause state not available for discreet animation
+    override public func pause() {
+        stop()
     }
 }
 

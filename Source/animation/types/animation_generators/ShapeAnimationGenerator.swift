@@ -1,4 +1,4 @@
-//
+    //
 //  ShapeAnimationGenerator.swift
 //  Pods
 //
@@ -37,14 +37,19 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     
     generatedAnim.completion = { finished in
         
-        if !animation.manualStop {
-            animation.progress = 1.0
-        }
-        
-        if !animation.autoreverses {
+        animation.progress = animation.manualStop ? 0.0 : 1.0
+    
+        if !animation.autoreverses && finished {
             shape.form = toShape.form
             shape.stroke = toShape.stroke
             shape.fill = toShape.fill
+        }
+        
+        if !finished {
+            animation.progress = 0.0
+            shape.form = fromShape.form
+            shape.stroke = fromShape.stroke
+            shape.fill = fromShape.fill
         }
         
         animationCache.freeLayer(shape)
@@ -179,7 +184,7 @@ fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, 
     // Group
     group.duration = duration
     group.fillMode = kCAFillModeForwards
-    group.isRemovedOnCompletion = false
+    // group.isRemovedOnCompletion = false
     
     return group
 }

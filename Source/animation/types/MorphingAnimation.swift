@@ -29,6 +29,11 @@ class MorphingAnimation:  AnimationImpl<Locus> {
             self.play()
         }
     }
+    
+    // Pause state not available for discreet animation
+    override public func pause() {
+        stop()
+    }
 }
 
 public typealias MorphingAnimationDescription = AnimationDescription<Locus>

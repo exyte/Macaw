@@ -36,16 +36,18 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     
     generatedAnim.completion = { finished in
         
-        if !animation.manualStop {
+        if animation.manualStop {
+            animation.progress = 0.0
+            shape.form = morphingAnimation.getVFunc()(0.0)
+        } else if finished {
             animation.progress = 1.0
             shape.form = morphingAnimation.getVFunc()(1.0)
-        } else {
-            shape.form = morphingAnimation.getVFunc()(animation.progress)
         }
         
         animationCache.freeLayer(shape)
         
-        if !animation.cycled && !animation.manualStop {
+        if  !animation.cycled &&
+            !animation.manualStop {
             animation.completion?()
         }
         
@@ -108,6 +110,8 @@ fileprivate func pathAnimation(from:Locus, to: Locus, duration: Double, renderTr
     animation.fromValue = fromPath
     animation.toValue = toPath
     animation.duration = duration
+    animation.fillMode = kCAFillModeForwards
+    animation.isRemovedOnCompletion = false
     
     return animation
 }

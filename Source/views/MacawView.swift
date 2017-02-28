@@ -241,7 +241,8 @@ open class MacawView: UIView {
             let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
             let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
             let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
-            let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale))
+            let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale),
+                                 count: recognizer.numberOfTouches)
             var parent: Node? = node
             while parent != .none {
                 parent!.handlePan(event)

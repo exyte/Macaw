@@ -70,16 +70,8 @@ public extension AnimatableVariable {
         
         shape.stroke = safeFrom
         
-        let finalShape = Shape(form: shape.form,
-                               fill: shape.fill,
-                               stroke: to,
-                               place: shape.place,
-                               opaque: shape.opaque,
-                               opacity: shape.opacity,
-                               clip: shape.clip,
-                               effect: shape.effect,
-                               visible: shape.visible,
-                               tag: shape.tag)
+        let finalShape = SceneUtils.shapeCopy(from: shape)
+        finalShape.stroke = to
         
         let _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
@@ -98,16 +90,8 @@ public extension AnimatableVariable {
         
         shape.stroke = safeFrom
         
-        let finalShape = Shape(form: shape.form,
-                               fill: shape.fill,
-                               stroke: to,
-                               place: shape.place,
-                               opaque: shape.opaque,
-                               opacity: shape.opacity,
-                               clip: shape.clip,
-                               effect: shape.effect,
-                               visible: shape.visible,
-                               tag: shape.tag)
+        let finalShape = SceneUtils.shapeCopy(from: shape)
+        finalShape.stroke = to
         
         return ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: false)
     }
@@ -128,16 +112,8 @@ public extension AnimatableVariable {
         
         shape.fill = safeFrom
         
-        let finalShape = Shape(form: shape.form,
-                               fill: to,
-                               stroke: shape.stroke,
-                               place: shape.place,
-                               opaque: shape.opaque,
-                               opacity: shape.opacity,
-                               clip: shape.clip,
-                               effect: shape.effect,
-                               visible: shape.visible,
-                               tag: shape.tag)
+        let finalShape = SceneUtils.shapeCopy(from: shape)
+        finalShape.fill = to
         
         let _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
@@ -156,16 +132,8 @@ public extension AnimatableVariable {
         
         shape.fill = safeFrom
         
-        let finalShape = Shape(form: shape.form,
-                               fill: to,
-                               stroke: shape.stroke,
-                               place: shape.place,
-                               opaque: shape.opaque,
-                               opacity: shape.opacity,
-                               clip: shape.clip,
-                               effect: shape.effect,
-                               visible: shape.visible,
-                               tag: shape.tag)
+        let finalShape = SceneUtils.shapeCopy(from: shape)
+        finalShape.fill = to
         
         return ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: false)
     }

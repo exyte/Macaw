@@ -50,4 +50,32 @@ class NodesMap {
 
 		return Array(nodesSet)
 	}
+    
+    func replace(node: Node, to: Node) {
+        let parents = parentsMap[node]
+        let hostingView = map[node]
+        
+        remove(node)
+            
+        parents?.forEach { parent in
+            guard let group = parent as? Group else {
+                return
+            }
+            
+            var contents = group.contents
+            if let index = contents.index(of: node) {
+                contents.remove(at: index)
+            }
+            
+            contents.append(to)
+            group.contents = contents
+            
+            add(to, parent: parent)
+        }
+        
+        if let view = hostingView {
+            add(to, view: view)
+        }
+        
+    }
 }

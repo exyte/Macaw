@@ -30,11 +30,15 @@ class ShapeRenderer: NodeRenderer {
 		setGeometry(shape.form, ctx: ctx)
 
 		var drawingMode: CGPathDrawingMode? = nil
-		if let _ = shape.stroke, let _ = shape.fill {
+		if let stroke = shape.stroke, let fill = shape.fill {
+            setStrokeAttributes(stroke, ctx: ctx)
+            setFill(fill, ctx: ctx, opacity: 1.0)
 			drawingMode = .fillStroke
-		} else if let _ = shape.stroke {
+		} else if let stroke = shape.stroke {
+            setStrokeAttributes(stroke, ctx: ctx)
 			drawingMode = .stroke
-		} else if let _ = shape.fill {
+		} else if let fill = shape.fill {
+            setFill(fill, ctx: ctx, opacity: 1.0)
 			drawingMode = .fill
 		}
         

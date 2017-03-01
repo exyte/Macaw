@@ -54,6 +54,7 @@ open class MacawView: UIView {
     }
     
     var touchesMap = [UITouch: [Node]]()
+    var touchesOfNode = [Node: [UITouch]]()
     var recognizersMap = [UIGestureRecognizer: [Node]]()
     
     var context: RenderContext!
@@ -151,7 +152,10 @@ open class MacawView: UIView {
                 
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
-                let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
+                
+                var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
+                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let touchEvent = TouchEvent(node: node, points: [point])
                 
                 var parent: Node? = node
                 while parent != .none {
@@ -185,7 +189,10 @@ open class MacawView: UIView {
             let loc = location.applying(RenderUtils.mapTransform(inverted))
             
             touchesMap[touch]?.forEach { node in
-                let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
+                var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
+                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let touchEvent = TouchEvent(node: node, points: [point])
+                
                 node.handleTouchMoved(touchEvent)
             }
         }
@@ -214,7 +221,10 @@ open class MacawView: UIView {
             let loc = location.applying(RenderUtils.mapTransform(inverted))
             
             touchesMap[touch]?.forEach { node in
-                let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
+                var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
+                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let touchEvent = TouchEvent(node: node, points: [point])
+                
                 node.handleTouchReleased(touchEvent)
             }
             

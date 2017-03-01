@@ -14,10 +14,10 @@ public struct TouchPoint {
 
 public class TouchEvent : Event {
     
-    public  var point: TouchPoint
+    public let points: [TouchPoint]
     
-    public init(node: Node, point: TouchPoint) {
-        self.point = point
+    public init(node: Node, points: [TouchPoint]) {
+        self.points = points
         
         super.init(node: node)
     }

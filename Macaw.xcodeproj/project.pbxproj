@@ -18,6 +18,7 @@
 		57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */; };
 		57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */; };
 		57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */; };
+		57AF39891E66E06200F0BFE2 /* SceneUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF39881E66E06200F0BFE2 /* SceneUtils.swift */; };
 		57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAB1221D782DFC00FD8E47 /* TestUtils.swift */; };
 		57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1251D7832E000FD8E47 /* circle.svg */; };
 		57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB1261D7832E000FD8E47 /* ellipse.svg */; };
@@ -163,6 +164,7 @@
 		57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimation.swift; sourceTree = "<group>"; };
 		57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimationGenerator.swift; sourceTree = "<group>"; };
 		57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeInterpolation.swift; sourceTree = "<group>"; };
+		57AF39881E66E06200F0BFE2 /* SceneUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneUtils.swift; sourceTree = "<group>"; };
 		57CAB1221D782DFC00FD8E47 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		57CAB1251D7832E000FD8E47 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
 		57CAB1261D7832E000FD8E47 /* ellipse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ellipse.svg; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 		57E5E1371E3B393900D1CB28 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				57AF39881E66E06200F0BFE2 /* SceneUtils.swift */,
 				57E5E1381E3B393900D1CB28 /* Group.swift */,
 				57E5E1391E3B393900D1CB28 /* Image.swift */,
 				57E5E13A1E3B393900D1CB28 /* Node.swift */,
@@ -809,6 +812,7 @@
 				57E5E1A11E3B393900D1CB28 /* Shape.swift in Sources */,
 				57E5E18D1E3B393900D1CB28 /* Ellipse.swift in Sources */,
 				57E5E1911E3B393900D1CB28 /* Locus.swift in Sources */,
+				57AF39891E66E06200F0BFE2 /* SceneUtils.swift in Sources */,
 				57E5E1651E3B393900D1CB28 /* NodeHashable.swift in Sources */,
 				57E5E18E1E3B393900D1CB28 /* GeomUtils.swift in Sources */,
 				57E5E1AF1E3B393900D1CB28 /* CAAnimationClosure.swift in Sources */,

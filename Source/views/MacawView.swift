@@ -53,8 +53,8 @@ open class MacawView: UIView {
         animationProducer.addStoredAnimations(node)
     }
     
-    var touchesMap = [UITouch: Node]()
-    var recognizersMap = [UIGestureRecognizer: Node]()
+    var touchesMap = [UITouch: [Node]]()
+    var recognizersMap = [UIGestureRecognizer: [Node]]()
     
     var context: RenderContext!
     var renderer: NodeRenderer?
@@ -142,6 +142,10 @@ open class MacawView: UIView {
             }
             
             if let node = foundNode {
+                if touchesMap[touch] == nil {
+                    touchesMap[touch] = [Node]()
+                }
+                
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
                 let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
@@ -150,14 +154,10 @@ open class MacawView: UIView {
                 while parent != .none {
                     
                     if parent!.shouldCheckForPressed() {
-                        touchesMap[touch] = parent!
+                        touchesMap[touch]?.append(parent!)
                         parent!.handleTouchPressed(touchEvent)
                     }
 
-                    if (touchEvent.consumed) {
-                        break;
-                    }
-                    
                     parent = nodesMap.parents(parent!).first
                 }
             }
@@ -177,11 +177,13 @@ open class MacawView: UIView {
         for touch in touches {
             let location = touch.location(in: self)
             
-            if let node = touchesMap[touch] {
-                let inverted = renderer.node().place.invert()!
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
+            
+            let inverted = renderer.node().place.invert()!
+            let loc = location.applying(RenderUtils.mapTransform(inverted))
+            
+            touchesMap[touch]?.forEach { node in
                 let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
-                    node.handleTouchMoved(touchEvent)
+                node.handleTouchMoved(touchEvent)
             }
         }
     }
@@ -205,16 +207,15 @@ open class MacawView: UIView {
         
         for touch in touches {
             let location = touch.location(in: self)
+            let inverted = renderer.node().place.invert()!
+            let loc = location.applying(RenderUtils.mapTransform(inverted))
             
-            if let node = touchesMap[touch] {
-                let inverted = renderer.node().place.invert()!
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
+            touchesMap[touch]?.forEach { node in
                 let touchEvent = TouchEvent(node: node, point: TouchPoint(id: Int(touch.timestamp), location: Point(x: Double(loc.x), y: Double(loc.y))))
-                
-                
                 node.handleTouchReleased(touchEvent)
-                touchesMap.removeValue(forKey: touch)
             }
+            
+            touchesMap.removeValue(forKey: touch)
         }
     }
     
@@ -239,27 +240,31 @@ open class MacawView: UIView {
                     return
                 }
                 
-                var parent: Node? = node
+                if self.recognizersMap[recognizer] == nil {
+                    self.recognizersMap[recognizer] = [Node]()
+                }
+
+                var parent: Node? = foundNode
                 while parent != .none {
                     if parent!.shouldCheckForPan() {
-                       self.recognizersMap[recognizer] = parent!
-                        break;
+                       self.recognizersMap[recognizer]?.append(parent!)
                     }
 
                     parent = nodesMap.parents(parent!).first
                 }
             }
         }
-
-        if let node = recognizersMap[recognizer] {
-            // get the rotation and scale of the shape and apply to the translation
-            let translation = recognizer.translation(in: self)
-            recognizer.setTranslation(CGPoint.zero, in: self)
-            
-            let transform = node.place
-            let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
-            let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
-            let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
+        
+        // get the rotation and scale of the shape and apply to the translation
+        let translation = recognizer.translation(in: self)
+        recognizer.setTranslation(CGPoint.zero, in: self)
+        
+        let transform = node.place
+        let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
+        let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
+        let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
+        
+        recognizersMap[recognizer]?.forEach { node in
             let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale),
                                  count: recognizer.numberOfTouches)
             node.handlePan(event)
@@ -290,22 +295,25 @@ open class MacawView: UIView {
                     return
                 }
                 
-                var parent: Node? = node
+                if self.recognizersMap[recognizer] == nil {
+                    self.recognizersMap[recognizer] = [Node]()
+                }
+                
+                var parent: Node? = foundNode
                 while parent != .none {
                     if parent!.shouldCheckForRotate() {
-                        self.recognizersMap[recognizer] = parent!
-                        break;
+                        self.recognizersMap[recognizer]?.append(parent!)
                     }
                     
                     parent = nodesMap.parents(parent!).first
                 }
             }
         }
-
-        if let node = recognizersMap[recognizer] {
-            let rotation = Double(recognizer.rotation)
-            recognizer.rotation = 0
-            
+        
+        let rotation = Double(recognizer.rotation)
+        recognizer.rotation = 0
+        
+        recognizersMap[recognizer]?.forEach { node in
             let event = RotateEvent(node: node, angle: rotation)
             node.handleRotate(event)
         }
@@ -335,11 +343,14 @@ open class MacawView: UIView {
                     return
                 }
                 
-                var parent: Node? = node
+                if self.recognizersMap[recognizer] == nil {
+                    self.recognizersMap[recognizer] = [Node]()
+                }
+                
+                var parent: Node? = foundNode
                 while parent != .none {
                     if parent!.shouldCheckForPinch() {
-                        self.recognizersMap[recognizer] = parent!
-                        break;
+                        self.recognizersMap[recognizer]?.append(parent!)
                     }
                     
                     parent = nodesMap.parents(parent!).first
@@ -347,10 +358,10 @@ open class MacawView: UIView {
             }
         }
         
-        if let node = recognizersMap[recognizer] {
-            let scale = Double(recognizer.scale)
-            recognizer.scale = 1
-            
+        let scale = Double(recognizer.scale)
+        recognizer.scale = 1
+        
+        recognizersMap[recognizer]?.forEach { node in
             let event = PinchEvent(node: node, scale: scale)
             node.handlePinch(event)
         }

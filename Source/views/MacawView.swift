@@ -100,9 +100,12 @@ open class MacawView: UIView {
         self.context = RenderContext(view: self)
         self.animationCache = AnimationCache(sceneLayer: self.layer)
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
         let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
         let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+        
+        self.addGestureRecognizer(tapRecognizer)
         self.addGestureRecognizer(panRecognizer)
         self.addGestureRecognizer(rotationRecognizer)
         self.addGestureRecognizer(pinchRecognizer)
@@ -221,6 +224,42 @@ open class MacawView: UIView {
     
     
     // MARK: - Pan
+    
+    func handleTap(recognizer: UITapGestureRecognizer) {
+        if !self.node.shouldCheckForTap() {
+            return
+        }
+        
+        guard let renderer = renderer else {
+            return
+        }
+        
+        let location = recognizer.location(in: self)
+        var foundNodes = [Node]()
+        
+        localContext { ctx in
+            guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+                return
+            }
+            
+            var parent: Node? = foundNode
+            while parent != .none {
+                if parent!.shouldCheckForTap() {
+                    foundNodes.append(parent!)
+                }
+                
+                parent = nodesMap.parents(parent!).first
+            }
+        }
+        
+        let inverted = renderer.node().place.invert()!
+        let loc = location.applying(RenderUtils.mapTransform(inverted))
+        
+        foundNodes.forEach { node in
+            let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+            node.handleTap(event)
+        }
+    }
     
     func handlePan(recognizer: UIPanGestureRecognizer) {
         if !self.node.shouldCheckForPan() {

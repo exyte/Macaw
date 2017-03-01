@@ -36,6 +36,7 @@ open class Node: Drawable {
     var touchMovedHandlers = [ChangeHandler<TouchEvent>]()
     var touchReleasedHandlers = [ChangeHandler<TouchEvent>]()
     
+    var tapHandlers = [ChangeHandler<TapEvent>]()
     var panHandlers = [ChangeHandler<PanEvent>]()
     var rotateHandlers = [ChangeHandler<RotateEvent>]()
     var pinchHandlers = [ChangeHandler<PinchEvent>]()
@@ -76,6 +77,19 @@ open class Node: Drawable {
             }
             
             self.touchReleasedHandlers.remove(at: index)
+        })
+    }
+    
+    @discardableResult public func onTap(_ f: @escaping (TapEvent) -> ()) -> Disposable  {
+        let handler = ChangeHandler<TapEvent>(f)
+        tapHandlers.append(handler)
+        
+        return Disposable({
+            guard let index = self.tapHandlers.index(of: handler) else {
+                return
+            }
+            
+            self.tapHandlers.remove(at: index)
         })
     }
 
@@ -132,6 +146,10 @@ open class Node: Drawable {
         touchMovedHandlers.forEach { handler in handler.handle(event) }
     }
     
+    func handleTap( _ event: TapEvent ) {
+        tapHandlers.forEach { handler in handler.handle(event) }
+    }
+    
     func handlePan( _ event: PanEvent ) {
         panHandlers.forEach { handler in handler.handle(event) }
     }
@@ -157,6 +175,9 @@ open class Node: Drawable {
         return touchReleasedHandlers.count > 0
     }
 
+    func shouldCheckForTap() -> Bool {
+        return tapHandlers.count > 0
+    }
     
     func shouldCheckForPan() -> Bool {
         return panHandlers.count > 0

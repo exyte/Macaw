@@ -86,6 +86,15 @@ open class Group: Node {
         return shouldCheck
     }
     
+    override func shouldCheckForTap() -> Bool {
+        var shouldCheck = super.shouldCheckForTap()
+        contents.forEach { node in
+            shouldCheck = shouldCheck || node.shouldCheckForTap()
+        }
+        
+        return shouldCheck
+    }
+    
     override func shouldCheckForPan() -> Bool {
         var shouldCheck = super.shouldCheckForPan()
         contents.forEach { node in

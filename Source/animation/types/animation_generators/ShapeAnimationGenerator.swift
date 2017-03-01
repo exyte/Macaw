@@ -184,7 +184,7 @@ fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, 
     // Group
     group.duration = duration
     group.fillMode = kCAFillModeForwards
-    // group.isRemovedOnCompletion = false
+    group.isRemovedOnCompletion = false
     
     return group
 }

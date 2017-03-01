@@ -153,15 +153,20 @@ open class MacawView: UIView {
                 let inverted = renderer.node().place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
                 
-                var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
+                let id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
                 let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 let touchEvent = TouchEvent(node: node, points: [point])
                 
                 var parent: Node? = node
                 while parent != .none {
+                    let currentNode = parent!
+                    if touchesOfNode[currentNode] == nil {
+                        touchesOfNode[currentNode] = [UITouch]()
+                    }
                     
-                    if parent!.shouldCheckForPressed() {
-                        touchesMap[touch]?.append(parent!)
+                    if currentNode.shouldCheckForPressed() {
+                        touchesMap[touch]?.append(currentNode)
+                        touchesOfNode[currentNode]?.append(touch)
                         parent!.handleTouchPressed(touchEvent)
                     }
 
@@ -181,20 +186,24 @@ open class MacawView: UIView {
             return
         }
         
-        for touch in touches {
-            let location = touch.location(in: self)
-            
-            
-            let inverted = renderer.node().place.invert()!
-            let loc = location.applying(RenderUtils.mapTransform(inverted))
-            
-            touchesMap[touch]?.forEach { node in
-                var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
-                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
-                let touchEvent = TouchEvent(node: node, points: [point])
-                
-                node.handleTouchMoved(touchEvent)
+        let inverted = renderer.node().place.invert()!
+        
+        touchesOfNode.keys.forEach { currentNode in
+            guard let touches = touchesOfNode[currentNode] else {
+                return
             }
+            
+            var points = [TouchPoint]()
+            for touch in touches {
+                let location = touch.location(in: self)
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
+                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                points.append(point)
+            }
+            
+            let touchEvent = TouchEvent(node: currentNode, points: points)
+            node.handleTouchMoved(touchEvent)
         }
     }
     
@@ -226,6 +235,12 @@ open class MacawView: UIView {
                 let touchEvent = TouchEvent(node: node, points: [point])
                 
                 node.handleTouchReleased(touchEvent)
+                if let index = touchesOfNode[node]?.index(of: touch) {
+                    touchesOfNode[node]?.remove(at: index)
+                    if let count = touchesOfNode[node]?.count, count == 0 {
+                        touchesOfNode.removeValue(forKey: node)
+                    }
+                }
             }
             
             touchesMap.removeValue(forKey: touch)

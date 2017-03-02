@@ -11,6 +11,7 @@ open class MenuViewController: UIViewController, UITableViewDataSource, UITableV
         "SVGExampleViewController",
         "EasingExampleController",
         "MorphingExampleController",
+        "EventsExampleController"
     ].map {
         UIStoryboard(name: "Main", bundle: .none).instantiateViewController(withIdentifier: $0)
     }

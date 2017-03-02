@@ -8,8 +8,8 @@
 
 
 public struct TouchPoint {
-    let id: Int
-    let location: Point
+    public let id: Int
+    public let location: Point
 }
 
 public class TouchEvent : Event {

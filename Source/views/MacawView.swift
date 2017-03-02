@@ -5,7 +5,7 @@ import UIKit
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
 /// You could create your own view extended from MacawView with predefined scene.
 ///
-open class MacawView: UIView {
+open class MacawView: UIView, UIGestureRecognizerDelegate {
     
     /// Scene root node
     open var node: Node = Group() {
@@ -106,6 +106,11 @@ open class MacawView: UIView {
         let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
         let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
         
+        tapRecognizer.delegate = self
+        panRecognizer.delegate = self
+        rotationRecognizer.delegate = self
+        pinchRecognizer.delegate = self
+        
         self.addGestureRecognizer(tapRecognizer)
         self.addGestureRecognizer(panRecognizer)
         self.addGestureRecognizer(rotationRecognizer)
@@ -129,7 +134,9 @@ open class MacawView: UIView {
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if !self.node.shouldCheckForPressed() {
+        if !self.node.shouldCheckForPressed() &&
+            !self.node.shouldCheckForMoved() &&
+            !self.node.shouldCheckForReleased (){
             return
         }
         
@@ -164,11 +171,10 @@ open class MacawView: UIView {
                         touchesOfNode[currentNode] = [UITouch]()
                     }
                     
-                    if currentNode.shouldCheckForPressed() {
-                        touchesMap[touch]?.append(currentNode)
-                        touchesOfNode[currentNode]?.append(touch)
-                        parent!.handleTouchPressed(touchEvent)
-                    }
+                    touchesMap[touch]?.append(currentNode)
+                    touchesOfNode[currentNode]?.append(touch)
+                    parent!.handleTouchPressed(touchEvent)
+                    
 
                     parent = nodesMap.parents(parent!).first
                 }
@@ -203,7 +209,7 @@ open class MacawView: UIView {
             }
             
             let touchEvent = TouchEvent(node: currentNode, points: points)
-            node.handleTouchMoved(touchEvent)
+            currentNode.handleTouchMoved(touchEvent)
         }
     }
     
@@ -216,9 +222,7 @@ open class MacawView: UIView {
     }
     
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
-        if !self.node.shouldCheckForReleased() {
-            return
-        }
+
         
         guard let renderer = renderer else {
             return
@@ -437,6 +441,16 @@ open class MacawView: UIView {
     
     deinit {
         nodesMap.remove(node)
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
 }

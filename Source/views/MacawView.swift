@@ -149,6 +149,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             return
         }
         
+        
         for touch in touches {
             let location = touch.location(in: self)
             
@@ -162,7 +163,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
                     touchesMap[touch] = [Node]()
                 }
                 
-                let inverted = renderer.node().place.invert()!
+                let inverted = node.place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
                 
                 let id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
@@ -197,8 +198,6 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             return
         }
         
-        let inverted = renderer.node().place.invert()!
-        
         touchesOfNode.keys.forEach { currentNode in
             guard let touches = touchesOfNode[currentNode] else {
                 return
@@ -207,6 +206,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             var points = [TouchPoint]()
             for touch in touches {
                 let location = touch.location(in: self)
+                let inverted = currentNode.place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
                 let id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
                 let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
@@ -235,10 +235,11 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         
         for touch in touches {
             let location = touch.location(in: self)
-            let inverted = renderer.node().place.invert()!
-            let loc = location.applying(RenderUtils.mapTransform(inverted))
             
             touchesMap[touch]?.forEach { node in
+                
+                let inverted = node.place.invert()!
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
                 var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
                 let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 let touchEvent = TouchEvent(node: node, points: [point])
@@ -286,10 +287,10 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             }
         }
         
-        let inverted = renderer.node().place.invert()!
-        let loc = location.applying(RenderUtils.mapTransform(inverted))
         
         foundNodes.forEach { node in
+            let inverted = node.place.invert()!
+            let loc = location.applying(RenderUtils.mapTransform(inverted))
             let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
             node.handleTap(event)
         }

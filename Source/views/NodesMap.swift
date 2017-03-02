@@ -56,18 +56,20 @@ class NodesMap {
         let hostingView = map[node]
         
         remove(node)
-            
+        
         parents?.forEach { parent in
             guard let group = parent as? Group else {
                 return
             }
             
             var contents = group.contents
+            var indexToInsert = 0
             if let index = contents.index(of: node) {
                 contents.remove(at: index)
+                indexToInsert = index
             }
             
-            contents.append(to)
+            contents.insert(to, at: indexToInsert)
             group.contents = contents
             
             add(to, parent: parent)

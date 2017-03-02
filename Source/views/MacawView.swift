@@ -111,6 +111,11 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         rotationRecognizer.delegate = self
         pinchRecognizer.delegate = self
         
+        tapRecognizer.cancelsTouchesInView = false
+        panRecognizer.cancelsTouchesInView = false
+        rotationRecognizer.cancelsTouchesInView = false
+        tapRecognizer.cancelsTouchesInView = false
+        
         self.addGestureRecognizer(tapRecognizer)
         self.addGestureRecognizer(panRecognizer)
         self.addGestureRecognizer(rotationRecognizer)

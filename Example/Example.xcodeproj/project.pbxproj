@@ -229,7 +229,6 @@
 				TargetAttributes = {
 					B02E75EC1C16104900D1971D = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = FZXCM5CJ7P;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 					};
@@ -464,7 +463,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FZXCM5CJ7P;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -95,10 +95,7 @@ public extension AnimatableVariable where T: ContentsInterpolation {
             let fromShape = fromShapes[i]
             let toShape = toShapes[i]
             
-            let mutatingShape = SceneUtils.shapeCopy(from: fromShape)
-            nodesMap.replace(node: fromShape, to: mutatingShape)
-            
-            let animation = ShapeAnimation(animatedNode: mutatingShape, finalValue: toShape, animationDuration: during, delay: delay)
+            let animation = ShapeAnimation(animatedNode: fromShape, finalValue: toShape, animationDuration: during, delay: delay)
             animations.append(animation)
         }
         

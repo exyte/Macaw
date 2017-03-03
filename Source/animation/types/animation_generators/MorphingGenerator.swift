@@ -17,11 +17,15 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         return
     }
     
+    let mutatingShape = SceneUtils.shapeCopy(from: shape)
+    nodesMap.replace(node: shape, to: mutatingShape)
+    animation.node = mutatingShape
+    
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
     
-    let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
+    let layer = animationCache.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false)
     
     // Creating proper animation
     let generatedAnim = pathAnimation(
@@ -38,13 +42,13 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         
         if animation.manualStop {
             animation.progress = 0.0
-            shape.form = morphingAnimation.getVFunc()(0.0)
+            mutatingShape.form = morphingAnimation.getVFunc()(0.0)
         } else if finished {
             animation.progress = 1.0
-            shape.form = morphingAnimation.getVFunc()(1.0)
+            mutatingShape.form = morphingAnimation.getVFunc()(1.0)
         }
         
-        animationCache.freeLayer(shape)
+        animationCache.freeLayer(mutatingShape)
         
         if  !animation.cycled &&
             !animation.manualStop {
@@ -62,7 +66,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     generatedAnim.progress = { progress in
         
         let t = Double(progress)
-        shape.form = morphingAnimation.getVFunc()(t)
+        mutatingShape.form = morphingAnimation.getVFunc()(t)
         
         animation.progress = t
         animation.onProgressUpdate?(t)
@@ -71,7 +75,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     layer.path = RenderUtils.toCGPath(fromLocus)
     
     // Stroke
-    if let stroke = shape.stroke {
+    if let stroke = mutatingShape.stroke {
         if let color = stroke.fill as? Color {
             layer.strokeColor = RenderUtils.mapColor(color)
         } else {
@@ -88,7 +92,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     }
     
     // Fill
-    if let color = shape.fill as? Color {
+    if let color = mutatingShape.fill as? Color {
         layer.fillColor = RenderUtils.mapColor(color)
     } else {
         layer.fillColor = UIColor.clear.cgColor

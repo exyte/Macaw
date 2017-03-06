@@ -32,7 +32,7 @@ open class SVGParser {
         return SVGParser(text).parse()
     }
     
-	let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
+	let availableStyleAttributes = ["id", "stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
 		"fill", "fill-opacity",
 		"stop-color", "stop-opacity",
 		"font-family", "font-size",
@@ -192,7 +192,9 @@ open class SVGParser {
 				groupNodes.append(node)
 			}
 		}
-        return Group(contents: groupNodes, place: position)
+        var group = Group(contents: groupNodes, place: position)
+        group.id = style["id"]
+        return group
 	}
     
     fileprivate func getMask(mask: String) -> Locus? {

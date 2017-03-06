@@ -87,13 +87,13 @@ class AnimationsView: MacawView {
 			velocities.append(velocity)
 			positions.append(Point(x: 0.0, y: 0.0))
 
-			let anim = ballGroup.placeVar.animation({ t in
-				let pos = posForTime(t, index: i)
+            let anim = ballGroup.placeVar.animation(3.0, f: { (t) -> Transform in
+                let pos = posForTime(t, index: i)
                 positions[i] = pos
-				return Transform().move(
-					dx: pos.x,
-					dy: pos.y)
-            }, during: 3.0)
+                return Transform().move(
+                    dx: pos.x,
+                    dy: pos.y)
+            })
 
 			animations.append([
 				anim,

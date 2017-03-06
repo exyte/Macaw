@@ -99,7 +99,7 @@ open class SVGParser {
 
 	fileprivate func parseDefinitions(_ defs: XMLIndexer) {
 		for child in defs.children {
-			guard let id = child.element?.attributes["id"] else {
+			guard let id = child.element?.allAttributes["id"]?.text else {
 				continue
 			}
 			if let node = parseNode(child) {
@@ -206,7 +206,7 @@ open class SVGParser {
     }
 
 	fileprivate func getPosition(_ element: XMLElement) -> Transform {
-		guard let transformAttribute = element.attributes["transform"] else {
+		guard let transformAttribute = element.allAttributes["transform"]?.text else {
 			return Transform()
 		}
 		return parseTransformationAttribute(transformAttribute)
@@ -298,7 +298,7 @@ open class SVGParser {
 
 	fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: XMLElement) -> [String: String] {
 		var styleAttributes: [String: String] = groupAttributes
-		if let style = element.attributes["style"] {
+		if let style = element.allAttributes["style"]?.text {
             
 			let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
 			styleParts.forEach { styleAttribute in
@@ -309,7 +309,7 @@ open class SVGParser {
 			}
 		} else {
 			self.availableStyleAttributes.forEach { availableAttribute in
-				if let styleAttribute = element.attributes[availableAttribute] {
+				if let styleAttribute = element.allAttributes[availableAttribute]?.text {
 					styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
 				}
 			}
@@ -519,7 +519,7 @@ open class SVGParser {
 			return .none
 		}
 
-		if let points = element.attributes["points"] {
+		if let points = element.allAttributes["points"]?.text {
 			return Polygon(points: parsePoints(points))
 		}
 
@@ -531,7 +531,7 @@ open class SVGParser {
 			return .none
 		}
 
-		if let points = element.attributes["points"] {
+		if let points = element.allAttributes["points"]?.text {
 			return Polyline(points: parsePoints(points))
 		}
 
@@ -555,7 +555,7 @@ open class SVGParser {
 	}
 
 	fileprivate func parseImage(_ image: XMLIndexer, opacity: Double, pos: Transform = Transform()) -> Image? {
-		guard let element = image.element, let link = element.attributes["xlink:href"] else {
+		guard let element = image.element, let link = element.allAttributes["xlink:href"]?.text else {
 			return .none
 		}
 		let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
@@ -657,7 +657,7 @@ open class SVGParser {
 
 			return Text(text: text, font: getFont(attributes, fontName: fontName, fontSize: fontSize),
 				fill: fill ?? getFillColor(attributes) ?? Color.black, baseline: .alphabetic,
-				place: pos, opacity: getOpacity(attributes) ?? opacity)
+				place: pos, opacity: getOpacity(attributes))
 	}
 
 	fileprivate func getFont(_ attributes: [String: String] = [:], fontName: String?, fontSize: Int?) -> Font {
@@ -690,7 +690,7 @@ open class SVGParser {
 	}
 
 	fileprivate func parseUse(_ use: XMLIndexer, fill: Fill?, stroke: Stroke?, pos: Transform, opacity: Double) -> Node? {
-		guard let element = use.element, let link = element.attributes["xlink:href"] else {
+		guard let element = use.element, let link = element.allAttributes["xlink:href"]?.text else {
 			return .none
 		}
 		var id = link
@@ -702,7 +702,7 @@ open class SVGParser {
 		}
 		node.place = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
 		node.opacity = opacity
-        let maskString = element.attributes["mask"] ?? ""
+        let maskString = element.allAttributes["mask"]?.text ?? ""
 		return parseUseNode(node: node, fill: fill, stroke: stroke, mask: maskString)
 	}
     
@@ -731,7 +731,7 @@ open class SVGParser {
         }
         if let group = node as? Group {
             group.contents.forEach { node in
-                parseUseNode(node: node, fill: fill, stroke: stroke, mask: mask)
+                _ = parseUseNode(node: node, fill: fill, stroke: stroke, mask: mask)
             }
             return group
         }
@@ -769,7 +769,7 @@ open class SVGParser {
 			return .none
 		}
 		var parentGradient: LinearGradient?
-		if let link = element.attributes["xlink:href"]?.replacingOccurrences(of: " ", with: "")
+		if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: "")
 		, link.hasPrefix("#") {
 
 			let id = link.replacingOccurrences(of: "#", with: "")
@@ -801,7 +801,7 @@ open class SVGParser {
 		let x2 = getDoubleValueFromPercentage(element, attribute: "x2") ?? parentGradient?.x2 ?? 1
 		let y2 = getDoubleValueFromPercentage(element, attribute: "y2") ?? parentGradient?.y2 ?? 0
 		var userSpace = false
-		if let gradientUnits = element.attributes["gradientUnits"] , gradientUnits == "userSpaceOnUse" {
+		if let gradientUnits = element.allAttributes["gradientUnits"]?.text , gradientUnits == "userSpaceOnUse" {
 			userSpace = true
 		} else if let parent = parentGradient {
 			userSpace = parent.userSpace
@@ -814,7 +814,7 @@ open class SVGParser {
 			return .none
 		}
 		var parentGradient: RadialGradient?
-		if let link = element.attributes["xlink:href"]?.replacingOccurrences(of: " ", with: "")
+		if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: "")
 		, link.hasPrefix("#") {
 
 			let id = link.replacingOccurrences(of: "#", with: "")
@@ -847,7 +847,7 @@ open class SVGParser {
 		let fy = getDoubleValueFromPercentage(element, attribute: "fy") ?? parentGradient?.fy ?? cy
 		let r = getDoubleValueFromPercentage(element, attribute: "r") ?? parentGradient?.r ?? 0.5
 		var userSpace = false
-		if let gradientUnits = element.attributes["gradientUnits"] , gradientUnits == "userSpaceOnUse" {
+		if let gradientUnits = element.allAttributes["gradientUnits"]?.text , gradientUnits == "userSpaceOnUse" {
 			userSpace = true
 		} else if let parent = parentGradient {
 			userSpace = parent.userSpace
@@ -892,7 +892,7 @@ open class SVGParser {
 	}
 
 	fileprivate func parsePath(_ path: XMLIndexer) -> Path? {
-		if let dAttr = path.element?.attributes["d"] {
+		if let dAttr = path.element?.allAttributes["d"]?.text {
             return Path(segments: parsePathCommands(dAttr))
 		}
 		return .none
@@ -1122,14 +1122,14 @@ open class SVGParser {
 	}
 
 	fileprivate func getDoubleValue(_ element: XMLElement, attribute: String) -> Double? {
-		guard let attributeValue = element.attributes[attribute], let doubleValue = Double(attributeValue) else {
+		guard let attributeValue = element.allAttributes[attribute]?.text, let doubleValue = Double(attributeValue) else {
 			return .none
 		}
 		return doubleValue
 	}
 
 	fileprivate func getDoubleValueFromPercentage(_ element: XMLElement, attribute: String) -> Double? {
-		guard let attributeValue = element.attributes[attribute] else {
+		guard let attributeValue = element.allAttributes[attribute]?.text else {
 			return .none
 		}
         if !attributeValue.contains("%") {
@@ -1144,7 +1144,7 @@ open class SVGParser {
 	}
 
 	fileprivate func getIntValue(_ element: XMLElement, attribute: String) -> Int? {
-		guard let attributeValue = element.attributes[attribute], let intValue = Int(attributeValue) else {
+		guard let attributeValue = element.allAttributes[attribute]?.text, let intValue = Int(attributeValue) else {
 			return .none
 		}
 		return intValue

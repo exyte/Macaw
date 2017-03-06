@@ -57,14 +57,14 @@ class ShapeAnimation: AnimationImpl<Shape> {
 
 public extension AnimatableVariable {
     public func animate<T:Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
-        var shape = node as! Shape
+        let shape = node as! Shape
         
         var safeFrom = from
         if safeFrom == nil {
             if let shapeStroke = shape.stroke as? T {
                 safeFrom = shapeStroke
             } else {
-                safeFrom = Stroke(width: 1.0) as! T
+                safeFrom = Stroke(width: 1.0) as? T
             }
         }
         
@@ -77,14 +77,14 @@ public extension AnimatableVariable {
     }
     
     public func animation<T:Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        var shape = node as! Shape
+        let shape = node as! Shape
         
         var safeFrom = from
         if safeFrom == nil {
             if let shapeStroke = shape.stroke as? T {
                 safeFrom = shapeStroke
             } else {
-                safeFrom = Stroke(width: 1.0) as! T
+                safeFrom = Stroke(width: 1.0) as? T
             }
         }
         
@@ -99,14 +99,14 @@ public extension AnimatableVariable {
 
 public extension AnimatableVariable {
     public func animate<T:Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
-        var shape = node as! Shape
+        let shape = node as! Shape
         
         var safeFrom = from
         if safeFrom == nil {
             if let shapeFill = shape.fill as? T {
                 safeFrom = shapeFill
             } else {
-                safeFrom = Color.clear as! T
+                safeFrom = Color.clear as? T
             }
         }
         
@@ -119,14 +119,14 @@ public extension AnimatableVariable {
     }
     
     public func animation<T:Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        var shape = node as! Shape
+        let shape = node as! Shape
         
         var safeFrom = from
         if safeFrom == nil {
             if let shapeFill = shape.fill as? T {
                 safeFrom = shapeFill
             } else {
-                safeFrom = Color.clear as! T
+                safeFrom = Color.clear as? T
             }
         }
         

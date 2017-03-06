@@ -70,7 +70,7 @@ class RenderUtils {
     
     class func loadFont(name: String, size: Int) -> UIFont? {
         let separationSet = CharacterSet(charactersIn:",")
-        var names = name.components(separatedBy: separationSet)
+        let names = name.components(separatedBy: separationSet)
         var customFont: UIFont? = .none
         names.forEach { fontName in
             if customFont != .none {

@@ -27,19 +27,19 @@ class MyView: MacawView {
 }
 ```
 
-<img src="https://www.dropbox.com/s/o4xe3eezk4zv901/macaw-readme-001.png?dl=1" width="475">
+<img src="http://i.imgur.com/ffPc4mr.png" width="475">
 
 #### It has SVG support
 
 Include Scalable Vector Graphics right into your iOS application:
 
-<img src="https://www.dropbox.com/s/p84o7komopmb2yn/macaw-howto-004.png?dl=1" width="475">
+<img src="http://i.imgur.com/NWkEzcu.png" width="475">
 
 #### It's powerful
 
 Affine transformations, user events, animation and various effects to build beautiful apps with Macaw:
 
-<img src="https://www.dropbox.com/s/b6lspzzqa80ielk/periodic-ipad.gif?dl=1" width="600">
+<img src="http://i.imgur.com/pjmxrDI.gif" width="600">
 
 ## Motivation
 
@@ -61,10 +61,10 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 [Macaw-Examples](https://github.com/exyte/macaw-examples) is a repository where you can find various usages of the `Macaw` library from simple charts to the complex periodic table.
 
-<img src="https://www.dropbox.com/s/xvvifi7gbre11sc/healthstat.gif?dl=1" height="280"> 
-<img src="https://www.dropbox.com/s/gwv5iqlpxzb77od/auxy.gif?dl=1" height="280">
-<img src="https://www.dropbox.com/s/5z15crzjxxbnbn7/streaks.gif?dl=1" height="280">
-<img src="https://www.dropbox.com/s/0syyxzzaa1qqumb/zova.gif?dl=1" height="280">
+<img src="http://i.imgur.com/rQIh3qD.gif" height="280"> 
+<img src="http://i.imgur.com/bIgHtzt.gif" height="280">
+<img src="http://i.imgur.com/NiBT2rv.gif" height="280">
+<img src="http://i.imgur.com/Un8TJKc.gif" height="280">
 
 ## Requirements
 

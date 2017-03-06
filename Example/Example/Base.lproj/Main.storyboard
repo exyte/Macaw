@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pJi-Pa-uLB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pJi-Pa-uLB">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -50,7 +50,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6q0-BY-xeB" id="CU1-RT-JgB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -161,7 +161,7 @@
         <!--SVG-->
         <scene sceneID="7mv-yr-foI">
             <objects>
-                <viewController storyboardIdentifier="SVGExampleViewController" title="SVG" id="mKW-eb-P6k" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SVGExampleViewController" title="SVG" id="mKW-eb-P6k" customClass="SVGExampleController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TsH-he-yyr"/>
                         <viewControllerLayoutGuide type="bottom" id="Ohj-O3-2uP"/>
@@ -174,7 +174,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="tiger"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="tiger_editable"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -186,6 +186,9 @@
                             <constraint firstItem="yHP-DJ-SIl" firstAttribute="top" secondItem="TsH-he-yyr" secondAttribute="bottom" id="tzO-cY-rQ9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="svgView" destination="yHP-DJ-SIl" id="FJ7-md-R7J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W3h-lx-w4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

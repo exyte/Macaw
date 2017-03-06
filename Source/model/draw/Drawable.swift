@@ -2,6 +2,7 @@ import Foundation
 
 open class Drawable {
 
+    open var id: String?
 	open let visible: Bool
 	open let tag: [String]
 

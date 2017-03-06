@@ -16,6 +16,8 @@
 		57AF398C1E67E9DB00F0BFE2 /* EventsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */; };
 		58E4D50C1D841C6E00EC8815 /* TransformExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */; };
 		66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66AE19DA1CC8CB3C00B78B5E /* tiger.svg */; };
+		A0DED6CF1E6D9838004A2003 /* SVGExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DED6CE1E6D9838004A2003 /* SVGExampleController.swift */; };
+		A0DED6D31E6DB5DE004A2003 /* tiger_editable.svg in Resources */ = {isa = PBXBuildFile; fileRef = A0DED6D21E6DB5DE004A2003 /* tiger_editable.svg */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
 		B02E75F81C16104900D1971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F71C16104900D1971D /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsExampleController.swift; sourceTree = "<group>"; };
 		58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformExampleView.swift; sourceTree = "<group>"; };
 		66AE19DA1CC8CB3C00B78B5E /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = Example/Assets/SVG/tiger.svg; sourceTree = "<group>"; };
+		A0DED6CE1E6D9838004A2003 /* SVGExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGExampleController.swift; sourceTree = "<group>"; };
+		A0DED6D21E6DB5DE004A2003 /* tiger_editable.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger_editable.svg; path = Example/Assets/SVG/tiger_editable.svg; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B02E75F51C16104900D1971D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */,
+				A0DED6CE1E6D9838004A2003 /* SVGExampleController.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
+				A0DED6D21E6DB5DE004A2003 /* tiger_editable.svg */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DED6D31E6DB5DE004A2003 /* tiger_editable.svg in Resources */,
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
 				66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */,
@@ -344,6 +351,7 @@
 				574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */,
 				574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */,
 				B04416FC1E04282A0016BC50 /* EasingExampleController.swift in Sources */,
+				A0DED6CF1E6D9838004A2003 /* SVGExampleController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

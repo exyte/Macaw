@@ -452,7 +452,7 @@ open class SVGParser {
 	}
 
 	fileprivate func getTag(_ element: XMLElement) -> [String] {
-		let id = element.attributes["id"]
+		let id = element.allAttributes["id"]?.text
 		return id != nil ? [id!] : []
 	}
 
@@ -662,7 +662,7 @@ open class SVGParser {
 
 			return Text(text: text, font: getFont(attributes, fontName: fontName, fontSize: fontSize),
 				fill: fill ?? getFillColor(attributes) ?? Color.black, baseline: .alphabetic,
-				place: pos, opacity: getOpacity(attributes))
+				place: pos, opacity: getOpacity(attributes), tag: getTag(element))
 	}
 
 	fileprivate func getFont(_ attributes: [String: String] = [:], fontName: String?, fontSize: Int?) -> Font {

@@ -75,7 +75,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
 	}
 
-	public func animation(_ f: @escaping (Double) -> Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+	public func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation {
 		return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
 	}
 

@@ -66,7 +66,6 @@
 		57E5E1761E3B393900D1CB28 /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10C1E3B393900D1CB28 /* PinchEvent.swift */; };
 		57E5E1771E3B393900D1CB28 /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10D1E3B393900D1CB28 /* RotateEvent.swift */; };
 		57E5E1781E3B393900D1CB28 /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10E1E3B393900D1CB28 /* TapEvent.swift */; };
-		57E5E1791E3B393900D1CB28 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57E5E10F1E3B393900D1CB28 /* Info.plist */; };
 		57E5E17A1E3B393900D1CB28 /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1121E3B393900D1CB28 /* Align.swift */; };
 		57E5E17B1E3B393900D1CB28 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1131E3B393900D1CB28 /* AspectRatio.swift */; };
 		57E5E17C1E3B393900D1CB28 /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1141E3B393900D1CB28 /* Baseline.swift */; };
@@ -711,7 +710,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57E5E1791E3B393900D1CB28 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

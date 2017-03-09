@@ -28,9 +28,9 @@ class SequenceAnimationTests: XCTestCase {
     func testStates() {
         let anim1 = testGroup.placeVar.animation(to: Transform.move(dx: 1.0, dy: 1.0), during: 1000.0) as! TransformAnimation
         let anim2 = testGroup.opacityVar.animation(to: 0.0, during: 1000.0) as! OpacityAnimation
-        let anim3 = testGroup.contentsVar.animation(1000.0) { (t) -> [Node] in
+        let anim3 = testGroup.contentsVar.animation ({ t -> [Node] in
             return [Shape(form:Rect(x: 0.0, y: 0.0, w: t, h: t))]
-        } as! ContentsAnimation
+        }, during: 1000.0) as! ContentsAnimation
         
         let sequence1 = [
             anim1,

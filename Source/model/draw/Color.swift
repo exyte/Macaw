@@ -47,7 +47,7 @@ open class Color: Fill, Equatable {
 	}
 
     // GENERATED
-    public func with(a a: Double) -> Color {
+    public func with(a: Double) -> Color {
         return Color.rgba(r: r(), g: g(), b: b(), a: a)
     }
 

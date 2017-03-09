@@ -20,7 +20,7 @@ open class Rect: Locus {
 	}
 
     // GENERATED NOT
-    public func round(r r: Double) -> RoundRect {
+    public func round(r: Double) -> RoundRect {
         return RoundRect(rect: self, rx: r, ry: r)
     }
 

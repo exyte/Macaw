@@ -194,7 +194,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             return
         }
         
-        guard renderer != nil else {
+        guard let _ = renderer else {
             return
         }
         
@@ -229,7 +229,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
 
         
-        guard renderer != nil else {
+        guard let _ = renderer else {
             return
         }
         

@@ -26,7 +26,7 @@ class AnimationProducer {
 		if animation.delay > 0.0 && !withoutDelay {
 
 			let timer = Timer.schedule(delay: animation.delay, handler: { [weak self] _ in
-                self?.delayedAnimations.removeValue(forKey: animation)
+                _ = self?.delayedAnimations.removeValue(forKey: animation)
 				self?.addAnimation(animation, withoutDelay: true)
 			})
             
@@ -282,7 +282,7 @@ class AnimationProducer {
         if animation.repeatCount > 0.0001 {
             animation.repeatCount = 0.0
             var animSequence = [Animation]()
-            for i in 0...Int(animation.repeatCount) {
+            for _ in 0...Int(animation.repeatCount) {
                 animSequence.append(animation)
             }
             

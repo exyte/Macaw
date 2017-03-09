@@ -194,7 +194,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             return
         }
         
-        guard let renderer = renderer else {
+        guard renderer != nil else {
             return
         }
         
@@ -229,7 +229,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
     private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
 
         
-        guard let renderer = renderer else {
+        guard renderer != nil else {
             return
         }
         
@@ -240,7 +240,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
                 
                 let inverted = node.place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
-                var id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
+                let id = unsafeBitCast(Unmanaged.passUnretained(touch).toOpaque(), to: Int.self)
                 let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 let touchEvent = TouchEvent(node: node, points: [point])
                 

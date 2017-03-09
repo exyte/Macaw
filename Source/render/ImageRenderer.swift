@@ -62,7 +62,7 @@ class ImageRenderer: NodeRenderer {
                 return calculateMeetAspectRatio(image, size: imageSize)
             case AspectRatio.slice:
                 return calculateSliceAspectRatio(image, size: imageSize)
-                ctx.cgContext!.clip(to: CGRect(x: 0, y: 0, width: w, height: h))
+                //ctx.cgContext!.clip(to: CGRect(x: 0, y: 0, width: w, height: h))
             default:
                 return CGRect(x: 0, y: 0, width: w, height: h)
             }

@@ -22,7 +22,7 @@ open class SVGView: MacawView {
         svgNode = node
     }
     
-    override required public convenience init?(coder aDecoder: NSCoder) {
+    required public convenience init?(coder aDecoder: NSCoder) {
         self.init(node: Group(), coder: aDecoder)
     }
     

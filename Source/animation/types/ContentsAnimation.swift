@@ -47,7 +47,7 @@ public extension AnimatableVariable where T: ContentsInterpolation {
         return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: 1.0, delay: 0.0, autostart: false)
     }
     
-    public func animation(_ f: @escaping (Double) -> [Node], during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    public func animation(_ during: Double = 1.0, delay: Double = 0.0, f: @escaping (Double) -> [Node]) -> Animation {
         let group = node! as! Group
         return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: false)
     }
@@ -57,7 +57,7 @@ public extension AnimatableVariable where T: ContentsInterpolation {
         let _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: 1.0, delay: 0.0, autostart: true)
     }
     
-    public func animate(_ f: @escaping (Double) -> [Node], during: Double = 1.0, delay: Double = 0.0) {
+    public func animate(_ during: Double = 1.0, delay: Double = 0.0, f: @escaping (Double) -> [Node]) {
         let group = node! as! Group
         let _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: true)
     }

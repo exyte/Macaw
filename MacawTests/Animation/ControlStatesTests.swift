@@ -59,10 +59,10 @@ class ControlStatesTests: XCTestCase {
     
     func testContentsAnimation() {
         let group = [testNode].group()
-        let animation = group.contentsVar.animation {  t -> [Node] in
+        let animation = group.contentsVar.animation({ (t) -> [Node] in
             return [self.testNode]
-        } as! ContentsAnimation
-        
+        }) as! ContentsAnimation
+
         animation.play()
         XCTAssert(!(animation.paused || animation.manualStop), "Wrong animation state: play")
         

@@ -17,11 +17,15 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         return
     }
     
+    let mutatingShape = SceneUtils.shapeCopy(from: shape)
+    nodesMap.replace(node: shape, to: mutatingShape)
+    animation.node = mutatingShape
+
     let fromShape = shapeAnimation.getVFunc()(0.0)
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
   
-    let layer = animationCache.layerForNode(shape, animation: animation, shouldRenderContent: false)
+    let layer = animationCache.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false)
     
     
     // Creating proper animation
@@ -40,19 +44,19 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         animation.progress = animation.manualStop ? 0.0 : 1.0
     
         if !animation.autoreverses && finished {
-            shape.form = toShape.form
-            shape.stroke = toShape.stroke
-            shape.fill = toShape.fill
+            mutatingShape.form = toShape.form
+            mutatingShape.stroke = toShape.stroke
+            mutatingShape.fill = toShape.fill
         }
         
         if !finished {
             animation.progress = 0.0
-            shape.form = fromShape.form
-            shape.stroke = fromShape.stroke
-            shape.fill = fromShape.fill
+            mutatingShape.form = fromShape.form
+            mutatingShape.stroke = fromShape.stroke
+            mutatingShape.fill = fromShape.fill
         }
         
-        animationCache.freeLayer(shape)
+        animationCache.freeLayer(mutatingShape)
         
         if !animation.cycled && !animation.manualStop {
             animation.completion?()
@@ -72,9 +76,9 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         
         if !animation.autoreverses {
             let currentShape = shapeAnimation.getVFunc()(t)
-            shape.form = currentShape.form
-            shape.stroke = currentShape.stroke
-            shape.fill = currentShape.fill
+            mutatingShape.form = currentShape.form
+            mutatingShape.stroke = currentShape.stroke
+            mutatingShape.fill = currentShape.fill
         }
         
         animation.progress = t

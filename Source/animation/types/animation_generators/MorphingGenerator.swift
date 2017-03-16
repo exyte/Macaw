@@ -19,6 +19,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     
     let mutatingShape = SceneUtils.shapeCopy(from: shape)
     nodesMap.replace(node: shape, to: mutatingShape)
+    animationCache.replace(original: shape, replacement: mutatingShape)
     animation.node = mutatingShape
     
     let fromLocus = morphingAnimation.getVFunc()(0.0)

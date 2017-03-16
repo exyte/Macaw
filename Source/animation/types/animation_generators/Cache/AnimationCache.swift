@@ -178,4 +178,13 @@ class AnimationCache {
 
 		return layerCache.map ({ $0.1.animation })
 	}
+    
+    func replace(original: Node, replacement: Node) {
+        guard let layer = layerCache[original] else {
+            return
+        }
+        
+        layerCache[replacement] = layer
+        layerCache.removeValue(forKey: original)
+    }
 }

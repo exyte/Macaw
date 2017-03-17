@@ -167,7 +167,7 @@ public extension AnimatableVariable where T: ContentsInterpolation {
             animations.append(animation)
         }
     
-        return animations.combine()
+        return animations.combine(node: fromNode)
     }
     
     public func animate(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) {

@@ -39,5 +39,23 @@ open class GeomUtils {
         
         return Point(x: bounds.x + bounds.w / 2.0, y: bounds.y + bounds.h / 2.0)
     }
+}
 
+public extension Group {
+    public func nodeFor(tag: String) -> Node? {
+        
+        for child in contents {
+            if child.tag.contains(tag) {
+                return child
+            }
+            
+            if let childGroup = child as? Group {
+                if let foundNode = childGroup.nodeFor(tag: tag) {
+                    return foundNode
+                }
+            }
+        }
+        
+        return  .none
+    }
 }

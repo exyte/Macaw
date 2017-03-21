@@ -1,5 +1,5 @@
 PODS:
-  - Macaw (0.8.0):
+  - Macaw (0.8.1):
     - SWXMLHash (~> 3.0.0)
   - SWXMLHash (3.0.4)
 
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Macaw: 4e960708c75eb6eb13600ee1aab89aa46307e7c4
+  Macaw: 84dc684cd9da77e322b9a805c63e1832a2829c70
   SWXMLHash: 29d20b84692fc319ea8ed933058fe7d8d005139b
 
 PODFILE CHECKSUM: cf6c204dbe194da8e03fcb9ffd9c99d086057155

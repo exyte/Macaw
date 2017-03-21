@@ -111,7 +111,7 @@ class RenderUtils {
                 return path
             }
         }
-        return toBezierPath(locus).cgPath
+        return toBezierPath(locus).reversing().cgPath
     }
     
     class func toBezierPath(_ locus: Locus) -> UIBezierPath {

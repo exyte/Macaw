@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class RenderContext {
-	let view: UIView?
+	weak var view: UIView?
 	var cgContext: CGContext?
 
 	init(view: UIView?) {

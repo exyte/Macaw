@@ -5,11 +5,11 @@ let nodesMap = NodesMap()
 var parentsMap = [Node: Set<Node>]()
 
 class NodesMap {
-	var map = [Node: MacawView]()
+    let map = NSMapTable<Node, MacawView>(keyOptions: NSMapTableWeakMemory, valueOptions: NSMapTableWeakMemory)
 
 	// MARK: - Macaw View
 	func add(_ node: Node, view: MacawView) {
-		map[node] = view
+        map.setObject(view, forKey: node)
 
 		if let group = node as? Group {
 			group.contents.forEach { child in
@@ -20,11 +20,11 @@ class NodesMap {
 	}
 
 	func getView(_ node: Node) -> MacawView? {
-		return map[node]
+		return map.object(forKey: node)
 	}
 
 	func remove(_ node: Node) {
-		map.removeValue(forKey: node)
+        map.removeObject(forKey: node)
 		parentsMap.removeValue(forKey: node)
 	}
 
@@ -53,7 +53,7 @@ class NodesMap {
     
     func replace(node: Node, to: Node) {
         let parents = parentsMap[node]
-        let hostingView = map[node]
+        let hostingView = map.object(forKey: node)
         
         remove(node)
         

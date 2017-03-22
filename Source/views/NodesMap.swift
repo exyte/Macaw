@@ -79,5 +79,14 @@ class NodesMap {
             add(to, view: view)
         }
         
+        
+        // Replacing node in hosting view if needed
+        guard let hostingNode =  hostingView?.node else {
+            return
+        }
+        
+        if hostingNode == node {
+            hostingView?.node = to
+        }
     }
 }

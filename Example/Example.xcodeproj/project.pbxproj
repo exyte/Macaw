@@ -13,8 +13,6 @@
 		574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4401CB7E2440063F317 /* MenuViewController.swift */; };
 		574EC4441CBB60AF0063F317 /* AnimationsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */; };
 		575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B51CBD14AF00BD3C2E /* AnimationsView.swift */; };
-		5779F8D11E81589C0037521D /* examples.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5779F8CF1E81589C0037521D /* examples.svg */; };
-		5779F8D21E81589C0037521D /* examples2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5779F8D01E81589C0037521D /* examples2.svg */; };
 		57AF398C1E67E9DB00F0BFE2 /* EventsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */; };
 		58E4D50C1D841C6E00EC8815 /* TransformExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */; };
 		66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66AE19DA1CC8CB3C00B78B5E /* tiger.svg */; };
@@ -47,8 +45,6 @@
 		574EC4401CB7E2440063F317 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Example/MenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsExampleController.swift; sourceTree = "<group>"; };
 		575129B51CBD14AF00BD3C2E /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsView.swift; sourceTree = "<group>"; };
-		5779F8CF1E81589C0037521D /* examples.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = examples.svg; path = ../../../../Temp/tmp/examples.svg; sourceTree = "<group>"; };
-		5779F8D01E81589C0037521D /* examples2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = examples2.svg; path = ../../../../Temp/tmp/examples2.svg; sourceTree = "<group>"; };
 		57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsExampleController.swift; sourceTree = "<group>"; };
 		58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformExampleView.swift; sourceTree = "<group>"; };
 		66AE19DA1CC8CB3C00B78B5E /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = Example/Assets/SVG/tiger.svg; sourceTree = "<group>"; };
@@ -159,8 +155,6 @@
 		66AE19D91CC8CAB600B78B5E /* SVG */ = {
 			isa = PBXGroup;
 			children = (
-				5779F8CF1E81589C0037521D /* examples.svg */,
-				5779F8D01E81589C0037521D /* examples2.svg */,
 				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
 			);
 			name = SVG;
@@ -263,8 +257,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5779F8D21E81589C0037521D /* examples2.svg in Resources */,
-				5779F8D11E81589C0037521D /* examples.svg in Resources */,
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
 				66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */,
@@ -480,7 +472,6 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -500,7 +491,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

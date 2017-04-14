@@ -28,8 +28,7 @@ class ImageRenderer: NodeRenderer {
 	override func doRender(_ force: Bool, opacity: Double) {
         var uiimage: UIImage?
         if image.src.contains("memory") {
-            var id = image.src
-            id.replacingOccurrences(of: "memory://", with: "")
+            let id = image.src.replacingOccurrences(of: "memory://", with: "")
             uiimage = imagesMap[id]
         } else {
             uiimage = UIImage(named: image.src)

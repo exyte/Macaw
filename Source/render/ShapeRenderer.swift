@@ -27,20 +27,26 @@ class ShapeRenderer: NodeRenderer {
 	}
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-		setGeometry(shape.form, ctx: ctx)
-
-		var drawingMode: CGPathDrawingMode? = nil
-		if let stroke = shape.stroke, let fill = shape.fill {
+        setGeometry(shape.form, ctx: ctx)
+        
+        var drawingMode: CGPathDrawingMode? = nil
+        if let stroke = shape.stroke, let fill = shape.fill {
             setStrokeAttributes(stroke, ctx: ctx)
-            setFill(fill, ctx: ctx, opacity: 1.0)
-			drawingMode = .fillStroke
-		} else if let stroke = shape.stroke {
+            if let _ = fill as? Gradient {
+                setFill(Color.black, ctx: ctx, opacity: 1.0)
+                drawingMode = .fill
+            } else {
+                setFill(fill, ctx: ctx, opacity: 1.0)
+                drawingMode = .fillStroke
+            }
+            
+        } else if let stroke = shape.stroke {
             setStrokeAttributes(stroke, ctx: ctx)
-			drawingMode = .stroke
-		} else if let fill = shape.fill {
+            drawingMode = .stroke
+        } else if let fill = shape.fill {
             setFill(fill, ctx: ctx, opacity: 1.0)
-			drawingMode = .fill
-		}
+            drawingMode = .fill
+        }
         
         var contains = false
         if let mode = drawingMode {
@@ -50,11 +56,11 @@ class ShapeRenderer: NodeRenderer {
                 return node()
             }
         }
-
-		// Prepare for next figure hittesting - clear current context path
-		ctx.beginPath()
-		return .none
-	}
+        
+        // Prepare for next figure hittesting - clear current context path
+        ctx.beginPath()
+        return .none
+    }
 
 	fileprivate func setGeometry(_ locus: Locus, ctx: CGContext) {
 		if let rect = locus as? Rect {

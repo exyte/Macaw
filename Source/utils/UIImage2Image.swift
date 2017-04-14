@@ -14,7 +14,7 @@ public extension UIImage {
         
         var oldId: String?
         for key in imagesMap.keys {
-            if self == imagesMap[key] {
+            if self === imagesMap[key] {
                 oldId = key
             }
         }

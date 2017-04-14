@@ -36,6 +36,18 @@ class TextRenderer: NodeRenderer {
         }
     }
     
+    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+        guard let contains = node().bounds()?.cgRect().contains(location) else {
+            return .none
+        }
+        
+        if contains {
+            return node()
+        }
+        
+        return .none
+    }
+    
     fileprivate func getUIFont() -> UIFont {
         if let textFont = text.font {
             if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {

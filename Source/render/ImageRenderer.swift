@@ -26,7 +26,16 @@ class ImageRenderer: NodeRenderer {
 	}
 
 	override func doRender(_ force: Bool, opacity: Double) {
-		if let uiimage = UIImage(named: image.src) {
+        var uiimage: UIImage?
+        if image.src.contains("memory") {
+            var id = image.src
+            id.replacingOccurrences(of: "memory://", with: "")
+            uiimage = imagesMap[id]
+        } else {
+            uiimage = UIImage(named: image.src)
+        }
+        
+		if let uiimage = uiimage {
 			let rect = getRect(uiimage)
 			ctx.cgContext!.scaleBy(x: 1.0, y: -1.0)
 			ctx.cgContext!.translateBy(x: 0.0, y: -1.0 * rect.height)

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 open class Image: Node {
 
@@ -37,6 +37,8 @@ open class Image: Node {
 		get { return hVar.value }
 		set(val) { hVar.value = val }
 	}
+    
+    private var uiImage: UIImage?
 
 	public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 		self.srcVar = Variable<String>(src)
@@ -55,5 +57,24 @@ open class Image: Node {
 			tag: tag
 		)
 	}
+    
+    override func bounds() -> Rect? {
+        if w != 0 && h != 0 {
+            return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
+        }
+        
+        if uiImage == nil {
+            uiImage = UIImage(named: src)
+        }
+        
+        guard let uiImage = uiImage else {
+            return .none
+        }
+        
+        return Rect(x: 0.0, y: 0.0,
+                    w: Double(uiImage.size.width),
+                    h: Double(uiImage.size.width))
+        
+    }
 
 }

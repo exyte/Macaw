@@ -100,7 +100,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         layer.lineCap = RenderUtils.mapLineCapToString(stroke.cap)
         layer.lineJoin = RenderUtils.mapLineJoinToString(stroke.join)
         layer.lineDashPattern = stroke.dashes.map{ NSNumber(value: $0)}
-    } else {
+    } else if shape.fill == nil {
         layer.strokeColor = UIColor.black.cgColor
         layer.lineWidth = 1.0
     }

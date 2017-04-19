@@ -105,6 +105,18 @@ class BasicAnimation: Animation {
         
         removeFunc?()
     }
+    
+    override func state() -> AnimationState {
+        if self.progress == 0.0 {
+            return .initial
+        }
+        
+        if paused || manualStop || progress == 1.0 {
+            return .paused
+        }
+        
+        return .running
+    }
 
 	override open func reverse() -> Animation {
 		return self

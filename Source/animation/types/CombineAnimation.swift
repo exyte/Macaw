@@ -60,6 +60,17 @@ internal class CombineAnimation: BasicAnimation {
             animation.pause()
         }
     }
+    
+    open override func state() -> AnimationState {
+        for animation in animations {
+            let state = animation.state()
+            if  state != .initial {
+                return state
+            }
+        }
+        
+        return .initial
+    }
 }
 
 public extension Sequence where Iterator.Element: Animation {

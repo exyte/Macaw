@@ -56,6 +56,17 @@ internal class AnimationSequence: BasicAnimation {
         
         active.play()
     }
+    
+    open override func state() -> AnimationState {
+        for animation in animations {
+            let state = animation.state()
+            if  state != .initial {
+                return state
+            }
+        }
+        
+        return .initial
+    }
 
 	open override func reverse() -> Animation {
 		var reversedAnimations = [BasicAnimation]()

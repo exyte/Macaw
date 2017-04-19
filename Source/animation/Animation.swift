@@ -1,43 +1,53 @@
-open class Animation {
+public enum AnimationState {
+    case initial
+    case running
+    case paused
+}
+
+public class Animation {
 
 	internal init() {
 	}
 
-    open func play() {
+    public func play() {
     }
 
-    open func stop() {
+    public func stop() {
     }
 
-    open func pause() {
+    public func pause() {
         
     }
     
-    open func easing(_ easing: Easing) -> Animation {
+    public func state() -> AnimationState {
+        return .initial
+    }
+    
+    public func easing(_ easing: Easing) -> Animation {
         return self
     }
 
-    open func delay(_ delay: Double) -> Animation {
+    public func delay(_ delay: Double) -> Animation {
         return self
     }
 
-	open func cycle(_ count: Double) -> Animation {
+	public func cycle(_ count: Double) -> Animation {
 		return self
 	}
     
-    open func cycle() -> Animation{
+    public func cycle() -> Animation{
         return self
     }
 
-    open func reverse() -> Animation {
+    public func reverse() -> Animation {
         return self
     }
 
-	open func autoreversed() -> Animation {
+	public func autoreversed() -> Animation {
 		return self
 	}
 
-	@discardableResult open func onComplete(_: @escaping (() -> ())) -> Animation {
+	@discardableResult public func onComplete(_: @escaping (() -> ())) -> Animation {
 		return self
 	}
 }

@@ -39,7 +39,7 @@ open class Group: Node {
     // Searching
     
     override public func nodeBy(tag: String) -> Node? {
-        if let node = self.nodeBy(tag: tag) {
+        if let node = super.nodeBy(tag: tag) {
             return node
         }
         
@@ -59,7 +59,7 @@ open class Group: Node {
             result.append(contentsOf: child.nodesBy(tag: tag))
         }
         
-        if let node = self.nodeBy(tag: tag) {
+        if let node = super.nodeBy(tag: tag) {
             result.append(node)
         }
         

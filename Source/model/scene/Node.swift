@@ -31,7 +31,22 @@ open class Node: Drawable {
 		get { return effectVar.value }
 		set(val) { effectVar.value = val }
 	}
-
+    
+    // MARK: - Searching
+    public func nodeBy(tag: String) -> Node? {
+        if self.tag.contains(tag) {
+            return self
+        }
+        
+        return .none
+    }
+    
+    public func nodesBy(tag: String) -> [Node] {
+        return [nodeBy(tag: tag)].flatMap { $0 }
+    }
+    
+    // MARK: - Events
+    
     var touchPressedHandlers = [ChangeHandler<TouchEvent>]()
     var touchMovedHandlers = [ChangeHandler<TouchEvent>]()
     var touchReleasedHandlers = [ChangeHandler<TouchEvent>]()

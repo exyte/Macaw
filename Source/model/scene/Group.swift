@@ -35,6 +35,36 @@ open class Group: Node {
         
         self.contentsVar.node = self
 	}
+    
+    // Searching
+    
+    override public func nodeBy(tag: String) -> Node? {
+        if let node = self.nodeBy(tag: tag) {
+            return node
+        }
+        
+        for child in contents {
+            if let node = child.nodeBy(tag: tag)  {
+                return node
+            }
+        }
+        
+        return .none
+    }
+    
+    override public func nodesBy(tag: String) -> [Node] {
+        
+        var result = [Node]()
+        contents.forEach { child in
+            result.append(contentsOf: child.nodesBy(tag: tag))
+        }
+        
+        if let node = self.nodeBy(tag: tag) {
+            result.append(node)
+        }
+        
+        return result
+    }
 
 	// GENERATED NOT
 	override internal func bounds() -> Rect? {

@@ -30,6 +30,7 @@ class AnimationProducer {
 				self?.addAnimation(animation, withoutDelay: true)
 			})
             
+            animation.delayed = true
             delayedAnimations[animation] = timer
             
 			return
@@ -122,6 +123,8 @@ class AnimationProducer {
         }
         
         timer.invalidate()
+        
+        animation.delayed = false
         delayedAnimations.removeValue(forKey: animation)
     }
     

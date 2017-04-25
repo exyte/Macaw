@@ -27,6 +27,7 @@ class BasicAnimation: Animation {
 	let ID: String
 	var next: BasicAnimation?
 	var removeFunc: (() -> ())?
+    var delayed = false
     var manualStop = false
     var paused = false
     var pausedProgress = 0.0
@@ -107,6 +108,10 @@ class BasicAnimation: Animation {
     }
     
     override func state() -> AnimationState {
+        if delayed {
+            return .running
+        }
+        
         if self.progress == 0.0 {
             return .initial
         }

@@ -62,14 +62,19 @@ internal class CombineAnimation: BasicAnimation {
     }
     
     open override func state() -> AnimationState {
+        var result = AnimationState.initial
         for animation in animations {
             let state = animation.state()
-            if  state != .initial {
-                return state
+            if state == .running {
+                return .running
+            }
+            
+            if state != .initial {
+                result = state
             }
         }
         
-        return .initial
+        return result
     }
 }
 

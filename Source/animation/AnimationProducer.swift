@@ -26,8 +26,9 @@ class AnimationProducer {
 		if animation.delay > 0.0 && !withoutDelay {
 
 			let timer = Timer.schedule(delay: animation.delay, handler: { [weak self] _ in
-                _ = self?.delayedAnimations.removeValue(forKey: animation)
 				self?.addAnimation(animation, withoutDelay: true)
+                _ = self?.delayedAnimations.removeValue(forKey: animation)
+                animation.delayed = false
 			})
             
             animation.delayed = true

@@ -67,9 +67,7 @@ class AnimationCache {
 			layer.opacity = Float(node.opacity)
 			layer.node = node
             
-            if let animationScale = calculateAnimationScale(animation: animation) {
-                layer.contentsScale = animationScale
-            }
+            layer.contentsScale = calculateAnimationScale(animation: animation)
             
 			layer.setNeedsDisplay()
 			sceneLayer.addSublayer(layer)
@@ -85,11 +83,11 @@ class AnimationCache {
 		return cachedLayer.layer
 	}
     
-    private func calculateAnimationScale(animation: Animation) -> CGFloat? {
+    private func calculateAnimationScale(animation: Animation) -> CGFloat {
         let defaultScale = UIScreen.main.scale
         
         guard let transformAnimation = animation as? TransformAnimation else {
-            return .none
+            return defaultScale
         }
         
         let animFunc = transformAnimation.getVFunc()

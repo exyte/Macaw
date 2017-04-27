@@ -45,6 +45,7 @@ class AnimationCache {
 						x: -1.0 * cgRect.origin.x / cgRect.width,
 						y: -1.0 * cgRect.origin.y / cgRect.height
 				)
+                layer.zPosition = CGFloat(AnimationUtils.absoluteIndex(node))
 
 				layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
 

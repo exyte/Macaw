@@ -34,4 +34,16 @@ class AnimationUtils {
         
         return .none
     }
+    
+    class func absoluteIndex(_ node: Node) -> Int {
+        var zIndex = node.zIndex
+        var parent = nodesMap.parents(node).first
+        while parent != .none {
+            zIndex += parent!.zIndex
+            
+            parent = nodesMap.parents(parent!).first
+        }
+        
+        return zIndex
+    }
 }

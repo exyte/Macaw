@@ -32,6 +32,8 @@ open class Node: Drawable {
 		set(val) { effectVar.value = val }
 	}
     
+    var zIndex = 0
+    
     // MARK: - Searching
     public func nodeBy(tag: String) -> Node? {
         if self.tag.contains(tag) {

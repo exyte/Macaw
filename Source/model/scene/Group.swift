@@ -14,8 +14,11 @@ open class Group: Node {
                 }
             }
             
+            var localIndex = 0
             val.forEach { subNode in
                 nodesMap.add(subNode, parent: self)
+                subNode.zIndex = localIndex
+                localIndex += 1
             }
         }
     }

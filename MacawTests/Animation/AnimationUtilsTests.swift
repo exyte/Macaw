@@ -18,16 +18,22 @@ class AnimationUtilsTests: XCTestCase {
         
         let aGroup = Group()
         let b = Node()
+        let c = Node()
         aGroup.contents.append(b)
+        aGroup.contents.append(c)
         rootGroup.contents.append(aGroup)
         
-        let c = Node()
-        rootGroup.contents.append(c)
+        let d = Node()
+        let e = Node()
+        rootGroup.contents.append(d)
+        rootGroup.contents.append(e)
         
         XCTAssert(AnimationUtils.absoluteIndex(rootGroup) == 0)
         XCTAssert(AnimationUtils.absoluteIndex(a) == 1)
         XCTAssert(AnimationUtils.absoluteIndex(aGroup) == 2)
         XCTAssert(AnimationUtils.absoluteIndex(b) == 3)
         XCTAssert(AnimationUtils.absoluteIndex(c) == 4 )
+        XCTAssert(AnimationUtils.absoluteIndex(d) == 5 )
+        XCTAssert(AnimationUtils.absoluteIndex(e) == 6 )
     }
 }

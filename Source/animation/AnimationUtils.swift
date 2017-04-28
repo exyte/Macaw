@@ -36,11 +36,35 @@ class AnimationUtils {
     }
     
     class func absoluteIndex(_ node: Node) -> Int {
-        var zIndex = node.zIndex
+        func childrenTotalCount(_ node: Node) -> Int{
+            guard let group = node as? Group else {
+                return 1
+            }
+            
+            var count = 1
+            for child in group.contents {
+                count += childrenTotalCount(child)
+            }
+            
+            return count
+        }
+        
+        
+        var zIndex = 0
+        var localIndex = node.zIndex
         var parent = nodesMap.parents(node).first
         while parent != .none {
-            zIndex += parent!.zIndex
+            if let group = parent as? Group {
+                for i in 0..<localIndex {
+                    zIndex += childrenTotalCount(group.contents[i])
+                }
+            } else {
+                zIndex += parent!.zIndex
+            }
             
+            zIndex += 1
+            
+            localIndex = parent!.zIndex
             parent = nodesMap.parents(parent!).first
         }
         

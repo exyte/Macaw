@@ -30,6 +30,7 @@
 		57CAB1341D7832E000FD8E47 /* rect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12B1D7832E000FD8E47 /* rect.svg */; };
 		57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12C1D7832E000FD8E47 /* roundRect.svg */; };
 		57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 57CAB12D1D7832E000FD8E47 /* triangle.svg */; };
+		57E0EB2E1EB34CDD00638039 /* AnimationUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E0EB2D1EB34CDD00638039 /* AnimationUtilsTests.swift */; };
 		57E5E1531E3B393900D1CB28 /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E21E3B393900D1CB28 /* AnimatableVariable.swift */; };
 		57E5E1541E3B393900D1CB28 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E31E3B393900D1CB28 /* Animation.swift */; };
 		57E5E1551E3B393900D1CB28 /* AnimationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E41E3B393900D1CB28 /* AnimationImpl.swift */; };
@@ -176,6 +177,7 @@
 		57CAB12B1D7832E000FD8E47 /* rect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rect.svg; sourceTree = "<group>"; };
 		57CAB12C1D7832E000FD8E47 /* roundRect.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = roundRect.svg; sourceTree = "<group>"; };
 		57CAB12D1D7832E000FD8E47 /* triangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = triangle.svg; sourceTree = "<group>"; };
+		57E0EB2D1EB34CDD00638039 /* AnimationUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationUtilsTests.swift; sourceTree = "<group>"; };
 		57E5E0E21E3B393900D1CB28 /* AnimatableVariable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableVariable.swift; sourceTree = "<group>"; };
 		57E5E0E31E3B393900D1CB28 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		57E5E0E41E3B393900D1CB28 /* AnimationImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationImpl.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */,
 				5713C4F61E5C34C700BBA4D9 /* SequenceAnimationTests.swift */,
 				5713C4F81E5C3FEE00BBA4D9 /* DelayedAnimationTests.swift */,
+				57E0EB2D1EB34CDD00638039 /* AnimationUtilsTests.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -863,6 +866,7 @@
 				5713C4F91E5C3FEE00BBA4D9 /* DelayedAnimationTests.swift in Sources */,
 				5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */,
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,
+				57E0EB2E1EB34CDD00638039 /* AnimationUtilsTests.swift in Sources */,
 				5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */,
 				57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */,
 			);

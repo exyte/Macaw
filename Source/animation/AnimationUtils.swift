@@ -51,10 +51,12 @@ class AnimationUtils {
         
         
         var zIndex = 0
-        var localIndex = node.zIndex
         var parent = nodesMap.parents(node).first
+        var currentNode = node
         while parent != .none {
             if let group = parent as? Group {
+                let localIndex = group.contents.index(of: currentNode) ?? group.contents.count
+                
                 for i in 0..<localIndex {
                     zIndex += childrenTotalCount(group.contents[i])
                 }
@@ -64,7 +66,7 @@ class AnimationUtils {
             
             zIndex += 1
             
-            localIndex = parent!.zIndex
+            currentNode = parent!
             parent = nodesMap.parents(parent!).first
         }
         

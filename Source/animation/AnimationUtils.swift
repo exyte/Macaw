@@ -60,8 +60,6 @@ class AnimationUtils {
                 for i in 0..<localIndex {
                     zIndex += childrenTotalCount(group.contents[i])
                 }
-            } else {
-                zIndex += parent!.zIndex
             }
             
             zIndex += 1

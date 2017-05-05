@@ -256,12 +256,12 @@ class ShapeRenderer: NodeRenderer {
 				// recalculate delta depending on arc. Preserve rotation direction
 				if (largeArc) {
 					let sg = copysign(1.0, delta);
-					if (abs(delta) < M_PI) {
+					if (abs(delta) < Double.pi) {
 						delta = -1 * (sg * M_2_PI - delta);
 					}
 				} else {
 					let sg = copysign(1.0, delta);
-					if (abs(delta) > M_PI) {
+					if (abs(delta) > Double.pi) {
 						delta = -1 * (sg * M_2_PI - delta);
 					}
 				}

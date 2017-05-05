@@ -116,5 +116,5 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 }
 
 func fixedAngle(_ angle: CGFloat) -> CGFloat {
-	return angle > -0.0000000000000000000000001 ? angle : CGFloat(2.0 * M_PI) + angle
+	return angle > -0.0000000000000000000000001 ? angle : CGFloat(2.0 * Double.pi) + angle
 }

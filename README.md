@@ -74,13 +74,13 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 To install it, simply add the following line to your Podfile:
 ```ruby
-pod "Macaw", "0.8.1"
+pod "Macaw", "0.8.2"
 ```
 
 ## [Carthage](http://github.com/Carthage/Carthage)
 
 ```ogdl
-github "Exyte/Macaw" ~> 0.8.1
+github "Exyte/Macaw" ~> 0.8.2
 ```
 
 ## Building from sources

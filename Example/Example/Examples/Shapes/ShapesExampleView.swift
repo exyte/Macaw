@@ -61,7 +61,7 @@ class ShapesExampleView: MacawView {
 		))
 
 		let text9 = ShapesExampleView.newText("Arc", .move(dx: 275, dy: 300))
-		let arc = Circle(cx: 250, cy: 300, r: 50).arc(shift: 0, extent: M_PI / 2).stroke(fill: Color.green)
+		let arc = Circle(cx: 250, cy: 300, r: 50).arc(shift: 0, extent: Double.pi / 2.0).stroke(fill: Color.green)
 
 		let group = Group(
 			contents: [

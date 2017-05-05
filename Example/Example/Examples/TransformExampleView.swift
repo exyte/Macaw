@@ -15,8 +15,8 @@ class TransformExampleView: MacawView {
 
 	fileprivate static let transforms = [Transform.scale(sx: 2, sy: 2),
 		Transform.move(dx: 100, dy: 30),
-		Transform.rotate(angle: M_PI_4, x: 150, y: 80),
-		Transform.rotate(angle: M_PI_4)]
+		Transform.rotate(angle: Double.pi / 4.0, x: 150, y: 80),
+		Transform.rotate(angle: Double.pi / 4.0)]
 
 	fileprivate static let titles = ["Transform.scale(sx: 2, sy: 2)",
 		"Transform.move(dx: 100, dy: 30)",

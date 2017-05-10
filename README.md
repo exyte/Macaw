@@ -52,6 +52,7 @@ We're working hard to provide full documentation. Currently you can take a look 
 * [Getting started guide](https://github.com/exyte/Macaw/wiki/Getting-started)
 * [Render SVG file](https://github.com/exyte/Macaw/wiki/Render-SVG-file)
 * [Content animation](https://github.com/exyte/Macaw/wiki/Content-animation)
+* [Morphing animation](https://github.com/exyte/Macaw/wiki/Morphing-animation)
 
 ### Posts
 * [Replicating Apple Design Awarded Applications](https://medium.com/exyte/replicating-apple-design-awarded-applications-70e5df4c4b94#.ckt1hfnei)
@@ -90,6 +91,10 @@ To build Macaw from sources:
 * open terminal and run `cd <MacawRepo>/Example/`
 * run `pod install` to install all dependencies
 * run `open Example.xcworkspace/` to open project in the Xcode
+
+## Change Log
+
+You can find list of all changes by version in the [Change Log](https://github.com/exyte/Macaw/wiki/Change-Log)
 
 ## Author
 

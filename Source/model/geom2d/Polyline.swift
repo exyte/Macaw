@@ -8,7 +8,6 @@ open class Polyline: Locus {
 		self.points = points
 	}
     
-    
     override open func bounds() -> Rect {
         var minX = Double(INT16_MAX)
         var minY = Double(INT16_MAX)
@@ -42,5 +41,4 @@ open class Polyline: Locus {
                     w: maxX - minX,
                     h: maxY - minY)
     }
-
 }

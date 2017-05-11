@@ -33,7 +33,7 @@ class MyView: MacawView {
 
 Include Scalable Vector Graphics right into your iOS application:
 
-<img src="http://i.imgur.com/NWkEzcu.png" width="475">
+<img src="http://i.imgur.com/NWkEzcu.png" width="300">
 
 #### It's powerful
 

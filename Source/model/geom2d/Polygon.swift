@@ -9,6 +9,8 @@ open class Polygon: Locus {
     }
     
     override open func bounds() -> Rect {
+        guard !points.isEmpty else { return Rect.zero() }
+        
         var minX = Double(INT16_MAX)
         var minY = Double(INT16_MAX)
         var maxX = Double(INT16_MIN)

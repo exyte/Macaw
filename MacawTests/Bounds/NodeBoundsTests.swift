@@ -28,6 +28,8 @@ class NodeBoundsTests: XCTestCase {
         }
     }
     
+    // MARK: - Shapes
+    
     func testSimpleShapeZeroBounds() {
         let shape = Shape(form: Rect.zero())
     
@@ -58,14 +60,33 @@ class NodeBoundsTests: XCTestCase {
     
     func testShapeEllipse() {
         // Ellipse / Arc
-        let shape = Shape(form: Ellipse(cx: 100.0, cy: 50.0, rx: 3.0, ry: 7.0))
         let targetRect = Rect(x: 97.0, y: 43.0, w: 6.0, h: 14.0)
+        let ellipse = Ellipse(cx: 100.0, cy: 50.0, rx: 3.0, ry: 7.0)
         
+        var shape = Shape(form: ellipse)
+        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        
+        shape = Shape(form: Arc(ellipse: ellipse, shift: 2.0, extent: 3.0))
         checkBounds(rect1: shape.bounds(), rect2: targetRect)
     }
     
     func testShapePath() {
-        // TODO 
+        let segment = PathSegment(type: .M, data: [0, 0])
+        var builder = PathBuilder(segment: segment)
+        
+        builder = builder.lineTo(x: -5.0, y: 0.0)
+        builder = builder.lineTo(x: 7.0, y: 4.0)
+        builder = builder.lineTo(x: 0.0, y: -1.0)
+        builder = builder.lineTo(x: 10.0, y: 0.0)
+        
+        builder = builder.moveTo(x: 20.0, y: 20.0)
+        builder = builder.lineTo(x: 25.0, y: 25.0)
+        
+        let path = builder.build()
+        let shape = Shape(form: path)
+        let targetRect = Rect(x: -5.0, y: -1.0, w: 30.0, h: 26.0)
+        
+        checkBounds(rect1: shape.bounds(), rect2: targetRect)
     }
     
     func testShapeLine() {
@@ -75,20 +96,39 @@ class NodeBoundsTests: XCTestCase {
         checkBounds(rect1: shape.bounds(), rect2: targetRect)
     }
     
-    func testShapePolyline() {
-        // Polyline / Polygon
-
+    func testShapePoly(points: [Double], targetRect: Rect) {
+        var shape = Shape(form: Polyline(points: points))
+        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        
+        shape = Shape(form: Polygon(points: points))
+        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+    }
+    
+    func testShapePoly() {
         let points: [Double] = [ 0, 2,
                                  1, 7,
                                  8, 8,
                                  100, 10,
                                  -5, 3]
-        
-        let shape = Shape(form: Polyline(points: points))
         let targetRect = Rect(x: -5.0, y: 2.0, w: 105.0, h: 8.0)
         
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        testShapePoly(points: points, targetRect: targetRect)
     }
+    
+    func testShapePolyWithoutPoints() {
+        let targetRect = Rect.zero()
+        
+        testShapePoly(points: [], targetRect: targetRect)
+    }
+    
+    func testShapePolyOnePoint() {
+        let points: [Double] = [7, 4]
+        let targetRect = Rect(x: 7.0, y: 4.0, w: 0.0, h: 0.0)
+        
+        testShapePoly(points: points, targetRect: targetRect)
+    }
+    
+    // MARK: - Image
     
     func testSimpleImageZeroBounds() {
         let image = Image(src: "")
@@ -96,15 +136,23 @@ class NodeBoundsTests: XCTestCase {
         XCTAssertNil(image.bounds(), "Image bounds not nil")
     }
 
-    func testSimpleTextZeroBounds() {
-        let text = Text(text: "")
+    // MARK: - Text
+    
+    func testSimpleText() {
+        let texts = ["", "Hello, World", "Hello,\nWorld", "\nHello\n,\nWorld"]
         
-        let stringAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.systemFontSize)]
-        let size = text.text.size(attributes: stringAttributes)
-        let targetRect = Rect(x: 0.0, y: 0.0, w: 0.0, h: Double(size.height))
-        
-        checkBounds(rect1: text.bounds(), rect2: targetRect)
+        texts.forEach { text in
+            let text = Text(text: text)
+            
+            let stringAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.systemFontSize)]
+            let size = text.text.size(attributes: stringAttributes)
+            let targetRect = Rect(x: 0.0, y: 0.0, w: size.width.doubleValue, h: size.height.doubleValue)
+            
+            checkBounds(rect1: text.bounds(), rect2: targetRect)
+        }
     }
+    
+    // MARK: - Group
     
     func testSimpleGroupZeroBounds() {
         let group = [].group()

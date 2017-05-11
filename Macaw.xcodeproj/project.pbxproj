@@ -129,6 +129,7 @@
 		57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,6 +280,7 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,6 +624,7 @@
 		57FCD27A1D76EA4600CC0FB6 /* MacawTests */ = {
 			isa = PBXGroup;
 			children = (
+				A7E675541EC4211E00BD9ECB /* Bounds */,
 				5713C4F11E5AD35900BBA4D9 /* Animation */,
 				57CAB1241D7832E000FD8E47 /* svg */,
 				57CAB1221D782DFC00FD8E47 /* TestUtils.swift */,
@@ -629,6 +632,14 @@
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
+			sourceTree = "<group>";
+		};
+		A7E675541EC4211E00BD9ECB /* Bounds */ = {
+			isa = PBXGroup;
+			children = (
+				A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */,
+			);
+			name = Bounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -866,6 +877,7 @@
 				5713C4F91E5C3FEE00BBA4D9 /* DelayedAnimationTests.swift in Sources */,
 				5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */,
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,
+				A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */,
 				57E0EB2E1EB34CDD00638039 /* AnimationUtilsTests.swift in Sources */,
 				5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */,
 				57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */,

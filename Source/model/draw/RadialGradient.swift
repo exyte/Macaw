@@ -20,4 +20,15 @@ open class RadialGradient: Gradient {
 		)
 	}
 
+    func applyTransform(_ transform: Transform) {
+        //        let cgTransform = RenderUtils.mapTransform(transform)
+        //
+        //        let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
+        //        cx = point1.x.doubleValue
+        //        cy = point1.y.doubleValue
+        //
+        //        let point2 = CGPoint(x: fx, y: fy).applying(cgTransform)
+        //        fx = point2.x.doubleValue
+        //        fy = point2.y.doubleValue
+    }
 }

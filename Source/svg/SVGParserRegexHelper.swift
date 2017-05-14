@@ -2,8 +2,8 @@ import Foundation
 
 class SVGParserRegexHelper {
     
-    fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*\\s*,?\\s*)+)\\)"
-    fileprivate static let transformPattern = "\\-?\\d+\\.?\\d*"
+    fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*e?\\-?\\d*\\s*,?\\s*)+)\\)"
+    fileprivate static let transformPattern = "\\-?\\d+\\.?\\d*e?\\-?\\d*"
     fileprivate static let textElementPattern = "<text.*?>((?s:.*))<\\/text>"
     fileprivate static let maskIdenitifierPattern = "url\\(#((?s:.*))\\)"
     

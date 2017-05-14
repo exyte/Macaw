@@ -29,4 +29,15 @@ open class LinearGradient: Gradient {
         )
     }
 
+    func applyTransform(_ transform: Transform) {
+        //        let cgTransform = RenderUtils.mapTransform(transform)
+        //
+        //        let point1 = CGPoint(x: x1, y: y1).applying(cgTransform)
+        //        x1 = point1.x.doubleValue
+        //        y1 = point1.y.doubleValue
+        //
+        //        let point2 = CGPoint(x: x2, y: y2).applying(cgTransform)
+        //        x2 = point2.x.doubleValue
+        //        y2 = point2.y.doubleValue
+    }
 }

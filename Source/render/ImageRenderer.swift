@@ -31,7 +31,7 @@ class ImageRenderer: NodeRenderer {
             let id = image.src.replacingOccurrences(of: "memory://", with: "")
             uiimage = imagesMap[id]
         } else {
-            uiimage = UIImage(named: image.src)
+            uiimage = image.image()
         }
         
 		if let uiimage = uiimage {

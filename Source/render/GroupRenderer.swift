@@ -16,8 +16,8 @@ class GroupRenderer: NodeRenderer {
 	override func doAddObservers() {
 		super.doAddObservers()
         
-        group.contentsVar.onChange { _ in
-            self.updateRenderers()
+        group.contentsVar.onChange { [weak self] _ in
+            self?.updateRenderers()
         }
          observe(group.contentsVar)
 	}

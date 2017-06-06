@@ -19,10 +19,14 @@ open class Group: Node {
             }
         }
     }
+    open let width: Double?
+    open let height: Double?
     
     
-    public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(contents: [Node] = [], place: Transform = Transform.identity, width: Double? = nil, height: Double? = nil, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.contentsVar = AnimatableVariable<[Node]>(contents)
+        self.width = width
+        self.height = height
         super.init(
             place: place,
             opaque: opaque,
@@ -68,6 +72,10 @@ open class Group: Node {
     
     // GENERATED NOT
     override internal func bounds() -> Rect? {
+        if let width = width, let height = height {
+            return Rect(x: 0, y: 0, w: width, h: height)
+        }
+        
         var union: Rect?
         
         contents.forEach { node in

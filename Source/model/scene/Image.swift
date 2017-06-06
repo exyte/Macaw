@@ -58,6 +58,35 @@ open class Image: Node {
         )
     }
     
+    public init(image: UIImage, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+
+        var oldId: String?
+        for key in imagesMap.keys {
+            if image === imagesMap[key] {
+                oldId = key
+            }
+        }
+        
+        let id = oldId ?? UUID().uuidString
+        imagesMap[id] = image
+        
+        self.srcVar = Variable<String>("memory://\(id)")
+        self.xAlignVar = Variable<Align>(xAlign)
+        self.yAlignVar = Variable<Align>(yAlign)
+        self.aspectRatioVar = Variable<AspectRatio>(aspectRatio)
+        self.wVar = Variable<Int>(w)
+        self.hVar = Variable<Int>(h)
+        super.init(
+            place: place,
+            opaque: opaque,
+            opacity: opacity,
+            clip: clip,
+            effect: effect,
+            visible: visible,
+            tag: tag
+        )
+    }
+    
     override func bounds() -> Rect? {
         if w != 0 && h != 0 {
             return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
@@ -76,22 +105,29 @@ open class Image: Node {
     }
     
     func image() -> UIImage? {
-        var image: UIImage?
         
-        if uiImage == nil {
-            image = UIImage(named: src)
+        // image already loaded
+        if let _ = uiImage {
+            return uiImage
         }
         
-        if uiImage == nil {
-            if src.hasPrefix("data:image/png;base64,") {
-                src = src.replacingOccurrences(of: "data:image/png;base64,", with: "")
+        // In-memory image
+        if src.contains("memory") {
+            let id = src.replacingOccurrences(of: "memory://", with: "")
+            return imagesMap[id]
+        }
+        
+        // Base64 image
+        if src.hasPrefix("data:image/png;base64,") {
+            src = src.replacingOccurrences(of: "data:image/png;base64,", with: "")
+            guard let decodedData = Data(base64Encoded: src, options: .ignoreUnknownCharacters) else {
+                return .none
             }
             
-            if let decodedData = Data(base64Encoded: src, options: .ignoreUnknownCharacters) {
-                image = UIImage(data: decodedData)
-            }
+            return UIImage(data: decodedData)
         }
         
-        return image
+        // General case
+        return UIImage(named: src)
     }
 }

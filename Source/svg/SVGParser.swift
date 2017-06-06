@@ -41,6 +41,8 @@ open class SVGParser {
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
     
+    fileprivate var width: Double?
+    fileprivate var height: Double?
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: Node]()
     fileprivate var defFills = [String: Fill]()
@@ -68,7 +70,7 @@ open class SVGParser {
         let parsedXml = SWXMLHash.parse(xmlString)
         iterateThroughXmlTree(parsedXml.children)
         
-        let group = Group(contents: self.nodes, place: initialPosition)
+        let group = Group(contents: self.nodes, place: initialPosition, width: width, height: height)
         return group
     }
     
@@ -77,6 +79,12 @@ open class SVGParser {
             if let element = child.element {
                 if element.name == "svg" {
                     iterateThroughXmlTree(child.children)
+                    if let width = element.allAttributes["width"]?.text {
+                        self.width = Double(String(width.characters.filter({ "01234567890.".characters.contains($0) })))
+                    }
+                    if let height = element.allAttributes["height"]?.text {
+                        self.height = Double(String(height.characters.filter({ "01234567890.".characters.contains($0) })))
+                    }
                 } else if let node = parseNode(child) {
                     self.nodes.append(node)
                 }

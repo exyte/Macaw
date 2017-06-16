@@ -68,22 +68,14 @@ open class Group: Node {
     
     // GENERATED NOT
     override internal func bounds() -> Rect? {
-        
-        guard let firstPos = contents.first?.place else {
-            return .none
-        }
-        
-        guard var union = contents.first?.bounds()?.applyTransform(firstPos) else {
-            
-            return .none
-        }
+        var union: Rect?
         
         contents.forEach { node in
-            guard let nodeBounds = node.bounds() else {
+            guard let nodeBounds = node.bounds()?.applyTransform(node.place) else {
                 return
             }
             
-            union = union.union(rect: nodeBounds.applyTransform(node.place))
+            union = union?.union(rect: nodeBounds) ?? nodeBounds
         }
         
         return union

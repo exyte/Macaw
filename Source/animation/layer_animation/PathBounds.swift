@@ -80,7 +80,7 @@ private func cubicBounds(_ data: [Double]) -> Rect {
 	let p0 = Point(x: 0, y: 0)
 	let p1 = Point(x: data[0], y: data[1])
 	let p2 = Point(x: data[2], y: data[3])
-	let p3 = Point(x: data[3], y: data[4])
+	let p3 = Point(x: data[4], y: data[5])
 
 	let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
 

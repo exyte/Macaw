@@ -15,14 +15,26 @@ class MorphingView: MacawView {
     }
 
     class func newScene() -> Node {
-        let rect = Rect(x: 0.0, y: 0.0, w: 100.0, h: 100.0)
-        let node = Shape(form: rect, fill: Color.green)
-        node.place = .move(dx: 150.0, dy: 150.0)
-        //let rotationTransform = Transform.move(dx: 150.0, dy: 150.0).rotate(angle: .pi * 3.0 / 4.0)
-        node.placeVar.animate(centerAngle: .pi, during: 10.0)
-        
-        
-        return node
-        
+        let stroke = Stroke(width: 15.0, cap: .round)
+		
+		let contents1 = [
+			Shape(form: Line(x1: 150.0, y1: 150.0, x2: 175.0, y2: 125.0), stroke: stroke),
+			Shape(form: Line(x1: 150.0, y1: 150.0, x2: 225.0, y2: 150.0), stroke: stroke),
+			Shape(form: Line( x1: 150.0, y1: 150.0, x2: 175.0, y2: 175.0), stroke: stroke),
+		]
+
+        let contents2 = [
+			Shape(form: Line(x1: 130.0, y1: 110.0, x2: 245.0, y2: 110.0), stroke: stroke),
+			Shape(form: Line(x1: 130.0, y1: 150.0, x2: 245.0, y2: 150.0), stroke: stroke),
+			Shape(form: Line(x1: 130.0, y1: 190.0, x2: 245.0, y2: 190.0), stroke: stroke),
+		]
+		
+		var switched = false
+		let group = contents1.group()
+		group.onTap { e in
+			group.contentsVar.animate(to: switched ? contents1 : contents2)
+			switched = !switched
+		}
+		return group
 	}
 }

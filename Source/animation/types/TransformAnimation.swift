@@ -62,6 +62,12 @@ public extension AnimatableVariable where T: TransformInterpolation {
 	public func animate(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
 		self.animate(((from ?? node!.place) >> to).t(during, delay: delay))
 	}
+    
+    public func animate(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) {
+        let animation = self.animation(angle: angle, x: x, y: y, during: during, delay: delay)
+        animation.play()
+    }
+
 
 	public func animation(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
@@ -78,5 +84,32 @@ public extension AnimatableVariable where T: TransformInterpolation {
 	public func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation {
 		return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
 	}
+    
+    public func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+        let origin = node!.place
+        let bounds = node!.bounds()!
+        
+        let factory = { () -> (Double) -> Transform in
+            return { t in
+                let asin = sin(angle * t); let acos = cos(angle * t)
+                
+                let rotation =  Transform(
+                    m11: acos * origin.m11 + asin * origin.m21,
+                    m12: acos * origin.m12 + asin * origin.m22,
+                    m21: -asin * origin.m11 + acos * origin.m21,
+                    m22: -asin * origin.m12 + acos * origin.m22,
+                    dx: origin.dx, dy: origin.dy
+                )
+                
+                let move = Transform.move(dx: x ?? bounds.w / 2.0, dy: y ?? bounds.h / 2.0)
+                let t1 = GeomUtils.concat(t1: move, t2: rotation)
+                let t2 = GeomUtils.concat(t1: t1, t2: move.invert()!)
+                
+                return t2
+            }
+        }
+        
+        return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
+    }
 
 }

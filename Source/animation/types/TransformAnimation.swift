@@ -1,3 +1,4 @@
+import Foundation
 
 internal class TransformAnimation: AnimationImpl<Transform> {
 

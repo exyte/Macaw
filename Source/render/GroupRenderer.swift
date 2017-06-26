@@ -3,7 +3,7 @@ import UIKit
 
 class GroupRenderer: NodeRenderer {
 
-	let group: Group
+	weak var group: Group?
 
 	fileprivate var renderers: [NodeRenderer] = []
 
@@ -16,13 +16,17 @@ class GroupRenderer: NodeRenderer {
 	override func doAddObservers() {
 		super.doAddObservers()
         
+        guard let group = group else {
+            return
+        }
+        
         group.contentsVar.onChange { [weak self] _ in
             self?.updateRenderers()
         }
          observe(group.contentsVar)
 	}
 
-	override func node() -> Node {
+	override func node() -> Node? {
 		return group
 	}
 
@@ -49,18 +53,23 @@ class GroupRenderer: NodeRenderer {
 
 	private func updateRenderers() {
 		var nodeToRenderer: [Node: NodeRenderer] = [:]
-		for renderer in renderers {
-			nodeToRenderer[renderer.node()] = renderer
+        renderers.forEach { renderer in
+            guard let node = renderer.node() else {
+                return
+            }
+            
+			nodeToRenderer[node] = renderer
 		}
 		self.renderers = []
-		for node in group.contents {
+		group?.contents.forEach { node in
 			if let renderer = nodeToRenderer.removeValue(forKey: node) {
 				self.renderers.append(renderer)
 			} else {
 				self.renderers.append(RenderUtils.createNodeRenderer(node, context: ctx, animationCache: animationCache))
 			}
 		}
-		for renderer in nodeToRenderer.values {
+        
+		nodeToRenderer.values.forEach { renderer in
 			renderer.dispose()
 		}
 	}

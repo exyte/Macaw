@@ -15,6 +15,7 @@ class TextRenderer: NodeRenderer {
     
     override func doAddObservers() {
         super.doAddObservers()
+        
         observe(text.textVar)
         observe(text.fontVar)
         observe(text.fillVar)

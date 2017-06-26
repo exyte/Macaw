@@ -18,16 +18,20 @@ class NodeRenderer {
     }
     
     func doAddObservers() {
-        observe(node().placeVar)
-        observe(node().opaqueVar)
-        observe(node().opacityVar)
-        observe(node().clipVar)
-        observe(node().effectVar)
+        guard let node = node() else {
+            return
+        }
+        
+        observe(node.placeVar)
+        observe(node.opaqueVar)
+        observe(node.opacityVar)
+        observe(node.clipVar)
+        observe(node.effectVar)
     }
     
     func observe<E>(_ v: Variable<E>) {
-        let disposable = v.onChange { _ in
-            self.onNodeChange()
+        let disposable = v.onChange { [weak self] _ in
+            self?.onNodeChange()
         }
         
         addDisposable(disposable)
@@ -41,7 +45,7 @@ class NodeRenderer {
         removeObservers()
     }
     
-    open func node() -> Node {
+    open func node() -> Node? {
         fatalError("Unsupported")
     }
     
@@ -51,13 +55,21 @@ class NodeRenderer {
             ctx.cgContext!.restoreGState()
         }
         
-        ctx.cgContext!.concatenate(RenderUtils.mapTransform(node().place))
+        guard let node = node() else {
+            return
+        }
+        
+        ctx.cgContext!.concatenate(RenderUtils.mapTransform(node.place))
         applyClip()
-        directRender(force: force, opacity: node().opacity * opacity)
+        directRender(force: force, opacity: node.opacity * opacity)
     }
     
     final func directRender(force: Bool = true, opacity: Double = 1.0) {
-        if animationCache.isAnimating(node()) {
+        guard let node = node() else {
+            return
+        }
+        
+        if animationCache.isAnimating(node) {
             self.removeObservers()
             if (!force) {
                 return
@@ -73,8 +85,12 @@ class NodeRenderer {
     }
     
     public final func findNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        if (node().opaque) {
-            let place = node().place
+        guard let node = node() else {
+            return .none
+        }
+        
+        if (node.opaque) {
+            let place = node.place
             if let inverted = place.invert() {
                 ctx.saveGState()
                 defer {
@@ -96,7 +112,11 @@ class NodeRenderer {
     }
     
     private func applyClip() {
-        guard let clip = node().clip, let context = ctx.cgContext else {
+        guard let node = node() else {
+            return
+        }
+        
+        guard let clip = node.clip, let context = ctx.cgContext else {
             return
         }
         

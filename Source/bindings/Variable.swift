@@ -10,15 +10,13 @@ import Foundation
 
 class  ChangeHandler<T>: Equatable {
     let handle: ((T)->())
-    let id: String
 
     init(_ f: @escaping ((T)->()) ) {
         handle = f
-        id = UUID().uuidString
     }
     
     static func ==(lhs: ChangeHandler<T>, rhs: ChangeHandler<T>) -> Bool {
-        return lhs.id == rhs.id
+        return lhs === rhs
     }
 }
 

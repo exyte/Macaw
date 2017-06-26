@@ -10,7 +10,7 @@ import Foundation
 
 open class Event {
 
-	public let node: Node
+	public weak var node: Node?
 
 	var consumed = false
 

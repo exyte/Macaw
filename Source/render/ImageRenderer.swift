@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class ImageRenderer: NodeRenderer {
-	let image: Image
+	weak var image: Image?
 
 	var renderedPaths: [CGPath] = [CGPath]()
 
@@ -11,12 +11,17 @@ class ImageRenderer: NodeRenderer {
 		super.init(node: image, ctx: ctx, animationCache: animationCache)
 	}
 
-	override func node() -> Node {
+	override func node() -> Node? {
 		return image
 	}
 
 	override func doAddObservers() {
 		super.doAddObservers()
+        
+        guard let image = image else {
+            return
+        }
+        
 		observe(image.srcVar)
 		observe(image.xAlignVar)
 		observe(image.yAlignVar)
@@ -26,6 +31,10 @@ class ImageRenderer: NodeRenderer {
 	}
 
 	override func doRender(_ force: Bool, opacity: Double) {
+        guard let image = image else {
+            return
+        }
+        
         var uiimage: UIImage?
         if image.src.contains("memory") {
             let id = image.src.replacingOccurrences(of: "memory://", with: "")
@@ -44,6 +53,10 @@ class ImageRenderer: NodeRenderer {
 	}
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+        guard let image = image else {
+            return .none
+        }
+        
         if let uiimage = UIImage(named: image.src) {
             let rect = getRect(uiimage)
             if (rect.contains(location)) {
@@ -54,6 +67,10 @@ class ImageRenderer: NodeRenderer {
     }
 
     fileprivate func getRect(_ uiimage: UIImage) -> CGRect {
+        guard let image = image else {
+            return .zero
+        }
+        
         let imageSize = uiimage.size
         var w = CGFloat(image.w)
         var h = CGFloat(image.h)

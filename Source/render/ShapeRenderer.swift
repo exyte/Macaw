@@ -3,30 +3,43 @@ import UIKit
 
 class ShapeRenderer: NodeRenderer {
 
-	let shape: Shape
+	weak var shape: Shape?
 
 	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache) {
 		self.shape = shape
 		super.init(node: shape, ctx: ctx, animationCache: animationCache)
 	}
 
-	override func node() -> Node {
+	override func node() -> Node? {
 		return shape
 	}
 
 	override func doAddObservers() {
 		super.doAddObservers()
+        
+        guard let shape = shape else {
+            return
+        }
+        
 		observe(shape.formVar)
 		observe(shape.fillVar)
 		observe(shape.strokeVar)
 	}
 
 	override func doRender(_ force: Bool, opacity: Double) {
+        guard let shape = shape else {
+            return
+        }
+        
 		setGeometry(shape.form, ctx: ctx.cgContext!)
 		drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
 	}
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+        guard let shape = shape else {
+            return .none
+        }
+        
         setGeometry(shape.form, ctx: ctx)
         
         var drawingMode: CGPathDrawingMode? = nil

@@ -2,19 +2,23 @@ import Foundation
 import UIKit
 
 class TextRenderer: NodeRenderer {
-    let text: Text
+    weak var text: Text?
     
     init(text: Text, ctx: RenderContext, animationCache: AnimationCache) {
         self.text = text
         super.init(node: text, ctx: ctx, animationCache: animationCache)
     }
     
-    override func node() -> Node {
+    override func node() -> Node? {
         return text
     }
     
     override func doAddObservers() {
         super.doAddObservers()
+        
+        guard let text = text else {
+            return
+        }
         
         observe(text.textVar)
         observe(text.fontVar)
@@ -24,6 +28,10 @@ class TextRenderer: NodeRenderer {
     }
     
     override func doRender(_ force: Bool, opacity: Double) {
+        guard let text = text else {
+            return
+        }
+        
         let message = text.text
         let font = getUIFont()
         // positive NSBaselineOffsetAttributeName values don't work, couldn't find why
@@ -38,7 +46,7 @@ class TextRenderer: NodeRenderer {
     }
     
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let contains = node().bounds()?.cgRect().contains(location) else {
+        guard let contains = node()?.bounds()?.cgRect().contains(location) else {
             return .none
         }
         
@@ -50,6 +58,10 @@ class TextRenderer: NodeRenderer {
     }
     
     fileprivate func getUIFont() -> UIFont {
+        guard let text = text else {
+            return UIFont.systemFont(ofSize: 18.0)
+        }
+        
         if let textFont = text.font {
             if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
                 return customFont
@@ -61,6 +73,10 @@ class TextRenderer: NodeRenderer {
     }
     
     fileprivate func getBounds(_ font: UIFont) -> CGRect {
+        guard let text = text else {
+            return .zero
+        }
+        
         let textAttributes = [NSFontAttributeName: font]
         let textSize = NSString(string: text.text).size(attributes: textAttributes)
         return CGRect(x: calculateAlignmentOffset(text, font: font),

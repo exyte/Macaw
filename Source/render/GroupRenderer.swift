@@ -52,25 +52,11 @@ class GroupRenderer: NodeRenderer {
 	}
 
 	private func updateRenderers() {
-		var nodeToRenderer: [Node: NodeRenderer] = [:]
-        renderers.forEach { renderer in
-            guard let node = renderer.node() else {
-                return
-            }
-            
-			nodeToRenderer[node] = renderer
-		}
-		self.renderers = []
-		group?.contents.forEach { node in
-			if let renderer = nodeToRenderer.removeValue(forKey: node) {
-				self.renderers.append(renderer)
-			} else {
-				self.renderers.append(RenderUtils.createNodeRenderer(node, context: ctx, animationCache: animationCache))
-			}
-		}
+        renderers.forEach{ $0.dispose() }
+        renderers.removeAll()
         
-		nodeToRenderer.values.forEach { renderer in
-			renderer.dispose()
-		}
+        if let updatedRenderers =  group?.contents.map ({ RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }) {
+            renderers = updatedRenderers
+        }
 	}
 }

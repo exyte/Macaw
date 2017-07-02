@@ -1,5 +1,5 @@
 public enum LineJoin {
-	case miter
-	case round
-	case bevel
+    case miter
+    case round
+    case bevel
 }

@@ -8,7 +8,7 @@ open class PanEvent : Event {
         self.dx = dx
         self.dy = dy
         self.count = count
-		super.init(node: node)
+        super.init(node: node)
     }
 
 }

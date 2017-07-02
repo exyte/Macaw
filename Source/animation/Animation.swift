@@ -6,8 +6,8 @@ public enum AnimationState {
 
 public class Animation {
 
-	internal init() {
-	}
+    internal init() {
+    }
 
     public func play() {
     }
@@ -31,9 +31,9 @@ public class Animation {
         return self
     }
 
-	public func cycle(_ count: Double) -> Animation {
-		return self
-	}
+    public func cycle(_ count: Double) -> Animation {
+        return self
+    }
     
     public func cycle() -> Animation{
         return self
@@ -43,11 +43,11 @@ public class Animation {
         return self
     }
 
-	public func autoreversed() -> Animation {
-		return self
-	}
+    public func autoreversed() -> Animation {
+        return self
+    }
 
-	@discardableResult public func onComplete(_: @escaping (() -> ())) -> Animation {
-		return self
-	}
+    @discardableResult public func onComplete(_: @escaping (() -> ())) -> Animation {
+        return self
+    }
 }

@@ -2,7 +2,7 @@ import UIKit
 
 class AnimationsExampleController: UIViewController {
     
-	@IBOutlet weak var animView: AnimationsView?
+    @IBOutlet weak var animView: AnimationsView?
     @IBOutlet weak var actionButton: UIButton?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -17,9 +17,9 @@ class AnimationsExampleController: UIViewController {
         actionButton?.addTarget(self, action: #selector(startAnimationAction), for: .touchUpInside)
     }
     
-	func startAnimationAction() {
-		animView?.startAnimation()
+    func startAnimationAction() {
+        animView?.startAnimation()
         actionButton?.isEnabled = false
-	}
+    }
     
 }

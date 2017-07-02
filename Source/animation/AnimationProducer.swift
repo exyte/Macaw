@@ -5,7 +5,7 @@ let animationProducer = AnimationProducer()
 class AnimationProducer {
 
     
-	var storedAnimations = [Node: BasicAnimation]()
+    var storedAnimations = [Node: BasicAnimation]()
     var delayedAnimations = [BasicAnimation: Timer]()
     var displayLink: CADisplayLink?
     
@@ -20,28 +20,28 @@ class AnimationProducer {
     
     var contentsAnimations = [ContentAnimationDesc]()
 
-	func addAnimation(_ animation: BasicAnimation, withoutDelay: Bool = false) {
+    func addAnimation(_ animation: BasicAnimation, withoutDelay: Bool = false) {
     
         // Delay - launching timer
-		if animation.delay > 0.0 && !withoutDelay {
+        if animation.delay > 0.0 && !withoutDelay {
 
-			let timer = Timer.schedule(delay: animation.delay, handler: { [weak self] _ in
-				self?.addAnimation(animation, withoutDelay: true)
+            let timer = Timer.schedule(delay: animation.delay, handler: { [weak self] _ in
+                self?.addAnimation(animation, withoutDelay: true)
                 _ = self?.delayedAnimations.removeValue(forKey: animation)
                 animation.delayed = false
-			})
+            })
             
             animation.delayed = true
             delayedAnimations[animation] = timer
             
-			return
-		}
+            return
+        }
 
         // Empty - executing completion
-		if animation.type == .empty {
-			executeCompletion(animation)
-			return
-		}
+        if animation.type == .empty {
+            executeCompletion(animation)
+            return
+        }
         
         // Cycle - attaching "re-add animation" logic
         if animation.cycled {
@@ -62,39 +62,39 @@ class AnimationProducer {
         
 
         // General case
-		guard let node = animation.node else {
-			return
-		}
+        guard let node = animation.node else {
+            return
+        }
 
-		guard let macawView = nodesMap.getView(node) else {
-			storedAnimations[node] = animation
-			return
-		}
+        guard let macawView = nodesMap.getView(node) else {
+            storedAnimations[node] = animation
+            return
+        }
 
-		guard let cache = macawView.animationCache else {
-			return
-		}
+        guard let cache = macawView.animationCache else {
+            return
+        }
 
-		switch animation.type {
-		case .unknown:
-			return
-		case .affineTransformation:
-			addTransformAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
-				if let next = animation.next {
-					self.addAnimation(next)
-				}
-			})
+        switch animation.type {
+        case .unknown:
+            return
+        case .affineTransformation:
+            addTransformAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+                if let next = animation.next {
+                    self.addAnimation(next)
+                }
+            })
 
-		case .opacity:
-			addOpacityAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
-				if let next = animation.next {
-					self.addAnimation(next)
-				}
-			})
-		case .sequence:
-			addAnimationSequence(animation)
-		case .combine:
-			addCombineAnimation(animation)
+        case .opacity:
+            addOpacityAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+                if let next = animation.next {
+                    self.addAnimation(next)
+                }
+            })
+        case .sequence:
+            addAnimationSequence(animation)
+        case .combine:
+            addCombineAnimation(animation)
         case .contents:
             addContentsAnimation(animation, cache: cache, completion: {
                 if let next = animation.next {
@@ -113,10 +113,10 @@ class AnimationProducer {
                     self.addAnimation(next)
                 }
             })
-		case .empty:
-			executeCompletion(animation)
-		}
-	}
+        case .empty:
+            executeCompletion(animation)
+        }
+    }
     
     func removeDelayed(animation: BasicAnimation) {
         guard let timer = delayedAnimations[animation] else {
@@ -130,141 +130,141 @@ class AnimationProducer {
     }
     
     // MARK: - Sequence animation
-	fileprivate func addAnimationSequence(_ animationSequnce: Animation) {
-		guard let sequence = animationSequnce as? AnimationSequence else {
-			return
-		}
+    fileprivate func addAnimationSequence(_ animationSequnce: Animation) {
+        guard let sequence = animationSequnce as? AnimationSequence else {
+            return
+        }
         
-		// Generating sequence
-		var sequenceAnimations = [BasicAnimation]()
+        // Generating sequence
+        var sequenceAnimations = [BasicAnimation]()
         var cycleAnimations = sequence.animations
         
         if sequence.autoreverses {
             cycleAnimations.append(contentsOf: sequence.animations.reversed())
         }
         
-		if sequence.repeatCount > 0.0001 {
-			for _ in 0..<Int(sequence.repeatCount) {
-				sequenceAnimations.append(contentsOf: cycleAnimations)
-			}
-		} else {
-			sequenceAnimations.append(contentsOf: cycleAnimations)
-		}
+        if sequence.repeatCount > 0.0001 {
+            for _ in 0..<Int(sequence.repeatCount) {
+                sequenceAnimations.append(contentsOf: cycleAnimations)
+            }
+        } else {
+            sequenceAnimations.append(contentsOf: cycleAnimations)
+        }
 
-		// Connecting animations
-		for i in 0..<(sequenceAnimations.count - 1) {
-			let animation = sequenceAnimations[i]
-			animation.next = sequenceAnimations[i + 1]
-		}
+        // Connecting animations
+        for i in 0..<(sequenceAnimations.count - 1) {
+            let animation = sequenceAnimations[i]
+            animation.next = sequenceAnimations[i + 1]
+        }
 
-		// Completion
-		if let completion = sequence.completion {
-			let completionAnimation = EmptyAnimation(completion: completion)
+        // Completion
+        if let completion = sequence.completion {
+            let completionAnimation = EmptyAnimation(completion: completion)
 
-			if let next = sequence.next {
-				completionAnimation.next = next
-			}
+            if let next = sequence.next {
+                completionAnimation.next = next
+            }
 
-			sequenceAnimations.last?.next = completionAnimation
-		} else {
-			if let next = sequence.next {
-				sequenceAnimations.last?.next = next
-			}
-		}
+            sequenceAnimations.last?.next = completionAnimation
+        } else {
+            if let next = sequence.next {
+                sequenceAnimations.last?.next = next
+            }
+        }
 
-		// Launching
-		if let firstAnimation = sequence.animations.first {
-			self.addAnimation(firstAnimation)
-		}
-	}
+        // Launching
+        if let firstAnimation = sequence.animations.first {
+            self.addAnimation(firstAnimation)
+        }
+    }
 
     // MARK: - Combine animation
-	fileprivate func addCombineAnimation(_ combineAnimation: Animation) {
-		guard let combine = combineAnimation as? CombineAnimation else {
-			return
-		}
+    fileprivate func addCombineAnimation(_ combineAnimation: Animation) {
+        guard let combine = combineAnimation as? CombineAnimation else {
+            return
+        }
 
-		// Reversing
-		if combine.autoreverses {
-			combine.animations.forEach { animation in
-				animation.autoreverses = true
-			}
-		}
+        // Reversing
+        if combine.autoreverses {
+            combine.animations.forEach { animation in
+                animation.autoreverses = true
+            }
+        }
 
-		// repeat count
-		if combine.repeatCount > 0.00001 {
-			var sequence = [Animation]()
+        // repeat count
+        if combine.repeatCount > 0.00001 {
+            var sequence = [Animation]()
 
-			for _ in 0..<Int(combine.repeatCount) {
-				sequence.append(combine)
-			}
+            for _ in 0..<Int(combine.repeatCount) {
+                sequence.append(combine)
+            }
 
-			combine.repeatCount = 0.0
-			addAnimationSequence(sequence.sequence())
-			return
-		}
+            combine.repeatCount = 0.0
+            addAnimationSequence(sequence.sequence())
+            return
+        }
 
-		// Looking for longest animation
-		var longestAnimation: BasicAnimation?
-		combine.animations.forEach { animation in
-			guard let longest = longestAnimation else {
-				longestAnimation = animation
-				return
-			}
+        // Looking for longest animation
+        var longestAnimation: BasicAnimation?
+        combine.animations.forEach { animation in
+            guard let longest = longestAnimation else {
+                longestAnimation = animation
+                return
+            }
 
-			if longest.getDuration() < animation.getDuration() {
-				longestAnimation = animation
-			}
-		}
+            if longest.getDuration() < animation.getDuration() {
+                longestAnimation = animation
+            }
+        }
 
-		// Attaching completion empty animation and potential next animation
-		if let completion = combine.completion {
-			let completionAnimation = EmptyAnimation(completion: completion)
-			if let next = combine.next {
-				completionAnimation.next = next
-			}
+        // Attaching completion empty animation and potential next animation
+        if let completion = combine.completion {
+            let completionAnimation = EmptyAnimation(completion: completion)
+            if let next = combine.next {
+                completionAnimation.next = next
+            }
 
-			longestAnimation?.next = completionAnimation
+            longestAnimation?.next = completionAnimation
 
-		} else {
-			if let next = combine.next {
-				longestAnimation?.next = next
-			}
+        } else {
+            if let next = combine.next {
+                longestAnimation?.next = next
+            }
 
-		}
+        }
 
-		combine.removeFunc = {
-			combine.animations.forEach { animation in
-				animation.removeFunc?()
-			}
-		}
+        combine.removeFunc = {
+            combine.animations.forEach { animation in
+                animation.removeFunc?()
+            }
+        }
 
-		// Launching
-		combine.animations.forEach { animation in
-			self.addAnimation(animation)
-		}
-	}
+        // Launching
+        combine.animations.forEach { animation in
+            self.addAnimation(animation)
+        }
+    }
 
     // MARK: - Empty Animation
-	fileprivate func executeCompletion(_ emptyAnimation: BasicAnimation) {
-		emptyAnimation.completion?()
-	}
+    fileprivate func executeCompletion(_ emptyAnimation: BasicAnimation) {
+        emptyAnimation.completion?()
+    }
     
     // MARK: - Stored animation
-	func addStoredAnimations(_ node: Node) {
-		if let animation = storedAnimations[node] {
-			addAnimation(animation)
-			storedAnimations.removeValue(forKey: node)
-		}
+    func addStoredAnimations(_ node: Node) {
+        if let animation = storedAnimations[node] {
+            addAnimation(animation)
+            storedAnimations.removeValue(forKey: node)
+        }
 
-		guard let group = node as? Group else {
-			return
-		}
+        guard let group = node as? Group else {
+            return
+        }
 
-		group.contents.forEach { child in
-			addStoredAnimations(child)
-		}
-	}
+        group.contents.forEach { child in
+            addStoredAnimations(child)
+        }
+    }
     
     // MARK: - Contents animation
     

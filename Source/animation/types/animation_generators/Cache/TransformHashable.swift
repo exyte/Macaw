@@ -1,7 +1,7 @@
 
 
 extension Transform: Hashable {
-	public var hashValue: Int {
+    public var hashValue: Int {
         return m11.hashValue ^
             m12.hashValue ^
             m21.hashValue ^

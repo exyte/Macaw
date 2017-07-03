@@ -6,10 +6,10 @@ class ImageRenderer: NodeRenderer {
 
     var renderedPaths: [CGPath] = [CGPath]()
 
-	init(image: Image, ctx: RenderContext, animationCache: AnimationCache?) {
-		self.image = image
-		super.init(node: image, ctx: ctx, animationCache: animationCache)
-	}
+    init(image: Image, ctx: RenderContext, animationCache: AnimationCache?) {
+        self.image = image
+        super.init(node: image, ctx: ctx, animationCache: animationCache)
+    }
 
     override func node() -> Node? {
         return image

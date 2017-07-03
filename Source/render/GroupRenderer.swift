@@ -7,11 +7,11 @@ class GroupRenderer: NodeRenderer {
 
     fileprivate var renderers: [NodeRenderer] = []
 
-    init(group: Group, ctx: RenderContext, animationCache: AnimationCache) {
-        self.group = group
-        super.init(node: group, ctx: ctx, animationCache: animationCache)
-        updateRenderers()
-    }
+	init(group: Group, ctx: RenderContext, animationCache: AnimationCache?) {
+		self.group = group
+		super.init(node: group, ctx: ctx, animationCache: animationCache)
+		updateRenderers()
+	}
 
     override func doAddObservers() {
         super.doAddObservers()

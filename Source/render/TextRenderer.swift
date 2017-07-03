@@ -4,7 +4,7 @@ import UIKit
 class TextRenderer: NodeRenderer {
     weak var text: Text?
     
-    init(text: Text, ctx: RenderContext, animationCache: AnimationCache) {
+    init(text: Text, ctx: RenderContext, animationCache: AnimationCache?) {
         self.text = text
         super.init(node: text, ctx: ctx, animationCache: animationCache)
     }

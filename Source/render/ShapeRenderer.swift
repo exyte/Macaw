@@ -5,10 +5,10 @@ class ShapeRenderer: NodeRenderer {
 
     weak var shape: Shape?
 
-    init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache) {
-        self.shape = shape
-        super.init(node: shape, ctx: ctx, animationCache: animationCache)
-    }
+	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache?) {
+		self.shape = shape
+		super.init(node: shape, ctx: ctx, animationCache: animationCache)
+	}
 
     override func node() -> Node? {
         return shape

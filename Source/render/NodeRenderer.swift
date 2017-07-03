@@ -8,9 +8,9 @@ class NodeRenderer {
     fileprivate let onNodeChange: ()->()
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
-    let animationCache: AnimationCache
+    weak var animationCache: AnimationCache?
     
-    init(node: Node, ctx: RenderContext, animationCache: AnimationCache) {
+    init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
         self.ctx = ctx
         self.animationCache = animationCache
         onNodeChange = { ctx.view?.setNeedsDisplay() }
@@ -69,7 +69,7 @@ class NodeRenderer {
             return
         }
         
-        if animationCache.isAnimating(node) {
+        if let isAnimating = animationCache?.isAnimating(node), isAnimating {
             self.removeObservers()
             if (!force) {
                 return

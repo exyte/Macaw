@@ -1,10 +1,10 @@
 
 import UIKit
 
-func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: @escaping (() -> ())) {
-    guard let opacityAnimation = animation as? OpacityAnimation else {
-        return
-    }
+func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
+	guard let opacityAnimation = animation as? OpacityAnimation else {
+		return
+	}
 
     guard let node = animation.node else {
         return
@@ -20,7 +20,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
 
     generatedAnimation.completion = { finished in
 
-        animationCache.freeLayer(node)
+		animationCache?.freeLayer(node)
 
         if animation.paused {
             animation.pausedProgress = animation.pausedProgress + animation.progress
@@ -58,10 +58,11 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
         animation.onProgressUpdate?(t)
     }
 
-    let layer = animationCache.layerForNode(node, animation: animation)
-    layer.add(generatedAnimation, forKey: animation.ID)
-    animation.removeFunc = {
-        layer.removeAnimation(forKey: animation.ID)
+    if let layer = animationCache?.layerForNode(node, animation: animation) {
+        layer.add(generatedAnimation, forKey: animation.ID)
+        animation.removeFunc = {
+            layer.removeAnimation(forKey: animation.ID)
+        }
     }
 }
 

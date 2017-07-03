@@ -93,20 +93,23 @@ public extension AnimatableVariable where T: TransformInterpolation {
         let factory = { () -> (Double) -> Transform in
             return { t in
                 let asin = sin(angle * t); let acos = cos(angle * t)
-                
+
                 let rotation =  Transform(
-                    m11: acos * origin.m11 + asin * origin.m21,
-                    m12: acos * origin.m12 + asin * origin.m22,
-                    m21: -asin * origin.m11 + acos * origin.m21,
-                    m22: -asin * origin.m12 + acos * origin.m22,
-                    dx: origin.dx, dy: origin.dy
+                    m11: acos, m12: -asin,
+                    m21: asin, m22: acos,
+                    dx: 0.0, dy: 0.0
+                )
+
+                let move = Transform.move(
+                    dx: x ?? bounds.w / 2.0,
+                    dy: y ?? bounds.h / 2.0
                 )
                 
-                let move = Transform.move(dx: x ?? bounds.w / 2.0, dy: y ?? bounds.h / 2.0)
                 let t1 = GeomUtils.concat(t1: move, t2: rotation)
                 let t2 = GeomUtils.concat(t1: t1, t2: move.invert()!)
+                let result = GeomUtils.concat(t1: origin, t2: t2)
                 
-                return t2
+                return result
             }
         }
         

@@ -124,8 +124,10 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
     
     override open func draw(_ rect: CGRect) {
         let ctx = UIGraphicsGetCurrentContext()
-        ctx?.setFillColor(self.backgroundColor?.cgColor ?? UIColor.clear.cgColor)
-        ctx?.fill(rect)
+        
+        if self.backgroundColor == nil {
+            ctx?.fill(rect)
+        }
         
         self.context.cgContext = ctx
         renderer?.render(force: false, opacity: node.opacity)

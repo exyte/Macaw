@@ -36,12 +36,12 @@ open class Variable<T> {
     @discardableResult open func onChange(_ f: @escaping ((T)->())) -> Disposable {
         let handler = ChangeHandler<T>(f)
         handlers.append(handler)
-        return Disposable({
-            guard let index = self.handlers.index(of: handler) else {
+        return Disposable({ [weak self] in
+            guard let index = self?.handlers.index(of: handler) else {
                 return
             }
             
-            self.handlers.remove(at: index)
+            self?.handlers.remove(at: index)
         })
     }
 }

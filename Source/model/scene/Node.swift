@@ -60,12 +60,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchPressedHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.touchPressedHandlers.index(of: handler) else {
+        return Disposable({ [weak self]  in
+            guard let index = self?.touchPressedHandlers.index(of: handler) else {
                 return
             }
             
-            self.touchPressedHandlers.remove(at: index)
+            self?.touchPressedHandlers.remove(at: index)
         })
     }
     
@@ -73,12 +73,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchMovedHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.touchMovedHandlers.index(of: handler) else {
+        return Disposable({ [weak self] in
+            guard let index = self?.touchMovedHandlers.index(of: handler) else {
                 return
             }
             
-            self.touchMovedHandlers.remove(at: index)
+            self?.touchMovedHandlers.remove(at: index)
         })
     }
     
@@ -86,12 +86,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchReleasedHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.touchReleasedHandlers.index(of: handler) else {
+        return Disposable({ [weak self] in
+            guard let index = self?.touchReleasedHandlers.index(of: handler) else {
                 return
             }
             
-            self.touchReleasedHandlers.remove(at: index)
+            self?.touchReleasedHandlers.remove(at: index)
         })
     }
     
@@ -99,12 +99,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<TapEvent>(f)
         tapHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.tapHandlers.index(of: handler) else {
+        return Disposable({ [weak self]  in
+            guard let index = self?.tapHandlers.index(of: handler) else {
                 return
             }
             
-            self.tapHandlers.remove(at: index)
+            self?.tapHandlers.remove(at: index)
         })
     }
 
@@ -112,12 +112,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<PanEvent>(f)
         panHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.panHandlers.index(of: handler) else {
+        return Disposable({ [weak self] in
+            guard let index = self?.panHandlers.index(of: handler) else {
                 return
             }
             
-            self.panHandlers.remove(at: index)
+            self?.panHandlers.remove(at: index)
         })
     }
     
@@ -125,12 +125,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<RotateEvent>(f)
         rotateHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.rotateHandlers.index(of: handler) else {
+        return Disposable({ [weak self] in
+            guard let index = self?.rotateHandlers.index(of: handler) else {
                 return
             }
             
-            self.rotateHandlers.remove(at: index)
+            self?.rotateHandlers.remove(at: index)
         })
     }
     
@@ -138,12 +138,12 @@ open class Node: Drawable {
         let handler = ChangeHandler<PinchEvent>(f)
         pinchHandlers.append(handler)
         
-        return Disposable({
-            guard let index = self.pinchHandlers.index(of: handler) else {
+        return Disposable({ [weak self] in
+            guard let index = self?.pinchHandlers.index(of: handler) else {
                 return
             }
             
-            self.pinchHandlers.remove(at: index)
+            self?.pinchHandlers.remove(at: index)
         })
     }
     

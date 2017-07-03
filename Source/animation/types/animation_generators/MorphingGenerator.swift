@@ -8,7 +8,7 @@
 
 import UIKit
 
-func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: @escaping (() -> ())) {
+func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
     guard let morphingAnimation = animation as? MorphingAnimation else {
         return
     }
@@ -19,14 +19,16 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     
     let mutatingShape = SceneUtils.shapeCopy(from: shape)
     nodesMap.replace(node: shape, to: mutatingShape)
-    animationCache.replace(original: shape, replacement: mutatingShape)
+    animationCache?.replace(original: shape, replacement: mutatingShape)
     animation.node = mutatingShape
     
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
     
-    let layer = animationCache.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false)
+    guard let layer = animationCache?.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false) else {
+        return
+    }
     
     // Creating proper animation
     let generatedAnim = pathAnimation(
@@ -49,7 +51,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
             mutatingShape.form = morphingAnimation.getVFunc()(1.0)
         }
         
-        animationCache.freeLayer(mutatingShape)
+        animationCache?.freeLayer(mutatingShape)
         
         if  !animation.cycled &&
             !animation.manualStop {

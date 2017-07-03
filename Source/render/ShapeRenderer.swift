@@ -5,7 +5,7 @@ class ShapeRenderer: NodeRenderer {
 
 	weak var shape: Shape?
 
-	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache) {
+	init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache?) {
 		self.shape = shape
 		super.init(node: shape, ctx: ctx, animationCache: animationCache)
 	}

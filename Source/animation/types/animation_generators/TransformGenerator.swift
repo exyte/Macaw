@@ -1,6 +1,6 @@
 import UIKit
 
-func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache, completion: @escaping (() -> ())) {
+func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
 	guard let transformAnimation = animation as? TransformAnimation else {
 		return
 	}
@@ -40,7 +40,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
             node.placeVar.value = transformAnimation.getVFunc()(1.0)
         }
         
-		animationCache.freeLayer(node)
+		animationCache?.freeLayer(node)
         
         if !animation.cycled &&
             !animation.manualStop &&
@@ -65,12 +65,12 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 		animation.onProgressUpdate?(t)
 	}
 
-	let layer = animationCache.layerForNode(node, animation: animation)
-
-	layer.add(generatedAnim, forKey: animation.ID)
-	animation.removeFunc = {
-		layer.removeAnimation(forKey: animation.ID)
-	}
+    if let layer = animationCache?.layerForNode(node, animation: animation) {
+        layer.add(generatedAnim, forKey: animation.ID)
+        animation.removeFunc = {
+            layer.removeAnimation(forKey: animation.ID)            
+        }
+    }
 }
 
 func transfomToCG(_ transform: Transform) -> CGAffineTransform {

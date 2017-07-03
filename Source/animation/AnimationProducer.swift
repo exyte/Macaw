@@ -12,7 +12,7 @@ class AnimationProducer {
     struct ContentAnimationDesc {
         let animation: ContentsAnimation
         let layer: CALayer
-        let cache: AnimationCache
+        weak var cache: AnimationCache?
         let startDate: Date
         let finishDate: Date
         let completion: (()->())?
@@ -268,7 +268,7 @@ class AnimationProducer {
     
     // MARK: - Contents animation
     
-    func addContentsAnimation(_ animation: BasicAnimation, cache: AnimationCache, completion: @escaping (() -> ())) {
+    func addContentsAnimation(_ animation: BasicAnimation, cache: AnimationCache?, completion: @escaping (() -> ())) {
         guard let contentsAnimation = animation as? ContentsAnimation else {
             return
         }
@@ -302,9 +302,13 @@ class AnimationProducer {
             unionBounds = startBounds.union(rect: endBounds)
         }
         
+        guard let layer = cache?.layerForNode(node, animation: contentsAnimation, customBounds: unionBounds) else {
+            return
+        }
+        
         let animationDesc = ContentAnimationDesc(
             animation: contentsAnimation,
-            layer: cache.layerForNode(node, animation: contentsAnimation, customBounds: unionBounds),
+            layer: layer,
             cache: cache,
             startDate: Date(),
             finishDate: Date(timeInterval: contentsAnimation.duration, since: startDate),
@@ -357,7 +361,7 @@ class AnimationProducer {
                 }
                     
                 contentsAnimations.remove(at: count - 1 - index)
-                animationDesc.cache.freeLayer(group)
+                animationDesc.cache?.freeLayer(group)
                 animationDesc.completion?()
                 continue
             }
@@ -370,7 +374,7 @@ class AnimationProducer {
             if animation.manualStop || animation.paused {
                 defer {
                     contentsAnimations.remove(at: count - 1 - index)
-                    animationDesc.cache.freeLayer(group)
+                    animationDesc.cache?.freeLayer(group)
                 }
                 
                 if animation.manualStop {

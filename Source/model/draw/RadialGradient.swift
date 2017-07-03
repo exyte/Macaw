@@ -3,23 +3,23 @@ import UIKit
 
 open class RadialGradient: Gradient {
 
-	open var cx: Double
-	open var cy: Double
-	open var fx: Double
-	open var fy: Double
-	open let r: Double
+    open var cx: Double
+    open var cy: Double
+    open var fx: Double
+    open var fy: Double
+    open let r: Double
 
-	public init(cx: Double = 0.5, cy: Double = 0.5, fx: Double = 0.5, fy: Double = 0.5, r: Double = 0.5, userSpace: Bool = false, stops: [Stop] = []) {
-		self.cx = cx
-		self.cy = cy
-		self.fx = fx
-		self.fy = fy
-		self.r = r
-		super.init(
-			userSpace: userSpace,
-			stops: stops
-		)
-	}
+    public init(cx: Double = 0.5, cy: Double = 0.5, fx: Double = 0.5, fy: Double = 0.5, r: Double = 0.5, userSpace: Bool = false, stops: [Stop] = []) {
+        self.cx = cx
+        self.cy = cy
+        self.fx = fx
+        self.fy = fy
+        self.r = r
+        super.init(
+            userSpace: userSpace,
+            stops: stops
+        )
+    }
 
     func applyTransform(_ transform: Transform) {
         // TODO: - Check logic

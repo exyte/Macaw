@@ -9,62 +9,62 @@
 import Foundation
 
 enum AnimationType {
-	case unknown
+    case unknown
     case contents
-	case affineTransformation
-	case opacity
-	case sequence
-	case combine
+    case affineTransformation
+    case opacity
+    case sequence
+    case combine
     case morphing
     case shape
-	case empty
+    case empty
 }
 
 class BasicAnimation: Animation {
 
-	var node: Node?
-	var type = AnimationType.unknown
-	let ID: String
-	var next: BasicAnimation?
-	var removeFunc: (() -> ())?
+    var node: Node?
+    var type = AnimationType.unknown
+    let ID: String
+    var next: BasicAnimation?
+    var removeFunc: (() -> ())?
     var delayed = false
     var manualStop = false
     var paused = false
     var pausedProgress = 0.0
-	var progress = 0.0
-	var repeatCount = 0.0
+    var progress = 0.0
+    var repeatCount = 0.0
     var cycled = false
-	var delay = 0.0
-	var autoreverses = false
-	var onProgressUpdate: ((Double) -> ())?
-	var easing = Easing.ease
-	var completion: (() -> ())?
+    var delay = 0.0
+    var autoreverses = false
+    var onProgressUpdate: ((Double) -> ())?
+    var easing = Easing.ease
+    var completion: (() -> ())?
 
-	override init() {
-		ID = UUID().uuidString
-		super.init()
-	}
+    override init() {
+        ID = UUID().uuidString
+        super.init()
+    }
 
     override open func delay(_ delay: Double) -> Animation {
         self.delay += delay
         return self
     }
 
-	override open func cycle(_ count: Double) -> Animation {
-		self.repeatCount = count
-		return self
-	}
+    override open func cycle(_ count: Double) -> Animation {
+        self.repeatCount = count
+        return self
+    }
 
-	override open func easing(_ easing: Easing) -> Animation {
-		self.easing = easing
-		return self
-	}
+    override open func easing(_ easing: Easing) -> Animation {
+        self.easing = easing
+        return self
+    }
 
-	override open func autoreversed() -> Animation {
-		self.autoreverses = true
+    override open func autoreversed() -> Animation {
+        self.autoreverses = true
         
-		return self
-	}
+        return self
+    }
     
     override open func cycle() -> Animation {
         self.cycled = true
@@ -72,20 +72,20 @@ class BasicAnimation: Animation {
         return self
     }
 
-	override open func onComplete(_ f: @escaping (() -> ())) -> Animation {
-		self.completion = f
-		return self
-	}
+    override open func onComplete(_ f: @escaping (() -> ())) -> Animation {
+        self.completion = f
+        return self
+    }
 
-	override open func play() {
+    override open func play() {
 
         manualStop = false
         paused = false
         
-		animationProducer.addAnimation(self)
-	}
+        animationProducer.addAnimation(self)
+    }
 
-	override open func stop() {
+    override open func stop() {
         manualStop = true
         paused = false
         
@@ -93,8 +93,8 @@ class BasicAnimation: Animation {
             animationProducer.removeDelayed(animation: self)
         }
         
-		removeFunc?()
-	}
+        removeFunc?()
+    }
     
     override open func pause() {
         paused = true
@@ -123,11 +123,11 @@ class BasicAnimation: Animation {
         return .running
     }
 
-	override open func reverse() -> Animation {
-		return self
-	}
+    override open func reverse() -> Animation {
+        return self
+    }
 
-	func getDuration() -> Double { return 0 }
+    func getDuration() -> Double { return 0 }
 }
 
 // MARK: - Hashable
@@ -152,26 +152,26 @@ extension BasicAnimation {
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
-	var variable: AnimatableVariable<T>
+    var variable: AnimatableVariable<T>
     let initialValue: T
     let timeFactory: (() -> ((Double) -> T))
-	let duration: Double
-	let logicalFps: UInt
+    let duration: Double
+    let logicalFps: UInt
 
     private var vFunc: ((Double) -> T)?
 
-	init(observableValue: AnimatableVariable<T>, valueFunc: @escaping (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
-		self.variable = observableValue
+    init(observableValue: AnimatableVariable<T>, valueFunc: @escaping (Double) -> T, animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
+        self.variable = observableValue
         self.initialValue = observableValue.value
-		self.duration = animationDuration
+        self.duration = animationDuration
         self.timeFactory = { (node) in return valueFunc }
-		self.vFunc = .none
-		self.logicalFps = fps
+        self.vFunc = .none
+        self.logicalFps = fps
 
-		super.init()
+        super.init()
 
-		self.delay = delay
-	}
+        self.delay = delay
+    }
     
     init(observableValue: AnimatableVariable<T>, factory: @escaping (() -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
         self.variable = observableValue
@@ -185,17 +185,17 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
         self.delay = delay
     }
 
-	convenience init(observableValue: AnimatableVariable<T>, startValue: T, finalValue: T, animationDuration: Double) {
-		let interpolationFunc = { (t: Double) -> T in
-			return startValue.interpolate(finalValue, progress: t)
-		}
+    convenience init(observableValue: AnimatableVariable<T>, startValue: T, finalValue: T, animationDuration: Double) {
+        let interpolationFunc = { (t: Double) -> T in
+            return startValue.interpolate(finalValue, progress: t)
+        }
 
-		self.init(observableValue: observableValue, valueFunc: interpolationFunc, animationDuration: animationDuration)
-	}
+        self.init(observableValue: observableValue, valueFunc: interpolationFunc, animationDuration: animationDuration)
+    }
 
-	convenience init(observableValue: AnimatableVariable<T>, finalValue: T, animationDuration: Double) {
-		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
-	}
+    convenience init(observableValue: AnimatableVariable<T>, finalValue: T, animationDuration: Double) {
+        self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
+    }
     
     override open func play() {
         
@@ -210,12 +210,12 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
        super.play()
     }
 
-	open override func getDuration() -> Double {
+    open override func getDuration() -> Double {
         var totalDuration = autoreverses ? duration * 2.0 : duration
         totalDuration = totalDuration * (1.0 - pausedProgress)
         
-		return totalDuration
-	}
+        return totalDuration
+    }
 
     open func getVFunc() -> ((Double) -> T) {
         if let vFunc = vFunc {
@@ -248,27 +248,27 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
 // For sequence completion
 class EmptyAnimation: BasicAnimation {
-	required init(completion: @escaping (() -> ())) {
-		super.init()
+    required init(completion: @escaping (() -> ())) {
+        super.init()
 
-		self.completion = completion
-		self.type = .empty
-	}
+        self.completion = completion
+        self.type = .empty
+    }
 }
 
 // MARK: - Animation Description
 
 open class AnimationDescription <T> {
-	open let valueFunc: (Double) -> T
-	open var duration = 0.0
-	open var delay = 0.0
-	public init(valueFunc: @escaping (Double) -> T, duration: Double = 1.0, delay: Double = 0.0) {
-		self.valueFunc = valueFunc
-		self.duration = duration
-		self.delay = delay
-	}
+    open let valueFunc: (Double) -> T
+    open var duration = 0.0
+    open var delay = 0.0
+    public init(valueFunc: @escaping (Double) -> T, duration: Double = 1.0, delay: Double = 0.0) {
+        self.valueFunc = valueFunc
+        self.duration = duration
+        self.delay = delay
+    }
 
-	open func t(_ duration: Double, delay: Double = 0.0) -> AnimationDescription<T> {
-		return AnimationDescription(valueFunc: valueFunc, duration: duration, delay: delay)
-	}
+    open func t(_ duration: Double, delay: Double = 0.0) -> AnimationDescription<T> {
+        return AnimationDescription(valueFunc: valueFunc, duration: duration, delay: delay)
+    }
 }

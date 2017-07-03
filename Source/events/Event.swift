@@ -10,16 +10,16 @@ import Foundation
 
 open class Event {
 
-	public weak var node: Node?
+    public weak var node: Node?
 
-	var consumed = false
+    var consumed = false
 
-	init(node: Node) {
-		self.node = node
-	}
+    init(node: Node) {
+        self.node = node
+    }
 
-	public func consume() {
-		consumed = true
-	}
+    public func consume() {
+        consumed = true
+    }
 
 }

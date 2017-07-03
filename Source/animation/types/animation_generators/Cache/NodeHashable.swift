@@ -4,7 +4,6 @@
 
 extension Node: Hashable {
     public var hashValue: Int {
-        
         return Unmanaged.passUnretained(self).toOpaque().hashValue
     }
 }

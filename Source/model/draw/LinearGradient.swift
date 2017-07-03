@@ -3,21 +3,21 @@ import UIKit
 
 open class LinearGradient: Gradient {
 
-	open var x1: Double
-	open var y1: Double
-	open var x2: Double
-	open var y2: Double
+    open var x1: Double
+    open var y1: Double
+    open var x2: Double
+    open var y2: Double
 
-	public init(x1: Double = 0, y1: Double = 0, x2: Double = 0, y2: Double = 0, userSpace: Bool = false, stops: [Stop] = []) {
-		self.x1 = x1
-		self.y1 = y1
-		self.x2 = x2
-		self.y2 = y2
-		super.init(
-			userSpace: userSpace,
-			stops: stops
-		)
-	}
+    public init(x1: Double = 0, y1: Double = 0, x2: Double = 0, y2: Double = 0, userSpace: Bool = false, stops: [Stop] = []) {
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        super.init(
+            userSpace: userSpace,
+            stops: stops
+        )
+    }
 
     public init(degree: Double = 0, from: Color, to: Color) {
         self.x1 = degree >= 135 && degree < 270 ? 1 : 0

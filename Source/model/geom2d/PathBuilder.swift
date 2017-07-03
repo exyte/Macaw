@@ -2,13 +2,13 @@ import Foundation
 
 open class PathBuilder {
 
-	open let segment: PathSegment
-	open let rest: PathBuilder?
+    open let segment: PathSegment
+    open let rest: PathBuilder?
 
-	public init(segment: PathSegment, rest: PathBuilder? = nil) {
-		self.segment = segment
-		self.rest = rest
-	}
+    public init(segment: PathSegment, rest: PathBuilder? = nil) {
+        self.segment = segment
+        self.rest = rest
+    }
 
     // GENERATED NOT
     open func moveTo(x: Double, y: Double) -> PathBuilder {
@@ -50,10 +50,10 @@ open class PathBuilder {
         return PathBuilder(segment: PathSegment(type: .M, data: [x, y]), rest: self)
     }
 
-	// GENERATED NOT
-	open func l(_ x: Double, _ y: Double) -> PathBuilder {
-		return PathBuilder(segment: PathSegment(type: .l, data: [x, y]), rest: self)
-	}
+    // GENERATED NOT
+    open func l(_ x: Double, _ y: Double) -> PathBuilder {
+        return PathBuilder(segment: PathSegment(type: .l, data: [x, y]), rest: self)
+    }
 
     // GENERATED NOT
     open func L(_ x: Double, _ y: Double) -> PathBuilder {

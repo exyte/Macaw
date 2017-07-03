@@ -2,11 +2,11 @@ import Foundation
 
 open class Polyline: Locus {
 
-	open let points: [Double]
+    open let points: [Double]
 
-	public init(points: [Double] = []) {
-		self.points = points
-	}
+    public init(points: [Double] = []) {
+        self.points = points
+    }
     
     override open func bounds() -> Rect {
         guard !points.isEmpty else { return Rect.zero() }

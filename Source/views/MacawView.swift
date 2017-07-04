@@ -130,7 +130,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         let ctx = UIGraphicsGetCurrentContext()
         
         if self.backgroundColor == nil {
-            ctx?.fill(rect)
+            ctx?.clear(rect)
         }
         
         guard let cache = animationCache else {

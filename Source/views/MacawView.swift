@@ -177,10 +177,9 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             layer.renderingInterval = interval
             layer.zPosition = CGFloat(prevZPos) + 0.5
             layer.contentsScale = 2.0
-            //layer.
             
             let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
-            layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
+            layer.renderTransform = nodeTransform
             
             zLayers.append(layer)
             

@@ -153,7 +153,6 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         // Animation case
         // Same nodes 
         if animatedNodes == prevAnimatedNodes {
-            zLayers.forEach{ $0.setNeedsDisplay() }
             return
         }
         

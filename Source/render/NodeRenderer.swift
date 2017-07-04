@@ -1,6 +1,11 @@
 import Foundation
 import UIKit
 
+struct RenderingInterval {
+    let from: Int
+    let to: Int
+}
+
 class NodeRenderer {
     
     let ctx: RenderContext

@@ -70,4 +70,22 @@ class AnimationUtils {
         
         return zIndex
     }
+    
+    class func animatedNodes(root: Node, animationCache: AnimationCache) -> [Node] {
+        if animationCache.isAnimating(root) {
+            return [root]
+        }
+        
+        guard let rootGroup = root as? Group else {
+            return []
+        }
+        
+        var result = [Node]()
+        rootGroup.contents.forEach { child in
+            let childAnimatedNodes = animatedNodes(root: child, animationCache: animationCache)
+            result.append(contentsOf: childAnimatedNodes)
+        }
+        
+        return result
+    }
 }

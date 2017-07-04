@@ -122,6 +122,10 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         self.addGestureRecognizer(pinchRecognizer)
     }
     
+    // zLayers state
+    private var prevAnimatedNodes = [Node]()
+    private var zLayers = [CALayer]()
+    
     override open func draw(_ rect: CGRect) {
         let ctx = UIGraphicsGetCurrentContext()
         
@@ -129,8 +133,57 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             ctx?.fill(rect)
         }
         
-        self.context.cgContext = ctx
-        renderer?.render(force: false, opacity: node.opacity)
+        guard let cache = animationCache else {
+            return
+        }
+        
+        let animatedNodes = AnimationUtils.animatedNodes(root: node, animationCache: cache)
+        
+        // No animation case
+        if animatedNodes.count == 0 {
+            zLayers.forEach { $0.removeFromSuperlayer() }
+            zLayers.removeAll()
+            prevAnimatedNodes.removeAll()
+            
+            self.context.cgContext = ctx
+            renderer?.render(force: false, opacity: node.opacity)
+            return
+        }
+        
+        // Animation case
+        // Same nodes 
+        if animatedNodes == prevAnimatedNodes {
+            zLayers.forEach{ $0.setNeedsDisplay() }
+            return
+        }
+        
+        // Replacing old zLayers
+        // Removing old ones
+        zLayers.forEach { $0.removeFromSuperlayer() }
+        zLayers.removeAll()
+        prevAnimatedNodes = animatedNodes
+        
+        // Adding new
+        var zPositions = animatedNodes.map{ AnimationUtils.absoluteIndex($0) }
+        zPositions.append(Int.max)
+        var prevZPos = 0
+        for zPos in zPositions {
+            let interval = RenderingInterval(from: prevZPos, to: zPos)
+            let layer = ShapeLayer()
+            layer.frame = bounds
+            layer.node = node
+            layer.animationCache = cache
+            layer.renderingInterval = interval
+            layer.zPosition = CGFloat(prevZPos) + 0.5
+            zLayers.append(layer)
+            prevZPos = zPos
+        }
+        
+        
+        zLayers.forEach{
+            self.layer.addSublayer($0)
+            $0.setNeedsDisplay()
+        }
     }
     
     private func localContext( _ callback: (CGContext) -> ()) {

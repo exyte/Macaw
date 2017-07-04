@@ -6,9 +6,11 @@ class GroupRenderer: NodeRenderer {
 	weak var group: Group?
 
 	fileprivate var renderers: [NodeRenderer] = []
+    let renderingInterval: RenderingInterval?
 
-	init(group: Group, ctx: RenderContext, animationCache: AnimationCache?) {
+    init(group: Group, ctx: RenderContext, animationCache: AnimationCache?, interval: RenderingInterval? = .none) {
 		self.group = group
+        self.renderingInterval = interval
 		super.init(node: group, ctx: ctx, animationCache: animationCache)
 		updateRenderers()
 	}
@@ -55,7 +57,19 @@ class GroupRenderer: NodeRenderer {
         renderers.forEach{ $0.dispose() }
         renderers.removeAll()
         
-        if let updatedRenderers =  group?.contents.map ({ RenderUtils.createNodeRenderer($0, context: ctx, animationCache: animationCache) }) {
+        if let updatedRenderers =  group?.contents.flatMap ({ (child) -> NodeRenderer? in
+            guard let interval = renderingInterval else {
+                return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache)
+            }
+            
+            let index = AnimationUtils.absoluteIndex(child)
+            if index > interval.from && index < interval.to {
+                return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache, interval: interval)
+            }
+            
+            return .none
+            
+        }) {
             renderers = updatedRenderers
         }
 	}

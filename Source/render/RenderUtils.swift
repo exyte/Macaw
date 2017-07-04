@@ -55,9 +55,14 @@ class RenderUtils {
         return p
     }
     
-    class func createNodeRenderer(_ node: Node, context: RenderContext, animationCache: AnimationCache?) -> NodeRenderer {
+    class func createNodeRenderer(
+        _ node: Node,
+        context: RenderContext,
+        animationCache: AnimationCache?,
+        interval: RenderingInterval? = .none
+        ) -> NodeRenderer {
         if let group = node as? Group {
-            return GroupRenderer(group: group, ctx: context, animationCache: animationCache)
+            return GroupRenderer(group: group, ctx: context, animationCache: animationCache, interval: interval)
         } else if let shape = node as? Shape {
             return ShapeRenderer(shape: shape, ctx: context, animationCache: animationCache)
         } else if let text = node as? Text {

@@ -2,6 +2,7 @@ import UIKit
 
 class ShapeLayer: CAShapeLayer {
 	var node: Node?
+    var renderingInterval: RenderingInterval?
 	var renderTransform: CGAffineTransform?
 	var animationCache: AnimationCache?
     var shouldRenderContent = true
@@ -27,7 +28,7 @@ class ShapeLayer: CAShapeLayer {
 			ctx.concatenate(renderTransform)
 		}
 
-		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache)
+		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache, interval: renderingInterval)
 		renderer.directRender()
 		renderer.dispose()
 	}

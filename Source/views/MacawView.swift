@@ -164,7 +164,10 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         prevAnimatedNodes = animatedNodes
         
         // Adding new
-        var zPositions = animatedNodes.map{ AnimationUtils.absoluteIndex($0) }
+        var indexCache = [Node: Int]()
+        var zPositions = animatedNodes.map{ AnimationUtils.absoluteIndex($0, useCache: true) }
+        indexCache.removeAll()
+        
         zPositions.append(Int.max)
         var prevZPos = 0
         for zPos in zPositions {

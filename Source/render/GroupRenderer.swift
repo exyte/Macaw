@@ -62,7 +62,7 @@ class GroupRenderer: NodeRenderer {
                 return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache)
             }
             
-            let index = AnimationUtils.absoluteIndex(child)
+            let index = AnimationUtils.absoluteIndex(child, useCache: true)
             if index > interval.from && index < interval.to {
                 return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache, interval: interval)
             }

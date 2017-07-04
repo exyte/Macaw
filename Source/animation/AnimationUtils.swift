@@ -2,7 +2,7 @@
 import Foundation
 
 class AnimationUtils {
-	class func absolutePosition(_ node: Node) -> Transform {
+    class func absolutePosition(_ node: Node) -> Transform {
 		return AnimationUtils.absoluteTransform(node, pos: node.place)
 	}
 
@@ -35,7 +35,17 @@ class AnimationUtils {
         return .none
     }
     
-    class func absoluteIndex(_ node: Node) -> Int {
+    private static var indexCache = [Node: Int]()
+    class func absoluteIndex(_ node: Node, useCache: Bool = false) -> Int {
+        if useCache {
+            if let cachedIndex = indexCache[node] {
+                return cachedIndex
+            }
+        } else {
+            indexCache.removeAll()
+        }
+        
+        
         func childrenTotalCount(_ node: Node) -> Int{
             guard let group = node as? Group else {
                 return 1
@@ -48,7 +58,6 @@ class AnimationUtils {
             
             return count
         }
-        
         
         var zIndex = 0
         var parent = nodesMap.parents(node).first
@@ -66,6 +75,10 @@ class AnimationUtils {
             
             currentNode = parent!
             parent = nodesMap.parents(parent!).first
+        }
+        
+        if useCache {
+            indexCache[node] = zIndex
         }
         
         return zIndex

@@ -151,9 +151,16 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         }
         
         // Animation case
-        // Same nodes 
-        if animatedNodes == prevAnimatedNodes {
-            return
+        // Same nodes or some removed - no need to recalculate zPos
+        if animatedNodes.count <= prevAnimatedNodes.count {
+            var isEqual = true
+            for (i, node) in animatedNodes.enumerated() {
+                isEqual = isEqual && (node == prevAnimatedNodes[i])
+            }
+            
+            if isEqual {
+                return
+            }
         }
         
         // Replacing old zLayers

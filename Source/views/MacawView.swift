@@ -139,6 +139,10 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         
         let animatedNodes = AnimationUtils.animatedNodes(root: node, animationCache: cache)
         
+        defer {
+            prevAnimatedNodes = animatedNodes
+        }
+        
         // No animation case
         if animatedNodes.count == 0 || animatedNodes.count > 20 {
             zLayers.forEach { $0.removeFromSuperlayer() }
@@ -167,7 +171,6 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         // Removing old ones
         zLayers.forEach { $0.removeFromSuperlayer() }
         zLayers.removeAll()
-        prevAnimatedNodes = animatedNodes
         
         // Adding new
         var indexCache = [Node: Int]()

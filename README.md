@@ -70,7 +70,7 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 ## Requirements
 
-* iOS 8.0+ / Mac OS X 10.9+
+* iOS 8.0+
 * Xcode 7.3+
 
 ## Installation

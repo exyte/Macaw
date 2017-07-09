@@ -6,6 +6,7 @@ class ShapeLayer: CAShapeLayer {
 	var renderTransform: CGAffineTransform?
 	var animationCache: AnimationCache?
     var shouldRenderContent = true
+    var isForceRenderingEnabled = true
 
 	override func draw(in ctx: CGContext) {
         if !shouldRenderContent {
@@ -29,7 +30,7 @@ class ShapeLayer: CAShapeLayer {
 		}
 
 		let renderer = RenderUtils.createNodeRenderer(node, context: renderContext, animationCache: animationCache, interval: renderingInterval)
-		renderer.directRender()
+		renderer.directRender(force: isForceRenderingEnabled)
 		renderer.dispose()
 	}
 }

@@ -187,6 +187,7 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             layer.node = node
             layer.animationCache = cache
             layer.renderingInterval = interval
+            layer.isForceRenderingEnabled = false
             layer.zPosition = CGFloat(prevZPos) + 0.5
             layer.contentsScale = 2.0
             

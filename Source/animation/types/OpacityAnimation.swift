@@ -13,7 +13,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 	init(animatedNode: Node, valueFunc: @escaping (Double) -> Double, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 		super.init(observableValue: animatedNode.opacityVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
 		type = .opacity
-		node = animatedNode
+		nodeId = animatedNode.id
 
 		if autostart {
 			self.play()
@@ -23,7 +23,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
     init(animatedNode: Node, factory: @escaping  (() -> ((Double) -> Double)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.opacityVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .opacity
-        node = animatedNode
+        nodeId = animatedNode.id
         
         if autostart {
             self.play()
@@ -38,6 +38,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
             }
         }
 
+        let node = Node.nodeBy(id: nodeId!)
 		let reversedAnimation = OpacityAnimation(animatedNode: node!,
 			factory: factory, animationDuration: duration, fps: logicalFps)
 		reversedAnimation.progress = progress

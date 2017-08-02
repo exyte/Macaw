@@ -88,5 +88,8 @@ class NodesMap {
         if hostingNode == node {
             hostingView?.node = to
         }
+        
+        // Replacing id
+        to.id = node.id
     }
 }

@@ -5,7 +5,7 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
  
         super.init(observableValue: animatedGroup.contentsVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .contents
-        node = animatedGroup
+        nodeId = animatedGroup.id
         
         if autostart {
             self.play()
@@ -15,7 +15,7 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
     init(animatedGroup: Group, factory: @escaping (() -> ((Double) -> [Node])), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedGroup.contentsVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .contents
-        node = animatedGroup
+        nodeId = animatedGroup.id
         
         if autostart {
             self.play()
@@ -31,6 +31,7 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
             }
         }
         
+        let node = Node.nodeBy(id: nodeId!)
         let reversedAnimation = ContentsAnimation(animatedGroup: node as! Group,
                                                  factory: factory, animationDuration: duration, fps: logicalFps)
         reversedAnimation.progress = progress

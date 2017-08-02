@@ -1,4 +1,4 @@
-    //
+//
 //  ShapeAnimationGenerator.swift
 //  Pods
 //
@@ -13,14 +13,13 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         return
     }
     
-    guard let shape = animation.node as? Shape else {
+    guard let nodeId = animation.nodeId, let shape = Node.nodeBy(id: nodeId) as? Shape else {
         return
     }
     
     let mutatingShape = SceneUtils.shapeCopy(from: shape)
     nodesMap.replace(node: shape, to: mutatingShape)
     animationCache?.replace(original: shape, replacement: mutatingShape)
-    animation.node = mutatingShape
 
     let fromShape = shapeAnimation.getVFunc()(0.0)
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
@@ -32,7 +31,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     
     
     // Creating proper animation
-    let generatedAnim = generateShapAnimation(
+    let generatedAnim = generateShapeAnimation(
         from:fromShape,
         to:toShape,
         duration: duration,
@@ -120,7 +119,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     }
 }
 
-fileprivate func generateShapAnimation(from:Shape, to: Shape, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
+fileprivate func generateShapeAnimation(from:Shape, to: Shape, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
     
     let group = CAAnimationGroup()
     

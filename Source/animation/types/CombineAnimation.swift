@@ -11,7 +11,7 @@ internal class CombineAnimation: BasicAnimation {
 		super.init()
 
 		self.type = .combine
-		self.node = node ?? animations.first?.node
+		self.nodeId = nodeId ?? animations.first?.nodeId
 		self.delay = delay
 	}
 

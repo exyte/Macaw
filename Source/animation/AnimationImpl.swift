@@ -22,7 +22,7 @@ enum AnimationType {
 
 class BasicAnimation: Animation {
 
-	var node: Node?
+	var nodeId: String?
 	var type = AnimationType.unknown
 	let ID: String
 	var next: BasicAnimation?

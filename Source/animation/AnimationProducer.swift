@@ -62,7 +62,7 @@ class AnimationProducer {
         
 
         // General case
-		guard let node = animation.node else {
+		guard let nodeId = animation.nodeId, let node = Node.nodeBy(id: nodeId) else {
 			return
 		}
 
@@ -273,7 +273,7 @@ class AnimationProducer {
             return
         }
         
-        guard let node = contentsAnimation.node else {
+        guard let nodeId = animation.nodeId, let node = Node.nodeBy(id: nodeId) else {
             return
         }
         
@@ -336,7 +336,7 @@ class AnimationProducer {
         for (index, animationDesc) in contentsAnimations.reversed().enumerated() {
             
             let animation = animationDesc.animation
-            guard let group = animation.node as? Group else {
+            guard let nodeId = animation.nodeId, let group = Node.nodeBy(id: nodeId) as? Group else {
                 continue
             }
             

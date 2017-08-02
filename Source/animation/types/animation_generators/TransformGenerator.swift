@@ -5,7 +5,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 		return
 	}
 
-	guard let node = animation.node else {
+	guard let nodeId = animation.nodeId, let node = Node.nodeBy(id: nodeId) else {
 		return
 	}
 

@@ -32,7 +32,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
     init(animatedNode: Shape, valueFunc: @escaping (Double) -> Shape, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: AnimatableVariable<Shape>(animatedNode), valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .shape
-        node = animatedNode
+        nodeId = animatedNode.id
         
         if autostart {
             self.play()
@@ -42,7 +42,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
     init(animatedNode: Shape, factory: @escaping (() -> ((Double) -> Shape)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: AnimatableVariable<Shape>(animatedNode), factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .shape
-        node = animatedNode
+        nodeId = animatedNode.id
         
         if autostart {
             self.play()

@@ -1,4 +1,6 @@
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
 	guard let transformAnimation = animation as? TransformAnimation else {

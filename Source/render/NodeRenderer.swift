@@ -1,5 +1,7 @@
 import Foundation
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 struct RenderingInterval {
     let from: Int

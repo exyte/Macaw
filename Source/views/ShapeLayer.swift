@@ -1,4 +1,6 @@
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 class ShapeLayer: CAShapeLayer {
 	var node: Node?

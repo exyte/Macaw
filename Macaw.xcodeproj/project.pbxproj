@@ -132,6 +132,8 @@
 		57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		A72939F61F3C729000D42AE8 /* Platform_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72939F51F3C729000D42AE8 /* Platform_iOS.swift */; };
+		A72939F81F3C74D200D42AE8 /* Platform_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72939F71F3C74D200D42AE8 /* Platform_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -286,6 +288,8 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A72939F51F3C729000D42AE8 /* Platform_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Platform_iOS.swift; path = Source/utils/Platform_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A72939F71F3C74D200D42AE8 /* Platform_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Platform_macOS.swift; path = Source/utils/Platform_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -623,6 +627,8 @@
 			children = (
 				572CEFC31E2CED4B008C7C83 /* Dependencies */,
 				57E5E0E01E3B393900D1CB28 /* Source */,
+				A72939F51F3C729000D42AE8 /* Platform_iOS.swift */,
+				A72939F71F3C74D200D42AE8 /* Platform_macOS.swift */,
 			);
 			path = Macaw;
 			sourceTree = "<group>";
@@ -708,7 +714,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Exyte;
 				TargetAttributes = {
 					57FCD26B1D76EA4600CC0FB6 = {
@@ -834,6 +840,7 @@
 				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
 				57E5E1871E3B393900D1CB28 /* LineJoin.swift in Sources */,
 				57E5E1881E3B393900D1CB28 /* RadialGradient.swift in Sources */,
+				A72939F81F3C74D200D42AE8 /* Platform_macOS.swift in Sources */,
 				57E5E1891E3B393900D1CB28 /* Stop.swift in Sources */,
 				57E5E1A21E3B393900D1CB28 /* Text.swift in Sources */,
 				57E5E1A61E3B393900D1CB28 /* RenderContext.swift in Sources */,
@@ -866,6 +873,7 @@
 				57E5E19A1E3B393900D1CB28 /* Rect.swift in Sources */,
 				57E5E1941E3B393900D1CB28 /* PathBuilder.swift in Sources */,
 				57E5E1761E3B393900D1CB28 /* PinchEvent.swift in Sources */,
+				A72939F61F3C729000D42AE8 /* Platform_iOS.swift in Sources */,
 				57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */,
 				57E5E1A31E3B393900D1CB28 /* GroupRenderer.swift in Sources */,
 				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,
@@ -933,6 +941,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)",
+					"$(inherited)\n",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -948,12 +960,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/../Frameworks @loader_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -985,6 +1000,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)",
+					"$(inherited)\n",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -994,12 +1013,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/../Frameworks @loader_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

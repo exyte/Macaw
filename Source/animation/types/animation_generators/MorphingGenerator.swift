@@ -6,7 +6,9 @@
 //
 //
 
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
     guard let morphingAnimation = animation as? MorphingAnimation else {

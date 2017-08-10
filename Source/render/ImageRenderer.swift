@@ -1,5 +1,7 @@
 import Foundation
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 class ImageRenderer: NodeRenderer {
 	weak var image: Image?

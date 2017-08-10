@@ -1,5 +1,7 @@
 import Foundation
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 ///
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.

@@ -1,12 +1,13 @@
-    //
+//
 //  ShapeAnimationGenerator.swift
 //  Pods
 //
 //  Created by Victor Sukochev on 03/02/2017.
 //
 //
-
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
     guard let shapeAnimation = animation as? ShapeAnimation else {

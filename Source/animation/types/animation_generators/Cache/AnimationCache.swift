@@ -1,5 +1,6 @@
-
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 class AnimationCache {
 

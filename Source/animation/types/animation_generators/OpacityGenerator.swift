@@ -1,5 +1,6 @@
-
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {

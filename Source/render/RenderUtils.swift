@@ -1,5 +1,7 @@
 import Foundation
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 class RenderUtils {
     class func mapColor(_ color: Color) -> CGColor {

@@ -1,4 +1,6 @@
-import UIKit
+#if os(iOS)
+  import UIKit
+#endif
 
 func caTimingFunction(_ easing: Easing) -> CAMediaTimingFunction {
 	switch easing {

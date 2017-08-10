@@ -1,156 +1,157 @@
 import Foundation
+
 #if os(iOS)
   import UIKit
 #endif
 
 struct RenderingInterval {
-    let from: Int
-    let to: Int
+  let from: Int
+  let to: Int
 }
 
 class NodeRenderer {
-    
-    let ctx: RenderContext
-    
-    fileprivate let onNodeChange: ()->()
-    fileprivate let disposables = GroupDisposable()
-    fileprivate var active = false
-    weak var animationCache: AnimationCache?
-    
-    init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
-        self.ctx = ctx
-        self.animationCache = animationCache
-        onNodeChange = { ctx.view?.setNeedsDisplay() }
-        addObservers()
+  
+  let ctx: RenderContext
+  
+  fileprivate let onNodeChange: ()->()
+  fileprivate let disposables = GroupDisposable()
+  fileprivate var active = false
+  weak var animationCache: AnimationCache?
+  
+  init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
+    self.ctx = ctx
+    self.animationCache = animationCache
+    onNodeChange = { ctx.view?.setNeedsDisplay() }
+    addObservers()
+  }
+  
+  func doAddObservers() {
+    guard let node = node() else {
+      return
     }
     
-    func doAddObservers() {
-        guard let node = node() else {
-            return
-        }
-        
-        observe(node.placeVar)
-        observe(node.opaqueVar)
-        observe(node.opacityVar)
-        observe(node.clipVar)
-        observe(node.effectVar)
+    observe(node.placeVar)
+    observe(node.opaqueVar)
+    observe(node.opacityVar)
+    observe(node.clipVar)
+    observe(node.effectVar)
+  }
+  
+  func observe<E>(_ v: Variable<E>) {
+    let disposable = v.onChange { [weak self] _ in
+      self?.onNodeChange()
     }
     
-    func observe<E>(_ v: Variable<E>) {
-        let disposable = v.onChange { [weak self] _ in
-            self?.onNodeChange()
-        }
-        
-        addDisposable(disposable)
+    addDisposable(disposable)
+  }
+  
+  func addDisposable(_ disposable: Disposable) {
+    disposable.addTo(disposables)
+  }
+  
+  open func dispose() {
+    removeObservers()
+  }
+  
+  open func node() -> Node? {
+    fatalError("Unsupported")
+  }
+  
+  final public func render(force: Bool, opacity: Double) {
+    ctx.cgContext!.saveGState()
+    defer {
+      ctx.cgContext!.restoreGState()
     }
     
-    func addDisposable(_ disposable: Disposable) {
-        disposable.addTo(disposables)
+    guard let node = node() else {
+      return
     }
     
-    open func dispose() {
-        removeObservers()
+    ctx.cgContext!.concatenate(RenderUtils.mapTransform(node.place))
+    applyClip()
+    directRender(force: force, opacity: node.opacity * opacity)
+  }
+  
+  final func directRender(force: Bool = true, opacity: Double = 1.0) {
+    guard let node = node() else {
+      return
     }
     
-    open func node() -> Node? {
-        fatalError("Unsupported")
+    if let isAnimating = animationCache?.isAnimating(node), isAnimating {
+      self.removeObservers()
+      if (!force) {
+        return
+      }
+    } else {
+      self.addObservers()
+    }
+    doRender(force, opacity: opacity)
+  }
+  
+  func doRender(_ force: Bool, opacity: Double) {
+    fatalError("Unsupported")
+  }
+  
+  public final func findNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+    guard let node = node() else {
+      return .none
     }
     
-    final public func render(force: Bool, opacity: Double) {
-        ctx.cgContext!.saveGState()
+    if (node.opaque) {
+      let place = node.place
+      if let inverted = place.invert() {
+        ctx.saveGState()
         defer {
-            ctx.cgContext!.restoreGState()
+          ctx.restoreGState()
         }
         
-        guard let node = node() else {
-            return
-        }
-        
-        ctx.cgContext!.concatenate(RenderUtils.mapTransform(node.place))
+        ctx.concatenate(RenderUtils.mapTransform(place))
         applyClip()
-        directRender(force: force, opacity: node.opacity * opacity)
+        let loc = location.applying(RenderUtils.mapTransform(inverted))
+        let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
+        return result
+      }
+    }
+    return nil
+  }
+  
+  public func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+    return nil
+  }
+  
+  private func applyClip() {
+    guard let node = node() else {
+      return
     }
     
-    final func directRender(force: Bool = true, opacity: Double = 1.0) {
-        guard let node = node() else {
-            return
-        }
-        
-        if let isAnimating = animationCache?.isAnimating(node), isAnimating {
-            self.removeObservers()
-            if (!force) {
-                return
-            }
-        } else {
-            self.addObservers()
-        }
-        doRender(force, opacity: opacity)
+    guard let clip = node.clip, let context = ctx.cgContext else {
+      return
     }
     
-    func doRender(_ force: Bool, opacity: Double) {
-        fatalError("Unsupported")
+    UIGraphicsPushContext(context)
+    defer {
+      UIGraphicsPopContext()
     }
     
-    public final func findNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let node = node() else {
-            return .none
-        }
-        
-        if (node.opaque) {
-            let place = node.place
-            if let inverted = place.invert() {
-                ctx.saveGState()
-                defer {
-                     ctx.restoreGState()
-                }
-                
-                ctx.concatenate(RenderUtils.mapTransform(place))
-                applyClip()
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
-                let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
-                return result
-            }
-        }
-        return nil
+    if let rect = clip as? Rect {
+      context.clip(to: CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
+      return
     }
     
-    public func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        return nil
+    RenderUtils.toBezierPath(clip).addClip()
+  }
+  
+  private func addObservers() {
+    if (!active) {
+      active = true
+      doAddObservers()
     }
-    
-    private func applyClip() {
-        guard let node = node() else {
-            return
-        }
-        
-        guard let clip = node.clip, let context = ctx.cgContext else {
-            return
-        }
-        
-        UIGraphicsPushContext(context)
-        defer {
-            UIGraphicsPopContext()
-        }
-        
-        if let rect = clip as? Rect {
-            context.clip(to: CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
-            return
-        }
-        
-        RenderUtils.toBezierPath(clip).addClip()
+  }
+  
+  fileprivate func removeObservers() {
+    if (active) {
+      active = false
+      disposables.dispose()
     }
-    
-    private func addObservers() {
-        if (!active) {
-            active = true
-            doAddObservers()
-        }
-    }
-    
-    fileprivate func removeObservers() {
-        if (active) {
-            active = false
-            disposables.dispose()
-        }
-    }
+  }
 }

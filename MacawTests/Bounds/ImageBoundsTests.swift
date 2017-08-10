@@ -52,12 +52,12 @@ class ImageBoundsTests: XCTestCase {
     
     func testInMemoryImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        guard let uiImage = UIImage(named: "logo.png", in: bundle, compatibleWith: .none) else {
+        guard let mImage = MImage(named: "logo.png", in: bundle, compatibleWith: .none) else {
             XCTFail()
             return
         }
         
-        let image = Image(image: uiImage)
+        let image = Image(image: mImage)
         guard let bounds = image.bounds() else {
             XCTFail("Bounds not available")
             return

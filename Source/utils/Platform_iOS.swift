@@ -16,7 +16,6 @@ import Foundation
   public typealias MEvent = UIEvent
   public typealias MTouch = UITouch
   public typealias MImage = UIImage
-  public typealias MScrollView = UIScrollView
   public typealias MGestureRecognizer = UIGestureRecognizer
   public typealias MGestureRecognizerState = UIGestureRecognizerState
   public typealias MGestureRecognizerDelegate = UIGestureRecognizerDelegate
@@ -107,20 +106,20 @@ import Foundation
       self.mTouchesCancelled(touches, withEvent: event)
     }
     
-    open func mTouchesBegan(_ touches: Set<MTouch>, withEvent event: MEvent?) {
-      super.touchesBegan(touches, with: event!)
+    open func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
+      super.touchesBegan(touches, with: event)
     }
     
-    open func mTouchesMoved(_ touches: Set<MTouch>, withEvent event: MEvent?) {
-      super.touchesMoved(touches, with: event!)
+    open func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
+      super.touchesMoved(touches, with: event)
     }
     
-    open func mTouchesEnded(_ touches: Set<MTouch>, withEvent event: MEvent?) {
-      super.touchesEnded(touches, with: event!)
+    open func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
+      super.touchesEnded(touches, with: event)
     }
     
-    open func mTouchesCancelled(_ touches: Set<MTouch>?, withEvent event: MEvent?) {
-      super.touchesCancelled(touches!, with: event!)
+    open func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
+      super.touchesCancelled(touches, with: event)
     }
   }
   

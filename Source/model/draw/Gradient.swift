@@ -9,5 +9,4 @@ open class Gradient: Fill {
 		self.userSpace = userSpace
 		self.stops = stops
 	}
-
 }

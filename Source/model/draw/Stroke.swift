@@ -15,5 +15,4 @@ open class Stroke {
 		self.join = join
 		self.dashes = dashes
 	}
-
 }

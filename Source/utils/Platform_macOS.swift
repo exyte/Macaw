@@ -17,7 +17,6 @@ import Foundation
   public typealias MEvent = NSEvent
   public typealias MTouch = NSTouch
   public typealias MImage = NSImage
-  public typealias MScrollView = NSScrollView
   public typealias MGestureRecognizer = NSGestureRecognizer
   public typealias MGestureRecognizerState = NSGestureRecognizerState
   public typealias MGestureRecognizerDelegate = NSGestureRecognizerDelegate
@@ -26,6 +25,17 @@ import Foundation
   public typealias MPinchGestureRecognizer = NSMagnificationGestureRecognizer
   public typealias MRotationGestureRecognizer = NSRotationGestureRecognizer
   public typealias MScreen = NSScreen
+  
+  extension MGestureRecognizer {
+    var cancelsTouchesInView: Bool {
+      get {
+        return false
+      } set {
+        
+      }
+    }
+  }
+  
   
   extension MTapGestureRecognizer {
     func mNumberOfTouches() -> Int {
@@ -109,39 +119,43 @@ import Foundation
       return self.layer
     }
     
+    func didMoveToSuperview() {
+      super.viewDidMoveToSuperview()
+    }
+    
     func setNeedsDisplay() {
       self.setNeedsDisplay(self.bounds)
     }
     
     open override func touchesBegan(with event: NSEvent) {
-      self.mTouchesBegan(event.touches(matching: .any, in: self), withEvent: event)
+      self.mTouchesBegan(event.touches(matching: .any, in: self), with: event)
     }
     
     open override func touchesEnded(with event: NSEvent) {
-      self.mTouchesEnded(event.touches(matching: .any, in: self), withEvent: event)
+      self.mTouchesEnded(event.touches(matching: .any, in: self), with: event)
     }
     
     open override func touchesMoved(with event: NSEvent) {
-      self.mTouchesMoved(event.touches(matching: .any, in: self), withEvent: event)
+      self.mTouchesMoved(event.touches(matching: .any, in: self), with: event)
     }
     
     open override func touchesCancelled(with event: NSEvent) {
-      self.mTouchesCancelled(event.touches(matching: .any, in: self), withEvent: event)
+      self.mTouchesCancelled(event.touches(matching: .any, in: self), with: event)
     }
     
-    open func mTouchesBegan(_ touches: Set<MTouch>, withEvent event: MEvent?) {
+    open func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
       super.touchesBegan(with: event!)
     }
     
-    open func mTouchesMoved(_ touches: Set<MTouch>, withEvent event: MEvent?) {
+    open func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
       super.touchesMoved(with: event!)
     }
     
-    open func mTouchesEnded(_ touches: Set<MTouch>, withEvent event: MEvent?) {
+    open func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
       super.touchesEnded(with: event!)
     }
     
-    open func mTouchesCancelled(_ touches: Set<MTouch>?, withEvent event: MEvent?) {
+    open func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
       super.touchesCancelled(with: event!)
     }
   }

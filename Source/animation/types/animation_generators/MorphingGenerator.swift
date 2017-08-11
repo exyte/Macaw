@@ -9,7 +9,10 @@ import Foundation
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
+
 
 func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
   guard let morphingAnimation = animation as? MorphingAnimation else {

@@ -128,9 +128,9 @@ class NodeRenderer {
       return
     }
     
-    UIGraphicsPushContext(context)
+    MGraphicsPushContext(context)
     defer {
-      UIGraphicsPopContext()
+      MGraphicsPopContext()
     }
     
     if let rect = clip as? Rect {

@@ -2,7 +2,10 @@ import Foundation
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
+
 
 let animationProducer = AnimationProducer()
 
@@ -78,18 +81,22 @@ class AnimationProducer {
       return
     }
     
+    guard let layer = macawView.mLayer else {
+      return
+    }
+    
     switch animation.type {
     case .unknown:
       return
     case .affineTransformation:
-      addTransformAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+      addTransformAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
         if let next = animation.next {
           self.addAnimation(next)
         }
       })
       
     case .opacity:
-      addOpacityAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+      addOpacityAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
         if let next = animation.next {
           self.addAnimation(next)
         }
@@ -105,13 +112,13 @@ class AnimationProducer {
         }
       })
     case .morphing:
-      addMorphingAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+      addMorphingAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
         if let next = animation.next {
           self.addAnimation(next)
         }
       })
     case .shape:
-      addShapeAnimation(animation, sceneLayer: macawView.layer, animationCache: cache, completion: {
+      addShapeAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
         if let next = animation.next {
           self.addAnimation(next)
         }
@@ -320,9 +327,9 @@ class AnimationProducer {
     
     contentsAnimations.append(animationDesc)
     
-    if displayLink == .none {
-      displayLink = CADisplayLink(target: self, selector: #selector(updateContentAnimations))
-      displayLink?.frameInterval = 1
+    if displayLink == nil {
+      displayLink = MDisplayLink(target: self, selector: #selector(updateContentAnimations))
+      //displayLink?.frameInterval = 1
       displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
     }
   }

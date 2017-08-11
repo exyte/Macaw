@@ -1,8 +1,9 @@
 import Foundation
-import CoreGraphics
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
 
 class TextRenderer: NodeRenderer {
@@ -73,7 +74,7 @@ class TextRenderer: NodeRenderer {
         return MFont.systemFont(ofSize: CGFloat(textFont.size))
       }
     }
-    return MFont.systemFont(ofSize: MFont.systemFontSize)
+    return MFont.systemFont(ofSize: MFont.mSystemFontSize)
   }
   
   fileprivate func getBounds(_ font: MFont) -> CGRect {
@@ -122,7 +123,13 @@ class TextRenderer: NodeRenderer {
   
   fileprivate func getTextColor(_ fill: Fill) -> MColor {
     if let color = fill as? Color {
-      return MColor(cgColor: RenderUtils.mapColor(color))
+      
+      #if os(iOS)
+        return MColor(cgColor: RenderUtils.mapColor(color))
+      #elseif os(OSX)
+        return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
+      #endif
+    
     }
     return MColor.black
   }

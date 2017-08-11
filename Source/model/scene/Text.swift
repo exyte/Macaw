@@ -2,7 +2,10 @@ import Foundation
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
+
 
 open class Text: Node {
   
@@ -64,7 +67,7 @@ open class Text: Node {
         font = MFont.systemFont(ofSize: CGFloat(f.size))
       }
     } else {
-      font = MFont.systemFont(ofSize: MFont.systemFontSize)
+      font = MFont.systemFont(ofSize: MFont.mSystemFontSize)
     }
     var stringAttributes: [String: AnyObject] = [:]
     stringAttributes[NSFontAttributeName] = font

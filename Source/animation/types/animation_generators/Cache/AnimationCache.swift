@@ -90,7 +90,9 @@ class AnimationCache {
   }
   
   private func calculateAnimationScale(animation: Animation) -> CGFloat {
-    let defaultScale = UIScreen.main.scale
+    guard let defaultScale = MMainScreen()?.mScale else {
+      return 1.0
+    }
     
     guard let transformAnimation = animation as? TransformAnimation else {
       return defaultScale

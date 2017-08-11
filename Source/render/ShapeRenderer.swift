@@ -2,6 +2,8 @@ import Foundation
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
 
 class ShapeRenderer: NodeRenderer {
@@ -83,8 +85,8 @@ class ShapeRenderer: NodeRenderer {
       ctx.addRect(newCGRect(rect))
     } else if let round = locus as? RoundRect {
       let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-      let path = UIBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
-        UIRectCorner.allCorners, cornerRadii: corners).cgPath
+      let path = MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
+        MRectCorner.allCorners, cornerRadii: corners).cgPath
       ctx.addPath(path)
     } else if let circle = locus as? Circle {
       let cx = circle.cx
@@ -102,17 +104,17 @@ class ShapeRenderer: NodeRenderer {
     }
   }
   
-  fileprivate func toBezierPath(_ arc: Arc) -> UIBezierPath {
+  fileprivate func toBezierPath(_ arc: Arc) -> MBezierPath {
     let shift = CGFloat(arc.shift)
     let end = shift + CGFloat(arc.extent)
     let ellipse = arc.ellipse
     let center = CGPoint(x: CGFloat(ellipse.cx), y: CGFloat(ellipse.cy))
-    return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: shift, endAngle: end, clockwise: true)
+    return MBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: shift, endAngle: end, clockwise: true)
   }
   
-  fileprivate func toBezierPath(_ points: [Double]) -> UIBezierPath {
+  fileprivate func toBezierPath(_ points: [Double]) -> MBezierPath {
     let parts = stride(from: 0, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
-    let path = UIBezierPath()
+    let path = MBezierPath()
     var first = true
     for part in parts {
       let point = CGPoint(x: CGFloat(part[0]), y: CGFloat(part[1]))
@@ -126,8 +128,8 @@ class ShapeRenderer: NodeRenderer {
     return path
   }
   
-  fileprivate func toBezierPath(_ path: Path) -> UIBezierPath {
-    let bezierPath = UIBezierPath()
+  fileprivate func toBezierPath(_ path: Path) -> MBezierPath {
+    let bezierPath = MBezierPath()
     
     var currentPoint: CGPoint?
     var cubicPoint: CGPoint?

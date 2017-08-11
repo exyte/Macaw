@@ -11,11 +11,13 @@ import Foundation
 #if os(iOS)
   import UIKit
   
+  public typealias MRectCorner = UIRectCorner
   public typealias MFont = UIFont
   public typealias MColor = UIColor
   public typealias MEvent = UIEvent
   public typealias MTouch = UITouch
   public typealias MImage = UIImage
+  public typealias MBezierPath = UIBezierPath
   public typealias MGestureRecognizer = UIGestureRecognizer
   public typealias MGestureRecognizerState = UIGestureRecognizerState
   public typealias MGestureRecognizerDelegate = UIGestureRecognizerDelegate
@@ -25,6 +27,7 @@ import Foundation
   public typealias MRotationGestureRecognizer = UIRotationGestureRecognizer
   public typealias MScreen = UIScreen
   public typealias MDisplayLink = CADisplayLink
+  public typealias MViewContentMode = UIViewContentMode
   
   extension MTapGestureRecognizer {
     func mNumberOfTouches() -> Int {
@@ -80,6 +83,12 @@ import Foundation
     }
   }
   
+  extension MFont {
+    class var mSystemFontSize: CGFloat {
+      return UIFont.systemFontSize
+    }
+  }
+  
   open class MView: UIView {
     
     var mLayer: CALayer? {
@@ -91,19 +100,19 @@ import Foundation
     }
     
     open override func touchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
-      self.mTouchesBegan(touches, withEvent: event)
+      self.mTouchesBegan(touches, with: event)
     }
     
     open override func touchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
-      self.mTouchesMoved(touches, withEvent: event)
+      self.mTouchesMoved(touches, with: event)
     }
     
     open override func touchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
-      self.mTouchesEnded(touches, withEvent: event)
+      self.mTouchesEnded(touches, with: event)
     }
     
     open override func touchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
-      self.mTouchesCancelled(touches, withEvent: event)
+      self.mTouchesCancelled(touches, with: event)
     }
     
     open func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {

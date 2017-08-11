@@ -2,6 +2,8 @@ import Foundation
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
 
 class RenderUtils {
@@ -122,22 +124,22 @@ class RenderUtils {
     return toBezierPath(locus).reversing().cgPath
   }
   
-  class func toBezierPath(_ locus: Locus) -> UIBezierPath {
+  class func toBezierPath(_ locus: Locus) -> MBezierPath {
     if let round = locus as? RoundRect {
       let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-      return UIBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
-        UIRectCorner.allCorners, cornerRadii: corners)
+      return MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
+        MRectCorner.allCorners, cornerRadii: corners)
     } else if let arc = locus as? Arc {
       if arc.ellipse.rx == arc.ellipse.ry {
         return arcToPath(arc)
       }
     } else if let point = locus as? Point {
-      let path = UIBezierPath()
+      let path = MBezierPath()
       path.move(to: CGPoint(x: CGFloat(point.x), y: CGFloat(point.y)))
       path.addLine(to: CGPoint(x: CGFloat(point.x), y: CGFloat(point.y)))
       return path
     } else if let line = locus as? Line {
-      let path = UIBezierPath()
+      let path = MBezierPath()
       path.move(to: CGPoint(x: CGFloat(line.x1), y: CGFloat(line.y1)))
       path.addLine(to: CGPoint(x: CGFloat(line.x2), y: CGFloat(line.y2)))
       return path
@@ -148,26 +150,26 @@ class RenderUtils {
     } else if let polygon = locus as? Polyline {
       return pointsToPath(polygon.points)
     } else if let rect = locus as? Rect {
-      return UIBezierPath(rect: rect.cgRect())
+      return MBezierPath(rect: rect.cgRect())
     } else if let circle = locus as? Circle {
-      return UIBezierPath(ovalIn: circle.bounds().cgRect())
+      return MBezierPath(ovalIn: circle.bounds().cgRect())
     } else if let path = locus as? Path {
       return toBezierPath(path)
     }
     fatalError("Unsupported locus: \(locus)")
   }
   
-  fileprivate class func arcToPath(_ arc: Arc) -> UIBezierPath {
+  fileprivate class func arcToPath(_ arc: Arc) -> MBezierPath {
     let shift = CGFloat(arc.shift)
     let end = shift + CGFloat(arc.extent)
     let ellipse = arc.ellipse
     let center = CGPoint(x: CGFloat(ellipse.cx), y: CGFloat(ellipse.cy))
-    return UIBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: shift, endAngle: end, clockwise: true)
+    return MBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: shift, endAngle: end, clockwise: true)
   }
   
-  fileprivate class func pointsToPath(_ points: [Double]) -> UIBezierPath {
+  fileprivate class func pointsToPath(_ points: [Double]) -> MBezierPath {
     let parts = stride(from: 0, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
-    let path = UIBezierPath()
+    let path = MBezierPath()
     var first = true
     for part in parts {
       let point = CGPoint(x: CGFloat(part[0]), y: CGFloat(part[1]))
@@ -181,8 +183,8 @@ class RenderUtils {
     return path
   }
   
-  fileprivate class func toBezierPath(_ path: Path) -> UIBezierPath {
-    let bezierPath = UIBezierPath()
+  fileprivate class func toBezierPath(_ path: Path) -> MBezierPath {
+    let bezierPath = MBezierPath()
     
     var currentPoint: CGPoint?
     var cubicPoint: CGPoint?

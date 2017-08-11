@@ -2,6 +2,8 @@ import Foundation
 
 #if os(iOS)
   import UIKit
+#elseif os(OSX)
+  import AppKit
 #endif
 
 open class SVGView: MacawView {
@@ -30,7 +32,7 @@ open class SVGView: MacawView {
     self.init(node: Group(), coder: aDecoder)
   }
   
-  open override var contentMode: UIViewContentMode {
+  open override var contentMode: MViewContentMode {
     didSet {
       render()
     }

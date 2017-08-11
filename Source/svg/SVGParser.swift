@@ -207,7 +207,7 @@ open class SVGParser {
     return .none
   }
   
-  fileprivate func getPosition(_ element: XMLElement) -> Transform {
+  fileprivate func getPosition(_ element: SWXMLHash.XMLElement) -> Transform {
     guard let transformAttribute = element.allAttributes["transform"]?.text else {
       return Transform()
     }
@@ -301,7 +301,7 @@ open class SVGParser {
     return updatedValues
   }
   
-  fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: XMLElement) -> [String: String] {
+  fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
     var styleAttributes: [String: String] = groupAttributes
     if let style = element.allAttributes["style"]?.text {
       
@@ -456,7 +456,7 @@ open class SVGParser {
     return dashes
   }
   
-  fileprivate func getTag(_ element: XMLElement) -> [String] {
+  fileprivate func getTag(_ element: SWXMLHash.XMLElement) -> [String] {
     let id = element.allAttributes["id"]?.text
     return id != nil ? [id!] : []
   }
@@ -595,7 +595,7 @@ open class SVGParser {
     return .none
   }
   
-  fileprivate func parseSimpleText(_ text: XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, pos: Transform = Transform()) -> Text? {
+  fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, pos: Transform = Transform()) -> Text? {
     guard let string = text.text else {
       return .none
     }
@@ -676,7 +676,7 @@ open class SVGParser {
       size: getFontSize(attributes) ?? fontSize ?? 12)
   }
   
-  fileprivate func getTspanPosition(_ element: XMLElement, bounds: Rect, withWhitespace: inout Bool) -> Transform {
+  fileprivate func getTspanPosition(_ element: SWXMLHash.XMLElement, bounds: Rect, withWhitespace: inout Bool) -> Transform {
     var xPos: Double
     var yPos: Double
     
@@ -1158,14 +1158,14 @@ open class SVGParser {
     }
   }
   
-  fileprivate func getDoubleValue(_ element: XMLElement, attribute: String) -> Double? {
+  fileprivate func getDoubleValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
     guard let attributeValue = element.allAttributes[attribute]?.text, let doubleValue = Double(attributeValue) else {
       return .none
     }
     return doubleValue
   }
   
-  fileprivate func getDoubleValueFromPercentage(_ element: XMLElement, attribute: String) -> Double? {
+  fileprivate func getDoubleValueFromPercentage(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
     guard let attributeValue = element.allAttributes[attribute]?.text else {
       return .none
     }
@@ -1180,7 +1180,7 @@ open class SVGParser {
     return .none
   }
   
-  fileprivate func getIntValue(_ element: XMLElement, attribute: String) -> Int? {
+  fileprivate func getIntValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Int? {
     guard let attributeValue = element.allAttributes[attribute]?.text, let intValue = Int(attributeValue) else {
       return .none
     }

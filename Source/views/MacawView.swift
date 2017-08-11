@@ -69,8 +69,8 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   internal var animationCache: AnimationCache?
   
   public init?(node: Node, coder aDecoder: NSCoder) {
-    
     super.init(coder: aDecoder)
+    
     initializeView()
     
     self.node = node
@@ -99,6 +99,20 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   public convenience required init?(coder aDecoder: NSCoder) {
     self.init(node: Group(), coder: aDecoder)
   }
+  
+  #if os(OSX)
+  open override func updateLayer() {
+    super.updateLayer()
+    
+    initializeView()
+  }
+  
+  open override func prepareForInterfaceBuilder() {
+    super.prepareForInterfaceBuilder()
+    
+    initializeView()
+  }
+  #endif
   
   fileprivate func initializeView() {
     self.context = RenderContext(view: self)

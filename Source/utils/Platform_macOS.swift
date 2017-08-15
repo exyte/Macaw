@@ -112,6 +112,19 @@ import Foundation
   }
   
   open class MView: NSView {
+    
+    public override init(frame frameRect: NSRect) {
+      super.init(frame: frameRect)
+      
+      self.wantsLayer = true
+    }
+    
+    public required init?(coder: NSCoder) {
+      super.init(coder: coder)
+      
+      self.wantsLayer = true
+    }
+    
     open override var isFlipped: Bool {
       return true
     }
@@ -126,7 +139,6 @@ import Foundation
       }
       
       set {
-        self.wantsLayer = true
         self.layer?.backgroundColor = newValue == nil ? nil : newValue!.cgColor
       }
     }
@@ -416,79 +428,62 @@ import Foundation
     public convenience init(roundedRect rect: NSRect, byRoundingCorners corners: MRectCorner, cornerRadii: NSSize) {
       self.init()
       
+      let kappa: CGFloat = 0.552228474
+      let opKappa = 1 - kappa
+      
       let topLeft = rect.origin
       let topRight = NSPoint(x: rect.maxX, y: rect.minY);
       let bottomRight = NSPoint(x: rect.maxX, y: rect.maxY);
       let bottomLeft = NSPoint(x: rect.minX, y: rect.maxY);
       
       if corners.contains(.topLeft) {
-        move(to: CGPoint(
-          x: topLeft.x + cornerRadii.width,
-          y: topLeft.y))
+        move(to: CGPoint(x: topLeft.x + cornerRadii.width, y: topLeft.y))
+        
       } else {
         move(to: topLeft)
       }
       
       if corners.contains(.topRight) {
-        line(to: CGPoint(
-          x: topRight.x - cornerRadii.width,
-          y: topRight.y))
-        curve(
-          to: topRight,
-          controlPoint1: CGPoint(
-            x: topRight.x,
-            y: topRight.y + cornerRadii.height),
-          controlPoint2: CGPoint(
-            x: topRight.x,
-            y: topRight.y + cornerRadii.height))
+        line(to: CGPoint(x: topRight.x - cornerRadii.width, y: topRight.y))
+      
+        curve(to: CGPoint(x: topRight.x, y: topRight.y + cornerRadii.height),
+              controlPoint1: CGPoint(x: topRight.x - cornerRadii.width * opKappa, y: topRight.y),
+              controlPoint2: CGPoint(x: topRight.x, y: topRight.y + cornerRadii.height * opKappa))
+        
+        
       } else {
         line(to: topRight)
       }
       
       if corners.contains(.bottomRight) {
-        line(to: CGPoint(
-          x: bottomRight.x,
-          y: bottomRight.y - cornerRadii.height))
-        curve(
-          to: bottomRight,
-          controlPoint1: CGPoint(
-            x: bottomRight.x - cornerRadii.width,
-            y: bottomRight.y),
-          controlPoint2: CGPoint(
-            x: bottomRight.x - cornerRadii.width,
-            y: bottomRight.y))
+        line(to: CGPoint(x: bottomRight.x, y: bottomRight.y - cornerRadii.height))
+        
+        curve(to: CGPoint(x: bottomRight.x - cornerRadii.width, y: bottomRight.y),
+              controlPoint1: CGPoint(x: bottomRight.x, y: bottomRight.y - cornerRadii.height * opKappa),
+              controlPoint2: CGPoint(x: bottomRight.x - cornerRadii.width * opKappa, y: bottomRight.y))
+        
       } else {
         line(to: bottomRight)
       }
       
       if corners.contains(.bottomLeft) {
-        line(to: CGPoint(
-          x: bottomLeft.x + cornerRadii.width,
-          y: bottomLeft.y))
-        curve(
-          to: bottomLeft,
-          controlPoint1: CGPoint(
-            x: bottomLeft.x,
-            y: bottomLeft.y - cornerRadii.height),
-          controlPoint2: CGPoint(
-            x: bottomLeft.x,
-            y: bottomLeft.y - cornerRadii.height))
+        line(to: CGPoint(x: bottomLeft.x + cornerRadii.width, y: bottomLeft.y))
+        
+        curve(to: CGPoint(x: bottomLeft.x, y: bottomLeft.y - cornerRadii.height),
+              controlPoint1: CGPoint(x: bottomLeft.x + cornerRadii.width * opKappa, y: bottomLeft.y),
+              controlPoint2: CGPoint(x: bottomLeft.x, y: bottomLeft.y - cornerRadii.height * opKappa))
+        
       } else {
         line(to: bottomLeft)
       }
       
       if corners.contains(.topLeft) {
-        line(to: CGPoint(
-          x: topLeft.x,
-          y: topLeft.y + cornerRadii.height))
-        curve(
-          to: topLeft,
-          controlPoint1: CGPoint(
-            x: topLeft.x + cornerRadii.width,
-            y: topLeft.y),
-          controlPoint2: CGPoint(
-            x: topLeft.x + cornerRadii.width,
-            y: topLeft.y))
+        line(to: CGPoint(x: topLeft.x, y: topLeft.y + cornerRadii.height))
+        
+        curve(to: CGPoint(x: topLeft.x + cornerRadii.width, y: topLeft.y),
+              controlPoint1: CGPoint(x: topLeft.x, y: topLeft.y + cornerRadii.height * opKappa),
+              controlPoint2: CGPoint(x: topLeft.x + cornerRadii.width * opKappa, y: topLeft.y))
+        
       } else {
         line(to: topLeft)
       }

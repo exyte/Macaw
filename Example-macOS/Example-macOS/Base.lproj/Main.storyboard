@@ -658,7 +658,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Example_macOS" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="58" y="-207"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -686,22 +686,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="YcN-xy-Wad" customClass="SVGView" customModule="Macaw">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="05R-gU-uKp" customClass="ShapesExampleView" customModule="Example_macOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="tiger"/>
-                                </userDefinedRuntimeAttributes>
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="YcN-xy-Wad" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="CbQ-P7-CcT"/>
-                            <constraint firstAttribute="trailing" secondItem="YcN-xy-Wad" secondAttribute="trailing" id="Fvg-ou-jXz"/>
-                            <constraint firstItem="YcN-xy-Wad" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="TwW-QB-xiV"/>
-                            <constraint firstAttribute="bottom" secondItem="YcN-xy-Wad" secondAttribute="bottom" id="cSa-WP-uaE"/>
+                            <constraint firstAttribute="bottom" secondItem="05R-gU-uKp" secondAttribute="bottom" id="3ff-8i-gMj"/>
+                            <constraint firstAttribute="trailing" secondItem="05R-gU-uKp" secondAttribute="trailing" id="GGY-rK-xao"/>
+                            <constraint firstItem="05R-gU-uKp" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Yxg-Lv-nJ1"/>
+                            <constraint firstItem="05R-gU-uKp" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="dVI-sb-Nhb"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="svgView" destination="YcN-xy-Wad" id="SzW-iC-Kic"/>
+                        <outlet property="mainView" destination="05R-gU-uKp" id="IHx-rY-SpS"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

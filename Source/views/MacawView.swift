@@ -68,6 +68,21 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   
   internal var animationCache: AnimationCache?
   
+  #if os(OSX)
+  open override var layer: CALayer? {
+    didSet {
+      guard self.layer != nil else {
+        return
+      }
+      initializeView()
+      
+      if let cache = self.animationCache {
+        self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+      }
+    }
+  }
+  #endif
+  
   public init?(node: Node, coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
@@ -99,20 +114,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   public convenience required init?(coder aDecoder: NSCoder) {
     self.init(node: Group(), coder: aDecoder)
   }
-  
-  #if os(OSX)
-  open override func updateLayer() {
-    super.updateLayer()
-    
-    initializeView()
-  }
-  
-  open override func prepareForInterfaceBuilder() {
-    super.prepareForInterfaceBuilder()
-    
-    initializeView()
-  }
-  #endif
   
   fileprivate func initializeView() {
     self.context = RenderContext(view: self)
@@ -252,7 +253,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     
     for touch in touches {
       let location = touch.location(in: self)
-      
+      NSLog("\(location)")
       var foundNode: Node? = .none
       localContext { ctx in
         foundNode = renderer.findNodeAt(location: location, ctx: ctx)
@@ -280,7 +281,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
           touchesMap[touch]?.append(currentNode)
           touchesOfNode[currentNode]?.append(touch)
           parent!.handleTouchPressed(touchEvent)
-          
           
           parent = nodesMap.parents(parent!).first
         }
@@ -359,9 +359,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   // MARK: - Tap
   
   func handleTap(recognizer: MTapGestureRecognizer) {
+    #if os(iOS)
     if !self.node.shouldCheckForTap() {
       return
     }
+    #endif
     
     guard let renderer = renderer else {
       return

@@ -285,6 +285,27 @@ open class SVGParser {
         }
     }
     
+    fileprivate func handleRGBNotation(colorString: String) -> Color {
+        let from = colorString.characters.index(colorString.startIndex, offsetBy: 4)
+        let inPercentage = colorString.characters.contains("%")
+        let sp = colorString.substring(from: from)
+            .replacingOccurrences(of: "%", with: "")
+            .replacingOccurrences(of: ")", with: "")
+            .replacingOccurrences(of: " ", with: "")
+        let x = sp.components(separatedBy: ",")
+        var red = Double(x[0])!
+        var green = Double(x[1])!
+        var blue = Double(x[2])!
+        if inPercentage {
+            red *= 2.55
+            green *= 2.55
+            blue *= 2.55
+        }
+        return Color.rgb(r: Int(red.rounded(.up)),
+                         g: Int(green.rounded(.up)),
+                         b: Int(blue.rounded(.up)))
+    }
+
     fileprivate func parseTransformValues(_ values: String, collectedValues: [String] = []) -> [String] {
         guard let matcher = SVGParserRegexHelper.getTransformMatcher() else {
             return collectedValues
@@ -352,7 +373,9 @@ open class SVGParser {
         if let defaultColor = SVGConstants.colorList[fillColor] {
             return Color(val: defaultColor)
         }
-        if fillColor.hasPrefix("url") {
+        if fillColor.hasPrefix("rgb") {
+            return handleRGBNotation(colorString: fillColor)
+        } else if fillColor.hasPrefix("url") {
             let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
             let id = fillColor.substring(from: index)
                 .replacingOccurrences(of: "(", with: "")
@@ -376,7 +399,9 @@ open class SVGParser {
             opacity = Double(strokeOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
         var fill: Fill?
-        if strokeColor.hasPrefix("url") {
+        if strokeColor.hasPrefix("rgb") {
+            fill = handleRGBNotation(colorString: strokeColor)
+        } else if strokeColor.hasPrefix("url") {
             let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)
             let id = strokeColor.substring(from: index)
                 .replacingOccurrences(of: "(", with: "")

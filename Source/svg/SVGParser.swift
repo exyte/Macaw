@@ -299,14 +299,10 @@ open class SVGParser {
         var green = 0.0
         var blue = 0.0
         if (x.count == 3) {
-            if let r = Double(x[0]) {
+            if let r = Double(x[0]), let g = Double(x[1]), let b = Double(x[2]) {
+                blue = b
+                green = g
                 red = r
-                if let g = Double(x[1]) {
-                    green = g
-                    if let b = Double(x[2]) {
-                        blue = b
-                    }
-                }
             }
         }
         if inPercentage {

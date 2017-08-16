@@ -149,6 +149,10 @@ import Foundation
     
     var contentMode: MViewContentMode = .scaleToFill
     
+    func removeGestureRecognizers() {
+      self.gestureRecognizers.removeAll()
+    }
+    
     func didMoveToSuperview() {
       super.viewDidMoveToSuperview()
     }

@@ -94,9 +94,13 @@ import Foundation
     var mLayer: CALayer? {
       return self.layer
     }
-    
+  
     var mGestureRecognizers: [MGestureRecognizer]? {
       return self.gestureRecognizers
+    }
+    
+    func removeGestureRecognizers() {
+      self.gestureRecognizers?.removeAll()
     }
     
     open override func touchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {

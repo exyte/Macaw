@@ -8,34 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		970AB811D179560D74930D39 /* Pods_Example_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */; };
+		A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72862CA1F4308A50033893D /* AnimationsViewController.swift */; };
+		A72862CE1F430DF00033893D /* EasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72862CC1F430DF00033893D /* EasingViewController.swift */; };
 		A753C9E81F3DB18A006615A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A753C9E71F3DB18A006615A4 /* AppDelegate.swift */; };
 		A753C9EA1F3DB18A006615A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A753C9E91F3DB18A006615A4 /* ViewController.swift */; };
 		A753C9EC1F3DB18A006615A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A753C9EB1F3DB18A006615A4 /* Assets.xcassets */; };
 		A753C9EF1F3DB18A006615A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A753C9ED1F3DB18A006615A4 /* Main.storyboard */; };
-		A753C9F71F3DB615006615A4 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = A753C9F61F3DB615006615A4 /* tiger.svg */; };
 		A75939A21F41C54E000CE329 /* ShapesExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75939A11F41C54E000CE329 /* ShapesExampleView.swift */; };
 		A75939A51F41C571000CE329 /* MorphingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75939A41F41C571000CE329 /* MorphingView.swift */; };
 		A75939A81F41C5A8000CE329 /* TransformExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75939A71F41C5A8000CE329 /* TransformExampleView.swift */; };
 		A768EAD81F42C98E00F22A17 /* EventsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EAD71F42C98E00F22A17 /* EventsExampleController.swift */; };
 		A768EADC1F42CC7C00F22A17 /* EasingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EADB1F42CC7C00F22A17 /* EasingView.swift */; };
 		A768EADE1F42CCBC00F22A17 /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EADD1F42CCBC00F22A17 /* AnimationsView.swift */; };
+		A768EAE21F42EDAE00F22A17 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = A768EAE11F42EDAE00F22A17 /* tiger.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A72862CA1F4308A50033893D /* AnimationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimationsViewController.swift; path = Examples/Animations/AnimationsViewController.swift; sourceTree = "<group>"; };
+		A72862CC1F430DF00033893D /* EasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingViewController.swift; path = Examples/Easing/EasingViewController.swift; sourceTree = "<group>"; };
 		A753C9E41F3DB18A006615A4 /* Example-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A753C9E71F3DB18A006615A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A753C9E91F3DB18A006615A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A753C9EB1F3DB18A006615A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A753C9EE1F3DB18A006615A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A753C9F01F3DB18A006615A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A753C9F61F3DB615006615A4 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
 		A75939A11F41C54E000CE329 /* ShapesExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapesExampleView.swift; path = Examples/Shapes/ShapesExampleView.swift; sourceTree = "<group>"; };
 		A75939A41F41C571000CE329 /* MorphingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MorphingView.swift; path = Examples/Morphing/MorphingView.swift; sourceTree = "<group>"; };
 		A75939A71F41C5A8000CE329 /* TransformExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransformExampleView.swift; path = Examples/Transform/TransformExampleView.swift; sourceTree = "<group>"; };
 		A768EAD71F42C98E00F22A17 /* EventsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsExampleController.swift; path = Examples/Events/EventsExampleController.swift; sourceTree = "<group>"; };
 		A768EADB1F42CC7C00F22A17 /* EasingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingView.swift; path = Examples/Easing/EasingView.swift; sourceTree = "<group>"; };
 		A768EADD1F42CCBC00F22A17 /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimationsView.swift; path = Examples/Animations/AnimationsView.swift; sourceTree = "<group>"; };
+		A768EAE11F42EDAE00F22A17 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = "Example-macOS/Assets/SVG/tiger.svg"; sourceTree = "<group>"; };
 		B752613023F25BBB88A17503 /* Pods-Example-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example-macOS/Pods-Example-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BEA3A0212E620A41C8362253 /* Pods-Example-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example-macOS/Pods-Example-macOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +76,7 @@
 		A753C9DB1F3DB18A006615A4 = {
 			isa = PBXGroup;
 			children = (
+				A768EADF1F42ED9700F22A17 /* Assets */,
 				A753C9E61F3DB18A006615A4 /* Example-macOS */,
 				A753C9E51F3DB18A006615A4 /* Products */,
 				4F8946156C3F28DC7B262776 /* Pods */,
@@ -93,10 +98,9 @@
 				A759399F1F41C51A000CE329 /* Examples */,
 				A753C9E71F3DB18A006615A4 /* AppDelegate.swift */,
 				A753C9E91F3DB18A006615A4 /* ViewController.swift */,
-				A753C9EB1F3DB18A006615A4 /* Assets.xcassets */,
 				A753C9ED1F3DB18A006615A4 /* Main.storyboard */,
+				A753C9EB1F3DB18A006615A4 /* Assets.xcassets */,
 				A753C9F01F3DB18A006615A4 /* Info.plist */,
-				A753C9F61F3DB615006615A4 /* tiger.svg */,
 			);
 			path = "Example-macOS";
 			sourceTree = "<group>";
@@ -107,7 +111,6 @@
 				A75939A01F41C544000CE329 /* Shapes */,
 				A75939A61F41C58D000CE329 /* Transform */,
 				A768EADA1F42CBF600F22A17 /* Animations */,
-				A768EAD91F42CBDC00F22A17 /* SVG */,
 				A75939A91F41CE45000CE329 /* Easing */,
 				A75939A31F41C566000CE329 /* Morphing */,
 				A768EAD61F42C97900F22A17 /* Events */,
@@ -143,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				A768EADB1F42CC7C00F22A17 /* EasingView.swift */,
+				A72862CC1F430DF00033893D /* EasingViewController.swift */,
 			);
 			name = Easing;
 			sourceTree = "<group>";
@@ -155,19 +159,29 @@
 			name = Events;
 			sourceTree = "<group>";
 		};
-		A768EAD91F42CBDC00F22A17 /* SVG */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = SVG;
-			sourceTree = "<group>";
-		};
 		A768EADA1F42CBF600F22A17 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
 				A768EADD1F42CCBC00F22A17 /* AnimationsView.swift */,
+				A72862CA1F4308A50033893D /* AnimationsViewController.swift */,
 			);
 			name = Animations;
+			sourceTree = "<group>";
+		};
+		A768EADF1F42ED9700F22A17 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A768EAE01F42EDA300F22A17 /* SVG */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		A768EAE01F42EDA300F22A17 /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				A768EAE11F42EDAE00F22A17 /* tiger.svg */,
+			);
+			name = SVG;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +247,7 @@
 			files = (
 				A753C9EC1F3DB18A006615A4 /* Assets.xcassets in Resources */,
 				A753C9EF1F3DB18A006615A4 /* Main.storyboard in Resources */,
-				A753C9F71F3DB615006615A4 /* tiger.svg in Resources */,
+				A768EAE21F42EDAE00F22A17 /* tiger.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +311,8 @@
 				A75939A21F41C54E000CE329 /* ShapesExampleView.swift in Sources */,
 				A753C9E81F3DB18A006615A4 /* AppDelegate.swift in Sources */,
 				A768EAD81F42C98E00F22A17 /* EventsExampleController.swift in Sources */,
+				A72862CE1F430DF00033893D /* EasingViewController.swift in Sources */,
+				A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */,
 				A768EADE1F42CCBC00F22A17 /* AnimationsView.swift in Sources */,
 				A75939A81F41C5A8000CE329 /* TransformExampleView.swift in Sources */,
 				A768EADC1F42CC7C00F22A17 /* EasingView.swift in Sources */,

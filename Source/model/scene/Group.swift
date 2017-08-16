@@ -53,7 +53,6 @@ open class Group: Node {
   }
   
   override public func nodesBy(tag: String) -> [Node] {
-    
     var result = [Node]()
     contents.forEach { child in
       result.append(contentsOf: child.nodesBy(tag: tag))

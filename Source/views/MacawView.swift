@@ -139,6 +139,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     rotationRecognizer.cancelsTouchesInView = false
     pinchRecognizer.cancelsTouchesInView = false
     
+    self.removeGestureRecognizers()
     self.addGestureRecognizer(tapRecognizer)
     self.addGestureRecognizer(panRecognizer)
     self.addGestureRecognizer(rotationRecognizer)
@@ -289,7 +290,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   }
   
   open override func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
-    
     if !self.node.shouldCheckForMoved() {
       return
     }
@@ -327,7 +327,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   }
   
   private func touchesEnded(touches: Set<MTouch>, event: MEvent?) {
-    
     guard let _ = renderer else {
       return
     }
@@ -359,11 +358,9 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   // MARK: - Tap
   
   func handleTap(recognizer: MTapGestureRecognizer) {
-    #if os(iOS)
     if !self.node.shouldCheckForTap() {
       return
     }
-    #endif
     
     guard let renderer = renderer else {
       return
@@ -409,7 +406,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     
     if recognizer.state == .began {
       let location = recognizer.location(in: self)
-      
       
       localContext { ctx in
         guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
@@ -560,5 +556,4 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
     return true
   }
-  
 }

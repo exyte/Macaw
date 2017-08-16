@@ -285,7 +285,9 @@ open class SVGParser {
         }
     }
     
-    fileprivate func handleRGBNotation(colorString: String) -> Color {
+    /// Parse an RGB
+    /// - returns: Color for the corresponding SVG color string in RGB notation.
+    fileprivate func parseRGBNotation(colorString: String) -> Color {
         let from = colorString.characters.index(colorString.startIndex, offsetBy: 4)
         let inPercentage = colorString.characters.contains("%")
         let sp = colorString.substring(from: from)
@@ -293,9 +295,20 @@ open class SVGParser {
             .replacingOccurrences(of: ")", with: "")
             .replacingOccurrences(of: " ", with: "")
         let x = sp.components(separatedBy: ",")
-        var red = Double(x[0])!
-        var green = Double(x[1])!
-        var blue = Double(x[2])!
+        var red = 0.0
+        var green = 0.0
+        var blue = 0.0
+        if (x.count == 3) {
+            if let r = Double(x[0]) {
+                red = r
+                if let g = Double(x[1]) {
+                    green = g
+                    if let b = Double(x[2]) {
+                        blue = b
+                    }
+                }
+            }
+        }
         if inPercentage {
             red *= 2.55
             green *= 2.55
@@ -374,7 +387,7 @@ open class SVGParser {
             return Color(val: defaultColor)
         }
         if fillColor.hasPrefix("rgb") {
-            return handleRGBNotation(colorString: fillColor)
+            return parseRGBNotation(colorString: fillColor)
         } else if fillColor.hasPrefix("url") {
             let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
             let id = fillColor.substring(from: index)
@@ -400,7 +413,7 @@ open class SVGParser {
         }
         var fill: Fill?
         if strokeColor.hasPrefix("rgb") {
-            fill = handleRGBNotation(colorString: strokeColor)
+            fill = parseRGBNotation(colorString: strokeColor)
         } else if strokeColor.hasPrefix("url") {
             let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)
             let id = strokeColor.substring(from: index)

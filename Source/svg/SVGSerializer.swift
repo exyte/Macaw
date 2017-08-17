@@ -65,7 +65,7 @@ open class SVGSerializer {
     fileprivate let indentPrefixSymbol = " "
     
     
-    fileprivate func indentTextWithOffset(text: String, offset: Int) -> String {
+    fileprivate func indentTextWithOffset(_ text: String, _ offset: Int) -> String {
         if self.indent != 0 {
             let prefix = String(repeating: indentPrefixSymbol, count:self.indent)
             return "\n\(String(repeating: prefix, count:offset))\(text)"
@@ -201,14 +201,14 @@ open class SVGSerializer {
     
     fileprivate func serialize(node: Node, offset: Int) -> String {
         if let shape = node as? Shape {
-            return indentTextWithOffset(text: macawShapeToSvgShape(macawShape: shape), offset: offset)
+            return indentTextWithOffset(macawShapeToSvgShape(macawShape: shape), offset)
         }
         if let group = node as? Group {
-            var result = indentTextWithOffset(text: SVGGroupOpenTag, offset: offset)
+            var result = indentTextWithOffset(SVGGroupOpenTag, offset)
             for child in group.contentsVar.value {
                 result += serialize(node: child, offset: offset + 1)
             }
-            result += indentTextWithOffset(text: SVGGroupCloseTag, offset: offset)
+            result += indentTextWithOffset(SVGGroupCloseTag, offset)
             return result
         }
         return SVGUndefinedTag
@@ -217,7 +217,7 @@ open class SVGSerializer {
     fileprivate func serialize(node:Node) -> String {
         var result = [SVGDefaultHeader, "id=\"\(self.id)\"", "width=\"\(self.width)\"", "height=\"\(self.height)\"", SVGGenericEndTag].joined(separator: " ")
         result += serialize(node: node, offset: 1)
-        result += indentTextWithOffset(text: SVGFooter, offset: 0)
+        result += indentTextWithOffset(SVGFooter, 0)
         return result
     }
     

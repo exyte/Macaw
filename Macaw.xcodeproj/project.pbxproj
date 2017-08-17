@@ -132,8 +132,14 @@
 		57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
-		A72939F61F3C729000D42AE8 /* Platform_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72939F51F3C729000D42AE8 /* Platform_iOS.swift */; };
-		A72939F81F3C74D200D42AE8 /* Platform_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72939F71F3C74D200D42AE8 /* Platform_macOS.swift */; };
+		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
+		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
+		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
+		A718CD4D1F45C28F00966E06 /* Common_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD491F45C28F00966E06 /* Common_macOS.swift */; };
+		A718CD4E1F45C28F00966E06 /* Graphics_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */; };
+		A718CD4F1F45C28F00966E06 /* MDisplayLink_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */; };
+		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
+		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -288,8 +294,14 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A72939F51F3C729000D42AE8 /* Platform_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Platform_iOS.swift; path = Source/utils/Platform_iOS.swift; sourceTree = SOURCE_ROOT; };
-		A72939F71F3C74D200D42AE8 /* Platform_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Platform_macOS.swift; path = Source/utils/Platform_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD491F45C28F00966E06 /* Common_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_macOS.swift; path = Source/platform/macOS/Common_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_macOS.swift; path = Source/platform/macOS/Graphics_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MDisplayLink_macOS.swift; path = Source/platform/macOS/MDisplayLink_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -625,10 +637,9 @@
 		57FCD26E1D76EA4600CC0FB6 /* Macaw */ = {
 			isa = PBXGroup;
 			children = (
+				A718CD2C1F45BC5300966E06 /* Platform */,
 				572CEFC31E2CED4B008C7C83 /* Dependencies */,
 				57E5E0E01E3B393900D1CB28 /* Source */,
-				A72939F51F3C729000D42AE8 /* Platform_iOS.swift */,
-				A72939F71F3C74D200D42AE8 /* Platform_macOS.swift */,
 			);
 			path = Macaw;
 			sourceTree = "<group>";
@@ -644,6 +655,37 @@
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
+			sourceTree = "<group>";
+		};
+		A718CD2C1F45BC5300966E06 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				A718CD361F45BD0B00966E06 /* iOS */,
+				A718CD351F45BCF800966E06 /* macOS */,
+			);
+			name = Platform;
+			sourceTree = "<group>";
+		};
+		A718CD351F45BCF800966E06 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				A718CD491F45C28F00966E06 /* Common_macOS.swift */,
+				A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */,
+				A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */,
+				A718CD4C1F45C28F00966E06 /* MView_macOS.swift */,
+				A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */,
+			);
+			name = macOS;
+			sourceTree = "<group>";
+		};
+		A718CD361F45BD0B00966E06 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				A718CD431F45C28200966E06 /* Common_iOS.swift */,
+				A718CD451F45C28700966E06 /* Graphics_iOS.swift */,
+				A718CD461F45C28700966E06 /* MView_iOS.swift */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		A7E675541EC4211E00BD9ECB /* Bounds */ = {
@@ -792,14 +834,17 @@
 				57E5E1B31E3B393900D1CB28 /* NodesMap.swift in Sources */,
 				57E5E1A71E3B393900D1CB28 /* RenderUtils.swift in Sources */,
 				57E5E1601E3B393900D1CB28 /* FuncBounds.swift in Sources */,
+				A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */,
 				57E5E15B1E3B393900D1CB28 /* DoubleInterpolation.swift in Sources */,
 				57E5E1961E3B393900D1CB28 /* PathSegmentType.swift in Sources */,
 				57E5E1531E3B393900D1CB28 /* AnimatableVariable.swift in Sources */,
 				57E5E1691E3B393900D1CB28 /* TimingFunction.swift in Sources */,
 				57E5E1631E3B393900D1CB28 /* AnimationCache.swift in Sources */,
 				57E5E19D1E3B393900D1CB28 /* Transform.swift in Sources */,
+				A718CD4E1F45C28F00966E06 /* Graphics_macOS.swift in Sources */,
 				57E5E1A81E3B393900D1CB28 /* ShapeRenderer.swift in Sources */,
 				57E5E1851E3B393900D1CB28 /* LinearGradient.swift in Sources */,
+				A718CD4F1F45C28F00966E06 /* MDisplayLink_macOS.swift in Sources */,
 				57E5E1721E3B393900D1CB28 /* GroupDisposable.swift in Sources */,
 				57E5E18A1E3B393900D1CB28 /* Stroke.swift in Sources */,
 				57E5E1781E3B393900D1CB28 /* TapEvent.swift in Sources */,
@@ -840,9 +885,9 @@
 				57E5E1561E3B393900D1CB28 /* AnimationProducer.swift in Sources */,
 				57E5E1811E3B393900D1CB28 /* Fill.swift in Sources */,
 				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
+				A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */,
 				57E5E1871E3B393900D1CB28 /* LineJoin.swift in Sources */,
 				57E5E1881E3B393900D1CB28 /* RadialGradient.swift in Sources */,
-				A72939F81F3C74D200D42AE8 /* Platform_macOS.swift in Sources */,
 				57E5E1891E3B393900D1CB28 /* Stop.swift in Sources */,
 				57E5E1A21E3B393900D1CB28 /* Text.swift in Sources */,
 				57E5E1A61E3B393900D1CB28 /* RenderContext.swift in Sources */,
@@ -850,6 +895,8 @@
 				57E5E1991E3B393900D1CB28 /* Polyline.swift in Sources */,
 				57E5E16D1E3B393900D1CB28 /* ContentsAnimation.swift in Sources */,
 				5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */,
+				A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */,
+				A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */,
 				57E5E1581E3B393900D1CB28 /* Easing.swift in Sources */,
 				57E5E1971E3B393900D1CB28 /* Point.swift in Sources */,
 				57E5E1681E3B393900D1CB28 /* OpacityGenerator.swift in Sources */,
@@ -861,6 +908,8 @@
 				57E5E18E1E3B393900D1CB28 /* GeomUtils.swift in Sources */,
 				57E5E1AF1E3B393900D1CB28 /* CAAnimationClosure.swift in Sources */,
 				57E5E17F1E3B393900D1CB28 /* DropShadow.swift in Sources */,
+				A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */,
+				A718CD4D1F45C28F00966E06 /* Common_macOS.swift in Sources */,
 				57E5E1641E3B393900D1CB28 /* AnimationRestorer.swift in Sources */,
 				57E5E1741E3B393900D1CB28 /* Event.swift in Sources */,
 				57E5E1841E3B393900D1CB28 /* Gradient.swift in Sources */,
@@ -875,7 +924,6 @@
 				57E5E19A1E3B393900D1CB28 /* Rect.swift in Sources */,
 				57E5E1941E3B393900D1CB28 /* PathBuilder.swift in Sources */,
 				57E5E1761E3B393900D1CB28 /* PinchEvent.swift in Sources */,
-				A72939F61F3C729000D42AE8 /* Platform_iOS.swift in Sources */,
 				57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */,
 				57E5E1A31E3B393900D1CB28 /* GroupRenderer.swift in Sources */,
 				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,

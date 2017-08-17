@@ -48,55 +48,6 @@ class EventsExampleController: NSViewController {
                        fill: Color.clear)
     let objectsGroup = Group(contents:[])
     
-    var startPoint = Point()
-    var currentFigure: Shape?
-    
-    canvas.onTap { event in
-      guard let tool = self.selectedTool else {
-        return
-      }
-      
-      guard let loc = event.location else {
-        return
-      }
-      
-      startPoint = loc
-      switch tool {
-      case .ellipse:
-        currentFigure = Shape(form: Ellipse(cx: startPoint.x, cy: startPoint.y, rx: 0.0, ry: 0.0))
-        
-      case .rectangle:
-        currentFigure = Shape(form: Rect(x: startPoint.x, y: startPoint.y, w: 0.0, h: 0.0))
-      }
-      
-      var updatedContents = objectsGroup.contents
-      updatedContents.append(currentFigure!)
-      
-      objectsGroup.contents = updatedContents
-    }
-    
-    canvas.onPan { event in
-      guard let tool = self.selectedTool else {
-        return
-      }
-    
-      let width = event.dx
-      let height = event.dy
-      
-      switch tool {
-      case .ellipse:
-        currentFigure?.form =  Ellipse(
-          cx: startPoint.x + width / 2.0,
-          cy: startPoint.y + height / 2.0,
-          rx: width / 2.0,
-          ry: height / 2.0)
-        
-      case .rectangle:
-        currentFigure?.form = Rect(x: startPoint.x, y: startPoint.y, w: width, h: height)
-      }
-      
-    }
-    
     return [canvas, objectsGroup].group()
   }
   

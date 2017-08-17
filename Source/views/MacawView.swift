@@ -509,7 +509,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     if recognizer.state == .began {
       let location = recognizer.location(in: self)
       
-      
       localContext { ctx in
         guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
           return
@@ -547,7 +546,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     nodesMap.remove(node)
   }
   
-  // MARK: - UIGestureRecognizerDelegate
+  // MARK: - MGestureRecognizerDelegate
   
   public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldReceive touch: MTouch) -> Bool {
     return true

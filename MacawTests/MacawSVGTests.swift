@@ -15,13 +15,13 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGSerializeEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"\" width=\"400\" height=\"210\" ><g> <ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\" fill=\"yellow\" stroke=\"purple\" stroke-width=\"2\"/></g></svg>"
+        let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"\" width=\"400\" height=\"210\" ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\" fill=\"yellow\" stroke=\"purple\" stroke-width=\"2\"/></g></svg>"
         
         
         let name = "ellipse"
         do {
             let rootNode = try SVGParser.parse(bundle:bundle, path: name)
-            let svg = SVGSerializer.serialize(node: rootNode)
+            let svg = SVGSerializer.serialize(node: rootNode, indent:0)
             print(svg)
             XCTAssertTrue(svg == ellipseReferenceContent)
         } catch _ {}

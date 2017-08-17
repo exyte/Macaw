@@ -16,19 +16,29 @@ open class SVGSerializer {
     fileprivate let width: Int
     fileprivate let height: Int
     fileprivate let id: String
+    fileprivate let indent: Int
     
-    fileprivate init(width: Int, height: Int, id: String) {
+    fileprivate init(width: Int, height: Int, id: String, indent: Int) {
         self.width = width
         self.height = height
         self.id = id
+        self.indent = indent
     }
     
+    fileprivate init(indent:Int) {
+        self.width = SVGDefaultWidth
+        self.height = SVGDefaultHeight
+        self.id = SVGDefaultId
+        self.indent = indent
+    }
+
     fileprivate init() {
         self.width = SVGDefaultWidth
         self.height = SVGDefaultHeight
         self.id = SVGDefaultId
+        self.indent = 1
     }
-    
+
     // header and footer
     fileprivate let SVGDefaultHeader = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\""
     fileprivate let SVGDefaultId = ""
@@ -56,11 +66,11 @@ open class SVGSerializer {
     
     
     fileprivate func indentTextWithOffset(text: String, offset: Int) -> String {
-        var prefix = ""
-        for _ in 1..<offset {
-            prefix += indentPrefixSymbol
+        if self.indent != 0 {
+            let prefix = String(repeating: indentPrefixSymbol, count:self.indent)
+            return "\n\(String(repeating: prefix, count:offset))\(text)"
         }
-        return prefix + text
+        return text
     }
     
     fileprivate func att(_ a: Double) -> String {
@@ -119,27 +129,25 @@ open class SVGSerializer {
     fileprivate func rectToSVG(_ rect: Macaw.Rect) -> String {
         return tag(SVGRectOpenTag, ["x":att(rect.x), "y":att(rect.y), "width":att(rect.w), "height":att(rect.h)])
     }
-
     
     fileprivate func fillToSVG(_ shape: Shape) -> String {
         if let fillColor = shape.fillVar.value as? Color {
             if let fill = SVGConstants.valueToColor(fillColor.val) {
-                return " fill=\"" + fill + "\""
+                return " fill=\"\(fill)\""
             } else {
                 return " fill=\"#\(String(format:"%6X", fillColor.val))\""
             }
         }
         return " fill=\"none\""
     }
-
     
     fileprivate func strokeToSVG(_ shape: Shape) -> String {
         var result = ""
         if let strokeColor = shape.strokeVar.value?.fill as? Color {
             if let stroke = SVGConstants.valueToColor(strokeColor.val) {
-                result += " stroke=\"" + stroke + "\""
+                result += " stroke=\"\(stroke)\""
             } else {
-                result += " stroke=\"#" + String(format:"%6X", strokeColor.val) + "\""
+                result += " stroke=\"#\(String(format:"%6X", strokeColor.val))\""
             }
         }
         if let strokeWidth = shape.strokeVar.value?.width {
@@ -209,12 +217,12 @@ open class SVGSerializer {
     fileprivate func serialize(node:Node) -> String {
         var result = [SVGDefaultHeader, "id=\"\(self.id)\"", "width=\"\(self.width)\"", "height=\"\(self.height)\"", SVGGenericEndTag].joined(separator: " ")
         result += serialize(node: node, offset: 1)
-        result += SVGFooter
+        result += indentTextWithOffset(text: SVGFooter, offset: 0)
         return result
     }
     
-    open class func serialize(node: Node) -> String {
-        return SVGSerializer().serialize(node: node)
+    open class func serialize(node: Node, indent: Int = 1) -> String {
+        return SVGSerializer(indent:indent).serialize(node: node)
     }
     
 }

@@ -59,6 +59,8 @@ open class SVGSerializer {
     fileprivate let SVGPolygonOpenTag = "<polygon "
     fileprivate let SVGPathOpenTag = "<path "
     fileprivate let SVGImageOpenTag = "<image "
+    fileprivate let SVGTextOpenTag = "<text "
+
     fileprivate let SVGGenericEndTag = ">"
     fileprivate let SVGGenericCloseTag = "/>"
     
@@ -133,7 +135,18 @@ open class SVGSerializer {
     }
     
     fileprivate func imageToSVG(_ image: Macaw.Image) -> String {
-        return tag(SVGImageOpenTag, ["xlink:href=":image.src, "x":att(image.place.dx), "y":att(image.place.dy), "width":String(image.w), "height":String(image.h)], close: true)
+        return tag(SVGImageOpenTag, ["xlink:href":image.src, "x":att(image.place.dx), "y":att(image.place.dy), "width":String(image.w), "height":String(image.h)], close: true)
+    }
+
+    fileprivate func textToSVG(_ text: Macaw.Text) -> String {
+        var result = tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)])
+        if let font = text.font {
+            result += "font-family=\"\(font.name)\" font-size=\"\(font.size)\""
+        }
+        result += SVGGenericEndTag
+        result += text.text
+        result += "</text>"
+        return result
     }
 
     fileprivate func fillToSVG(_ shape: Shape) -> String {
@@ -219,6 +232,9 @@ open class SVGSerializer {
         }
         if let image = node as? Image {
             return imageToSVG(image)
+        }
+        if let text = node as? Macaw.Text {
+            return textToSVG(text)
         }
         return "SVGUndefinedTag \(node)"
     }

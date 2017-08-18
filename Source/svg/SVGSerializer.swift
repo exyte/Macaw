@@ -58,6 +58,7 @@ open class SVGSerializer {
     fileprivate let SVGPolylineOpenTag = "<polyline "
     fileprivate let SVGPolygonOpenTag = "<polygon "
     fileprivate let SVGPathOpenTag = "<path "
+    fileprivate let SVGImageOpenTag = "<image "
     fileprivate let SVGGenericEndTag = ">"
     fileprivate let SVGGenericCloseTag = "/>"
     
@@ -77,9 +78,10 @@ open class SVGSerializer {
         return String(Int(a))
     }
     
-    fileprivate func tag(_ tag: String, _ args: [String:String]) -> String {
+    fileprivate func tag(_ tag: String, _ args: [String:String], close: Bool=false) -> String {
         let attrs = args.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
-        return "\(tag) \(attrs)"
+        let closeTag = close ? " />" : ""
+        return "\(tag) \(attrs) \(closeTag)"
     }
     
     fileprivate func arcToSVG(_ arc: Macaw.Arc) -> String {
@@ -87,7 +89,7 @@ open class SVGSerializer {
             return tag(SVGEllipseOpenTag, ["cx":att(arc.ellipse.cx), "cy":att(arc.ellipse.cy), "rx":att(arc.ellipse.rx), "ry":att(arc.ellipse.ry)])
         } else {
             // Convert arc to SVG format with x axis rotation, arc flag, and sweep flag
-            return SVGUndefinedTag
+            return "\(SVGUndefinedTag) arc is not implemented yet"
         }
     }
     
@@ -130,6 +132,10 @@ open class SVGSerializer {
         return tag(SVGRectOpenTag, ["x":att(rect.x), "y":att(rect.y), "width":att(rect.w), "height":att(rect.h)])
     }
     
+    fileprivate func imageToSVG(_ image: Macaw.Image) -> String {
+        return tag(SVGImageOpenTag, ["xlink:href=":image.src, "x":att(image.place.dx), "y":att(image.place.dy), "width":String(image.w), "height":String(image.h)], close: true)
+    }
+
     fileprivate func fillToSVG(_ shape: Shape) -> String {
         if let fillColor = shape.fillVar.value as? Color {
             if let fill = SVGConstants.valueToColor(fillColor.val) {
@@ -189,7 +195,7 @@ open class SVGSerializer {
         case let rect as Macaw.Rect:
             result += rectToSVG(rect)
         default:
-            result += SVGUndefinedTag
+            result += "\(SVGUndefinedTag) locus:\(locus)"
         }
         result += fillToSVG(macawShape)
         result += strokeToSVG(macawShape)
@@ -211,7 +217,10 @@ open class SVGSerializer {
             result += indentTextWithOffset(SVGGroupCloseTag, offset)
             return result
         }
-        return SVGUndefinedTag
+        if let image = node as? Image {
+            return imageToSVG(image)
+        }
+        return "SVGUndefinedTag \(node)"
     }
     
     fileprivate func serialize(node:Node) -> String {

@@ -285,6 +285,36 @@ open class SVGParser {
         }
     }
     
+    /// Parse an RGB
+    /// - returns: Color for the corresponding SVG color string in RGB notation.
+    fileprivate func parseRGBNotation(colorString: String) -> Color {
+        let from = colorString.characters.index(colorString.startIndex, offsetBy: 4)
+        let inPercentage = colorString.characters.contains("%")
+        let sp = colorString.substring(from: from)
+            .replacingOccurrences(of: "%", with: "")
+            .replacingOccurrences(of: ")", with: "")
+            .replacingOccurrences(of: " ", with: "")
+        let x = sp.components(separatedBy: ",")
+        var red = 0.0
+        var green = 0.0
+        var blue = 0.0
+        if (x.count == 3) {
+            if let r = Double(x[0]), let g = Double(x[1]), let b = Double(x[2]) {
+                blue = b
+                green = g
+                red = r
+            }
+        }
+        if inPercentage {
+            red *= 2.55
+            green *= 2.55
+            blue *= 2.55
+        }
+        return Color.rgb(r: Int(red.rounded(.up)),
+                         g: Int(green.rounded(.up)),
+                         b: Int(blue.rounded(.up)))
+    }
+
     fileprivate func parseTransformValues(_ values: String, collectedValues: [String] = []) -> [String] {
         guard let matcher = SVGParserRegexHelper.getTransformMatcher() else {
             return collectedValues
@@ -352,7 +382,9 @@ open class SVGParser {
         if let defaultColor = SVGConstants.colorList[fillColor] {
             return Color(val: defaultColor)
         }
-        if fillColor.hasPrefix("url") {
+        if fillColor.hasPrefix("rgb") {
+            return parseRGBNotation(colorString: fillColor)
+        } else if fillColor.hasPrefix("url") {
             let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
             let id = fillColor.substring(from: index)
                 .replacingOccurrences(of: "(", with: "")
@@ -376,7 +408,9 @@ open class SVGParser {
             opacity = Double(strokeOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
         var fill: Fill?
-        if strokeColor.hasPrefix("url") {
+        if strokeColor.hasPrefix("rgb") {
+            fill = parseRGBNotation(colorString: strokeColor)
+        } else if strokeColor.hasPrefix("url") {
             let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)
             let id = strokeColor.substring(from: index)
                 .replacingOccurrences(of: "(", with: "")

@@ -18,7 +18,19 @@ class NodeRenderer {
     init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
         self.ctx = ctx
         self.animationCache = animationCache
-        onNodeChange = { ctx.view?.setNeedsDisplay() }
+        
+        onNodeChange = {
+            guard let isAnimating = animationCache?.isAnimating(node) else {
+                return
+            }
+            
+            if isAnimating {
+                return
+            }
+            
+            ctx.view?.setNeedsDisplay()
+        }
+        
         addObservers()
     }
     

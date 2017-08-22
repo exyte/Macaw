@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
   s.source_files = [
-     'Source/**/*.*'
+     'Source/**/*.swift'
   ]
   # s.resource_bundles = {
   #   'Macaw' => ['Pod/Assets/*.png']

@@ -56,8 +56,8 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     animationProducer.addStoredAnimations(node)
   }
   
-  var touchesMap = [MTouch: [Node]]()
-  var touchesOfNode = [Node: [MTouch]]()
+  var touchesMap = [MTouchEvent: [Node]]()
+  var touchesOfNode = [Node: [MTouchEvent]]()
   var recognizersMap = [MGestureRecognizer: [Node]]()
   
   var context: RenderContext!
@@ -240,7 +240,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
   
   // MARK: - Touches
   
-  open override func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
+override func mTouchesBegan(_ touches: [MTouchEvent]) {
     
     if !self.node.shouldCheckForPressed() &&
       !self.node.shouldCheckForMoved() &&
@@ -253,7 +253,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
     
     for touch in touches {
-      let location = touch.location(in: self)
+      let location = CGPoint(x: touch.x, y: touch.y)
       NSLog("\(location)")
       var foundNode: Node? = .none
       localContext { ctx in
@@ -276,7 +276,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         while parent != .none {
           let currentNode = parent!
           if touchesOfNode[currentNode] == nil {
-            touchesOfNode[currentNode] = [MTouch]()
+            touchesOfNode[currentNode] = [MTouchEvent]()
           }
           
           touchesMap[touch]?.append(currentNode)
@@ -289,54 +289,56 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
   }
   
-  open override func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
-    if !self.node.shouldCheckForMoved() {
-      return
+    override func mTouchesMoved(_ touches: [MTouchEvent]) {
+        if !self.node.shouldCheckForMoved() {
+            return
+        }
+        
+        guard let _ = renderer else {
+            return
+        }
+        
+        touchesOfNode.keys.forEach { currentNode in
+            guard let initialTouches = touchesOfNode[currentNode] else {
+                return
+            }
+            
+            var points = [TouchPoint]()
+            for initialTouch in initialTouches {
+                let currentIndex = touches.index(of: initialTouch)!
+                let currentTouch = touches[currentIndex]
+                let location = CGPoint(x: currentTouch.x, y: currentTouch.y)
+                let inverted = currentNode.place.invert()!
+                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let point = TouchPoint(id: currentTouch.id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                points.append(point)
+            }
+            
+            let touchEvent = TouchEvent(node: currentNode, points: points)
+            currentNode.handleTouchMoved(touchEvent)
+        }
     }
-    
-    guard let _ = renderer else {
-      return
-    }
-    
-    touchesOfNode.keys.forEach { currentNode in
-      guard let touches = touchesOfNode[currentNode] else {
-        return
-      }
-      
-      var points = [TouchPoint]()
-      for touch in touches {
-        let location = touch.location(in: self)
-        let inverted = currentNode.place.invert()!
-        let loc = location.applying(RenderUtils.mapTransform(inverted))
-        let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-        let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
-        points.append(point)
-      }
-      
-      let touchEvent = TouchEvent(node: currentNode, points: points)
-      currentNode.handleTouchMoved(touchEvent)
-    }
+  
+
+ override func mTouchesCancelled(_ touches: [MTouchEvent]) {
+    touchesEnded(touches: touches)
   }
   
-  open override func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
-    touchesEnded(touches: touches, event: event)
+   override func mTouchesEnded(_ touches: [MTouchEvent]) {
+    touchesEnded(touches: touches)
   }
   
-  open override func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
-    touchesEnded(touches: touches, event: event)
-  }
-  
-  private func touchesEnded(touches: Set<MTouch>, event: MEvent?) {
+    private func touchesEnded(touches: [MTouchEvent]) {
     guard let _ = renderer else {
       return
     }
     
     for touch in touches {
-      let location = touch.location(in: self)
       
       touchesMap[touch]?.forEach { node in
         
         let inverted = node.place.invert()!
+        let location = CGPoint(x: touch.x, y: touch.y)
         let loc = location.applying(RenderUtils.mapTransform(inverted))
         let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
         let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))

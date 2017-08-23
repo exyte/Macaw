@@ -41,15 +41,76 @@ class EventsExampleController: NSViewController {
     return panelGroup
   }
   
-  private func createCanvas() -> Node {
-    let canvas = Shape(form: Rect(x: 0.0, y: 0.0,
-                                  w: Double(macawView!.bounds.width),
-                                  h: Double(macawView!.bounds.height)),
-                       fill: Color.clear)
-    let objectsGroup = Group(contents:[])
-    
-    return [canvas, objectsGroup].group()
-  }
+    private func createCanvas() -> Node {
+        let canvas = Shape(form: Rect(x: 0.0, y: 0.0,
+                                      w: Double(macawView!.bounds.width),
+                                      h: Double(macawView!.bounds.height)),
+                           fill: Color.white)
+        let objectsGroup = Group(contents:[])
+        
+        var startPoint = Point()
+        var currentFigure: Shape?
+        
+        canvas.onTouchPressed { event in
+            guard let tool = self.selectedTool else {
+                return
+            }
+            
+            guard let loc = event.points.first?.location else {
+                return
+            }
+            
+            startPoint = loc
+            switch tool {
+            case .ellipse:
+                currentFigure = Shape(form: Ellipse(cx: startPoint.x, cy: startPoint.y, rx: 0.0, ry: 0.0))
+                break
+                
+            case .rectangle:
+                currentFigure = Shape(form: Rect(x: startPoint.x, y: startPoint.y, w: 0.0, h: 0.0))
+                break
+            }
+            
+            var updatedContents = objectsGroup.contents
+            updatedContents.append(currentFigure!)
+            
+            objectsGroup.contents = updatedContents
+        }
+        
+        canvas.onTouchMoved { event in
+            guard let tool = self.selectedTool else {
+                return
+            }
+            
+            guard let loc = event.points.first?.location else {
+                return
+            }
+            
+            let width = loc.x - startPoint.x
+            let height = loc.y - startPoint.y
+            
+            switch tool {
+            case .ellipse:
+                
+                currentFigure?.form =  Ellipse(
+                    cx: startPoint.x + width / 2.0,
+                    cy: startPoint.y + height / 2.0,
+                    rx: width / 2.0,
+                    ry: height / 2.0)
+                break
+                
+            case .rectangle:
+                currentFigure?.form = Rect(x: startPoint.x, y: startPoint.y, w: width, h: height)
+                break
+            }
+            
+        }
+        
+        return [
+            canvas,
+            objectsGroup
+            ].group()
+    }
   
   private func createTools() -> Node {
     let ellipseTool = Shape(form: Ellipse(cx: 50.0, cy: 50.0, rx: 25, ry: 15),

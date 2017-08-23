@@ -27,7 +27,7 @@ import Foundation
     case bottomRight
   }
   
-  open class MView: NSView {
+  open class MView: NSView, Touchable {
     public override init(frame frameRect: NSRect) {
       super.init(frame: frameRect)
       
@@ -38,6 +38,7 @@ import Foundation
       super.init(coder: coder)
       
       self.wantsLayer = true
+        setupMouse()
     }
     
     open override var isFlipped: Bool {
@@ -80,36 +81,177 @@ import Foundation
       super.resizeSubviews(withOldSize: self.bounds.size)
     }
     
+    // MARK: - Touch pad
     open override func touchesBegan(with event: NSEvent) {
-      self.mTouchesBegan(event.touches(matching: .any, in: self), with: event)
+        super.touchesBegan(with: event)
+        
+        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+            let location = touch.location(in: self)
+            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+            
+            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+        }
+        
+        mTouchesBegan(touchPoints)
     }
     
     open override func touchesEnded(with event: NSEvent) {
-      self.mTouchesEnded(event.touches(matching: .any, in: self), with: event)
+        super.touchesEnded(with: event)
+        
+        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+            let location = touch.location(in: self)
+            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+            
+            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+        }
+        
+        mTouchesEnded(touchPoints)
     }
     
     open override func touchesMoved(with event: NSEvent) {
-      self.mTouchesMoved(event.touches(matching: .any, in: self), with: event)
+        super.touchesMoved(with: event)
+        
+        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+            let location = touch.location(in: self)
+            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+            
+            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+        }
+        
+        mTouchesMoved(touchPoints)
     }
     
     open override func touchesCancelled(with event: NSEvent) {
-      self.mTouchesCancelled(event.touches(matching: .any, in: self), with: event)
+        super.touchesCancelled(with: event)
+        
+        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+            let location = touch.location(in: self)
+            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+            
+            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+        }
+        
+        mTouchesCancelled(touchPoints)
     }
     
-    open func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
-      super.touchesBegan(with: event!)
+    // MARK: - Mouse
+    private func setupMouse() {
+        subscribeForMouseDown()
+        subscribeForMouseUp()
+        subscribeForMouseDragged()
     }
     
-    open func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
-      super.touchesMoved(with: event!)
+    private func subscribeForMouseDown() {
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown, handler: { [weak self] event -> NSEvent? in
+            guard let weakSelf = self else {
+                return event
+            }
+
+            // Touch pad
+            guard event.subtype == .touch else {
+                let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+                    let location = touch.location(in: weakSelf)
+                    let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+                    
+                    return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+                }
+                
+                weakSelf.mTouchesBegan(touchPoints)
+                return event
+            }
+            
+            // Mouse
+            let location = weakSelf.convert(event.locationInWindow, to: .none)
+            let id = 0
+            let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+            
+            
+            weakSelf.mTouchesBegan([touchPoint])
+            
+            return event
+        })
     }
     
-    open func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
-      super.touchesEnded(with: event!)
+    private func subscribeForMouseUp() {
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp, handler: { [weak self] event -> NSEvent? in
+            guard let weakSelf = self else {
+                return event
+            }
+
+            // Touch pad
+            guard event.subtype == .touch else {
+                let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+                    let location = touch.location(in: weakSelf)
+                    let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+                    
+                    return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+                }
+                
+                weakSelf.mTouchesEnded(touchPoints)
+                return event
+            }
+            
+            // Mouse
+            let location = weakSelf.convert(event.locationInWindow, to: .none)
+            let id = 0
+            
+            let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+            
+            
+            weakSelf.mTouchesEnded([touchPoint])
+            
+            return event
+        })
     }
     
-    open func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
-      super.touchesCancelled(with: event!)
+    
+    private func subscribeForMouseDragged() {
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged, handler: { [weak self] event -> NSEvent? in
+            guard let weakSelf = self else {
+                return event
+            }
+
+            // Touch pad
+            guard event.subtype == .touch else {
+                let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+                    let location = touch.location(in: weakSelf)
+                    let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+                    
+                    return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+                }
+                
+                weakSelf.mTouchesMoved(touchPoints)
+                return event
+            }
+            
+            // Mouse
+            let location = weakSelf.convert(event.locationInWindow, to: .none)
+            let id = 0
+            
+            let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: 0)
+            
+            
+            weakSelf.mTouchesMoved([touchPoint])
+            
+            return event
+        })
+    }
+    
+    // MARK: - Touchable
+    func mTouchesBegan(_ touches: [MTouchEvent]) {
+        
+    }
+    
+    func mTouchesMoved(_ touches: [MTouchEvent]) {
+        
+    }
+    
+    func mTouchesEnded(_ touches: [MTouchEvent]) {
+        
+    }
+    
+    func mTouchesCancelled(_ touches: [MTouchEvent]) {
+        
     }
   }
 #endif

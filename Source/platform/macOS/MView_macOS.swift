@@ -143,30 +143,9 @@ import Foundation
     
     private func subscribeForMouseDown() {
         NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown, handler: { [weak self] event -> NSEvent? in
-            guard let weakSelf = self else {
-                return event
-            }
-
-            // Touch pad
-            guard event.subtype == .touch else {
-                let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-                    let location = touch.location(in: weakSelf)
-                    let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                    
-                    return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-                }
-                
-                weakSelf.mTouchesBegan(touchPoints)
-                return event
-            }
-            
-            // Mouse
-            let location = weakSelf.convert(event.locationInWindow, to: .none)
-            let id = 0
-            let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-            
-            
-            weakSelf.mTouchesBegan([touchPoint])
+            self?.handleInput(event: event, handler: { touches in
+                self?.mTouchesBegan(touches)
+            })
             
             return event
         })
@@ -174,67 +153,45 @@ import Foundation
     
     private func subscribeForMouseUp() {
         NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp, handler: { [weak self] event -> NSEvent? in
-            guard let weakSelf = self else {
-                return event
-            }
+            self?.handleInput(event: event, handler: { touches in
+                self?.mTouchesEnded(touches)
+            })
+            
+            return event
+        })
+    }
 
-            // Touch pad
-            guard event.subtype == .touch else {
-                let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-                    let location = touch.location(in: weakSelf)
-                    let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                    
-                    return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-                }
-                
-                weakSelf.mTouchesEnded(touchPoints)
-                return event
-            }
-            
-            // Mouse
-            let location = weakSelf.convert(event.locationInWindow, to: .none)
-            let id = 0
-            
-            let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-            
-            
-            weakSelf.mTouchesEnded([touchPoint])
+    private func subscribeForMouseDragged() {
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged, handler: { [weak self] event -> NSEvent? in
+            self?.handleInput(event: event, handler: { touches in
+                self?.mTouchesMoved(touches)
+            })
             
             return event
         })
     }
     
-    
-    private func subscribeForMouseDragged() {
-        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged, handler: { [weak self] event -> NSEvent? in
-            guard let weakSelf = self else {
-                return event
-            }
-
-            // Touch pad
-            guard event.subtype == .touch else {
-                let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-                    let location = touch.location(in: weakSelf)
-                    let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                    
-                    return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-                }
+    private func handleInput(event: NSEvent, handler: (_ touches: [MTouchEvent]) -> Void ) {
+        // Touch pad
+        guard event.subtype == .touch else {
+            let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
+                let location = touch.location(in: self)
+                let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
                 
-                weakSelf.mTouchesMoved(touchPoints)
-                return event
+                return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
             }
             
-            // Mouse
-            let location = weakSelf.convert(event.locationInWindow, to: .none)
-            let id = 0
-            
-            let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: 0)
-            
-            
-            weakSelf.mTouchesMoved([touchPoint])
-            
-            return event
-        })
+            handler(touchPoints)
+            return
+        }
+        
+        // Mouse
+        let location = self.convert(event.locationInWindow, to: .none)
+        let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: 0)
+        
+        handler([touchPoint])
+        
+        return
     }
     
     // MARK: - Touchable

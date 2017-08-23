@@ -254,7 +254,6 @@ override func mTouchesBegan(_ touches: [MTouchEvent]) {
     
     for touch in touches {
       let location = CGPoint(x: touch.x, y: touch.y)
-      NSLog("\(location)")
       var foundNode: Node? = .none
       localContext { ctx in
         foundNode = renderer.findNodeAt(location: location, ctx: ctx)

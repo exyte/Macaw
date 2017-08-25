@@ -130,6 +130,7 @@
 		57E5E1B21E3B393900D1CB28 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1501E3B393900D1CB28 /* MacawView.swift */; };
 		57E5E1B31E3B393900D1CB28 /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1511E3B393900D1CB28 /* NodesMap.swift */; };
 		57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
+		57F108741F502A3600DC365B /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108731F502A3600DC365B /* Touchable.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
@@ -290,6 +291,7 @@
 		57E5E1501E3B393900D1CB28 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
 		57E5E1511E3B393900D1CB28 /* NodesMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesMap.swift; sourceTree = "<group>"; };
 		57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
+		57F108731F502A3600DC365B /* Touchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touchable.swift; sourceTree = "<group>"; };
 		57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Macaw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 		57E5E14F1E3B393900D1CB28 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				57F108731F502A3600DC365B /* Touchable.swift */,
 				57E5E1501E3B393900D1CB28 /* MacawView.swift */,
 				57E5E1511E3B393900D1CB28 /* NodesMap.swift */,
 				57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */,
@@ -917,6 +920,7 @@
 				57E5E17A1E3B393900D1CB28 /* Align.swift in Sources */,
 				57E5E1731E3B393900D1CB28 /* Variable.swift in Sources */,
 				57E5E16F1E3B393900D1CB28 /* OpacityAnimation.swift in Sources */,
+				57F108741F502A3600DC365B /* Touchable.swift in Sources */,
 				57E5E1A01E3B393900D1CB28 /* Node.swift in Sources */,
 				57E5E1751E3B393900D1CB28 /* PanEvent.swift in Sources */,
 				57E5E1771E3B393900D1CB28 /* RotateEvent.swift in Sources */,

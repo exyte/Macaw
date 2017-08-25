@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "57FCD2751D76EA4600CC0FB6"
+               BuildableName = "MacawTests.xctest"
+               BlueprintName = "MacawTests"
+               ReferencedContainer = "container:Macaw.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "57FCD26B1D76EA4600CC0FB6"
+            BuildableName = "Macaw.framework"
+            BlueprintName = "Macaw"
+            ReferencedContainer = "container:Macaw.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

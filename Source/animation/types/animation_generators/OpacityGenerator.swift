@@ -1,5 +1,10 @@
+import Foundation
 
-import UIKit
+#if os(iOS)
+    import UIKit
+#elseif os(OSX)
+    import AppKit
+#endif
 
 func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {

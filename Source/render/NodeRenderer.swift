@@ -1,5 +1,9 @@
 import Foundation
-import UIKit
+
+#if os(iOS)
+    import UIKit
+#endif
+
 
 struct RenderingInterval {
     let from: Int
@@ -137,9 +141,9 @@ class NodeRenderer {
             return
         }
         
-        UIGraphicsPushContext(context)
+        MGraphicsPushContext(context)
         defer {
-            UIGraphicsPopContext()
+            MGraphicsPopContext()
         }
         
         if let rect = clip as? Rect {

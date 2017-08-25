@@ -1,5 +1,9 @@
 
-import UIKit
+import Foundation
+
+#if os(iOS)
+    import UIKit
+#endif
 
 let nodesMap = NodesMap()
 var parentsMap = [Node: Set<Node>]()

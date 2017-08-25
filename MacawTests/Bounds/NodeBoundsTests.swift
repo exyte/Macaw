@@ -144,7 +144,7 @@ class NodeBoundsTests: XCTestCase {
         texts.forEach { text in
             let text = Text(text: text)
             
-            let stringAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.systemFontSize)]
+            let stringAttributes = [NSFontAttributeName: MFont.systemFont(ofSize: MFont.systemFontSize)]
             let size = text.text.size(attributes: stringAttributes)
             let targetRect = Rect(x: 0.0, y: 0.0, w: size.width.doubleValue, h: size.height.doubleValue)
             

@@ -1,274 +1,294 @@
 import Foundation
-import UIKit
 
+#if os(iOS)
+  import UIKit
+#elseif os(OSX)
+  import AppKit
+#endif
 ///
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
 /// You could create your own view extended from MacawView with predefined scene.
 ///
-open class MacawView: UIView, UIGestureRecognizerDelegate {
-    
-    /// Scene root node
-    open var node: Node = Group() {
-        willSet {
-            nodesMap.remove(node)
-        }
-        
-        didSet {
-            nodesMap.add(node, view: self)
-            self.renderer?.dispose()
-            if let cache = animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
-            }
-            
-            if let _ = superview {
-                animationProducer.addStoredAnimations(node)
-            }
-            
-            self.setNeedsDisplay()
-        }
+open class MacawView: MView, MGestureRecognizerDelegate {
+  
+  /// Scene root node
+  open var node: Node = Group() {
+    willSet {
+      nodesMap.remove(node)
     }
     
-    override open var frame: CGRect {
-        didSet {
-            super.frame = frame
-            
-            frameSetFirstTime = true
-            
-            guard let _ = superview else {
-                return
-            }
-            
-            animationProducer.addStoredAnimations(node)
-        }
-    }
-    
-    override open func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
-        if !frameSetFirstTime {
-            return
-            
-        }
-        
+    didSet {
+      nodesMap.add(node, view: self)
+      self.renderer?.dispose()
+      if let cache = animationCache {
+        self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+      }
+      
+      if let _ = superview {
         animationProducer.addStoredAnimations(node)
+      }
+      
+      self.setNeedsDisplay()
+    }
+  }
+  
+  override open var frame: CGRect {
+    didSet {
+      super.frame = frame
+      
+      frameSetFirstTime = true
+      
+      guard let _ = superview else {
+        return
+      }
+      
+      animationProducer.addStoredAnimations(node)
+    }
+  }
+  
+  override open func didMoveToSuperview() {
+    super.didMoveToSuperview()
+    
+    if !frameSetFirstTime {
+      return
     }
     
-    var touchesMap = [UITouch: [Node]]()
-    var touchesOfNode = [Node: [UITouch]]()
-    var recognizersMap = [UIGestureRecognizer: [Node]]()
+    animationProducer.addStoredAnimations(node)
+  }
+  
+  var touchesMap = [MTouchEvent: [Node]]()
+  var touchesOfNode = [Node: [MTouchEvent]]()
+  var recognizersMap = [MGestureRecognizer: [Node]]()
+  
+  var context: RenderContext!
+  var renderer: NodeRenderer?
+  
+  var toRender = true
+  var frameSetFirstTime = false
+  
+  internal var animationCache: AnimationCache?
+  
+  #if os(OSX)
+  open override var layer: CALayer? {
+    didSet {
+      guard self.layer != nil else {
+        return
+      }
+      initializeView()
+      
+      if let cache = self.animationCache {
+        self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+      }
+    }
+  }
+  #endif
+  
+  public init?(node: Node, coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
     
-    var context: RenderContext!
-    var renderer: NodeRenderer?
+    initializeView()
     
-    var toRender = true
-    var frameSetFirstTime = false
+    self.node = node
+    nodesMap.add(node, view: self)
+    if let cache = self.animationCache {
+      self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+    }
+  }
+  
+  public convenience init(node: Node, frame: CGRect) {
+    self.init(frame:frame)
     
-    internal var animationCache: AnimationCache?
+    self.node = node
+    nodesMap.add(node, view: self)
+    if let cache = self.animationCache {
+      self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+    }
+  }
+  
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
     
-    public init?(node: Node, coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-        initializeView()
-        
-        self.node = node
-        nodesMap.add(node, view: self)
-        if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
-        }
+    initializeView()
+  }
+  
+  public convenience required init?(coder aDecoder: NSCoder) {
+    self.init(node: Group(), coder: aDecoder)
+  }
+  
+  fileprivate func initializeView() {
+    self.context = RenderContext(view: self)
+    
+    guard let layer = self.mLayer else {
+      return
     }
     
-    public convenience init(node: Node, frame: CGRect) {
-        self.init(frame:frame)
-        
-        self.node = node
-        nodesMap.add(node, view: self)
-        if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
-        }
+    self.animationCache = AnimationCache(sceneLayer: layer)
+    
+    let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
+    let panRecognizer = MPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
+    let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
+    let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+    
+    tapRecognizer.delegate = self
+    panRecognizer.delegate = self
+    rotationRecognizer.delegate = self
+    pinchRecognizer.delegate = self
+    
+    tapRecognizer.cancelsTouchesInView = false
+    panRecognizer.cancelsTouchesInView = false
+    rotationRecognizer.cancelsTouchesInView = false
+    pinchRecognizer.cancelsTouchesInView = false
+    
+    self.removeGestureRecognizers()
+    self.addGestureRecognizer(tapRecognizer)
+    self.addGestureRecognizer(panRecognizer)
+    self.addGestureRecognizer(rotationRecognizer)
+    self.addGestureRecognizer(pinchRecognizer)
+  }
+  
+  // zLayers state
+  private var prevAnimatedNodes = [Node]()
+  private var zLayers = [CALayer]()
+  
+  override open func draw(_ rect: CGRect) {
+    let ctx = MGraphicsGetCurrentContext()
+    
+    if self.backgroundColor == nil {
+      ctx?.clear(rect)
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        initializeView()
+    guard let cache = animationCache else {
+      return
     }
     
-    public convenience required init?(coder aDecoder: NSCoder) {
-        self.init(node: Group(), coder: aDecoder)
+    let animatedNodes = AnimationUtils.animatedNodes(root: node, animationCache: cache)
+    
+    defer {
+      prevAnimatedNodes = animatedNodes
     }
     
-    fileprivate func initializeView() {
-        self.context = RenderContext(view: self)
-        self.animationCache = AnimationCache(sceneLayer: self.layer)
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
-        let rotationRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
-        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
-        
-        tapRecognizer.delegate = self
-        panRecognizer.delegate = self
-        rotationRecognizer.delegate = self
-        pinchRecognizer.delegate = self
-        
-        tapRecognizer.cancelsTouchesInView = false
-        panRecognizer.cancelsTouchesInView = false
-        rotationRecognizer.cancelsTouchesInView = false
-        pinchRecognizer.cancelsTouchesInView = false
-        
-        self.addGestureRecognizer(tapRecognizer)
-        self.addGestureRecognizer(panRecognizer)
-        self.addGestureRecognizer(rotationRecognizer)
-        self.addGestureRecognizer(pinchRecognizer)
+    // No animation case
+    if animatedNodes.count == 0 || animatedNodes.count > 20 {
+      zLayers.forEach { $0.removeFromSuperlayer() }
+      zLayers.removeAll()
+      prevAnimatedNodes.removeAll()
+      
+      self.context.cgContext = ctx
+      renderer?.render(force: false, opacity: node.opacity)
+      return
     }
     
-    // zLayers state
-    private var prevAnimatedNodes = [Node]()
-    private var zLayers = [CALayer]()
-    
-    override open func draw(_ rect: CGRect) {
-        let ctx = UIGraphicsGetCurrentContext()
-        
-        if self.backgroundColor == nil {
-            ctx?.clear(rect)
-        }
-        
-        guard let cache = animationCache else {
-            return
-        }
-        
-        let animatedNodes = AnimationUtils.animatedNodes(root: node, animationCache: cache)
-        
-        defer {
-            prevAnimatedNodes = animatedNodes
-        }
-        
-        // No animation case
-        if animatedNodes.count == 0 || animatedNodes.count > 20 {
-            zLayers.forEach { $0.removeFromSuperlayer() }
-            zLayers.removeAll()
-            prevAnimatedNodes.removeAll()
-            
-            self.context.cgContext = ctx
-            renderer?.render(force: false, opacity: node.opacity)
-            return
-        }
-        
-        // Animation case
-        // Same nodes or some removed - no need to recalculate zPos
-        if animatedNodes.count <= prevAnimatedNodes.count {
-            var isEqual = true
-            for (i, node) in animatedNodes.enumerated() {
-                isEqual = isEqual && (node == prevAnimatedNodes[i])
-            }
-            
-            if isEqual {
-                return
-            }
-        }
-        
-        // Replacing old zLayers
-        // Removing old ones
-        zLayers.forEach { $0.removeFromSuperlayer() }
-        zLayers.removeAll()
-        
-        // Adding new
-        var indexCache = [Node: Int]()
-        var zPositions = animatedNodes.map{ AnimationUtils.absoluteIndex($0, useCache: true) }
-        indexCache.removeAll()
-        
-        zPositions.append(Int.max)
-        var prevZPos = 0
-        for zPos in zPositions {
-            let interval = RenderingInterval(from: prevZPos, to: zPos)
-            let layer = ShapeLayer()
-            
-            layer.frame = self.bounds
-            layer.node = node
-            layer.animationCache = cache
-            layer.renderingInterval = interval
-            layer.isForceRenderingEnabled = false
-            layer.zPosition = CGFloat(prevZPos) + 0.5
-            layer.contentsScale = 2.0
-            
-            let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
-            layer.renderTransform = nodeTransform
-            
-            zLayers.append(layer)
-            
-            prevZPos = zPos
-        }
-        
-        
-        zLayers.forEach{
-            self.layer.addSublayer($0)
-            $0.setNeedsDisplay()
-        }
+    // Animation case
+    // Same nodes or some removed - no need to recalculate zPos
+    if animatedNodes.count <= prevAnimatedNodes.count {
+      var isEqual = true
+      for (i, node) in animatedNodes.enumerated() {
+        isEqual = isEqual && (node == prevAnimatedNodes[i])
+      }
+      
+      if isEqual {
+        return
+      }
     }
     
-    private func localContext( _ callback: (CGContext) -> ()) {
-        UIGraphicsBeginImageContext(self.bounds.size)
-        if let ctx = UIGraphicsGetCurrentContext() {
-            callback(ctx)
-        }
-        UIGraphicsEndImageContext()
+    // Replacing old zLayers
+    // Removing old ones
+    zLayers.forEach { $0.removeFromSuperlayer() }
+    zLayers.removeAll()
+    
+    // Adding new
+    var indexCache = [Node: Int]()
+    var zPositions = animatedNodes.map{ AnimationUtils.absoluteIndex($0, useCache: true) }
+    indexCache.removeAll()
+    
+    zPositions.append(Int.max)
+    var prevZPos = 0
+    for zPos in zPositions {
+      let interval = RenderingInterval(from: prevZPos, to: zPos)
+      let layer = ShapeLayer()
+      
+      layer.frame = self.bounds
+      layer.node = node
+      layer.animationCache = cache
+      layer.renderingInterval = interval
+      layer.isForceRenderingEnabled = false
+      layer.zPosition = CGFloat(prevZPos) + 0.5
+      layer.contentsScale = 2.0
+      
+      let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
+      layer.renderTransform = nodeTransform
+      
+      zLayers.append(layer)
+      
+      prevZPos = zPos
     }
     
-    // MARK: - Touches
     
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if !self.node.shouldCheckForPressed() &&
-            !self.node.shouldCheckForMoved() &&
-            !self.node.shouldCheckForReleased (){
-            return
-        }
-        
-        guard let renderer = renderer else {
-            return
-        }
-        
-        
-        for touch in touches {
-            let location = touch.location(in: self)
-            
-            var foundNode: Node? = .none
-            localContext { ctx in
-                foundNode = renderer.findNodeAt(location: location, ctx: ctx)
-            }
-            
-            if let node = foundNode {
-                if touchesMap[touch] == nil {
-                    touchesMap[touch] = [Node]()
-                }
-                
-                let inverted = node.place.invert()!
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
-                
-                let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
-                let touchEvent = TouchEvent(node: node, points: [point])
-                
-                var parent: Node? = node
-                while parent != .none {
-                    let currentNode = parent!
-                    if touchesOfNode[currentNode] == nil {
-                        touchesOfNode[currentNode] = [UITouch]()
-                    }
-                    
-                    touchesMap[touch]?.append(currentNode)
-                    touchesOfNode[currentNode]?.append(touch)
-                    parent!.handleTouchPressed(touchEvent)
-                    
-
-                    parent = nodesMap.parents(parent!).first
-                }
-            }
-        }
+    zLayers.forEach{
+      mLayer?.addSublayer($0)
+      $0.setNeedsDisplay()
+    }
+  }
+  
+  private func localContext( _ callback: (CGContext) -> ()) {
+    MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
+    if let ctx = MGraphicsGetCurrentContext() {
+      callback(ctx)
+    }
+    MGraphicsEndImageContext()
+  }
+  
+  // MARK: - Touches
+  
+override func mTouchesBegan(_ touches: [MTouchEvent]) {
+    
+    if !self.node.shouldCheckForPressed() &&
+      !self.node.shouldCheckForMoved() &&
+      !self.node.shouldCheckForReleased (){
+      return
     }
     
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    guard let renderer = renderer else {
+      return
+    }
+    
+    for touch in touches {
+      let location = CGPoint(x: touch.x, y: touch.y)
+      var foundNode: Node? = .none
+      localContext { ctx in
+        foundNode = renderer.findNodeAt(location: location, ctx: ctx)
+      }
+      
+      if let node = foundNode {
+        if touchesMap[touch] == nil {
+          touchesMap[touch] = [Node]()
+        }
         
+        let inverted = node.place.invert()!
+        let loc = location.applying(RenderUtils.mapTransform(inverted))
+        
+        let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+        let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+        let touchEvent = TouchEvent(node: node, points: [point])
+        
+        var parent: Node? = node
+        while parent != .none {
+          let currentNode = parent!
+          if touchesOfNode[currentNode] == nil {
+            touchesOfNode[currentNode] = [MTouchEvent]()
+          }
+          
+          touchesMap[touch]?.append(currentNode)
+          touchesOfNode[currentNode]?.append(touch)
+          parent!.handleTouchPressed(touchEvent)
+          
+          parent = nodesMap.parents(parent!).first
+        }
+      }
+    }
+  }
+  
+    override func mTouchesMoved(_ touches: [MTouchEvent]) {
         if !self.node.shouldCheckForMoved() {
             return
         }
@@ -278,17 +298,18 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
         }
         
         touchesOfNode.keys.forEach { currentNode in
-            guard let touches = touchesOfNode[currentNode] else {
+            guard let initialTouches = touchesOfNode[currentNode] else {
                 return
             }
             
             var points = [TouchPoint]()
-            for touch in touches {
-                let location = touch.location(in: self)
+            for initialTouch in initialTouches {
+                let currentIndex = touches.index(of: initialTouch)!
+                let currentTouch = touches[currentIndex]
+                let location = CGPoint(x: currentTouch.x, y: currentTouch.y)
                 let inverted = currentNode.place.invert()!
                 let loc = location.applying(RenderUtils.mapTransform(inverted))
-                let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let point = TouchPoint(id: currentTouch.id, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 points.append(point)
             }
             
@@ -296,246 +317,243 @@ open class MacawView: UIView, UIGestureRecognizerDelegate {
             currentNode.handleTouchMoved(touchEvent)
         }
     }
-    
-    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchesEnded(touches: touches, event: event)
-    }
-    
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchesEnded(touches: touches, event: event)
-    }
-    
-    private func touchesEnded(touches: Set<UITouch>, event: UIEvent?) {
+  
 
+ override func mTouchesCancelled(_ touches: [MTouchEvent]) {
+    touchesEnded(touches: touches)
+  }
+  
+   override func mTouchesEnded(_ touches: [MTouchEvent]) {
+    touchesEnded(touches: touches)
+  }
+  
+    private func touchesEnded(touches: [MTouchEvent]) {
+    guard let _ = renderer else {
+      return
+    }
+    
+    for touch in touches {
+      
+      touchesMap[touch]?.forEach { node in
         
-        guard let _ = renderer else {
-            return
+        let inverted = node.place.invert()!
+        let location = CGPoint(x: touch.x, y: touch.y)
+        let loc = location.applying(RenderUtils.mapTransform(inverted))
+        let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+        let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+        let touchEvent = TouchEvent(node: node, points: [point])
+        
+        node.handleTouchReleased(touchEvent)
+        if let index = touchesOfNode[node]?.index(of: touch) {
+          touchesOfNode[node]?.remove(at: index)
+          if let count = touchesOfNode[node]?.count, count == 0 {
+            touchesOfNode.removeValue(forKey: node)
+          }
+        }
+      }
+      
+      touchesMap.removeValue(forKey: touch)
+    }
+  }
+  
+  // MARK: - Tap
+  
+  func handleTap(recognizer: MTapGestureRecognizer) {
+    if !self.node.shouldCheckForTap() {
+      return
+    }
+    
+    guard let renderer = renderer else {
+      return
+    }
+    
+    let location = recognizer.location(in: self)
+    var foundNodes = [Node]()
+    
+    localContext { ctx in
+      guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+        return
+      }
+      
+      var parent: Node? = foundNode
+      while parent != .none {
+        if parent!.shouldCheckForTap() {
+          foundNodes.append(parent!)
         }
         
-        for touch in touches {
-            let location = touch.location(in: self)
-            
-            touchesMap[touch]?.forEach { node in
-                
-                let inverted = node.place.invert()!
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
-                let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
-                let touchEvent = TouchEvent(node: node, points: [point])
-                
-                node.handleTouchReleased(touchEvent)
-                if let index = touchesOfNode[node]?.index(of: touch) {
-                    touchesOfNode[node]?.remove(at: index)
-                    if let count = touchesOfNode[node]?.count, count == 0 {
-                        touchesOfNode.removeValue(forKey: node)
-                    }
-                }
-            }
-            
-            touchesMap.removeValue(forKey: touch)
-        }
+        parent = nodesMap.parents(parent!).first
+      }
     }
     
     
-    // MARK: - Pan
-    
-    func handleTap(recognizer: UITapGestureRecognizer) {
-        if !self.node.shouldCheckForTap() {
-            return
-        }
-        
-        guard let renderer = renderer else {
-            return
-        }
-        
-        let location = recognizer.location(in: self)
-        var foundNodes = [Node]()
-        
-        localContext { ctx in
-            guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
-                return
-            }
-            
-            var parent: Node? = foundNode
-            while parent != .none {
-                if parent!.shouldCheckForTap() {
-                    foundNodes.append(parent!)
-                }
-                
-                parent = nodesMap.parents(parent!).first
-            }
-        }
-        
-        
-        foundNodes.forEach { node in
-            let inverted = node.place.invert()!
-            let loc = location.applying(RenderUtils.mapTransform(inverted))
-            let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
-            node.handleTap(event)
-        }
+    foundNodes.forEach { node in
+      let inverted = node.place.invert()!
+      let loc = location.applying(RenderUtils.mapTransform(inverted))
+      let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+      node.handleTap(event)
+    }
+  }
+  
+  // MARK: - Pan
+  
+  func handlePan(recognizer: MPanGestureRecognizer) {
+    if !self.node.shouldCheckForPan() {
+      return
     }
     
-    func handlePan(recognizer: UIPanGestureRecognizer) {
-        if !self.node.shouldCheckForPan() {
-            return
-        }
-        
-        guard let renderer = renderer else {
-            return
-        }
-        
-        if recognizer.state == .began {
-            let location = recognizer.location(in: self)
-            
-
-            localContext { ctx in
-                guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
-                    return
-                }
-                
-                if self.recognizersMap[recognizer] == nil {
-                    self.recognizersMap[recognizer] = [Node]()
-                }
-
-                var parent: Node? = foundNode
-                while parent != .none {
-                    if parent!.shouldCheckForPan() {
-                       self.recognizersMap[recognizer]?.append(parent!)
-                    }
-
-                    parent = nodesMap.parents(parent!).first
-                }
-            }
-        }
-        
-        // get the rotation and scale of the shape and apply to the translation
-        let translation = recognizer.translation(in: self)
-        recognizer.setTranslation(CGPoint.zero, in: self)
-        
-        let transform = node.place
-        let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
-        let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
-        let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
-        
-        recognizersMap[recognizer]?.forEach { node in
-            let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale),
-                                 count: recognizer.numberOfTouches)
-            node.handlePan(event)
-        }
-        
-        if recognizer.state == .ended || recognizer.state == .cancelled {
-            recognizersMap.removeValue(forKey: recognizer)
-        }
+    guard let renderer = renderer else {
+      return
     }
     
-    // MARK: - Rotation
-    
-    func handleRotation(_ recognizer: UIRotationGestureRecognizer) {
-        if !self.node.shouldCheckForRotate() {
-            return
+    if recognizer.state == .began {
+      let location = recognizer.location(in: self)
+      
+      localContext { ctx in
+        guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+          return
         }
         
-        guard let renderer = renderer else {
-            return
+        if self.recognizersMap[recognizer] == nil {
+          self.recognizersMap[recognizer] = [Node]()
         }
         
-        if recognizer.state == .began {
-            let location = recognizer.location(in: self)
-            
-            
-            localContext { ctx in
-                guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
-                    return
-                }
-                
-                if self.recognizersMap[recognizer] == nil {
-                    self.recognizersMap[recognizer] = [Node]()
-                }
-                
-                var parent: Node? = foundNode
-                while parent != .none {
-                    if parent!.shouldCheckForRotate() {
-                        self.recognizersMap[recognizer]?.append(parent!)
-                    }
-                    
-                    parent = nodesMap.parents(parent!).first
-                }
-            }
+        var parent: Node? = foundNode
+        while parent != .none {
+          if parent!.shouldCheckForPan() {
+            self.recognizersMap[recognizer]?.append(parent!)
+          }
+          
+          parent = nodesMap.parents(parent!).first
         }
-        
-        let rotation = Double(recognizer.rotation)
-        recognizer.rotation = 0
-        
-        recognizersMap[recognizer]?.forEach { node in
-            let event = RotateEvent(node: node, angle: rotation)
-            node.handleRotate(event)
-        }
-        
-        if recognizer.state == .ended || recognizer.state == .cancelled {
-            recognizersMap.removeValue(forKey: recognizer)
-        }
+      }
     }
     
-    // MARK: - Pinch
+    // get the rotation and scale of the shape and apply to the translation
+    let translation = recognizer.translation(in: self)
+    recognizer.setTranslation(CGPoint.zero, in: self)
     
-    func handlePinch(_ recognizer: UIPinchGestureRecognizer) {
-        if !self.node.shouldCheckForPinch() {
-            return
-        }
-        
-        guard let renderer = renderer else {
-            return
-        }
-        
-        if recognizer.state == .began {
-            let location = recognizer.location(in: self)
-            
-            
-            localContext { ctx in
-                guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
-                    return
-                }
-                
-                if self.recognizersMap[recognizer] == nil {
-                    self.recognizersMap[recognizer] = [Node]()
-                }
-                
-                var parent: Node? = foundNode
-                while parent != .none {
-                    if parent!.shouldCheckForPinch() {
-                        self.recognizersMap[recognizer]?.append(parent!)
-                    }
-                    
-                    parent = nodesMap.parents(parent!).first
-                }
-            }
-        }
-        
-        let scale = Double(recognizer.scale)
-        recognizer.scale = 1
-        
-        recognizersMap[recognizer]?.forEach { node in
-            let event = PinchEvent(node: node, scale: scale)
-            node.handlePinch(event)
-        }
-        
-        if recognizer.state == .ended || recognizer.state == .cancelled {
-            recognizersMap.removeValue(forKey: recognizer)
-        }
+    let transform = node.place
+    let rotation = -CGFloat(atan2f(Float(transform.m12), Float(transform.m11)))
+    let scale = CGFloat(sqrt(transform.m11 * transform.m11 + transform.m21 * transform.m21))
+    let translatedLocation = translation.applying(CGAffineTransform(rotationAngle: rotation))
+    
+    recognizersMap[recognizer]?.forEach { node in
+      let event = PanEvent(node: node, dx: Double(translatedLocation.x / scale), dy: Double(translatedLocation.y / scale),
+                           count: recognizer.mNumberOfTouches())
+      node.handlePan(event)
     }
     
-    deinit {
-        nodesMap.remove(node)
+    if recognizer.state == .ended || recognizer.state == .cancelled {
+      recognizersMap.removeValue(forKey: recognizer)
+    }
+  }
+  
+  // MARK: - Rotation
+  
+  func handleRotation(_ recognizer: MRotationGestureRecognizer) {
+    if !self.node.shouldCheckForRotate() {
+      return
     }
     
-    // MARK: - UIGestureRecognizerDelegate
-    
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return true
+    guard let renderer = renderer else {
+      return
     }
     
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+    if recognizer.state == .began {
+      let location = recognizer.location(in: self)
+      
+      
+      localContext { ctx in
+        guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+          return
+        }
+        
+        if self.recognizersMap[recognizer] == nil {
+          self.recognizersMap[recognizer] = [Node]()
+        }
+        
+        var parent: Node? = foundNode
+        while parent != .none {
+          if parent!.shouldCheckForRotate() {
+            self.recognizersMap[recognizer]?.append(parent!)
+          }
+          
+          parent = nodesMap.parents(parent!).first
+        }
+      }
     }
     
+    let rotation = Double(recognizer.rotation)
+    recognizer.rotation = 0
+    
+    recognizersMap[recognizer]?.forEach { node in
+      let event = RotateEvent(node: node, angle: rotation)
+      node.handleRotate(event)
+    }
+    
+    if recognizer.state == .ended || recognizer.state == .cancelled {
+      recognizersMap.removeValue(forKey: recognizer)
+    }
+  }
+  
+  // MARK: - Pinch
+  
+  func handlePinch(_ recognizer: MPinchGestureRecognizer) {
+    if !self.node.shouldCheckForPinch() {
+      return
+    }
+    
+    guard let renderer = renderer else {
+      return
+    }
+    
+    if recognizer.state == .began {
+      let location = recognizer.location(in: self)
+      
+      localContext { ctx in
+        guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+          return
+        }
+        
+        if self.recognizersMap[recognizer] == nil {
+          self.recognizersMap[recognizer] = [Node]()
+        }
+        
+        var parent: Node? = foundNode
+        while parent != .none {
+          if parent!.shouldCheckForPinch() {
+            self.recognizersMap[recognizer]?.append(parent!)
+          }
+          
+          parent = nodesMap.parents(parent!).first
+        }
+      }
+    }
+    
+    let scale = Double(recognizer.mScale)
+    recognizer.mScale = 1
+    
+    recognizersMap[recognizer]?.forEach { node in
+      let event = PinchEvent(node: node, scale: scale)
+      node.handlePinch(event)
+    }
+    
+    if recognizer.state == .ended || recognizer.state == .cancelled {
+      recognizersMap.removeValue(forKey: recognizer)
+    }
+  }
+  
+  deinit {
+    nodesMap.remove(node)
+  }
+  
+  // MARK: - MGestureRecognizerDelegate
+  
+  public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldReceive touch: MTouch) -> Bool {
+    return true
+  }
+  
+  public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
+    return true
+  }
 }

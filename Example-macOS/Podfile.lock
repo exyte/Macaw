@@ -1,0 +1,19 @@
+PODS:
+  - Macaw (0.8.2):
+    - SWXMLHash (~> 3.0.0)
+  - SWXMLHash (3.0.5)
+
+DEPENDENCIES:
+  - Macaw (from `../`)
+
+EXTERNAL SOURCES:
+  Macaw:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Macaw: 5bd466e34d3602084f43486abbc31fc4a8060c74
+  SWXMLHash: 701f7d07c032089b9ff34e0352bd4fed1a24652a
+
+PODFILE CHECKSUM: d31ba0b2048e70405adc9fbdda765e648c849781
+
+COCOAPODS: 1.1.1

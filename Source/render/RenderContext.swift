@@ -1,12 +1,15 @@
 import Foundation
-import UIKit
+
+#if os(iOS)
+  import UIKit
+#endif
 
 class RenderContext {
-	weak var view: UIView?
-	weak var cgContext: CGContext?
-
-	init(view: UIView?) {
-		self.view = view
-		self.cgContext = nil
-	}
+  weak var view: MView?
+  weak var cgContext: CGContext?
+  
+  init(view: MView?) {
+    self.view = view
+    self.cgContext = nil
+  }
 }

@@ -6,7 +6,13 @@
 //
 //
 
-import UIKit
+import Foundation
+
+#if os(iOS)
+    import UIKit
+#elseif os(OSX)
+    import AppKit
+#endif
 
 func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
     guard let shapeAnimation = animation as? ShapeAnimation else {
@@ -94,7 +100,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         if let color = stroke.fill as? Color {
             layer.strokeColor = RenderUtils.mapColor(color)
         } else {
-            layer.strokeColor = UIColor.black.cgColor
+            layer.strokeColor = MColor.black.cgColor
         }
         
         layer.lineWidth = CGFloat(stroke.width)
@@ -102,7 +108,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         layer.lineJoin = RenderUtils.mapLineJoinToString(stroke.join)
         layer.lineDashPattern = stroke.dashes.map{ NSNumber(value: $0)}
     } else if shape.fill == nil {
-        layer.strokeColor = UIColor.black.cgColor
+        layer.strokeColor = MColor.black.cgColor
         layer.lineWidth = 1.0
     }
     
@@ -110,7 +116,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     if let color = shape.fill as? Color {
         layer.fillColor = RenderUtils.mapColor(color)
     } else {
-        layer.fillColor = UIColor.clear.cgColor
+        layer.fillColor = MColor.clear.cgColor
     }
     
     layer.add(generatedAnim, forKey: animation.ID)

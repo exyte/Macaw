@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="JPo-4y-FX3">
+            <objects>
+                <application id="hnw-xV-0zn" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                        <items>
+                            <menuItem title="Example-macOS" id="1Xt-HY-uBw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Example-macOS" systemMenu="apple" id="uQy-DD-JDr">
+                                    <items>
+                                        <menuItem title="About Example-macOS" id="5kV-Vb-QxS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
+                                        <menuItem title="Services" id="NMo-om-nkz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
+                                        <menuItem title="Hide Example-macOS" keyEquivalent="h" id="Olw-nP-bQN">
+                                            <connections>
+                                                <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="hideOtherApplications:" target="Ady-hI-5gd" id="VT4-aY-XCT"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show All" id="Kd2-mp-pUS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="unhideAllApplications:" target="Ady-hI-5gd" id="Dhg-Le-xox"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
+                                        <menuItem title="Quit Example-macOS" keyEquivalent="q" id="4sb-4s-VLi">
+                                            <connections>
+                                                <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="File" id="dMs-cI-mzQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Edit" id="5QF-Oa-p0T">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Format" id="jxT-CU-nIS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="View" id="H8h-7b-M4v">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Window" id="aUF-d1-5bR">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Help" id="wpr-3q-Mcd">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                    </connections>
+                </application>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Example_macOS" customModuleProvider="target"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="58" y="-294"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="R2V-B0-nI4">
+            <objects>
+                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Macaw-Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="600" height="500"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="600" height="500"/>
+                        <value key="maxSize" type="size" width="600" height="500"/>
+                    </window>
+                    <connections>
+                        <segue destination="hdB-7F-R9Q" kind="relationship" relationship="window.shadowedContentViewController" id="2sy-Hm-TOK"/>
+                    </connections>
+                </windowController>
+                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57" y="91"/>
+        </scene>
+        <!--Tab View Controller-->
+        <scene sceneID="HCD-4m-c8h">
+            <objects>
+                <tabViewController selectedTabViewItemIndex="0" id="hdB-7F-R9Q" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem identifier="" id="3QN-7z-LrX"/>
+                        <tabViewItem id="1e3-gs-UK8"/>
+                        <tabViewItem id="Kue-lk-AJ2"/>
+                        <tabViewItem id="lLO-HO-JXp"/>
+                        <tabViewItem id="cOY-ae-H1s"/>
+                        <tabViewItem id="h85-ch-mEO"/>
+                        <tabViewItem id="fd7-0D-v5P"/>
+                    </tabViewItems>
+                    <tabView key="tabView" type="noTabsNoBorder" id="2WP-RT-S1E">
+                        <rect key="frame" x="-57" y="5" width="615" height="95"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <tabViewItems/>
+                    </tabView>
+                    <connections>
+                        <segue destination="GQJ-Hp-Pf9" kind="relationship" relationship="tabItems" id="NpD-f5-aHg"/>
+                        <segue destination="jao-64-FWC" kind="relationship" relationship="tabItems" id="2YP-Vc-nYb"/>
+                        <segue destination="mWu-e3-ocB" kind="relationship" relationship="tabItems" id="Elo-Zo-5ec"/>
+                        <segue destination="iWh-Ne-7Ns" kind="relationship" relationship="tabItems" id="b7l-i9-xc7"/>
+                        <segue destination="6Ok-1N-J6E" kind="relationship" relationship="tabItems" id="Oei-AM-VA1"/>
+                        <segue destination="Rn8-Li-WZ2" kind="relationship" relationship="tabItems" id="XnE-5e-LQB"/>
+                        <segue destination="9aj-uf-eJX" kind="relationship" relationship="tabItems" id="dm1-xg-c0C"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="vzO-zk-Zwd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="58" y="541"/>
+        </scene>
+        <!--Shapes-->
+        <scene sceneID="X9O-0j-kca">
+            <objects>
+                <viewController title="Shapes" id="GQJ-Hp-Pf9" sceneMemberID="viewController">
+                    <view key="view" id="To1-Fe-AtI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="D3z-wL-l2P" customClass="ShapesExampleView" customModule="Example_macOS" customModuleProvider="target">
+                                <rect key="frame" x="125" y="0.0" width="350" height="480"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="350" id="2E2-Lj-XMk"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="D3z-wL-l2P" secondAttribute="bottom" id="8Im-Qx-btY"/>
+                            <constraint firstItem="D3z-wL-l2P" firstAttribute="top" secondItem="To1-Fe-AtI" secondAttribute="top" constant="20" id="8w2-gW-Wjf"/>
+                            <constraint firstItem="D3z-wL-l2P" firstAttribute="centerX" secondItem="To1-Fe-AtI" secondAttribute="centerX" id="Sg0-C8-DDx"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="EYN-Mf-krY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57" y="1044"/>
+        </scene>
+        <!--Animations-->
+        <scene sceneID="mQS-s7-7Qq">
+            <objects>
+                <viewController title="Animations" id="mWu-e3-ocB" customClass="AnimationsViewController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="K6m-Lx-cTz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="1Rb-D3-XW9" customClass="AnimationsView" customModule="Example_macOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                            </customView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bPP-dr-CnF">
+                                <rect key="frame" x="260" y="39" width="80" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="3MY-fR-U9d"/>
+                                    <constraint firstAttribute="width" constant="80" id="Te3-mr-Bce"/>
+                                </constraints>
+                                <buttonCell key="cell" type="roundRect" title="Start" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wkK-UK-u12">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="cellTitle"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="startAnimationsAction:" target="mWu-e3-ocB" id="8K1-bW-xw9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="bPP-dr-CnF" secondAttribute="bottom" constant="40" id="94k-Vi-ybb"/>
+                            <constraint firstAttribute="trailing" secondItem="1Rb-D3-XW9" secondAttribute="trailing" id="9cE-er-ZBS"/>
+                            <constraint firstItem="1Rb-D3-XW9" firstAttribute="leading" secondItem="K6m-Lx-cTz" secondAttribute="leading" id="J8j-Tu-jSk"/>
+                            <constraint firstItem="1Rb-D3-XW9" firstAttribute="top" secondItem="K6m-Lx-cTz" secondAttribute="top" id="SdM-su-R3z"/>
+                            <constraint firstItem="bPP-dr-CnF" firstAttribute="centerX" secondItem="K6m-Lx-cTz" secondAttribute="centerX" id="eod-st-ImC"/>
+                            <constraint firstAttribute="bottom" secondItem="1Rb-D3-XW9" secondAttribute="bottom" id="iJZ-ip-cKT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionButton" destination="bPP-dr-CnF" id="2Ql-Wv-czh"/>
+                        <outlet property="animationsView" destination="1Rb-D3-XW9" id="Qgh-aE-e3M"/>
+                    </connections>
+                </viewController>
+                <customObject id="ggI-l3-NeJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="828" y="1037"/>
+        </scene>
+        <!--Easing-->
+        <scene sceneID="UPp-EA-zFu">
+            <objects>
+                <viewController title="Easing" id="6Ok-1N-J6E" customClass="EasingViewController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="8S8-en-dQ9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="rMi-Lt-xst" customClass="EasingView" customModule="Example_macOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="rMi-Lt-xst" firstAttribute="leading" secondItem="8S8-en-dQ9" secondAttribute="leading" id="E6d-Fs-XSu"/>
+                            <constraint firstItem="rMi-Lt-xst" firstAttribute="top" secondItem="8S8-en-dQ9" secondAttribute="top" id="F4Q-5G-KAY"/>
+                            <constraint firstAttribute="bottom" secondItem="rMi-Lt-xst" secondAttribute="bottom" id="STw-fO-vXO"/>
+                            <constraint firstAttribute="trailing" secondItem="rMi-Lt-xst" secondAttribute="trailing" id="YpZ-0X-Eb4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="easingView" destination="rMi-Lt-xst" id="1Lm-UJ-vZD"/>
+                    </connections>
+                </viewController>
+                <customObject id="97s-Ny-kLm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57" y="1631"/>
+        </scene>
+        <!--Tranform-->
+        <scene sceneID="BDK-cT-fde">
+            <objects>
+                <viewController title="Tranform" id="jao-64-FWC" sceneMemberID="viewController">
+                    <view key="view" id="LOa-Et-9Z8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="CHZ-ou-3pJ" customClass="TransformExampleView" customModule="Example_macOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="CHZ-ou-3pJ" firstAttribute="top" secondItem="LOa-Et-9Z8" secondAttribute="top" id="MQ2-71-Q8T"/>
+                            <constraint firstAttribute="bottom" secondItem="CHZ-ou-3pJ" secondAttribute="bottom" id="j0W-Jy-EsB"/>
+                            <constraint firstAttribute="trailing" secondItem="CHZ-ou-3pJ" secondAttribute="trailing" id="xaj-cY-w1R"/>
+                            <constraint firstItem="CHZ-ou-3pJ" firstAttribute="leading" secondItem="LOa-Et-9Z8" secondAttribute="leading" id="yJd-5F-Abz"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="qef-Rz-hXA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-701" y="1037"/>
+        </scene>
+        <!--Morhing-->
+        <scene sceneID="Plb-hR-bEv">
+            <objects>
+                <viewController title="Morhing" id="Rn8-Li-WZ2" sceneMemberID="viewController">
+                    <view key="view" id="ZyY-lN-6hI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="tFf-Vb-fQM" customClass="MorphingView" customModule="Example_macOS" customModuleProvider="target">
+                                <rect key="frame" x="200" y="150" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="O3r-f7-WR6"/>
+                                    <constraint firstAttribute="width" constant="200" id="akU-YZ-kuF"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="tFf-Vb-fQM" firstAttribute="centerX" secondItem="ZyY-lN-6hI" secondAttribute="centerX" id="3vl-dy-NeQ"/>
+                            <constraint firstItem="tFf-Vb-fQM" firstAttribute="centerY" secondItem="ZyY-lN-6hI" secondAttribute="centerY" id="p6G-C4-Mkb"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="hfo-iR-W9t" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-701" y="1631"/>
+        </scene>
+        <!--SVG-->
+        <scene sceneID="ZLO-Eh-m1d">
+            <objects>
+                <viewController title="SVG" id="iWh-Ne-7Ns" sceneMemberID="viewController">
+                    <view key="view" id="Vz6-zz-0Xw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="yvE-72-Fe6" customClass="SVGView" customModule="Macaw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="tiger"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yvE-72-Fe6" secondAttribute="trailing" id="4UL-4W-9YN"/>
+                            <constraint firstItem="yvE-72-Fe6" firstAttribute="leading" secondItem="Vz6-zz-0Xw" secondAttribute="leading" id="Xi8-t8-OlL"/>
+                            <constraint firstAttribute="bottom" secondItem="yvE-72-Fe6" secondAttribute="bottom" id="l48-pg-5Kp"/>
+                            <constraint firstItem="yvE-72-Fe6" firstAttribute="top" secondItem="Vz6-zz-0Xw" secondAttribute="top" id="nQP-Ld-hzQ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="SgK-6P-fu5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="828" y="1631"/>
+        </scene>
+        <!--Events-->
+        <scene sceneID="kTj-Ru-vPq">
+            <objects>
+                <viewController title="Events" id="9aj-uf-eJX" customClass="EventsExampleController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Fg0-AZ-zer">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="3dq-O5-WZ6" customClass="MacawView" customModule="Macaw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3dq-O5-WZ6" secondAttribute="trailing" id="FzC-3s-Kku"/>
+                            <constraint firstItem="3dq-O5-WZ6" firstAttribute="leading" secondItem="Fg0-AZ-zer" secondAttribute="leading" id="PUF-Il-bp3"/>
+                            <constraint firstItem="3dq-O5-WZ6" firstAttribute="top" secondItem="Fg0-AZ-zer" secondAttribute="top" id="Utd-UH-Vzg"/>
+                            <constraint firstAttribute="bottom" secondItem="3dq-O5-WZ6" secondAttribute="bottom" id="eNi-iP-YzC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="macawView" destination="3dq-O5-WZ6" id="diH-cZ-09G"/>
+                    </connections>
+                </viewController>
+                <customObject id="RA2-nh-XE7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57" y="2256"/>
+        </scene>
+    </scenes>
+</document>

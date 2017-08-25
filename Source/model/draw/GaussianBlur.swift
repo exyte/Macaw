@@ -9,5 +9,4 @@ open class GaussianBlur: Effect {
 		self.radius = radius
 		self.input = input
 	}
-
 }

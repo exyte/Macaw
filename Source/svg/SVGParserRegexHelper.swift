@@ -1,59 +1,59 @@
 import Foundation
 
 class SVGParserRegexHelper {
-    
-    fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*e?\\-?\\d*\\s*,?\\s*)+)\\)"
-    fileprivate static let transformPattern = "\\-?\\d+\\.?\\d*e?\\-?\\d*"
-    fileprivate static let textElementPattern = "<text.*?>((?s:.*))<\\/text>"
-    fileprivate static let maskIdenitifierPattern = "url\\(#((?s:.*))\\)"
-    
-    fileprivate static var transformMatcher: NSRegularExpression?
-    fileprivate static var transformAttributeMatcher: NSRegularExpression?
-    fileprivate static var textElementMatcher: NSRegularExpression?
-    fileprivate static var maskIdenitifierMatcher: NSRegularExpression?
-    
-    class func getTransformAttributeMatcher() -> NSRegularExpression? {
-        if self.transformAttributeMatcher == nil {
-            do {
-                self.transformAttributeMatcher = try NSRegularExpression(pattern: transformAttributePattern, options: .caseInsensitive)
-            } catch {
-                
-            }
-        }
-        return self.transformAttributeMatcher
+  
+  fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*e?\\-?\\d*\\s*,?\\s*)+)\\)"
+  fileprivate static let transformPattern = "\\-?\\d+\\.?\\d*e?\\-?\\d*"
+  fileprivate static let textElementPattern = "<text.*?>((?s:.*))<\\/text>"
+  fileprivate static let maskIdenitifierPattern = "url\\(#((?s:.*))\\)"
+  
+  fileprivate static var transformMatcher: NSRegularExpression?
+  fileprivate static var transformAttributeMatcher: NSRegularExpression?
+  fileprivate static var textElementMatcher: NSRegularExpression?
+  fileprivate static var maskIdenitifierMatcher: NSRegularExpression?
+  
+  class func getTransformAttributeMatcher() -> NSRegularExpression? {
+    if self.transformAttributeMatcher == nil {
+      do {
+        self.transformAttributeMatcher = try NSRegularExpression(pattern: transformAttributePattern, options: .caseInsensitive)
+      } catch {
+        
+      }
     }
-    
-    class func getTransformMatcher() -> NSRegularExpression? {
-        if self.transformMatcher == nil {
-            do {
-                self.transformMatcher = try NSRegularExpression(pattern: transformPattern, options: .caseInsensitive)
-            } catch {
-                
-            }
-        }
-        return self.transformMatcher
+    return self.transformAttributeMatcher
+  }
+  
+  class func getTransformMatcher() -> NSRegularExpression? {
+    if self.transformMatcher == nil {
+      do {
+        self.transformMatcher = try NSRegularExpression(pattern: transformPattern, options: .caseInsensitive)
+      } catch {
+        
+      }
     }
-    
-    class func getTextElementMatcher() -> NSRegularExpression? {
-        if self.textElementMatcher == nil {
-            do {
-                self.textElementMatcher = try NSRegularExpression(pattern: textElementPattern, options: .caseInsensitive)
-            } catch {
-                
-            }
-        }
-        return self.textElementMatcher
+    return self.transformMatcher
+  }
+  
+  class func getTextElementMatcher() -> NSRegularExpression? {
+    if self.textElementMatcher == nil {
+      do {
+        self.textElementMatcher = try NSRegularExpression(pattern: textElementPattern, options: .caseInsensitive)
+      } catch {
+        
+      }
     }
-    
-    class func getMaskIdenitifierMatcher() -> NSRegularExpression? {
-        if self.maskIdenitifierMatcher == nil {
-            do {
-                self.maskIdenitifierMatcher = try NSRegularExpression(pattern: maskIdenitifierPattern, options: .caseInsensitive)
-            } catch {
-                
-            }
-        }
-        return self.maskIdenitifierMatcher
+    return self.textElementMatcher
+  }
+  
+  class func getMaskIdenitifierMatcher() -> NSRegularExpression? {
+    if self.maskIdenitifierMatcher == nil {
+      do {
+        self.maskIdenitifierMatcher = try NSRegularExpression(pattern: maskIdenitifierPattern, options: .caseInsensitive)
+      } catch {
+        
+      }
     }
-    
+    return self.maskIdenitifierMatcher
+  }
+  
 }

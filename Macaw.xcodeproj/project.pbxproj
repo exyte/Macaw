@@ -132,6 +132,14 @@
 		57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
+		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
+		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
+		A718CD4D1F45C28F00966E06 /* Common_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD491F45C28F00966E06 /* Common_macOS.swift */; };
+		A718CD4E1F45C28F00966E06 /* Graphics_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */; };
+		A718CD4F1F45C28F00966E06 /* MDisplayLink_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */; };
+		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
+		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -286,6 +294,14 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD491F45C28F00966E06 /* Common_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_macOS.swift; path = Source/platform/macOS/Common_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_macOS.swift; path = Source/platform/macOS/Graphics_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MDisplayLink_macOS.swift; path = Source/platform/macOS/MDisplayLink_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
+		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -621,6 +637,7 @@
 		57FCD26E1D76EA4600CC0FB6 /* Macaw */ = {
 			isa = PBXGroup;
 			children = (
+				A718CD2C1F45BC5300966E06 /* Platform */,
 				572CEFC31E2CED4B008C7C83 /* Dependencies */,
 				57E5E0E01E3B393900D1CB28 /* Source */,
 			);
@@ -638,6 +655,37 @@
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
+			sourceTree = "<group>";
+		};
+		A718CD2C1F45BC5300966E06 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				A718CD361F45BD0B00966E06 /* iOS */,
+				A718CD351F45BCF800966E06 /* macOS */,
+			);
+			name = Platform;
+			sourceTree = "<group>";
+		};
+		A718CD351F45BCF800966E06 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				A718CD491F45C28F00966E06 /* Common_macOS.swift */,
+				A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */,
+				A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */,
+				A718CD4C1F45C28F00966E06 /* MView_macOS.swift */,
+				A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */,
+			);
+			name = macOS;
+			sourceTree = "<group>";
+		};
+		A718CD361F45BD0B00966E06 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				A718CD431F45C28200966E06 /* Common_iOS.swift */,
+				A718CD451F45C28700966E06 /* Graphics_iOS.swift */,
+				A718CD461F45C28700966E06 /* MView_iOS.swift */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		A7E675541EC4211E00BD9ECB /* Bounds */ = {
@@ -708,7 +756,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Exyte;
 				TargetAttributes = {
 					57FCD26B1D76EA4600CC0FB6 = {
@@ -717,7 +765,9 @@
 					};
 					57FCD2751D76EA4600CC0FB6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 7T95R85V93;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -784,14 +834,17 @@
 				57E5E1B31E3B393900D1CB28 /* NodesMap.swift in Sources */,
 				57E5E1A71E3B393900D1CB28 /* RenderUtils.swift in Sources */,
 				57E5E1601E3B393900D1CB28 /* FuncBounds.swift in Sources */,
+				A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */,
 				57E5E15B1E3B393900D1CB28 /* DoubleInterpolation.swift in Sources */,
 				57E5E1961E3B393900D1CB28 /* PathSegmentType.swift in Sources */,
 				57E5E1531E3B393900D1CB28 /* AnimatableVariable.swift in Sources */,
 				57E5E1691E3B393900D1CB28 /* TimingFunction.swift in Sources */,
 				57E5E1631E3B393900D1CB28 /* AnimationCache.swift in Sources */,
 				57E5E19D1E3B393900D1CB28 /* Transform.swift in Sources */,
+				A718CD4E1F45C28F00966E06 /* Graphics_macOS.swift in Sources */,
 				57E5E1A81E3B393900D1CB28 /* ShapeRenderer.swift in Sources */,
 				57E5E1851E3B393900D1CB28 /* LinearGradient.swift in Sources */,
+				A718CD4F1F45C28F00966E06 /* MDisplayLink_macOS.swift in Sources */,
 				57E5E1721E3B393900D1CB28 /* GroupDisposable.swift in Sources */,
 				57E5E18A1E3B393900D1CB28 /* Stroke.swift in Sources */,
 				57E5E1781E3B393900D1CB28 /* TapEvent.swift in Sources */,
@@ -832,6 +885,7 @@
 				57E5E1561E3B393900D1CB28 /* AnimationProducer.swift in Sources */,
 				57E5E1811E3B393900D1CB28 /* Fill.swift in Sources */,
 				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
+				A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */,
 				57E5E1871E3B393900D1CB28 /* LineJoin.swift in Sources */,
 				57E5E1881E3B393900D1CB28 /* RadialGradient.swift in Sources */,
 				57E5E1891E3B393900D1CB28 /* Stop.swift in Sources */,
@@ -841,6 +895,8 @@
 				57E5E1991E3B393900D1CB28 /* Polyline.swift in Sources */,
 				57E5E16D1E3B393900D1CB28 /* ContentsAnimation.swift in Sources */,
 				5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */,
+				A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */,
+				A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */,
 				57E5E1581E3B393900D1CB28 /* Easing.swift in Sources */,
 				57E5E1971E3B393900D1CB28 /* Point.swift in Sources */,
 				57E5E1681E3B393900D1CB28 /* OpacityGenerator.swift in Sources */,
@@ -852,6 +908,8 @@
 				57E5E18E1E3B393900D1CB28 /* GeomUtils.swift in Sources */,
 				57E5E1AF1E3B393900D1CB28 /* CAAnimationClosure.swift in Sources */,
 				57E5E17F1E3B393900D1CB28 /* DropShadow.swift in Sources */,
+				A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */,
+				A718CD4D1F45C28F00966E06 /* Common_macOS.swift in Sources */,
 				57E5E1641E3B393900D1CB28 /* AnimationRestorer.swift in Sources */,
 				57E5E1741E3B393900D1CB28 /* Event.swift in Sources */,
 				57E5E1841E3B393900D1CB28 /* Gradient.swift in Sources */,
@@ -933,6 +991,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -948,12 +1007,16 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "x86_64 i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -985,6 +1048,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -994,12 +1058,16 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "x86_64 i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1008,42 +1076,46 @@
 		57FCD2811D76EA4600CC0FB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
 			name = Debug;
 		};
 		57FCD2821D76EA4600CC0FB6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
 			name = Release;
 		};
@@ -1051,11 +1123,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7T95R85V93;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)",
+				);
 				INFOPLIST_FILE = MacawTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.MacawTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx10.12;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Debug;
 		};
@@ -1063,11 +1146,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7T95R85V93;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)",
+				);
 				INFOPLIST_FILE = MacawTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.MacawTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx10.12;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Release;
 		};

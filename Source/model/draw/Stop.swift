@@ -9,5 +9,4 @@ open class Stop {
 		self.offset = offset
 		self.color = color
 	}
-
 }

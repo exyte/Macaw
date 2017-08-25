@@ -26,12 +26,13 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/exyte/Macaw.git', :tag => s.version.to_s }
   s.social_media_url = 'http://exyte.com'
 
-  s.platform     = :ios, '8.0'
+  s.ios.deployment_target = "8.0"
+  s.osx.deployment_target = "10.12"
   s.requires_arc = true
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
   s.source_files = [
-     'Source/**/*.*'
+     'Source/**/*.swift'
   ]
   # s.resource_bundles = {
   #   'Macaw' => ['Pod/Assets/*.png']

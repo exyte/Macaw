@@ -1,0 +1,5 @@
+use_frameworks!
+
+target 'Example-macOS' do
+	pod 'Macaw', :path => '../'
+end

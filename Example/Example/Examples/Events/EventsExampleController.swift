@@ -69,6 +69,8 @@ class EventsExampleController: UIViewController {
                 return
             }
             
+            print("canvas pressed:\(loc.x) \(loc.y)")
+            
             startPoint = loc
             switch tool {
             case .ellipse:
@@ -87,6 +89,7 @@ class EventsExampleController: UIViewController {
         }
         
         canvas.onTouchMoved { event in
+            
             guard let tool = self.selectedTool else {
                 return
             }
@@ -94,6 +97,8 @@ class EventsExampleController: UIViewController {
             guard let loc = event.points.first?.location else {
                 return
             }
+            
+            print("canvas moving \(loc.x) \(loc.y)")
             
             let width = loc.x - startPoint.x
             let height = loc.y - startPoint.y

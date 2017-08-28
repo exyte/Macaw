@@ -13,7 +13,7 @@ class AnimationProducer {
     
 	var storedAnimations = [Node: BasicAnimation]()
     var delayedAnimations = [BasicAnimation: Timer]()
-    var displayLink: MDisplayLink?
+    var displayLink: MDisplayLinkProtocol?
     
     struct ContentAnimationDesc {
         let animation: ContentsAnimation
@@ -329,9 +329,12 @@ class AnimationProducer {
         contentsAnimations.append(animationDesc)
         
         if displayLink == nil {
-            displayLink = MDisplayLink(target: self, selector: #selector(updateContentAnimations))
-            //displayLink?.frameInterval = 1
-            displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+            displayLink = MDisplayLink()
+            displayLink?.startUpdates { [weak self] in
+                DispatchQueue.main.async {
+                    self?.updateContentAnimations()
+                }
+            }
         }
     }
     

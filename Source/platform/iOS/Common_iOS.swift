@@ -26,7 +26,6 @@ import Foundation
   public typealias MPinchGestureRecognizer = UIPinchGestureRecognizer
   public typealias MRotationGestureRecognizer = UIRotationGestureRecognizer
   public typealias MScreen = UIScreen
-  public typealias MDisplayLink = CADisplayLink
   public typealias MViewContentMode = UIViewContentMode
   
   extension MTapGestureRecognizer {

@@ -132,6 +132,6 @@ open class Image: Node {
     }
     
     // General case
-    return MImage(named: src)
+    return MImage(named: NSImage.Name(rawValue: src))
   }
 }

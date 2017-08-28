@@ -14,13 +14,13 @@ import Foundation
   private var imageContextStack: [CGFloat] = []
   
   func MGraphicsGetCurrentContext() -> CGContext? {
-    return NSGraphicsContext.current()?.cgContext
+    return NSGraphicsContext.current?.cgContext
   }
   
   func MGraphicsPushContext(_ context: CGContext) {
     let cx = NSGraphicsContext(cgContext: context, flipped: true)
     NSGraphicsContext.saveGraphicsState()
-    NSGraphicsContext.setCurrent(cx)
+    NSGraphicsContext.current = cx
   }
   
   func MGraphicsPopContext() {
@@ -32,7 +32,7 @@ import Foundation
     let rep = NSBitmapImageRep(focusedViewRect: NSMakeRect(0, 0, image.size.width, image.size.height))
     image.unlockFocus()
     
-    return rep?.representation(using: NSPNGFileType, properties: [:])
+    return rep?.representation(using: NSBitmapImageRep.FileType.png, properties: [:])
   }
   
   func MImageJPEGRepresentation(_ image: MImage, _ quality: CGFloat = 0.9) -> Data? {
@@ -40,7 +40,7 @@ import Foundation
     let rep = NSBitmapImageRep(focusedViewRect: NSMakeRect(0, 0, image.size.width, image.size.height))
     image.unlockFocus()
     
-    return rep?.representation(using: NSJPEGFileType, properties: [NSImageCompressionFactor: quality])
+    return rep?.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [NSBitmapImageRep.PropertyKey.compressionFactor: quality])
   }
   
   
@@ -48,7 +48,7 @@ import Foundation
     var scale = scale
     
     if scale == 0.0 {
-      scale = NSScreen.main()?.backingScaleFactor ?? 1.0
+      scale = NSScreen.main?.backingScaleFactor ?? 1.0
     }
     
     let width = Int(size.width * scale)

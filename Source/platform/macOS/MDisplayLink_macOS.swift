@@ -28,7 +28,7 @@ import Foundation
                 return
             }
             
-            CVDisplayLinkSetOutputCallback(displayLink!, { (displayLink, inNow, inOutputTime, flagsIn, flagsOut, userData) -> CVReturn in
+            CVDisplayLinkSetOutputCallback(displayLink!, { (_, _, _, _, _, userData) -> CVReturn in
                 
                 let `self` = unsafeBitCast(userData, to: MDisplayLink.self)
                 `self`.onUpdate?()

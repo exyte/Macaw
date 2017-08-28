@@ -132,6 +132,10 @@ open class Image: Node {
     }
     
     // General case
-    return MImage(named: NSImage.Name(rawValue: src))
+    #if os(iOS)
+        return MImage(named: src)
+    #elseif os(OSX)
+        return MImage(named: NSImage.Name(rawValue: src))
+    #endif
   }
 }

@@ -358,7 +358,7 @@ override func mTouchesBegan(_ touches: [MTouchEvent]) {
   
   // MARK: - Tap
   
-  func handleTap(recognizer: MTapGestureRecognizer) {
+    @objc func handleTap(recognizer: MTapGestureRecognizer) {
     if !self.node.shouldCheckForTap() {
       return
     }
@@ -396,7 +396,7 @@ override func mTouchesBegan(_ touches: [MTouchEvent]) {
   
   // MARK: - Pan
   
-  func handlePan(recognizer: MPanGestureRecognizer) {
+    @objc func handlePan(recognizer: MPanGestureRecognizer) {
     if !self.node.shouldCheckForPan() {
       return
     }
@@ -450,7 +450,7 @@ override func mTouchesBegan(_ touches: [MTouchEvent]) {
   
   // MARK: - Rotation
   
-  func handleRotation(_ recognizer: MRotationGestureRecognizer) {
+    @objc func handleRotation(_ recognizer: MRotationGestureRecognizer) {
     if !self.node.shouldCheckForRotate() {
       return
     }
@@ -498,7 +498,7 @@ override func mTouchesBegan(_ touches: [MTouchEvent]) {
   
   // MARK: - Pinch
   
-  func handlePinch(_ recognizer: MPinchGestureRecognizer) {
+    @objc func handlePinch(_ recognizer: MPinchGestureRecognizer) {
     if !self.node.shouldCheckForPinch() {
       return
     }

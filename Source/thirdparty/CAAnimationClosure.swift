@@ -60,7 +60,7 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
    
    - parameter timer: timer
    */
-  func animationIsAnimating(_ timer: Timer) {
+    @objc func animationIsAnimating(_ timer: Timer) {
     let progress = CGFloat(Date().timeIntervalSince(startTime) / animationDuration)
     if progress <= 1.0 {
       animating?(progress)

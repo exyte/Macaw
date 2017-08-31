@@ -173,7 +173,7 @@ import Foundation
     
     private func handleInput(event: NSEvent, handler: (_ touches: [MTouchEvent]) -> Void ) {
         // Touch pad
-        guard event.subtype == .touch else {
+        if event.subtype == .touch {
             let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
                 let location = touch.location(in: self)
                 let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())

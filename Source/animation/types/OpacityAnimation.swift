@@ -67,8 +67,9 @@ public extension AnimatableVariable where T: DoubleInterpolation  {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
-        let origin = node!.opacity
-        let factory = { () -> (Double) -> Double in            
+
+        let factory = {[unowned self]() -> (Double) -> Double in
+            let origin = self.node!.opacity
             return { (t: Double) in return origin.interpolate(to, progress: t) }
         }
         return OpacityAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)

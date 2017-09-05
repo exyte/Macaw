@@ -76,8 +76,8 @@ public extension AnimatableVariable where T: TransformInterpolation {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
         
-        let origin = node!.place
-        let factory = { () -> (Double) -> Transform in
+        let factory = { [unowned self] () -> (Double) -> Transform in
+            let origin = self.node!.place
             return { (t: Double) in return origin.interpolate(to, progress: t) }
         }
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)

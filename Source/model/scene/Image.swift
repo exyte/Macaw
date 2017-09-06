@@ -116,7 +116,7 @@ open class Image: Node {
     
   }
 
-  func setImage(_ image: MImage?) {
+  public func setImage(_ image: MImage?) {
     mImage = image
     // Notify consumers that we now have an image for our source.    
     srcVar.value = src

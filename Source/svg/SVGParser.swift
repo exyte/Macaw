@@ -12,7 +12,7 @@ open class SVGParser {
     
     /// Parse an SVG file identified by the specified bundle, name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(bundle: Bundle, path: String, ofType: String = "svg") throws -> Node {
+    open class func parse(bundle: Bundle, path: String, ofType: String = "svg") throws -> Group {
         guard let fullPath = bundle.path(forResource: path, ofType: ofType) else {
             throw SVGParserError.noSuchFile(path: "\(path).\(ofType)")
         }
@@ -22,13 +22,13 @@ open class SVGParser {
     
     /// Parse an SVG file identified by the specified name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(path: String, ofType: String = "svg") throws -> Node {
+    open class func parse(path: String, ofType: String = "svg") throws -> Group {
         return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
     }
     
     /// Parse the specified content of an SVG file.
     /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(text: String) throws -> Node {
+    open class func parse(text: String) throws -> Group {
         return SVGParser(text).parse()
     }
     

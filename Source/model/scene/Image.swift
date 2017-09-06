@@ -41,6 +41,14 @@ open class Image: Node {
     get { return hVar.value }
     set(val) { hVar.value = val }
   }
+
+  /**
+     Whether the underlying image source is external and will require
+     to be explicitly set through the setImage(_) method.
+  */
+  open var isSourceExternal: Bool {
+    get { return src.hasPrefix("http://") || src.hasPrefix("https://") }
+  }
   
   private var mImage: MImage?
   
@@ -107,6 +115,12 @@ open class Image: Node {
                 h: Double(mImage.size.height))
     
   }
+
+  func setImage(_ image: MImage?) {
+    mImage = image
+    // Notify consumers that we now have an image for our source.    
+    srcVar.value = src
+  }
   
   func image() -> MImage? {
     
@@ -129,6 +143,10 @@ open class Image: Node {
       }
       
       return MImage(data: decodedData)
+    }
+
+    if isSourceExternal {
+        return nil
     }
     
     // General case

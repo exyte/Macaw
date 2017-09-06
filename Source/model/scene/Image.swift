@@ -122,13 +122,18 @@ open class Image: Node {
     }
     
     // Base64 image
-    if src.hasPrefix("data:image/png;base64,") {
-      src = src.replacingOccurrences(of: "data:image/png;base64,", with: "")
-      guard let decodedData = Data(base64Encoded: src, options: .ignoreUnknownCharacters) else {
-        return .none
-      }
-      
-      return MImage(data: decodedData)
+    let decodableFormat = ["image/png", "image/jpg"]
+    for format in decodableFormat {
+        let prefix = "data:\(format);base64,"
+        if src.hasPrefix(prefix) {
+            let src = self.src.substring(from: prefix.endIndex)
+            guard let decodedData = Data(base64Encoded: src, options: .ignoreUnknownCharacters) else {
+                return .none
+            }
+
+            mImage = MImage(data: decodedData)
+            return mImage
+        }
     }
     
     // General case

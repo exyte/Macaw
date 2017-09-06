@@ -141,7 +141,7 @@ import Foundation
       self.curve(to: to, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
     }
     
-    func addQuadCurveToPoint(endPoint: NSPoint, controlPoint: NSPoint) {
+    func addQuadCurve(to endPoint: NSPoint, controlPoint: NSPoint) {
       let QP0 = self.currentPoint
       let CP3 = endPoint
       

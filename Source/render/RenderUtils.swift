@@ -296,7 +296,21 @@ class RenderUtils {
         setCubicPoint(next, cubic: nextCubic)
       }
     }
-    
+
+    func q(_ x2: Double, y2: Double, x: Double, y: Double) {
+        if let cur = currentPoint {
+            // TODO: Is that correct?
+            Q(x2 + Double(cur.x), y2: y2 + Double(cur.y), x: x + Double(cur.x), y: y + Double(cur.y))
+        }
+    }
+
+    func Q(_ x2: Double, y2: Double, x: Double, y: Double) {
+        let controlPoint = CGPoint(x: CGFloat(x2), y: CGFloat(y2))
+        let next = CGPoint(x: CGFloat(x), y: CGFloat(y))
+        bezierPath.addQuadCurve(to: next, controlPoint: controlPoint)
+        setQuadrPoint(next, quadr: controlPoint)
+    }
+
     func a(_ rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
       if let cur = currentPoint {
         A(rx, ry: ry, angle: angle, largeArc: largeArc, sweep: sweep, x: x + Double(cur.x), y: y + Double(cur.y))
@@ -375,7 +389,13 @@ class RenderUtils {
       setPoint(p)
       initialPoint = p
     }
-    
+
+    func setQuadrPoint(_ p: CGPoint, quadr: CGPoint) {
+      currentPoint = p
+      cubicPoint = nil
+      quadrPoint = quadr
+    }
+
     func setPoint(_ p: CGPoint) {
       currentPoint = p
       cubicPoint = nil
@@ -444,6 +464,16 @@ class RenderUtils {
       case .a:
         let flags = numToBools(data[3])
         a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+      case .Q:
+        while data.count >= 4 {
+            Q(data[0], y2: data[1], x: data[2], y: data[3])
+            data.removeSubrange((0 ..< 4))
+        }
+      case .q:
+        while data.count >= 4 {
+            q(data[0], y2: data[1], x: data[2], y: data[3])
+            data.removeSubrange((0 ..< 4))
+        }
       case .z:
         Z()
       default:

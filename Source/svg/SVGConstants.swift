@@ -307,7 +307,9 @@ open class SVGConstants {
     open static let smoothCurveToRelative = "s"
     open static let closePathAbsolute = "Z"
     open static let closePathRelative = "z"
-    
+    open static let quadraticCurveAbsolute = "Q"
+    open static let quadraticCurveRelative = "q"
+
     open static let pathCommands = [
         moveToAbsolute,
         moveToRelative,
@@ -322,7 +324,9 @@ open class SVGConstants {
         smoothCurveToAbsolute,
         smoothCurveToRelative,
         closePathAbsolute,
-        closePathRelative
+        closePathRelative,
+        quadraticCurveAbsolute,
+        quadraticCurveRelative
     ]
     
 }

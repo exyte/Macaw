@@ -53,6 +53,7 @@ open class SVGParser {
         case lineH
         case curveTo
         case smoothCurveTo
+        case quadraticCurveTo
         case closePath
         case none
     }
@@ -1090,7 +1091,14 @@ open class SVGParser {
             
         case .closePath:
             return PathSegment(type: .z)
-        default:
+        case .quadraticCurveTo:
+            let data = separatedValues.flatMap { Double($0) }
+            if data.count < 4 {
+                return .none
+            }
+
+            return PathSegment(type: command.absolute ? .Q : .q, data: data)
+        case .none:
             return .none
         }
     }
@@ -1123,38 +1131,7 @@ open class SVGParser {
     }
     
     fileprivate func isAbsolute(_ commandString: String) -> Bool {
-        switch commandString {
-        case SVGConstants.moveToAbsolute:
-            return true
-        case SVGConstants.moveToRelative:
-            return false
-        case SVGConstants.lineToAbsolute:
-            return true
-        case SVGConstants.lineToRelative:
-            return false
-        case SVGConstants.lineHorizontalAbsolute:
-            return true
-        case SVGConstants.lineHorizontalRelative:
-            return false
-        case SVGConstants.lineVerticalAbsolute:
-            return true
-        case SVGConstants.lineVerticalRelative:
-            return false
-        case SVGConstants.curveToAbsolute:
-            return true
-        case SVGConstants.curveToRelative:
-            return false
-        case SVGConstants.smoothCurveToAbsolute:
-            return true
-        case SVGConstants.smoothCurveToRelative:
-            return false
-        case SVGConstants.closePathAbsolute:
-            return true
-        case SVGConstants.closePathRelative:
-            return false
-        default:
-            return true
-        }
+        return !commandString.trimmingCharacters(in: CharacterSet.lowercaseLetters).isEmpty
     }
     
     fileprivate func getCommandType(_ commandString: String) -> PathCommandType {
@@ -1183,6 +1160,8 @@ open class SVGParser {
             return .smoothCurveTo
         case SVGConstants.smoothCurveToRelative:
             return .smoothCurveTo
+        case SVGConstants.quadraticCurveAbsolute, SVGConstants.quadraticCurveRelative:
+            return .quadraticCurveTo
         case SVGConstants.closePathAbsolute:
             return .closePath
         case SVGConstants.closePathRelative:

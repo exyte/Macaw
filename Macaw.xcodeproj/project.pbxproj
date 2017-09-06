@@ -144,6 +144,7 @@
 		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
 		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
+		DC605D3F1F6064BE0081DDF8 /* Node+CGContextRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC605D3E1F6064BE0081DDF8 /* Node+CGContextRender.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -309,6 +310,7 @@
 		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
+		DC605D3E1F6064BE0081DDF8 /* Node+CGContextRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Node+CGContextRender.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */,
+				DC605D3E1F6064BE0081DDF8 /* Node+CGContextRender.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				57E5E16B1E3B393900D1CB28 /* AnimationSequence.swift in Sources */,
 				57E5E1671E3B393900D1CB28 /* MorphingGenerator.swift in Sources */,
 				57E5E1AA1E3B393900D1CB28 /* SVGConstants.swift in Sources */,
+				DC605D3F1F6064BE0081DDF8 /* Node+CGContextRender.swift in Sources */,
 				57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */,
 				57E5E15E1E3B393900D1CB28 /* LocusInterpolation.swift in Sources */,
 			);

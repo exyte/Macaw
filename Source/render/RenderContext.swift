@@ -7,6 +7,7 @@ import Foundation
 class RenderContext {
   weak var view: MView?
   weak var cgContext: CGContext?
+  var renderRect: CGRect?
   
   init(view: MView?) {
     self.view = view

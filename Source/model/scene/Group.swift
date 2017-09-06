@@ -73,6 +73,10 @@ open class Group: Node {
   
   // GENERATED NOT
   override internal func bounds() -> Rect? {
+    if let viewBox = viewBox {
+        return viewBox
+    }
+
     var union: Rect?
     
     contents.forEach { node in

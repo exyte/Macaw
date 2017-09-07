@@ -372,7 +372,7 @@ open class SVGParser {
         guard let fillColor = styleParts["fill"] else {
             return Color.black
         }
-        if fillColor == "none" {
+        if fillColor == "none" || fillColor == "transparent" {
             return .none
         }
         var opacity: Double = 1

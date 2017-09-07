@@ -45,7 +45,8 @@ open class SVGParser {
     fileprivate var defNodes = [String: Node]()
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
-    
+    private var viewBox: Rect?
+
     fileprivate enum PathCommandType {
         case moveTo
         case lineTo
@@ -69,6 +70,7 @@ open class SVGParser {
         iterateThroughXmlTree(parsedXml.children)
         
         let group = Group(contents: self.nodes, place: initialPosition)
+        group.viewBox = viewBox
         return group
     }
     
@@ -76,6 +78,14 @@ open class SVGParser {
         children.forEach { child in
             if let element = child.element {
                 if element.name == "svg" {
+                    if let viewBoxValue: String = element.value(ofAttribute: "viewBox") {
+                        let rectValues = viewBoxValue.components(separatedBy: CharacterSet.whitespaces).flatMap { Double($0) }
+                        if rectValues.count == 4 {
+                            self.viewBox = Rect(x: rectValues[0], y: rectValues[1], w: rectValues[2], h: rectValues[3])
+                        } else {
+                            print("SVG parsing error: Invalid viewBox \(viewBoxValue)")
+                        }
+                    }
                     iterateThroughXmlTree(child.children)
                 } else if let node = parseNode(child) {
                     self.nodes.append(node)

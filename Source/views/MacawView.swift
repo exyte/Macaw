@@ -166,6 +166,8 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     defer {
       prevAnimatedNodes = animatedNodes
     }
+
+    context.renderRect = bounds
     
     // No animation case
     if animatedNodes.count == 0 || animatedNodes.count > 20 {

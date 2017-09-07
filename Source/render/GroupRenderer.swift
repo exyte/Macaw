@@ -34,7 +34,24 @@ class GroupRenderer: NodeRenderer {
   override func node() -> Node? {
     return group
   }
-  
+
+  override func renderTransform() -> CGAffineTransform {
+    var transform = CGAffineTransform.identity
+    if let renderRect = ctx.renderRect, let viewBox = group?.viewBox {
+        transform = transform.translatedBy(x: renderRect.origin.x, y: renderRect.origin.y)
+
+        let wRatio = renderRect.width / CGFloat(viewBox.w)
+        let hRatio = renderRect.height / CGFloat(viewBox.h)
+        transform = transform
+            .scaledBy(x: wRatio, y: hRatio)
+            .translatedBy(x: CGFloat(-viewBox.x), y: CGFloat(-viewBox.y))
+    }
+
+    transform = transform.concatenating(super.renderTransform())
+
+    return transform
+  }
+
   override func doRender(_ force: Bool, opacity: Double) {
     renderers.forEach { renderer in
       renderer.render(force: force, opacity: opacity)

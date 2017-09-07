@@ -69,6 +69,10 @@ class NodeRenderer {
     open func node() -> Node? {
         fatalError("Unsupported")
     }
+
+    func renderTransform() -> CGAffineTransform {
+        return node().map { RenderUtils.mapTransform($0.place) } ?? CGAffineTransform.identity
+    }
     
     final public func render(force: Bool, opacity: Double) {
         ctx.cgContext!.saveGState()
@@ -79,8 +83,10 @@ class NodeRenderer {
         guard let node = node() else {
             return
         }
+
+        let transform = renderTransform()
         
-        ctx.cgContext!.concatenate(RenderUtils.mapTransform(node.place))
+        ctx.cgContext!.concatenate(transform)
         applyClip()
         directRender(force: force, opacity: node.opacity * opacity)
     }

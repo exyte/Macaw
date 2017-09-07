@@ -1,7 +1,13 @@
 import Foundation
 
 open class Group: Node {
-  
+
+  open var viewBoxVar = Variable<Rect?>(nil)
+  open var viewBox: Rect? {
+    get { return viewBoxVar.value }
+    set { viewBoxVar.value = newValue }
+  }
+
   open var contentsVar: AnimatableVariable<[Node]>
   open var contents: [Node] {
     get { return contentsVar.value }
@@ -67,6 +73,10 @@ open class Group: Node {
   
   // GENERATED NOT
   override internal func bounds() -> Rect? {
+    if let viewBox = viewBox {
+        return viewBox
+    }
+
     var union: Rect?
     
     contents.forEach { node in

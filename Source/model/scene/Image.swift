@@ -131,8 +131,7 @@ open class Image: Node {
                 return .none
             }
 
-            mImage = MImage(data: decodedData)
-            return mImage
+            return MImage(data: decodedData)
         }
     }
     

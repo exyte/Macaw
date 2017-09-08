@@ -21,6 +21,7 @@
 		A768EADC1F42CC7C00F22A17 /* EasingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EADB1F42CC7C00F22A17 /* EasingView.swift */; };
 		A768EADE1F42CCBC00F22A17 /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EADD1F42CCBC00F22A17 /* AnimationsView.swift */; };
 		A768EAE21F42EDAE00F22A17 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = A768EAE11F42EDAE00F22A17 /* tiger.svg */; };
+		DCA2B25E1F62ED0800707C4D /* SVGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA2B25D1F62ED0800707C4D /* SVGViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		A768EAE11F42EDAE00F22A17 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = "Example-macOS/Assets/SVG/tiger.svg"; sourceTree = "<group>"; };
 		B752613023F25BBB88A17503 /* Pods-Example-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example-macOS/Pods-Example-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BEA3A0212E620A41C8362253 /* Pods-Example-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example-macOS/Pods-Example-macOS.release.xcconfig"; sourceTree = "<group>"; };
+		DCA2B25D1F62ED0800707C4D /* SVGViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 		A759399F1F41C51A000CE329 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				DCA2B25C1F62ECFB00707C4D /* SVG */,
 				A75939A01F41C544000CE329 /* Shapes */,
 				A75939A61F41C58D000CE329 /* Transform */,
 				A768EADA1F42CBF600F22A17 /* Animations */,
@@ -180,6 +183,14 @@
 			isa = PBXGroup;
 			children = (
 				A768EAE11F42EDAE00F22A17 /* tiger.svg */,
+			);
+			name = SVG;
+			sourceTree = "<group>";
+		};
+		DCA2B25C1F62ECFB00707C4D /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				DCA2B25D1F62ED0800707C4D /* SVGViewController.swift */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -266,7 +277,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3AE877354B4133CFC7CAF0DD /* [CP] Copy Pods Resources */ = {
@@ -312,6 +323,7 @@
 				A753C9E81F3DB18A006615A4 /* AppDelegate.swift in Sources */,
 				A768EAD81F42C98E00F22A17 /* EventsExampleController.swift in Sources */,
 				A72862CE1F430DF00033893D /* EasingViewController.swift in Sources */,
+				DCA2B25E1F62ED0800707C4D /* SVGViewController.swift in Sources */,
 				A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */,
 				A768EADE1F42CCBC00F22A17 /* AnimationsView.swift in Sources */,
 				A75939A81F41C5A8000CE329 /* TransformExampleView.swift in Sources */,

@@ -1,3 +1,5 @@
+import Foundation
+
 open class GeomUtils {
     
     open class func concat(t1: Transform, t2: Transform) -> Transform {

@@ -145,90 +145,17 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     self.addGestureRecognizer(rotationRecognizer)
     self.addGestureRecognizer(pinchRecognizer)
   }
-  
-  // zLayers state
-  private var prevAnimatedNodes = [Node]()
-  private var zLayers = [CALayer]()
-  
-  override open func draw(_ rect: CGRect) {
-    let ctx = MGraphicsGetCurrentContext()
     
-    if self.backgroundColor == nil {
-      ctx?.clear(rect)
+    override open func draw(_ rect: CGRect) {
+        let ctx = MGraphicsGetCurrentContext()
+        
+        if self.backgroundColor == nil {
+            ctx?.clear(rect)
+        }
+        
+        self.context.cgContext = ctx
+        renderer?.render(force: false, opacity: node.opacity)
     }
-    
-    guard let cache = animationCache else {
-      return
-    }
-    
-    let animatedNodes = AnimationUtils.animatedNodes(root: node, animationCache: cache)
-    
-    defer {
-      prevAnimatedNodes = animatedNodes
-    }
-    
-    // No animation case
-    if animatedNodes.count == 0 || animatedNodes.count > 20 {
-      zLayers.forEach { $0.removeFromSuperlayer() }
-      zLayers.removeAll()
-      prevAnimatedNodes.removeAll()
-      
-      self.context.cgContext = ctx
-      renderer?.render(force: false, opacity: node.opacity)
-      return
-    }
-    
-    // Animation case
-    // Same nodes or some removed - no need to recalculate zPos
-    if animatedNodes.count <= prevAnimatedNodes.count {
-      var isEqual = true
-      for (i, node) in animatedNodes.enumerated() {
-        isEqual = isEqual && (node == prevAnimatedNodes[i])
-      }
-      
-      if isEqual {
-        return
-      }
-    }
-    
-    // Replacing old zLayers
-    // Removing old ones
-    zLayers.forEach { $0.removeFromSuperlayer() }
-    zLayers.removeAll()
-    
-    // Adding new
-    var indexCache = [Node: Int]()
-    var zPositions = animatedNodes.map{ AnimationUtils.absoluteIndex($0, useCache: true) }
-    indexCache.removeAll()
-    
-    zPositions.append(Int.max)
-    var prevZPos = 0
-    for zPos in zPositions {
-      let interval = RenderingInterval(from: prevZPos, to: zPos)
-      let layer = ShapeLayer()
-      
-      layer.frame = self.bounds
-      layer.node = node
-      layer.animationCache = cache
-      layer.renderingInterval = interval
-      layer.isForceRenderingEnabled = false
-      layer.zPosition = CGFloat(prevZPos) + 0.5
-      layer.contentsScale = 2.0
-      
-      let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
-      layer.renderTransform = nodeTransform
-      
-      zLayers.append(layer)
-      
-      prevZPos = zPos
-    }
-    
-    
-    zLayers.forEach{
-      mLayer?.addSublayer($0)
-      $0.setNeedsDisplay()
-    }
-  }
   
   private func localContext( _ callback: (CGContext) -> ()) {
     MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)

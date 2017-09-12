@@ -12,11 +12,25 @@ open class SVGView: MacawView {
   fileprivate var svgNode: Node?
   
   @IBInspectable open var fileName: String? {
-    didSet {
-      parseSVG()
-      render()
+    get { return innerFileName }
+    set {
+      innerFileName = newValue
+      innerUrl = nil
+      reload()
     }
   }
+
+  open var url: URL? {
+    get { return innerUrl }
+    set {
+      innerUrl = newValue
+      innerFileName = nil
+      reload()
+    }
+  }
+
+  private var innerUrl: URL?
+  private var innerFileName: String?
   
   public init(node: Node = Group(), frame: CGRect) {
     super.init(frame: frame)
@@ -43,9 +57,25 @@ open class SVGView: MacawView {
     
     render()
   }
+
+  private func reload() {
+    parseSVG()
+    render()
+  }
   
   fileprivate func parseSVG() {
-    svgNode = try? SVGParser.parse(path: fileName ?? "")
+    do {
+        if let fileName = fileName {
+            svgNode = try SVGParser.parse(path: fileName)
+        } else if let url = url {
+            let text = try String(contentsOf: url)
+            svgNode = try SVGParser.parse(text: text)
+        } else {
+            svgNode = nil
+        }
+    } catch let error {
+        Swift.print("Failed to load SVG: \(error)")
+    }
   }
   
   fileprivate func render() {

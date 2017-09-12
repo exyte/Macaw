@@ -288,25 +288,40 @@
         <!--SVG-->
         <scene sceneID="ZLO-Eh-m1d">
             <objects>
-                <viewController title="SVG" id="iWh-Ne-7Ns" sceneMemberID="viewController">
+                <viewController title="SVG" id="iWh-Ne-7Ns" customClass="SVGViewController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Vz6-zz-0Xw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="F1u-M1-FFG">
+                                <rect key="frame" x="473" y="464" width="125" height="32"/>
+                                <buttonCell key="cell" type="push" title="Open SVG file" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qOg-Z1-K5p">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openSVGDidClick:" target="iWh-Ne-7Ns" id="3Xb-U4-6nj"/>
+                                </connections>
+                            </button>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="yvE-72-Fe6" customClass="SVGView" customModule="Macaw">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="463"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="tiger"/>
                                 </userDefinedRuntimeAttributes>
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="yvE-72-Fe6" secondAttribute="trailing" id="4UL-4W-9YN"/>
-                            <constraint firstItem="yvE-72-Fe6" firstAttribute="leading" secondItem="Vz6-zz-0Xw" secondAttribute="leading" id="Xi8-t8-OlL"/>
-                            <constraint firstAttribute="bottom" secondItem="yvE-72-Fe6" secondAttribute="bottom" id="l48-pg-5Kp"/>
-                            <constraint firstItem="yvE-72-Fe6" firstAttribute="top" secondItem="Vz6-zz-0Xw" secondAttribute="top" id="nQP-Ld-hzQ"/>
+                            <constraint firstAttribute="trailing" secondItem="F1u-M1-FFG" secondAttribute="trailing" constant="8" id="7Wz-wG-enQ"/>
+                            <constraint firstAttribute="trailing" secondItem="yvE-72-Fe6" secondAttribute="trailing" id="9Af-sa-axe"/>
+                            <constraint firstItem="yvE-72-Fe6" firstAttribute="leading" secondItem="Vz6-zz-0Xw" secondAttribute="leading" id="NDL-FC-B3x"/>
+                            <constraint firstItem="F1u-M1-FFG" firstAttribute="top" secondItem="Vz6-zz-0Xw" secondAttribute="top" constant="8" id="ORZ-ef-CjB"/>
+                            <constraint firstItem="yvE-72-Fe6" firstAttribute="top" secondItem="F1u-M1-FFG" secondAttribute="bottom" constant="8" id="Vmb-Ai-sue"/>
+                            <constraint firstAttribute="bottom" secondItem="yvE-72-Fe6" secondAttribute="bottom" id="ej3-CQ-adk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="svgView" destination="yvE-72-Fe6" id="bgx-TN-syX"/>
+                    </connections>
                 </viewController>
                 <customObject id="SgK-6P-fu5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

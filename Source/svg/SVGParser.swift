@@ -372,18 +372,22 @@ open class SVGParser {
         guard let fillColor = styleParts["fill"] else {
             return Color.black
         }
-        if fillColor == "none" {
+        if fillColor == "none" || fillColor == "transparent" {
             return .none
         }
         var opacity: Double = 1
+        var hasFillOpacity = false
         if let fillOpacity = styleParts["fill-opacity"] {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+            hasFillOpacity = true
         }
         if let defaultColor = SVGConstants.colorList[fillColor] {
-            return Color(val: defaultColor)
+            let color = Color(val: defaultColor)
+            return hasFillOpacity ? color.with(a: opacity) : color
         }
         if fillColor.hasPrefix("rgb") {
-            return parseRGBNotation(colorString: fillColor)
+            let color = parseRGBNotation(colorString: fillColor)
+            return hasFillOpacity ? color.with(a: opacity) : color
         } else if fillColor.hasPrefix("url") {
             let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
             let id = fillColor.substring(from: index)
@@ -395,7 +399,7 @@ open class SVGParser {
             return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
         }
     }
-    
+
     fileprivate func getStroke(_ styleParts: [String: String]) -> Stroke? {
         guard let strokeColor = styleParts["stroke"] else {
             return .none

@@ -172,20 +172,6 @@ import Foundation
     }
     
     private func handleInput(event: NSEvent, handler: (_ touches: [MTouchEvent]) -> Void ) {
-        // Touch pad
-        guard event.subtype == .touch else {
-            let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-                let location = touch.location(in: self)
-                let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                
-                return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-            }
-            
-            handler(touchPoints)
-            return
-        }
-        
-        // Mouse
         let location = self.convert(event.locationInWindow, to: .none)
         let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: 0)
         

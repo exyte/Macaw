@@ -290,7 +290,7 @@ open class SVGParser {
     fileprivate func parseRGBNotation(colorString: String) -> Color {
         let from = colorString.characters.index(colorString.startIndex, offsetBy: 4)
         let inPercentage = colorString.characters.contains("%")
-        let sp = colorString.substring(from: from)
+        let sp = String(colorString.suffix(from: from))
             .replacingOccurrences(of: "%", with: "")
             .replacingOccurrences(of: ")", with: "")
             .replacingOccurrences(of: " ", with: "")
@@ -390,7 +390,7 @@ open class SVGParser {
             return hasFillOpacity ? color.with(a: opacity) : color
         } else if fillColor.hasPrefix("url") {
             let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
-            let id = fillColor.substring(from: index)
+            let id = String(fillColor.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")
                 .replacingOccurrences(of: "#", with: "")
@@ -416,7 +416,7 @@ open class SVGParser {
             fill = parseRGBNotation(colorString: strokeColor)
         } else if strokeColor.hasPrefix("url") {
             let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)
-            let id = strokeColor.substring(from: index)
+            let id = String(strokeColor.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")
                 .replacingOccurrences(of: "#", with: "")

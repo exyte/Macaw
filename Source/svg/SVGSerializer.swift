@@ -25,29 +25,14 @@ open class SVGSerializer {
         self.indent = indent
     }
     
-    fileprivate init(indent:Int) {
-        self.width = SVGDefaultWidth
-        self.height = SVGDefaultHeight
-        self.id = SVGDefaultId
-        self.indent = indent
-    }
-
-    fileprivate init() {
-        self.width = SVGDefaultWidth
-        self.height = SVGDefaultHeight
-        self.id = SVGDefaultId
-        self.indent = 1
-    }
-
     // header and footer
     fileprivate let SVGDefaultHeader = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\""
-    fileprivate let SVGDefaultId = ""
-    fileprivate let SVGDefaultWidth=400
-    fileprivate let SVGDefaultHeight=210
+    fileprivate static let SVGDefaultId = ""
+    fileprivate static let SVGUndefinedSize = -1
     fileprivate let SVGFooter = "</svg>"
     
     // groups
-    fileprivate let SVGGroupOpenTag = "<g>"
+    fileprivate let SVGGroupOpenTag = "<g"
     fileprivate let SVGGroupCloseTag = "</g>"
     
     // shapes
@@ -224,6 +209,15 @@ open class SVGSerializer {
         }
         if let group = node as? Group {
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
+            if ([group.place.dx, group.place.dy].map{ Int($0) } != [0, 0]) {
+                if ([group.place.m11, group.place.m12, group.place.m21, group.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
+                    result += " transform=\"translate(\(Int(group.place.dx)),\(Int(group.place.dy)))\""
+                } else {
+                    let matrixArgs = [group.place.m11, group.place.m12, group.place.m21, group.place.m22, group.place.dx, group.place.dy].map{ String($0) }.joined(separator: ",")
+                    result += " transform=\"matrix(\(matrixArgs))\""
+                }
+            }
+            result += SVGGenericEndTag
             for child in group.contentsVar.value {
                 result += serialize(node: child, offset: offset + 1)
             }
@@ -240,14 +234,21 @@ open class SVGSerializer {
     }
     
     fileprivate func serialize(node:Node) -> String {
-        var result = [SVGDefaultHeader, "id=\"\(self.id)\"", "width=\"\(self.width)\"", "height=\"\(self.height)\"", SVGGenericEndTag].joined(separator: " ")
+        var sizes = ""
+        if width != -1 {
+            sizes += "width=\"\(self.width)\""
+        }
+        if height != -1 {
+            sizes += "height=\"\(self.height)\""
+        }
+        var result = [SVGDefaultHeader, "id=\"\(self.id)\"", sizes, SVGGenericEndTag].joined(separator: " ")
         result += serialize(node: node, offset: 1)
         result += indentTextWithOffset(SVGFooter, 0)
         return result
     }
     
-    open class func serialize(node: Node, indent: Int = 1) -> String {
-        return SVGSerializer(indent:indent).serialize(node: node)
+    open class func serialize(node: Node, width: Int = SVGUndefinedSize, height: Int = SVGUndefinedSize, id: String = SVGDefaultId, indent: Int = 1) -> String {
+        return SVGSerializer(width: width, height:height, id: id, indent:indent).serialize(node: node)
     }
-    
+
 }

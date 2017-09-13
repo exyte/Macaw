@@ -126,7 +126,7 @@ open class Image: Node {
     for format in decodableFormat {
         let prefix = "data:\(format);base64,"
         if src.hasPrefix(prefix) {
-            let src = self.src.substring(from: prefix.endIndex)
+            let src = String(self.src.suffix(from: prefix.endIndex))
             guard let decodedData = Data(base64Encoded: src, options: .ignoreUnknownCharacters) else {
                 return .none
             }

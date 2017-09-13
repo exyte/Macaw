@@ -13,35 +13,14 @@ class MacawSVGTests: XCTestCase {
         super.tearDown()
     }
     
-    @available(iOS 10.0, *)
-    func testSVGFromList() {
+    func testSVGEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        var count = 0
-        if let path = bundle.path(forResource: "svglist", ofType: "txt") {
-            do {
-                let data = try String(contentsOfFile: path, encoding: .utf8)
-                let myStrings = data.components(separatedBy: .newlines)
-                for name in myStrings {
-                    count += 1
-                    print ("PROCESSING ", count, " -- ", name)
-                    let dst = "/Users/ykashnikov/exyte/svg-test-suite/macaw-svg/" + name + ".svg"
-                    do {
-                        let rootNode = try SVGParser.parse(bundle:bundle, path: name)
-                        let svgContent = SVGSerializer.serialize(node: rootNode, indent: 1)
-                        do {
-                            try svgContent.write(toFile: dst, atomically: false, encoding:String.Encoding.utf8)
-                        }
-                        catch let error as NSError {
-                            print("Write failed for:\(name) error:\(error)")
-                        }
-                        print (count, name, " PASSED")
-                    } catch _ {
-                        print (count, name, " FAILED")
-                    }
-                }
-            } catch {
-                print(error)
-            }
+        let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2\"/></g></svg>"
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "ellipse")
+            XCTAssert(SVGSerializer.serialize(node: node) == ellipseReferenceContent)
+        } catch {
+            print(error)
         }
     }
     

@@ -13,16 +13,16 @@ import Foundation
 ///
 open class SVGSerializer {
     
-    fileprivate let width: Int
-    fileprivate let height: Int
-    fileprivate let id: String
+    fileprivate let width: Int?
+    fileprivate let height: Int?
+    fileprivate let id: String?
     fileprivate let indent: Int
     
-    fileprivate init(width: Int, height: Int, id: String, indent: Int) {
+    fileprivate init(width: Int?, height: Int?, id: String?) {
         self.width = width
         self.height = height
         self.id = id
-        self.indent = indent
+        self.indent = 0
     }
     
     // header and footer
@@ -234,21 +234,24 @@ open class SVGSerializer {
     }
     
     fileprivate func serialize(node:Node) -> String {
-        var sizes = ""
-        if width != -1 {
-            sizes += "width=\"\(self.width)\""
+        var optionalSection = ""
+        if let w = width {
+            optionalSection += "width=\"\(w)\""
         }
-        if height != -1 {
-            sizes += "height=\"\(self.height)\""
+        if let h = height {
+            optionalSection += "height=\"\(h)\""
         }
-        var result = [SVGDefaultHeader, "id=\"\(self.id)\"", sizes, SVGGenericEndTag].joined(separator: " ")
+        if let i = id {
+            optionalSection += "id=\"\(i)\""
+        }
+        var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
         result += serialize(node: node, offset: 1)
         result += indentTextWithOffset(SVGFooter, 0)
         return result
     }
     
-    open class func serialize(node: Node, width: Int = SVGUndefinedSize, height: Int = SVGUndefinedSize, id: String = SVGDefaultId, indent: Int = 1) -> String {
-        return SVGSerializer(width: width, height:height, id: id, indent:indent).serialize(node: node)
+    open class func serialize(node: Node, width: Int? = nil, height: Int? = nil, id: String? = nil) -> String {
+        return SVGSerializer(width: width, height:height, id: id).serialize(node: node)
     }
 
 }

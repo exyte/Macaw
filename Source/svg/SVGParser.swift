@@ -449,7 +449,7 @@ open class SVGParser {
     }
     
     fileprivate func getStrokeCap(_ styleParts: [String: String]) -> LineCap {
-        var cap = LineCap.square
+        var cap = LineCap.butt
         if let strokeCap = styleParts["stroke-linecap"] {
             switch strokeCap {
             case "butt":

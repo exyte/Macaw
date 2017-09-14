@@ -144,6 +144,8 @@
 		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
 		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
+		C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
+		C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B191F458D64008CE0FF /* MacawSVGTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -309,6 +311,8 @@
 		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
+		C4820B171F458D0E008CE0FF /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
+		C4820B191F458D64008CE0FF /* MacawSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawSVGTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -598,6 +602,7 @@
 				57E5E1481E3B393900D1CB28 /* SVGParserError.swift */,
 				57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */,
 				57E5E14A1E3B393900D1CB28 /* SVGView.swift */,
+				C4820B171F458D0E008CE0FF /* SVGSerializer.swift */,
 			);
 			path = svg;
 			sourceTree = "<group>";
@@ -660,6 +665,7 @@
 				57CAB1241D7832E000FD8E47 /* svg */,
 				57CAB1221D782DFC00FD8E47 /* TestUtils.swift */,
 				57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */,
+				C4820B191F458D64008CE0FF /* MacawSVGTests.swift */,
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
@@ -870,6 +876,7 @@
 				57E5E1951E3B393900D1CB28 /* PathSegment.swift in Sources */,
 				57E5E1A41E3B393900D1CB28 /* ImageRenderer.swift in Sources */,
 				57E5E1621E3B393900D1CB28 /* PathFunctions.swift in Sources */,
+				C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */,
 				57E5E16E1E3B393900D1CB28 /* MorphingAnimation.swift in Sources */,
 				57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */,
 				57E5E15F1E3B393900D1CB28 /* TransformInterpolation.swift in Sources */,
@@ -956,6 +963,7 @@
 			files = (
 				5713C4F71E5C34C700BBA4D9 /* SequenceAnimationTests.swift in Sources */,
 				57B7A4E31EE70DC3009D78D7 /* ImageBoundsTests.swift in Sources */,
+				C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */,
 				5713C4F91E5C3FEE00BBA4D9 /* DelayedAnimationTests.swift in Sources */,
 				5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */,
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,

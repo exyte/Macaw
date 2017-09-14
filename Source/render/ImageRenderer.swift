@@ -60,7 +60,13 @@ class ImageRenderer: NodeRenderer {
       return .none
     }
     
-    if let mImage = MImage(named: image.src) {
+    #if os(iOS)
+        let osImage = MImage(named: image.src)
+    #elseif os(OSX)
+        let osImage = MImage(named: NSImage.Name(rawValue: image.src))
+    #endif
+    
+    if let mImage = osImage {
       let rect = getRect(mImage)
       if (rect.contains(location)) {
         return node()

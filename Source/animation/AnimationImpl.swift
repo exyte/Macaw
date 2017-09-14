@@ -164,7 +164,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 		self.variable = observableValue
         self.initialValue = observableValue.value
 		self.duration = animationDuration
-        self.timeFactory = { (node) in return valueFunc }
+        self.timeFactory = { return valueFunc }
 		self.vFunc = .none
 		self.logicalFps = fps
 

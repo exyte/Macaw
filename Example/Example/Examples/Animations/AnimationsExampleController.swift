@@ -17,7 +17,7 @@ class AnimationsExampleController: UIViewController {
         actionButton?.addTarget(self, action: #selector(startAnimationAction), for: .touchUpInside)
     }
     
-	func startAnimationAction() {
+    @objc func startAnimationAction() {
 		animView?.startAnimation()
         actionButton?.isEnabled = false
 	}

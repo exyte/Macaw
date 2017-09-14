@@ -19,7 +19,7 @@ import Foundation
   public typealias MImage = NSImage
   public typealias MBezierPath = NSBezierPath
   public typealias MGestureRecognizer = NSGestureRecognizer
-  public typealias MGestureRecognizerState = NSGestureRecognizerState
+    public typealias MGestureRecognizerState = NSGestureRecognizer.State
   public typealias MGestureRecognizerDelegate = NSGestureRecognizerDelegate
   public typealias MTapGestureRecognizer = NSClickGestureRecognizer
   public typealias MPanGestureRecognizer = NSPanGestureRecognizer
@@ -89,7 +89,7 @@ import Foundation
     }
     
     class var mSystemFontSize: CGFloat {
-      return NSFont.systemFontSize()
+      return NSFont.systemFontSize
     }
   }
   
@@ -115,13 +115,13 @@ import Foundation
   
   extension NSString {
     @nonobjc
-    func size(attributes attrs: [String : Any]? = nil) -> NSSize {
+    func size(attributes attrs: [NSAttributedStringKey : Any]? = nil) -> NSSize {
       return size(withAttributes: attrs)
     }
   }
   
   func MMainScreen() -> MScreen? {
-    return MScreen.main()
+    return MScreen.main
   }
   
   

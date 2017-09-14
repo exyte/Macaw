@@ -200,7 +200,7 @@ open class SVGParser {
     fileprivate func getMask(mask: String) -> Locus? {
         if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
             let fullRange = NSMakeRange(0, mask.characters.count)
-            if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.rangeAt(1))] {
+            if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
                 return maskReferenceNode.form
             }
         }
@@ -224,8 +224,8 @@ open class SVGParser {
         
         if let matchedAttribute = matcher.firstMatch(in: attributes, options: .reportCompletion, range: fullRange) {
             
-            let attributeName = (attributes as NSString).substring(with: matchedAttribute.rangeAt(1))
-            let values = parseTransformValues((attributes as NSString).substring(with: matchedAttribute.rangeAt(2)))
+            let attributeName = (attributes as NSString).substring(with: matchedAttribute.range(at: 1))
+            let values = parseTransformValues((attributes as NSString).substring(with: matchedAttribute.range(at: 2)))
             if values.isEmpty {
                 return transform
             }
@@ -290,7 +290,7 @@ open class SVGParser {
     fileprivate func parseRGBNotation(colorString: String) -> Color {
         let from = colorString.characters.index(colorString.startIndex, offsetBy: 4)
         let inPercentage = colorString.characters.contains("%")
-        let sp = colorString.substring(from: from)
+        let sp = String(colorString.suffix(from: from))
             .replacingOccurrences(of: "%", with: "")
             .replacingOccurrences(of: ")", with: "")
             .replacingOccurrences(of: " ", with: "")
@@ -390,7 +390,7 @@ open class SVGParser {
             return hasFillOpacity ? color.with(a: opacity) : color
         } else if fillColor.hasPrefix("url") {
             let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
-            let id = fillColor.substring(from: index)
+            let id = String(fillColor.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")
                 .replacingOccurrences(of: "#", with: "")
@@ -416,7 +416,7 @@ open class SVGParser {
             fill = parseRGBNotation(colorString: strokeColor)
         } else if strokeColor.hasPrefix("url") {
             let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)
-            let id = strokeColor.substring(from: index)
+            let id = String(strokeColor.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")
                 .replacingOccurrences(of: "#", with: "")
@@ -624,7 +624,7 @@ open class SVGParser {
             let elementString = element.description
             let fullRange = NSMakeRange(0, elementString.characters.count)
             if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
-                let tspans = (elementString as NSString).substring(with: match.rangeAt(1))
+                let tspans = (elementString as NSString).substring(with: match.range(at: 1))
                 return Group(contents: collectTspans(tspans, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize,
                                                      bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
                              place: pos, tag: getTag(element))
@@ -634,9 +634,7 @@ open class SVGParser {
     }
     
     fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, pos: Transform = Transform()) -> Text? {
-        guard let string = text.text else {
-            return .none
-        }
+        let string = text.text
         let position = pos.move(dx: getDoubleValue(text, attribute: "x") ?? 0, dy: getDoubleValue(text, attribute: "y") ?? 0)
         return Text(text: string, font: getFont(fontName: fontName, fontSize: fontSize), fill: fill ?? Color.black, place: position, opacity: opacity, tag: getTag(text))
     }
@@ -695,9 +693,11 @@ open class SVGParser {
     fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?,
                                 fontSize: Int?, bounds: Rect) -> Text? {
         
-        guard let element = tspan.element, let string = element.text else {
+        guard let element = tspan.element else {
             return .none
         }
+        
+        let string = element.text
         var shouldAddWhitespace = withWhitespace
         let pos = getTspanPosition(element, bounds: bounds, withWhitespace: &shouldAddWhitespace)
         let text = shouldAddWhitespace ? " \(string)" : string
@@ -764,7 +764,7 @@ open class SVGParser {
             }
             if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
                 let fullRange = NSMakeRange(0, mask.characters.count)
-                if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.rangeAt(1))] {
+                if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
                     shape.clip = maskReferenceNode.form
                     shape.fill = .none
                 }

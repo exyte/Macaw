@@ -293,6 +293,13 @@ open class SVGConstants {
         "yellowgreen": 0x9acd32
     ]
     
+    open static func valueToColor(_ color: Int) -> String? {
+        return SVGConstants.colorList.filter { (k, v) -> Bool in v == color }.map { (k, v) -> String in k }.first
+    }
+    
+    open static let defaultStrokeLineCap = LineCap.butt
+    open static let defaultStrokeLineJoin = LineJoin.miter
+    
     open static let moveToAbsolute = "M"
     open static let moveToRelative = "m"
     open static let lineToAbsolute = "L"

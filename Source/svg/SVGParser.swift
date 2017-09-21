@@ -636,7 +636,7 @@ open class SVGParser {
     fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, pos: Transform = Transform()) -> Text? {
         let string = text.text
         let position = pos.move(dx: getDoubleValue(text, attribute: "x") ?? 0, dy: getDoubleValue(text, attribute: "y") ?? 0)
-        return Text(text: string, font: getFont(fontName: fontName, fontSize: fontSize), fill: fill ?? Color.black, place: position, opacity: opacity, tag: getTag(text))
+        return Text(text: string, font: getFont(fontName: fontName, fontSize: fontSize), fill: fill ?? Color.black, baseline: .bottom, place: position, opacity: opacity, tag: getTag(text))
     }
     
     // REFACTOR

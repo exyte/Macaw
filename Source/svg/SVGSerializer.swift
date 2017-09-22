@@ -71,7 +71,7 @@ open class SVGSerializer {
         return "\(tag) \(attrs) \(closeTag)"
     }
     
-    fileprivate func arcToSVG(_ arc: Macaw.Arc) -> String {
+    fileprivate func arcToSVG(_ arc: Arc) -> String {
         if (arc.shift == 0.0) {
             return tag(SVGEllipseOpenTag, ["cx":att(arc.ellipse.cx), "cy":att(arc.ellipse.cy), "rx":att(arc.ellipse.rx), "ry":att(arc.ellipse.ry)])
         } else {
@@ -81,17 +81,17 @@ open class SVGSerializer {
     }
     
     
-    fileprivate func polygonToSVG(_ polygon: Macaw.Polygon) -> String {
+    fileprivate func polygonToSVG(_ polygon: Polygon) -> String {
         let points = polygon.points.flatMap { String($0) }.joined(separator: ",")
         return tag(SVGPolygonOpenTag, ["points":points])
     }
     
-    fileprivate func polylineToSVG(_ polyline: Macaw.Polyline) -> String {
+    fileprivate func polylineToSVG(_ polyline: Polyline) -> String {
         let points = polyline.points.flatMap { String($0) }.joined(separator: ",")
         return tag(SVGPolylineOpenTag, ["points":points])
     }
     
-    fileprivate func pathToSVG(_ path: Macaw.Path) -> String {
+    fileprivate func pathToSVG(_ path: Path) -> String {
         var d = ""
         for segment in path.segments {
             d += "\(segment.type) \(segment.data.flatMap { String(Int($0)) }.joined(separator: " "))"
@@ -99,31 +99,31 @@ open class SVGSerializer {
         return tag(SVGPathOpenTag, ["d":d])
     }
     
-    fileprivate func lineToSVG(_ line: Macaw.Line) -> String {
+    fileprivate func lineToSVG(_ line: Line) -> String {
         return tag(SVGLineOpenTag, ["x1":String(Int(line.x1)), "y1":att(line.y1), "x2":att(line.x2), "y2":att(line.y2)])
     }
     
-    fileprivate func ellipseToSVG(_ ellipse: Macaw.Ellipse) -> String {
+    fileprivate func ellipseToSVG(_ ellipse: Ellipse) -> String {
         return tag(SVGEllipseOpenTag, ["cx":att(ellipse.cx), "cy":att(ellipse.cy), "rx":att(ellipse.rx), "ry":att(ellipse.ry)])
     }
     
-    fileprivate func circleToSVG(_ circle: Macaw.Circle) -> String {
+    fileprivate func circleToSVG(_ circle: Circle) -> String {
         return tag(SVGCircleOpenTag, ["cx":att(circle.cx), "cy":att(circle.cy), "r":att(circle.r)])
     }
     
-    fileprivate func roundRectToSVG(_ roundRect: Macaw.RoundRect) -> String {
+    fileprivate func roundRectToSVG(_ roundRect: RoundRect) -> String {
         return tag(SVGRectOpenTag, ["rx":att(roundRect.rx), "ry":att(roundRect.ry), "width":att(roundRect.rect.w), "height":att(roundRect.rect.h)])
     }
     
-    fileprivate func rectToSVG(_ rect: Macaw.Rect) -> String {
+    fileprivate func rectToSVG(_ rect: Rect) -> String {
         return tag(SVGRectOpenTag, ["x":att(rect.x), "y":att(rect.y), "width":att(rect.w), "height":att(rect.h)])
     }
     
-    fileprivate func imageToSVG(_ image: Macaw.Image) -> String {
+    fileprivate func imageToSVG(_ image: Image) -> String {
         return tag(SVGImageOpenTag, ["xlink:href":image.src, "x":att(image.place.dx), "y":att(image.place.dy), "width":String(image.w), "height":String(image.h)], close: true)
     }
 
-    fileprivate func textToSVG(_ text: Macaw.Text) -> String {
+    fileprivate func textToSVG(_ text: Text) -> String {
         var result = tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)])
         if let font = text.font {
             result += "font-family=\"\(font.name)\" font-size=\"\(font.size)\""
@@ -174,23 +174,23 @@ open class SVGSerializer {
         var result = ""
         let locus = macawShape.formVar.value
         switch locus {
-        case let arc as Macaw.Arc:
+        case let arc as Arc:
             result += arcToSVG(arc)
-        case let polygon as Macaw.Polygon:
+        case let polygon as Polygon:
             result += polygonToSVG(polygon)
-        case let polyline as Macaw.Polyline:
+        case let polyline as Polyline:
             result += polylineToSVG(polyline)
-        case let path as Macaw.Path:
+        case let path as Path:
             result += pathToSVG(path)
-        case let line as Macaw.Line:
+        case let line as Line:
             result += lineToSVG(line)
-        case let ellipse as Macaw.Ellipse:
+        case let ellipse as Ellipse:
             result += ellipseToSVG(ellipse)
-        case let circle as Macaw.Circle:
+        case let circle as Circle:
             result += circleToSVG(circle)
-        case let roundRect as Macaw.RoundRect:
+        case let roundRect as RoundRect:
             result += roundRectToSVG(roundRect)
-        case let rect as Macaw.Rect:
+        case let rect as Rect:
             result += rectToSVG(rect)
         default:
             result += "\(SVGUndefinedTag) locus:\(locus)"
@@ -227,7 +227,7 @@ open class SVGSerializer {
         if let image = node as? Image {
             return imageToSVG(image)
         }
-        if let text = node as? Macaw.Text {
+        if let text = node as? Text {
             return textToSVG(text)
         }
         return "SVGUndefinedTag \(node)"

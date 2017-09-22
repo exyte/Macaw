@@ -1,5 +1,9 @@
 import Foundation
 
+#if os(OSX)
+    import AppKit
+#endif
+
 #if os(iOS)
   import UIKit
 #endif

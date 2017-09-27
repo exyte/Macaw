@@ -6,6 +6,8 @@
 //  Copyright © 2017 Exyte. All rights reserved.
 //
 
+#if os(iOS)
+
 import XCTest
 @testable import Macaw
 
@@ -96,3 +98,5 @@ class CombineAnimationTests: XCTestCase {
     }
     
 }
+
+#endif

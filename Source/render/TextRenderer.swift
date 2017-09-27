@@ -79,12 +79,26 @@ class TextRenderer: NodeRenderer {
       if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
         return customFont
       } else {
+        if let weight = getWeight(textFont.weight) {
+            return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
+        }
         return MFont.systemFont(ofSize: CGFloat(textFont.size))
       }
     }
     return MFont.systemFont(ofSize: MFont.mSystemFontSize)
   }
-  
+    
+    fileprivate func getWeight(_ weight: String) -> MFont.Weight? {
+            switch (weight) {
+            case "normal": return MFont.Weight.regular
+            case "bold": return MFont.Weight.bold
+            case "bolder": return MFont.Weight.semibold
+            case "lighter": return MFont.Weight.light
+            default: return .none
+            }
+        return .none
+    }
+    
   fileprivate func getBounds(_ font: MFont) -> CGRect {
     guard let text = text else {
       return .zero

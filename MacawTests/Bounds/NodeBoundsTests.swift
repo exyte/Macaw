@@ -6,6 +6,8 @@
 //  Copyright © 2017 Exyte. All rights reserved.
 //
 
+#if os(iOS)
+
 import XCTest
 @testable import Macaw
 
@@ -210,3 +212,5 @@ class NodeBoundsTests: XCTestCase {
         checkBounds(rect1: group.bounds(), rect2: targetRect)
     }
 }
+
+#endif

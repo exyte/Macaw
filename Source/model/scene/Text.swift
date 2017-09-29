@@ -26,7 +26,13 @@ open class Text: Node {
     get { return fillVar.value }
     set(val) { fillVar.value = val }
   }
-  
+
+  open let strokeVar: Variable<Stroke?>
+  open var stroke: Stroke? {
+    get { return strokeVar.value }
+    set(val) { strokeVar.value = val }
+  }
+
   open let alignVar: Variable<Align>
   open var align: Align {
     get { return alignVar.value }
@@ -39,10 +45,11 @@ open class Text: Node {
     set(val) { baselineVar.value = val }
   }
   
-  public init(text: String, font: Font? = nil, fill: Fill = Color.black, align: Align = .min, baseline: Baseline = .top, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(text: String, font: Font? = nil, fill: Fill = Color.black, stroke: Stroke? = nil, align: Align = .min, baseline: Baseline = .top, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
     self.textVar = Variable<String>(text)
     self.fontVar = Variable<Font?>(font)
     self.fillVar = Variable<Fill>(fill)
+    self.strokeVar = Variable<Stroke?>(stroke)
     self.alignVar = Variable<Align>(align)
     self.baselineVar = Variable<Baseline>(baseline)
     super.init(

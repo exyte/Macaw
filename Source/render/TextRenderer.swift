@@ -28,6 +28,7 @@ class TextRenderer: NodeRenderer {
     observe(text.textVar)
     observe(text.fontVar)
     observe(text.fillVar)
+    observe(text.strokeVar)
     observe(text.alignVar)
     observe(text.baselineVar)
   }
@@ -43,13 +44,20 @@ class TextRenderer: NodeRenderer {
     // for now move the rect itself
     if var color = text.fill as? Color {
       color = RenderUtils.applyOpacity(color, opacity: opacity)
+      var attributes = [NSAttributedStringKey.font: font,
+                        NSAttributedStringKey.foregroundColor: getTextColor(color)]
+        if let stroke = text.stroke {
+            if let c = stroke.fill as? Color {
+                attributes[NSAttributedStringKey.strokeColor] = getTextColor(c)
+            }
+            attributes[NSAttributedStringKey.strokeWidth] = stroke.width as NSObject?
+        }
       MGraphicsPushContext(ctx.cgContext!)
-        message.draw(in: getBounds(font), withAttributes: [NSAttributedStringKey.font: font,
-                                                           NSAttributedStringKey.foregroundColor: getTextColor(color)])
+        message.draw(in: getBounds(font), withAttributes: attributes)
       MGraphicsPopContext()
     }
   }
-  
+
   override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
     guard let contains = node()?.bounds()?.cgRect().contains(location) else {
       return .none

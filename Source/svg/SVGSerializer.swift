@@ -126,43 +126,54 @@ open class SVGSerializer {
     fileprivate func textToSVG(_ text: Text) -> String {
         var result = tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)])
         if let font = text.font {
-            result += "font-family=\"\(font.name)\" font-size=\"\(font.size)\""
+            result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
+            // TODO: check with enums
+            if font.name != "normal" {
+                result += " font-weight=\"\(font.weight)\" "
+            }
         }
+        if (text.align == .mid) {
+            result += " text-anchor=\"middle\" "
+        } else if (text.align == .max) {
+            result += " text-anchor=\"end"
+        }
+        result += fillToSVG(text.fillVar.value)
+        result += strokeToSVG(text.strokeVar.value)
         result += SVGGenericEndTag
         result += text.text
         result += "</text>"
         return result
     }
 
-    fileprivate func fillToSVG(_ shape: Shape) -> String {
-        if let fillColor = shape.fillVar.value as? Color {
+    fileprivate func fillToSVG(_ fill: Fill?) -> String {
+        if let fillColor = fill as? Color {
             if let fill = SVGConstants.valueToColor(fillColor.val) {
                 return " fill=\"\(fill)\""
             } else {
-                return " fill=\"#\(String(format:"%6X", fillColor.val))\""
+                return " fill=\"#\(String(format:"%06X", fillColor.val))\""
             }
         }
         return " fill=\"none\""
     }
     
-    fileprivate func strokeToSVG(_ shape: Shape) -> String {
+    fileprivate func strokeToSVG(_ stroke: Stroke?) -> String {
         var result = ""
-        if let strokeColor = shape.strokeVar.value?.fill as? Color {
+        if let strokeColor = stroke?.fill as? Color {
             if let stroke = SVGConstants.valueToColor(strokeColor.val) {
                 result += " stroke=\"\(stroke)\""
             } else {
-                result += " stroke=\"#\(String(format:"%6X", strokeColor.val))\""
+                result += " stroke=\"#\(String(format:"%06X", strokeColor.val))\""
             }
         }
-        if let strokeWidth = shape.strokeVar.value?.width {
-            result += " stroke-width=\"\(Int(strokeWidth))\""
+        if let strokeWidth = stroke?.width {
+            result += " stroke-width=\"\(strokeWidth)\""
         }
-        if let strokeCap = shape.strokeVar.value?.cap {
+        if let strokeCap = stroke?.cap {
             if strokeCap != SVGConstants.defaultStrokeLineCap {
                 result += " stroke-linecap=\"\(strokeCap)\""
             }
         }
-        if let strokeJoin = shape.strokeVar.value?.join {
+        if let strokeJoin = stroke?.join {
             if strokeJoin != SVGConstants.defaultStrokeLineJoin {
                 result += " stroke-linejoin=\"\(strokeJoin)\""
             }
@@ -195,8 +206,8 @@ open class SVGSerializer {
         default:
             result += "\(SVGUndefinedTag) locus:\(locus)"
         }
-        result += fillToSVG(macawShape)
-        result += strokeToSVG(macawShape)
+        result += fillToSVG(macawShape.fillVar.value)
+        result += strokeToSVG(macawShape.strokeVar.value)
         
         result += SVGGenericCloseTag
         return result

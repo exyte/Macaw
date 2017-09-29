@@ -15,9 +15,10 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2\"/></g></svg>"
+        let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2.0\"/></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "ellipse")
+            print(SVGSerializer.serialize(node: node))
             XCTAssert(SVGSerializer.serialize(node: node) == ellipseReferenceContent)
         } catch {
             print(error)
@@ -26,7 +27,7 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGCircle() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let circleReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><circle  r=\"40\" cy=\"50\" cx=\"50\"  fill=\"red\" stroke=\"black\" stroke-width=\"3\"/></g></svg>"
+        let circleReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><circle  r=\"40\" cy=\"50\" cx=\"50\"  fill=\"red\" stroke=\"black\" stroke-width=\"3.0\"/></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "circle")
             XCTAssert(SVGSerializer.serialize(node: node) == circleReferenceContent)
@@ -37,7 +38,7 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGGroup() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let groupReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g><path  d=\"M 150 0L 75 200L 225 200z \"  fill=\"black\" stroke=\"black\" stroke-width=\"2\"/><line  y1=\"0\" x2=\"200\" x1=\"0\" y2=\"200\"  fill=\"black\" stroke=\"white\" stroke-width=\"2\"/></g></g></svg>"
+        let groupReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g><path  d=\"M 150 0L 75 200L 225 200z \"  fill=\"black\" stroke=\"black\" stroke-width=\"2.0\"/><line  y1=\"0\" x2=\"200\" x1=\"0\" y2=\"200\"  fill=\"black\" stroke=\"white\" stroke-width=\"2.0\"/></g></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "group")
             print(SVGSerializer.serialize(node: node))
@@ -49,7 +50,7 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGLine() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let lineReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><line  y1=\"0\" x2=\"200\" x1=\"0\" y2=\"200\"  fill=\"black\" stroke=\"red\" stroke-width=\"2\"/></g></svg>"
+        let lineReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><line  y1=\"0\" x2=\"200\" x1=\"0\" y2=\"200\"  fill=\"black\" stroke=\"red\" stroke-width=\"2.0\"/></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "line")
             XCTAssert(SVGSerializer.serialize(node: node) == lineReferenceContent)
@@ -71,7 +72,7 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGPolyline() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let lineReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><polyline  points=\"0.0,40.0,40.0,40.0,40.0,80.0,80.0,80.0,80.0,120.0,120.0,120.0,120.0,160.0\"  fill=\"white\" stroke=\"red\" stroke-width=\"4\"/></g></svg>"
+        let lineReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><polyline  points=\"0.0,40.0,40.0,40.0,40.0,80.0,80.0,80.0,80.0,120.0,120.0,120.0,120.0,160.0\"  fill=\"white\" stroke=\"red\" stroke-width=\"4.0\"/></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "polyline")
             XCTAssert(SVGSerializer.serialize(node: node) == lineReferenceContent)
@@ -104,7 +105,7 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGTriangle() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        let triangleReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><path  d=\"M 150 0L 75 200L 225 200z \"  fill=\"black\" stroke=\"black\" stroke-width=\"2\"/></g></svg>"
+        let triangleReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><path  d=\"M 150 0L 75 200L 225 200z \"  fill=\"black\" stroke=\"black\" stroke-width=\"2.0\"/></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "triangle")
             XCTAssert(SVGSerializer.serialize(node: node) == triangleReferenceContent)

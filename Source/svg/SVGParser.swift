@@ -33,10 +33,10 @@ open class SVGParser {
     }
     
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "fill-opacity",
+                                    "fill", "text-anchor", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
-                                    "opacity"]
+                                    "font-weight", "opacity"]
     
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -155,7 +155,8 @@ open class SVGParser {
             case "image":
                 return parseImage(node, opacity: getOpacity(styleAttributes), pos: position)
             case "text":
-                return parseText(node, fill: getFillColor(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), pos: position)
+                return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
+                                 stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
             case "use":
                 return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
             case "mask":
@@ -314,7 +315,7 @@ open class SVGParser {
                          g: Int(green.rounded(.up)),
                          b: Int(blue.rounded(.up)))
     }
-
+    
     fileprivate func parseTransformValues(_ values: String, collectedValues: [String] = []) -> [String] {
         guard let matcher = SVGParserRegexHelper.getTransformMatcher() else {
             return collectedValues
@@ -399,7 +400,7 @@ open class SVGParser {
             return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
         }
     }
-
+    
     fileprivate func getStroke(_ styleParts: [String: String]) -> Stroke? {
         guard let strokeColor = styleParts["stroke"] else {
             return .none
@@ -613,13 +614,12 @@ open class SVGParser {
         return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, place: position, tag: getTag(element))
     }
     
-    fileprivate func parseText(_ text: XMLIndexer, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?,
-                               pos: Transform = Transform()) -> Node? {
+    fileprivate func parseText(_ text: XMLIndexer, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, pos: Transform = Transform()) -> Node? {
         guard let element = text.element else {
             return .none
         }
         if text.children.isEmpty {
-            return parseSimpleText(element, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize)
+            return parseSimpleText(element, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight)
         } else {
             guard let matcher = SVGParserRegexHelper.getTextElementMatcher() else {
                 return .none
@@ -628,23 +628,30 @@ open class SVGParser {
             let fullRange = NSMakeRange(0, elementString.characters.count)
             if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
                 let tspans = (elementString as NSString).substring(with: match.range(at: 1))
-                return Group(contents: collectTspans(tspans, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize,
-                                                     bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
+                return Group(contents: collectTspans(tspans, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
                              place: pos, tag: getTag(element))
             }
         }
         return .none
     }
     
-    fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, pos: Transform = Transform()) -> Text? {
+    fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, pos: Transform = Transform()) -> Text? {
         let string = text.text
         let position = pos.move(dx: getDoubleValue(text, attribute: "x") ?? 0, dy: getDoubleValue(text, attribute: "y") ?? 0)
-        return Text(text: string, font: getFont(fontName: fontName, fontSize: fontSize), fill: fill ?? Color.black, baseline: .bottom, place: position, opacity: opacity, tag: getTag(text))
+        var align = Align.min
+        if let anchor = textAnchor {
+            if anchor == "middle" {
+                align = .mid
+            } else if anchor == "right" {
+                align = .max
+            }
+        }
+        return Text(text: string, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill ?? Color.black, stroke: stroke, align: align, place: position, opacity: opacity, tag: getTag(text))
     }
     
     // REFACTOR
     
-    fileprivate func collectTspans(_ tspan: String, collectedTspans: [Node] = [], withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, bounds: Rect) -> [Node] {
+    fileprivate func collectTspans(_ tspan: String, collectedTspans: [Node] = [], withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> [Node] {
         let fullString = tspan.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
         // exit recursion
         if fullString.isEqual(to: "") {
@@ -658,11 +665,11 @@ open class SVGParser {
             let tspanString = fullString.substring(to: closingTagRange.location + closingTagRange.length)
             let tspanXml = SWXMLHash.parse(tspanString)
             guard let indexer = tspanXml.children.first,
-                let text = parseTspan(indexer, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, bounds: bounds) else {
+                let text = parseTspan(indexer, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds) else {
                     
                     // skip this element if it can't be parsed
                     return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collectedTspans, fill: fill, opacity: opacity,
-                                         fontName: fontName, fontSize: fontSize, bounds: bounds)
+                                         fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds)
             }
             collection.append(text)
             let nextString = fullString.substring(from: closingTagRange.location + closingTagRange.length) as NSString
@@ -670,7 +677,7 @@ open class SVGParser {
             if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, bounds: text.bounds())
+            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
         }
         // parse as regular text element
         var textString: NSString
@@ -685,16 +692,15 @@ open class SVGParser {
             nextStringWhitespace = true
         }
         trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
-        let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontSize: fontSize),
+        let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
                         fill: fill ?? Color.black, baseline: .alphabetic,
                         place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
         collection.append(text)
         return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection, withWhitespace: nextStringWhitespace, fill: fill, opacity: opacity,
-                             fontName: fontName, fontSize: fontSize, bounds: text.bounds())
+                             fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
     }
     
-    fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?,
-                                fontSize: Int?, bounds: Rect) -> Text? {
+    fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
         
         guard let element = tspan.element else {
             return .none
@@ -706,15 +712,15 @@ open class SVGParser {
         let text = shouldAddWhitespace ? " \(string)" : string
         let attributes = getStyleAttributes([:], element: element)
         
-        return Text(text: text, font: getFont(attributes, fontName: fontName, fontSize: fontSize),
-                    fill: fill ?? getFillColor(attributes) ?? Color.black, baseline: .alphabetic,
+        return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill ?? getFillColor(attributes) ?? Color.black, baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
     
-    fileprivate func getFont(_ attributes: [String: String] = [:], fontName: String?, fontSize: Int?) -> Font {
+    fileprivate func getFont(_ attributes: [String: String] = [:], fontName: String?, fontWeight: String?, fontSize: Int?) -> Font {
         return Font(
             name: getFontName(attributes) ?? fontName ?? "Serif",
-            size: getFontSize(attributes) ?? fontSize ?? 12)
+            size: getFontSize(attributes) ?? fontSize ?? 12,
+            weight: getFontWeight(attributes) ?? fontWeight ?? "normal")
     }
     
     fileprivate func getTspanPosition(_ element: SWXMLHash.XMLElement, bounds: Rect, withWhitespace: inout Bool) -> Transform {
@@ -1252,6 +1258,13 @@ open class SVGParser {
         return false
     }
     
+    fileprivate func getFontWeight(_ attributes: [String: String]) -> String? {
+        guard let fontWeight = attributes["font-weight"] else {
+            return .none
+        }
+        return fontWeight
+    }
+    
     fileprivate func getFontWeight(_ attributes: [String: String], style: String) -> Bool? {
         guard let fontWeight = attributes["font-weight"] else {
             return .none
@@ -1260,6 +1273,13 @@ open class SVGParser {
             return true
         }
         return false
+    }
+    
+    fileprivate func getTextAnchor(_ attributes: [String: String]) -> String? {
+        guard let textAnchor = attributes["text-anchor"] else {
+            return .none
+        }
+        return textAnchor
     }
     
     fileprivate func getTextDecoration(_ attributes: [String: String], decoration: String) -> Bool? {

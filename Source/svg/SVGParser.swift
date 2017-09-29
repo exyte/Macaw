@@ -412,7 +412,10 @@ open class SVGParser {
             opacity = Double(strokeOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
         var fill: Fill?
-        if strokeColor.hasPrefix("rgb") {
+        if let defaultColor = SVGConstants.colorList[strokeColor] {
+            let color = Color(val: defaultColor)
+            fill = color.with(a: opacity)
+        } else if strokeColor.hasPrefix("rgb") {
             fill = parseRGBNotation(colorString: strokeColor)
         } else if strokeColor.hasPrefix("url") {
             let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)

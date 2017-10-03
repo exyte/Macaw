@@ -105,7 +105,7 @@ open class SVGParser {
             var styleAttributes: [String: String] = [:]
             let parts = rawStyle.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "{")
             let className = String(parts[0].dropFirst())
-            let style = parts[1].dropLast()
+            let style = String(parts[1].dropLast())
             let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
             styleParts.forEach { styleAttribute in
                 let currentStyle = styleAttribute.components(separatedBy: ":")

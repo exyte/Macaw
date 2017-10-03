@@ -88,6 +88,8 @@ open class SVGParser {
         if let element = node.element {
             if element.name == "g" {
                 return parseGroup(node, groupStyle: groupStyle)
+            } else if element.name == "style" {
+                parseStyle(node)
             } else if element.name == "defs" {
                 parseDefinitions(node)
             } else {
@@ -97,6 +99,24 @@ open class SVGParser {
         return .none
     }
     
+    fileprivate var styleTable: [String:[String:String]] = [:]
+    fileprivate func parseStyle(_ styleNode: XMLIndexer) {
+        if let rawStyle = styleNode.element?.text {
+            var styleAttributes: [String: String] = [:]
+            let parts = rawStyle.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "{")
+            let className = String(parts[0].dropFirst())
+            let style = parts[1].dropLast()
+            let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
+            styleParts.forEach { styleAttribute in
+                let currentStyle = styleAttribute.components(separatedBy: ":")
+                if currentStyle.count == 2 {
+                    styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+                }
+            }
+            styleTable[className] = styleAttributes
+        }
+    }
+
     fileprivate func parseDefinitions(_ defs: XMLIndexer) {
         for child in defs.children {
             guard let id = child.element?.allAttributes["id"]?.text else {
@@ -335,7 +355,6 @@ open class SVGParser {
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
         if let style = element.allAttributes["style"]?.text {
-            
             let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
             styleParts.forEach { styleAttribute in
                 let currentStyle = styleAttribute.components(separatedBy: ":")
@@ -347,6 +366,14 @@ open class SVGParser {
             self.availableStyleAttributes.forEach { availableAttribute in
                 if let styleAttribute = element.allAttributes[availableAttribute]?.text {
                     styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+                }
+            }
+        }
+
+        if let className = element.allAttributes["class"]?.text, let styleAttributesFromTable = styleTable[className] {
+            for (att, val) in styleAttributesFromTable {
+                if styleAttributes.index(forKey: att) == nil {
+                    styleAttributes.updateValue(val, forKey: att)
                 }
             }
         }

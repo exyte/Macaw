@@ -13,6 +13,17 @@ class MacawSVGTests: XCTestCase {
         super.tearDown()
     }
     
+    func testCSSStyleReference() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        let styleReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g><circle  r=\"10\" cy=\"50\" cx=\"50\"  fill=\"white\" stroke=\"#231F20\" stroke-width=\"1.5\"/><circle  r=\"10\" cy=\"50\" cx=\"80\"  fill=\"black\"/></g></g></svg>"
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "style")
+            XCTAssert(SVGSerializer.serialize(node: node) == styleReferenceContent)
+        } catch {
+            print(error)
+        }
+    }
+
     func testSVGEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))
         let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2.0\"/></g></svg>"

@@ -53,7 +53,11 @@ open class Color: Fill, Equatable {
     
     // GENERATED
     open class func rgbt(r: Int, g: Int, b: Int, t: Int) -> Color {
-        return Color( val: ( ( ( ( ( t & 0xff ) << 24 ) | ( ( r & 0xff ) << 16 ) ) | ( ( g & 0xff ) << 8 ) ) | ( b & 0xff ) ) )
+        let x = ( ( t & 0xff ) << 24 )
+        let y = ( ( r & 0xff ) << 16 )
+        let z = ( ( g & 0xff ) << 8 )
+        let q =  b & 0xff
+        return Color( val: ( ( ( x | y ) | z ) |  q ) )
     }
     
     // GENERATED

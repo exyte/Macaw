@@ -250,10 +250,10 @@ open class SVGSerializer {
             optionalSection += "width=\"\(w)\""
         }
         if let h = height {
-            optionalSection += "height=\"\(h)\""
+            optionalSection += " height=\"\(h)\""
         }
         if let i = id {
-            optionalSection += "id=\"\(i)\""
+            optionalSection += " id=\"\(i)\""
         }
         var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
         result += serialize(node: node, offset: 1)

@@ -129,7 +129,17 @@ open class PathBuilder {
   open func A(_ rx: Double, _ ry: Double, _ angle: Double, _ largeArc: Bool, _ sweep: Bool, _ x: Double, _ y: Double) -> PathBuilder {
     return PathBuilder(segment: PathSegment(type: .A, data: [rx, ry, angle, boolsToNum(largeArc, sweep: sweep), x, y]), rest: self)
   }
-  
+
+  // GENERATED NOT
+  open func e(_ x: Double, _ y: Double, _ w: Double, _ h: Double, _ startAngle: Double, _ arcAngle: Double) -> PathBuilder {
+    return PathBuilder(segment: PathSegment(type: .e, data: [x, y, w, h, startAngle, arcAngle]), rest: self)
+  }
+
+  // GENERATED NOT
+  open func E(_ x: Double, _ y: Double, _ w: Double, _ h: Double, _ startAngle: Double, _ arcAngle: Double) -> PathBuilder {
+    return PathBuilder(segment: PathSegment(type: .E, data: [x, y, w, h, startAngle, arcAngle]), rest: self)
+  }
+
   // GENERATED NOT
   open func Z() -> PathBuilder {
     return PathBuilder(segment: PathSegment(type: .z), rest: self)

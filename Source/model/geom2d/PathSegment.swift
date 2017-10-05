@@ -13,7 +13,7 @@ open class PathSegment {
   // GENERATED NOT
   open func isAbsolute() -> Bool {
     switch type {
-    case .M, .L, .H, .V, .C, .S, .Q, .T, .A:
+    case .M, .L, .H, .V, .C, .S, .Q, .T, .A, .E:
       return true
     default:
       return false

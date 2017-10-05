@@ -18,4 +18,6 @@ public enum PathSegmentType {
 	case v
 	case s
 	case t
+	case E
+	case e
 }

@@ -348,7 +348,7 @@ class RenderUtils {
       let extent = CGFloat(startAngle)
       let end = extent + CGFloat(arcAngle)
       let center = CGPoint(x: CGFloat(x + w / 2), y: CGFloat(y + h / 2))
-      bezierPath.addArc(withCenter: center, radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: true)
+      bezierPath.addArc(withCenter: center, radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
     }
     
     func e(_ x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
@@ -444,6 +444,10 @@ class RenderUtils {
       case .a:
         let flags = numToBools(data[3])
         a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+	case .E:
+		E(data[0], y: data[1], w: data[2], h: data[3], startAngle: data[4], arcAngle: data[5])
+	case .e:
+		e(data[0], y: data[1], w: data[2], h: data[3], startAngle: data[4], arcAngle: data[5])
       case .z:
         Z()
       default:

@@ -389,6 +389,10 @@ class ShapeRenderer: NodeRenderer {
       case .a:
         let flags = numToBools(data[3])
         a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+      case .E:
+        E(data[0], y: data[1], w: data[2], h: data[3], startAngle: data[4], arcAngle: data[5])
+      case .e:
+        e(data[0], y: data[1], w: data[2], h: data[3], startAngle: data[4], arcAngle: data[5])
       case .z:
         Z()
       default:

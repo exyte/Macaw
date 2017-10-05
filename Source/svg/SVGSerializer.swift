@@ -72,12 +72,26 @@ open class SVGSerializer {
     }
     
     fileprivate func arcToSVG(_ arc: Arc) -> String {
-        if (arc.shift == 0.0) {
-            return tag(SVGEllipseOpenTag, ["cx":att(arc.ellipse.cx), "cy":att(arc.ellipse.cy), "rx":att(arc.ellipse.rx), "ry":att(arc.ellipse.ry)])
-        } else {
-            // Convert arc to SVG format with x axis rotation, arc flag, and sweep flag
-            return "\(SVGUndefinedTag) arc is not implemented yet"
-        }
+        let rx = arc.ellipse.rx
+        let ry = arc.ellipse.ry
+        let cx = arc.ellipse.cx
+        let cy = arc.ellipse.cy
+        let theta1 = arc.shift
+        let delta = arc.extent
+        let theta2 = theta1 + delta
+
+        let x1 = cx + rx * cos(theta1)
+        let y1 = cy + ry * sin(theta1)
+
+        let x2 = cx + rx * cos(theta2)
+        let y2 = cy + ry * sin(theta2)
+
+        let largeArcFlag = abs(delta) > .pi ? 1 : 0
+        let sweepFlag = delta > 0.0 ? 1 : 0
+
+        var d = "M\(x1),\(y1) "
+        d += "A \(rx),\(ry) 0.0 \(largeArcFlag), \(sweepFlag) \(x2),\(y2)"
+        return tag(SVGPathOpenTag, ["d":d])
     }
     
     

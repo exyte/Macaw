@@ -29,7 +29,6 @@ class MacawSVGTests: XCTestCase {
         let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2.0\"/></g></svg>"
         do {
             let node = try SVGParser.parse(bundle:bundle, path: "ellipse")
-            print(SVGSerializer.serialize(node: node))
             XCTAssert(SVGSerializer.serialize(node: node) == ellipseReferenceContent)
         } catch {
             print(error)

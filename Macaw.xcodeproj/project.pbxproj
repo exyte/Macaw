@@ -131,6 +131,8 @@
 		57614B6F1F83D15600875933 /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1461E3B393900D1CB28 /* SVGConstants.swift */; };
 		57614B701F83D15600875933 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
 		57614B711F83D15600875933 /* LocusInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EF1E3B393900D1CB28 /* LocusInterpolation.swift */; };
+		57614BDA1F8739EE00875933 /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57614BD91F8739EE00875933 /* MacawView+PDF.swift */; };
+		57614BDB1F8739EE00875933 /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57614BD91F8739EE00875933 /* MacawView+PDF.swift */; };
 		57900FF91EA0DEBF00809FFB /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
 		57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
 		57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */; };
@@ -306,6 +308,7 @@
 		572CEFC51E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SWXMLHash+TypeConversion.swift"; sourceTree = "<group>"; };
 		572CEFC61E2CED4B008C7C83 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
 		57614B791F83D15600875933 /* MacawOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacawOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57614BD91F8739EE00875933 /* MacawView+PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacawView+PDF.swift"; sourceTree = "<group>"; };
 		57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage2Image.swift; sourceTree = "<group>"; };
 		57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsInterpolation.swift; sourceTree = "<group>"; };
 		57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimation.swift; sourceTree = "<group>"; };
@@ -499,6 +502,14 @@
 			path = SWXMLHash;
 			sourceTree = "<group>";
 		};
+		57614BD81F8739DA00875933 /* export */ = {
+			isa = PBXGroup;
+			children = (
+				57614BD91F8739EE00875933 /* MacawView+PDF.swift */,
+			);
+			path = export;
+			sourceTree = "<group>";
+		};
 		57900FF71EA0DEBF00809FFB /* utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +538,7 @@
 		57E5E0E01E3B393900D1CB28 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				57614BD81F8739DA00875933 /* export */,
 				57900FF71EA0DEBF00809FFB /* utils */,
 				57E5E0E11E3B393900D1CB28 /* animation */,
 				57E5E1051E3B393900D1CB28 /* bindings */,
@@ -1077,6 +1089,7 @@
 				57614B3D1F83D15600875933 /* Graphics_iOS.swift in Sources */,
 				57614B3E1F83D15600875933 /* LineJoin.swift in Sources */,
 				57614B3F1F83D15600875933 /* RadialGradient.swift in Sources */,
+				57614BDB1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
 				57614B401F83D15600875933 /* Stop.swift in Sources */,
 				57614B411F83D15600875933 /* Text.swift in Sources */,
 				57614B421F83D15600875933 /* MDisplayLink_iOS.swift in Sources */,
@@ -1201,6 +1214,7 @@
 				A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */,
 				57E5E1871E3B393900D1CB28 /* LineJoin.swift in Sources */,
 				57E5E1881E3B393900D1CB28 /* RadialGradient.swift in Sources */,
+				57614BDA1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
 				57E5E1891E3B393900D1CB28 /* Stop.swift in Sources */,
 				57E5E1A21E3B393900D1CB28 /* Text.swift in Sources */,
 				57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */,

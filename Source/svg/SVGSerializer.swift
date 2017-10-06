@@ -200,6 +200,18 @@ open class SVGSerializer {
         return result
     }
     
+    fileprivate func getTransform(_ shape: Node) -> String? {
+        if ([shape.place.dx, shape.place.dy].map{ Int($0) } != [0, 0]) {
+            if ([shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
+                return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
+            } else {
+                let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
+                return " transform=\"matrix(\(matrixArgs))\" "
+            }
+        }
+        return .none
+    }
+    
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         var result = ""
         let locus = macawShape.formVar.value
@@ -227,7 +239,9 @@ open class SVGSerializer {
         }
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
-        
+        if let transform = getTransform(macawShape) {
+            result += transform
+        }
         result += SVGGenericCloseTag
         return result
     }
@@ -239,13 +253,8 @@ open class SVGSerializer {
         }
         if let group = node as? Group {
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
-            if ([group.place.dx, group.place.dy].map{ Int($0) } != [0, 0]) {
-                if ([group.place.m11, group.place.m12, group.place.m21, group.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
-                    result += " transform=\"translate(\(Int(group.place.dx)),\(Int(group.place.dy)))\""
-                } else {
-                    let matrixArgs = [group.place.m11, group.place.m12, group.place.m21, group.place.m22, group.place.dx, group.place.dy].map{ String($0) }.joined(separator: ",")
-                    result += " transform=\"matrix(\(matrixArgs))\""
-                }
+            if let transform = getTransform(group) {
+                result += transform
             }
             result += SVGGenericEndTag
             for child in group.contentsVar.value {

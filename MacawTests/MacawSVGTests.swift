@@ -24,6 +24,17 @@ class MacawSVGTests: XCTestCase {
         }
     }
 
+    func testSVGArcsGroup() {
+        let g1 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 0, extent: 6.28318500518799).stroke(fill: Color.green)], place: Transform(dx:10, dy: 10))
+        let g2 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 1.570796251297, extent: 1.57079637050629).stroke(fill: Color.green)], place: Transform(dx:10, dy: 140))
+        let g3 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 3.14159250259399, extent: 2.67794513702393).stroke(fill: Color.green)], place: Transform(dx:110, dy: 140) )
+        let group = Group(contents:[g1, g2, g3])
+        let arcGroupReference = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(10,10)\" ><ellipse  cy=\"20\" ry=\"20\" rx=\"20\" cx=\"20\"  fill=\"none\" stroke=\"green\" stroke-width=\"1.0\"/></g><g transform=\"translate(10,140)\" ><path  d=\"M20.0000015099579,39.9999999999999 A 20.0,20.0 0.0 0, 1 1.06581410364015e-14,20.0000006357301\"  fill=\"none\" stroke=\"green\" stroke-width=\"1.0\"/></g><g transform=\"translate(110,140)\" ><path  d=\"M2.27373675443232e-13,20.0000030199161 A 20.0,20.0 0.0 0, 1 37.888543296214,11.0557270424323\"  fill=\"none\" stroke=\"green\" stroke-width=\"1.0\"/></g></g></svg>"
+        print(SVGSerializer.serialize(node: group) == arcGroupReference)
+        XCTAssert(true)
+    }
+    
+   
     func testSVGEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))
         let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2.0\"/></g></svg>"

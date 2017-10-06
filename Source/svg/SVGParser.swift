@@ -659,30 +659,34 @@ open class SVGParser {
             let fullRange = NSMakeRange(0, elementString.characters.count)
             if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
                 let tspans = (elementString as NSString).substring(with: match.range(at: 1))
-                return Group(contents: collectTspans(tspans, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
+                return Group(contents: collectTspans(tspans, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
                              place: pos, tag: getTag(element))
             }
         }
         return .none
     }
     
+    fileprivate func anchorToAlign(_ textAnchor: String?) -> Align {
+        if let anchor = textAnchor {
+            if anchor == "middle" {
+                return .mid
+            } else if anchor == "right" {
+                return .max
+            }
+        }
+        return Align.min
+    }
+    
     fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, pos: Transform = Transform()) -> Text? {
         let string = text.text
         let position = pos.move(dx: getDoubleValue(text, attribute: "x") ?? 0, dy: getDoubleValue(text, attribute: "y") ?? 0)
-        var align = Align.min
-        if let anchor = textAnchor {
-            if anchor == "middle" {
-                align = .mid
-            } else if anchor == "right" {
-                align = .max
-            }
-        }
-        return Text(text: string, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill ?? Color.black, stroke: stroke, align: align, place: position, opacity: opacity, tag: getTag(text))
+        
+        return Text(text: string, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill ?? Color.black, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .bottom, place: position, opacity: opacity, tag: getTag(text))
     }
     
     // REFACTOR
     
-    fileprivate func collectTspans(_ tspan: String, collectedTspans: [Node] = [], withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> [Node] {
+    fileprivate func collectTspans(_ tspan: String, collectedTspans: [Node] = [], withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?,  opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> [Node] {
         let fullString = tspan.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
         // exit recursion
         if fullString.isEqual(to: "") {
@@ -696,10 +700,10 @@ open class SVGParser {
             let tspanString = fullString.substring(to: closingTagRange.location + closingTagRange.length)
             let tspanXml = SWXMLHash.parse(tspanString)
             guard let indexer = tspanXml.children.first,
-                let text = parseTspan(indexer, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds) else {
+                let text = parseTspan(indexer, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds) else {
                     
                     // skip this element if it can't be parsed
-                    return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collectedTspans, fill: fill, opacity: opacity,
+                    return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collectedTspans, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity,
                                          fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds)
             }
             collection.append(text)
@@ -708,7 +712,7 @@ open class SVGParser {
             if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, fill: fill, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
+            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
         }
         // parse as regular text element
         var textString: NSString
@@ -724,14 +728,15 @@ open class SVGParser {
         }
         trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
         let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                        fill: fill ?? Color.black, baseline: .alphabetic,
+                        fill: fill ?? Color.black, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .alphabetic,
                         place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
         collection.append(text)
-        return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection, withWhitespace: nextStringWhitespace, fill: fill, opacity: opacity,
-                             fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
+        return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection,
+                             withWhitespace: nextStringWhitespace, textAnchor: textAnchor, fill: fill, stroke:stroke,
+                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
     }
-    
-    fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, fill: Fill?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
+
+    fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
         
         guard let element = tspan.element else {
             return .none
@@ -743,7 +748,9 @@ open class SVGParser {
         let text = shouldAddWhitespace ? " \(string)" : string
         let attributes = getStyleAttributes([:], element: element)
         
-        return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill ?? getFillColor(attributes) ?? Color.black, baseline: .alphabetic,
+        return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
+                    fill: fill ?? getFillColor(attributes) ?? Color.black, stroke: stroke ?? getStroke(attributes),
+                    align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
     
@@ -1334,7 +1341,7 @@ open class SVGParser {
             return Shape(form: shape.form, fill: shape.fill, stroke: shape.stroke, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let text = referenceNode as? Text {
-            return Text(text: text.text, font: text.font, fill: text.fill, align: text.align, baseline: text.baseline, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
+            return Text(text: text.text, font: text.font, fill: text.fill, stroke: text.stroke, align: text.align, baseline: text.baseline, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let image = referenceNode as? Image {
             return Image(src: image.src, xAlign: image.xAlign, yAlign: image.yAlign, aspectRatio: image.aspectRatio, w: image.w, h: image.h, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)

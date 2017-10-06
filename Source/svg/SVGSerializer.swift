@@ -72,11 +72,30 @@ open class SVGSerializer {
     }
     
     fileprivate func arcToSVG(_ arc: Arc) -> String {
-        if (arc.shift == 0.0) {
+        if (arc.shift == 0.0 && abs(arc.extent - Double.pi * 2.0) < 0.00001) {
             return tag(SVGEllipseOpenTag, ["cx":att(arc.ellipse.cx), "cy":att(arc.ellipse.cy), "rx":att(arc.ellipse.rx), "ry":att(arc.ellipse.ry)])
         } else {
-            // Convert arc to SVG format with x axis rotation, arc flag, and sweep flag
-            return "\(SVGUndefinedTag) arc is not implemented yet"
+            let rx = arc.ellipse.rx
+            let ry = arc.ellipse.ry
+            let cx = arc.ellipse.cx
+            let cy = arc.ellipse.cy
+            
+            let theta1 = arc.shift
+            let delta = arc.extent
+            let theta2 = theta1 + delta
+            
+            let x1 = cx + rx * cos(theta1)
+            let y1 = cy + ry * sin(theta1)
+            
+            let x2 = cx + rx * cos(theta2)
+            let y2 = cy + ry * sin(theta2)
+            
+            let largeArcFlag = abs(delta) > .pi ? 1 : 0
+            let sweepFlag = delta > 0.0 ? 1 : 0
+            
+            var d = "M\(x1),\(y1) "
+            d += "A \(rx),\(ry) 0.0 \(largeArcFlag), \(sweepFlag) \(x2),\(y2)"
+            return tag(SVGPathOpenTag, ["d":d])
         }
     }
     
@@ -181,6 +200,18 @@ open class SVGSerializer {
         return result
     }
     
+    fileprivate func getTransform(_ shape: Node) -> String? {
+        if ([shape.place.dx, shape.place.dy].map{ Int($0) } != [0, 0]) {
+            if ([shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
+                return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
+            } else {
+                let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
+                return " transform=\"matrix(\(matrixArgs))\" "
+            }
+        }
+        return .none
+    }
+    
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         var result = ""
         let locus = macawShape.formVar.value
@@ -208,7 +239,9 @@ open class SVGSerializer {
         }
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
-        
+        if let transform = getTransform(macawShape) {
+            result += transform
+        }
         result += SVGGenericCloseTag
         return result
     }
@@ -220,13 +253,8 @@ open class SVGSerializer {
         }
         if let group = node as? Group {
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
-            if ([group.place.dx, group.place.dy].map{ Int($0) } != [0, 0]) {
-                if ([group.place.m11, group.place.m12, group.place.m21, group.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
-                    result += " transform=\"translate(\(Int(group.place.dx)),\(Int(group.place.dy)))\""
-                } else {
-                    let matrixArgs = [group.place.m11, group.place.m12, group.place.m21, group.place.m22, group.place.dx, group.place.dy].map{ String($0) }.joined(separator: ",")
-                    result += " transform=\"matrix(\(matrixArgs))\""
-                }
+            if let transform = getTransform(group) {
+                result += transform
             }
             result += SVGGenericEndTag
             for child in group.contentsVar.value {

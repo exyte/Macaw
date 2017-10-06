@@ -34,7 +34,17 @@ class MacawSVGTests: XCTestCase {
         XCTAssert(true)
     }
     
-   
+    func testSVGImage() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        if let path = bundle.path(forResource: "logo", ofType: "png") {
+            if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
+                let node = Image(image: mimage)
+                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image  y=\"0\" x=\"0\"  xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
+                XCTAssert(SVGSerializer.serialize(node: node) == imageReferenceContent)
+            }
+        }
+    }
+    
     func testSVGEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))
         let ellipseReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><ellipse  cy=\"80\" ry=\"50\" rx=\"100\" cx=\"200\"  fill=\"yellow\" stroke=\"purple\" stroke-width=\"2.0\"/></g></svg>"

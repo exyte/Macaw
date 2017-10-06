@@ -141,7 +141,7 @@ open class SVGSerializer {
     fileprivate func imageToSVG(_ image: Image) -> String {
         var result = tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false)
         if image.src.contains("memory://") {
-            if let data = image.base64encodedPNG() {
+            if let data = image.base64encoded(type: Image.ImageRepresentationType.PNG) {
             result += " xlink:href=\"data:image/png;base64,\(data)\""
             }
         } else {

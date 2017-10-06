@@ -117,7 +117,7 @@ open class Image: Node {
     case PNG
   }
 
-  internal func base64encoded(_ type:ImageRepresentationType) -> String? {
+  internal func base64encoded(type:ImageRepresentationType) -> String? {
     if let image = self.image() {
       switch (type) {
         case .JPEG:

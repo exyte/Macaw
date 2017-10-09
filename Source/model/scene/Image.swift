@@ -111,7 +111,28 @@ open class Image: Node {
                 h: Double(mImage.size.height))
     
   }
-  
+
+  internal enum ImageRepresentationType {
+    case JPEG
+    case PNG
+  }
+
+  internal func base64encoded(type:ImageRepresentationType) -> String? {
+    if let image = self.image() {
+      switch (type) {
+        case .JPEG:
+          if let data = MImageJPEGRepresentation(image) {
+            return data.base64EncodedString()
+          }
+        case .PNG:
+          if let data = MImagePNGRepresentation(image) {
+            return data.base64EncodedString()
+          }
+       }
+    }
+    return .none
+  }
+
   func image() -> MImage? {
     
     // image already loaded

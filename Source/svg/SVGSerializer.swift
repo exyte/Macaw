@@ -139,7 +139,19 @@ open class SVGSerializer {
     }
     
     fileprivate func imageToSVG(_ image: Image) -> String {
-        return tag(SVGImageOpenTag, ["xlink:href":image.src, "x":att(image.place.dx), "y":att(image.place.dy), "width":String(image.w), "height":String(image.h)], close: true)
+        var result = tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false)
+        if image.src.contains("memory://") {
+            if let data = image.base64encoded(type: Image.ImageRepresentationType.PNG) {
+            result += " xlink:href=\"data:image/png;base64,\(data)\""
+            }
+        } else {
+            result += " xlink:href=\"\(image.src)\" "
+        }
+        if let bounds = image.bounds() {
+            result += " width=\"\(String(bounds.w))\" height=\"\(String(bounds.h))\" "
+        }
+        result += SVGGenericCloseTag
+        return result
     }
 
     fileprivate func textToSVG(_ text: Text) -> String {

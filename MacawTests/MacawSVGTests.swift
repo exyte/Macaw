@@ -12,8 +12,16 @@ class MacawSVGTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
 
+    func testTextBasicTransform() {
+        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(100,100)\" ><text  y=\"0\" x=\"0\"  fill=\"black\" transform=\"matrix(0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,0.0,0.0)\" >Point</text></g></g></svg>"
+        let text1 = Text(text: "Point")
+        text1.place = Transform(m11: cos(Double.pi/4.0), m12: -sin(Double.pi/4.0), m21: sin(Double.pi/4.0), m22: cos(Double.pi/4.0), dx: 0, dy: 0)
+        let group1 = Group(contents: [text1])
+        group1.place = Transform(dx: 100, dy: 100)
+        let node = Group(contents: [group1])
+        XCTAssert(SVGSerializer.serialize(node: node) == referenceContent)
+    }
 
     func testClip() {
         let clipReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><rect  height=\"90\" x=\"10\" y=\"10\" width=\"90\" /></clipPath><clipPath id=\"clipPath2\"><rect  height=\"190\" x=\"110\" y=\"110\" width=\"190\" /></clipPath></defs><g><circle  r=\"20\" cy=\"20\" cx=\"20\"  clip-path=\"url(#clipPath1)\"  fill=\"red\"/><circle  r=\"20\" cy=\"120\" cx=\"120\"  clip-path=\"url(#clipPath2)\"  fill=\"green\"/></g></svg>"

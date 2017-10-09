@@ -53,6 +53,7 @@ open class SVGSerializer {
     fileprivate let indentPrefixSymbol = " "
     fileprivate let SVGClipPathName = "clipPath"
     
+    fileprivate let SVGEpsilon:Double = 0.00001
     
     fileprivate func indentTextWithOffset(_ text: String, _ offset: Int) -> String {
         if self.indent != 0 {
@@ -73,7 +74,7 @@ open class SVGSerializer {
     }
     
     fileprivate func arcToSVG(_ arc: Arc) -> String {
-        if (arc.shift == 0.0 && abs(arc.extent - Double.pi * 2.0) < 0.00001) {
+        if (arc.shift == 0.0 && abs(arc.extent - Double.pi * 2.0) < SVGEpsilon) {
             return tag(SVGEllipseOpenTag, ["cx":att(arc.ellipse.cx), "cy":att(arc.ellipse.cy), "rx":att(arc.ellipse.rx), "ry":att(arc.ellipse.ry)])
         } else {
             let rx = arc.ellipse.rx
@@ -217,14 +218,28 @@ open class SVGSerializer {
         return result
     }
     
+
+    fileprivate func isSignificantMatrixTransform(_ t: Transform) -> Bool {
+        if ([t.m11, t.m12, t.m21, t.m22, t.dx, t.dy].map{ Int($0) } == [1, 0, 0, 1, 0, 0]) {
+            return false
+        }
+        for k in [t.m11, t.m12, t.m21, t.m22, t.dx, t.dy] {
+            if abs(k) > SVGEpsilon {
+                return true
+            }
+        }
+        return false
+    }
+
     fileprivate func transformToSVG(_ shape: Node) -> String {
         if ([shape.place.dx, shape.place.dy].map{ Int($0) } != [0, 0]) {
             if ([shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
                 return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
-            } else {
-                let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
-                return " transform=\"matrix(\(matrixArgs))\" "
             }
+        }
+        if isSignificantMatrixTransform(shape.place) {
+            let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
+            return " transform=\"matrix(\(matrixArgs))\" "
         }
         return ""
     }

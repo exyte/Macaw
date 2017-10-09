@@ -13,6 +13,21 @@ class MacawSVGTests: XCTestCase {
         super.tearDown()
     }
     
+
+
+    func testClip() {
+        let clipReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><defs><clipPath id=\"clipPath1\"><rect  height=\"90\" x=\"10\" y=\"10\" width=\"90\" /></clipPath></defs><circle  r=\"20\" cy=\"20\" cx=\"20\"  clip-path=\"url(#clipPath1)\"  fill=\"red\"/><defs><clipPath id=\"clipPath2\"><rect  height=\"190\" x=\"110\" y=\"110\" width=\"190\" /></clipPath></defs><circle  r=\"20\" cy=\"120\" cx=\"120\"  clip-path=\"url(#clipPath2)\"  fill=\"green\"/></g></svg>"
+        let path1 = Rect(x: 10, y: 10, w: 90, h: 90)
+        let circle1 = Circle(cx: 20, cy: 20, r: 20).fill(with: Color.red)
+        circle1.clip = path1
+        let path2 = Rect(x: 110, y: 110, w: 190, h: 190)
+        let circle2 = Circle(cx: 120, cy: 120, r: 20).fill(with: Color.green)
+        circle2.clip = path2
+        let node = Group(contents:[circle1, circle2])
+        print(SVGSerializer.serialize(node: node))
+        XCTAssert(SVGSerializer.serialize(node: node) == clipReferenceContent)
+    }
+
     func testCSSStyleReference() {
         let bundle = Bundle(for: type(of: TestUtils()))
         let styleReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g><circle  r=\"10\" cy=\"50\" cx=\"50\"  fill=\"white\" stroke=\"#231F20\" stroke-width=\"1.5\"/><circle  r=\"10\" cy=\"50\" cx=\"80\"  fill=\"black\"/></g></g></svg>"

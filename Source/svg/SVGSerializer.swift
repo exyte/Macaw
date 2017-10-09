@@ -51,6 +51,7 @@ open class SVGSerializer {
     
     fileprivate let SVGUndefinedTag = "<UNDEFINED "
     fileprivate let indentPrefixSymbol = " "
+    fileprivate let SVGClipPathName = "clipPath"
     
     
     fileprivate func indentTextWithOffset(_ text: String, _ offset: Int) -> String {
@@ -139,10 +140,10 @@ open class SVGSerializer {
     }
     
     fileprivate func imageToSVG(_ image: Image) -> String {
-        var result = tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false)
+        var result = handleClip(text:tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false), clip: image.clip)
         if image.src.contains("memory://") {
             if let data = image.base64encoded(type: Image.ImageRepresentationType.PNG) {
-            result += " xlink:href=\"data:image/png;base64,\(data)\""
+                result += " xlink:href=\"data:image/png;base64,\(data)\""
             }
         } else {
             result += " xlink:href=\"\(image.src)\" "
@@ -154,8 +155,15 @@ open class SVGSerializer {
         return result
     }
 
+    fileprivate func handleClip(text: String, clip: Locus?) -> String {
+        if let locusClip = clip {
+            return clipToSVG(locusClip) + text + getCurrentClipPath()
+        }
+        return text
+    }
+
     fileprivate func textToSVG(_ text: Text) -> String {
-        var result = tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)])
+        var result = handleClip(text: tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)]), clip: text.clip)
         if let font = text.font {
             result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
             // TODO: check with enums
@@ -224,31 +232,44 @@ open class SVGSerializer {
         return .none
     }
     
-    fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
-        var result = ""
-        let locus = macawShape.formVar.value
+    fileprivate func locusToSVG(_ locus: Locus) -> String {
         switch locus {
         case let arc as Arc:
-            result += arcToSVG(arc)
+            return arcToSVG(arc)
         case let polygon as Polygon:
-            result += polygonToSVG(polygon)
+            return polygonToSVG(polygon)
         case let polyline as Polyline:
-            result += polylineToSVG(polyline)
+            return polylineToSVG(polyline)
         case let path as Path:
-            result += pathToSVG(path)
+            return pathToSVG(path)
         case let line as Line:
-            result += lineToSVG(line)
+            return lineToSVG(line)
         case let ellipse as Ellipse:
-            result += ellipseToSVG(ellipse)
+            return ellipseToSVG(ellipse)
         case let circle as Circle:
-            result += circleToSVG(circle)
+            return circleToSVG(circle)
         case let roundRect as RoundRect:
-            result += roundRectToSVG(roundRect)
+            return roundRectToSVG(roundRect)
         case let rect as Rect:
-            result += rectToSVG(rect)
+            return rectToSVG(rect)
         default:
-            result += "\(SVGUndefinedTag) locus:\(locus)"
+            return "\(SVGUndefinedTag) locus:\(locus)"
         }
+    }
+
+    var clipPathCount: Int = 0
+    fileprivate func clipToSVG(_ locus:Locus) -> String {
+        clipPathCount += 1
+        return "<defs><clipPath id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(locus) + SVGGenericCloseTag + "</clipPath></defs>"
+    }
+
+    fileprivate func getCurrentClipPath() -> String {
+        return " clip-path=\"url(#\(SVGClipPathName)\(clipPathCount))\" "
+    }
+
+    fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
+        let locus = macawShape.formVar.value
+        var result = handleClip(text: locusToSVG(locus), clip:  macawShape.clip)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
         if let transform = getTransform(macawShape) {
@@ -264,7 +285,7 @@ open class SVGSerializer {
             return indentTextWithOffset(macawShapeToSvgShape(macawShape: shape), offset)
         }
         if let group = node as? Group {
-            var result = indentTextWithOffset(SVGGroupOpenTag, offset)
+            var result = handleClip(text: indentTextWithOffset(SVGGroupOpenTag, offset), clip: group.clip)
             if let transform = getTransform(group) {
                 result += transform
             }

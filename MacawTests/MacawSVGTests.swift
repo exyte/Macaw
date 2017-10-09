@@ -36,7 +36,7 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
-        if let path = bundle.path(forResource: "logo", ofType: "png") {
+        if let path = bundle.path(forResource: "small-logo", ofType: "png") {
             if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
                 let node = Image(image: mimage)
                 let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image  y=\"0\" x=\"0\"  xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"

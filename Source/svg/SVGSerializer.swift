@@ -140,7 +140,8 @@ open class SVGSerializer {
     }
     
     fileprivate func imageToSVG(_ image: Image) -> String {
-        var result = handleClip(text:tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false), clip: image.clip)
+        var result = tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false)
+        result += clipToSVG(image.clip)
         if image.src.contains("memory://") {
             if let data = image.base64encoded(type: Image.ImageRepresentationType.PNG) {
                 result += " xlink:href=\"data:image/png;base64,\(data)\""
@@ -155,15 +156,8 @@ open class SVGSerializer {
         return result
     }
 
-    fileprivate func handleClip(text: String, clip: Locus?) -> String {
-        if let locusClip = clip {
-            return clipToSVG(locusClip) + text + getCurrentClipPath()
-        }
-        return text
-    }
-
     fileprivate func textToSVG(_ text: Text) -> String {
-        var result = handleClip(text: tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)]), clip: text.clip)
+        var result = tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)])
         if let font = text.font {
             result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
             // TODO: check with enums
@@ -176,6 +170,7 @@ open class SVGSerializer {
         } else if (text.align == .max) {
             result += " text-anchor=\"end"
         }
+        result += clipToSVG(text.clip)
         result += fillToSVG(text.fillVar.value)
         result += strokeToSVG(text.strokeVar.value)
         result += SVGGenericEndTag
@@ -257,19 +252,32 @@ open class SVGSerializer {
         }
     }
 
-    var clipPathCount: Int = 0
-    fileprivate func clipToSVG(_ locus:Locus) -> String {
+    fileprivate var defs: String = ""
+    fileprivate func getDefs() -> String {
+        if defs.isEmpty {
+            return ""
+        }
+        return "<defs>" + defs + "</defs>"
+    }
+    
+    fileprivate var clipPathCount: Int = 0
+    fileprivate func addClipToDefs(_ clip:Locus) {
         clipPathCount += 1
-        return "<defs><clipPath id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(locus) + SVGGenericCloseTag + "</clipPath></defs>"
+        defs += "<clipPath id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(clip) + SVGGenericCloseTag + "</clipPath>"
     }
 
-    fileprivate func getCurrentClipPath() -> String {
+    fileprivate func clipToSVG(_ clipLocus: Locus?) -> String {
+        guard let clip = clipLocus else {
+            return ""
+        }
+        addClipToDefs(clip)
         return " clip-path=\"url(#\(SVGClipPathName)\(clipPathCount))\" "
     }
 
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         let locus = macawShape.formVar.value
-        var result = handleClip(text: locusToSVG(locus), clip:  macawShape.clip)
+        var result = locusToSVG(locus)
+        result += clipToSVG(macawShape.clip)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
         if let transform = getTransform(macawShape) {
@@ -285,7 +293,8 @@ open class SVGSerializer {
             return indentTextWithOffset(macawShapeToSvgShape(macawShape: shape), offset)
         }
         if let group = node as? Group {
-            var result = handleClip(text: indentTextWithOffset(SVGGroupOpenTag, offset), clip: group.clip)
+            var result = indentTextWithOffset(SVGGroupOpenTag, offset)
+            result += clipToSVG(group.clip)
             if let transform = getTransform(group) {
                 result += transform
             }
@@ -317,7 +326,8 @@ open class SVGSerializer {
             optionalSection += " id=\"\(i)\""
         }
         var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
-        result += serialize(node: node, offset: 1)
+        let body = serialize(node: node, offset: 1)
+        result += getDefs() + body
         result += indentTextWithOffset(SVGFooter, 0)
         return result
     }

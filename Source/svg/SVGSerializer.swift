@@ -142,6 +142,7 @@ open class SVGSerializer {
     fileprivate func imageToSVG(_ image: Image) -> String {
         var result = tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false)
         result += clipToSVG(image.clip)
+        result += transformToSVG(image)
         if image.src.contains("memory://") {
             if let data = image.base64encoded(type: Image.ImageRepresentationType.PNG) {
                 result += " xlink:href=\"data:image/png;base64,\(data)\""
@@ -173,6 +174,7 @@ open class SVGSerializer {
         result += clipToSVG(text.clip)
         result += fillToSVG(text.fillVar.value)
         result += strokeToSVG(text.strokeVar.value)
+        result += transformToSVG(text)
         result += SVGGenericEndTag
         result += text.text
         result += "</text>"
@@ -215,7 +217,7 @@ open class SVGSerializer {
         return result
     }
     
-    fileprivate func getTransform(_ shape: Node) -> String? {
+    fileprivate func transformToSVG(_ shape: Node) -> String {
         if ([shape.place.dx, shape.place.dy].map{ Int($0) } != [0, 0]) {
             if ([shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
                 return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
@@ -224,7 +226,7 @@ open class SVGSerializer {
                 return " transform=\"matrix(\(matrixArgs))\" "
             }
         }
-        return .none
+        return ""
     }
     
     fileprivate func locusToSVG(_ locus: Locus) -> String {
@@ -280,9 +282,7 @@ open class SVGSerializer {
         result += clipToSVG(macawShape.clip)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
-        if let transform = getTransform(macawShape) {
-            result += transform
-        }
+        result += transformToSVG(macawShape)
         result += SVGGenericCloseTag
         return result
     }
@@ -295,9 +295,7 @@ open class SVGSerializer {
         if let group = node as? Group {
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
             result += clipToSVG(group.clip)
-            if let transform = getTransform(group) {
-                result += transform
-            }
+            result += transformToSVG(group)
             result += SVGGenericEndTag
             for child in group.contentsVar.value {
                 result += serialize(node: child, offset: offset + 1)

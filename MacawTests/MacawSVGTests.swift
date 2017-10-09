@@ -14,12 +14,13 @@ class MacawSVGTests: XCTestCase {
     }
 
     func testTextBasicTransform() {
-        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(100,100)\" ><text  y=\"0\" x=\"0\"  fill=\"black\" transform=\"matrix(0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,0.0,0.0)\" >Point</text></g></g></svg>"
+        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g transform=\"matrix(1.0,0.0,0.0,1.0,0.0,0.0)\" ><g transform=\"translate(100,100)\" ><text    fill=\"black\" transform=\"matrix(0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,0.0,0.0)\" >Point</text></g></g></svg>"
         let text1 = Text(text: "Point")
         text1.place = Transform(m11: cos(Double.pi/4.0), m12: -sin(Double.pi/4.0), m21: sin(Double.pi/4.0), m22: cos(Double.pi/4.0), dx: 0, dy: 0)
         let group1 = Group(contents: [text1])
         group1.place = Transform(dx: 100, dy: 100)
         let node = Group(contents: [group1])
+        print(SVGSerializer.serialize(node: node))
         XCTAssert(SVGSerializer.serialize(node: node) == referenceContent)
     }
 

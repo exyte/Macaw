@@ -96,7 +96,6 @@ class TextRenderer: NodeRenderer {
             case "lighter": return MFont.Weight.light
             default: return .none
             }
-        return .none
     }
     
   fileprivate func getBounds(_ font: MFont) -> CGRect {

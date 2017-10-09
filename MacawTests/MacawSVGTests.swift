@@ -12,12 +12,14 @@ class MacawSVGTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
 
     func testTextBasicTransform() {
-        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><text  y=\"10\" x=\"10\"  fill=\"black\" transform=\"translate(10,10)\" >Hello, World!</text></svg>"
-        let node = Text(text: "Hello, World!")
-        node.place = Transform(dx:10, dy: 10)
+        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(100,100)\" ><text  y=\"0\" x=\"0\"  fill=\"black\" transform=\"matrix(0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,0.0,0.0)\" >Point</text></g></g></svg>"
+        let text1 = Text(text: "Point")
+        text1.place = Transform(m11: cos(Double.pi/4.0), m12: -sin(Double.pi/4.0), m21: sin(Double.pi/4.0), m22: cos(Double.pi/4.0), dx: 0, dy: 0)
+        let group1 = Group(contents: [text1])
+        group1.place = Transform(dx: 100, dy: 100)
+        let node = Group(contents: [group1])
         XCTAssert(SVGSerializer.serialize(node: node) == referenceContent)
     }
 

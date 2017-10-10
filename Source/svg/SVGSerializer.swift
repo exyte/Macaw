@@ -158,6 +158,21 @@ open class SVGSerializer {
         return result
     }
 
+    fileprivate func alignToSVG(_ align: Align) -> String {
+        switch (align) {
+        case .mid: return " text-anchor=\"middle\" "
+        case .max: return " text-anchor=\"end "
+        default: return ""
+        }
+    }
+    
+    fileprivate func baselineToSVG(_ baseline: Baseline) -> String {
+        if (baseline == .top) {
+            return " dominant-baseline=\"text-before-edge\" "
+        }
+        return ""
+    }
+    
     fileprivate func textToSVG(_ text: Text) -> String {
         var result = tag(SVGTextOpenTag)
         if let font = text.font {
@@ -167,11 +182,9 @@ open class SVGSerializer {
                 result += " font-weight=\"\(font.weight)\" "
             }
         }
-        if (text.align == .mid) {
-            result += " text-anchor=\"middle\" "
-        } else if (text.align == .max) {
-            result += " text-anchor=\"end"
-        }
+      
+        result += alignToSVG(text.align)
+        result += baselineToSVG(text.baseline)
         result += clipToSVG(text.clip)
         result += fillToSVG(text.fillVar.value)
         result += strokeToSVG(text.strokeVar.value)

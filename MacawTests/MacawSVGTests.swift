@@ -14,12 +14,13 @@ class MacawSVGTests: XCTestCase {
     }
 
     func testTextBasicTransform() {
-        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(100,100)\" ><text  y=\"0\" x=\"0\"  fill=\"black\" transform=\"matrix(0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,0.0,0.0)\" >Point</text></g></g></svg>"
+        let referenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(100,100)\" ><text    dominant-baseline=\"text-before-edge\"  fill=\"black\" transform=\"matrix(0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,0.0,0.0)\" >Point</text></g></g></svg>"
         let text1 = Text(text: "Point")
         text1.place = Transform(m11: cos(Double.pi/4.0), m12: -sin(Double.pi/4.0), m21: sin(Double.pi/4.0), m22: cos(Double.pi/4.0), dx: 0, dy: 0)
         let group1 = Group(contents: [text1])
         group1.place = Transform(dx: 100, dy: 100)
         let node = Group(contents: [group1])
+        print(SVGSerializer.serialize(node: node))
         XCTAssert(SVGSerializer.serialize(node: node) == referenceContent)
     }
 
@@ -53,6 +54,7 @@ class MacawSVGTests: XCTestCase {
         let g3 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 3.14159250259399, extent: 2.67794513702393).stroke(fill: Color.green)], place: Transform(dx:110, dy: 140) )
         let group = Group(contents:[g1, g2, g3])
         let arcGroupReference = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"translate(10,10)\" ><ellipse  cy=\"20\" ry=\"20\" rx=\"20\" cx=\"20\"  fill=\"none\" stroke=\"green\" stroke-width=\"1.0\"/></g><g transform=\"translate(10,140)\" ><path  d=\"M20.0000015099579,39.9999999999999 A 20.0,20.0 0.0 0, 1 1.06581410364015e-14,20.0000006357301\"  fill=\"none\" stroke=\"green\" stroke-width=\"1.0\"/></g><g transform=\"translate(110,140)\" ><path  d=\"M2.27373675443232e-13,20.0000030199161 A 20.0,20.0 0.0 0, 1 37.888543296214,11.0557270424323\"  fill=\"none\" stroke=\"green\" stroke-width=\"1.0\"/></g></g></svg>"
+        print(SVGSerializer.serialize(node: group))
         XCTAssert(SVGSerializer.serialize(node: group) == arcGroupReference)
     }
     
@@ -61,7 +63,8 @@ class MacawSVGTests: XCTestCase {
         if let path = bundle.path(forResource: "small-logo", ofType: "png") {
             if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
                 let node = Image(image: mimage)
-                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image  y=\"0\" x=\"0\"  xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
+                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
+                print(SVGSerializer.serialize(node: node))
                 XCTAssert(SVGSerializer.serialize(node: node) == imageReferenceContent)
             }
         }

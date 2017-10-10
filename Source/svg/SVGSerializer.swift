@@ -67,7 +67,7 @@ open class SVGSerializer {
         return String(Int(a))
     }
     
-    fileprivate func tag(_ tag: String, _ args: [String:String], close: Bool=false) -> String {
+    fileprivate func tag(_ tag: String, _ args: [String:String]=[:], close: Bool=false) -> String {
         let attrs = args.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
         let closeTag = close ? " />" : ""
         return "\(tag) \(attrs) \(closeTag)"
@@ -141,7 +141,7 @@ open class SVGSerializer {
     }
     
     fileprivate func imageToSVG(_ image: Image) -> String {
-        var result = tag(SVGImageOpenTag, ["x":att(image.place.dx), "y":att(image.place.dy)], close: false)
+        var result = tag(SVGImageOpenTag, close: false)
         result += clipToSVG(image.clip)
         result += transformToSVG(image)
         if image.src.contains("memory://") {
@@ -158,8 +158,23 @@ open class SVGSerializer {
         return result
     }
 
+    fileprivate func alignToSVG(_ align: Align) -> String {
+        switch (align) {
+        case .mid: return " text-anchor=\"middle\" "
+        case .max: return " text-anchor=\"end "
+        default: return ""
+        }
+    }
+    
+    fileprivate func baselineToSVG(_ baseline: Baseline) -> String {
+        if (baseline == .top) {
+            return " dominant-baseline=\"text-before-edge\" "
+        }
+        return ""
+    }
+    
     fileprivate func textToSVG(_ text: Text) -> String {
-        var result = tag(SVGTextOpenTag, ["x":att(text.place.dx), "y":att(text.place.dy)])
+        var result = tag(SVGTextOpenTag)
         if let font = text.font {
             result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
             // TODO: check with enums
@@ -167,11 +182,9 @@ open class SVGSerializer {
                 result += " font-weight=\"\(font.weight)\" "
             }
         }
-        if (text.align == .mid) {
-            result += " text-anchor=\"middle\" "
-        } else if (text.align == .max) {
-            result += " text-anchor=\"end"
-        }
+      
+        result += alignToSVG(text.align)
+        result += baselineToSVG(text.baseline)
         result += clipToSVG(text.clip)
         result += fillToSVG(text.fillVar.value)
         result += strokeToSVG(text.strokeVar.value)
@@ -218,11 +231,7 @@ open class SVGSerializer {
         return result
     }
     
-
     fileprivate func isSignificantMatrixTransform(_ t: Transform) -> Bool {
-        if ([t.m11, t.m12, t.m21, t.m22, t.dx, t.dy].map{ Int($0) } == [1, 0, 0, 1, 0, 0]) {
-            return false
-        }
         for k in [t.m11, t.m12, t.m21, t.m22, t.dx, t.dy] {
             if abs(k) > SVGEpsilon {
                 return true
@@ -230,18 +239,16 @@ open class SVGSerializer {
         }
         return false
     }
-
+    
     fileprivate func transformToSVG(_ shape: Node) -> String {
-        if ([shape.place.dx, shape.place.dy].map{ Int($0) } != [0, 0]) {
-            if ([shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22].map { Int($0) } == [1, 0, 0, 1]) {
-                return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
+        if [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22] == [1.0, 0.0, 0.0, 1.0] {
+            if ([shape.place.dx, shape.place.dy] == [0.0, 0.0]) {
+                return ""
             }
+            return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
         }
-        if isSignificantMatrixTransform(shape.place) {
-            let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
-            return " transform=\"matrix(\(matrixArgs))\" "
-        }
-        return ""
+        let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
+        return " transform=\"matrix(\(matrixArgs))\" "
     }
     
     fileprivate func locusToSVG(_ locus: Locus) -> String {

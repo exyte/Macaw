@@ -230,8 +230,23 @@ open class SVGSerializer {
         }
         return result
     }
-
+    
+    fileprivate func isSignificantMatrixTransform(_ t: Transform) -> Bool {
+        for k in [t.m11, t.m12, t.m21, t.m22, t.dx, t.dy] {
+            if abs(k) > SVGEpsilon {
+                return true
+            }
+        }
+        return false
+    }
+    
     fileprivate func transformToSVG(_ shape: Node) -> String {
+        if [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22] == [1.0, 0.0, 0.0, 1.0] {
+            if ([shape.place.dx, shape.place.dy] == [0.0, 0.0]) {
+                return ""
+            }
+            return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
+        }
         let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map{ String($0) }.joined(separator: ",")
         return " transform=\"matrix(\(matrixArgs))\" "
     }

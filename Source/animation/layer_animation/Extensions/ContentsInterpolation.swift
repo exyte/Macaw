@@ -1,5 +1,5 @@
 public protocol ContentsInterpolation: Interpolable {
-  
+
 }
 
 extension Array: ContentsInterpolation {

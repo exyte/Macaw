@@ -18,7 +18,7 @@ public func >> (a: Locus, b: Locus) -> MorphingAnimationDescription {
     if t == 0.0 {
       return a
     }
-    
+
     return b
   })
 }

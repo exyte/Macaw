@@ -16,7 +16,7 @@ extension Timer {
     CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
     return timer
   }
-  
+
   /**
    Creates and schedules a repeating `NSTimer` instance.
    

@@ -1,5 +1,5 @@
 public protocol DoubleInterpolation: Interpolable {
-  
+
 }
 
 extension Double: DoubleInterpolation {

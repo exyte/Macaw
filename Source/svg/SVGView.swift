@@ -7,47 +7,47 @@ import Foundation
 #endif
 
 open class SVGView: MacawView {
-  
+
   fileprivate let rootNode = Group()
   fileprivate var svgNode: Node?
-  
+
   @IBInspectable open var fileName: String? {
     didSet {
       parseSVG()
       render()
     }
   }
-  
+
   public init(node: Node = Group(), frame: CGRect) {
     super.init(frame: frame)
     svgNode = node
   }
-  
+
   override public init?(node: Node = Group(), coder aDecoder: NSCoder) {
     super.init(node: Group(), coder: aDecoder)
     svgNode = node
   }
-  
+
   required public convenience init?(coder aDecoder: NSCoder) {
     self.init(node: Group(), coder: aDecoder)
   }
-  
+
   open override var contentMode: MViewContentMode {
     didSet {
       render()
     }
   }
-  
+
   override open func layoutSubviews() {
     super.layoutSubviews()
-    
+
     render()
   }
-  
+
   fileprivate func parseSVG() {
     svgNode = try? SVGParser.parse(path: fileName ?? "")
   }
-  
+
   fileprivate func render() {
     guard let svgNode = self.svgNode else {
       return
@@ -56,13 +56,13 @@ open class SVGView: MacawView {
     if let nodeBounds = svgNode.bounds()?.cgRect() {
       let svgWidth = nodeBounds.origin.x + nodeBounds.width
       let svgHeight = nodeBounds.origin.y + nodeBounds.height
-      
+
       let viewAspectRatio = viewBounds.width / viewBounds.height
       let svgAspectRatio = svgWidth / svgHeight
-      
+
       let scaleX = viewBounds.width / svgWidth
       let scaleY = viewBounds.height / svgHeight
-      
+
       switch self.contentMode {
       case .scaleToFill:
         svgNode.place = Transform.scale(
@@ -92,7 +92,7 @@ open class SVGView: MacawView {
         let calculatedXHeight = scaleX * svgHeight
         let calculatedYWidth = scaleY * svgWidth
         let calculatedYHeight = scaleY * svgHeight
-        
+
         if calculatedXWidth <= viewBounds.width && calculatedXHeight <= viewBounds.height {
           svgNode.place = Transform.move(
             dx: (viewBounds.midX - calculatedXWidth / 2).doubleValue,
@@ -156,29 +156,29 @@ open class SVGView: MacawView {
         break
       }
     }
-    
+
     rootNode.contents = [svgNode]
     self.node = rootNode
   }
-  
+
   fileprivate func getMidX(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
     let viewMidX = viewBounds.midX
     let nodeMidX = nodeBounds.midX + nodeBounds.origin.x
     return viewMidX - nodeMidX
   }
-  
+
   fileprivate func getMidY(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
     let viewMidY = viewBounds.midY
     let nodeMidY = nodeBounds.midY + nodeBounds.origin.y
     return viewMidY - nodeMidY
   }
-  
+
   fileprivate func getBottom(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
     return viewBounds.maxY - nodeBounds.maxY + nodeBounds.origin.y
   }
-  
+
   fileprivate func getRight(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {
     return viewBounds.maxX - nodeBounds.maxX + nodeBounds.origin.x
   }
-  
+
 }

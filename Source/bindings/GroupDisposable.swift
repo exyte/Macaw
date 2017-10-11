@@ -7,20 +7,20 @@
 //
 
 open class GroupDisposable {
-  
+
   fileprivate var items: [Disposable] = []
-  
+
   open  func dispose() {
     for disposable in items {
       disposable.dispose()
     }
     items = []
   }
-  
+
   open func add(_ item: Disposable) {
     items.append(item)
   }
-  
+
 }
 
 extension Disposable {

@@ -9,18 +9,18 @@
 import QuartzCore
 
 /// CAAnimation Delegation class implementation
-class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
+class CAAnimationDelegateImpl: NSObject, CAAnimationDelegate {
   /// start: A block (closure) object to be executed when the animation starts. This block has no return value and takes no argument.
   var start: (() -> Void)?
-  
+
   /// completion: A block (closure) object to be executed when the animation ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished.
   var completion: ((Bool) -> Void)?
-  
+
   /// startTime: animation start date
   fileprivate var startTime: Date!
   fileprivate var animationDuration: TimeInterval!
   fileprivate var animatingTimer: Timer!
-  
+
   /// animating: A block (closure) object to be executed when the animation is animating. This block has no return value and takes a single CGFloat argument that indicates the progress of the animation (From 0 ..< 1)
   var animating: ((CGFloat) -> Void)? {
     willSet {
@@ -29,7 +29,7 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
       }
     }
   }
-  
+
   /**
    Called when the animation begins its active duration.
    
@@ -43,7 +43,7 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
       RunLoop.current.add(animatingTimer, forMode: RunLoopMode.defaultRunLoopMode)
     }
   }
-  
+
   /**
    Called when the animation completes its active duration or is removed from the object it is attached to.
    
@@ -54,7 +54,7 @@ class CAAnimationDelegateImpl:NSObject, CAAnimationDelegate {
     completion?(finished)
     animatingTimer?.invalidate()
   }
-  
+
   /**
    Called when the animation is executing
    
@@ -80,16 +80,16 @@ public extension CAAnimation {
         delegate = animationDelegate
       }
     }
-    
+
     get {
       if let animationDelegate = delegate as? CAAnimationDelegateImpl {
         return animationDelegate.start
       }
-      
+
       return nil
     }
   }
-  
+
   /// A block (closure) object to be executed when the animation ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished.
   public var completion: ((Bool) -> Void)? {
     set {
@@ -101,16 +101,16 @@ public extension CAAnimation {
         delegate = animationDelegate
       }
     }
-    
+
     get {
       if let animationDelegate = delegate as? CAAnimationDelegateImpl {
         return animationDelegate.completion
       }
-      
+
       return nil
     }
   }
-  
+
   /// A block (closure) object to be executed when the animation is animating. This block has no return value and takes a single CGFloat argument that indicates the progress of the animation (From 0 ..< 1)
   public var animating: ((CGFloat) -> Void)? {
     set {
@@ -122,22 +122,22 @@ public extension CAAnimation {
         delegate = animationDelegate
       }
     }
-    
+
     get {
       if let animationDelegate = delegate as? CAAnimationDelegateImpl {
         return animationDelegate.animating
       }
-      
+
       return nil
     }
   }
-  
+
   /// Alias to `animating`
   public var progress: ((CGFloat) -> Void)? {
     set {
       animating = newValue
     }
-    
+
     get {
       return animating
     }

@@ -1,5 +1,5 @@
 public protocol LocusInterpolation: Interpolable {
-  
+
 }
 
 extension Locus: LocusInterpolation {

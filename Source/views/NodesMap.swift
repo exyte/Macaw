@@ -1,4 +1,3 @@
-
 import Foundation
 
 #if os(iOS)
@@ -39,7 +38,7 @@ class NodesMap {
 		} else {
 			parentsMap[node] = Set([parent])
 		}
-        
+
         if let group = node as? Group {
             group.contents.forEach { child in
                 self.add(child, parent: node)
@@ -54,45 +53,44 @@ class NodesMap {
 
 		return Array(nodesSet)
 	}
-    
+
     func replace(node: Node, to: Node) {
         let parents = parentsMap[node]
         let hostingView = map.object(forKey: node)
-        
+
         remove(node)
-        
+
         parents?.forEach { parent in
             guard let group = parent as? Group else {
                 return
             }
-            
+
             var contents = group.contents
             var indexToInsert = 0
             if let index = contents.index(of: node) {
                 contents.remove(at: index)
                 indexToInsert = index
             }
-            
+
             contents.insert(to, at: indexToInsert)
             group.contents = contents
-            
+
             add(to, parent: parent)
         }
-        
+
         if let view = hostingView {
             add(to, view: view)
         }
-        
-        
+
         // Replacing node in hosting view if needed
-        guard let hostingNode =  hostingView?.node else {
+        guard let hostingNode = hostingView?.node else {
             return
         }
-        
+
         if hostingNode == node {
             hostingView?.node = to
         }
-        
+
         // Replacing id
         to.id = node.id
     }

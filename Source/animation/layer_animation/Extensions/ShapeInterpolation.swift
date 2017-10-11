@@ -7,7 +7,7 @@
 //
 
 public protocol ShapeInterpolation: Interpolable {
-  
+
 }
 
 extension Shape: ShapeInterpolation {

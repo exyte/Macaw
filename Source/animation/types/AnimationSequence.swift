@@ -1,4 +1,3 @@
-
 import Foundation
 
 internal class AnimationSequence: BasicAnimation {
@@ -16,47 +15,47 @@ internal class AnimationSequence: BasicAnimation {
 	}
 
 	override func getDuration() -> Double {
-		let originalDuration  = animations.map({ $0.getDuration() }).reduce(0, { $0 + $1 })
-    
+		let originalDuration = animations.map({ $0.getDuration() }).reduce(0, { $0 + $1 })
+
         if autoreverses {
             return originalDuration * 2.0
         }
-        
+
         return originalDuration
 	}
 
 	open override func stop() {
         super.stop()
-        
+
         guard let active = (animations.filter { $0.isActive() }).first else {
             return
         }
-        
+
         active.stop()
 	}
-    
+
     open override func pause() {
         super.pause()
-        
+
         guard let active = (animations.filter { $0.isActive() }).first else {
             return
         }
-        
+
         active.pause()
     }
-    
+
     open override func play() {
         guard let active = (animations.filter { $0.isActive() }).first else {
             super.play()
             return
         }
-        
+
         manualStop = false
         paused = false
-        
+
         active.play()
     }
-    
+
     open override func state() -> AnimationState {
         for animation in animations {
             let state = animation.state()
@@ -64,7 +63,7 @@ internal class AnimationSequence: BasicAnimation {
                 return state
             }
         }
-        
+
         return .initial
     }
 

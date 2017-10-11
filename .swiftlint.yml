@@ -99,7 +99,6 @@ opt_in_rules:
   - trailing_newline
   - trailing_semicolon
   - trailing_whitespace
-  - type_name
   - unneeded_parentheses_in_closure_argument
   - unused_closure_parameter
   - unused_enumerated
@@ -113,4 +112,3 @@ opt_in_rules:
 force_cast: warning
 shorthand_operator: warning
 empty_count: warning
-type_name: warning

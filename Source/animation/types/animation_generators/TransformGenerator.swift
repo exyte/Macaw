@@ -6,7 +6,7 @@ import Foundation
     import AppKit
 #endif
 
-func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
+func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
 	guard let transformAnimation = animation as? TransformAnimation else {
 		return
 	}
@@ -32,7 +32,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 	generatedAnim.timingFunction = caTimingFunction(animation.easing)
 
 	generatedAnim.completion = { finished in
-        
+
         if animation.paused {
             animation.pausedProgress = animation.pausedProgress + animation.progress
             node.placeVar.value = transformAnimation.getVFunc()(animation.pausedProgress)
@@ -45,9 +45,9 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
             animation.progress = 1.0
             node.placeVar.value = transformAnimation.getVFunc()(1.0)
         }
-        
+
 		animationCache?.freeLayer(node)
-        
+
         if !animation.cycled &&
             !animation.manualStop &&
             !animation.paused {
@@ -74,7 +74,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     if let layer = animationCache?.layerForNode(node, animation: animation) {
         layer.add(generatedAnim, forKey: animation.ID)
         animation.removeFunc = {
-            layer.removeAnimation(forKey: animation.ID)            
+            layer.removeAnimation(forKey: animation.ID)
         }
     }
 }
@@ -104,7 +104,7 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
 		if 1.0 - dt < step {
 			dt = 1.0
 		}
-        
+
         timeValues.append(dt)
 		let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(offset + dt))
         let cgValue = CATransform3DMakeAffineTransform(RenderUtils.mapTransform(value))

@@ -1,4 +1,3 @@
-
 // TODO: Implement better hash
 
 extension Node: Hashable {

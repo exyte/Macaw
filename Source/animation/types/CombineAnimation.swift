@@ -1,4 +1,3 @@
-
 import Foundation
 
 internal class CombineAnimation: BasicAnimation {
@@ -35,32 +34,32 @@ internal class CombineAnimation: BasicAnimation {
 
 		return combineReversed
 	}
-    
+
     open override func play() {
         animations.forEach { animation in
             animation.paused = false
             animation.manualStop = false
         }
-        
+
         super.play()
     }
 
 	open override func stop() {
         super.stop()
-        
+
 		animations.forEach { animation in
 			animation.stop()
 		}
 	}
-    
+
     open override func pause() {
         super.pause()
-        
+
         animations.forEach { animation in
             animation.pause()
         }
     }
-    
+
     open override func state() -> AnimationState {
         var result = AnimationState.initial
         for animation in animations {
@@ -68,12 +67,12 @@ internal class CombineAnimation: BasicAnimation {
             if state == .running {
                 return .running
             }
-            
+
             if state != .initial {
                 result = state
             }
         }
-        
+
         return result
     }
 }

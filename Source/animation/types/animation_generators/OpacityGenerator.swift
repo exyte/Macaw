@@ -6,7 +6,7 @@ import Foundation
     import AppKit
 #endif
 
-func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> ())) {
+func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
 	guard let opacityAnimation = animation as? OpacityAnimation else {
 		return
 	}

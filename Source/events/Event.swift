@@ -9,15 +9,15 @@
 import Foundation
 
 open class Event {
-  
+
   public weak var node: Node?
-  
+
   var consumed = false
-  
+
   init(node: Node) {
     self.node = node
   }
-  
+
   public func consume() {
     consumed = true
   }

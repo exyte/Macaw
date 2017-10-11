@@ -1,6 +1,5 @@
-
 public protocol TransformInterpolation: Interpolable {
-  
+
 }
 
 extension Transform: TransformInterpolation {

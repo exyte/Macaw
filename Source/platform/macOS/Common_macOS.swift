@@ -11,7 +11,7 @@ import Foundation
 #if os(OSX)
   import Cocoa
   import Quartz
-  
+
   public typealias MFont = NSFont
   public typealias MColor = NSColor
   public typealias MEvent = NSEvent
@@ -26,7 +26,7 @@ import Foundation
   public typealias MPinchGestureRecognizer = NSMagnificationGestureRecognizer
   public typealias MRotationGestureRecognizer = NSRotationGestureRecognizer
   public typealias MScreen = NSScreen
-  
+
   extension MGestureRecognizer {
     var cancelsTouchesInView: Bool {
       get {
@@ -34,77 +34,77 @@ import Foundation
       } set { }
     }
   }
-  
+
   extension MTapGestureRecognizer {
     func mNumberOfTouches() -> Int {
       return 1
     }
   }
-  
+
   extension MPanGestureRecognizer {
     func mNumberOfTouches() -> Int {
       return 1
     }
-    
+
     func mLocationOfTouch(_ touch: Int, inView: NSView?) -> NSPoint {
       return super.location(in: inView)
     }
   }
-  
+
   extension MRotationGestureRecognizer {
     var velocity: CGFloat {
       return 0.1
     }
-    
+
     var mRotation: CGFloat {
       get {
         return -rotation
       }
-      
+
       set {
         rotation = -newValue
       }
     }
   }
-  
+
   extension MPinchGestureRecognizer {
     var mScale: CGFloat {
       get {
         return magnification + 1.0
       }
-      
+
       set {
         magnification = newValue - 1.0
       }
     }
-    
+
     func mLocationOfTouch(_ touch: Int, inView view: NSView?) -> NSPoint {
       return super.location(in: view)
     }
   }
-  
+
   extension NSFont {
     var lineHeight: CGFloat {
       return self.boundingRectForFont.size.height
     }
-    
+
     class var mSystemFontSize: CGFloat {
       return NSFont.systemFontSize
     }
   }
-  
+
   extension NSScreen {
     var mScale: CGFloat {
       return self.backingScaleFactor
     }
   }
-  
+
   extension NSImage {
     var cgImage: CGImage? {
       return self.cgImage(forProposedRect: nil, context: nil, hints: nil)
     }
   }
-  
+
   extension NSTouch {
     func location(in view: NSView) -> NSPoint {
       let n = self.normalizedPosition
@@ -112,19 +112,16 @@ import Foundation
       return NSPoint(x: b.origin.x + b.size.width * n.x, y: b.origin.y + b.size.height * n.y)
     }
   }
-  
+
   extension NSString {
     @nonobjc
-    func size(attributes attrs: [NSAttributedStringKey : Any]? = nil) -> NSSize {
+    func size(attributes attrs: [NSAttributedStringKey: Any]? = nil) -> NSSize {
       return size(withAttributes: attrs)
     }
   }
-  
+
   func MMainScreen() -> MScreen? {
     return MScreen.main
   }
-  
-  
 
 #endif
-

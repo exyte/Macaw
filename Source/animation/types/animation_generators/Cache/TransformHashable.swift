@@ -1,4 +1,3 @@
-
 extension Transform: Hashable {
   public var hashValue: Int {
     return m11.hashValue ^

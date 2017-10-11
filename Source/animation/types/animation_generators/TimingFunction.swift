@@ -23,7 +23,7 @@ func caTimingFunction(_ easing: Easing) -> CAMediaTimingFunction {
 
 func progressForTimingFunction(_ easing: Easing, progress: Double) -> Double {
   let t = progress
-  
+
   switch easing {
   case .ease:
     return t

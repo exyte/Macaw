@@ -8,23 +8,23 @@ import Foundation
 
 class TextRenderer: NodeRenderer {
   weak var text: Text?
-  
+
   init(text: Text, ctx: RenderContext, animationCache: AnimationCache?) {
     self.text = text
     super.init(node: text, ctx: ctx, animationCache: animationCache)
   }
-  
+
   override func node() -> Node? {
     return text
   }
-  
+
   override func doAddObservers() {
     super.doAddObservers()
-    
+
     guard let text = text else {
       return
     }
-    
+
     observe(text.textVar)
     observe(text.fontVar)
     observe(text.fillVar)
@@ -32,12 +32,12 @@ class TextRenderer: NodeRenderer {
     observe(text.alignVar)
     observe(text.baselineVar)
   }
-  
+
   override func doRender(_ force: Bool, opacity: Double) {
     guard let text = text else {
       return
     }
-    
+
     let message = text.text
     let font = getMFont()
     // positive NSBaselineOffsetAttributeName values don't work, couldn't find why
@@ -62,19 +62,19 @@ class TextRenderer: NodeRenderer {
     guard let contains = node()?.bounds()?.cgRect().contains(location) else {
       return .none
     }
-    
+
     if contains {
       return node()
     }
-    
+
     return .none
   }
-  
+
   fileprivate func getMFont() -> MFont {
     guard let text = text else {
       return MFont.systemFont(ofSize: 18.0)
     }
-    
+
     if let textFont = text.font {
       if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
         return customFont
@@ -87,7 +87,7 @@ class TextRenderer: NodeRenderer {
     }
     return MFont.systemFont(ofSize: MFont.mSystemFontSize)
   }
-    
+
     fileprivate func getWeight(_ weight: String) -> MFont.Weight? {
             switch (weight) {
             case "normal": return MFont.Weight.regular
@@ -97,19 +97,19 @@ class TextRenderer: NodeRenderer {
             default: return .none
             }
     }
-    
+
   fileprivate func getBounds(_ font: MFont) -> CGRect {
     guard let text = text else {
       return .zero
     }
-    
+
     let textAttributes = [NSAttributedStringKey.font: font]
     let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
     return CGRect(x: calculateAlignmentOffset(text, font: font),
                   y: calculateBaselineOffset(text, font: font),
                   width: CGFloat(textSize.width), height: CGFloat(textSize.height))
   }
-  
+
   fileprivate func calculateBaselineOffset(_ text: Text, font: MFont) -> CGFloat {
     var baselineOffset = CGFloat(0)
     switch text.baseline {
@@ -124,7 +124,7 @@ class TextRenderer: NodeRenderer {
     }
     return -baselineOffset
   }
-  
+
   fileprivate func calculateAlignmentOffset(_ text: Text, font: MFont) -> CGFloat {
     let textAttributes = [
         NSAttributedStringKey.font: font
@@ -141,16 +141,16 @@ class TextRenderer: NodeRenderer {
     }
     return -alignmentOffset
   }
-  
+
   fileprivate func getTextColor(_ fill: Fill) -> MColor {
     if let color = fill as? Color {
-      
+
       #if os(iOS)
         return MColor(cgColor: RenderUtils.mapColor(color))
       #elseif os(OSX)
         return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
       #endif
-    
+
     }
     return MColor.black
   }

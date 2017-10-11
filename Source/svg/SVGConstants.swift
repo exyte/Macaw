@@ -1,5 +1,5 @@
 open class SVGConstants {
-    
+
     open static let valueToColor = [
         0x000000: "black",
         0x000080: "navy",
@@ -292,14 +292,14 @@ open class SVGConstants {
         "yellow": 0xffff00,
         "yellowgreen": 0x9acd32
     ]
-    
+
     open static func valueToColor(_ color: Int) -> String? {
-        return SVGConstants.colorList.filter { (k, v) -> Bool in v == color }.map { (k, v) -> String in k }.first
+        return SVGConstants.colorList.filter { (_, v) -> Bool in v == color }.map { (k, _) -> String in k }.first
     }
-    
+
     open static let defaultStrokeLineCap = LineCap.butt
     open static let defaultStrokeLineJoin = LineJoin.miter
-    
+
     open static let moveToAbsolute = "M"
     open static let moveToRelative = "m"
     open static let lineToAbsolute = "L"
@@ -314,7 +314,7 @@ open class SVGConstants {
     open static let smoothCurveToRelative = "s"
     open static let closePathAbsolute = "Z"
     open static let closePathRelative = "z"
-    
+
     open static let pathCommands = [
         moveToAbsolute,
         moveToRelative,
@@ -331,5 +331,5 @@ open class SVGConstants {
         closePathAbsolute,
         closePathRelative
     ]
-    
+
 }

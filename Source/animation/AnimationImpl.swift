@@ -26,7 +26,7 @@ class BasicAnimation: Animation {
 	var type = AnimationType.unknown
 	let ID: String
 	var next: BasicAnimation?
-	var removeFunc: (() -> ())?
+	var removeFunc: (() -> Void)?
     var delayed = false
     var manualStop = false
     var paused = false
@@ -36,9 +36,9 @@ class BasicAnimation: Animation {
     var cycled = false
 	var delay = 0.0
 	var autoreverses = false
-	var onProgressUpdate: ((Double) -> ())?
+	var onProgressUpdate: ((Double) -> Void)?
 	var easing = Easing.ease
-	var completion: (() -> ())?
+	var completion: (() -> Void)?
 
 	override init() {
 		ID = UUID().uuidString
@@ -62,17 +62,17 @@ class BasicAnimation: Animation {
 
 	override open func autoreversed() -> Animation {
 		self.autoreverses = true
-        
+
 		return self
 	}
-    
+
     override open func cycle() -> Animation {
         self.cycled = true
-        
+
         return self
     }
 
-	override open func onComplete(_ f: @escaping (() -> ())) -> Animation {
+	override open func onComplete(_ f: @escaping (() -> Void)) -> Animation {
 		self.completion = f
 		return self
 	}
@@ -81,45 +81,45 @@ class BasicAnimation: Animation {
 
         manualStop = false
         paused = false
-        
+
 		animationProducer.addAnimation(self)
 	}
 
 	override open func stop() {
         manualStop = true
         paused = false
-        
+
         if delay > 0.0 {
             animationProducer.removeDelayed(animation: self)
         }
-        
+
 		removeFunc?()
 	}
-    
+
     override open func pause() {
         paused = true
         manualStop = false
-        
+
         if delay > 0.0 {
             animationProducer.removeDelayed(animation: self)
         }
-        
+
         removeFunc?()
     }
-    
+
     override func state() -> AnimationState {
         if delayed {
             return .running
         }
-        
+
         if self.progress == 0.0 {
             return .initial
         }
-        
+
         if paused || manualStop || progress == 1.0 {
             return .paused
         }
-        
+
         return .running
     }
 
@@ -135,7 +135,7 @@ extension BasicAnimation: Hashable {
     public var hashValue: Int {
         return ID.hashValue
     }
-    
+
     public static func ==(lhs: BasicAnimation, rhs: BasicAnimation) -> Bool {
         return lhs.ID == rhs.ID
     }
@@ -147,7 +147,6 @@ extension BasicAnimation {
         return progress > 0.0 && progress < 1.0
     }
 }
-
 
 // Animated property list https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AnimatableProperties/AnimatableProperties.html
 internal class AnimationImpl<T: Interpolable>: BasicAnimation {
@@ -172,16 +171,16 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
 		self.delay = delay
 	}
-    
+
     init(observableValue: AnimatableVariable<T>, factory: @escaping (() -> ((Double) -> T)), animationDuration: Double, delay: Double = 0.0, fps: UInt = 30) {
         self.variable = observableValue
         self.initialValue = observableValue.value
         self.duration = animationDuration
         self.timeFactory = factory
         self.logicalFps = fps
-        
+
         super.init()
-        
+
         self.delay = delay
     }
 
@@ -196,24 +195,24 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 	convenience init(observableValue: AnimatableVariable<T>, finalValue: T, animationDuration: Double) {
 		self.init(observableValue: observableValue, startValue: observableValue.value, finalValue: finalValue, animationDuration: animationDuration)
 	}
-    
+
     override open func play() {
-        
+
         if manualStop {
             variable.value = getVFunc()(0.0)
         }
-        
+
         if paused {
             variable.value = getVFunc()(pausedProgress)
         }
-        
+
        super.play()
     }
 
 	open override func getDuration() -> Double {
         var totalDuration = autoreverses ? duration * 2.0 : duration
         totalDuration = totalDuration * (1.0 - pausedProgress)
-        
+
 		return totalDuration
 	}
 
@@ -221,11 +220,11 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
         if let vFunc = vFunc {
             return vFunc
         }
-        
+
         var timeFunc = { (t: Double) -> Double in
             return t
         }
-        
+
         if autoreverses {
             let original = timeFunc
             timeFunc = { (t: Double) -> Double in
@@ -236,11 +235,11 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
                 }
             }
         }
-        
+
         vFunc = { (t: Double) -> T in
             return self.timeFactory()(timeFunc(t))
         }
-        
+
         return vFunc!
     }
 
@@ -248,7 +247,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
 // For sequence completion
 class EmptyAnimation: BasicAnimation {
-	required init(completion: @escaping (() -> ())) {
+	required init(completion: @escaping (() -> Void)) {
 		super.init()
 
 		self.completion = completion

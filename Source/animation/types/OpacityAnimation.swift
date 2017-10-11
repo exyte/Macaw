@@ -1,4 +1,3 @@
-
 internal class OpacityAnimation: AnimationImpl<Double> {
 
 	convenience init(animatedNode: Node, startValue: Double, finalValue: Double, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
@@ -19,12 +18,12 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 			self.play()
 		}
 	}
-    
+
     init(animatedNode: Node, factory: @escaping  (() -> ((Double) -> Double)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.opacityVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .opacity
         nodeId = animatedNode.id
-        
+
         if autostart {
             self.play()
         }
@@ -50,9 +49,9 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 
 public typealias OpacityAnimationDescription = AnimationDescription<Double>
 
-public extension AnimatableVariable where T: DoubleInterpolation  {
+public extension AnimatableVariable where T: DoubleInterpolation {
 	public func animate(_ desc: OpacityAnimationDescription) {
-		let _ = OpacityAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
+		_ = OpacityAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
 	}
 
     public func animation(_ desc: OpacityAnimationDescription) -> Animation {
@@ -62,13 +61,13 @@ public extension AnimatableVariable where T: DoubleInterpolation  {
 	public func animate(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) {
 		self.animate(((from ?? node!.opacity) >> to).t(during, delay: delay))
 	}
-    
+
     public func animation(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
         let origin = node!.opacity
-        let factory = { () -> (Double) -> Double in            
+        let factory = { () -> (Double) -> Double in
             return { (t: Double) in return origin.interpolate(to, progress: t) }
         }
         return OpacityAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)

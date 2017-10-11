@@ -7,7 +7,7 @@
 //
 
 public protocol StrokeInterpolation: Interpolable {
-    
+
 }
 
 extension Stroke: StrokeInterpolation {

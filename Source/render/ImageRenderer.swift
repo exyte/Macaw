@@ -10,25 +10,25 @@ import Foundation
 
 class ImageRenderer: NodeRenderer {
   weak var image: Image?
-  
+
   var renderedPaths: [CGPath] = [CGPath]()
-  
+
   init(image: Image, ctx: RenderContext, animationCache: AnimationCache?) {
     self.image = image
     super.init(node: image, ctx: ctx, animationCache: animationCache)
   }
-  
+
   override func node() -> Node? {
     return image
   }
-  
+
   override func doAddObservers() {
     super.doAddObservers()
-    
+
     guard let image = image else {
       return
     }
-    
+
     observe(image.srcVar)
     observe(image.xAlignVar)
     observe(image.yAlignVar)
@@ -36,12 +36,12 @@ class ImageRenderer: NodeRenderer {
     observe(image.wVar)
     observe(image.hVar)
   }
-  
+
   override func doRender(_ force: Bool, opacity: Double) {
     guard let image = image else {
       return
     }
-    
+
     var mImage: MImage?
     if image.src.contains("memory") {
       let id = image.src.replacingOccurrences(of: "memory://", with: "")
@@ -49,7 +49,7 @@ class ImageRenderer: NodeRenderer {
     } else {
       mImage = image.image()
     }
-    
+
     if let mImage = mImage {
       let rect = getRect(mImage)
       ctx.cgContext!.scaleBy(x: 1.0, y: -1.0)
@@ -58,18 +58,18 @@ class ImageRenderer: NodeRenderer {
       ctx.cgContext!.draw(mImage.cgImage!, in: rect)
     }
   }
-  
+
   override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
     guard let image = image else {
       return .none
     }
-    
+
     #if os(iOS)
         let osImage = MImage(named: image.src)
     #elseif os(OSX)
         let osImage = MImage(named: NSImage.Name(rawValue: image.src))
     #endif
-    
+
     if let mImage = osImage {
       let rect = getRect(mImage)
       if (rect.contains(location)) {
@@ -78,12 +78,12 @@ class ImageRenderer: NodeRenderer {
     }
     return nil
   }
-  
+
   fileprivate func getRect(_ mImage: MImage) -> CGRect {
     guard let image = image else {
       return .zero
     }
-    
+
     let imageSize = mImage.size
     var w = CGFloat(image.w)
     var h = CGFloat(image.h)
@@ -106,7 +106,7 @@ class ImageRenderer: NodeRenderer {
       }
     }
   }
-  
+
   fileprivate func calculateMeetAspectRatio(_ image: Image, size: CGSize) -> CGRect {
     let w = CGFloat(image.w)
     let h = CGFloat(image.h)
@@ -144,7 +144,7 @@ class ImageRenderer: NodeRenderer {
     }
     return CGRect(x: destX, y: destY, width: resultW, height: resultH)
   }
-  
+
   fileprivate func calculateSliceAspectRatio(_ image: Image, size: CGSize) -> CGRect {
     let w = CGFloat(image.w)
     let h = CGFloat(image.h)

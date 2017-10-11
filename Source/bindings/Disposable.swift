@@ -9,13 +9,13 @@
 import Foundation
 
 open class Disposable {
-  
-  let handler: (()->())
-  
-  init (_ disposeHandler: @escaping (()->()) ) {
+
+  let handler: (() -> Void)
+
+  init (_ disposeHandler: @escaping (() -> Void) ) {
     handler = disposeHandler
   }
-  
+
   open func dispose() {
     handler()
   }

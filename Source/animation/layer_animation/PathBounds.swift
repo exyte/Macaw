@@ -96,8 +96,8 @@ private func sCubicBounds(_ data: [Double], currentPoint: Point, currentBezierPo
   var p2 = currentPoint
   if let bezierPoint = currentBezierPoint {
     p2 = Point(
-      x: 2.0 * currentPoint.x - bezierPoint.x,
-      y: 2.0 * currentPoint.y - bezierPoint.y)
+      x: currentPoint.x - bezierPoint.x,
+      y: currentPoint.y - bezierPoint.y)
   }
   
   let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }

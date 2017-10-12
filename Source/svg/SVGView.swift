@@ -88,28 +88,15 @@ open class SVGView: MacawView {
             sy: scaleX.doubleValue
         )
       case .scaleAspectFit:
-        let calculatedXWidth = scaleX * svgWidth
-        let calculatedXHeight = scaleX * svgHeight
-        let calculatedYWidth = scaleY * svgWidth
-        let calculatedYHeight = scaleY * svgHeight
+        let scale = CGFloat.minimum(scaleX, scaleY)
         
-        if calculatedXWidth <= viewBounds.width && calculatedXHeight <= viewBounds.height {
-          svgNode.place = Transform.move(
-            dx: (viewBounds.midX - calculatedXWidth / 2).doubleValue,
-            dy: (viewBounds.midY - calculatedXHeight / 2).doubleValue
+        svgNode.place = Transform.move(
+            dx: (viewBounds.midX - scale * svgWidth / 2).doubleValue,
+            dy: (viewBounds.midY - scale * svgHeight / 2).doubleValue
             ).scale(
-              sx: scaleX.doubleValue,
-              sy: scaleX.doubleValue
-          )
-        } else if calculatedYWidth <= viewBounds.width && calculatedYHeight <= viewBounds.height {
-          svgNode.place = Transform.move(
-            dx: (viewBounds.midX - calculatedYWidth / 2).doubleValue,
-            dy: (viewBounds.midY - calculatedYHeight / 2).doubleValue
-            ).scale(
-              sx: scaleY.doubleValue,
-              sy: scaleY.doubleValue
-          )
-        }
+                sx: scale.doubleValue,
+                sy: scale.doubleValue
+        )
       case .center:
         svgNode.place = Transform.move(
           dx: getMidX(viewBounds, nodeBounds).doubleValue,

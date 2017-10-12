@@ -267,6 +267,9 @@
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
 		C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
 		C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B191F458D64008CE0FF /* MacawSVGTests.swift */; };
+		C4BD40B81F8F55AB003034F0 /* SVGBoundsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD40B71F8F55AB003034F0 /* SVGBoundsTest.swift */; };
+		C4BD40BB1F8F58B0003034F0 /* pathbounds1.svg in Resources */ = {isa = PBXBuildFile; fileRef = C4BD40B91F8F58B0003034F0 /* pathbounds1.svg */; };
+		C4BD40BC1F8F58B0003034F0 /* pathbounds2.svg in Resources */ = {isa = PBXBuildFile; fileRef = C4BD40BA1F8F58B0003034F0 /* pathbounds2.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -447,6 +450,9 @@
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
 		C4820B171F458D0E008CE0FF /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
 		C4820B191F458D64008CE0FF /* MacawSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawSVGTests.swift; sourceTree = "<group>"; };
+		C4BD40B71F8F55AB003034F0 /* SVGBoundsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SVGBoundsTest.swift; path = Bounds/SVGBoundsTest.swift; sourceTree = "<group>"; };
+		C4BD40B91F8F58B0003034F0 /* pathbounds1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pathbounds1.svg; path = Bounds/pathbounds1.svg; sourceTree = "<group>"; };
+		C4BD40BA1F8F58B0003034F0 /* pathbounds2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pathbounds2.svg; path = Bounds/pathbounds2.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -859,10 +865,13 @@
 		A7E675541EC4211E00BD9ECB /* Bounds */ = {
 			isa = PBXGroup;
 			children = (
+				C4BD40B91F8F58B0003034F0 /* pathbounds1.svg */,
+				C4BD40BA1F8F58B0003034F0 /* pathbounds2.svg */,
 				57B7A4E01EE70DA5009D78D7 /* logo_base64.txt */,
 				57B7A4DE1EE70D17009D78D7 /* logo.png */,
 				A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */,
 				57B7A4E21EE70DC3009D78D7 /* ImageBoundsTests.swift */,
+				C4BD40B71F8F55AB003034F0 /* SVGBoundsTest.swift */,
 			);
 			name = Bounds;
 			sourceTree = "<group>";
@@ -1007,6 +1016,8 @@
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
 				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,
 				C410148E1F834D290022EE44 /* style.svg in Resources */,
+				C4BD40BB1F8F58B0003034F0 /* pathbounds1.svg in Resources */,
+				C4BD40BC1F8F58B0003034F0 /* pathbounds2.svg in Resources */,
 				57CAB1301D7832E000FD8E47 /* group.svg in Resources */,
 				57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */,
 				57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */,
@@ -1284,6 +1295,7 @@
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,
 				A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */,
 				57E0EB2E1EB34CDD00638039 /* AnimationUtilsTests.swift in Sources */,
+				C4BD40B81F8F55AB003034F0 /* SVGBoundsTest.swift in Sources */,
 				5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */,
 				57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */,
 			);

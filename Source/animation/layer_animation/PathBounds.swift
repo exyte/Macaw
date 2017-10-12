@@ -65,9 +65,19 @@ func pathSegmenInfo(_ segment: PathSegment, currentPoint: Point?, currentBezierP
       return (sCubicBounds(data, currentPoint: currentPoint, currentBezierPoint: currentBezierPoint),
               Point(x: data[2], y: data[3]),
               Point(x: p2.x, y: p2.y))
-    case .h, .H:
+    case .H:
+      if let p = currentPoint {
+        return (Rect(x: data[0], y: p.y, w: abs(p.x - data[0]), h: 0.0), Point(x: data[0], y: p.y), .none)
+      }
       return (Rect(x: 0.0, y: 0.0, w: data[0], h: 0.0), Point(x: data[0], y: 0.0), .none)
-    case .v, .V:
+    case .h:
+      return (Rect(x: 0.0, y: 0.0, w: data[0], h: 0.0), Point(x: data[0], y: 0.0), .none)
+    case .V:
+      if let p = currentPoint {
+        return (Rect(x: p.x, y: data[0], w: 0.0, h: abs(p.y - data[0])), Point(x: p.x, y: data[0]), .none)
+      }
+      return (Rect(x: 0.0, y: 0.0, w: 0.0, h: data[0]), Point(x: 0.0, y: data[0]), .none)
+    case .v:
       return (Rect(x: 0.0, y: 0.0, w: 0.0, h: data[0]), Point(x: 0.0, y: data[0]), .none)
     case .l, .L:
       return (Rect(x: data[0], y: data[1], w: 0.0, h: 0.0), Point(x: data[0], y: data[1]), .none)

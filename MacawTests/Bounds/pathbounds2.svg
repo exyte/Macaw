@@ -2,7 +2,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
 	 width="200" height="200"> 
 <!--
-<rect x="36.7" y="101.4" width="59.3" height="7.6" fill="none" stroke="red"/>
+<rect x="36.7" y="101.4" width="35.1" height="7.6" fill="none" stroke="red" />
 -->
 <path d="M68,101.9c1.8,0,3.3,1.5,3.3,3.3s-1.5,3.3-3.3,3.3H40.5c-1.8,0-3.3-1.5-3.3-3.3s1.5-3.3,3.3-3.3H68z" fill="none" stroke="black"/>
 </svg>

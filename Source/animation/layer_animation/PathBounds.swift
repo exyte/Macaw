@@ -67,7 +67,11 @@ func pathSegmenInfo(_ segment: PathSegment, currentPoint: Point?, currentBezierP
               Point(x: p2.x, y: p2.y))
     case .H:
       if let p = currentPoint {
-        return (Rect(x: data[0], y: p.y, w: abs(p.x - data[0]), h: 0.0), Point(x: data[0], y: p.y), .none)
+        if (data[0] > p.x) {
+            return (Rect(x: p.x, y: p.y, w: data[0] - p.x, h: 0.0), Point(x: data[0], y: p.y), .none)
+        } else {
+            return (Rect(x: data[0], y: p.y, w: p.x - data[0], h: 0.0), Point(x: data[0], y: p.y), .none)
+        }
       }
       return (Rect(x: 0.0, y: 0.0, w: data[0], h: 0.0), Point(x: data[0], y: 0.0), .none)
     case .h:

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+	 width="800" height="800"> 
+<!--
+<rect x="36.7" y="101.4" width="35.1" height="7.6" fill="none" stroke="red" />
+<path d="M100,100c-18 0 -33 -15 -90 -33 s15 -33 33 -33" fill="none" stroke="black"/>
+<rect  height="63" x="109" y="36" width="91"  fill="red"/>
+<path d="M200,100c-18 0 -33 -15 -90 -33 s15 -33 33 -33" fill="none" stroke="black"/>
+-->
+<path d="M200,100c-18 0 -33 -15 -90 -33 s15 -33 33 -33" fill="none" stroke="black"/>
+</svg>

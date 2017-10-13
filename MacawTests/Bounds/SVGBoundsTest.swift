@@ -12,7 +12,7 @@ class SVGBoundsTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
+    
     func testPathBounds1() {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
@@ -41,5 +41,19 @@ class SVGBoundsTest: XCTestCase {
         }
     }
     
+    func testPathBounds3() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "pathbounds3")
+            var testResult = false
+            if let bounds = node.bounds() {
+                print(SVGSerializer.serialize(node: bounds.fill(with: Color.red)))
+                testResult = (Double(round(100*bounds.x)/100) == 36.7) && (Double(round(100*bounds.y)/100) == 101.4) && (Double(round(100*bounds.w)/100) == 35.1) && (Double(round(100*bounds.h)/100) == 7.6)
+            }
+            XCTAssert(testResult)
+        } catch {
+            print(error)
+        }
+    }
 }
 

@@ -100,11 +100,7 @@ private func cubicBounds(_ data: [Double], currentPoint: Point?) -> Rect {
   let p2 = Point(x: data[2], y: data[3])
   let p3 = Point(x: data[4], y: data[5])
   
-//  let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
-  
-  // TODO: Replace with accurate implementation via derivative
-//  return boundsForFunc(bezier3)
-    return boundsWithDerivative(p0: p0, p1: p1, p2: p2, p3: p3) ?? Rect(x: 0, y: 0, w: 0, h:0)
+  return boundsWithDerivative(p0: p0, p1: p1, p2: p2, p3: p3) ?? Rect(x: 0, y: 0, w: 0, h:0)
 }
 
 private func sCubicBounds(_ data: [Double], currentPoint: Point, currentBezierPoint: Point?) -> Rect {
@@ -119,9 +115,5 @@ private func sCubicBounds(_ data: [Double], currentPoint: Point, currentBezierPo
       y: 2.0 * currentPoint.y - bezierPoint.y)
   }
   
-//  let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
-  
-  // TODO: Replace with accurate implementation via derivative
-//  return boundsForFunc(bezier3)
-    return boundsWithDerivative(p0: p0, p1: p1, p2: p2, p3: p3) ?? Rect(x: 0, y: 0, w: 0, h:0)
+  return boundsWithDerivative(p0: p0, p1: p1, p2: p2, p3: p3) ?? Rect(x: 0, y: 0, w: 0, h:0)
 }

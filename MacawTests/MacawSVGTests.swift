@@ -65,6 +65,17 @@ class MacawSVGTests: XCTestCase {
             }
         }
     }
+ 
+    func testSVGTransform() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        let transformReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"matrix(2.0,1.0,1.0,1.0,0.0,0.0)\" ><rect  height=\"5\" x=\"0\" y=\"0\" width=\"150\"  fill=\"blue\"/><rect  height=\"50\" x=\"0\" y=\"0\" width=\"5\"  fill=\"red\"/><rect  height=\"50\" x=\"150\" y=\"0\" width=\"5\"  fill=\"black\"/><rect  height=\"5\" x=\"0\" y=\"50\" width=\"150\"  fill=\"black\"/><ellipse  cy=\"25\" ry=\"15\" rx=\"40\" cx=\"75\"  fill=\"purple\"/></g></g></svg>"
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "transform")
+            XCTAssertEqual(SVGSerializer.serialize(node: node), transformReferenceContent)
+        } catch {
+            print(error)
+        }
+    }
     
     func testSVGEllipse() {
         let bundle = Bundle(for: type(of: TestUtils()))

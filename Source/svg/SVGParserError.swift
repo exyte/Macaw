@@ -6,6 +6,6 @@
 //
 //
 
-enum SVGParserError : Error {
-	case noSuchFile(path: String)
+enum SVGParserError: Error {
+    case noSuchFile(path: String)
 }

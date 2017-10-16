@@ -1,157 +1,162 @@
 import Foundation
 
 #if os(iOS)
-  import UIKit
+    import UIKit
 #elseif os(OSX)
-  import AppKit
+    import AppKit
 #endif
 
 class TextRenderer: NodeRenderer {
-  weak var text: Text?
-  
-  init(text: Text, ctx: RenderContext, animationCache: AnimationCache?) {
-    self.text = text
-    super.init(node: text, ctx: ctx, animationCache: animationCache)
-  }
-  
-  override func node() -> Node? {
-    return text
-  }
-  
-  override func doAddObservers() {
-    super.doAddObservers()
-    
-    guard let text = text else {
-      return
-    }
-    
-    observe(text.textVar)
-    observe(text.fontVar)
-    observe(text.fillVar)
-    observe(text.strokeVar)
-    observe(text.alignVar)
-    observe(text.baselineVar)
-  }
-  
-  override func doRender(_ force: Bool, opacity: Double) {
-    guard let text = text else {
-      return
-    }
-    
-    let message = text.text
-    let font = getMFont()
-    // positive NSBaselineOffsetAttributeName values don't work, couldn't find why
-    // for now move the rect itself
-    if var color = text.fill as? Color {
-      color = RenderUtils.applyOpacity(color, opacity: opacity)
-      var attributes = [NSAttributedStringKey.font: font,
-                        NSAttributedStringKey.foregroundColor: getTextColor(color)]
-        if let stroke = text.stroke {
-            if let c = stroke.fill as? Color {
-                attributes[NSAttributedStringKey.strokeColor] = getTextColor(c)
-            }
-            attributes[NSAttributedStringKey.strokeWidth] = stroke.width as NSObject?
-        }
-      MGraphicsPushContext(ctx.cgContext!)
-        message.draw(in: getBounds(font), withAttributes: attributes)
-      MGraphicsPopContext()
-    }
-  }
+    weak var text: Text?
 
-  override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-    guard let contains = node()?.bounds()?.cgRect().contains(location) else {
-      return .none
+    init(text: Text, ctx: RenderContext, animationCache: AnimationCache?) {
+        self.text = text
+        super.init(node: text, ctx: ctx, animationCache: animationCache)
     }
-    
-    if contains {
-      return node()
+
+    override func node() -> Node? {
+        return text
     }
-    
-    return .none
-  }
-  
-  fileprivate func getMFont() -> MFont {
-    guard let text = text else {
-      return MFont.systemFont(ofSize: 18.0)
-    }
-    
-    if let textFont = text.font {
-      if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
-        return customFont
-      } else {
-        if let weight = getWeight(textFont.weight) {
-            return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
+
+    override func doAddObservers() {
+        super.doAddObservers()
+
+        guard let text = text else {
+            return
         }
-        return MFont.systemFont(ofSize: CGFloat(textFont.size))
-      }
+
+        observe(text.textVar)
+        observe(text.fontVar)
+        observe(text.fillVar)
+        observe(text.strokeVar)
+        observe(text.alignVar)
+        observe(text.baselineVar)
     }
-    return MFont.systemFont(ofSize: MFont.mSystemFontSize)
-  }
-    
-    fileprivate func getWeight(_ weight: String) -> MFont.Weight? {
-            switch (weight) {
-            case "normal": return MFont.Weight.regular
-            case "bold": return MFont.Weight.bold
-            case "bolder": return MFont.Weight.semibold
-            case "lighter": return MFont.Weight.light
-            default: return .none
+
+    override func doRender(_ force: Bool, opacity: Double) {
+        guard let text = text else {
+            return
+        }
+
+        let message = text.text
+        let font = getMFont()
+        // positive NSBaselineOffsetAttributeName values don't work, couldn't find why
+        // for now move the rect itself
+        if var color = text.fill as? Color {
+            color = RenderUtils.applyOpacity(color, opacity: opacity)
+            var attributes = [NSAttributedStringKey.font: font,
+                              NSAttributedStringKey.foregroundColor: getTextColor(color)]
+            if let stroke = text.stroke {
+                if let c = stroke.fill as? Color {
+                    attributes[NSAttributedStringKey.strokeColor] = getTextColor(c)
+                }
+                attributes[NSAttributedStringKey.strokeWidth] = stroke.width as NSObject?
             }
+            MGraphicsPushContext(ctx.cgContext!)
+            message.draw(in: getBounds(font), withAttributes: attributes)
+            MGraphicsPopContext()
+        }
     }
-    
-  fileprivate func getBounds(_ font: MFont) -> CGRect {
-    guard let text = text else {
-      return .zero
+
+    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+        guard let contains = node()?.bounds()?.cgRect().contains(location) else {
+            return .none
+        }
+
+        if contains {
+            return node()
+        }
+
+        return .none
     }
-    
-    let textAttributes = [NSAttributedStringKey.font: font]
-    let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
-    return CGRect(x: calculateAlignmentOffset(text, font: font),
-                  y: calculateBaselineOffset(text, font: font),
-                  width: CGFloat(textSize.width), height: CGFloat(textSize.height))
-  }
-  
-  fileprivate func calculateBaselineOffset(_ text: Text, font: MFont) -> CGFloat {
-    var baselineOffset = CGFloat(0)
-    switch text.baseline {
-    case Baseline.alphabetic:
-      baselineOffset = font.ascender
-    case Baseline.bottom:
-      baselineOffset = font.ascender - font.descender
-    case Baseline.mid:
-      baselineOffset = (font.ascender - font.descender) / 2
-    default:
-      break
+
+    fileprivate func getMFont() -> MFont {
+        guard let text = text else {
+            return MFont.systemFont(ofSize: 18.0)
+        }
+
+        if let textFont = text.font {
+            if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
+                return customFont
+            } else {
+                if let weight = getWeight(textFont.weight) {
+                    return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
+                }
+                return MFont.systemFont(ofSize: CGFloat(textFont.size))
+            }
+        }
+        return MFont.systemFont(ofSize: MFont.mSystemFontSize)
     }
-    return -baselineOffset
-  }
-  
-  fileprivate func calculateAlignmentOffset(_ text: Text, font: MFont) -> CGFloat {
-    let textAttributes = [
-        NSAttributedStringKey.font: font
-    ]
-    let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
-    var alignmentOffset = CGFloat(0)
-    switch text.align {
-    case Align.mid:
-      alignmentOffset = textSize.width / 2
-    case Align.max:
-      alignmentOffset = textSize.width
-    default:
-      break
+
+    fileprivate func getWeight(_ weight: String) -> MFont.Weight? {
+        switch weight {
+        case "normal":
+            return MFont.Weight.regular
+        case "bold":
+            return MFont.Weight.bold
+        case "bolder":
+            return MFont.Weight.semibold
+        case "lighter":
+            return MFont.Weight.light
+        default:
+            return .none
+        }
     }
-    return -alignmentOffset
-  }
-  
-  fileprivate func getTextColor(_ fill: Fill) -> MColor {
-    if let color = fill as? Color {
-      
-      #if os(iOS)
-        return MColor(cgColor: RenderUtils.mapColor(color))
-      #elseif os(OSX)
-        return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
-      #endif
-    
+
+    fileprivate func getBounds(_ font: MFont) -> CGRect {
+        guard let text = text else {
+            return .zero
+        }
+
+        let textAttributes = [NSAttributedStringKey.font: font]
+        let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
+        return CGRect(x: calculateAlignmentOffset(text, font: font),
+                      y: calculateBaselineOffset(text, font: font),
+                      width: CGFloat(textSize.width), height: CGFloat(textSize.height))
     }
-    return MColor.black
-  }
+
+    fileprivate func calculateBaselineOffset(_ text: Text, font: MFont) -> CGFloat {
+        var baselineOffset = CGFloat(0)
+        switch text.baseline {
+        case Baseline.alphabetic:
+            baselineOffset = font.ascender
+        case Baseline.bottom:
+            baselineOffset = font.ascender - font.descender
+        case Baseline.mid:
+            baselineOffset = (font.ascender - font.descender) / 2
+        default:
+            break
+        }
+        return -baselineOffset
+    }
+
+    fileprivate func calculateAlignmentOffset(_ text: Text, font: MFont) -> CGFloat {
+        let textAttributes = [
+            NSAttributedStringKey.font: font
+        ]
+        let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
+        var alignmentOffset = CGFloat(0)
+        switch text.align {
+        case Align.mid:
+            alignmentOffset = textSize.width / 2
+        case Align.max:
+            alignmentOffset = textSize.width
+        default:
+            break
+        }
+        return -alignmentOffset
+    }
+
+    fileprivate func getTextColor(_ fill: Fill) -> MColor {
+        if let color = fill as? Color {
+
+            #if os(iOS)
+                return MColor(cgColor: RenderUtils.mapColor(color))
+            #elseif os(OSX)
+                return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
+            #endif
+
+        }
+        return MColor.black
+    }
 }

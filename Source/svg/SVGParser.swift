@@ -389,15 +389,18 @@ open class SVGParser {
         if hexString.hasPrefix("#") {
             cleanedHexString = hexString.replacingOccurrences(of: "#", with: "")
         }
-        
-        var rgbValue: UInt32 = 0
-        Scanner(string: cleanedHexString).scanHexInt32(&rgbValue)
-        
-        let red = CGFloat((rgbValue >> 16) & 0xff)
-        let green = CGFloat((rgbValue >> 08) & 0xff)
-        let blue = CGFloat((rgbValue >> 00) & 0xff)
-        
-        return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
+        if cleanedHexString.characters.count == 3 {
+            let x = Array(cleanedHexString)
+            cleanedHexString = "\(x[0])\(x[0])\(x[1])\(x[1])\(x[2])\(x[2])"
+        }
+            var rgbValue: UInt32 = 0
+            Scanner(string: cleanedHexString).scanHexInt32(&rgbValue)
+
+            let red = CGFloat((rgbValue >> 16) & 0xff)
+            let green = CGFloat((rgbValue >> 08) & 0xff)
+            let blue = CGFloat((rgbValue >> 00) & 0xff)
+
+            return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
     
     fileprivate func getFillColor(_ styleParts: [String: String]) -> Fill? {

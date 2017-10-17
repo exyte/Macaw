@@ -283,10 +283,12 @@ open class SVGParser {
                 }
             case "skewX":
                 if let x = Double(values[0]) {
-                    finalTransform = transform.shear(shx: x, shy: 0)
+                    let v = tan((x * Double.pi) / 180.0)
+                    finalTransform = transform.shear(shx: v, shy: 0)
                 }
             case "skewY":
                 if let y = Double(values[0]) {
+                    let y = tan((y * Double.pi) / 180.0)
                     finalTransform = transform.shear(shx: 0, shy: y)
                 }
             case "matrix":

@@ -457,7 +457,7 @@ class RenderUtils {
     return bezierPath
   }
   
-  fileprivate class func numToBools(_ num: Double) -> [Bool] {
+  class func numToBools(_ num: Double) -> [Bool] {
     let val: Int = Int(num);
     return [(val & 1) > 0, (val & 2) > 0];
   }

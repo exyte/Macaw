@@ -23,7 +23,18 @@ class MacawSVGTests: XCTestCase {
         XCTAssertEqual(SVGSerializer.serialize(node: node), referenceContent)
     }
 
-    func testClip() {
+    func testClipWithParser() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        let clipReferenceContent = "//<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><path  d=\"M 20 0m -20 0a 20 20 0 1 0 40 0a 20 20 0 1 0 -40 0M 0 10L 0 45L 100 45L 100 10z M 0 55L 0 90L 100 90L 100 55z \" /></clipPath></defs><g><circle  r=\"50\" cy=\"50\" cx=\"50\"  clip-path=\"url(#clipPath1)\"  fill=\"black\"/></g></svg>"
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "clip")
+            XCTAssert(SVGSerializer.serialize(node: node) == clipReferenceContent)
+        } catch {
+            print(error)
+        }
+    }
+
+    func testClipManual() {
         let clipReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><rect  height=\"90\" x=\"10\" y=\"10\" width=\"90\" /></clipPath><clipPath id=\"clipPath2\"><rect  height=\"190\" x=\"110\" y=\"110\" width=\"190\" /></clipPath></defs><g><circle  r=\"20\" cy=\"20\" cx=\"20\"  clip-path=\"url(#clipPath1)\"  fill=\"red\"/><circle  r=\"20\" cy=\"120\" cx=\"120\"  clip-path=\"url(#clipPath2)\"  fill=\"green\"/></g></svg>"
         let path1 = Rect(x: 10, y: 10, w: 90, h: 90)
         let circle1 = Circle(cx: 20, cy: 20, r: 20).fill(with: Color.red)

@@ -2,16 +2,15 @@ import Foundation
 
 open class GeomUtils {
     
-    open class func rectToPath(_ rect: Rect) -> Path {
-        return MoveTo(x: rect.x, y: rect.y).lineTo(x: rect.x + rect.w, y: rect.y).lineTo(x: rect.x + rect.w, y: rect.y + rect.h).lineTo(x: rect.x, y: rect.y + rect.h).close().build()
+    fileprivate class func rectToPath(_ rect: Rect) -> Path {
+        return MoveTo(x: rect.x, y: rect.y).lineTo(x: rect.x, y: rect.y + rect.h).lineTo(x: rect.x + rect.w, y: rect.y + rect.h).lineTo(x: rect.x + rect.w, y: rect.y).close().build()
     }
     
-    open class func circleToPath(_ circle: Circle) -> Path {
-        let arc = Arc(ellipse: Ellipse(cx: circle.cx, cy: circle.cy, rx: circle.r, ry: circle.r), shift: 0.0, extent: 2*Double.pi - 0.0000001)
-        return arcToPath(arc)
+    fileprivate class func circleToPath(_ circle: Circle) -> Path {
+        return MoveTo(x: circle.cx, y: circle.cy).m(-circle.r, 0).a(circle.r, circle.r, 0.0, true, false, circle.r * 2.0, 0.0).a(circle.r, circle.r, 0.0, true, false, -(circle.r * 2.0), 0.0).build()
     }
     
-    open class func arcToPath(_ arc: Arc) -> Path {
+    fileprivate class func arcToPath(_ arc: Arc) -> Path {
         let rx = arc.ellipse.rx
         let ry = arc.ellipse.ry
         let cx = arc.ellipse.cx
@@ -37,7 +36,7 @@ open class GeomUtils {
         return PathBuilder(segment: PathSegment(type: .M, data: [x1, y1])).A(rx, ry, 0.0, largeArcFlag, sweepFlag, x2, y2).build()
     }
     
-    open class func pointToPath(_ point: Point) -> Path {
+    fileprivate class func pointToPath(_ point: Point) -> Path {
         return MoveTo(x: point.x, y: point.y).lineTo(x: point.x, y: point.y).build()
     }
     
@@ -55,9 +54,11 @@ open class GeomUtils {
         return pb.build()
     }
     
-    open class func toPath(_ locus: Locus) -> Path {
+    open class func locusToPath(_ locus: Locus) -> Path {
         if let rect = locus as? Rect {
-            return MoveTo(x: rect.x, y: rect.y).H(rect.h + rect.x).V(rect.w + rect.y).H(rect.x).L(rect.x, rect.y).build()
+            return rectToPath(rect)
+        } else if let circle = locus as? Circle {
+            return circleToPath(circle)
         } else if let arc = locus as? Arc {
             return arcToPath(arc)
         } else if let point = locus as? Point {

@@ -47,9 +47,9 @@ class MacawSVGTests: XCTestCase {
     }
 
     func testSVGClearColor() {
-        let clearColorReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><ellipse  cy=\"20\" ry=\"20\" rx=\"20\" cx=\"20\"  fill=\"red\" stroke=\"black\" stroke-width=\"1.0\"/></svg>"
-        let node = Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 0, extent: 6.28318500518799).fill(with: Color.red)
-        node.stroke = Stroke(fill: Color.black)
+        let clearColorReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><ellipse  cy=\"20\" ry=\"20\" rx=\"20\" cx=\"20\"  fill=\"#000000\" fill-opacity=\"0.0\" stroke=\"#000000\" stroke-opacity=\"0.0\" stroke-width=\"1.0\"/></svg>"
+        let node = Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 0, extent: 6.28318500518799).fill(with: Color.clear)
+        node.stroke = Stroke(fill: Color.clear)
         XCTAssertEqual(SVGSerializer.serialize(node: node), clearColorReferenceContent)
     }
 

@@ -54,7 +54,8 @@ open class SVGSerializer {
     fileprivate let SVGClipPathName = "clipPath"
     
     fileprivate let SVGEpsilon:Double = 0.00001
-    
+    fileprivate let SVGDefaultOpacityValueAsAlpha = 1*255
+
     fileprivate func indentTextWithOffset(_ text: String, _ offset: Int) -> String {
         if self.indent != 0 {
             let prefix = String(repeating: indentPrefixSymbol, count:self.indent)
@@ -196,27 +197,41 @@ open class SVGSerializer {
     }
 
     fileprivate func colorToSVG(_ color: Color) -> String {
-        if color == Color.clear {
-            return "none"
-        }
         if let c = SVGConstants.valueToColor(color.val) {
             return "\(c)"
         } else {
-            return "#\(String(format:"%06X", color.val))"
+            let r = color.r()
+            let g = color.g()
+            let b = color.b()
+            return "#\(String(format:"%02X%02X%02X", r, g, b))"
         }
     }
 
     fileprivate func fillToSVG(_ fill: Fill?) -> String {
         if let fillColor = fill as? Color {
-            return " fill=\"\(colorToSVG(fillColor))\""
+            var result = " fill=\"\(colorToSVG(fillColor))\""
+            if let opacity = alphaToSVGOpacity(fillColor.a()) {
+                result += " fill-opacity=\"\(opacity)\""
+            }
+            return result
         }
         return " fill=\"none\""
+    }
+    
+    fileprivate func alphaToSVGOpacity(_ alpha: Int) -> String? {
+        if alpha == SVGDefaultOpacityValueAsAlpha {
+            return .none
+        }
+        return String(Double(alpha)/Double(SVGDefaultOpacityValueAsAlpha))
     }
     
     fileprivate func strokeToSVG(_ stroke: Stroke?) -> String {
         var result = ""
         if let strokeColor = stroke?.fill as? Color {
             result += " stroke=\"\(colorToSVG(strokeColor))\""
+            if let opacity = alphaToSVGOpacity(strokeColor.a()) {
+                result += " stroke-opacity=\"\(opacity)\""
+            }
         }
         if let strokeWidth = stroke?.width {
             result += " stroke-width=\"\(strokeWidth)\""

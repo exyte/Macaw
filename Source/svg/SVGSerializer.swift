@@ -195,13 +195,20 @@ open class SVGSerializer {
         return result
     }
 
+    fileprivate func colorToSVG(_ color: Color) -> String {
+        if color == Color.clear {
+            return "none"
+        }
+        if let c = SVGConstants.valueToColor(color.val) {
+            return "\(c)"
+        } else {
+            return "#\(String(format:"%06X", color.val))"
+        }
+    }
+
     fileprivate func fillToSVG(_ fill: Fill?) -> String {
         if let fillColor = fill as? Color {
-            if let fill = SVGConstants.valueToColor(fillColor.val) {
-                return " fill=\"\(fill)\""
-            } else {
-                return " fill=\"#\(String(format:"%06X", fillColor.val))\""
-            }
+            return " fill=\"\(colorToSVG(fillColor))\""
         }
         return " fill=\"none\""
     }
@@ -209,11 +216,7 @@ open class SVGSerializer {
     fileprivate func strokeToSVG(_ stroke: Stroke?) -> String {
         var result = ""
         if let strokeColor = stroke?.fill as? Color {
-            if let stroke = SVGConstants.valueToColor(strokeColor.val) {
-                result += " stroke=\"\(stroke)\""
-            } else {
-                result += " stroke=\"#\(String(format:"%06X", strokeColor.val))\""
-            }
+            result += " stroke=\"\(colorToSVG(strokeColor))\""
         }
         if let strokeWidth = stroke?.width {
             result += " stroke-width=\"\(strokeWidth)\""

@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<svg version="1.1" id="polygon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="210" width="400">
-	<polygon points="200,10 250,190 160,210"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  ><g><polygon  points="200.0,10.0,250.0,190.0,160.0,210.0"  fill="black"/></g></svg>

@@ -2,6 +2,77 @@ import Foundation
 
 open class GeomUtils {
     
+    fileprivate class func rectToPath(_ rect: Rect) -> Path {
+        return MoveTo(x: rect.x, y: rect.y).lineTo(x: rect.x, y: rect.y + rect.h).lineTo(x: rect.x + rect.w, y: rect.y + rect.h).lineTo(x: rect.x + rect.w, y: rect.y).close().build()
+    }
+    
+    fileprivate class func circleToPath(_ circle: Circle) -> Path {
+        return MoveTo(x: circle.cx, y: circle.cy).m(-circle.r, 0).a(circle.r, circle.r, 0.0, true, false, circle.r * 2.0, 0.0).a(circle.r, circle.r, 0.0, true, false, -(circle.r * 2.0), 0.0).build()
+    }
+    
+    fileprivate class func arcToPath(_ arc: Arc) -> Path {
+        let rx = arc.ellipse.rx
+        let ry = arc.ellipse.ry
+        let cx = arc.ellipse.cx
+        let cy = arc.ellipse.cy
+
+        var delta = arc.extent
+        if (arc.shift == 0.0 && abs(arc.extent - Double.pi * 2.0) < 0.00001) {
+            delta = Double.pi * 2.0 - 0.001
+        }
+        let theta1 = arc.shift
+
+        let theta2 = theta1 + delta
+        
+        let x1 = cx + rx * cos(theta1)
+        let y1 = cy + ry * sin(theta1)
+        
+        let x2 = cx + rx * cos(theta2)
+        let y2 = cy + ry * sin(theta2)
+        
+        let largeArcFlag = abs(delta) > .pi ? true : false
+        let sweepFlag = delta > 0.0 ? true : false
+        
+        return PathBuilder(segment: PathSegment(type: .M, data: [x1, y1])).A(rx, ry, 0.0, largeArcFlag, sweepFlag, x2, y2).build()
+    }
+    
+    fileprivate class func pointToPath(_ point: Point) -> Path {
+        return MoveTo(x: point.x, y: point.y).lineTo(x: point.x, y: point.y).build()
+    }
+    
+    fileprivate class func pointsToPath(_ points: [Double], close: Bool = false) -> Path {
+        var pb = PathBuilder(segment: PathSegment(type: .M, data: [points[0], points[1]]))
+        if (points.count > 2) {
+            let parts = stride(from: 2, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
+            for part in parts {
+                pb = pb.lineTo(x: part[0], y: part[1])
+            }
+        }
+        if close {
+            pb = pb.close()
+        }
+        return pb.build()
+    }
+    
+    open class func locusToPath(_ locus: Locus) -> Path {
+        if let rect = locus as? Rect {
+            return rectToPath(rect)
+        } else if let circle = locus as? Circle {
+            return circleToPath(circle)
+        } else if let arc = locus as? Arc {
+            return arcToPath(arc)
+        } else if let point = locus as? Point {
+            return MoveTo(x: point.x, y: point.y).lineTo(x: point.x, y: point.y).build()
+        }  else if let line = locus as? Line {
+            return MoveTo(x: line.x1, y: line.y1).lineTo(x: line.x2, y: line.y2).build()
+        } else if let polygon = locus as? Polygon {
+            return pointsToPath(polygon.points, close: true)
+        } else if let polyline = locus as? Polyline {
+            return pointsToPath(polyline.points)
+        }
+        fatalError("Unsupported locus: \(locus)")
+    }
+    
     open class func concat(t1: Transform, t2: Transform) -> Transform {
         let nm11 = t2.m11 * t1.m11 + t2.m12 * t1.m21
         let nm21 = t2.m21 * t1.m11 + t2.m22 * t1.m21

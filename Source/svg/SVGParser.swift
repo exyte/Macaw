@@ -33,7 +33,7 @@ open class SVGParser {
     }
     
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "text-anchor", "fill-opacity",
+                                    "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
                                     "font-weight", "opacity"]
@@ -45,6 +45,8 @@ open class SVGParser {
     fileprivate var defNodes = [String: Node]()
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
+    fileprivate var defClip = [String: Locus]()
+
     
     fileprivate enum PathCommandType {
         case moveTo
@@ -88,6 +90,10 @@ open class SVGParser {
         if let element = node.element {
             if element.name == "g" {
                 return parseGroup(node, groupStyle: groupStyle)
+            } else if element.name == "clipPath" {
+                if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
+                    self.defClip[id] = clip
+                }
             } else if element.name == "style" {
                 parseStyle(node)
             } else if element.name == "defs" {
@@ -140,6 +146,10 @@ open class SVGParser {
                 self.defMasks[id] = mask
                 continue
             }
+
+            if let clip = parseClip(child) {
+                self.defClip[id] = clip
+            }
         }
     }
     
@@ -150,34 +160,34 @@ open class SVGParser {
             switch element.name {
             case "path":
                 if let path = parsePath(node) {
-                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "line":
                 if let line = parseLine(node) {
-                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "rect":
                 if let rect = parseRect(node) {
-                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "circle":
                 if let circle = parseCircle(node) {
-                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "ellipse":
                 if let ellipse = parseEllipse(node) {
-                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "polygon":
                 if let polygon = parsePolygon(node) {
-                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "polyline":
                 if let polyline = parsePolyline(node) {
-                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), tag: getTag(element))
+                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
                 }
             case "image":
-                return parseImage(node, opacity: getOpacity(styleAttributes), pos: position)
+                return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
             case "text":
                 return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
                                  stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
@@ -642,12 +652,12 @@ open class SVGParser {
         return resultPoints
     }
     
-    fileprivate func parseImage(_ image: XMLIndexer, opacity: Double, pos: Transform = Transform()) -> Image? {
+    fileprivate func parseImage(_ image: XMLIndexer, opacity: Double, pos: Transform = Transform(), clip: Locus?) -> Image? {
         guard let element = image.element, let link = element.allAttributes["xlink:href"]?.text else {
             return .none
         }
         let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
-        return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, place: position, tag: getTag(element))
+        return Image(src: link, w: getIntValue(element, attribute: "width") ?? 0, h: getIntValue(element, attribute: "height") ?? 0, place: position, clip: clip, tag: getTag(element))
     }
     
     fileprivate func parseText(_ text: XMLIndexer, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, pos: Transform = Transform()) -> Node? {
@@ -838,6 +848,20 @@ open class SVGParser {
         return node
     }
     
+    fileprivate func parseClip(_ clip: XMLIndexer) -> Locus? {
+        var path: Path? = .none
+        clip.children.forEach { indexer in
+            if let shape = parseNode(indexer) as? Shape {
+                if let p = path {
+                    path = Path(segments: p.segments + GeomUtils.locusToPath(shape.form).segments)
+                } else {
+                    path = GeomUtils.locusToPath(shape.form)
+                }
+            }
+        }
+        return path
+    }
+
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
         guard let element = mask.element else {
             return .none
@@ -1317,7 +1341,21 @@ open class SVGParser {
         }
         return false
     }
-    
+
+    fileprivate func getClipPath(_ attributes: [String: String]) -> Locus? {
+        if let clipPath = attributes["clip-path"] {
+            let index = clipPath.characters.index(clipPath.startIndex, offsetBy: 4)
+            let id = String(clipPath.suffix(from: index))
+                .replacingOccurrences(of: "(", with: "")
+                .replacingOccurrences(of: ")", with: "")
+                .replacingOccurrences(of: "#", with: "")
+            if let locus = defClip[id] {
+                return locus
+            }
+        }
+        return .none
+    }
+
     fileprivate func getTextAnchor(_ attributes: [String: String]) -> String? {
         guard let textAnchor = attributes["text-anchor"] else {
             return .none

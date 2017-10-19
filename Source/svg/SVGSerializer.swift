@@ -75,7 +75,7 @@ open class SVGSerializer {
     }
 
     fileprivate func arcToSVG(_ arc: Arc) -> String {
-        if arc.shift == 0.0 && abs(arc.extent - Double.pi * 2.0) < SVGEpsilon {
+        if arc.shift == 0.0 && abs(arc.extent - .pi * 2.0) < SVGEpsilon {
             return tag(SVGEllipseOpenTag, ["cx": att(arc.ellipse.cx), "cy": att(arc.ellipse.cy), "rx": att(arc.ellipse.rx), "ry": att(arc.ellipse.ry)])
         } else {
             let rx = arc.ellipse.rx

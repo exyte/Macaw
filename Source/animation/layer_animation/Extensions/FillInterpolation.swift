@@ -7,7 +7,7 @@
 //
 
 public protocol FillInterpolation: Interpolable {
-    
+
 }
 
 extension Fill: FillInterpolation {

@@ -1309,12 +1309,16 @@ open class SVGParser {
         guard let fontSize = attributes["font-size"] else {
             return .none
         }
-        if let size = Double(fontSize) {
+        var cleanedFontSize = fontSize
+        if cleanedFontSize.hasSuffix("px") {
+            cleanedFontSize = cleanedFontSize.substring(to: cleanedFontSize.index(cleanedFontSize.endIndex, offsetBy: -2))
+        }
+        if let size = Double(cleanedFontSize) {
             return (Int(round(size)))
         }
         return .none
     }
-    
+
     fileprivate func getFontStyle(_ attributes: [String: String], style: String) -> Bool? {
         guard let fontStyle = attributes["font-style"] else {
             return .none

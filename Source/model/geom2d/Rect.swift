@@ -58,7 +58,7 @@ open class Rect: Locus {
   
 }
 
-extension Rect {
+extension Rect: Equatable {
   public static func ==(lhs: Rect, rhs: Rect) -> Bool {
     return lhs.x == rhs.x
       && lhs.y == rhs.y

@@ -4,7 +4,7 @@ import Foundation
   import UIKit
 #endif
 
-public extension Rect {
+extension Rect: CustomStringConvertible {
   
   convenience init(cgRect: CGRect) {
     self.init(
@@ -26,17 +26,17 @@ public extension Rect {
     return Rect(cgRect: self.cgRect().applying(cgTransform))
   }
   
-  public func description() -> String {
+  public var description: String {
     return "x: \(self.x) y:\(self.y) w:\(self.w) h:\(self.h)"
   }
 }
 
-public extension Point {
+extension Point: CustomStringConvertible {
   public func cgPoint() -> CGPoint {
     return CGPoint(x: self.x, y: self.y)
   }
   
-  public func description() -> String {
+  public var description: String {
     return "x: \(self.x) y:\(self.y)"
   }
 }

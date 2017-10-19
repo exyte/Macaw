@@ -26,7 +26,7 @@ class NodeBoundsTests: XCTestCase {
     
     func checkBounds(rect1: Rect?, rect2: Rect) {
         if let rect = rect1 {
-            XCTAssertTrue(rect == rect2, "Test failed. Rects not equal")
+            XCTAssertEqual(rect1, rect2)
         }
     }
     
@@ -144,7 +144,7 @@ class NodeBoundsTests: XCTestCase {
         let texts = ["", "Hello, World", "Hello,\nWorld", "\nHello\n,\nWorld"]
         
         texts.forEach { text in
-            let text = Text(text: text)
+            let text = Text(text: text, baseline: .top)
             
             let stringAttributes = [NSAttributedStringKey.font: MFont.systemFont(ofSize: MFont.systemFontSize)]
             let size = text.text.size(withAttributes: stringAttributes)

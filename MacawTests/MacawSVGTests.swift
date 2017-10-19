@@ -23,7 +23,18 @@ class MacawSVGTests: XCTestCase {
         XCTAssertEqual(SVGSerializer.serialize(node: node), referenceContent)
     }
 
-    func testClip() {
+    func testClipWithParser() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        let clipReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><path  d=\"M 20 0m -20 0a 20 20 0 1 0 40 0a 20 20 0 1 0 -40 0M 0 10L 0 45L 100 45L 100 10z M 0 55L 0 90L 100 90L 100 55z \" /></clipPath></defs><g><circle  r=\"50\" cy=\"50\" cx=\"50\"  clip-path=\"url(#clipPath1)\"  fill=\"black\"/></g></svg>"
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "clip")
+            XCTAssertEqual(SVGSerializer.serialize(node: node), clipReferenceContent)
+        } catch {
+            print(error)
+        }
+    }
+
+    func testClipManual() {
         let clipReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><rect  height=\"90\" x=\"10\" y=\"10\" width=\"90\" /></clipPath><clipPath id=\"clipPath2\"><rect  height=\"190\" x=\"110\" y=\"110\" width=\"190\" /></clipPath></defs><g><circle  r=\"20\" cy=\"20\" cx=\"20\"  clip-path=\"url(#clipPath1)\"  fill=\"red\"/><circle  r=\"20\" cy=\"120\" cx=\"120\"  clip-path=\"url(#clipPath2)\"  fill=\"green\"/></g></svg>"
         let path1 = Rect(x: 10, y: 10, w: 90, h: 90)
         let circle1 = Circle(cx: 20, cy: 20, r: 20).fill(with: Color.red)
@@ -46,6 +57,13 @@ class MacawSVGTests: XCTestCase {
         }
     }
 
+    func testSVGClearColor() {
+        let clearColorReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><ellipse  cy=\"20\" ry=\"20\" rx=\"20\" cx=\"20\"  fill=\"#000000\" fill-opacity=\"0.0\" stroke=\"#000000\" stroke-opacity=\"0.0\" stroke-width=\"1.0\"/></svg>"
+        let node = Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 0, extent: 6.28318500518799).fill(with: Color.clear)
+        node.stroke = Stroke(fill: Color.clear)
+        XCTAssertEqual(SVGSerializer.serialize(node: node), clearColorReferenceContent)
+    }
+
     func testSVGArcsGroup() {
         let g1 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 0, extent: 6.28318500518799).stroke(fill: Color.green)], place: Transform(dx:10, dy: 10))
         let g2 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 1.570796251297, extent: 1.57079637050629).stroke(fill: Color.green)], place: Transform(dx:10, dy: 140))
@@ -63,6 +81,17 @@ class MacawSVGTests: XCTestCase {
                 let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
                 XCTAssertEqual(SVGSerializer.serialize(node: node), imageReferenceContent)
             }
+        }
+    }
+ 
+    func testSVGTransform() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        let transformReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><g><g transform=\"matrix(2.0,1.0,1.0,1.0,0.0,0.0)\" ><rect  height=\"5\" x=\"0\" y=\"0\" width=\"150\"  fill=\"blue\"/><rect  height=\"50\" x=\"0\" y=\"0\" width=\"5\"  fill=\"red\"/><rect  height=\"50\" x=\"150\" y=\"0\" width=\"5\"  fill=\"black\"/><rect  height=\"5\" x=\"0\" y=\"50\" width=\"150\"  fill=\"black\"/><ellipse  cy=\"25\" ry=\"15\" rx=\"40\" cx=\"75\"  fill=\"purple\"/></g></g></svg>"
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "transform")
+            XCTAssertEqual(SVGSerializer.serialize(node: node), transformReferenceContent)
+        } catch {
+            print(error)
         }
     }
     

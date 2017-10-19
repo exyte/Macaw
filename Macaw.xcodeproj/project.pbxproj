@@ -265,6 +265,8 @@
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
+		C46E83551F94B20E00208037 /* transform.svg in Resources */ = {isa = PBXBuildFile; fileRef = C46E83541F94B20E00208037 /* transform.svg */; };
+		C43B064D1F9738EF00787A35 /* clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B064C1F9738EF00787A35 /* clip.svg */; };
 		C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
 		C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B191F458D64008CE0FF /* MacawSVGTests.swift */; };
 		C4BD40B81F8F55AB003034F0 /* SVGBoundsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD40B71F8F55AB003034F0 /* SVGBoundsTest.swift */; };
@@ -448,6 +450,8 @@
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
+		C46E83541F94B20E00208037 /* transform.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transform.svg; sourceTree = "<group>"; };
+		C43B064C1F9738EF00787A35 /* clip.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = clip.svg; sourceTree = "<group>"; };
 		C4820B171F458D0E008CE0FF /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
 		C4820B191F458D64008CE0FF /* MacawSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawSVGTests.swift; sourceTree = "<group>"; };
 		C4BD40B71F8F55AB003034F0 /* SVGBoundsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SVGBoundsTest.swift; path = Bounds/SVGBoundsTest.swift; sourceTree = "<group>"; };
@@ -529,6 +533,8 @@
 		57CAB1241D7832E000FD8E47 /* svg */ = {
 			isa = PBXGroup;
 			children = (
+				C46E83541F94B20E00208037 /* transform.svg */,
+				C43B064C1F9738EF00787A35 /* clip.svg */,
 				C4153A8E1F8793DD001BA5EE /* small-logo.png */,
 				C410148D1F834D280022EE44 /* style.svg */,
 				57CAB1251D7832E000FD8E47 /* circle.svg */,
@@ -1016,11 +1022,13 @@
 			files = (
 				C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */,
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
+				C43B064D1F9738EF00787A35 /* clip.svg in Resources */,
 				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,
 				C410148E1F834D290022EE44 /* style.svg in Resources */,
 				C4BD40BB1F8F58B0003034F0 /* pathbounds1.svg in Resources */,
 				C4BD40BC1F8F58B0003034F0 /* pathbounds2.svg in Resources */,
 				57CAB1301D7832E000FD8E47 /* group.svg in Resources */,
+				C46E83551F94B20E00208037 /* transform.svg in Resources */,
 				57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */,
 				57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */,
 				57CAB1331D7832E000FD8E47 /* polyline.svg in Resources */,

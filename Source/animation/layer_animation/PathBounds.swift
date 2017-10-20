@@ -48,7 +48,7 @@ func pathSegmenInfo(_ segment: PathSegment, currentPoint: Point?, currentBezierP
             let point = Point(x: data[0], y: data[1])
             return (Rect(x: point.x, y: point.y, w: 0.0, h: 0.0), point, .none)
         case .c, .C:
-            return (cubicBounds(data, currentPoint: currentPoint), Point(x: data[4], y: data[5]), Point(x: data[2], y: data[3]))
+            return (cubicBounds(data), Point(x: data[4], y: data[5]), Point(x: data[2], y: data[3]))
         case .s, .S:
             guard let currentPoint = currentPoint else {
                 return (.none, .none, .none)
@@ -93,13 +93,14 @@ func pathSegmenInfo(_ segment: PathSegment, currentPoint: Point?, currentBezierP
         }
 }
 
-private func cubicBounds(_ data: [Double], currentPoint: Point?) -> Rect {
+private func cubicBounds(_ data: [Double]) -> Rect {
     let p0 = Point(x: 0, y: 0)
     let p1 = Point(x: data[0], y: data[1])
     let p2 = Point(x: data[2], y: data[3])
     let p3 = Point(x: data[4], y: data[5])
 
-    return boundsWithDerivative(p0: p0, p1: p1, p2: p2, p3: p3) ?? Rect(x: 0, y: 0, w: 0, h: 0)
+    let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
+    return boundsForFunc(bezier3)
 }
 
 private func sCubicBounds(_ data: [Double], currentPoint: Point, currentBezierPoint: Point?) -> Rect {
@@ -114,5 +115,6 @@ private func sCubicBounds(_ data: [Double], currentPoint: Point, currentBezierPo
             y: 2.0 * currentPoint.y - bezierPoint.y)
     }
 
-    return boundsWithDerivative(p0: p0, p1: p1, p2: p2, p3: p3) ?? Rect(x: 0, y: 0, w: 0, h: 0)
+    let bezier3 = { (t: Double) -> Point in return BezierFunc2D(t, p0: p0, p1: p1, p2: p2, p3: p3) }
+    return boundsForFunc(bezier3)
 }

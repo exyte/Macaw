@@ -41,5 +41,22 @@ class SVGBoundsTest: XCTestCase {
         }
     }
     
+    func testPathBoundsCubic() {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(bundle:bundle, path: "pathbounds3")
+            var testResult = false
+            if let bounds = node.bounds() {
+                testResult = Double(round(100*bounds.x)/100) == -0.5
+                testResult = testResult && Double(round(100*bounds.y)/100) == -0.5
+                testResult = testResult && Double(round(100*bounds.w)/100) == 50.5
+                testResult = testResult && Double(round(100*bounds.h)/100) == 50.5
+            }
+            XCTAssert(testResult)
+        } catch {
+            print(error)
+        }
+    }
+
 }
 

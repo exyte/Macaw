@@ -269,6 +269,7 @@
 		C43B06631F99A33400787A35 /* pathbounds3.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06621F99A33400787A35 /* pathbounds3.svg */; };
 		C43B06661F99EE7300787A35 /* cubicAbsolute.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06641F99EE7200787A35 /* cubicAbsolute.svg */; };
 		C43B06671F99EE7300787A35 /* cubicRelative.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06651F99EE7300787A35 /* cubicRelative.svg */; };
+		C43B06691F99FC2300787A35 /* pathbounds4.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06681F99FC2300787A35 /* pathbounds4.svg */; };
 		C46E83551F94B20E00208037 /* transform.svg in Resources */ = {isa = PBXBuildFile; fileRef = C46E83541F94B20E00208037 /* transform.svg */; };
 		C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
 		C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B191F458D64008CE0FF /* MacawSVGTests.swift */; };
@@ -457,6 +458,7 @@
 		C43B06621F99A33400787A35 /* pathbounds3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pathbounds3.svg; path = Bounds/pathbounds3.svg; sourceTree = "<group>"; };
 		C43B06641F99EE7200787A35 /* cubicAbsolute.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = cubicAbsolute.svg; path = Bounds/cubicAbsolute.svg; sourceTree = "<group>"; };
 		C43B06651F99EE7300787A35 /* cubicRelative.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = cubicRelative.svg; path = Bounds/cubicRelative.svg; sourceTree = "<group>"; };
+		C43B06681F99FC2300787A35 /* pathbounds4.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pathbounds4.svg; path = Bounds/pathbounds4.svg; sourceTree = "<group>"; };
 		C46E83541F94B20E00208037 /* transform.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transform.svg; sourceTree = "<group>"; };
 		C4820B171F458D0E008CE0FF /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
 		C4820B191F458D64008CE0FF /* MacawSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawSVGTests.swift; sourceTree = "<group>"; };
@@ -877,6 +879,7 @@
 		A7E675541EC4211E00BD9ECB /* Bounds */ = {
 			isa = PBXGroup;
 			children = (
+				C43B06681F99FC2300787A35 /* pathbounds4.svg */,
 				C43B06641F99EE7200787A35 /* cubicAbsolute.svg */,
 				C43B06651F99EE7300787A35 /* cubicRelative.svg */,
 				C43B06621F99A33400787A35 /* pathbounds3.svg */,
@@ -1031,6 +1034,7 @@
 			files = (
 				C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */,
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
+				C43B06691F99FC2300787A35 /* pathbounds4.svg in Resources */,
 				C43B06631F99A33400787A35 /* pathbounds3.svg in Resources */,
 				C43B064D1F9738EF00787A35 /* clip.svg in Resources */,
 				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,

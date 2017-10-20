@@ -45,6 +45,10 @@ class SVGBoundsTest: XCTestCase {
         validate(name: "pathbounds3", referenceBounds: Rect(x: 0, y: 0, w: 50, h: 50))
     }
 
+    func testPathBounds4() {
+        validate(name: "pathbounds4", referenceBounds: Rect(x: 9.5, y: 27.0, w: 171, h: 106))
+    }
+    
     func testPathBoundsCubicAbsolute() {
         validate(name: "cubicAbsolute", referenceBounds: Rect(x: 33.66, y: 9.5, w: 16.84, h: 41))
     }

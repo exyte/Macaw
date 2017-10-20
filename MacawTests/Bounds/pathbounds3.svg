@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="100" height="100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<!-- correct bounds
+<rect x="0.0" y="0.0" width="50.0" height="50.0" stroke="red" stroke-width="1" fill="none"/>
+-->
+
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-720.000000, -30.000000)">
             <g transform="translate(720.000000, 30.000000)">
@@ -7,7 +12,5 @@
             </g>
         </g>
     </g>
-<!--
-<rect x="0.0" y="0.0" width="50.0" height="50.0" stroke="red" stroke-width="1" fill="none"/>
--->
+
 </svg>

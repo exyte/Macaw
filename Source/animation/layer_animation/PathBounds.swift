@@ -48,11 +48,9 @@ func pathSegmenInfo(_ segment: PathSegment, currentPoint: Point?, currentBezierP
             let point = Point(x: data[0], y: data[1])
             return (Rect(x: point.x, y: point.y, w: 0.0, h: 0.0), point, .none)
         case .c, .C:
-            var p: Point
-            if let c = currentPoint {
+            var p: Point = Point(x: 0, y: 0)
+            if let c = currentPoint, segment.isAbsolute() {
                 p = c
-            } else {
-                p = Point(x: 0, y: 0)
             }
             return (cubicBounds(data, currentPoint: p), Point(x: data[4], y: data[5]), Point(x: data[2], y: data[3]))
         case .s, .S:

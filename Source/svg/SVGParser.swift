@@ -234,7 +234,7 @@ open class SVGParser {
 
     fileprivate func getMask(mask: String) -> Locus? {
         if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-            let fullRange = NSMakeRange(0, mask.characters.count)
+            let fullRange = NSRange(location: 0, length: mask.characters.count)
             if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
                 return maskReferenceNode.form
             }
@@ -671,7 +671,7 @@ open class SVGParser {
                 return .none
             }
             let elementString = element.description
-            let fullRange = NSMakeRange(0, elementString.characters.count)
+            let fullRange = NSRange(location: 0, length: elementString.characters.count)
             if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
                 let tspans = (elementString as NSString).substring(with: match.range(at: 1))
                 return Group(contents: collectTspans(tspans, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
@@ -825,7 +825,7 @@ open class SVGParser {
                 shape.stroke = line
             }
             if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-                let fullRange = NSMakeRange(0, mask.characters.count)
+                let fullRange = NSRange(location: 0, length: mask.characters.count)
                 if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
                     shape.clip = maskReferenceNode.form
                     shape.fill = .none

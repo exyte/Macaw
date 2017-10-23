@@ -25,7 +25,6 @@ disabled_rules:
   - type_name
   - force_unwrapping
   - explicit_top_level_acl
-  - legacy_constructor
   - todo
   - implicitly_unwrapped_optional
   - attributes
@@ -110,6 +109,7 @@ opt_in_rules:
   - void_return
   - weak_delegate
   - xctfail_message
+  - legacy_constructor
 force_cast: warning
 shorthand_operator: warning
 empty_count: warning

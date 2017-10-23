@@ -87,7 +87,7 @@ func boundsWithDerivative(p0: Point, p1: Point, p2: Point, p3: Point) -> Rect? {
     return .none
 }
 
-func boundsForFunc(_ func2d: func2D) -> Rect {
+func boundsForFunc(_ func2d: Func2D) -> Rect {
 
     var p = func2d(0.0)
     var minX = p.x

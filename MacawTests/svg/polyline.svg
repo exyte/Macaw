@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<svg version="1.1" id="polyline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="210" width="400">
-	  <polyline points="0,40 40,40 40,80 80,80 80,120 120,120 120,160" style="fill:#ffffff;stroke:#ff0000;stroke-width:4" />
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  ><g><polyline  points="0.0,40.0,40.0,40.0,40.0,80.0,80.0,80.0,80.0,120.0,120.0,120.0,120.0,160.0"  fill="white" stroke="red" stroke-width="4.0"/></g></svg>

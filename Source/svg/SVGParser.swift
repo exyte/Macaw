@@ -853,9 +853,9 @@ open class SVGParser {
         clip.children.forEach { indexer in
             if let shape = parseNode(indexer) as? Shape {
                 if let p = path {
-                    path = Path(segments: p.segments + GeomUtils.locusToPath(shape.form).segments)
+                    path = Path(segments: p.segments + shape.form.toPath() .segments)
                 } else {
-                    path = GeomUtils.locusToPath(shape.form)
+                    path = shape.form.toPath()
                 }
             }
         }

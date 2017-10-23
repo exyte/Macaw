@@ -270,6 +270,14 @@
 		C43B06661F99EE7300787A35 /* cubicAbsolute.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06641F99EE7200787A35 /* cubicAbsolute.svg */; };
 		C43B06671F99EE7300787A35 /* cubicRelative.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06651F99EE7300787A35 /* cubicRelative.svg */; };
 		C43B06691F99FC2300787A35 /* pathbounds4.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B06681F99FC2300787A35 /* pathbounds4.svg */; };
+		C43B06511F9866E400787A35 /* Locus+ToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B06501F9866E400787A35 /* Locus+ToPath.swift */; };
+		C43B06531F989D9300787A35 /* transform.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B06521F989D9300787A35 /* transform.reference */; };
+		C43B06551F98A53600787A35 /* group.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B06541F98A53600787A35 /* group.reference */; };
+		C43B06571F98A7B700787A35 /* arcsgroup.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B06561F98A7B700787A35 /* arcsgroup.reference */; };
+		C43B06591F98A84200787A35 /* style.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B06581F98A84200787A35 /* style.reference */; };
+		C43B065B1F98A9E000787A35 /* clipManual.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B065A1F98A9E000787A35 /* clipManual.reference */; };
+		C43B065F1F98AAA500787A35 /* clip.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B065E1F98AAA500787A35 /* clip.reference */; };
+		C43B06611F98ACFC00787A35 /* textBasicTransform.reference in Resources */ = {isa = PBXBuildFile; fileRef = C43B06601F98ACFC00787A35 /* textBasicTransform.reference */; };
 		C46E83551F94B20E00208037 /* transform.svg in Resources */ = {isa = PBXBuildFile; fileRef = C46E83541F94B20E00208037 /* transform.svg */; };
 		C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
 		C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B191F458D64008CE0FF /* MacawSVGTests.swift */; };
@@ -459,6 +467,14 @@
 		C43B06641F99EE7200787A35 /* cubicAbsolute.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = cubicAbsolute.svg; path = Bounds/cubicAbsolute.svg; sourceTree = "<group>"; };
 		C43B06651F99EE7300787A35 /* cubicRelative.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = cubicRelative.svg; path = Bounds/cubicRelative.svg; sourceTree = "<group>"; };
 		C43B06681F99FC2300787A35 /* pathbounds4.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = pathbounds4.svg; path = Bounds/pathbounds4.svg; sourceTree = "<group>"; };
+		C43B06501F9866E400787A35 /* Locus+ToPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locus+ToPath.swift"; sourceTree = "<group>"; };
+		C43B06521F989D9300787A35 /* transform.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = transform.reference; sourceTree = "<group>"; };
+		C43B06541F98A53600787A35 /* group.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = group.reference; sourceTree = "<group>"; };
+		C43B06561F98A7B700787A35 /* arcsgroup.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = arcsgroup.reference; sourceTree = "<group>"; };
+		C43B06581F98A84200787A35 /* style.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = style.reference; sourceTree = "<group>"; };
+		C43B065A1F98A9E000787A35 /* clipManual.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = clipManual.reference; sourceTree = "<group>"; };
+		C43B065E1F98AAA500787A35 /* clip.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = clip.reference; sourceTree = "<group>"; };
+		C43B06601F98ACFC00787A35 /* textBasicTransform.reference */ = {isa = PBXFileReference; lastKnownFileType = text; path = textBasicTransform.reference; sourceTree = "<group>"; };
 		C46E83541F94B20E00208037 /* transform.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transform.svg; sourceTree = "<group>"; };
 		C4820B171F458D0E008CE0FF /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
 		C4820B191F458D64008CE0FF /* MacawSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawSVGTests.swift; sourceTree = "<group>"; };
@@ -554,6 +570,13 @@
 				57CAB12B1D7832E000FD8E47 /* rect.svg */,
 				57CAB12C1D7832E000FD8E47 /* roundRect.svg */,
 				57CAB12D1D7832E000FD8E47 /* triangle.svg */,
+				C43B06521F989D9300787A35 /* transform.reference */,
+				C43B06541F98A53600787A35 /* group.reference */,
+				C43B06561F98A7B700787A35 /* arcsgroup.reference */,
+				C43B06581F98A84200787A35 /* style.reference */,
+				C43B065A1F98A9E000787A35 /* clipManual.reference */,
+				C43B065E1F98AAA500787A35 /* clip.reference */,
+				C43B06601F98ACFC00787A35 /* textBasicTransform.reference */,
 			);
 			path = svg;
 			sourceTree = "<group>";
@@ -723,6 +746,7 @@
 				57E5E1281E3B393900D1CB28 /* Insets.swift */,
 				57E5E1291E3B393900D1CB28 /* Line.swift */,
 				57E5E12A1E3B393900D1CB28 /* Locus.swift */,
+				C43B06501F9866E400787A35 /* Locus+ToPath.swift */,
 				57E5E12B1E3B393900D1CB28 /* MoveTo.swift */,
 				57E5E12C1E3B393900D1CB28 /* Path.swift */,
 				57E5E12D1E3B393900D1CB28 /* PathBuilder.swift */,
@@ -1039,8 +1063,16 @@
 				C43B064D1F9738EF00787A35 /* clip.svg in Resources */,
 				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,
 				C43B06671F99EE7300787A35 /* cubicRelative.svg in Resources */,
+				C43B06571F98A7B700787A35 /* arcsgroup.reference in Resources */,
+				C43B06531F989D9300787A35 /* transform.reference in Resources */,
+				C43B06611F98ACFC00787A35 /* textBasicTransform.reference in Resources */,
+				C43B064D1F9738EF00787A35 /* clip.svg in Resources */,
+				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,
+				C43B06591F98A84200787A35 /* style.reference in Resources */,
+				C43B065F1F98AAA500787A35 /* clip.reference in Resources */,
 				C410148E1F834D290022EE44 /* style.svg in Resources */,
 				C4BD40BB1F8F58B0003034F0 /* pathbounds1.svg in Resources */,
+				C43B065B1F98A9E000787A35 /* clipManual.reference in Resources */,
 				C4BD40BC1F8F58B0003034F0 /* pathbounds2.svg in Resources */,
 				57CAB1301D7832E000FD8E47 /* group.svg in Resources */,
 				C43B06661F99EE7300787A35 /* cubicAbsolute.svg in Resources */,
@@ -1053,6 +1085,7 @@
 				57CAB1321D7832E000FD8E47 /* polygon.svg in Resources */,
 				57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */,
 				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,
+				C43B06551F98A53600787A35 /* group.reference in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1218,6 +1251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57E5E19E1E3B393900D1CB28 /* Group.swift in Sources */,
+				C43B06511F9866E400787A35 /* Locus+ToPath.swift in Sources */,
 				57E5E1A91E3B393900D1CB28 /* TextRenderer.swift in Sources */,
 				57E5E1B01E3B393900D1CB28 /* CGFloat+Double.swift in Sources */,
 				57E5E1591E3B393900D1CB28 /* CGExtensions.swift in Sources */,

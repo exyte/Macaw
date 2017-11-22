@@ -1,6 +1,6 @@
 import Foundation
 
-typealias func2D = ((_ t: Double) -> (Point))
+typealias Func2D = ((_ t: Double) -> (Point))
 
 func BezierFunc2D(_ t: Double, p0: Point, p1: Point, p2: Point, p3: Point) -> Point {
     return Point(

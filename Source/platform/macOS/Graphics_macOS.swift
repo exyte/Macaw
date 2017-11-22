@@ -29,7 +29,7 @@ import Foundation
 
     func MImagePNGRepresentation(_ image: MImage) -> Data? {
         image.lockFocus()
-        let rep = NSBitmapImageRep(focusedViewRect: NSMakeRect(0, 0, image.size.width, image.size.height))
+        let rep = NSBitmapImageRep(focusedViewRect: NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
         image.unlockFocus()
 
         return rep?.representation(using: NSBitmapImageRep.FileType.png, properties: [:])
@@ -37,7 +37,7 @@ import Foundation
 
     func MImageJPEGRepresentation(_ image: MImage, _ quality: CGFloat = 0.9) -> Data? {
         image.lockFocus()
-        let rep = NSBitmapImageRep(focusedViewRect: NSMakeRect(0, 0, image.size.width, image.size.height))
+        let rep = NSBitmapImageRep(focusedViewRect: NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
         image.unlockFocus()
 
         return rep?.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [NSBitmapImageRep.PropertyKey.compressionFactor: quality])

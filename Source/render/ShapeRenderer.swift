@@ -46,25 +46,17 @@ class ShapeRenderer: NodeRenderer {
         }
 
         setGeometry(shape.form, ctx: ctx)
-
         var drawingMode: CGPathDrawingMode? = nil
-        if let stroke = shape.stroke, let fill = shape.fill {
-            setStrokeAttributes(stroke, ctx: ctx)
-            if let _ = fill as? Gradient {
-                setFill(Color.black, ctx: ctx, opacity: 1.0)
-                drawingMode = .fill
-            } else {
-                setFill(fill, ctx: ctx, opacity: 1.0)
-                drawingMode = .fillStroke
-            }
-
-        } else if let stroke = shape.stroke {
-            setStrokeAttributes(stroke, ctx: ctx)
-            drawingMode = .stroke
-        } else if let fill = shape.fill {
-            setFill(fill, ctx: ctx, opacity: 1.0)
-            drawingMode = .fill
-        }
+		if let stroke = shape.stroke {
+			setStrokeAttributes(stroke, ctx: ctx)
+			if (shape.fill != nil) {
+				drawingMode = .fillStroke
+			} else {
+				drawingMode = .stroke
+			}
+		} else {
+			drawingMode = .fill
+		}
 
         var contains = false
         if let mode = drawingMode {

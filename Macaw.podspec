@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Macaw"
-  s.version          = "0.9.0"
+  s.version          = "0.9.1"
   s.summary          = "Powerful and easy-to-use vector graphics library with SVG support written in Swift."
 
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/exyte/Macaw.git', :tag => s.version.to_s }
   s.social_media_url = 'http://exyte.com'
 
-  s.ios.deployment_target = "9.0"
+  s.ios.deployment_target = "9.1"
   s.osx.deployment_target = "10.12"
   s.requires_arc = true
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }

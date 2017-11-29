@@ -234,7 +234,7 @@ open class SVGParser {
 
     fileprivate func getMask(mask: String) -> Locus? {
         if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-            let fullRange = NSRange(location: 0, length: mask.characters.count)
+            let fullRange = NSRange(location: 0, length: mask.count)
             if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
                 return maskReferenceNode.form
             }
@@ -256,7 +256,7 @@ open class SVGParser {
             return transform
         }
         var finalTransform = transform
-        let fullRange = NSRange(location: 0, length: attributes.characters.count)
+        let fullRange = NSRange(location: 0, length: attributes.count)
 
         if let matchedAttribute = matcher.firstMatch(in: attributes, options: .reportCompletion, range: fullRange) {
 
@@ -327,8 +327,8 @@ open class SVGParser {
     /// Parse an RGB
     /// - returns: Color for the corresponding SVG color string in RGB notation.
     fileprivate func parseRGBNotation(colorString: String) -> Color {
-        let from = colorString.characters.index(colorString.startIndex, offsetBy: 4)
-        let inPercentage = colorString.characters.contains("%")
+        let from = colorString.index(colorString.startIndex, offsetBy: 4)
+        let inPercentage = colorString.contains("%")
         let sp = String(colorString.suffix(from: from))
             .replacingOccurrences(of: "%", with: "")
             .replacingOccurrences(of: ")", with: "")
@@ -359,7 +359,7 @@ open class SVGParser {
             return collectedValues
         }
         var updatedValues: [String] = collectedValues
-        let fullRange = NSRange(location: 0, length: values.characters.count)
+        let fullRange = NSRange(location: 0, length: values.count)
         if let matchedValue = matcher.firstMatch(in: values, options: .reportCompletion, range: fullRange) {
             let value = (values as NSString).substring(with: matchedValue.range)
             updatedValues.append(value)
@@ -403,7 +403,7 @@ open class SVGParser {
         if hexString.hasPrefix("#") {
             cleanedHexString = hexString.replacingOccurrences(of: "#", with: "")
         }
-        if cleanedHexString.characters.count == 3 {
+        if cleanedHexString.count == 3 {
             let x = Array(cleanedHexString)
             cleanedHexString = "\(x[0])\(x[0])\(x[1])\(x[1])\(x[2])\(x[2])"
         }
@@ -438,7 +438,7 @@ open class SVGParser {
             let color = parseRGBNotation(colorString: fillColor)
             return hasFillOpacity ? color.with(a: opacity) : color
         } else if fillColor.hasPrefix("url") {
-            let index = fillColor.characters.index(fillColor.startIndex, offsetBy: 4)
+            let index = fillColor.index(fillColor.startIndex, offsetBy: 4)
             let id = String(fillColor.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")
@@ -467,7 +467,7 @@ open class SVGParser {
         } else if strokeColor.hasPrefix("rgb") {
             fill = parseRGBNotation(colorString: strokeColor)
         } else if strokeColor.hasPrefix("url") {
-            let index = strokeColor.characters.index(strokeColor.startIndex, offsetBy: 4)
+            let index = strokeColor.index(strokeColor.startIndex, offsetBy: 4)
             let id = String(strokeColor.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")
@@ -671,7 +671,7 @@ open class SVGParser {
                 return .none
             }
             let elementString = element.description
-            let fullRange = NSRange(location: 0, length: elementString.characters.count)
+            let fullRange = NSRange(location: 0, length: elementString.count)
             if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
                 let tspans = (elementString as NSString).substring(with: match.range(at: 1))
                 return Group(contents: collectTspans(tspans, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: getDoubleValue(element, attribute: "x") ?? 0, y: getDoubleValue(element, attribute: "y") ?? 0)),
@@ -738,7 +738,7 @@ open class SVGParser {
         }
         var nextStringWhitespace = false
         var trimmedString = textString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if trimmedString.characters.count != textString.length {
+        if trimmedString.count != textString.length {
             nextStringWhitespace = true
         }
         trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
@@ -825,7 +825,7 @@ open class SVGParser {
                 shape.stroke = line
             }
             if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-                let fullRange = NSRange(location: 0, length: mask.characters.count)
+                let fullRange = NSRange(location: 0, length: mask.count)
                 if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
                     shape.clip = maskReferenceNode.form
                     shape.fill = .none
@@ -1052,7 +1052,7 @@ open class SVGParser {
         var pathCommandValues: NSString? = ""
         let scanner = Scanner(string: d)
         let set = CharacterSet(charactersIn: SVGConstants.pathCommands.joined())
-        let charCount = d.characters.count
+        let charCount = d.count
         repeat {
             scanner.scanCharacters(from: set, into: &pathCommandName)
             scanner.scanUpToCharacters(from: set, into: &pathCommandValues)
@@ -1342,7 +1342,7 @@ open class SVGParser {
 
     fileprivate func getClipPath(_ attributes: [String: String]) -> Locus? {
         if let clipPath = attributes["clip-path"] {
-            let index = clipPath.characters.index(clipPath.startIndex, offsetBy: 4)
+            let index = clipPath.index(clipPath.startIndex, offsetBy: 4)
             let id = String(clipPath.suffix(from: index))
                 .replacingOccurrences(of: "(", with: "")
                 .replacingOccurrences(of: ")", with: "")

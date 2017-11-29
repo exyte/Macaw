@@ -1055,6 +1055,19 @@ open class SVGParser {
         let charCount = d.characters.count
         repeat {
             scanner.scanCharacters(from: set, into: &pathCommandName)
+            
+            if pathCommandName!.length == 2 {
+                let command1 = pathCommandName!.substring(to: 1)
+                pathCommands.append(
+                    PathCommand(
+                        type: getCommandType(command1 as String),
+                        expression: "",
+                        absolute: isAbsolute(command1 as String)
+                    )
+                )
+                pathCommandName = pathCommandName!.substring(from: 1) as NSString
+            }
+            
             scanner.scanUpToCharacters(from: set, into: &pathCommandValues)
             pathCommands.append(
                 PathCommand(

@@ -1097,7 +1097,7 @@ open class SVGParser {
         let commandParams = command.expression.components(separatedBy: characterSet)
         var separatedValues = [String]()
         commandParams.forEach { param in
-            separatedValues.append(contentsOf: separateNegativeValuesIfNeeded(param))
+            separatedValues.append(contentsOf: separateValuesIfNeeded(param))
         }
 
         switch command.type {
@@ -1186,7 +1186,7 @@ open class SVGParser {
         }
     }
 
-    fileprivate func separateNegativeValuesIfNeeded(_ expression: String) -> [String] {
+    fileprivate func separateValuesIfNeeded(_ expression: String) -> [String] {
         var values = [String]()
         var value = String()
         var e = false
@@ -1200,6 +1200,15 @@ open class SVGParser {
                     values.append(value)
                     value = String()
                 }
+                e = false
+            }
+            
+            if scalar == "."
+                && !e
+                && value.contains(".") {
+                
+                values.append(value)
+                value = String()
                 e = false
             }
 

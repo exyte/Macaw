@@ -1192,8 +1192,7 @@ open class SVGParser {
             
             if scalar == "."
                 && !e
-                && !value.isEmpty
-                && value.contains("."){
+                && value.contains(".") {
                 
                 values.append(value)
                 value = String()

@@ -13,6 +13,23 @@ import XCTest
 
 class ImageBoundsTests: XCTestCase {
     
+    var context: RenderContext!
+    
+    override func setUp() {
+        context = RenderContext(view: .none)
+        
+        UIGraphicsBeginImageContext(CGSize(width: 1500.0, height: 1500.0))
+        let cgContext = UIGraphicsGetCurrentContext()
+        context.cgContext = cgContext
+        
+        super.setUp()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        UIGraphicsEndImageContext()
+    }
+    
     func testSrcAsPath() {
         let bundle = Bundle(for: type(of: TestUtils()))
         guard let path = bundle.path(forResource: "logo", ofType: "png") else {
@@ -21,6 +38,9 @@ class ImageBoundsTests: XCTestCase {
         }
         
         let image = Image(src: path)
+        
+        let renderer = ImageRenderer(image: image, ctx: context, animationCache: .none)
+        renderer.render(force: false, opacity: 1.0)
         guard let bounds = image.bounds() else {
             XCTFail("Bounds not available")
             return
@@ -44,6 +64,9 @@ class ImageBoundsTests: XCTestCase {
         }
         
         let image = Image(src: base64Content)
+        
+        let renderer = ImageRenderer(image: image, ctx: context, animationCache: .none)
+        renderer.render(force: false, opacity: 1.0)
         guard let bounds = image.bounds() else {
             XCTFail("Bounds not available")
             return
@@ -60,6 +83,9 @@ class ImageBoundsTests: XCTestCase {
         }
         
         let image = Image(image: mImage)
+        
+        let renderer = ImageRenderer(image: image, ctx: context, animationCache: .none)
+        renderer.render(force: false, opacity: 1.0)
         guard let bounds = image.bounds() else {
             XCTFail("Bounds not available")
             return

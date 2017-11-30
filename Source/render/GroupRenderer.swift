@@ -43,7 +43,7 @@ class GroupRenderer: NodeRenderer {
         var union: Rect?
         
         group?.contents.forEach { node in
-            guard let nodeBounds = group?.bounds()?.applyTransform(node.place) else {
+            guard let nodeBounds = node.bounds()?.applyTransform(node.place) else {
                 return
             }
             

@@ -53,7 +53,11 @@ class TextRenderer: NodeRenderer {
                 attributes[NSAttributedStringKey.strokeWidth] = stroke.width as NSObject?
             }
             MGraphicsPushContext(ctx.cgContext!)
-            message.draw(in: getBounds(font), withAttributes: attributes)
+            
+            let bounds = getBounds(font)
+            node()?.boundsVar.value = Rect(cgRect: bounds)
+            
+            message.draw(in: bounds, withAttributes: attributes)
             MGraphicsPopContext()
         }
     }

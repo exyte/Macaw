@@ -31,6 +31,11 @@ open class Node: Drawable {
         get { return effectVar.value }
         set(val) { effectVar.value = val }
     }
+    
+    open let boundsVar: Variable<Rect?>
+    open func bounds() -> Rect? {
+        return boundsVar.value
+    }
 
     internal var id: String {
         didSet {
@@ -227,6 +232,8 @@ open class Node: Drawable {
         self.effectVar = Variable<Effect?>(effect)
         self.id = NSUUID().uuidString
 
+        self.boundsVar = Variable<Rect?>(.none)
+        
         super.init(
             visible: visible,
             tag: tag
@@ -235,11 +242,6 @@ open class Node: Drawable {
         self.opacityVar.node = self
 
         Node.map.setObject(self, forKey: self.id as NSString)
-    }
-
-    // GENERATED NOT
-    internal func bounds() -> Rect? {
-        return Rect()
     }
 
 }

@@ -62,30 +62,6 @@ open class Text: Node {
         )
     }
 
-    // GENERATED NOT
-    override internal func bounds() -> Rect {
-        let font: MFont
-        if let f = self.font {
-
-            if let customFont = RenderUtils.loadFont(name: f.name, size: f.size) {
-                font = customFont
-            } else {
-                font = MFont.systemFont(ofSize: CGFloat(f.size))
-            }
-        } else {
-            font = MFont.systemFont(ofSize: MFont.mSystemFontSize)
-        }
-        var stringAttributes: [NSAttributedStringKey: AnyObject] = [:]
-        stringAttributes[NSAttributedStringKey.font] = font
-        let size = (text as NSString).size(withAttributes: stringAttributes)
-        return Rect(
-            x: calculateAlignmentOffset(font: font),
-            y: calculateBaselineOffset(font: font),
-            w: size.width.doubleValue,
-            h: size.height.doubleValue
-        )
-    }
-
     fileprivate func calculateBaselineOffset(font: MFont) -> Double {
         var baselineOffset = 0.0
         switch baseline {

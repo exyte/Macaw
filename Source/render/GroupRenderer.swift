@@ -39,6 +39,18 @@ class GroupRenderer: NodeRenderer {
         renderers.forEach { renderer in
             renderer.render(force: force, opacity: opacity)
         }
+        
+        var union: Rect?
+        
+        group?.contents.forEach { node in
+            guard let nodeBounds = group?.bounds()?.applyTransform(node.place) else {
+                return
+            }
+            
+            union = union?.union(rect: nodeBounds) ?? nodeBounds
+        }
+        
+        node()?.boundsVar.value = union
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {

@@ -17,7 +17,7 @@ extension Locus {
         let cy = arc.ellipse.cy
 
         var delta = arc.extent
-        if (arc.shift == 0.0 && abs(arc.extent - .pi * 2.0) < 0.00001) {
+        if arc.shift == 0.0 && abs(arc.extent - .pi * 2.0) < 0.00001 {
             delta = .pi * 2.0 - 0.001
         }
         let theta1 = arc.shift
@@ -42,7 +42,7 @@ extension Locus {
 
     fileprivate func pointsToPath(_ points: [Double], close: Bool = false) -> Path {
         var pb = PathBuilder(segment: PathSegment(type: .M, data: [points[0], points[1]]))
-        if (points.count > 2) {
+        if points.count > 2 {
             let parts = stride(from: 2, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
             for part in parts {
                 pb = pb.lineTo(x: part[0], y: part[1])

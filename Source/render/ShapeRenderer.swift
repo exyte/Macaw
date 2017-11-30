@@ -49,7 +49,7 @@ class ShapeRenderer: NodeRenderer {
         var drawingMode: CGPathDrawingMode? = nil
         if let stroke = shape.stroke {
             setStrokeAttributes(stroke, ctx: ctx)
-            if (shape.fill != nil) {
+            if shape.fill != nil {
                 drawingMode = .fillStroke
             } else {
                 drawingMode = .stroke

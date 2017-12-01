@@ -1045,7 +1045,7 @@ open class SVGParser {
     }
 
     fileprivate func parsePathCommands(_ d: String) -> [PathSegment] {
-        var d = d.trimmingCharacters(in: .whitespaces)
+        let d = d.trimmingCharacters(in: .whitespaces)
 
         var pathCommands = [PathCommand]()
         var pathCommandName: NSString? = ""
@@ -1055,7 +1055,7 @@ open class SVGParser {
         let charCount = d.count
         repeat {
             scanner.scanCharacters(from: set, into: &pathCommandName)
-            
+
             if pathCommandName!.length == 2 {
                 let command1 = pathCommandName!.substring(to: 1)
                 pathCommands.append(
@@ -1067,7 +1067,7 @@ open class SVGParser {
                 )
                 pathCommandName = pathCommandName!.substring(from: 1) as NSString
             }
-            
+
             scanner.scanUpToCharacters(from: set, into: &pathCommandValues)
             pathCommands.append(
                 PathCommand(
@@ -1202,11 +1202,11 @@ open class SVGParser {
                 }
                 e = false
             }
-            
+
             if scalar == "."
                 && !e
                 && value.contains(".") {
-                
+
                 values.append(value)
                 value = String()
                 e = false

@@ -27,7 +27,7 @@ internal class AnimationSequence: BasicAnimation {
     open override func stop() {
         super.stop()
 
-        guard let active = (animations.filter { $0.isActive() }).first else {
+        guard let active = animations.first(where: { $0.isActive() }) else {
             return
         }
 
@@ -37,7 +37,7 @@ internal class AnimationSequence: BasicAnimation {
     open override func pause() {
         super.pause()
 
-        guard let active = (animations.filter { $0.isActive() }).first else {
+        guard let active = animations.first(where: { $0.isActive() }) else {
             return
         }
 
@@ -45,7 +45,7 @@ internal class AnimationSequence: BasicAnimation {
     }
 
     open override func play() {
-        guard let active = (animations.filter { $0.isActive() }).first else {
+        guard let active = animations.first(where: { $0.isActive() }) else {
             super.play()
             return
         }

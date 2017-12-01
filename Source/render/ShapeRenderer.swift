@@ -47,16 +47,16 @@ class ShapeRenderer: NodeRenderer {
 
         setGeometry(shape.form, ctx: ctx)
         var drawingMode: CGPathDrawingMode? = nil
-		if let stroke = shape.stroke {
-			setStrokeAttributes(stroke, ctx: ctx)
-			if (shape.fill != nil) {
-				drawingMode = .fillStroke
-			} else {
-				drawingMode = .stroke
-			}
-		} else {
-			drawingMode = .fill
-		}
+        if let stroke = shape.stroke {
+            setStrokeAttributes(stroke, ctx: ctx)
+            if shape.fill != nil {
+                drawingMode = .fillStroke
+            } else {
+                drawingMode = .stroke
+            }
+        } else {
+            drawingMode = .fill
+        }
 
         var contains = false
         if let mode = drawingMode {

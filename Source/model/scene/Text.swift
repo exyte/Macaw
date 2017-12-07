@@ -62,7 +62,13 @@ open class Text: Node {
         )
     }
 
-    // GENERATED NOT
+    /// Returns a `Rect` for the `Text`-`Node`.
+	///
+	/// With the `Rect` you have access to the x and y-position and to the width and height
+	///
+	/// For *example*:
+	///
+	///     print(myTextNode.bounds()!.w)
     override internal func bounds() -> Rect {
         let font: MFont
         if let f = self.font {
@@ -70,7 +76,7 @@ open class Text: Node {
             if let customFont = RenderUtils.loadFont(name: f.name, size: f.size) {
                 font = customFont
             } else {
-                font = MFont.systemFont(ofSize: CGFloat(f.size))
+                font = MFont.systemFont(ofSize: CGFloat(f.size), weight: getWeight(f.weight))
             }
         } else {
             font = MFont.systemFont(ofSize: MFont.mSystemFontSize)
@@ -84,6 +90,21 @@ open class Text: Node {
             w: size.width.doubleValue,
             h: size.height.doubleValue
         )
+    }
+    
+    fileprivate func getWeight(_ weight: String) -> MFont.Weight {
+        switch weight {
+        case "normal":
+            return MFont.Weight.regular
+		case "bold":
+            return MFont.Weight.bold
+		case "bolder":
+            return MFont.Weight.semibold
+		case "lighter":
+            return MFont.Weight.light
+		default:
+            return MFont.Weight.regular
+		}
     }
 
     fileprivate func calculateBaselineOffset(font: MFont) -> Double {

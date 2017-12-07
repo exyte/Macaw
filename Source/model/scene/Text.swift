@@ -9,36 +9,42 @@ import Foundation
 open class Text: Node {
 
     open let textVar: Variable<String>
+    /// The text of the Text Node.
     open var text: String {
         get { return textVar.value }
         set(val) { textVar.value = val }
     }
 
     open let fontVar: Variable<Font?>
+    /// The `Font` of the Text Node.
     open var font: Font? {
         get { return fontVar.value }
         set(val) { fontVar.value = val }
     }
 
     open let fillVar: Variable<Fill>
+    /// The `Fill` (for example a `Color` or a Gradient).
     open var fill: Fill {
         get { return fillVar.value }
         set(val) { fillVar.value = val }
     }
 
     open let strokeVar: Variable<Stroke?>
+    /// The `Stroke` of the Text Node.
     open var stroke: Stroke? {
         get { return strokeVar.value }
         set(val) { strokeVar.value = val }
     }
 
     open let alignVar: Variable<Align>
+    /// The `Align`, defines, wheter the text is aligned left (`.min`), centered (`.mid`) or right (`.max`).
     open var align: Align {
         get { return alignVar.value }
         set(val) { alignVar.value = val }
     }
 
     open let baselineVar: Variable<Baseline>
+    /// Defines the `Baseline` of the Text node (`.top`, `.alphabetic`, `.bottom` or `.mid`).
     open var baseline: Baseline {
         get { return baselineVar.value }
         set(val) { baselineVar.value = val }
@@ -63,12 +69,12 @@ open class Text: Node {
     }
 
     /// Returns a `Rect` for the `Text`-`Node`.
-	///
-	/// With the `Rect` you have access to the x and y-position and to the width and height
-	///
-	/// For *example*:
-	///
-	///     print(myTextNode.bounds()!.w)
+    ///
+    /// With the `Rect` you have access to the x and y-position and to the width and height
+    ///
+    /// For *example*:
+    ///
+    ///     print(myTextNode.bounds()!.w)
     override internal func bounds() -> Rect {
         let font: MFont
         if let f = self.font {
@@ -96,15 +102,15 @@ open class Text: Node {
         switch weight {
         case "normal":
             return MFont.Weight.regular
-		case "bold":
+        case "bold":
             return MFont.Weight.bold
-		case "bolder":
+        case "bolder":
             return MFont.Weight.semibold
-		case "lighter":
+        case "lighter":
             return MFont.Weight.light
-		default:
+        default:
             return MFont.Weight.regular
-		}
+        }
     }
 
     fileprivate func calculateBaselineOffset(font: MFont) -> Double {

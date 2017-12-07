@@ -115,20 +115,27 @@ class TextRenderer: NodeRenderer {
                       width: CGFloat(textSize.width), height: CGFloat(textSize.height))
     }
 
-    fileprivate func calculateBaselineOffset(_ text: Text, font: MFont) -> CGFloat {
+	fileprivate func calculateBaselineOffset(_ text: Text, font: MFont) -> CGFloat {
         var baselineOffset = CGFloat(0)
+        let uselessTopSpace = font.ascender - font.capHeight	// calculate the space between the height of the capital letters and the height of the largest ascending character (what would that be?)
         switch text.baseline {
         case Baseline.alphabetic:
             baselineOffset = font.ascender
         case Baseline.bottom:
             baselineOffset = font.ascender - font.descender
         case Baseline.mid:
-            baselineOffset = (font.ascender - font.descender) / 2
+            baselineOffset = (font.ascender - font.descender) / 2.0
+        case Baseline.perfectTop:
+            baselineOffset = uselessTopSpace
+        case Baseline.perfectAlphabetic:
+            baselineOffset = font.ascender + uselessTopSpace
+        case Baseline.perfectMid:
+            baselineOffset = ((font.ascender - font.descender) / 2.0) + uselessTopSpace
         default:
             break
         }
         return -baselineOffset
-    }
+	}
 
     fileprivate func calculateAlignmentOffset(_ text: Text, font: MFont) -> CGFloat {
         let textAttributes = [

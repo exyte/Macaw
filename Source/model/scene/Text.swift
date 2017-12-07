@@ -115,23 +115,23 @@ open class Text: Node {
 
     fileprivate func calculateBaselineOffset(font: MFont) -> Double {
         var baselineOffset = 0.0
-		let uselessTopSpace = Double(font.ascender - font.capHeight)	// calculate the space between the height of the capital letters and the height of the largest ascending character (what would that be?)
-		switch baseline {
-		case Baseline.alphabetic:
-			baselineOffset = font.ascender.doubleValue
-		case Baseline.bottom:
-			baselineOffset = (font.ascender - font.descender).doubleValue
-		case Baseline.mid:
-			baselineOffset = (font.ascender - font.descender).doubleValue / 2.0
-		case Baseline.perfectTop:
-			baselineOffset = uselessTopSpace
-		case Baseline.perfectAlphabetic:
-			baselineOffset = Double(font.ascender) + uselessTopSpace
-		case Baseline.perfectMid:
-			baselineOffset = ((font.ascender - font.descender).doubleValue / 2.0) + uselessTopSpace
-		default:
-			break
-		}
+        let uselessTopSpace = Double(font.ascender - font.capHeight)	// calculate the space between the height of the capital letters and the height of the largest ascending character (what would that be?)
+        switch baseline {
+        case Baseline.alphabetic:
+            baselineOffset = font.ascender.doubleValue
+        case Baseline.bottom:
+            baselineOffset = (font.ascender - font.descender).doubleValue
+        case Baseline.mid:
+            baselineOffset = (font.ascender - font.descender).doubleValue / 2.0
+        case Baseline.perfectTop:
+            baselineOffset = uselessTopSpace
+        case Baseline.perfectAlphabetic:
+            baselineOffset = Double(font.ascender) + uselessTopSpace
+        case Baseline.perfectMid:
+            baselineOffset = ((font.ascender - font.descender).doubleValue / 2.0) + uselessTopSpace
+        default:
+            break
+        }
         return -baselineOffset
     }
 

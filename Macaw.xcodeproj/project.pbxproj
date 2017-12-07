@@ -1578,7 +1578,7 @@
 		57FCD2811D76EA4600CC0FB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1604,7 +1604,7 @@
 		57FCD2821D76EA4600CC0FB6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

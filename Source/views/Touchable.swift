@@ -2,18 +2,18 @@ class MTouchEvent: Hashable {
     let id: Int
     let x: Double
     let y: Double
-    
+
     init(x: Double, y: Double, id: Int) {
         self.x = x
         self.y = y
         self.id = id
     }
-    
+
     public var hashValue: Int {
         return id.hashValue
     }
-    
-    public static func ==(lhs: MTouchEvent, rhs: MTouchEvent) -> Bool {
+
+    public static func == (lhs: MTouchEvent, rhs: MTouchEvent) -> Bool {
         return lhs.id == rhs.id
     }
 }

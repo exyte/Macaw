@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<style type="text/css">
+	.mystyle{fill:#FFFFFF;stroke:#231F20;stroke-width:1.5;stroke-miterlimit:10;}
+</style>
+<g>
+  <circle class="mystyle" cx="50" cy="50" r="10"/>
+  <circle cx="80" cy="50" r="10"/>
+</g>
+</svg>

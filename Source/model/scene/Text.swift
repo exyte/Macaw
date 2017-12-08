@@ -9,36 +9,42 @@ import Foundation
 open class Text: Node {
 
     open let textVar: Variable<String>
+    /// The text of the Text Node.
     open var text: String {
         get { return textVar.value }
         set(val) { textVar.value = val }
     }
 
     open let fontVar: Variable<Font?>
+    /// The `Font` of the Text Node.
     open var font: Font? {
         get { return fontVar.value }
         set(val) { fontVar.value = val }
     }
 
     open let fillVar: Variable<Fill>
+    /// The `Fill` (for example a `Color` or a Gradient).
     open var fill: Fill {
         get { return fillVar.value }
         set(val) { fillVar.value = val }
     }
 
     open let strokeVar: Variable<Stroke?>
+    /// The `Stroke` of the Text Node.
     open var stroke: Stroke? {
         get { return strokeVar.value }
         set(val) { strokeVar.value = val }
     }
 
     open let alignVar: Variable<Align>
+    /// The `Align`, defines, wheter the text is aligned left (`.min`), centered (`.mid`) or right (`.max`).
     open var align: Align {
         get { return alignVar.value }
         set(val) { alignVar.value = val }
     }
 
     open let baselineVar: Variable<Baseline>
+    /// Defines the `Baseline` of the Text node (`.top`, `.alphabetic`, `.bottom` or `.mid`).
     open var baseline: Baseline {
         get { return baselineVar.value }
         set(val) { baselineVar.value = val }
@@ -62,7 +68,13 @@ open class Text: Node {
         )
     }
 
-    // GENERATED NOT
+    /// Returns a `Rect` for the `Text`-`Node`.
+    ///
+    /// With the `Rect` you have access to the x and y-position and to the width and height
+    ///
+    /// For *example*:
+    ///
+    ///     print(myTextNode.bounds()!.w)
     override internal func bounds() -> Rect {
         let font: MFont
         if let f = self.font {
@@ -70,7 +82,7 @@ open class Text: Node {
             if let customFont = RenderUtils.loadFont(name: f.name, size: f.size) {
                 font = customFont
             } else {
-                font = MFont.systemFont(ofSize: CGFloat(f.size))
+                font = MFont.systemFont(ofSize: CGFloat(f.size), weight: getWeight(f.weight))
             }
         } else {
             font = MFont.systemFont(ofSize: MFont.mSystemFontSize)
@@ -85,16 +97,38 @@ open class Text: Node {
             h: size.height.doubleValue
         )
     }
+    
+    fileprivate func getWeight(_ weight: String) -> MFont.Weight {
+        switch weight {
+        case "normal":
+            return MFont.Weight.regular
+        case "bold":
+            return MFont.Weight.bold
+        case "bolder":
+            return MFont.Weight.semibold
+        case "lighter":
+            return MFont.Weight.light
+        default:
+            return MFont.Weight.regular
+        }
+    }
 
     fileprivate func calculateBaselineOffset(font: MFont) -> Double {
         var baselineOffset = 0.0
+        let uselessTopSpace = Double(font.ascender - font.capHeight)	// calculate the space between the height of the capital letters and the height of the largest ascending character (what would that be?)
         switch baseline {
-        case .alphabetic:
+        case Baseline.alphabetic:
             baselineOffset = font.ascender.doubleValue
-        case .bottom:
+        case Baseline.bottom:
             baselineOffset = (font.ascender - font.descender).doubleValue
-        case .mid:
-            baselineOffset = ((font.ascender - font.descender) / 2).doubleValue
+        case Baseline.mid:
+            baselineOffset = (font.ascender - font.descender).doubleValue / 2.0
+        case Baseline.perfectTop:
+            baselineOffset = uselessTopSpace
+        case Baseline.perfectAlphabetic:
+            baselineOffset = Double(font.ascender) + uselessTopSpace
+        case Baseline.perfectMid:
+            baselineOffset = ((font.ascender - font.descender).doubleValue / 2.0) + uselessTopSpace
         default:
             break
         }

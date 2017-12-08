@@ -8,8 +8,8 @@ import Foundation
 
 open class SVGView: MacawView {
 
-    public let rootNode = Group()
-    public var svgNode: Node?
+    fileprivate let rootNode = Group()
+    fileprivate var svgNode: Node?
 
     @IBInspectable open var fileName: String? {
         didSet {
@@ -48,7 +48,7 @@ open class SVGView: MacawView {
         svgNode = try? SVGParser.parse(path: fileName ?? "")
     }
 
-    public func render() {
+    fileprivate func render() {
         guard let svgNode = self.svgNode else {
             return
         }

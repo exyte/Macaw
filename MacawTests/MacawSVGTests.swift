@@ -92,7 +92,7 @@ class MacawSVGTests: XCTestCase {
         if let path = bundle.path(forResource: "small-logo", ofType: "png") {
             if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
                 let node = Image(image: mimage)
-                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
+                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\"/></svg>"
                 XCTAssertEqual(SVGSerializer.serialize(node: node), imageReferenceContent)
             }
         }

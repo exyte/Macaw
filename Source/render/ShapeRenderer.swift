@@ -38,6 +38,19 @@ class ShapeRenderer: NodeRenderer {
 
         setGeometry(shape.form, ctx: ctx.cgContext!)
         drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
+        
+        var bounds = shape.form.bounds()
+        
+        if let shapeStroke = shape.stroke {
+            let r = shapeStroke.width / 2.0
+            bounds = Rect(
+                x: bounds.x - r,
+                y: bounds.y - r,
+                w: bounds.w + r * 2.0,
+                h: bounds.h + r * 2.0)
+        }
+        
+        node()?.boundsVar.value = bounds
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {

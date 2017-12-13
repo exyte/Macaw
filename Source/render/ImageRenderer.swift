@@ -56,6 +56,9 @@ class ImageRenderer: NodeRenderer {
             ctx.cgContext!.translateBy(x: 0.0, y: -1.0 * rect.height)
             ctx.cgContext!.setAlpha(CGFloat(opacity))
             ctx.cgContext!.draw(mImage.cgImage!, in: rect)
+            
+            
+            node()?.boundsVar.value = Rect(cgRect: rect)
         }
     }
 

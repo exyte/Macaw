@@ -158,7 +158,7 @@ open class SVGSerializer {
         } else {
             result += " xlink:href=\"\(image.src)\" "
         }
-        if let bounds = image.bounds() {
+        if let bounds = image.bounds {
             result += " width=\"\(String(bounds.w))\" height=\"\(String(bounds.h))\" "
         }
         result += SVGGenericCloseTag

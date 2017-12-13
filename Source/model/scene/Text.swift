@@ -62,8 +62,7 @@ open class Text: Node {
         )
     }
 
-    // GENERATED NOT
-    override internal func bounds() -> Rect {
+    override open var bounds: Rect {
         let font: MFont
         if let f = self.font {
 

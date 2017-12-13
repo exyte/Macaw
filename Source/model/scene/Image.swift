@@ -93,7 +93,7 @@ open class Image: Node {
         )
     }
 
-    override func bounds() -> Rect? {
+    override open var bounds: Rect? {
         if w != 0 && h != 0 {
             return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
         }

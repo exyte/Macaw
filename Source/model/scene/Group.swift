@@ -64,12 +64,11 @@ open class Group: Node {
         return result
     }
 
-    // GENERATED NOT
-    override internal func bounds() -> Rect? {
+    override open var bounds: Rect? {
         var union: Rect?
 
         contents.forEach { node in
-            guard let nodeBounds = node.bounds()?.applyTransform(node.place) else {
+            guard let nodeBounds = node.bounds?.applyTransform(node.place) else {
                 return
             }
 

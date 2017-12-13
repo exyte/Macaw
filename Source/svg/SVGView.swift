@@ -53,7 +53,7 @@ open class SVGView: MacawView {
             return
         }
         let viewBounds = self.bounds
-        if let nodeBounds = svgNode.bounds()?.cgRect() {
+        if let nodeBounds = svgNode.bounds?.cgRect() {
             let svgWidth = nodeBounds.origin.x + nodeBounds.width
             let svgHeight = nodeBounds.origin.y + nodeBounds.height
 

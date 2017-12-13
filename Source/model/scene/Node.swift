@@ -32,6 +32,10 @@ open class Node: Drawable {
         set(val) { effectVar.value = val }
     }
 
+    open var bounds: Rect? {
+        return Rect()
+    }
+
     internal var id: String {
         didSet {
             Node.map.removeObject(forKey: id as NSString)
@@ -236,10 +240,4 @@ open class Node: Drawable {
 
         Node.map.setObject(self, forKey: self.id as NSString)
     }
-
-    // GENERATED NOT
-    internal func bounds() -> Rect? {
-        return Rect()
-    }
-
 }

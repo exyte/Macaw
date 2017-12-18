@@ -89,6 +89,16 @@ pod "Macaw", "0.9.1"
 github "Exyte/Macaw" ~> 0.9.1
 ```
 
+## [Swift Package Manager] (https://swift.org/package-manager/)
+
+To install it, simply add the following line to to the `dependencies` value of your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/exyte/Macaw.git", from: "0.9.2")
+]
+```
+
 ## Building from sources
 
 To build Macaw from sources:

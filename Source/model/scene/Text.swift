@@ -70,7 +70,7 @@ open class Text: Node {
             if let customFont = RenderUtils.loadFont(name: f.name, size: f.size) {
                 font = customFont
             } else {
-                font = MFont.systemFont(ofSize: CGFloat(f.size))
+                font = MFont.systemFont(ofSize: CGFloat(f.size), weight: getWeight(f.weight))
             }
         } else {
             font = MFont.systemFont(ofSize: MFont.mSystemFontSize)
@@ -84,6 +84,21 @@ open class Text: Node {
             w: size.width.doubleValue,
             h: size.height.doubleValue
         )
+    }
+    
+    fileprivate func getWeight(_ weight: String) -> MFont.Weight {
+        switch weight {
+        case "normal":
+            return MFont.Weight.regular
+        case "bold":
+            return MFont.Weight.bold
+        case "bolder":
+            return MFont.Weight.semibold
+        case "lighter":
+            return MFont.Weight.light
+        default:
+            return MFont.Weight.regular
+        }
     }
 
     fileprivate func calculateBaselineOffset(font: MFont) -> Double {

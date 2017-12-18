@@ -94,20 +94,7 @@ open class Image: Node {
     }
 
     override open var bounds: Rect {
-        if w != 0 && h != 0 {
-            return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
-        }
-
-        mImage = image()
-
-        guard let mImage = mImage else {
-            return Rect.zero()
-        }
-
-        return Rect(x: 0.0, y: 0.0,
-                    w: Double(mImage.size.width),
-                    h: Double(mImage.size.height))
-
+        return BoundsUtils.getBounds(image: self)
     }
 
     internal enum ImageRepresentationType {

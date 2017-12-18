@@ -120,6 +120,11 @@ class BoundsUtils {
     }
 
     class func getBounds(image: Image) -> Rect {
+
+        if image.w == 0 || image.h == 0 {
+            return Rect.zero()
+        }
+
         var mImage: MImage?
 
         if image.src.contains("memory") {

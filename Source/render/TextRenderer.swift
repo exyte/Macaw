@@ -59,7 +59,7 @@ class TextRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let contains = node()?.bounds?.cgRect().contains(location) else {
+        guard let contains = node()?.bounds.cgRect().contains(location) else {
             return .none
         }
 

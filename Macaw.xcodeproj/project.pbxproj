@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30B2547C1FE7AD950059EE36 /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2547B1FE7AD950059EE36 /* BoundsUtils.swift */; };
+		30B2547D1FE7B6ED0059EE36 /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2547B1FE7AD950059EE36 /* BoundsUtils.swift */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -319,6 +321,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30B2547B1FE7AD950059EE36 /* BoundsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundsUtils.swift; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -709,6 +712,7 @@
 				57E5E1111E3B393900D1CB28 /* draw */,
 				57E5E1231E3B393900D1CB28 /* geom2d */,
 				57E5E1371E3B393900D1CB28 /* scene */,
+				30B2547B1FE7AD950059EE36 /* BoundsUtils.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1238,6 +1242,7 @@
 				57614B681F83D15600875933 /* GroupRenderer.swift in Sources */,
 				57614B691F83D15600875933 /* SVGParserRegexHelper.swift in Sources */,
 				57614B6A1F83D15600875933 /* Effect.swift in Sources */,
+				30B2547D1FE7B6ED0059EE36 /* BoundsUtils.swift in Sources */,
 				57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */,
 				57614B6C1F83D15600875933 /* SWXMLHash+TypeConversion.swift in Sources */,
 				57614B6D1F83D15600875933 /* AnimationSequence.swift in Sources */,
@@ -1364,6 +1369,7 @@
 				57E5E1A31E3B393900D1CB28 /* GroupRenderer.swift in Sources */,
 				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,
 				57E5E1801E3B393900D1CB28 /* Effect.swift in Sources */,
+				30B2547C1FE7AD950059EE36 /* BoundsUtils.swift in Sources */,
 				57E5E1B11E3B393900D1CB28 /* NSTimer+Closure.swift in Sources */,
 				572CEFC71E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift in Sources */,
 				57E5E16B1E3B393900D1CB28 /* AnimationSequence.swift in Sources */,

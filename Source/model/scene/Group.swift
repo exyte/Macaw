@@ -64,15 +64,18 @@ open class Group: Node {
         return result
     }
 
-    override open var bounds: Rect? {
-        var union: Rect?
+    override open var bounds: Rect {
+        var union = Rect.zero()
 
         contents.forEach { node in
-            guard let nodeBounds = node.bounds?.applyTransform(node.place) else {
+
+            let nodeBounds = node.bounds
+
+            if nodeBounds.w == 0.0 || nodeBounds.h == 0.0 {
                 return
             }
 
-            union = union?.union(rect: nodeBounds) ?? nodeBounds
+            union = union.union(rect: nodeBounds)
         }
 
         return union

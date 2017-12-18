@@ -93,7 +93,7 @@ open class Image: Node {
         )
     }
 
-    override open var bounds: Rect? {
+    override open var bounds: Rect {
         if w != 0 && h != 0 {
             return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
         }
@@ -101,7 +101,7 @@ open class Image: Node {
         mImage = image()
 
         guard let mImage = mImage else {
-            return .none
+            return Rect.zero()
         }
 
         return Rect(x: 0.0, y: 0.0,

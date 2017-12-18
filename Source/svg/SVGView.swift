@@ -53,95 +53,94 @@ open class SVGView: MacawView {
             return
         }
         let viewBounds = self.bounds
-        if let nodeBounds = svgNode.bounds?.cgRect() {
-            let svgWidth = nodeBounds.origin.x + nodeBounds.width
-            let svgHeight = nodeBounds.origin.y + nodeBounds.height
+        let nodeBounds = svgNode.bounds.cgRect()
+        let svgWidth = nodeBounds.origin.x + nodeBounds.width
+        let svgHeight = nodeBounds.origin.y + nodeBounds.height
 
-            let viewAspectRatio = viewBounds.width / viewBounds.height
-            let svgAspectRatio = svgWidth / svgHeight
+        let viewAspectRatio = viewBounds.width / viewBounds.height
+        let svgAspectRatio = svgWidth / svgHeight
 
-            let scaleX = viewBounds.width / svgWidth
-            let scaleY = viewBounds.height / svgHeight
+        let scaleX = viewBounds.width / svgWidth
+        let scaleY = viewBounds.height / svgHeight
 
-            switch self.contentMode {
-            case .scaleToFill:
-                svgNode.place = Transform.scale(
-                    sx: Double(scaleX),
-                    sy: Double(scaleY)
-                )
-            case .scaleAspectFill:
-                let scaleX, scaleY: CGFloat
-                if viewAspectRatio > svgAspectRatio {
-                    scaleX = viewBounds.width / svgWidth
-                    scaleY = viewBounds.width / (svgWidth / svgAspectRatio)
-                } else {
-                    scaleX = viewBounds.height / (svgHeight / svgAspectRatio)
-                    scaleY = viewBounds.height / svgHeight
-                }
-                let calculatedWidth = svgWidth * scaleX
-                let calculatedHeight = svgHeight * scaleY
-                svgNode.place = Transform.move(
-                    dx: (viewBounds.width / 2 - calculatedWidth / 2).doubleValue,
-                    dy: (viewBounds.height / 2 - calculatedHeight / 2).doubleValue
-                    ).scale(
-                        sx: scaleX.doubleValue,
-                        sy: scaleX.doubleValue
-                )
-            case .scaleAspectFit:
-                let scale = CGFloat.minimum(scaleX, scaleY)
-
-                svgNode.place = Transform.move(
-                    dx: (viewBounds.midX - scale * svgWidth / 2).doubleValue,
-                    dy: (viewBounds.midY - scale * svgHeight / 2).doubleValue
-                    ).scale(
-                        sx: scale.doubleValue,
-                        sy: scale.doubleValue
-                )
-            case .center:
-                svgNode.place = Transform.move(
-                    dx: getMidX(viewBounds, nodeBounds).doubleValue,
-                    dy: getMidY(viewBounds, nodeBounds).doubleValue
-                )
-            case .top:
-                svgNode.place = Transform.move(
-                    dx: getMidX(viewBounds, nodeBounds).doubleValue,
-                    dy: 0
-                )
-            case .bottom:
-                svgNode.place = Transform.move(
-                    dx: getMidX(viewBounds, nodeBounds).doubleValue,
-                    dy: getBottom(viewBounds, nodeBounds).doubleValue
-                )
-            case .left:
-                svgNode.place = Transform.move(
-                    dx: 0,
-                    dy: getMidY(viewBounds, nodeBounds).doubleValue
-                )
-            case .right:
-                svgNode.place = Transform.move(
-                    dx: getRight(viewBounds, nodeBounds).doubleValue,
-                    dy: getMidY(viewBounds, nodeBounds).doubleValue
-                )
-            case .topLeft:
-                break
-            case .topRight:
-                svgNode.place = Transform.move(
-                    dx: getRight(viewBounds, nodeBounds).doubleValue,
-                    dy: 0
-                )
-            case .bottomLeft:
-                svgNode.place = Transform.move(
-                    dx: 0,
-                    dy: getBottom(viewBounds, nodeBounds).doubleValue
-                )
-            case .bottomRight:
-                svgNode.place = Transform.move(
-                    dx: getRight(viewBounds, nodeBounds).doubleValue,
-                    dy: getBottom(viewBounds, nodeBounds).doubleValue
-                )
-            case .redraw:
-                break
+        switch self.contentMode {
+        case .scaleToFill:
+            svgNode.place = Transform.scale(
+                sx: Double(scaleX),
+                sy: Double(scaleY)
+            )
+        case .scaleAspectFill:
+            let scaleX, scaleY: CGFloat
+            if viewAspectRatio > svgAspectRatio {
+                scaleX = viewBounds.width / svgWidth
+                scaleY = viewBounds.width / (svgWidth / svgAspectRatio)
+            } else {
+                scaleX = viewBounds.height / (svgHeight / svgAspectRatio)
+                scaleY = viewBounds.height / svgHeight
             }
+            let calculatedWidth = svgWidth * scaleX
+            let calculatedHeight = svgHeight * scaleY
+            svgNode.place = Transform.move(
+                dx: (viewBounds.width / 2 - calculatedWidth / 2).doubleValue,
+                dy: (viewBounds.height / 2 - calculatedHeight / 2).doubleValue
+                ).scale(
+                    sx: scaleX.doubleValue,
+                    sy: scaleX.doubleValue
+            )
+        case .scaleAspectFit:
+            let scale = CGFloat.minimum(scaleX, scaleY)
+
+            svgNode.place = Transform.move(
+                dx: (viewBounds.midX - scale * svgWidth / 2).doubleValue,
+                dy: (viewBounds.midY - scale * svgHeight / 2).doubleValue
+                ).scale(
+                    sx: scale.doubleValue,
+                    sy: scale.doubleValue
+            )
+        case .center:
+            svgNode.place = Transform.move(
+                dx: getMidX(viewBounds, nodeBounds).doubleValue,
+                dy: getMidY(viewBounds, nodeBounds).doubleValue
+            )
+        case .top:
+            svgNode.place = Transform.move(
+                dx: getMidX(viewBounds, nodeBounds).doubleValue,
+                dy: 0
+            )
+        case .bottom:
+            svgNode.place = Transform.move(
+                dx: getMidX(viewBounds, nodeBounds).doubleValue,
+                dy: getBottom(viewBounds, nodeBounds).doubleValue
+            )
+        case .left:
+            svgNode.place = Transform.move(
+                dx: 0,
+                dy: getMidY(viewBounds, nodeBounds).doubleValue
+            )
+        case .right:
+            svgNode.place = Transform.move(
+                dx: getRight(viewBounds, nodeBounds).doubleValue,
+                dy: getMidY(viewBounds, nodeBounds).doubleValue
+            )
+        case .topLeft:
+            break
+        case .topRight:
+            svgNode.place = Transform.move(
+                dx: getRight(viewBounds, nodeBounds).doubleValue,
+                dy: 0
+            )
+        case .bottomLeft:
+            svgNode.place = Transform.move(
+                dx: 0,
+                dy: getBottom(viewBounds, nodeBounds).doubleValue
+            )
+        case .bottomRight:
+            svgNode.place = Transform.move(
+                dx: getRight(viewBounds, nodeBounds).doubleValue,
+                dy: getBottom(viewBounds, nodeBounds).doubleValue
+            )
+        case .redraw:
+            break
         }
 
         rootNode.contents = [svgNode]

@@ -32,8 +32,8 @@ open class Node: Drawable {
         set(val) { effectVar.value = val }
     }
 
-    open var bounds: Rect? {
-        return Rect()
+    open var bounds: Rect {
+        return Rect.zero()
     }
 
     internal var id: String {

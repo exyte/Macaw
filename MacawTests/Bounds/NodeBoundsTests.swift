@@ -135,7 +135,7 @@ class NodeBoundsTests: XCTestCase {
     func testSimpleImageZeroBounds() {
         let image = Image(src: "")
         
-        XCTAssertNil(image.bounds, "Image bounds not nil")
+        XCTAssertTrue(image.bounds == Rect.zero(), "Empty image bounds should be equal to zero bounds")
     }
 
     // MARK: - Text
@@ -159,7 +159,7 @@ class NodeBoundsTests: XCTestCase {
     func testSimpleGroupZeroBounds() {
         let group = [].group()
         
-        XCTAssertNil(group.bounds, "Group bounds not nil")
+        XCTAssertTrue(group.bounds == Rect.zero(), "Empty group bounds should be equal to zero bounds")
     }
     
     func testGroupZeroBounds() {

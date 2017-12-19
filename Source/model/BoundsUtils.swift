@@ -123,8 +123,9 @@ class BoundsUtils {
 
         var mImage: MImage?
 
-        if image.src.contains("memory") {
-            let id = image.src.replacingOccurrences(of: "memory://", with: "")
+        if image.src.starts(with: "memory") {
+            let index = "memory://".endIndex
+            let id = String(image.src[index...])
             mImage = imagesMap[id]
         } else {
             mImage = image.image()

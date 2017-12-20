@@ -42,7 +42,7 @@ open class SVGParser {
     fileprivate let initialPosition: Transform
 
     fileprivate var nodes = [Node]()
-    fileprivate var defNodes = [String: Node]()
+    fileprivate var defNodes = [String: XMLIndexer]()
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
@@ -137,11 +137,6 @@ open class SVGParser {
                 continue
             }
 
-            if let node = parseNode(child) {
-                self.defNodes[id] = node
-                continue
-            }
-
             if let mask = parseMask(child) {
                 self.defMasks[id] = mask
                 continue
@@ -150,6 +145,8 @@ open class SVGParser {
             if let clip = parseClip(child) {
                 self.defClip[id] = clip
             }
+            
+            self.defNodes[id] = child
         }
     }
 
@@ -192,7 +189,7 @@ open class SVGParser {
                 return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
                                  stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
             case "use":
-                return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
+                return parseUse(node, groupStyle: styleAttributes, place: position)
             case "mask":
                 break
             default:
@@ -244,7 +241,7 @@ open class SVGParser {
 
     fileprivate func getPosition(_ element: SWXMLHash.XMLElement) -> Transform {
         guard let transformAttribute = element.allAttributes["transform"]?.text else {
-            return Transform()
+            return Transform.identity
         }
         return parseTransformationAttribute(transformAttribute)
     }
@@ -796,10 +793,10 @@ open class SVGParser {
         } else {
             yPos = bounds.y
         }
-        return Transform().move(dx: xPos, dy: yPos)
+        return Transform.move(dx: xPos, dy: yPos)
     }
 
-    fileprivate func parseUse(_ use: XMLIndexer, fill: Fill?, stroke: Stroke?, pos: Transform, opacity: Double) -> Node? {
+    fileprivate func parseUse(_ use: XMLIndexer, groupStyle: [String: String] = [:], place: Transform = .identity) -> Node? {
         guard let element = use.element, let link = element.allAttributes["xlink:href"]?.text else {
             return .none
         }
@@ -807,13 +804,13 @@ open class SVGParser {
         if id.hasPrefix("#") {
             id = id.replacingOccurrences(of: "#", with: "")
         }
-        guard let referenceNode = self.defNodes[id], let node = copyNode(referenceNode) else {
-            return .none
+        if let referenceNode = self.defNodes[id] {
+            if let node = parseNode(referenceNode, groupStyle: groupStyle) {
+                let place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
+                return Group(contents: [node], place: place)
+            }
         }
-        node.place = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
-        node.opacity = opacity
-        let maskString = element.allAttributes["mask"]?.text ?? ""
-        return parseUseNode(node: node, fill: fill, stroke: stroke, mask: maskString)
+        return .none
     }
 
     fileprivate func parseUseNode(node: Node, fill: Fill?, stroke: Stroke?, mask: String) -> Node {
@@ -868,7 +865,7 @@ open class SVGParser {
         }
         var node: Node?
         mask.children.forEach { indexer in
-            if let useNode = parseUse(indexer, fill: .none, stroke: .none, pos: Transform(), opacity: 0) {
+            if let useNode = parseUse(indexer) {
                 node = useNode
             } else if let contentNode = parseNode(indexer) {
                 node = contentNode

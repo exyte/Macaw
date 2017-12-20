@@ -1322,10 +1322,12 @@ open class SVGParser {
     }
 
     fileprivate func getIntValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Int? {
-        guard let attributeValue = element.allAttributes[attribute]?.text, let intValue = Int(attributeValue) else {
-            return .none
+        if let attributeValue = element.allAttributes[attribute]?.text {
+            if let doubleValue = Double(attributeValue) {
+                return Int(doubleValue)
+            }
         }
-        return intValue
+        return .none
     }
 
     fileprivate func getFontName(_ attributes: [String: String]) -> String? {

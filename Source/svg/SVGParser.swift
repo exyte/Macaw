@@ -137,6 +137,12 @@ open class SVGParser {
                 continue
             }
 
+            if let _ = parseNode(child) {
+                // TODO we don't really need to parse node
+                self.defNodes[id] = child
+                continue
+            }
+
             if let mask = parseMask(child) {
                 self.defMasks[id] = mask
                 continue
@@ -145,8 +151,6 @@ open class SVGParser {
             if let clip = parseClip(child) {
                 self.defClip[id] = clip
             }
-            
-            self.defNodes[id] = child
         }
     }
 

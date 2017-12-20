@@ -373,21 +373,6 @@ open class SVGParser {
 
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
-        if let style = element.allAttributes["style"]?.text {
-            let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
-            styleParts.forEach { styleAttribute in
-                let currentStyle = styleAttribute.components(separatedBy: ":")
-                if currentStyle.count == 2 {
-                    styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
-                }
-            }
-        } else {
-            self.availableStyleAttributes.forEach { availableAttribute in
-                if let styleAttribute = element.allAttributes[availableAttribute]?.text {
-                    styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
-                }
-            }
-        }
 
         if let className = element.allAttributes["class"]?.text, let styleAttributesFromTable = styleTable[className] {
             for (att, val) in styleAttributesFromTable {
@@ -396,6 +381,23 @@ open class SVGParser {
                 }
             }
         }
+
+        if let style = element.allAttributes["style"]?.text {
+            let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
+            styleParts.forEach { styleAttribute in
+                let currentStyle = styleAttribute.components(separatedBy: ":")
+                if currentStyle.count == 2 {
+                    styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+                }
+            }
+        }
+
+        self.availableStyleAttributes.forEach { availableAttribute in
+            if let styleAttribute = element.allAttributes[availableAttribute]?.text {
+                styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+            }
+        }
+
         return styleAttributes
     }
 

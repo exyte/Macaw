@@ -73,27 +73,7 @@ class ShapeRenderer: NodeRenderer {
     }
 
     fileprivate func setGeometry(_ locus: Locus, ctx: CGContext) {
-        if let rect = locus as? Rect {
-            ctx.addRect(newCGRect(rect))
-        } else if let round = locus as? RoundRect {
-            let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            let path = MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
-                MRectCorner.allCorners, cornerRadii: corners).cgPath
-            ctx.addPath(path)
-        } else if let circle = locus as? Circle {
-            let cx = circle.cx
-            let cy = circle.cy
-            let r = circle.r
-            ctx.addEllipse(in: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
-        } else if let ellipse = locus as? Ellipse {
-            let cx = ellipse.cx
-            let cy = ellipse.cy
-            let rx = ellipse.rx
-            let ry = ellipse.ry
-            ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
-        } else {
-            ctx.addPath(RenderUtils.toCGPath(locus))
-        }
+        RenderUtils.setGeometry(locus, ctx: ctx)
     }
 
     fileprivate func toBezierPath(_ arc: Arc) -> MBezierPath {

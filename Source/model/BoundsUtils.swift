@@ -140,20 +140,9 @@ class BoundsUtils {
     }
 
     class func getBounds(shape: Shape) -> Rect {
-        let renderContext = RenderContext(view: .none)
-        UIGraphicsBeginImageContext(CGSize.zero)
-        let cgContext = UIGraphicsGetCurrentContext()
 
-        defer {
-            UIGraphicsEndImageContext()
-        }
-
-        renderContext.cgContext = cgContext
-        let shapeRenderer = ShapeRenderer(shape: shape, ctx: renderContext, animationCache: .none)
-        shapeRenderer.render(force: false, opacity: 1.0)
-
-        if let cgRect = cgContext?.boundingBoxOfPath {
-            return Rect(cgRect: cgRect)
+        if let resultRect = RenderUtils.setGeometry(shape.form, ctx: .none) {
+            return resultRect
         } else {
             return Rect.zero()
         }

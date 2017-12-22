@@ -42,7 +42,7 @@ open class SVGParser {
     fileprivate let initialPosition: Transform
 
     fileprivate var nodes = [Node]()
-    fileprivate var defNodes = [String: XMLIndexer]()
+    fileprivate var defNodes = [String: Node]()
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
@@ -137,9 +137,8 @@ open class SVGParser {
                 continue
             }
 
-            if let _ = parseNode(child) {
-                // TODO we don't really need to parse node
-                self.defNodes[id] = child
+            if let node = parseNode(child) {
+                self.defNodes[id] = node
                 continue
             }
 
@@ -193,7 +192,7 @@ open class SVGParser {
                 return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
                                  stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
             case "use":
-                return parseUse(node, groupStyle: styleAttributes, place: position)
+                return parseUse(node, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), pos: position, opacity: getOpacity(styleAttributes))
             case "mask":
                 break
             default:
@@ -245,7 +244,7 @@ open class SVGParser {
 
     fileprivate func getPosition(_ element: SWXMLHash.XMLElement) -> Transform {
         guard let transformAttribute = element.allAttributes["transform"]?.text else {
-            return Transform.identity
+            return Transform()
         }
         return parseTransformationAttribute(transformAttribute)
     }
@@ -373,15 +372,6 @@ open class SVGParser {
 
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
-
-        if let className = element.allAttributes["class"]?.text, let styleAttributesFromTable = styleTable[className] {
-            for (att, val) in styleAttributesFromTable {
-                if styleAttributes.index(forKey: att) == nil {
-                    styleAttributes.updateValue(val, forKey: att)
-                }
-            }
-        }
-
         if let style = element.allAttributes["style"]?.text {
             let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
             styleParts.forEach { styleAttribute in
@@ -390,14 +380,21 @@ open class SVGParser {
                     styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
                 }
             }
-        }
-
-        self.availableStyleAttributes.forEach { availableAttribute in
-            if let styleAttribute = element.allAttributes[availableAttribute]?.text {
-                styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+        } else {
+            self.availableStyleAttributes.forEach { availableAttribute in
+                if let styleAttribute = element.allAttributes[availableAttribute]?.text {
+                    styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+                }
             }
         }
 
+        if let className = element.allAttributes["class"]?.text, let styleAttributesFromTable = styleTable[className] {
+            for (att, val) in styleAttributesFromTable {
+                if styleAttributes.index(forKey: att) == nil {
+                    styleAttributes.updateValue(val, forKey: att)
+                }
+            }
+        }
         return styleAttributes
     }
 
@@ -799,10 +796,10 @@ open class SVGParser {
         } else {
             yPos = bounds.y
         }
-        return Transform.move(dx: xPos, dy: yPos)
+        return Transform().move(dx: xPos, dy: yPos)
     }
 
-    fileprivate func parseUse(_ use: XMLIndexer, groupStyle: [String: String] = [:], place: Transform = .identity) -> Node? {
+    fileprivate func parseUse(_ use: XMLIndexer, fill: Fill?, stroke: Stroke?, pos: Transform, opacity: Double) -> Node? {
         guard let element = use.element, let link = element.allAttributes["xlink:href"]?.text else {
             return .none
         }
@@ -810,13 +807,13 @@ open class SVGParser {
         if id.hasPrefix("#") {
             id = id.replacingOccurrences(of: "#", with: "")
         }
-        if let referenceNode = self.defNodes[id] {
-            if let node = parseNode(referenceNode, groupStyle: groupStyle) {
-                let place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
-                return Group(contents: [node], place: place)
-            }
+        guard let referenceNode = self.defNodes[id], let node = copyNode(referenceNode) else {
+            return .none
         }
-        return .none
+        node.place = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
+        node.opacity = opacity
+        let maskString = element.allAttributes["mask"]?.text ?? ""
+        return parseUseNode(node: node, fill: fill, stroke: stroke, mask: maskString)
     }
 
     fileprivate func parseUseNode(node: Node, fill: Fill?, stroke: Stroke?, mask: String) -> Node {
@@ -871,7 +868,7 @@ open class SVGParser {
         }
         var node: Node?
         mask.children.forEach { indexer in
-            if let useNode = parseUse(indexer) {
+            if let useNode = parseUse(indexer, fill: .none, stroke: .none, pos: Transform(), opacity: 0) {
                 node = useNode
             } else if let contentNode = parseNode(indexer) {
                 node = contentNode
@@ -924,10 +921,10 @@ open class SVGParser {
         }
 
         let parentLinearGradient = parentGradient as? LinearGradient
-        var x1 = getDoubleValueFromPercentage(element, attribute: "x1") ?? parentLinearGradient?.x1 ?? 0
-        var y1 = getDoubleValueFromPercentage(element, attribute: "y1") ?? parentLinearGradient?.y1 ?? 0
-        var x2 = getDoubleValueFromPercentage(element, attribute: "x2") ?? parentLinearGradient?.x2 ?? 1
-        var y2 = getDoubleValueFromPercentage(element, attribute: "y2") ?? parentLinearGradient?.y2 ?? 0
+        let x1 = getDoubleValueFromPercentage(element, attribute: "x1") ?? parentLinearGradient?.x1 ?? 0
+        let y1 = getDoubleValueFromPercentage(element, attribute: "y1") ?? parentLinearGradient?.y1 ?? 0
+        let x2 = getDoubleValueFromPercentage(element, attribute: "x2") ?? parentLinearGradient?.x2 ?? 1
+        let y2 = getDoubleValueFromPercentage(element, attribute: "y2") ?? parentLinearGradient?.y2 ?? 0
 
         var userSpace = false
         if let gradientUnits = element.allAttributes["gradientUnits"]?.text, gradientUnits == "userSpaceOnUse" {
@@ -936,20 +933,15 @@ open class SVGParser {
             userSpace = parent.userSpace
         }
 
+        let linearGradient = LinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops)
+
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
-            let cgTransform = RenderUtils.mapTransform(transform)
-            
-            let point1 = CGPoint(x: x1, y: y1).applying(cgTransform)
-            x1 = point1.x.doubleValue
-            y1 = point1.y.doubleValue
-            
-            let point2 = CGPoint(x: x2, y: y2).applying(cgTransform)
-            x2 = point2.x.doubleValue
-            y2 = point2.y.doubleValue
+
+            linearGradient.applyTransform(transform)
         }
 
-        return LinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops)
+        return linearGradient
     }
 
     fileprivate func parseRadialGradient(_ gradient: XMLIndexer) -> Fill? {
@@ -985,10 +977,10 @@ open class SVGParser {
         }
 
         let parentRadialGradient = parentGradient as? RadialGradient
-        var cx = getDoubleValueFromPercentage(element, attribute: "cx") ?? parentRadialGradient?.cx ?? 0.5
-        var cy = getDoubleValueFromPercentage(element, attribute: "cy") ?? parentRadialGradient?.cy ?? 0.5
-        var fx = getDoubleValueFromPercentage(element, attribute: "fx") ?? parentRadialGradient?.fx ?? cx
-        var fy = getDoubleValueFromPercentage(element, attribute: "fy") ?? parentRadialGradient?.fy ?? cy
+        let cx = getDoubleValueFromPercentage(element, attribute: "cx") ?? parentRadialGradient?.cx ?? 0.5
+        let cy = getDoubleValueFromPercentage(element, attribute: "cy") ?? parentRadialGradient?.cy ?? 0.5
+        let fx = getDoubleValueFromPercentage(element, attribute: "fx") ?? parentRadialGradient?.fx ?? cx
+        let fy = getDoubleValueFromPercentage(element, attribute: "fy") ?? parentRadialGradient?.fy ?? cy
         let r = getDoubleValueFromPercentage(element, attribute: "r") ?? parentRadialGradient?.r ?? 0.5
 
         var userSpace = false
@@ -998,20 +990,15 @@ open class SVGParser {
             userSpace = parent.userSpace
         }
 
+        let radialGradient = RadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops)
+
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
-            let cgTransform = RenderUtils.mapTransform(transform)
-            
-            let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
-            cx = point1.x.doubleValue
-            cy = point1.y.doubleValue
-            
-            let point2 = CGPoint(x: fx, y: fy).applying(cgTransform)
-            fx = point2.x.doubleValue
-            fy = point2.y.doubleValue
+
+            radialGradient.applyTransform(transform)
         }
 
-        return RadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops)
+        return radialGradient
     }
 
     fileprivate func parseStops(_ stops: [XMLIndexer]) -> [Stop] {
@@ -1328,12 +1315,10 @@ open class SVGParser {
     }
 
     fileprivate func getIntValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Int? {
-        if let attributeValue = element.allAttributes[attribute]?.text {
-            if let doubleValue = Double(attributeValue) {
-                return Int(doubleValue)
-            }
+        guard let attributeValue = element.allAttributes[attribute]?.text, let intValue = Int(attributeValue) else {
+            return .none
         }
-        return .none
+        return intValue
     }
 
     fileprivate func getFontName(_ attributes: [String: String]) -> String? {

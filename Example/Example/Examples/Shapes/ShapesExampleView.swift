@@ -25,9 +25,13 @@ class ShapesExampleView: MacawView {
 		let polygon = Polygon(points: [250, 100, 300, 150, 200, 150]).fill(with: Color.blue)
 
 		let text5 = ShapesExampleView.newText("Rect", .move(dx: 100, dy: 200))
-        
-		let rect = Rect(x: 50, y: 200, w: 100, h: 50).fill(with:
-            LinearGradient(degree: 45, from: Color(val: 0xFFAE27), to: Color(val: 0xDE496D)))
+		let rect = Rect(x: 50, y: 200, w: 100, h: 50).fill(with: LinearGradient(
+			x2: 1, y2: 1,
+			stops: [
+				Stop(offset: 0, color: Color(val: 0xFFAE27)),
+				Stop(offset: 1, color: Color(val: 0xDE496D))
+			]
+		))
 
 		let text6 = ShapesExampleView.newText("RoundRect", .move(dx: 250, dy: 200))
 		let round = Rect(x: 200, y: 200, w: 100, h: 50).round(rx: 10, ry: 10).fill(with: LinearGradient(

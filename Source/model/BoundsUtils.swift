@@ -144,7 +144,12 @@ class BoundsUtils {
         if let resultRect = RenderUtils.setGeometry(shape.form, ctx: .none) {
             return resultRect
         } else {
-            return Rect.zero()
+            let x = shape.form.bounds().x
+            let y = shape.form.bounds().y
+
+            let rect = Rect(x: x, y: y, w: 0, h: 0)
+
+            return rect
         }
     }
 }

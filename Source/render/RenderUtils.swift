@@ -511,11 +511,11 @@ class RenderUtils {
             var cgRect = cgPath.boundingBox
 
             if cgRect.origin.x == CGFloat.infinity {
-                cgRect.origin.x = 0
+                cgRect.origin.x = CGFloat(locus.bounds().x)
             }
 
             if cgRect.origin.y == CGFloat.infinity {
-                cgRect.origin.y = 0
+                cgRect.origin.y = CGFloat(locus.bounds().y)
             }
 
             bounds = Rect(cgRect: cgRect)

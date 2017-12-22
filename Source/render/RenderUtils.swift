@@ -507,7 +507,19 @@ class RenderUtils {
             ctx?.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
         } else {
             let cgPath = RenderUtils.toCGPath(locus)
-            bounds = Rect(cgRect: cgPath.boundingBoxOfPath)
+
+            var cgRect = cgPath.boundingBox
+
+            if cgRect.origin.x == CGFloat.infinity {
+                cgRect.origin.x = 0
+            }
+
+            if cgRect.origin.y == CGFloat.infinity {
+                cgRect.origin.y = 0
+            }
+
+            bounds = Rect(cgRect: cgRect)
+
             ctx?.addPath(cgPath)
         }
 

@@ -138,4 +138,24 @@ class BoundsUtils {
             return Rect.zero()
         }
     }
+
+    class func getBounds(shape: Shape) -> Rect {
+        let renderContext = RenderContext(view: .none)
+        UIGraphicsBeginImageContext(CGSize.zero)
+        let cgContext = UIGraphicsGetCurrentContext()
+
+        defer {
+            UIGraphicsEndImageContext()
+        }
+
+        renderContext.cgContext = cgContext
+        let shapeRenderer = ShapeRenderer(shape: shape, ctx: renderContext, animationCache: .none)
+        shapeRenderer.render(force: false, opacity: 1.0)
+
+        if let cgRect = cgContext?.boundingBoxOfPath {
+            return Rect(cgRect: cgRect)
+        } else {
+            return Rect.zero()
+        }
+    }
 }

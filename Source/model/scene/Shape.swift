@@ -40,17 +40,6 @@ open class Shape: Node {
     }
 
     override open var bounds: Rect {
-        var bounds = form.bounds()
-
-        if let shapeStroke = self.stroke {
-            let r = shapeStroke.width / 2.0
-            bounds = Rect(
-                x: bounds.x - r,
-                y: bounds.y - r,
-                w: bounds.w + r * 2.0,
-                h: bounds.h + r * 2.0)
-        }
-
-        return bounds
+        return BoundsUtils.getBounds(shape: self)
     }
 }

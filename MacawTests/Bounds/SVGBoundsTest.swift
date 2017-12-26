@@ -14,7 +14,7 @@ class SVGBoundsTest: XCTestCase {
     }
     
     func validate(name: String, referenceBounds: Rect) {
-        let passingThreshold = 0.2
+        let passingThreshold = 1.0
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
             let node = try SVGParser.parse(bundle:bundle, path: name)

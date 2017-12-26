@@ -65,10 +65,14 @@ class NodeBoundsTests: XCTestCase {
         let targetRect = Rect(x: 97.0, y: 43.0, w: 6.0, h: 14.0)
         let ellipse = Ellipse(cx: 100.0, cy: 50.0, rx: 3.0, ry: 7.0)
         
-        var shape = Shape(form: ellipse)
+        let shape = Shape(form: ellipse)
         checkBounds(rect1: shape.bounds, rect2: targetRect)
-        
-        shape = Shape(form: Arc(ellipse: ellipse, shift: 2.0, extent: 3.0))
+    }
+    
+    func testShapeArc() {
+        let targetRect = Rect(x: 97.0, y: 43.0, w: 6.0, h: 14.0)
+        let ellipse = Ellipse(cx: 100.0, cy: 50.0, rx: 3.0, ry: 7.0)
+        let shape = Shape(form: Arc(ellipse: ellipse, shift: 2.0, extent: 3.0))
         checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     

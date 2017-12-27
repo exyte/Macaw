@@ -309,6 +309,49 @@ class RenderUtils {
             }
         }
 
+        func q(_ x1: Double, y1: Double, x: Double, y: Double) {
+            if let cur = currentPoint {
+                let dx = Double(cur.x)
+                let dy = Double(cur.y)
+                Q(x1 + dx, y1: y1 + dy, x: x + dx, y: y + dy)
+            }
+        }
+        
+        func Q(_ x1: Double, y1: Double, x: Double, y: Double) {
+            let endPoint = CGPoint(x: x, y: y)
+            let controlPoint = CGPoint(x: x1, y: y1)
+            bezierPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
+            setQuadrPoint(endPoint, quadr: controlPoint)
+        }
+        
+        func t(_ x: Double, y: Double) {
+            if let cur = currentPoint {
+                let next = CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y)
+                var quadr: CGPoint?
+                if let curQuadr = quadrPoint {
+                    quadr = CGPoint(x: 2 * cur.x - curQuadr.x, y: 2 * cur.y - curQuadr.y)
+                } else {
+                    quadr = cur
+                }
+                bezierPath.addQuadCurve(to: next, controlPoint: quadr!)
+                setQuadrPoint(next, quadr: quadr!)
+            }
+        }
+        
+        func T(_ x: Double, y: Double) {
+            if let cur = currentPoint {
+                let next = CGPoint(x: CGFloat(x), y: CGFloat(y))
+                var quadr: CGPoint?
+                if let curQuadr = quadrPoint {
+                    quadr = CGPoint(x: 2 * cur.x - curQuadr.x, y: 2 * cur.y - curQuadr.y)
+                } else {
+                    quadr = cur
+                }
+                bezierPath.addQuadCurve(to: next, controlPoint: quadr!)
+                setQuadrPoint(next, quadr: quadr!)
+            }
+        }
+
         func a(_ rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
             if let cur = currentPoint {
                 A(rx, ry: ry, angle: angle, largeArc: largeArc, sweep: sweep, x: x + Double(cur.x), y: y + Double(cur.y))
@@ -375,6 +418,12 @@ class RenderUtils {
                 lineTo(initPoint)
             }
             bezierPath.close()
+        }
+
+        func setQuadrPoint(_ p: CGPoint, quadr: CGPoint) {
+            currentPoint = p
+            quadrPoint = quadr
+            cubicPoint = nil
         }
 
         func setCubicPoint(_ p: CGPoint, cubic: CGPoint) {
@@ -450,6 +499,14 @@ class RenderUtils {
                     s(data[0], y2: data[1], x: data[2], y: data[3])
                     data.removeSubrange((0 ..< 4))
                 }
+            case .Q:
+                Q(data[0], y1: data[1], x: data[2], y: data[3])
+            case .q:
+                q(data[0], y1: data[1], x: data[2], y: data[3])
+            case .T:
+                T(data[0], y: data[1])
+            case .t:
+                t(data[0], y: data[1])
             case .A:
                 let flags = numToBools(data[3])
                 A(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
@@ -462,8 +519,6 @@ class RenderUtils {
                 e(data[0], y: data[1], w: data[2], h: data[3], startAngle: data[4], arcAngle: data[5])
             case .z:
                 Z()
-            default:
-                fatalError("Unknown segment: \(part.type)")
             }
         }
         return bezierPath

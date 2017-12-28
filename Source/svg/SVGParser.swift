@@ -1051,258 +1051,10 @@ open class SVGParser {
     }
 
     fileprivate func parsePath(_ path: XMLIndexer) -> Path? {
-        if let dAttr = path.element?.allAttributes["d"]?.text {
-            return Path(segments: parsePathCommands(dAttr))
+        if let d = path.element?.allAttributes["d"]?.text {
+            return Path(segments: PathDataReader(input: d).read())
         }
         return .none
-    }
-
-    fileprivate func parsePathCommands(_ d: String) -> [PathSegment] {
-        let d = d.trimmingCharacters(in: .whitespaces)
-
-        var pathCommands = [PathCommand]()
-        var pathCommandName: NSString? = ""
-        var pathCommandValues: NSString? = ""
-        let scanner = Scanner(string: d)
-        let set = CharacterSet(charactersIn: SVGConstants.pathCommands.joined())
-        let charCount = d.count
-        repeat {
-            scanner.scanCharacters(from: set, into: &pathCommandName)
-
-            if pathCommandName!.length == 2 {
-                let command1 = pathCommandName!.substring(to: 1)
-                pathCommands.append(
-                    PathCommand(
-                        type: getCommandType(command1 as String),
-                        expression: "",
-                        absolute: isAbsolute(command1 as String)
-                    )
-                )
-                pathCommandName = pathCommandName!.substring(from: 1) as NSString
-            }
-
-            scanner.scanUpToCharacters(from: set, into: &pathCommandValues)
-            pathCommands.append(
-                PathCommand(
-                    type: getCommandType(pathCommandName! as String),
-                    expression: pathCommandValues! as String,
-                    absolute: isAbsolute(pathCommandName! as String)
-                )
-            )
-
-            if scanner.scanLocation == charCount {
-                break
-            }
-        } while pathCommandValues!.length > 0
-        var commands = [PathSegment]()
-        pathCommands.forEach { command in
-            if let parsedCommand = parseCommand(command) {
-                commands.append(parsedCommand)
-            }
-        }
-        return commands
-    }
-
-    fileprivate func parseCommand(_ command: PathCommand) -> PathSegment? {
-        var characterSet = CharacterSet()
-        characterSet.insert(" ")
-        characterSet.insert(",")
-        let commandParams = command.expression.components(separatedBy: characterSet)
-        var separatedValues = [String]()
-        commandParams.forEach { param in
-            separatedValues.append(contentsOf: separateValuesIfNeeded(param))
-        }
-
-        switch command.type {
-        case .moveTo:
-            var data = [Double]()
-            separatedValues.forEach { value in
-                if let double = Double(value) {
-                    data.append(double)
-                }
-            }
-
-            if data.count < 2 {
-                return .none
-            }
-
-            return PathSegment(type: command.absolute ? .M : .m, data: data)
-
-        case .lineTo:
-            var data = [Double]()
-            separatedValues.forEach { value in
-                if let double = Double(value) {
-                    data.append(double)
-                }
-            }
-
-            if data.count < 2 {
-                return .none
-            }
-
-            return PathSegment(type: command.absolute ? .L : .l, data: data)
-
-        case .lineH:
-            if separatedValues.count < 1 {
-                return .none
-            }
-
-            guard let x = Double(separatedValues[0]) else {
-                return .none
-            }
-
-            return PathSegment(type: command.absolute ? .H : .h, data: [x])
-
-        case .lineV:
-            if separatedValues.count < 1 {
-                return .none
-            }
-
-            guard let y = Double(separatedValues[0]) else {
-                return .none
-            }
-
-            return PathSegment(type: command.absolute ? .V : .v, data: [y])
-
-        case .curveTo:
-            var data = [Double]()
-            separatedValues.forEach { value in
-                if let double = Double(value) {
-                    data.append(double)
-                }
-            }
-
-            if data.count < 6 {
-                return .none
-            }
-
-            return PathSegment(type: command.absolute ? .C : .c, data: data)
-
-        case .smoothCurveTo:
-            var data = [Double]()
-            separatedValues.forEach { value in
-                if let double = Double(value) {
-                    data.append(double)
-                }
-            }
-
-            if data.count < 4 {
-                return .none
-            }
-
-            return PathSegment(type: command.absolute ? .S : .s, data: data)
-
-        case .closePath:
-            return PathSegment(type: .z)
-        default:
-            return .none
-        }
-    }
-
-    fileprivate func separateValuesIfNeeded(_ expression: String) -> [String] {
-        var values = [String]()
-        var value = String()
-        var e = false
-
-        expression.unicodeScalars.forEach { scalar in
-            if scalar == "e" {
-                e = true
-            }
-            if scalar == "-" && !e {
-                if !value.isEmpty {
-                    values.append(value)
-                    value = String()
-                }
-                e = false
-            }
-
-            if scalar == "."
-                && !e
-                && value.contains(".") {
-
-                values.append(value)
-                value = String()
-                e = false
-            }
-
-            value.append("\(scalar)")
-        }
-
-        if !value.isEmpty {
-            values.append(value)
-        }
-
-        return values
-    }
-
-    fileprivate func isAbsolute(_ commandString: String) -> Bool {
-        switch commandString {
-        case SVGConstants.moveToAbsolute:
-            return true
-        case SVGConstants.moveToRelative:
-            return false
-        case SVGConstants.lineToAbsolute:
-            return true
-        case SVGConstants.lineToRelative:
-            return false
-        case SVGConstants.lineHorizontalAbsolute:
-            return true
-        case SVGConstants.lineHorizontalRelative:
-            return false
-        case SVGConstants.lineVerticalAbsolute:
-            return true
-        case SVGConstants.lineVerticalRelative:
-            return false
-        case SVGConstants.curveToAbsolute:
-            return true
-        case SVGConstants.curveToRelative:
-            return false
-        case SVGConstants.smoothCurveToAbsolute:
-            return true
-        case SVGConstants.smoothCurveToRelative:
-            return false
-        case SVGConstants.closePathAbsolute:
-            return true
-        case SVGConstants.closePathRelative:
-            return false
-        default:
-            return true
-        }
-    }
-
-    fileprivate func getCommandType(_ commandString: String) -> PathCommandType {
-        switch commandString {
-        case SVGConstants.moveToAbsolute:
-            return .moveTo
-        case SVGConstants.moveToRelative:
-            return .moveTo
-        case SVGConstants.lineToAbsolute:
-            return .lineTo
-        case SVGConstants.lineToRelative:
-            return .lineTo
-        case SVGConstants.lineVerticalAbsolute:
-            return .lineV
-        case SVGConstants.lineVerticalRelative:
-            return .lineV
-        case SVGConstants.lineHorizontalAbsolute:
-            return .lineH
-        case SVGConstants.lineHorizontalRelative:
-            return .lineH
-        case SVGConstants.curveToAbsolute:
-            return .curveTo
-        case SVGConstants.curveToRelative:
-            return .curveTo
-        case SVGConstants.smoothCurveToAbsolute:
-            return .smoothCurveTo
-        case SVGConstants.smoothCurveToRelative:
-            return .smoothCurveTo
-        case SVGConstants.closePathAbsolute:
-            return .closePath
-        case SVGConstants.closePathRelative:
-            return .closePath
-        default:
-            return .none
-        }
     }
 
     fileprivate func getDoubleValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
@@ -1438,6 +1190,166 @@ open class SVGParser {
 
     fileprivate func degreesToRadians(_ degrees: Double) -> Double {
         return degrees * .pi / 180
+    }
+
+}
+
+private class PathDataReader {
+    
+    private let input: String
+    private var current: UnicodeScalar?
+    private var iterator: String.UnicodeScalarView.Iterator
+
+    init(input: String) {
+        self.input = input
+        self.iterator = input.unicodeScalars.makeIterator()
+    }
+    
+    public func read() -> [PathSegment] {
+        let _ = readNext()
+        var segments = [PathSegment]()
+        while let array = readSegments() {
+            segments.append(contentsOf: array)
+        }
+        return segments
+    }
+
+    private func readSegments() -> [PathSegment]? {
+        if let type = readSegmentType() {
+            let count = getArgCount(segment: type)
+            if (count == 0) {
+                return [PathSegment(type: type)]
+            }
+            var result = [PathSegment]()
+            let data = readData()
+            var index = 0
+            while (index < data.count) {
+                let end = index + count
+                if (end > data.count) {
+                    // TODO need to generate error:
+                    // "Path '\(type)' has invalid number of arguments: \(data.count)"
+                    break
+                }
+                result.append(PathSegment(type: type, data: Array(data[index..<end])))
+                index = end
+            }
+            return result
+        }
+        return nil
+    }
+
+    private func readData() -> [Double] {
+        var data = [Double]()
+        while(true) {
+            while(!isNumStart()) {
+                if (getPathSegmentType() != nil || readNext() == nil) {
+                    return data
+                }
+            }
+            if let double = Double(readNum()) {
+                data.append(double)
+            }
+        }
+    }
+
+    fileprivate func readNum() -> String {
+        var chars = [current!]
+        var hasDot = current == "."
+        while let ch = readDigit(&hasDot) {
+            chars.append(ch)
+        }
+        var buf = ""
+        buf.unicodeScalars.append(contentsOf: chars)
+        return buf
+    }
+
+    fileprivate func readDigit(_ hasDot: inout Bool) -> UnicodeScalar? {
+        if let ch = readNext() {
+            if (ch >= "0" && ch <= "9") {
+                return ch
+            } else if (ch == "." && !hasDot) {
+                hasDot = true
+                return ch
+            }
+        }
+        return nil
+    }
+
+    fileprivate func isNum(ch: UnicodeScalar, hasDot: inout Bool) -> Bool {
+        switch(ch) {
+        case "0"..."9": return true
+        case ".":
+            if hasDot {
+                return false
+            }
+            hasDot = true
+        default:
+            return true
+        }
+        return false
+    }
+
+    private func readNext() -> UnicodeScalar? {
+        current = iterator.next()
+        return current
+    }
+    
+    private func readSegmentType() -> PathSegmentType? {
+        while(true) {
+            if let type = getPathSegmentType() {
+                let _ = readNext()
+                return type
+            }
+            if (readNext() == nil) {
+                return nil
+            }
+        }
+    }
+    
+    fileprivate func getPathSegmentType() -> PathSegmentType? {
+        if let ch = current {
+            switch(ch) {
+            case "M": return .M
+            case "m": return .m
+            case "L": return .L
+            case "l": return .l
+            case "C": return .C
+            case "c": return .c
+            case "Q": return .Q
+            case "q": return .q
+            case "A": return .A
+            case "a": return .a
+            case "z", "Z": return .z
+            case "H": return .H
+            case "h": return .h
+            case "V": return .V
+            case "v": return .v
+            case "S": return .S
+            case "s": return .s
+            case "T": return .T
+            case "t": return .t
+            default: break
+            }
+        }
+        return nil
+    }
+    
+    fileprivate func getArgCount(segment: PathSegmentType) -> Int {
+        switch(segment) {
+        case .H, .h, .V, .v: return 1
+        case .M, .m, .L, .l, .T, .t: return 2
+        case .S, .s, .Q, .q: return 4
+        case .C, .c: return 6
+        case .A, .a: return 7
+        default: return 0
+        }
+    }
+
+    fileprivate func isNumStart() -> Bool {
+        if let ch = current {
+            return (ch >= "0" && ch <= "9") || ch == "." || ch == "-"
+        }
+        return false
     }
 
 }

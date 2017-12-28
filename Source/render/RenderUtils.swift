@@ -371,27 +371,18 @@ class RenderUtils {
                 let underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
                     / (rx * rx * y1_ * y1_ + ry * ry * x1_ * x1_)
                 var bigRoot = (underroot > 0) ? sqrt(underroot) : 0
-                // TODO: Replace concrete number with 1e-2
-                bigRoot = (bigRoot <= 0.01) ? 0 : bigRoot
+                bigRoot = (bigRoot <= 1e-2) ? 0 : bigRoot
                 let coef: Double = (sweep != largeArc) ? 1 : -1
                 let cx_ = coef * bigRoot * rx * y1_ / ry
                 let cy_ = -1 * coef * bigRoot * ry * x1_ / rx
-                let cx = (cos(angle) * cx_ - sin(angle) * cy_ + (x1 + x) / 2)
-                let cy = (sin(angle) * cx_ + cos(angle) * cy_ + (y1 + y) / 2)
-                let t1 = -1 * atan2(y1 - cy, x1 - cx)
-                let t2 = atan2(y - cy, x - cx)
-                var delta = -(t1 + t2)
-                // recalculate delta depending on arc. Preserve rotation direction
-                if largeArc {
-                    let sg = copysign(1.0, delta)
-                    if abs(delta) < Double.pi {
-                        delta = -1 * (sg * M_2_PI - delta)
-                    }
-                } else {
-                    let sg = copysign(1.0, delta)
-                    if abs(delta) > Double.pi {
-                        delta = -1 * (sg * M_2_PI - delta)
-                    }
+                let cx = cos(angle) * cx_ - sin(angle) * cy_ + (x1 + x) / 2
+                let cy = sin(angle) * cx_ + cos(angle) * cy_ + (y1 + y) / 2
+                
+                let t1 = calcAngle(ux: 1, uy: 0, vx: (x1_ - cx_) / rx, vy: (y1_ - cy_) / ry)
+                var delta = calcAngle(ux: (x1_ - cx_) / rx, uy: (y1_ - cy_) / ry, vx: (-x1_ - cx_) / rx, vy: (-y1_ - cy_) / ry).truncatingRemainder(dividingBy: .pi * 2)
+
+                if ((sweep && delta < 0) || (!sweep && delta > 0)) {
+                    delta = -delta
                 }
                 E(cx - rx, y: cy - ry, w: 2 * rx, h: 2 * ry, startAngle: t1, arcAngle: delta)
                 setPoint(CGPoint(x: CGFloat(x), y: CGFloat(y)))
@@ -508,11 +499,9 @@ class RenderUtils {
             case .t:
                 t(data[0], y: data[1])
             case .A:
-                let flags = numToBools(data[3])
-                A(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+                A(data[0], ry: data[1], angle: data[2], largeArc: num2bool(data[3]), sweep: num2bool(data[4]), x: data[5], y: data[6])
             case .a:
-                let flags = numToBools(data[3])
-                a(data[0], ry: data[1], angle: data[2], largeArc: flags[0], sweep: flags[1], x: data[4], y: data[5])
+                a(data[0], ry: data[1], angle: data[2], largeArc: num2bool(data[3]), sweep: num2bool(data[4]), x: data[5], y: data[6])
             case .E:
                 E(data[0], y: data[1], w: data[2], h: data[3], startAngle: data[4], arcAngle: data[5])
             case .e:
@@ -523,10 +512,14 @@ class RenderUtils {
         }
         return bezierPath
     }
+    
+    class func calcAngle(ux: Double, uy: Double, vx: Double, vy: Double) -> Double {
+        let sign = copysign(1, ux * vy - uy * vx)
+        return sign * acos((ux * vx + uy * vy) / (sqrt(ux * ux + uy * uy) * sqrt(vx * vx + vy * vy)))
+    }
 
-    class func numToBools(_ num: Double) -> [Bool] {
-        let val: Int = Int(num)
-        return [(val & 1) > 0, (val & 2) > 0]
+    class func num2bool(_ double: Double) -> Bool {
+        return double > 0.5 ? true : false
     }
 
     fileprivate class func newCGRect(_ rect: Rect) -> CGRect {

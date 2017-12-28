@@ -122,12 +122,12 @@ open class PathBuilder {
 
     // GENERATED NOT
     open func a(_ rx: Double, _ ry: Double, _ angle: Double, _ largeArc: Bool, _ sweep: Bool, _ x: Double, _ y: Double) -> PathBuilder {
-        return PathBuilder(segment: PathSegment(type: .a, data: [rx, ry, angle, boolsToNum(largeArc, sweep: sweep), x, y]), rest: self)
+        return PathBuilder(segment: PathSegment(type: .a, data: [rx, ry, angle, boolToNum(largeArc), boolToNum(sweep), x, y]), rest: self)
     }
 
     // GENERATED NOT
     open func A(_ rx: Double, _ ry: Double, _ angle: Double, _ largeArc: Bool, _ sweep: Bool, _ x: Double, _ y: Double) -> PathBuilder {
-        return PathBuilder(segment: PathSegment(type: .A, data: [rx, ry, angle, boolsToNum(largeArc, sweep: sweep), x, y]), rest: self)
+        return PathBuilder(segment: PathSegment(type: .A, data: [rx, ry, angle, boolToNum(largeArc), boolToNum(sweep), x, y]), rest: self)
     }
 
     // GENERATED NOT
@@ -155,9 +155,10 @@ open class PathBuilder {
         }
         return Path(segments: segments.reversed())
     }
-
+    
     // GENERATED NOT
-    fileprivate func boolsToNum(_ largeArc: Bool, sweep: Bool) -> Double {
-        return (largeArc ? 1 : 0) + (sweep ? 1 : 0) * 2
+    fileprivate func boolToNum(_ value: Bool) -> Double {
+        return value ? 1 : 0
     }
+
 }

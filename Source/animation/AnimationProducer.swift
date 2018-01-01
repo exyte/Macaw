@@ -122,6 +122,12 @@ class AnimationProducer {
                     self.addAnimation(next)
                 }
             }
+        case .path:
+            addPathAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
+                if let next = animation.next {
+                    self.addAnimation(next)
+                }
+            })
         case .empty:
             executeCompletion(animation)
         }

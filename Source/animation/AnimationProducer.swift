@@ -243,8 +243,8 @@ class AnimationProducer {
 
         }
 
-        combine.removeFunc = {
-            combine.animations.forEach { animation in
+        combine.removeFunc = { [weak combine] in
+            combine?.animations.forEach { animation in
                 animation.removeFunc?()
             }
         }

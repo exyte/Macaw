@@ -65,8 +65,8 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
 
     if let layer = animationCache?.layerForNode(node, animation: animation) {
         layer.add(generatedAnimation, forKey: animation.ID)
-        animation.removeFunc = {
-            layer.removeAnimation(forKey: animation.ID)
+        animation.removeFunc = { [weak layer] in
+            layer?.removeAnimation(forKey: animation.ID)
         }
     }
 }

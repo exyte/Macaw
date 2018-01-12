@@ -119,8 +119,8 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     }
 
     layer.add(generatedAnim, forKey: animation.ID)
-    animation.removeFunc = {
-        layer.removeAnimation(forKey: animation.ID)
+    animation.removeFunc = { [weak layer] in
+        layer?.removeAnimation(forKey: animation.ID)
     }
 }
 

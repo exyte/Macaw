@@ -7,10 +7,10 @@ import Foundation
 #endif
 
 class ShapeLayer: CAShapeLayer {
-    var node: Node?
+    weak var node: Node?
     var renderingInterval: RenderingInterval?
     var renderTransform: CGAffineTransform?
-    var animationCache: AnimationCache?
+    weak var animationCache: AnimationCache?
     var shouldRenderContent = true
     var isForceRenderingEnabled = true
 

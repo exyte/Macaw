@@ -35,15 +35,6 @@ func addPathAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animatio
     generatedAnim.autoreverses = animation.autoreverses
     
     generatedAnim.completion = { finished in
-        
-//        if animation.manualStop {
-//            animation.progress = 0.0
-//            mutatingShape.form = morphingAnimation.getVFunc()(0.0)
-//        } else if finished {
-//            animation.progress = 1.0
-//            mutatingShape.form = morphingAnimation.getVFunc()(1.0)
-//        }
-        
         animationCache?.freeLayer(shape)
         
         if  !animation.cycled &&
@@ -59,10 +50,8 @@ func addPathAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animatio
         completion()
     }
     
-    generatedAnim.progress = { progress in
-        
+    generatedAnim.progress = { progress in        
         let t = Double(progress)
-        //mutatingShape.form = morphingAnimation.getVFunc()(t)
         
         animation.progress = t
         animation.onProgressUpdate?(t)

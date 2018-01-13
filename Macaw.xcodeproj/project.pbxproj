@@ -134,6 +134,10 @@
 		57614BDA1F8739EE00875933 /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57614BD91F8739EE00875933 /* MacawView+PDF.swift */; };
 		57614BDB1F8739EE00875933 /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57614BD91F8739EE00875933 /* MacawView+PDF.swift */; };
 		57900FF91EA0DEBF00809FFB /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
+		57A22B97200A45320015870E /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A22B96200A45320015870E /* PathAnimation.swift */; };
+		57A22B98200A45320015870E /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A22B96200A45320015870E /* PathAnimation.swift */; };
+		57A22B9A200A45420015870E /* PathAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A22B99200A45420015870E /* PathAnimationGenerator.swift */; };
+		57A22B9B200A45420015870E /* PathAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A22B99200A45420015870E /* PathAnimationGenerator.swift */; };
 		57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
 		57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */; };
 		57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */; };
@@ -329,6 +333,8 @@
 		57614B791F83D15600875933 /* MacawOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacawOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57614BD91F8739EE00875933 /* MacawView+PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacawView+PDF.swift"; sourceTree = "<group>"; };
 		57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage2Image.swift; sourceTree = "<group>"; };
+		57A22B96200A45320015870E /* PathAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathAnimation.swift; sourceTree = "<group>"; };
+		57A22B99200A45420015870E /* PathAnimationGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathAnimationGenerator.swift; sourceTree = "<group>"; };
 		57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsInterpolation.swift; sourceTree = "<group>"; };
 		57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimation.swift; sourceTree = "<group>"; };
 		57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeAnimationGenerator.swift; sourceTree = "<group>"; };
@@ -652,6 +658,7 @@
 				57E5E1031E3B393900D1CB28 /* OpacityAnimation.swift */,
 				57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */,
 				57E5E1041E3B393900D1CB28 /* TransformAnimation.swift */,
+				57A22B96200A45320015870E /* PathAnimation.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -665,6 +672,7 @@
 				57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */,
 				57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */,
 				57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */,
+				57A22B99200A45420015870E /* PathAnimationGenerator.swift */,
 			);
 			path = animation_generators;
 			sourceTree = "<group>";
@@ -1165,6 +1173,7 @@
 				57614B201F83D15600875933 /* Color.swift in Sources */,
 				57614B211F83D15600875933 /* PathSegment.swift in Sources */,
 				57614B221F83D15600875933 /* ImageRenderer.swift in Sources */,
+				57A22B9B200A45420015870E /* PathAnimationGenerator.swift in Sources */,
 				57614B231F83D15600875933 /* PathFunctions.swift in Sources */,
 				57614B241F83D15600875933 /* SVGSerializer.swift in Sources */,
 				57614B251F83D15600875933 /* MorphingAnimation.swift in Sources */,
@@ -1209,6 +1218,7 @@
 				57614B4B1F83D15600875933 /* Point.swift in Sources */,
 				57614B4C1F83D15600875933 /* OpacityGenerator.swift in Sources */,
 				57614B4D1F83D15600875933 /* Shape.swift in Sources */,
+				57A22B98200A45320015870E /* PathAnimation.swift in Sources */,
 				57614B4E1F83D15600875933 /* Ellipse.swift in Sources */,
 				57614B4F1F83D15600875933 /* Locus.swift in Sources */,
 				57614B501F83D15600875933 /* SceneUtils.swift in Sources */,
@@ -1291,6 +1301,7 @@
 				57E5E17D1E3B393900D1CB28 /* Color.swift in Sources */,
 				57E5E1951E3B393900D1CB28 /* PathSegment.swift in Sources */,
 				57E5E1A41E3B393900D1CB28 /* ImageRenderer.swift in Sources */,
+				57A22B9A200A45420015870E /* PathAnimationGenerator.swift in Sources */,
 				57E5E1621E3B393900D1CB28 /* PathFunctions.swift in Sources */,
 				C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */,
 				57E5E16E1E3B393900D1CB28 /* MorphingAnimation.swift in Sources */,
@@ -1335,6 +1346,7 @@
 				57E5E1971E3B393900D1CB28 /* Point.swift in Sources */,
 				57E5E1681E3B393900D1CB28 /* OpacityGenerator.swift in Sources */,
 				57E5E1A11E3B393900D1CB28 /* Shape.swift in Sources */,
+				57A22B97200A45320015870E /* PathAnimation.swift in Sources */,
 				57E5E18D1E3B393900D1CB28 /* Ellipse.swift in Sources */,
 				57E5E1911E3B393900D1CB28 /* Locus.swift in Sources */,
 				57AF39891E66E06200F0BFE2 /* SceneUtils.swift in Sources */,

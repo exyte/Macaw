@@ -73,8 +73,8 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
 
     if let layer = animationCache?.layerForNode(node, animation: animation) {
         layer.add(generatedAnim, forKey: animation.ID)
-        animation.removeFunc = {
-            layer.removeAnimation(forKey: animation.ID)
+        animation.removeFunc = { [weak layer] in
+            layer?.removeAnimation(forKey: animation.ID)
         }
     }
 }

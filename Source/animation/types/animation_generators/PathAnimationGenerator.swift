@@ -96,8 +96,8 @@ func addPathAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animatio
     }
         
     layer.add(generatedAnim, forKey: animation.ID)
-    animation.removeFunc = {
-        layer.removeAnimation(forKey: animation.ID)
+    animation.removeFunc = { [weak layer] in
+        layer?.removeAnimation(forKey: animation.ID)
     }
 }
 

@@ -108,8 +108,8 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     }
 
     layer.add(generatedAnim, forKey: animation.ID)
-    animation.removeFunc = {
-        layer.removeAnimation(forKey: animation.ID)
+    animation.removeFunc = { [weak layer] in
+        layer?.removeAnimation(forKey: animation.ID)
     }
 }
 

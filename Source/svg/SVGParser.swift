@@ -31,7 +31,16 @@ open class SVGParser {
     open class func parse(text: String) throws -> Node {
         return SVGParser(text).parse()
     }
-
+    
+    
+    /// Parse the specified content of an SVG file on device (not part of the bundle
+    /// - returns: Root node of the corresponding Macaw scene.
+    open class func parse(file: URL) throws -> Node {
+        guard let text = try? String(contentsOfFile: file.path, encoding: String.Encoding.utf8) else {
+            throw SVGParserError.noSuchFile(path: "\(file.absoluteString)")
+        }
+        return try SVGParser.parse(text: text)
+    }
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",

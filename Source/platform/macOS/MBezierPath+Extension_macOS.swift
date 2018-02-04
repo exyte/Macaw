@@ -139,9 +139,9 @@ import Foundation
             self.curve(to: to, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
         }
 
-        func addQuadCurveToPoint(endPoint: NSPoint, controlPoint: NSPoint) {
+        func addQuadCurve(to: NSPoint, controlPoint: NSPoint) {
             let QP0 = self.currentPoint
-            let CP3 = endPoint
+            let CP3 = to
 
             let CP1 = CGPoint(
                 x: QP0.x + ((2.0 / 3.0) * (controlPoint.x - QP0.x)),
@@ -149,8 +149,8 @@ import Foundation
             )
 
             let CP2 = CGPoint(
-                x: endPoint.x + (2.0 / 3.0) * (controlPoint.x - endPoint.x),
-                y: endPoint.y + (2.0 / 3.0) * (controlPoint.y - endPoint.y)
+                x: to.x + (2.0 / 3.0) * (controlPoint.x - to.x),
+                y: to.y + (2.0 / 3.0) * (controlPoint.y - to.y)
             )
 
             self.addCurve(to: CP3, controlPoint1: CP1, controlPoint2: CP2)

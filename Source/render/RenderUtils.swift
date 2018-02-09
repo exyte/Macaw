@@ -358,43 +358,75 @@ class RenderUtils {
             }
         }
 
-        func A(_ rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
+        func A(_ _rx: Double, ry _ry: Double, angle _angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
+            let angle = _angle * .pi / 180
+
             if let cur = currentPoint {
                 let x1 = Double(cur.x)
                 let y1 = Double(cur.y)
 
                 // find arc center coordinates and points angles as per
                 // http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
-                let x1_ = cos(angle) * (x1 - x) / 2 + sin(angle) * (y1 - y) / 2
-                let y1_ = -1 * sin(angle) * (x1 - x) / 2 + cos(angle) * (y1 - y) / 2
-                // make sure the value under the root is positive
-                let underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
-                    / (rx * rx * y1_ * y1_ + ry * ry * x1_ * x1_)
-                var bigRoot = (underroot > 0) ? sqrt(underroot) : 0
-                bigRoot = (bigRoot <= 1e-2) ? 0 : bigRoot
-                let coef: Double = (sweep != largeArc) ? 1 : -1
-                let cx_ = coef * bigRoot * rx * y1_ / ry
-                let cy_ = -1 * coef * bigRoot * ry * x1_ / rx
-                let cx = cos(angle) * cx_ - sin(angle) * cy_ + (x1 + x) / 2
-                let cy = sin(angle) * cx_ + cos(angle) * cy_ + (y1 + y) / 2
-                
-                let t1 = calcAngle(ux: 1, uy: 0, vx: (x1_ - cx_) / rx, vy: (y1_ - cy_) / ry)
-                var delta = calcAngle(ux: (x1_ - cx_) / rx, uy: (y1_ - cy_) / ry, vx: (-x1_ - cx_) / rx, vy: (-y1_ - cy_) / ry).truncatingRemainder(dividingBy: .pi * 2)
-
-                if ((sweep && delta < 0) || (!sweep && delta > 0)) {
-                    delta = -delta
+                if (_rx == 0 || _ry == 0) {
+                    L(x, y: y)
+                } else {
+                    var rx = abs(_rx)
+                    var ry = abs(_ry)
+                    let x1_ = cos(angle) * (x1 - x) / 2 + sin(angle) * (y1 - y) / 2
+                    let y1_ = -1 * sin(angle) * (x1 - x) / 2 + cos(angle) * (y1 - y) / 2
+                    
+                    let rCheck = (x1_ * x1_) / (rx * rx) + (y1_ * y1_) / (ry * ry)
+                    if (rCheck > 1) {
+                        rx = sqrt(rCheck) * rx
+                        ry = sqrt(rCheck) * ry
+                    }
+                    
+                    // make sure the value under the root is positive
+                    let underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
+                        / (rx * rx * y1_ * y1_ + ry * ry * x1_ * x1_)
+                    var bigRoot = (underroot > 0) ? sqrt(underroot) : 0
+                    bigRoot = (bigRoot <= 1e-2) ? 0 : bigRoot
+                    let coef: Double = (sweep != largeArc) ? 1 : -1
+                    let cx_ = coef * bigRoot * rx * y1_ / ry
+                    let cy_ = -1 * coef * bigRoot * ry * x1_ / rx
+                    let cx = cos(angle) * cx_ - sin(angle) * cy_ + (x1 + x) / 2
+                    let cy = sin(angle) * cx_ + cos(angle) * cy_ + (y1 + y) / 2
+                    
+                    let t1 = calcAngle(ux: 1, uy: 0, vx: (x1_ - cx_) / rx, vy: (y1_ - cy_) / ry)
+                    var delta = calcAngle(ux: (x1_ - cx_) / rx, uy: (y1_ - cy_) / ry, vx: (-x1_ - cx_) / rx, vy: (-y1_ - cy_) / ry)
+                    let pi2 = Double.pi * 2
+                    if (delta > 0) {
+                        delta = delta.truncatingRemainder(dividingBy: pi2)
+                        if (!sweep) {
+                            delta -= pi2
+                        }
+                    } else if (delta < 0) {
+                        delta = -1 * ((-1 * delta).truncatingRemainder(dividingBy: pi2))
+                        if (sweep) {
+                            delta += pi2
+                        }
+                    }
+                    E(cx - rx, y: cy - ry, w: 2 * rx, h: 2 * ry, startAngle: t1, arcAngle: delta, rotation: angle)
+                    setPoint(CGPoint(x: CGFloat(x), y: CGFloat(y)))
                 }
-                E(cx - rx, y: cy - ry, w: 2 * rx, h: 2 * ry, startAngle: t1, arcAngle: delta)
-                setPoint(CGPoint(x: CGFloat(x), y: CGFloat(y)))
             }
         }
 
-        func E(_ x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
-            // TODO: only circle now
+        func E(_ x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double, rotation: Double = 0) {
             let extent = CGFloat(startAngle)
             let end = extent + CGFloat(arcAngle)
-            let center = CGPoint(x: CGFloat(x + w / 2), y: CGFloat(y + h / 2))
-            bezierPath.addArc(withCenter: center, radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
+            let cx = CGFloat(x + w / 2)
+            let cy = CGFloat(y + h / 2)
+            if (w == h && rotation == 0) {
+                bezierPath.addArc(withCenter: CGPoint(x: cx, y: cy), radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
+            } else {
+                let maxSize = CGFloat(max(w, h))
+                let path = UIBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
+                var transform = CGAffineTransform(translationX: cx, y: cy)
+                transform = transform.rotated(by: CGFloat(rotation))
+                path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))
+                bezierPath.append(path)
+            }
         }
 
         func e(_ x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
@@ -515,7 +547,14 @@ class RenderUtils {
     
     class func calcAngle(ux: Double, uy: Double, vx: Double, vy: Double) -> Double {
         let sign = copysign(1, ux * vy - uy * vx)
-        return sign * acos((ux * vx + uy * vy) / (sqrt(ux * ux + uy * uy) * sqrt(vx * vx + vy * vy)))
+        let value = (ux * vx + uy * vy) / (sqrt(ux * ux + uy * uy) * sqrt(vx * vx + vy * vy))
+        if (value < -1) {
+            return sign * .pi
+        } else if (value > 1) {
+            return 0
+        } else {
+            return sign * acos(value)
+        }
     }
 
     class func num2bool(_ double: Double) -> Bool {

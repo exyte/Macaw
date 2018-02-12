@@ -236,8 +236,9 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
             }
         }
 
+        let timeFactory = self.timeFactory()
         vFunc = { (t: Double) -> T in
-            return self.timeFactory()(timeFunc(t))
+            return timeFactory(timeFunc(t))
         }
 
         return vFunc!

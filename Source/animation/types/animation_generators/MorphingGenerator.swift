@@ -107,9 +107,10 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         layer.fillColor = MColor.clear.cgColor
     }
 
-    layer.add(generatedAnim, forKey: animation.ID)
+    let animationId = animation.ID
+    layer.add(generatedAnim, forKey: animationId)
     animation.removeFunc = { [weak layer] in
-        layer?.removeAnimation(forKey: animation.ID)
+        layer?.removeAnimation(forKey: animationId)
     }
 }
 

@@ -255,6 +255,125 @@
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		639256782046F2AD0042CDDA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1381E3B393900D1CB28 /* Group.swift */; };
+		639256792046F2AD0042CDDA /* Locus+ToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B06501F9866E400787A35 /* Locus+ToPath.swift */; };
+		6392567A2046F2AD0042CDDA /* TextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1441E3B393900D1CB28 /* TextRenderer.swift */; };
+		6392567B2046F2AD0042CDDA /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */; };
+		6392567C2046F2AD0042CDDA /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */; };
+		6392567D2046F2AD0042CDDA /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11B1E3B393900D1CB28 /* GaussianBlur.swift */; };
+		6392567E2046F2AD0042CDDA /* RoundRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1341E3B393900D1CB28 /* RoundRect.swift */; };
+		6392567F2046F2AD0042CDDA /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
+		639256802046F2AD0042CDDA /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1471E3B393900D1CB28 /* SVGParser.swift */; };
+		639256812046F2AD0042CDDA /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC61E2CED4B008C7C83 /* SWXMLHash.swift */; };
+		639256822046F2AD0042CDDA /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1511E3B393900D1CB28 /* NodesMap.swift */; };
+		639256832046F2AD0042CDDA /* RenderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1421E3B393900D1CB28 /* RenderUtils.swift */; };
+		639256842046F2AD0042CDDA /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F11E3B393900D1CB28 /* FuncBounds.swift */; };
+		639256852046F2AD0042CDDA /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
+		639256862046F2AD0042CDDA /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */; };
+		639256872046F2AD0042CDDA /* PathSegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12F1E3B393900D1CB28 /* PathSegmentType.swift */; };
+		639256882046F2AD0042CDDA /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E21E3B393900D1CB28 /* AnimatableVariable.swift */; };
+		639256892046F2AD0042CDDA /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */; };
+		6392568A2046F2AD0042CDDA /* AnimationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F71E3B393900D1CB28 /* AnimationCache.swift */; };
+		6392568B2046F2AD0042CDDA /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1361E3B393900D1CB28 /* Transform.swift */; };
+		6392568C2046F2AD0042CDDA /* Graphics_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */; };
+		6392568D2046F2AD0042CDDA /* ShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1431E3B393900D1CB28 /* ShapeRenderer.swift */; };
+		6392568E2046F2AD0042CDDA /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11D1E3B393900D1CB28 /* LinearGradient.swift */; };
+		6392568F2046F2AD0042CDDA /* MDisplayLink_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */; };
+		639256902046F2AD0042CDDA /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1071E3B393900D1CB28 /* GroupDisposable.swift */; };
+		639256912046F2AD0042CDDA /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1221E3B393900D1CB28 /* Stroke.swift */; };
+		639256922046F2AD0042CDDA /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10E1E3B393900D1CB28 /* TapEvent.swift */; };
+		639256932046F2AD0042CDDA /* LineCap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11E1E3B393900D1CB28 /* LineCap.swift */; };
+		639256942046F2AD0042CDDA /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14A1E3B393900D1CB28 /* SVGView.swift */; };
+		639256952046F2AD0042CDDA /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1241E3B393900D1CB28 /* Arc.swift */; };
+		639256962046F2AD0042CDDA /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1501E3B393900D1CB28 /* MacawView.swift */; };
+		639256972046F2AD0042CDDA /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1391E3B393900D1CB28 /* Image.swift */; };
+		639256982046F2AD0042CDDA /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */; };
+		639256992046F2AD0042CDDA /* AnimationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E41E3B393900D1CB28 /* AnimationImpl.swift */; };
+		6392569A2046F2AD0042CDDA /* AnimOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */; };
+		6392569B2046F2AD0042CDDA /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1251E3B393900D1CB28 /* Circle.swift */; };
+		6392569C2046F2AD0042CDDA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1151E3B393900D1CB28 /* Color.swift */; };
+		6392569D2046F2AD0042CDDA /* PathSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12E1E3B393900D1CB28 /* PathSegment.swift */; };
+		6392569E2046F2AD0042CDDA /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13F1E3B393900D1CB28 /* ImageRenderer.swift */; };
+		6392569F2046F2AD0042CDDA /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F31E3B393900D1CB28 /* PathFunctions.swift */; };
+		639256A02046F2AD0042CDDA /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
+		639256A12046F2AD0042CDDA /* MorphingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1021E3B393900D1CB28 /* MorphingAnimation.swift */; };
+		639256A22046F2AD0042CDDA /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */; };
+		639256A32046F2AD0042CDDA /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F01E3B393900D1CB28 /* TransformInterpolation.swift */; };
+		639256A42046F2AD0042CDDA /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */; };
+		639256A52046F2AD0042CDDA /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E61E3B393900D1CB28 /* AnimationUtils.swift */; };
+		639256A62046F2AD0042CDDA /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1311E3B393900D1CB28 /* Polygon.swift */; };
+		639256A72046F2AD0042CDDA /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1141E3B393900D1CB28 /* Baseline.swift */; };
+		639256A82046F2AD0042CDDA /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1131E3B393900D1CB28 /* AspectRatio.swift */; };
+		639256A92046F2AD0042CDDA /* TransformAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1041E3B393900D1CB28 /* TransformAnimation.swift */; };
+		639256AA2046F2AD0042CDDA /* CombineAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1001E3B393900D1CB28 /* CombineAnimation.swift */; };
+		639256AB2046F2AD0042CDDA /* TransformHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FA1E3B393900D1CB28 /* TransformHashable.swift */; };
+		639256AC2046F2AD0042CDDA /* MoveTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12B1E3B393900D1CB28 /* MoveTo.swift */; };
+		639256AD2046F2AD0042CDDA /* NodeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1401E3B393900D1CB28 /* NodeRenderer.swift */; };
+		639256AE2046F2AD0042CDDA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11A1E3B393900D1CB28 /* Font.swift */; };
+		639256AF2046F2AD0042CDDA /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E31E3B393900D1CB28 /* Animation.swift */; };
+		639256B02046F2AD0042CDDA /* SVGParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1481E3B393900D1CB28 /* SVGParserError.swift */; };
+		639256B12046F2AD0042CDDA /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1161E3B393900D1CB28 /* Drawable.swift */; };
+		639256B22046F2AD0042CDDA /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1061E3B393900D1CB28 /* Disposable.swift */; };
+		639256B32046F2AD0042CDDA /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12C1E3B393900D1CB28 /* Path.swift */; };
+		639256B42046F2AD0042CDDA /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1291E3B393900D1CB28 /* Line.swift */; };
+		639256B52046F2AD0042CDDA /* PathBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F21E3B393900D1CB28 /* PathBounds.swift */; };
+		639256B62046F2AD0042CDDA /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E51E3B393900D1CB28 /* AnimationProducer.swift */; };
+		639256B72046F2AD0042CDDA /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1191E3B393900D1CB28 /* Fill.swift */; };
+		639256B82046F2AD0042CDDA /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */; };
+		639256B92046F2AD0042CDDA /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
+		639256BA2046F2AD0042CDDA /* LineJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11F1E3B393900D1CB28 /* LineJoin.swift */; };
+		639256BB2046F2AD0042CDDA /* RadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1201E3B393900D1CB28 /* RadialGradient.swift */; };
+		639256BC2046F2AD0042CDDA /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57614BD91F8739EE00875933 /* MacawView+PDF.swift */; };
+		639256BD2046F2AD0042CDDA /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1211E3B393900D1CB28 /* Stop.swift */; };
+		639256BE2046F2AD0042CDDA /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13C1E3B393900D1CB28 /* Text.swift */; };
+		639256BF2046F2AD0042CDDA /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
+		639256C02046F2AD0042CDDA /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1411E3B393900D1CB28 /* RenderContext.swift */; };
+		639256C12046F2AD0042CDDA /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1351E3B393900D1CB28 /* Size.swift */; };
+		639256C22046F2AD0042CDDA /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1321E3B393900D1CB28 /* Polyline.swift */; };
+		639256C32046F2AD0042CDDA /* ContentsAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1011E3B393900D1CB28 /* ContentsAnimation.swift */; };
+		639256C42046F2AD0042CDDA /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
+		639256C52046F2AD0042CDDA /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
+		639256C62046F2AD0042CDDA /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
+		639256C72046F2AD0042CDDA /* Easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E71E3B393900D1CB28 /* Easing.swift */; };
+		639256C82046F2AD0042CDDA /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1301E3B393900D1CB28 /* Point.swift */; };
+		639256C92046F2AD0042CDDA /* OpacityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */; };
+		639256CA2046F2AD0042CDDA /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13B1E3B393900D1CB28 /* Shape.swift */; };
+		639256CB2046F2AD0042CDDA /* Ellipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1261E3B393900D1CB28 /* Ellipse.swift */; };
+		639256CC2046F2AD0042CDDA /* Locus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12A1E3B393900D1CB28 /* Locus.swift */; };
+		639256CD2046F2AD0042CDDA /* SceneUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF39881E66E06200F0BFE2 /* SceneUtils.swift */; };
+		639256CE2046F2AD0042CDDA /* NodeHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F91E3B393900D1CB28 /* NodeHashable.swift */; };
+		639256CF2046F2AD0042CDDA /* GeomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1271E3B393900D1CB28 /* GeomUtils.swift */; };
+		639256D02046F2AD0042CDDA /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14C1E3B393900D1CB28 /* CAAnimationClosure.swift */; };
+		639256D12046F2AD0042CDDA /* DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1171E3B393900D1CB28 /* DropShadow.swift */; };
+		639256D22046F2AD0042CDDA /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
+		639256D32046F2AD0042CDDA /* Common_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD491F45C28F00966E06 /* Common_macOS.swift */; };
+		639256D42046F2AD0042CDDA /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108791F53C92000DC365B /* MDisplayLink.swift */; };
+		639256D52046F2AD0042CDDA /* AnimationRestorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F81E3B393900D1CB28 /* AnimationRestorer.swift */; };
+		639256D62046F2AD0042CDDA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10A1E3B393900D1CB28 /* Event.swift */; };
+		639256D72046F2AD0042CDDA /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11C1E3B393900D1CB28 /* Gradient.swift */; };
+		639256D82046F2AD0042CDDA /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */; };
+		639256D92046F2AD0042CDDA /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1121E3B393900D1CB28 /* Align.swift */; };
+		639256DA2046F2AD0042CDDA /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1081E3B393900D1CB28 /* Variable.swift */; };
+		639256DB2046F2AD0042CDDA /* OpacityAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1031E3B393900D1CB28 /* OpacityAnimation.swift */; };
+		639256DC2046F2AD0042CDDA /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108731F502A3600DC365B /* Touchable.swift */; };
+		639256DD2046F2AD0042CDDA /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13A1E3B393900D1CB28 /* Node.swift */; };
+		639256DE2046F2AD0042CDDA /* PanEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10B1E3B393900D1CB28 /* PanEvent.swift */; };
+		639256DF2046F2AD0042CDDA /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10D1E3B393900D1CB28 /* RotateEvent.swift */; };
+		639256E02046F2AD0042CDDA /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1281E3B393900D1CB28 /* Insets.swift */; };
+		639256E12046F2AD0042CDDA /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1331E3B393900D1CB28 /* Rect.swift */; };
+		639256E22046F2AD0042CDDA /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12D1E3B393900D1CB28 /* PathBuilder.swift */; };
+		639256E32046F2AD0042CDDA /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10C1E3B393900D1CB28 /* PinchEvent.swift */; };
+		639256E42046F2AD0042CDDA /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
+		639256E52046F2AD0042CDDA /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13E1E3B393900D1CB28 /* GroupRenderer.swift */; };
+		639256E62046F2AD0042CDDA /* SVGParserRegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */; };
+		639256E72046F2AD0042CDDA /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1181E3B393900D1CB28 /* Effect.swift */; };
+		639256E82046F2AD0042CDDA /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14E1E3B393900D1CB28 /* NSTimer+Closure.swift */; };
+		639256E92046F2AD0042CDDA /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC51E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift */; };
+		639256EA2046F2AD0042CDDA /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FF1E3B393900D1CB28 /* AnimationSequence.swift */; };
+		639256EB2046F2AD0042CDDA /* MorphingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FB1E3B393900D1CB28 /* MorphingGenerator.swift */; };
+		639256EC2046F2AD0042CDDA /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1461E3B393900D1CB28 /* SVGConstants.swift */; };
+		639256ED2046F2AD0042CDDA /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
+		639256EE2046F2AD0042CDDA /* LocusInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EF1E3B393900D1CB28 /* LocusInterpolation.swift */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
@@ -308,6 +427,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		57D202181D78047000A90D4F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639256F22046F2AD0042CDDA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -452,6 +580,10 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		639256F72046F2AD0042CDDA /* MacawtvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacawtvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		639256F82046F2AD0042CDDA /* Macaw copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Macaw copy-Info.plist"; path = "/Users/kristaps/Documents/ios/Macaw/Macaw copy-Info.plist"; sourceTree = "<absolute>"; };
+		639257002046F3110042CDDA /* Testoo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Testoo.h; sourceTree = "<group>"; };
+		639257012046F3110042CDDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -504,6 +636,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639256EF2046F2AD0042CDDA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,7 +969,9 @@
 			children = (
 				57FCD26E1D76EA4600CC0FB6 /* Macaw */,
 				57FCD27A1D76EA4600CC0FB6 /* MacawTests */,
+				639256FF2046F3110042CDDA /* Testoo */,
 				57FCD26D1D76EA4600CC0FB6 /* Products */,
+				639256F82046F2AD0042CDDA /* Macaw copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -840,6 +981,7 @@
 				57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */,
 				57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */,
 				57614B791F83D15600875933 /* MacawOSX.framework */,
+				639256F72046F2AD0042CDDA /* MacawtvOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -867,6 +1009,15 @@
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
+			sourceTree = "<group>";
+		};
+		639256FF2046F3110042CDDA /* Testoo */ = {
+			isa = PBXGroup;
+			children = (
+				639257002046F3110042CDDA /* Testoo.h */,
+				639257012046F3110042CDDA /* Info.plist */,
+			);
+			path = Testoo;
 			sourceTree = "<group>";
 		};
 		A718CD2C1F45BC5300966E06 /* Platform */ = {
@@ -936,6 +1087,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		639256F02046F2AD0042CDDA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -997,6 +1155,26 @@
 			productReference = 57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		639256762046F2AD0042CDDA /* MacawtvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639256F42046F2AD0042CDDA /* Build configuration list for PBXNativeTarget "MacawtvOS" */;
+			buildPhases = (
+				639256772046F2AD0042CDDA /* Sources */,
+				639256EF2046F2AD0042CDDA /* Frameworks */,
+				639256F02046F2AD0042CDDA /* Headers */,
+				639256F12046F2AD0042CDDA /* Resources */,
+				639256F22046F2AD0042CDDA /* CopyFiles */,
+				639256F32046F2AD0042CDDA /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacawtvOS;
+			productName = Macaw;
+			productReference = 639256F72046F2AD0042CDDA /* MacawtvOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1034,6 +1212,7 @@
 				57FCD26B1D76EA4600CC0FB6 /* Macaw */,
 				57FCD2751D76EA4600CC0FB6 /* MacawTests */,
 				57614AFB1F83D15600875933 /* MacawOSX */,
+				639256762046F2AD0042CDDA /* MacawtvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1090,9 +1269,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		639256F12046F2AD0042CDDA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		639256F32046F2AD0042CDDA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect --format\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		665742FC1F988D93006612C6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1392,6 +1591,132 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		639256772046F2AD0042CDDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639256782046F2AD0042CDDA /* Group.swift in Sources */,
+				639256792046F2AD0042CDDA /* Locus+ToPath.swift in Sources */,
+				6392567A2046F2AD0042CDDA /* TextRenderer.swift in Sources */,
+				6392567B2046F2AD0042CDDA /* CGFloat+Double.swift in Sources */,
+				6392567C2046F2AD0042CDDA /* CGExtensions.swift in Sources */,
+				6392567D2046F2AD0042CDDA /* GaussianBlur.swift in Sources */,
+				6392567E2046F2AD0042CDDA /* RoundRect.swift in Sources */,
+				6392567F2046F2AD0042CDDA /* UIImage2Image.swift in Sources */,
+				639256802046F2AD0042CDDA /* SVGParser.swift in Sources */,
+				639256812046F2AD0042CDDA /* SWXMLHash.swift in Sources */,
+				639256822046F2AD0042CDDA /* NodesMap.swift in Sources */,
+				639256832046F2AD0042CDDA /* RenderUtils.swift in Sources */,
+				639256842046F2AD0042CDDA /* FuncBounds.swift in Sources */,
+				639256852046F2AD0042CDDA /* MView_iOS.swift in Sources */,
+				639256862046F2AD0042CDDA /* DoubleInterpolation.swift in Sources */,
+				639256872046F2AD0042CDDA /* PathSegmentType.swift in Sources */,
+				639256882046F2AD0042CDDA /* AnimatableVariable.swift in Sources */,
+				639256892046F2AD0042CDDA /* TimingFunction.swift in Sources */,
+				6392568A2046F2AD0042CDDA /* AnimationCache.swift in Sources */,
+				6392568B2046F2AD0042CDDA /* Transform.swift in Sources */,
+				6392568C2046F2AD0042CDDA /* Graphics_macOS.swift in Sources */,
+				6392568D2046F2AD0042CDDA /* ShapeRenderer.swift in Sources */,
+				6392568E2046F2AD0042CDDA /* LinearGradient.swift in Sources */,
+				6392568F2046F2AD0042CDDA /* MDisplayLink_macOS.swift in Sources */,
+				639256902046F2AD0042CDDA /* GroupDisposable.swift in Sources */,
+				639256912046F2AD0042CDDA /* Stroke.swift in Sources */,
+				639256922046F2AD0042CDDA /* TapEvent.swift in Sources */,
+				639256932046F2AD0042CDDA /* LineCap.swift in Sources */,
+				639256942046F2AD0042CDDA /* SVGView.swift in Sources */,
+				639256952046F2AD0042CDDA /* Arc.swift in Sources */,
+				639256962046F2AD0042CDDA /* MacawView.swift in Sources */,
+				639256972046F2AD0042CDDA /* Image.swift in Sources */,
+				639256982046F2AD0042CDDA /* TransformGenerator.swift in Sources */,
+				639256992046F2AD0042CDDA /* AnimationImpl.swift in Sources */,
+				6392569A2046F2AD0042CDDA /* AnimOperators.swift in Sources */,
+				6392569B2046F2AD0042CDDA /* Circle.swift in Sources */,
+				6392569C2046F2AD0042CDDA /* Color.swift in Sources */,
+				6392569D2046F2AD0042CDDA /* PathSegment.swift in Sources */,
+				6392569E2046F2AD0042CDDA /* ImageRenderer.swift in Sources */,
+				6392569F2046F2AD0042CDDA /* PathFunctions.swift in Sources */,
+				639256A02046F2AD0042CDDA /* SVGSerializer.swift in Sources */,
+				639256A12046F2AD0042CDDA /* MorphingAnimation.swift in Sources */,
+				639256A22046F2AD0042CDDA /* ShapeAnimation.swift in Sources */,
+				639256A32046F2AD0042CDDA /* TransformInterpolation.swift in Sources */,
+				639256A42046F2AD0042CDDA /* ShapeAnimationGenerator.swift in Sources */,
+				639256A52046F2AD0042CDDA /* AnimationUtils.swift in Sources */,
+				639256A62046F2AD0042CDDA /* Polygon.swift in Sources */,
+				639256A72046F2AD0042CDDA /* Baseline.swift in Sources */,
+				639256A82046F2AD0042CDDA /* AspectRatio.swift in Sources */,
+				639256A92046F2AD0042CDDA /* TransformAnimation.swift in Sources */,
+				639256AA2046F2AD0042CDDA /* CombineAnimation.swift in Sources */,
+				639256AB2046F2AD0042CDDA /* TransformHashable.swift in Sources */,
+				639256AC2046F2AD0042CDDA /* MoveTo.swift in Sources */,
+				639256AD2046F2AD0042CDDA /* NodeRenderer.swift in Sources */,
+				639256AE2046F2AD0042CDDA /* Font.swift in Sources */,
+				639256AF2046F2AD0042CDDA /* Animation.swift in Sources */,
+				639256B02046F2AD0042CDDA /* SVGParserError.swift in Sources */,
+				639256B12046F2AD0042CDDA /* Drawable.swift in Sources */,
+				639256B22046F2AD0042CDDA /* Disposable.swift in Sources */,
+				639256B32046F2AD0042CDDA /* Path.swift in Sources */,
+				639256B42046F2AD0042CDDA /* Line.swift in Sources */,
+				639256B52046F2AD0042CDDA /* PathBounds.swift in Sources */,
+				639256B62046F2AD0042CDDA /* AnimationProducer.swift in Sources */,
+				639256B72046F2AD0042CDDA /* Fill.swift in Sources */,
+				639256B82046F2AD0042CDDA /* ShapeInterpolation.swift in Sources */,
+				639256B92046F2AD0042CDDA /* Graphics_iOS.swift in Sources */,
+				639256BA2046F2AD0042CDDA /* LineJoin.swift in Sources */,
+				639256BB2046F2AD0042CDDA /* RadialGradient.swift in Sources */,
+				639256BC2046F2AD0042CDDA /* MacawView+PDF.swift in Sources */,
+				639256BD2046F2AD0042CDDA /* Stop.swift in Sources */,
+				639256BE2046F2AD0042CDDA /* Text.swift in Sources */,
+				639256BF2046F2AD0042CDDA /* MDisplayLink_iOS.swift in Sources */,
+				639256C02046F2AD0042CDDA /* RenderContext.swift in Sources */,
+				639256C12046F2AD0042CDDA /* Size.swift in Sources */,
+				639256C22046F2AD0042CDDA /* Polyline.swift in Sources */,
+				639256C32046F2AD0042CDDA /* ContentsAnimation.swift in Sources */,
+				639256C42046F2AD0042CDDA /* TouchEvent.swift in Sources */,
+				639256C52046F2AD0042CDDA /* MBezierPath+Extension_macOS.swift in Sources */,
+				639256C62046F2AD0042CDDA /* MView_macOS.swift in Sources */,
+				639256C72046F2AD0042CDDA /* Easing.swift in Sources */,
+				639256C82046F2AD0042CDDA /* Point.swift in Sources */,
+				639256C92046F2AD0042CDDA /* OpacityGenerator.swift in Sources */,
+				639256CA2046F2AD0042CDDA /* Shape.swift in Sources */,
+				639256CB2046F2AD0042CDDA /* Ellipse.swift in Sources */,
+				639256CC2046F2AD0042CDDA /* Locus.swift in Sources */,
+				639256CD2046F2AD0042CDDA /* SceneUtils.swift in Sources */,
+				639256CE2046F2AD0042CDDA /* NodeHashable.swift in Sources */,
+				639256CF2046F2AD0042CDDA /* GeomUtils.swift in Sources */,
+				639256D02046F2AD0042CDDA /* CAAnimationClosure.swift in Sources */,
+				639256D12046F2AD0042CDDA /* DropShadow.swift in Sources */,
+				639256D22046F2AD0042CDDA /* Common_iOS.swift in Sources */,
+				639256D32046F2AD0042CDDA /* Common_macOS.swift in Sources */,
+				639256D42046F2AD0042CDDA /* MDisplayLink.swift in Sources */,
+				639256D52046F2AD0042CDDA /* AnimationRestorer.swift in Sources */,
+				639256D62046F2AD0042CDDA /* Event.swift in Sources */,
+				639256D72046F2AD0042CDDA /* Gradient.swift in Sources */,
+				639256D82046F2AD0042CDDA /* Interpolable.swift in Sources */,
+				639256D92046F2AD0042CDDA /* Align.swift in Sources */,
+				639256DA2046F2AD0042CDDA /* Variable.swift in Sources */,
+				639256DB2046F2AD0042CDDA /* OpacityAnimation.swift in Sources */,
+				639256DC2046F2AD0042CDDA /* Touchable.swift in Sources */,
+				639256DD2046F2AD0042CDDA /* Node.swift in Sources */,
+				639256DE2046F2AD0042CDDA /* PanEvent.swift in Sources */,
+				639256DF2046F2AD0042CDDA /* RotateEvent.swift in Sources */,
+				639256E02046F2AD0042CDDA /* Insets.swift in Sources */,
+				639256E12046F2AD0042CDDA /* Rect.swift in Sources */,
+				639256E22046F2AD0042CDDA /* PathBuilder.swift in Sources */,
+				639256E32046F2AD0042CDDA /* PinchEvent.swift in Sources */,
+				639256E42046F2AD0042CDDA /* ContentsInterpolation.swift in Sources */,
+				639256E52046F2AD0042CDDA /* GroupRenderer.swift in Sources */,
+				639256E62046F2AD0042CDDA /* SVGParserRegexHelper.swift in Sources */,
+				639256E72046F2AD0042CDDA /* Effect.swift in Sources */,
+				639256E82046F2AD0042CDDA /* NSTimer+Closure.swift in Sources */,
+				639256E92046F2AD0042CDDA /* SWXMLHash+TypeConversion.swift in Sources */,
+				639256EA2046F2AD0042CDDA /* AnimationSequence.swift in Sources */,
+				639256EB2046F2AD0042CDDA /* MorphingGenerator.swift in Sources */,
+				639256EC2046F2AD0042CDDA /* SVGConstants.swift in Sources */,
+				639256ED2046F2AD0042CDDA /* ShapeLayer.swift in Sources */,
+				639256EE2046F2AD0042CDDA /* LocusInterpolation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1673,6 +1998,58 @@
 			};
 			name = Release;
 		};
+		639256F52046F2AD0042CDDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = "Macaw copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				VALID_ARCHS = "arm64 armv7";
+			};
+			name = Debug;
+		};
+		639256F62046F2AD0042CDDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = "Macaw copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				VALID_ARCHS = "arm64 armv7";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1708,6 +2085,15 @@
 			buildConfigurations = (
 				57FCD2841D76EA4600CC0FB6 /* Debug */,
 				57FCD2851D76EA4600CC0FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		639256F42046F2AD0042CDDA /* Build configuration list for PBXNativeTarget "MacawtvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639256F52046F2AD0042CDDA /* Debug */,
+				639256F62046F2AD0042CDDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

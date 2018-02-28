@@ -35,7 +35,7 @@ class NodeBoundsTests: XCTestCase {
     func testSimpleShapeZeroBounds() {
         let shape = Shape(form: Rect.zero())
     
-        checkBounds(rect1: shape.bounds(), rect2: Rect.zero())
+        checkBounds(rect1: shape.bounds, rect2: Rect.zero())
     }
     
     func testSimpleShapeRect() {
@@ -43,21 +43,21 @@ class NodeBoundsTests: XCTestCase {
         let shape = Shape(form: RoundRect(rect: Rect(x: 20.0, y: 15.0, w: 10.0, h: 10.0), rx: 8.0, ry: 1.0))
         let targetRect = Rect(x: 20.0, y: 15.0, w: 10.0, h: 10.0)
         
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapePoint() {
         let shape = Shape(form: Point(x: 10.0, y: 20.0))
         let targetRect = Rect(x: 10.0, y: 20.0, w: 0.0, h: 0.0)
         
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapeCircle() {
         let shape = Shape(form: Circle(cx: 10.0, cy: 15.0, r: 3.0))
         let targetRect = Rect(x: 7.0, y: 12.0, w: 6.0, h: 6.0)
         
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapeEllipse() {
@@ -65,11 +65,19 @@ class NodeBoundsTests: XCTestCase {
         let targetRect = Rect(x: 97.0, y: 43.0, w: 6.0, h: 14.0)
         let ellipse = Ellipse(cx: 100.0, cy: 50.0, rx: 3.0, ry: 7.0)
         
-        var shape = Shape(form: ellipse)
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        let shape = Shape(form: ellipse)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
+    }
+    
+    func testShapeArc() {
+        let targetRect = Rect(x: 96.582613064977011,
+                              y: 42.299148373434143,
+                              w: 4.2683734914126745,
+                              h: 14.065933614345631)
         
-        shape = Shape(form: Arc(ellipse: ellipse, shift: 2.0, extent: 3.0))
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        let ellipse = Ellipse(cx: 100.0, cy: 50.0, rx: 3.0, ry: 7.0)
+        let shape = Shape(form: Arc(ellipse: ellipse, shift: 2.0, extent: 3.0))
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapePath() {
@@ -88,22 +96,22 @@ class NodeBoundsTests: XCTestCase {
         let shape = Shape(form: path)
         let targetRect = Rect(x: -5.0, y: -1.0, w: 30.0, h: 26.0)
         
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapeLine() {
         let shape = Shape(form: Line(x1: 10.0, y1: 15.0, x2: 1.0, y2: 1.0))
         let targetRect = Rect(x: 1.0, y: 1.0, w: 9.0, h: 14.0)
         
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapePoly(points: [Double], targetRect: Rect) {
         var shape = Shape(form: Polyline(points: points))
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
         
         shape = Shape(form: Polygon(points: points))
-        checkBounds(rect1: shape.bounds(), rect2: targetRect)
+        checkBounds(rect1: shape.bounds, rect2: targetRect)
     }
     
     func testShapePoly() {
@@ -135,7 +143,7 @@ class NodeBoundsTests: XCTestCase {
     func testSimpleImageZeroBounds() {
         let image = Image(src: "")
         
-        XCTAssertNil(image.bounds(), "Image bounds not nil")
+        XCTAssertTrue(image.bounds == Rect.zero(), "Empty image bounds should be equal to zero bounds")
     }
 
     // MARK: - Text
@@ -150,7 +158,7 @@ class NodeBoundsTests: XCTestCase {
             let size = text.text.size(withAttributes: stringAttributes)
             let targetRect = Rect(x: 0.0, y: 0.0, w: size.width.doubleValue, h: size.height.doubleValue)
             
-            checkBounds(rect1: text.bounds(), rect2: targetRect)
+            checkBounds(rect1: text.bounds, rect2: targetRect)
         }
     }
     
@@ -159,7 +167,7 @@ class NodeBoundsTests: XCTestCase {
     func testSimpleGroupZeroBounds() {
         let group = [].group()
         
-        XCTAssertNil(group.bounds(), "Group bounds not nil")
+        XCTAssertTrue(group.bounds == Rect.zero(), "Empty group bounds should be equal to zero bounds")
     }
     
     func testGroupZeroBounds() {
@@ -170,7 +178,7 @@ class NodeBoundsTests: XCTestCase {
         }
         
         let group = shapes.group()
-        checkBounds(rect1: group.bounds(), rect2: Rect.zero())
+        checkBounds(rect1: group.bounds, rect2: Rect.zero())
     }
     
     func testGroupRectInRect() {
@@ -188,7 +196,7 @@ class NodeBoundsTests: XCTestCase {
         let internalShape = Shape(form: Rect(x: 25.0, y: 25.0, w: 50.0, h: 50.0))
         
         let group = [shape, internalShape].group()
-        checkBounds(rect1: group.bounds(), rect2: targetRect)
+        checkBounds(rect1: group.bounds, rect2: targetRect)
     }
     
     func testGroupRectBetweenRects() {
@@ -209,7 +217,7 @@ class NodeBoundsTests: XCTestCase {
         let rightShape = Shape(form: Rect(x: 200.0, y: 0.0, w: 100.0, h: 150.0))
         
         let group = [leftShape, midShape, rightShape].group()
-        checkBounds(rect1: group.bounds(), rect2: targetRect)
+        checkBounds(rect1: group.bounds, rect2: targetRect)
     }
 }
 

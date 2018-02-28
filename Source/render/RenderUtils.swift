@@ -564,4 +564,52 @@ class RenderUtils {
     fileprivate class func newCGRect(_ rect: Rect) -> CGRect {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
+
+    @discardableResult class func setGeometry(_ locus: Locus, ctx: CGContext?) -> Rect? {
+
+        var bounds: Rect?
+
+        if let rect = locus as? Rect {
+            bounds = rect
+            ctx?.addRect(newCGRect(rect))
+        } else if let round = locus as? RoundRect {
+            let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
+            let path = MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
+                MRectCorner.allCorners, cornerRadii: corners).cgPath
+            bounds = Rect(cgRect: path.boundingBox)
+            ctx?.addPath(path)
+        } else if let circle = locus as? Circle {
+            let cx = circle.cx
+            let cy = circle.cy
+            let r = circle.r
+            bounds = circle.bounds()
+            ctx?.addEllipse(in: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
+        } else if let ellipse = locus as? Ellipse {
+            let cx = ellipse.cx
+            let cy = ellipse.cy
+            let rx = ellipse.rx
+            let ry = ellipse.ry
+
+            bounds = ellipse.bounds()
+            ctx?.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
+        } else {
+            let cgPath = RenderUtils.toCGPath(locus)
+
+            var cgRect = cgPath.boundingBox
+
+            if cgRect.origin.x == CGFloat.infinity {
+                cgRect.origin.x = CGFloat(locus.bounds().x)
+            }
+
+            if cgRect.origin.y == CGFloat.infinity {
+                cgRect.origin.y = CGFloat(locus.bounds().y)
+            }
+
+            bounds = Rect(cgRect: cgRect)
+
+            ctx?.addPath(cgPath)
+        }
+
+        return bounds
+    }
 }

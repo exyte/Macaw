@@ -59,7 +59,7 @@ class TextRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let contains = node()?.bounds()?.cgRect().contains(location) else {
+        guard let contains = node()?.bounds.cgRect().contains(location) else {
             return .none
         }
 
@@ -71,11 +71,6 @@ class TextRenderer: NodeRenderer {
     }
 
     fileprivate func getMFont() -> MFont {
-        guard #available(iOS 9.0, macOS 10.11, *) else {
-            // This case should never happen, since the deployment target is set to iOS 9.0/macOS 10.11.
-            // However it is needed for the Swift Package Manager to work accordingly.
-            return MFont()
-        }
         guard let text = text else {
             return MFont.systemFont(ofSize: 18.0)
         }
@@ -94,11 +89,6 @@ class TextRenderer: NodeRenderer {
     }
 
     fileprivate func getWeight(_ weight: String) -> MFont.Weight? {
-        guard #available(iOS 9.0, macOS 10.11, *) else {
-            // This case should never happen, since the deployment target is set to iOS 9.0/macOS 10.11.
-            // However it is needed for the Swift Package Manager to work accordingly.
-             return .none
-        }
         switch weight {
         case "normal":
             return MFont.Weight.regular

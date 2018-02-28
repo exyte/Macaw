@@ -8,7 +8,7 @@
 
 class SceneUtils {
     static func shapeCopy(from: Shape) -> Shape {
-        let shape = Shape(form: from.form,
+        return  Shape(form: from.form,
                       fill: from.fill,
                       stroke: from.stroke,
                       place: from.place,
@@ -18,16 +18,5 @@ class SceneUtils {
                       effect: from.effect,
                       visible: from.visible,
                       tag: from.tag)
-		
-		shape.touchPressedHandlers = from.touchPressedHandlers
-		shape.touchMovedHandlers = from.touchMovedHandlers
-		shape.touchReleasedHandlers = from.touchReleasedHandlers
-		
-		shape.tapHandlers = from.tapHandlers
-		shape.panHandlers = from.panHandlers
-		shape.rotateHandlers = from.rotateHandlers
-		shape.pinchHandlers = from.pinchHandlers
-		
-		return shape
     }
 }

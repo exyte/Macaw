@@ -64,19 +64,24 @@ open class Group: Node {
         return result
     }
 
-    // GENERATED NOT
-    override internal func bounds() -> Rect? {
+    override open var bounds: Rect {
         var union: Rect?
 
         contents.forEach { node in
-            guard let nodeBounds = node.bounds()?.applyTransform(node.place) else {
+
+            let nodeBounds = node.bounds
+
+            if nodeBounds.w == 0.0 || nodeBounds.h == 0.0 {
                 return
             }
-
             union = union?.union(rect: nodeBounds) ?? nodeBounds
         }
 
-        return union
+        if let union = union {
+            return union
+        } else {
+            return Rect.zero()
+        }
     }
 
     override func shouldCheckForPressed() -> Bool {

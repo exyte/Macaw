@@ -14,18 +14,18 @@ class SVGBoundsTest: XCTestCase {
     }
     
     func validate(name: String, referenceBounds: Rect) {
-        let passingThreshold = 0.2
+        let passingThreshold = 1.0
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
             let node = try SVGParser.parse(bundle:bundle, path: name)
             var testResult = false
-            if let bounds = node.bounds() {
-//                print("\n<rect x=\"\(Double(round(100*bounds.x)/100))\" y=\"\(Double(round(100*bounds.y)/100))\" width=\"\(Double(round(100*bounds.w)/100))\" height=\"\(Double(round(100*bounds.h)/100))\" stroke=\"red\" stroke-width=\"1\" fill=\"none\"/>\n")
-                testResult = (Double(round(100*bounds.x)/100) - referenceBounds.x < passingThreshold)
-                testResult = testResult && (Double(round(100*bounds.y)/100) - referenceBounds.y < passingThreshold)
-                testResult = testResult && (Double(round(100*bounds.w)/100) - referenceBounds.w < passingThreshold)
-                testResult = testResult && (Double(round(100*bounds.h)/100) - referenceBounds.h < passingThreshold)
-            }
+            let bounds = node.bounds
+            
+            testResult = (Double(round(100 * bounds.x) / 100) - referenceBounds.x < passingThreshold)
+            testResult = testResult && (Double(round(100 * bounds.y) / 100) - referenceBounds.y < passingThreshold)
+            testResult = testResult && (Double(round(100 * bounds.w) / 100) - referenceBounds.w < passingThreshold)
+            testResult = testResult && (Double(round(100 * bounds.h) / 100) - referenceBounds.h < passingThreshold)
+            
             XCTAssert(testResult)
         } catch {
             print(error)

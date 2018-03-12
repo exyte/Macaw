@@ -1198,6 +1198,7 @@ private class PathDataReader {
     
     private let input: String
     private var current: UnicodeScalar?
+    private var previous: UnicodeScalar?
     private var iterator: String.UnicodeScalarView.Iterator
 
     init(input: String) {
@@ -1265,7 +1266,7 @@ private class PathDataReader {
 
     fileprivate func readDigit(_ hasDot: inout Bool) -> UnicodeScalar? {
         if let ch = readNext() {
-            if (ch >= "0" && ch <= "9") {
+            if ((ch >= "0" && ch <= "9") || ch == "e" || (previous == "e" && ch == "-") ) {
                 return ch
             } else if (ch == "." && !hasDot) {
                 hasDot = true
@@ -1290,6 +1291,7 @@ private class PathDataReader {
     }
 
     private func readNext() -> UnicodeScalar? {
+        previous = current
         current = iterator.next()
         return current
     }

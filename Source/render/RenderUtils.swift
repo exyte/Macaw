@@ -422,10 +422,18 @@ class RenderUtils {
             } else {
                 let maxSize = CGFloat(max(w, h))
                 let path = MBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
-                var transform = CGAffineTransform(translationX: cx, y: cy)
-                transform = transform.rotated(by: CGFloat(rotation))
-                
-                path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))
+
+                #if os(iOS)
+                    var transform = CGAffineTransform(translationX: cx, y: cy)
+                    transform = transform.rotated(by: CGFloat(rotation))
+                    path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))
+                #elseif os(OSX)
+                    var transform = AffineTransform(translationByX: cx, byY: cy)
+                    transform.rotate(byDegrees: CGFloat(rotation))
+                    path.transform(using: transform)
+                #endif
+
+                bezierPath.append(path)
             }
         }
 

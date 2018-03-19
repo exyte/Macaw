@@ -1,9 +1,10 @@
 language: objective-c
-osx_image: xcode9
+osx_image: xcode9.2
 
 branches:
     only:
     - master
 
 script:
-  set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.0' | xcpretty;
+  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.2' | xcpretty;
+  - set -o pipefail && xcodebuild build -project Macaw.xcodeproj -scheme 'MacawOSX' ONLY_ACTIVE_ARCH=NO | xcpretty;

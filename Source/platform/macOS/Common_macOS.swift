@@ -123,5 +123,20 @@ import Foundation
     func MMainScreen() -> MScreen? {
         return MScreen.main
     }
+    
+    extension MBezierPath {
+        func apply(_ transform: CGAffineTransform) {
+            let affineTransform = AffineTransform(
+                m11: transform.a,
+                m12: transform.b,
+                m21: transform.c,
+                m22: transform.d,
+                tX: transform.tx,
+                tY: transform.ty
+            )
+            
+            self.transform(using: affineTransform)
+        }
+    }
 
 #endif

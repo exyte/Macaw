@@ -421,11 +421,11 @@ class RenderUtils {
                 bezierPath.addArc(withCenter: CGPoint(x: cx, y: cy), radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
             } else {
                 let maxSize = CGFloat(max(w, h))
-                let path = UIBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
+                let path = MBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
                 var transform = CGAffineTransform(translationX: cx, y: cy)
                 transform = transform.rotated(by: CGFloat(rotation))
+                
                 path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))
-                bezierPath.append(path)
             }
         }
 

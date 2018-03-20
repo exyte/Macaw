@@ -8,3 +8,4 @@ branches:
 script:
   - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.2' | xcpretty;
   - set -o pipefail && xcodebuild build -project Macaw.xcodeproj -scheme 'MacawOSX' ONLY_ACTIVE_ARCH=NO | xcpretty;
+  - set -o pipefail && xcodebuild build -project Macaw.xcodeproj -scheme 'MacawtvOS' ONLY_ACTIVE_ARCH=NO | xcpretty;

@@ -580,8 +580,8 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63547E29206174450041F0B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = "<group>"; };
 		639256F72046F2AD0042CDDA /* MacawtvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacawtvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		639256F82046F2AD0042CDDA /* Macaw copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Macaw copy-Info.plist"; path = "/Users/kristaps/Documents/ios/Macaw/Macaw copy-Info.plist"; sourceTree = "<absolute>"; };
 		639257002046F3110042CDDA /* Testoo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Testoo.h; sourceTree = "<group>"; };
 		639257012046F3110042CDDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -967,11 +967,11 @@
 		57FCD2621D76EA4600CC0FB6 = {
 			isa = PBXGroup;
 			children = (
+				63547E29206174450041F0B3 /* Info.plist */,
 				57FCD26E1D76EA4600CC0FB6 /* Macaw */,
 				57FCD27A1D76EA4600CC0FB6 /* MacawTests */,
 				639256FF2046F3110042CDDA /* Testoo */,
 				57FCD26D1D76EA4600CC0FB6 /* Products */,
-				639256F82046F2AD0042CDDA /* Macaw copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2009,7 +2009,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				INFOPLIST_FILE = "Macaw copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
@@ -2035,7 +2035,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				INFOPLIST_FILE = "Macaw copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "-D CARTHAGE";

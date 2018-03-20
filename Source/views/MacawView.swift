@@ -126,16 +126,16 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
         let panRecognizer = MPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
-      
+
         #if os(iOS)
-        let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
-        let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
-        rotationRecognizer.delegate = self
-        pinchRecognizer.delegate = self
-        rotationRecognizer.cancelsTouchesInView = false
-        pinchRecognizer.cancelsTouchesInView = false
-        self.addGestureRecognizer(rotationRecognizer)
-        self.addGestureRecognizer(pinchRecognizer)
+            let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
+            let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+            rotationRecognizer.delegate = self
+            pinchRecognizer.delegate = self
+            rotationRecognizer.cancelsTouchesInView = false
+            pinchRecognizer.cancelsTouchesInView = false
+            self.addGestureRecognizer(rotationRecognizer)
+            self.addGestureRecognizer(pinchRecognizer)
         #endif
 
         tapRecognizer.delegate = self

@@ -125,22 +125,26 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.animationCache = AnimationCache(sceneLayer: layer)
 
         let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
+        let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MacawView.handleLongTap(recognizer:)))
         let panRecognizer = MPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
         let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
         let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
 
         tapRecognizer.delegate = self
+        longTapRecognizer.delegate = self
         panRecognizer.delegate = self
         rotationRecognizer.delegate = self
         pinchRecognizer.delegate = self
 
         tapRecognizer.cancelsTouchesInView = false
+        longTapRecognizer.cancelsTouchesInView = false
         panRecognizer.cancelsTouchesInView = false
         rotationRecognizer.cancelsTouchesInView = false
         pinchRecognizer.cancelsTouchesInView = false
 
         self.removeGestureRecognizers()
         self.addGestureRecognizer(tapRecognizer)
+        self.addGestureRecognizer(longTapRecognizer)
         self.addGestureRecognizer(panRecognizer)
         self.addGestureRecognizer(rotationRecognizer)
         self.addGestureRecognizer(pinchRecognizer)
@@ -321,6 +325,43 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
     }
 
+    // MARK: - Tap
+    
+    @objc func handleLongTap(recognizer: UILongPressGestureRecognizer) {
+        if !self.node.shouldCheckForLongTap() {
+            return
+        }
+        
+        guard let renderer = renderer else {
+            return
+        }
+        
+        let location = recognizer.location(in: self)
+        var foundNodes = [Node]()
+        
+        localContext { ctx in
+            guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+                return
+            }
+            
+            var parent: Node? = foundNode
+            while parent != .none {
+                if parent!.shouldCheckForTap() {
+                    foundNodes.append(parent!)
+                }
+                
+                parent = nodesMap.parents(parent!).first
+            }
+        }
+        
+        foundNodes.forEach { node in
+            let inverted = node.place.invert()!
+            let loc = location.applying(RenderUtils.mapTransform(inverted))
+            let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+            node.handleLongTap(event, touchBegan: recognizer.state == .began)
+        }
+    }
+    
     // MARK: - Pan
 
     @objc func handlePan(recognizer: MPanGestureRecognizer) {

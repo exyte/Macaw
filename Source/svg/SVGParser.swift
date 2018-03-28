@@ -101,7 +101,7 @@ open class SVGParser {
     fileprivate func parseFirstPassNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         if let element = node.element {
             if element.name == "g" {
-                return parseGroup(node, groupStyle: groupStyle, firstPass: true)
+                return parseFirstPassGroup(node, groupStyle: groupStyle)
             } else if element.name == "defs" {
                 parseDefinitions(node)
             }
@@ -112,7 +112,7 @@ open class SVGParser {
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         if let element = node.element {
             if element.name == "g" {
-                return parseGroup(node, groupStyle: groupStyle, firstPass: false)
+                return parseGroup(node, groupStyle: groupStyle)
             } else if element.name == "clipPath" {
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
@@ -241,8 +241,19 @@ open class SVGParser {
             return .none
         }
     }
-
-    fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:], firstPass: Bool) -> Group? {
+    
+    fileprivate func parseFirstPassGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
+        guard let element = group.element else {
+            return .none
+        }
+        let style = getStyleAttributes(groupStyle, element: element)
+        group.children.forEach { child in
+            let _ = parseFirstPassNode(child, groupStyle: style)
+        }
+        return nil
+    }
+    
+    fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
         guard let element = group.element else {
             return .none
         }
@@ -250,10 +261,7 @@ open class SVGParser {
         let style = getStyleAttributes(groupStyle, element: element)
         let position = getPosition(element)
         group.children.forEach { child in
-            if firstPass, let node = parseFirstPassNode(child, groupStyle: style) {
-                groupNodes.append(node)
-            }
-            if !firstPass, let node = parseNode(child, groupStyle: style) {
+            if let node = parseNode(child, groupStyle: style) {
                 groupNodes.append(node)
             }
         }

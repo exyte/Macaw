@@ -40,6 +40,8 @@ open class SVGParser {
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
+    fileprivate var svgSize: Size?
+    fileprivate var viewBox: Rect?
 
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: XMLIndexer]()
@@ -68,7 +70,7 @@ open class SVGParser {
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
         iterateThroughXmlTree(parsedXml.children)
-
+        addViewBoxClipToNodes()
         let group = Group(contents: self.nodes, place: initialPosition)
         return group
     }
@@ -77,10 +79,41 @@ open class SVGParser {
         children.forEach { child in
             if let element = child.element {
                 if element.name == "svg" {
+                    parseViewBox(element)
                     iterateThroughXmlTree(child.children)
                 } else if let node = parseNode(child) {
                     self.nodes.append(node)
                 }
+            }
+        }
+    }
+    
+    fileprivate func addViewBoxClipToNodes() {
+        if let viewBox = viewBox {
+            for node in nodes {
+                node.clip = viewBox
+                
+                guard let svgSize = svgSize else { continue }
+                
+                let scaleX = svgSize.w / viewBox.w
+                let scaleY = svgSize.h / viewBox.h
+                
+                node.place = Transform.scale(
+                    sx: Double(scaleX),
+                    sy: Double(scaleY)
+                )
+            }
+        }
+    }
+    
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) {
+        if let w = getDoubleValue(element, attribute: "width"), let h = getDoubleValue(element, attribute: "height") {
+            svgSize = Size(w: w, h: h)
+        }
+        if let viewBoxString = element.allAttributes["viewBox"]?.text {
+            let nums = viewBoxString.components(separatedBy: .whitespaces).map{ Double($0) }
+            if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
+                viewBox = Rect(x: x, y: y, w: w, h: h)
             }
         }
     }

@@ -67,61 +67,64 @@ open class SVGParser {
 
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
-        iterateThroughXmlTreePreparationMode(parsedXml.children)
-        iterateThroughXmlTree(parsedXml.children)
+        prepareSvg(parsedXml.children)
+        parseSvg(parsedXml.children)
 
         let group = Group(contents: self.nodes, place: initialPosition)
         return group
     }
 
-    fileprivate func iterateThroughXmlTreePreparationMode(_ children: [XMLIndexer]) {
+    fileprivate func prepareSvg(_ children: [XMLIndexer]) {
         children.forEach { child in
             if let element = child.element {
                 if element.name == "svg" {
-                    iterateThroughXmlTreePreparationMode(child.children)
-                } else if let node = parseFirstPassNode(child) {
-                    nodes.append(node)
+                    prepareSvg(child.children)
+                } else {
+                    prepareSvg(child)
                 }
             }
         }
     }
     
-    fileprivate func iterateThroughXmlTree(_ children: [XMLIndexer]) {
+    fileprivate func prepareSvg(_ node: XMLIndexer) {
+        if let element = node.element {
+            if (element.name == "defs") {
+                parseDefinitions(node)
+            } else if (element.name == "style") {
+                parseStyle(node)
+            } else if (element.name == "g") {
+                node.children.forEach { child in
+                    prepareSvg(child)
+                }
+            }
+        }
+    }
+
+    fileprivate func parseSvg(_ children: [XMLIndexer]) {
         children.forEach { child in
             if let element = child.element {
                 if element.name == "svg" {
-                    iterateThroughXmlTree(child.children)
+                    parseSvg(child.children)
                 } else if let node = parseNode(child) {
                     self.nodes.append(node)
                 }
             }
         }
     }
-    
-    fileprivate func parseFirstPassNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        if let element = node.element {
-            if element.name == "g" {
-                return parseFirstPassGroup(node, groupStyle: groupStyle)
-            } else if element.name == "defs" {
-                parseDefinitions(node)
-            }
-        }
-        return .none
-    }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         if let element = node.element {
-            if element.name == "g" {
+            switch(element.name) {
+            case "g":
                 return parseGroup(node, groupStyle: groupStyle)
-            } else if element.name == "clipPath" {
+            case "clipPath":
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
                 }
-            } else if element.name == "style" {
-                parseStyle(node)
-            } else if element.name == "defs" { // keep the warning away
+            case "style", "defs":
                 // do nothing - it was parsed on first iteration
-            } else {
+                return .none
+            default:
                 return parseElement(node, groupStyle: groupStyle)
             }
         }
@@ -240,17 +243,6 @@ open class SVGParser {
         default:
             return .none
         }
-    }
-    
-    fileprivate func parseFirstPassGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
-        guard let element = group.element else {
-            return .none
-        }
-        let style = getStyleAttributes(groupStyle, element: element)
-        group.children.forEach { child in
-            let _ = parseFirstPassNode(child, groupStyle: style)
-        }
-        return nil
     }
     
     fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {

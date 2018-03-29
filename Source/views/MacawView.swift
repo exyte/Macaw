@@ -125,7 +125,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.animationCache = AnimationCache(sceneLayer: layer)
 
         let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
-        let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MacawView.handleLongTap(recognizer:)))
+        let longTapRecognizer = MLongPressGestureRecognizer(target: self, action: #selector(MacawView.handleLongTap(recognizer:)))
         let panRecognizer = MPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
         let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
         let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
@@ -327,7 +327,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     // MARK: - Tap
     
-    @objc func handleLongTap(recognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongTap(recognizer: MLongPressGestureRecognizer) {
         if !self.node.shouldCheckForLongTap() {
             return
         }

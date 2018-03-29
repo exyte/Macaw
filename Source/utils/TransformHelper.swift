@@ -9,6 +9,7 @@ public enum ScaleMode : String {
     case aspectFit = "meet"
     case aspectFill = "slice"
     case scaleToFill = "none"
+    case noScaling = "noScaling"
 }
 
 public protocol TransformHelperProtocol {
@@ -65,6 +66,9 @@ open class TransformHelper: TransformHelperProtocol {
                 sx: Double(widthRatio),
                 sy: Double(heightRatio)
             )
+        case .noScaling:
+            newWidth = rect.w
+            newHeight = rect.h
         }
         
         guard let xAligningMode = xAligningMode else { return result }

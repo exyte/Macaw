@@ -47,105 +47,57 @@ open class SVGView: MacawView {
     fileprivate func parseSVG() {
         svgNode = try? SVGParser.parse(path: fileName ?? "")
     }
-
+    
     fileprivate func render() {
-        guard let svgNode = self.svgNode else {
-            return
+        guard let svgNode = svgNode else { return }
+        guard let nodeBounds = svgNode.bounds()?.cgRect() else { return }
+
+        let viewBounds = bounds
+        let svgWidth = nodeBounds.width
+        let svgHeight = nodeBounds.height
+
+        let transformHelper = TransformHelper()
+        transformHelper.scalingMode = .noScaling
+        transformHelper.xAligningMode = .mid
+        transformHelper.yAligningMode = .mid
+
+        switch self.contentMode {
+        case .scaleToFill:
+            transformHelper.scalingMode = .scaleToFill
+        case .scaleAspectFill:
+            transformHelper.scalingMode = .aspectFill
+        case .scaleAspectFit:
+            transformHelper.scalingMode = .aspectFit
+        case .center:
+            break
+        case .top:
+            transformHelper.yAligningMode = .min
+        case .bottom:
+            transformHelper.yAligningMode = .max
+        case .left:
+            transformHelper.xAligningMode = .min
+        case .right:
+            transformHelper.xAligningMode = .max
+        case .topLeft:
+            transformHelper.xAligningMode = .min
+            transformHelper.yAligningMode = .min
+        case .topRight:
+            transformHelper.xAligningMode = .max
+            transformHelper.yAligningMode = .min
+        case .bottomLeft:
+            transformHelper.xAligningMode = .min
+            transformHelper.yAligningMode = .max
+        case .bottomRight:
+            transformHelper.xAligningMode = .max
+            transformHelper.yAligningMode = .max
+        case .redraw:
+            break
         }
-        let viewBounds = self.bounds
-        if let nodeBounds = svgNode.bounds()?.cgRect() {
-            let svgWidth = nodeBounds.origin.x + nodeBounds.width
-            let svgHeight = nodeBounds.origin.y + nodeBounds.height
 
-            let viewAspectRatio = viewBounds.width / viewBounds.height
-            let svgAspectRatio = svgWidth / svgHeight
-
-            let scaleX = viewBounds.width / svgWidth
-            let scaleY = viewBounds.height / svgHeight
-
-            switch self.contentMode {
-            case .scaleToFill:
-                svgNode.place = Transform.scale(
-                    sx: Double(scaleX),
-                    sy: Double(scaleY)
-                )
-            case .scaleAspectFill:
-                let scaleX, scaleY: CGFloat
-                if viewAspectRatio > svgAspectRatio {
-                    scaleX = viewBounds.width / svgWidth
-                    scaleY = viewBounds.width / (svgWidth / svgAspectRatio)
-                } else {
-                    scaleX = viewBounds.height / (svgHeight / svgAspectRatio)
-                    scaleY = viewBounds.height / svgHeight
-                }
-                let calculatedWidth = svgWidth * scaleX
-                let calculatedHeight = svgHeight * scaleY
-                svgNode.place = Transform.move(
-                    dx: (viewBounds.width / 2 - calculatedWidth / 2).doubleValue,
-                    dy: (viewBounds.height / 2 - calculatedHeight / 2).doubleValue
-                    ).scale(
-                        sx: scaleX.doubleValue,
-                        sy: scaleX.doubleValue
-                )
-            case .scaleAspectFit:
-                let scale = CGFloat.minimum(scaleX, scaleY)
-
-                svgNode.place = Transform.move(
-                    dx: (viewBounds.midX - scale * svgWidth / 2).doubleValue,
-                    dy: (viewBounds.midY - scale * svgHeight / 2).doubleValue
-                    ).scale(
-                        sx: scale.doubleValue,
-                        sy: scale.doubleValue
-                )
-            case .center:
-                svgNode.place = Transform.move(
-                    dx: getMidX(viewBounds, nodeBounds).doubleValue,
-                    dy: getMidY(viewBounds, nodeBounds).doubleValue
-                )
-            case .top:
-                svgNode.place = Transform.move(
-                    dx: getMidX(viewBounds, nodeBounds).doubleValue,
-                    dy: 0
-                )
-            case .bottom:
-                svgNode.place = Transform.move(
-                    dx: getMidX(viewBounds, nodeBounds).doubleValue,
-                    dy: getBottom(viewBounds, nodeBounds).doubleValue
-                )
-            case .left:
-                svgNode.place = Transform.move(
-                    dx: 0,
-                    dy: getMidY(viewBounds, nodeBounds).doubleValue
-                )
-            case .right:
-                svgNode.place = Transform.move(
-                    dx: getRight(viewBounds, nodeBounds).doubleValue,
-                    dy: getMidY(viewBounds, nodeBounds).doubleValue
-                )
-            case .topLeft:
-                break
-            case .topRight:
-                svgNode.place = Transform.move(
-                    dx: getRight(viewBounds, nodeBounds).doubleValue,
-                    dy: 0
-                )
-            case .bottomLeft:
-                svgNode.place = Transform.move(
-                    dx: 0,
-                    dy: getBottom(viewBounds, nodeBounds).doubleValue
-                )
-            case .bottomRight:
-                svgNode.place = Transform.move(
-                    dx: getRight(viewBounds, nodeBounds).doubleValue,
-                    dy: getBottom(viewBounds, nodeBounds).doubleValue
-                )
-            case .redraw:
-                break
-            }
-        }
+        svgNode.place = transformHelper.getTransformOf(Rect(x: 0, y: 0, w: Double(svgWidth), h: Double(svgHeight)), into: Rect(cgRect: viewBounds))
 
         rootNode.contents = [svgNode]
-        self.node = rootNode
+        node = rootNode
     }
 
     fileprivate func getMidX(_ viewBounds: CGRect, _ nodeBounds: CGRect) -> CGFloat {

@@ -9,40 +9,28 @@ import CoreGraphics
 /// This class used to parse SVG file and build corresponding Macaw scene
 ///
 
-public enum AlignMode : String {
-    case max
-    case mid
-    case min
-}
-
-public enum ScaleMode : String {
-    case aspectFit = "meet"
-    case aspectFill = "slice"
-    case scaleToFill = "none"
-}
-
 open class SVGParser {
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(bundle: Bundle, path: String, ofType: String = "svg") throws -> Node {
+    open class func parse(bundle: Bundle, path: String, ofType: String = "svg", transformHelper: TransformHelperProtocol = TransformHelper()) throws -> Node {
         guard let fullPath = bundle.path(forResource: path, ofType: ofType) else {
             throw SVGParserError.noSuchFile(path: "\(path).\(ofType)")
         }
         let text = try String(contentsOfFile: fullPath, encoding: String.Encoding.utf8)
-        return try SVGParser.parse(text: text)
+        return try SVGParser.parse(text: text, transformHelper: transformHelper)
     }
 
     /// Parse an SVG file identified by the specified name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(path: String, ofType: String = "svg") throws -> Node {
-        return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
+    open class func parse(path: String, ofType: String = "svg", transformHelper: TransformHelperProtocol = TransformHelper()) throws -> Node {
+        return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType, transformHelper: transformHelper)
     }
 
     /// Parse the specified content of an SVG file.
     /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(text: String) throws -> Node {
-        return SVGParser(text).parse()
+    open class func parse(text: String, transformHelper: TransformHelperProtocol = TransformHelper()) throws -> Node {
+        return SVGParser(text, transformHelper: transformHelper).parse()
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
@@ -59,6 +47,7 @@ open class SVGParser {
     fileprivate var scalingMode: ScaleMode?
     fileprivate var xAligningMode: AlignMode?
     fileprivate var yAligningMode: AlignMode?
+    fileprivate var transformHelper: TransformHelperProtocol!
 
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: XMLIndexer]()
@@ -79,9 +68,10 @@ open class SVGParser {
 
     fileprivate typealias PathCommand = (type: PathCommandType, expression: String, absolute: Bool)
 
-    fileprivate init(_ string: String, pos: Transform = Transform()) {
+    fileprivate init(_ string: String, pos: Transform = Transform(), transformHelper: TransformHelperProtocol = TransformHelper()) {
         self.xmlString = string
         self.initialPosition = pos
+        self.transformHelper = transformHelper
     }
 
     fileprivate func parse() -> Group {
@@ -111,82 +101,21 @@ open class SVGParser {
         guard let viewBox = viewBox else { return }
         node.clip = viewBox
         
-        guard let svgSize = svgSize else { return }
         guard let scalingMode = scalingMode else { return }
+        guard let svgSize = svgSize else { return }
         
-        let scaleX = svgSize.w / viewBox.w
-        let scaleY = svgSize.h / viewBox.h
-        
-        let widthRatio = svgSize.w / viewBox.w
-        let heightRatio = svgSize.h / viewBox.h
-        
-        var newWidth = svgSize.w
-        var newHeight = svgSize.h
-        
-        switch scalingMode {
-        case .aspectFit:
-            if heightRatio < widthRatio {
-                newWidth = viewBox.w * heightRatio
-            } else {
-                newHeight = viewBox.h * widthRatio
-            }
-            node.place = Transform.scale(
-                sx: newWidth / viewBox.w,
-                sy: newHeight / viewBox.h
-            )
-        case .aspectFill:
-            if heightRatio > widthRatio {
-                newWidth = viewBox.w * heightRatio
-            } else {
-                newHeight = viewBox.h * widthRatio
-            }
-            node.place = Transform.scale(
-                sx: newWidth / viewBox.w,
-                sy: newHeight / viewBox.h
-            )
+        if scalingMode == .aspectFill {
             // setup new clipping to slice extra bits
             node.clip = svgSize.aspectFit(viewBox)
-        case .scaleToFill:
-            node.place = Transform.scale(
-                sx: Double(scaleX),
-                sy: Double(scaleY)
-            )
         }
+        
+        transformHelper.scalingMode = scalingMode
+        transformHelper.xAligningMode = xAligningMode
+        transformHelper.yAligningMode = yAligningMode
+        node.place = transformHelper.getTransformOf(viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
         
         // move to (0, 0)
         node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
-        
-        guard let xAligningMode = xAligningMode else { return }
-        switch xAligningMode {
-        case .min:
-            break
-        case .mid:
-            node.place = node.place.move(
-                dx: (svgSize.w / 2 - newWidth / 2) / (newWidth / viewBox.w),
-                dy: 0
-            )
-        case .max:
-            node.place = node.place.move(
-                dx: (svgSize.w - newWidth) / (newWidth / viewBox.w),
-                dy: 0
-            )
-        }
-        
-        guard let yAligningMode = yAligningMode else { return }
-        switch yAligningMode {
-        case .min:
-            break
-        case .mid:
-            node.place = node.place.move(
-                dx: 0,
-                dy: (svgSize.h / 2 - newHeight / 2) / (newHeight / viewBox.h)
-            )
-        case .max:
-            node.place = node.place.move(
-                dx: 0,
-                dy: (svgSize.h - newHeight) / (newHeight / viewBox.h)
-            )
-        }
     }
     
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) {

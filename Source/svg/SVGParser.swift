@@ -79,7 +79,7 @@ open class SVGParser {
         iterateThroughXmlTree(parsedXml.children)
         
         let group = Group(contents: self.nodes, place: initialPosition)
-        addViewBoxClipToNodes(group)
+        addViewBoxClip(toNode: group)
         return group
     }
 
@@ -96,7 +96,7 @@ open class SVGParser {
         }
     }
     
-    fileprivate func addViewBoxClipToNodes(_ node: Node) {
+    fileprivate func addViewBoxClip(toNode node: Node) {
         
         guard let viewBox = viewBox else { return }
         node.clip = viewBox

@@ -8,6 +8,19 @@ import CoreGraphics
 ///
 /// This class used to parse SVG file and build corresponding Macaw scene
 ///
+
+public enum AlignMode : String {
+    case max
+    case mid
+    case min
+}
+
+public enum ScaleMode : String {
+    case aspectFit = "meet"
+    case aspectFill = "slice"
+    case scaleToFill = "none"
+}
+
 open class SVGParser {
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
@@ -40,8 +53,12 @@ open class SVGParser {
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
+    
     fileprivate var svgSize: Size?
     fileprivate var viewBox: Rect?
+    fileprivate var scalingMode: ScaleMode?
+    fileprivate var xAligningMode: AlignMode?
+    fileprivate var yAligningMode: AlignMode?
 
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: XMLIndexer]()
@@ -70,8 +87,9 @@ open class SVGParser {
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
         iterateThroughXmlTree(parsedXml.children)
-        addViewBoxClipToNodes()
+        
         let group = Group(contents: self.nodes, place: initialPosition)
+        addViewBoxClipToNodes(group)
         return group
     }
 
@@ -88,21 +106,86 @@ open class SVGParser {
         }
     }
     
-    fileprivate func addViewBoxClipToNodes() {
-        if let viewBox = viewBox {
-            for node in nodes {
-                node.clip = viewBox
-                
-                guard let svgSize = svgSize else { continue }
-                
-                let scaleX = svgSize.w / viewBox.w
-                let scaleY = svgSize.h / viewBox.h
-                
-                node.place = Transform.scale(
-                    sx: Double(scaleX),
-                    sy: Double(scaleY)
-                )
+    fileprivate func addViewBoxClipToNodes(_ node: Node) {
+        
+        guard let viewBox = viewBox else { return }
+        node.clip = viewBox
+        
+        guard let svgSize = svgSize else { return }
+        guard let scalingMode = scalingMode else { return }
+        
+        let scaleX = svgSize.w / viewBox.w
+        let scaleY = svgSize.h / viewBox.h
+        
+        let widthRatio = svgSize.w / viewBox.w
+        let heightRatio = svgSize.h / viewBox.h
+        
+        var newWidth = svgSize.w
+        var newHeight = svgSize.h
+        
+        switch scalingMode {
+        case .aspectFit:
+            if heightRatio < widthRatio {
+                newWidth = viewBox.w * heightRatio
+            } else {
+                newHeight = viewBox.h * widthRatio
             }
+            node.place = Transform.scale(
+                sx: newWidth / viewBox.w,
+                sy: newHeight / viewBox.h
+            )
+        case .aspectFill:
+            if heightRatio > widthRatio {
+                newWidth = viewBox.w * heightRatio
+            } else {
+                newHeight = viewBox.h * widthRatio
+            }
+            node.place = Transform.scale(
+                sx: newWidth / viewBox.w,
+                sy: newHeight / viewBox.h
+            )
+            // setup new clipping to slice extra bits
+            node.clip = svgSize.aspectFit(viewBox)
+        case .scaleToFill:
+            node.place = Transform.scale(
+                sx: Double(scaleX),
+                sy: Double(scaleY)
+            )
+        }
+        
+        // move to (0, 0)
+        node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
+        
+        guard let xAligningMode = xAligningMode else { return }
+        switch xAligningMode {
+        case .min:
+            break
+        case .mid:
+            node.place = node.place.move(
+                dx: (svgSize.w / 2 - newWidth / 2) / (newWidth / viewBox.w),
+                dy: 0
+            )
+        case .max:
+            node.place = node.place.move(
+                dx: (svgSize.w - newWidth) / (newWidth / viewBox.w),
+                dy: 0
+            )
+        }
+        
+        guard let yAligningMode = yAligningMode else { return }
+        switch yAligningMode {
+        case .min:
+            break
+        case .mid:
+            node.place = node.place.move(
+                dx: 0,
+                dy: (svgSize.h / 2 - newHeight / 2) / (newHeight / viewBox.h)
+            )
+        case .max:
+            node.place = node.place.move(
+                dx: 0,
+                dy: (svgSize.h - newHeight) / (newHeight / viewBox.h)
+            )
         }
     }
     
@@ -115,6 +198,25 @@ open class SVGParser {
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
                 viewBox = Rect(x: x, y: y, w: w, h: h)
             }
+        }
+        if let contentModeString = element.allAttributes["preserveAspectRatio"]?.text {
+            let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
+            if strings.count == 1 { // none
+                scalingMode = ScaleMode(rawValue: strings[0])
+                return
+            }
+            guard strings.count == 2 else { return }
+            
+            let alignString = strings[0]
+            var xAlign = alignString.prefix(4).lowercased()
+            xAlign.remove(at: xAlign.startIndex)
+            xAligningMode = AlignMode(rawValue: xAlign)
+            
+            var yAlign = alignString.suffix(4).lowercased()
+            yAlign.remove(at: yAlign.startIndex)
+            yAligningMode = AlignMode(rawValue: yAlign)
+            
+            scalingMode = ScaleMode(rawValue: strings[1])
         }
     }
 

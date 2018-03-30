@@ -22,6 +22,7 @@ import Foundation
     public typealias MGestureRecognizerState = NSGestureRecognizer.State
     public typealias MGestureRecognizerDelegate = NSGestureRecognizerDelegate
     public typealias MTapGestureRecognizer = NSClickGestureRecognizer
+    public typealias MLongPressGestureRecognizer = NSPressGestureRecognizer
     public typealias MPanGestureRecognizer = NSPanGestureRecognizer
     public typealias MPinchGestureRecognizer = NSMagnificationGestureRecognizer
     public typealias MRotationGestureRecognizer = NSRotationGestureRecognizer

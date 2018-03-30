@@ -24,6 +24,7 @@ class SceneUtils {
 		shape.touchReleasedHandlers = from.touchReleasedHandlers
 		
 		shape.tapHandlers = from.tapHandlers
+        shape.longTapHandlers = from.longTapHandlers
 		shape.panHandlers = from.panHandlers
 		shape.rotateHandlers = from.rotateHandlers
 		shape.pinchHandlers = from.pinchHandlers

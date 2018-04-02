@@ -552,7 +552,7 @@ open class SVGParser {
         if let strokeJoin = styleParts["stroke-linejoin"] {
             switch strokeJoin {
             case "round":
-                cap = .round
+                join = .round
             case "miter":
                 join = .miter
             case "bevel":

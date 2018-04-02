@@ -523,8 +523,8 @@ open class SVGParser {
             let characterSet = NSCharacterSet.decimalDigits.union(NSCharacterSet.punctuationCharacters).inverted
             let digitsArray = strokeWidth.components(separatedBy: characterSet)
             let digits = digitsArray.joined()
-            if let value = NumberFormatter().number(from: digits) {
-                return value.doubleValue
+            if let value = Double(digits) {
+                return value
             }
         }
         return 1
@@ -534,6 +534,8 @@ open class SVGParser {
         var cap = LineCap.butt
         if let strokeCap = styleParts["stroke-linecap"] {
             switch strokeCap {
+            case "round":
+                cap = .round
             case "butt":
                 cap = .butt
             case "square":
@@ -549,6 +551,8 @@ open class SVGParser {
         var join = LineJoin.miter
         if let strokeJoin = styleParts["stroke-linejoin"] {
             switch strokeJoin {
+            case "round":
+                cap = .round
             case "miter":
                 join = .miter
             case "bevel":

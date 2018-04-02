@@ -4,7 +4,7 @@ import Foundation
     import AppKit
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
 #endif
 
@@ -64,7 +64,7 @@ class ImageRenderer: NodeRenderer {
             return .none
         }
 
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             let osImage = MImage(named: image.src)
         #elseif os(OSX)
             let osImage = MImage(named: NSImage.Name(rawValue: image.src))

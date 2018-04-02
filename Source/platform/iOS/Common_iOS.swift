@@ -8,7 +8,7 @@
 
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
 
     public typealias MRectCorner = UIRectCorner
@@ -24,8 +24,12 @@ import Foundation
     public typealias MTapGestureRecognizer = UITapGestureRecognizer
     public typealias MLongPressGestureRecognizer = UILongPressGestureRecognizer
     public typealias MPanGestureRecognizer = UIPanGestureRecognizer
+
+    #if os(iOS)
     public typealias MPinchGestureRecognizer = UIPinchGestureRecognizer
     public typealias MRotationGestureRecognizer = UIRotationGestureRecognizer
+    #endif
+
     public typealias MScreen = UIScreen
     public typealias MViewContentMode = UIViewContentMode
 
@@ -45,6 +49,7 @@ import Foundation
         }
     }
 
+    #if os(iOS)
     extension MRotationGestureRecognizer {
         final var mRotation: CGFloat {
             get {
@@ -72,10 +77,15 @@ import Foundation
             return super.location(ofTouch: touch, in: inView)
         }
     }
+    #endif
 
     extension MFont {
         class var mSystemFontSize: CGFloat {
-            return UIFont.systemFontSize
+            #if os(iOS)
+                return UIFont.systemFontSize
+            #elseif os(tvOS)
+                return 12.0
+            #endif
         }
     }
 

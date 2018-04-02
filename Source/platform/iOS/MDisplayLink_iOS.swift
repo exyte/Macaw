@@ -6,7 +6,7 @@
 //
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
 
     class MDisplayLink: MDisplayLinkProtocol {
@@ -23,7 +23,11 @@
             self.onUpdate = onUpdate
 
             displayLink = CADisplayLink(target: self, selector: #selector(updateHandler))
-            displayLink?.frameInterval = 1
+            #if os(iOS)
+                displayLink?.frameInterval = 1
+            #elseif os(tvOS)
+                displayLink?.preferredFramesPerSecond = 1
+            #endif
             displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
         }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
 #elseif os(OSX)
     import AppKit
@@ -127,27 +127,30 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
         let longTapRecognizer = MLongPressGestureRecognizer(target: self, action: #selector(MacawView.handleLongTap(recognizer:)))
         let panRecognizer = MPanGestureRecognizer(target: self, action: #selector(MacawView.handlePan))
-        let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
-        let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+
+        #if os(iOS)
+            let rotationRecognizer = MRotationGestureRecognizer(target: self, action: #selector(MacawView.handleRotation))
+            let pinchRecognizer = MPinchGestureRecognizer(target: self, action: #selector(MacawView.handlePinch))
+            rotationRecognizer.delegate = self
+            pinchRecognizer.delegate = self
+            rotationRecognizer.cancelsTouchesInView = false
+            pinchRecognizer.cancelsTouchesInView = false
+            self.addGestureRecognizer(rotationRecognizer)
+            self.addGestureRecognizer(pinchRecognizer)
+        #endif
 
         tapRecognizer.delegate = self
         longTapRecognizer.delegate = self
         panRecognizer.delegate = self
-        rotationRecognizer.delegate = self
-        pinchRecognizer.delegate = self
-
         tapRecognizer.cancelsTouchesInView = false
         longTapRecognizer.cancelsTouchesInView = false
         panRecognizer.cancelsTouchesInView = false
-        rotationRecognizer.cancelsTouchesInView = false
-        pinchRecognizer.cancelsTouchesInView = false
 
         self.removeGestureRecognizers()
         self.addGestureRecognizer(tapRecognizer)
         self.addGestureRecognizer(longTapRecognizer)
         self.addGestureRecognizer(panRecognizer)
-        self.addGestureRecognizer(rotationRecognizer)
-        self.addGestureRecognizer(pinchRecognizer)
+
     }
 
     override open func draw(_ rect: CGRect) {
@@ -417,98 +420,99 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     // MARK: - Rotation
-
+    #if os(iOS)
     @objc func handleRotation(_ recognizer: MRotationGestureRecognizer) {
-        if !self.node.shouldCheckForRotate() {
-            return
-        }
+    if !self.node.shouldCheckForRotate() {
+    return
+    }
 
-        guard let renderer = renderer else {
-            return
-        }
+    guard let renderer = renderer else {
+    return
+    }
 
-        if recognizer.state == .began {
-            let location = recognizer.location(in: self)
+    if recognizer.state == .began {
+    let location = recognizer.location(in: self)
 
-            localContext { ctx in
-                guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
-                    return
-                }
+    localContext { ctx in
+    guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+    return
+    }
 
-                if self.recognizersMap[recognizer] == nil {
-                    self.recognizersMap[recognizer] = [Node]()
-                }
+    if self.recognizersMap[recognizer] == nil {
+    self.recognizersMap[recognizer] = [Node]()
+    }
 
-                var parent: Node? = foundNode
-                while parent != .none {
-                    if parent!.shouldCheckForRotate() {
-                        self.recognizersMap[recognizer]?.append(parent!)
-                    }
+    var parent: Node? = foundNode
+    while parent != .none {
+    if parent!.shouldCheckForRotate() {
+    self.recognizersMap[recognizer]?.append(parent!)
+    }
 
-                    parent = nodesMap.parents(parent!).first
-                }
-            }
-        }
+    parent = nodesMap.parents(parent!).first
+    }
+    }
+    }
 
-        let rotation = Double(recognizer.rotation)
-        recognizer.rotation = 0
+    let rotation = Double(recognizer.rotation)
+    recognizer.rotation = 0
 
-        recognizersMap[recognizer]?.forEach { node in
-            let event = RotateEvent(node: node, angle: rotation)
-            node.handleRotate(event)
-        }
+    recognizersMap[recognizer]?.forEach { node in
+    let event = RotateEvent(node: node, angle: rotation)
+    node.handleRotate(event)
+    }
 
-        if recognizer.state == .ended || recognizer.state == .cancelled {
-            recognizersMap.removeValue(forKey: recognizer)
-        }
+    if recognizer.state == .ended || recognizer.state == .cancelled {
+    recognizersMap.removeValue(forKey: recognizer)
+    }
     }
 
     // MARK: - Pinch
 
     @objc func handlePinch(_ recognizer: MPinchGestureRecognizer) {
-        if !self.node.shouldCheckForPinch() {
-            return
-        }
-
-        guard let renderer = renderer else {
-            return
-        }
-
-        if recognizer.state == .began {
-            let location = recognizer.location(in: self)
-
-            localContext { ctx in
-                guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
-                    return
-                }
-
-                if self.recognizersMap[recognizer] == nil {
-                    self.recognizersMap[recognizer] = [Node]()
-                }
-
-                var parent: Node? = foundNode
-                while parent != .none {
-                    if parent!.shouldCheckForPinch() {
-                        self.recognizersMap[recognizer]?.append(parent!)
-                    }
-
-                    parent = nodesMap.parents(parent!).first
-                }
-            }
-        }
-
-        let scale = Double(recognizer.mScale)
-        recognizer.mScale = 1
-
-        recognizersMap[recognizer]?.forEach { node in
-            let event = PinchEvent(node: node, scale: scale)
-            node.handlePinch(event)
-        }
-
-        if recognizer.state == .ended || recognizer.state == .cancelled {
-            recognizersMap.removeValue(forKey: recognizer)
-        }
+    if !self.node.shouldCheckForPinch() {
+    return
     }
+
+    guard let renderer = renderer else {
+    return
+    }
+
+    if recognizer.state == .began {
+    let location = recognizer.location(in: self)
+
+    localContext { ctx in
+    guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
+    return
+    }
+
+    if self.recognizersMap[recognizer] == nil {
+    self.recognizersMap[recognizer] = [Node]()
+    }
+
+    var parent: Node? = foundNode
+    while parent != .none {
+    if parent!.shouldCheckForPinch() {
+    self.recognizersMap[recognizer]?.append(parent!)
+    }
+
+    parent = nodesMap.parents(parent!).first
+    }
+    }
+    }
+
+    let scale = Double(recognizer.mScale)
+    recognizer.mScale = 1
+
+    recognizersMap[recognizer]?.forEach { node in
+    let event = PinchEvent(node: node, scale: scale)
+    node.handlePinch(event)
+    }
+
+    if recognizer.state == .ended || recognizer.state == .cancelled {
+    recognizersMap.removeValue(forKey: recognizer)
+    }
+    }
+    #endif
 
     deinit {
         nodesMap.remove(node)

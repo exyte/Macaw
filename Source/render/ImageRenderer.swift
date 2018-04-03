@@ -115,8 +115,6 @@ class ImageRenderer: NodeRenderer {
         let srcAR = size.width / size.height
         var resultW = w
         var resultH = h
-        var destX = CGFloat(0)
-        var destY = CGFloat(0)
         if destAR < srcAR {
             // fill all available width and scale height
             resultH = size.height * w / size.width
@@ -124,24 +122,8 @@ class ImageRenderer: NodeRenderer {
             // fill all available height and scale width
             resultW = size.width * h / size.height
         }
-        let xalign = image.xAlign
-        switch xalign {
-        case Align.min:
-            destX = 0
-        case Align.mid:
-            destX = w / 2 - resultW / 2
-        case Align.max:
-            destX = w - resultW
-        }
-        let yalign = image.yAlign
-        switch yalign {
-        case Align.min:
-            destY = 0
-        case Align.mid:
-            destY = h / 2 - resultH / 2
-        case Align.max:
-            destY = h - resultH
-        }
+        let destX = image.xAlign.align(x: w, y: resultW)
+        let destY = image.yAlign.align(x: h, y: resultH)
         return CGRect(x: destX, y: destY, width: resultW, height: resultH)
     }
 
@@ -159,26 +141,12 @@ class ImageRenderer: NodeRenderer {
             // fill all available width and scale height
             totalH = size.height * w / size.width
             totalW = w
-            switch image.yAlign {
-            case Align.min:
-                srcY = 0
-            case Align.mid:
-                srcY = -(totalH / 2 - h / 2)
-            case Align.max:
-                srcY = -(totalH - h)
-            }
+            srcY = image.yAlign.align(x: h, y: totalH)
         } else {
             // fill all available height and scale width
             totalW = size.width * h / size.height
             totalH = h
-            switch image.xAlign {
-            case Align.min:
-                srcX = 0
-            case Align.mid:
-                srcX = -(totalW / 2 - w / 2)
-            case Align.max:
-                srcX = -(totalW - w)
-            }
+            srcX = image.xAlign.align(x: w, y: totalW)
         }
         return CGRect(x: srcX, y: srcY, width: totalW, height: totalH)
     }

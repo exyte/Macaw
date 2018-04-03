@@ -1,33 +1,25 @@
 
-public enum AlignMode : String {
-    case max
-    case mid
-    case min
-}
-
-public enum ScaleMode : String {
-    case aspectFit = "meet"
-    case aspectFill = "slice"
-    case scaleToFill = "none"
-    case noScaling = "noScaling"
-}
-
 public protocol TransformHelperProtocol {
     
-    var scalingMode: ScaleMode? { get set }
-    var xAligningMode: AlignMode? { get set }
-    var yAligningMode: AlignMode? { get set }
-    
+    static var standard: TransformHelperProtocol { get }
     func getTransformOf(_ rect: Rect, into rectToFitIn: Rect) -> Transform
 }
 
 open class TransformHelper: TransformHelperProtocol {
     
-    public var scalingMode: ScaleMode?
-    public var xAligningMode: AlignMode?
-    public var yAligningMode: AlignMode?
+    public let scalingMode: AspectRatio!
+    public let xAligningMode: Align!
+    public let yAligningMode: Align!
     
-    public init() { }
+    public init(scalingMode: AspectRatio, xAligningMode: Align? = Align.min, yAligningMode: Align? = Align.min) {
+        self.scalingMode = scalingMode
+        self.xAligningMode = xAligningMode
+        self.yAligningMode = yAligningMode
+    }
+    
+    public static var standard: TransformHelperProtocol {
+        return TransformHelper(scalingMode: .none)
+    }
     
     public func getTransformOf(_ rect: Rect, into rectToFitIn: Rect) -> Transform {
         
@@ -41,7 +33,7 @@ open class TransformHelper: TransformHelperProtocol {
         var newHeight = rectToFitIn.h
         
         switch scalingMode {
-        case .aspectFit:
+        case .meet:
             if heightRatio < widthRatio {
                 newWidth = rect.w * heightRatio
             } else {
@@ -51,7 +43,7 @@ open class TransformHelper: TransformHelperProtocol {
                 sx: newWidth / rect.w,
                 sy: newHeight / rect.h
             )
-        case .aspectFill:
+        case .slice:
             if heightRatio > widthRatio {
                 newWidth = rect.w * heightRatio
             } else {
@@ -61,47 +53,16 @@ open class TransformHelper: TransformHelperProtocol {
                 sx: newWidth / rect.w,
                 sy: newHeight / rect.h
             )
-        case .scaleToFill:
+        case .none:
             result = result.scale(
                 sx: Double(widthRatio),
                 sy: Double(heightRatio)
             )
-        case .noScaling:
-            newWidth = rect.w
-            newHeight = rect.h
         }
         
-        guard let xAligningMode = xAligningMode else { return result }
-        switch xAligningMode {
-        case .min:
-            break
-        case .mid:
-            result = result.move(
-                dx: (rectToFitIn.w / 2 - newWidth / 2) / (newWidth / rect.w),
-                dy: 0
-            )
-        case .max:
-            result = result.move(
-                dx: (rectToFitIn.w - newWidth) / (newWidth / rect.w),
-                dy: 0
-            )
-        }
-        
-        guard let yAligningMode = yAligningMode else { return result }
-        switch yAligningMode {
-        case .min:
-            break
-        case .mid:
-            result = result.move(
-                dx: 0,
-                dy: (rectToFitIn.h / 2 - newHeight / 2) / (newHeight / rect.h)
-            )
-        case .max:
-            result = result.move(
-                dx: 0,
-                dy: (rectToFitIn.h - newHeight) / (newHeight / rect.h)
-            )
-        }
+        let dx = xAligningMode.align(x: rectToFitIn.w, y: newWidth) / (newWidth / rect.w)
+        let dy = yAligningMode.align(x: rectToFitIn.h, y: newHeight) / (newHeight / rect.h)
+        result = result.move(dx: dx, dy: dy)
         
         return result
     }

@@ -56,44 +56,44 @@ open class SVGView: MacawView {
         let svgWidth = nodeBounds.width
         let svgHeight = nodeBounds.height
 
-        let transformHelper = TransformHelper()
-        transformHelper.scalingMode = .noScaling
-        transformHelper.xAligningMode = .mid
-        transformHelper.yAligningMode = .mid
+        var scalingMode = AspectRatio.none
+        var xAligningMode = Align.mid
+        var yAligningMode = Align.mid
 
-        switch self.contentMode {
+        switch contentMode {
         case .scaleToFill:
-            transformHelper.scalingMode = .scaleToFill
+            scalingMode = .none
         case .scaleAspectFill:
-            transformHelper.scalingMode = .aspectFill
+            scalingMode = .slice
         case .scaleAspectFit:
-            transformHelper.scalingMode = .aspectFit
+            scalingMode = .meet
         case .center:
             break
         case .top:
-            transformHelper.yAligningMode = .min
+            yAligningMode = .min
         case .bottom:
-            transformHelper.yAligningMode = .max
+            yAligningMode = .max
         case .left:
-            transformHelper.xAligningMode = .min
+            xAligningMode = .min
         case .right:
-            transformHelper.xAligningMode = .max
+            xAligningMode = .max
         case .topLeft:
-            transformHelper.xAligningMode = .min
-            transformHelper.yAligningMode = .min
+            xAligningMode = .min
+            yAligningMode = .min
         case .topRight:
-            transformHelper.xAligningMode = .max
-            transformHelper.yAligningMode = .min
+            xAligningMode = .max
+            yAligningMode = .min
         case .bottomLeft:
-            transformHelper.xAligningMode = .min
-            transformHelper.yAligningMode = .max
+            xAligningMode = .min
+            yAligningMode = .max
         case .bottomRight:
-            transformHelper.xAligningMode = .max
-            transformHelper.yAligningMode = .max
+            xAligningMode = .max
+            yAligningMode = .max
         case .redraw:
             break
         }
 
+        let transformHelper = TransformHelper(scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
         svgNode.place = transformHelper.getTransformOf(Rect(x: 0, y: 0, w: Double(svgWidth), h: Double(svgHeight)), into: Rect(cgRect: viewBounds))
 
         rootNode.contents = [svgNode]

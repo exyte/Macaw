@@ -133,12 +133,15 @@ open class SVGParser {
         guard let viewBox = params.viewBox else { return }
         node.clip = viewBox
         
-        guard let scalingMode = params.scalingMode else { return }
+        let scalingMode = params.scalingMode ?? AspectRatio.meet
         guard let svgSize = params.svgSize else { return }
         
-        if scalingMode == .slice {
+        if scalingMode === AspectRatio.slice {
             // setup new clipping to slice extra bits
-            node.clip = svgSize.aspectFit(viewBox)
+            let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
+            let newX = viewBox.x + viewBox.w / 2 - newSize.w / 2
+            let newY = viewBox.y + viewBox.h / 2 - newSize.h / 2
+            node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
         }
         
         let transformHelper = TransformHelper(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)

@@ -8,16 +8,8 @@ open class Align {
         return 0
     }
     
-    open func align(x: CGFloat, y: CGFloat) -> CGFloat {
-        return CGFloat(align(x: x.doubleValue, y: y.doubleValue))
-    }
-    
     open func align(x: Double) -> Double {
         return align(x: x, y: 0)
-    }
-    
-    open func align(x: CGFloat) -> CGFloat {
-        return CGFloat(align(x: x.doubleValue))
     }
     
 }

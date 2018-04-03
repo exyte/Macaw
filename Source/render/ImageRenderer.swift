@@ -95,59 +95,14 @@ class ImageRenderer: NodeRenderer {
             } else if h == 0 {
                 h = imageSize.height * w / imageSize.width
             }
-            switch image.aspectRatio {
-            case AspectRatio.meet:
-                return calculateMeetAspectRatio(image, size: imageSize)
-            case AspectRatio.slice:
-                return calculateSliceAspectRatio(image, size: imageSize)
-            //ctx.cgContext!.clip(to: CGRect(x: 0, y: 0, width: w, height: h))
-            default:
-                return CGRect(x: 0, y: 0, width: w, height: h)
-            }
+            
+            let newSize = image.aspectRatio.fit(
+                size: Size(w: Double(image.w), h: Double(image.h)),
+                into: Size(w: Double(imageSize.width), h: Double(imageSize.height))
+            )
+            let destX = image.xAlign.align(x: w.doubleValue, y: newSize.w)
+            let destY = image.yAlign.align(x: h.doubleValue, y: newSize.h)
+            return CGRect(x: destX, y: destY, width: newSize.w, height: newSize.h)
         }
-    }
-
-    fileprivate func calculateMeetAspectRatio(_ image: Image, size: CGSize) -> CGRect {
-        let w = CGFloat(image.w)
-        let h = CGFloat(image.h)
-        // destination and source aspect ratios
-        let destAR = w / h
-        let srcAR = size.width / size.height
-        var resultW = w
-        var resultH = h
-        if destAR < srcAR {
-            // fill all available width and scale height
-            resultH = size.height * w / size.width
-        } else {
-            // fill all available height and scale width
-            resultW = size.width * h / size.height
-        }
-        let destX = image.xAlign.align(x: w, y: resultW)
-        let destY = image.yAlign.align(x: h, y: resultH)
-        return CGRect(x: destX, y: destY, width: resultW, height: resultH)
-    }
-
-    fileprivate func calculateSliceAspectRatio(_ image: Image, size: CGSize) -> CGRect {
-        let w = CGFloat(image.w)
-        let h = CGFloat(image.h)
-        var srcX = CGFloat(0)
-        var srcY = CGFloat(0)
-        var totalH: CGFloat = 0
-        var totalW: CGFloat = 0
-        // destination and source aspect ratios
-        let destAR = w / h
-        let srcAR = size.width / size.height
-        if destAR > srcAR {
-            // fill all available width and scale height
-            totalH = size.height * w / size.width
-            totalW = w
-            srcY = image.yAlign.align(x: h, y: totalH)
-        } else {
-            // fill all available height and scale width
-            totalW = size.width * h / size.height
-            totalH = h
-            srcX = image.xAlign.align(x: w, y: totalW)
-        }
-        return CGRect(x: srcX, y: srcY, width: totalW, height: totalH)
     }
 }

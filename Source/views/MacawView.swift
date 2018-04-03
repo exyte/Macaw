@@ -10,6 +10,8 @@ import Foundation
 /// You could create your own view extended from MacawView with predefined scene.
 ///
 open class MacawView: MView, MGestureRecognizerDelegate {
+    
+    @IBInspectable var forbidsNonNodeTouches: Bool = false
 
     /// Scene root node
     open var node: Node = Group() {
@@ -170,6 +172,14 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     // MARK: - Touches
+    
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if !forbidsNonNodeTouches {
+            return true
+        }
+        let node = renderer?.findNodeAt(location: point, ctx: context.cgContext!)
+        return node != nil
+    }
 
     override func mTouchesBegan(_ touches: [MTouchEvent]) {
 

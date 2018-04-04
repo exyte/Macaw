@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 class ShapeRenderer: NodeRenderer {
@@ -36,7 +36,7 @@ class ShapeRenderer: NodeRenderer {
             return
         }
 
-        if (shape.fill != nil || shape.stroke != nil) {
+        if shape.fill != nil || shape.stroke != nil {
             setGeometry(shape.form, ctx: ctx.cgContext!)
             drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
         }

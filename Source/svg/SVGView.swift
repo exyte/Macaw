@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 open class SVGView: MacawView {

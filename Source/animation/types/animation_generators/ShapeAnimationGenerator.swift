@@ -69,11 +69,6 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
             animation.completion?()
         }
 
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
-        }
-
         completion()
     }
 

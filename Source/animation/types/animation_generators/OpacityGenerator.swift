@@ -46,11 +46,6 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
             animation.completion?()
         }
 
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
-        }
-
         completion()
     }
 

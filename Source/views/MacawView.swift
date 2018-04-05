@@ -168,6 +168,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
         MGraphicsEndImageContext()
     }
+    
+    public final func findNodeAt(location: CGPoint) -> Node? {
+        guard let ctx = context.cgContext else { return .none }
+        return renderer?.findNodeAt(location: location, ctx: ctx)
+    }
 
     // MARK: - Touches
 

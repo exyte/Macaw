@@ -64,11 +64,6 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
             animation.completion?()
         }
 
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
-        }
-
         completion()
     }
 

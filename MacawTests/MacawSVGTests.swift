@@ -35,7 +35,7 @@ class MacawSVGTests: XCTestCase {
         }
         do {
             if let path = bundle.path(forResource: test, ofType: ext) {
-                let referenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
+                let referenceContent = try String(contentsOfFile: path).trimmingCharacters(in: .newlines)
                 let node = try SVGParser.parse(bundle:bundle, path: test)
                 let testContent = SVGSerializer.serialize(node: node)
                     .replacingOccurrences(of: "version=\"1.1\"  ><g>", with: "version=\"1.1\"  >")

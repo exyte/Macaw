@@ -155,7 +155,7 @@ open class PathBuilder {
         }
         return Path(segments: segments.reversed())
     }
-    
+
     // GENERATED NOT
     fileprivate func boolToNum(_ value: Bool) -> Double {
         return value ? 1 : 0

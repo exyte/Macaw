@@ -1,24 +1,24 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
-struct RenderingInterval {
-    let from: Int
-    let to: Int
+public struct RenderingInterval {
+    public let from: Int
+    public let to: Int
 }
 
-class NodeRenderer {
+public class NodeRenderer {
 
-    let ctx: RenderContext
+    public let ctx: RenderContext
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
-    weak var animationCache: AnimationCache?
+    public weak var animationCache: AnimationCache?
 
-    init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
+    public init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
         self.ctx = ctx
         self.animationCache = animationCache
 
@@ -37,7 +37,7 @@ class NodeRenderer {
         addObservers()
     }
 
-    func doAddObservers() {
+    public func doAddObservers() {
         guard let node = node() else {
             return
         }
@@ -49,7 +49,7 @@ class NodeRenderer {
         observe(node.effectVar)
     }
 
-    func observe<E>(_ v: Variable<E>) {
+    public func observe<E>(_ v: Variable<E>) {
         let disposable = v.onChange { [weak self] _ in
             self?.onNodeChange()
         }
@@ -57,7 +57,7 @@ class NodeRenderer {
         addDisposable(disposable)
     }
 
-    func addDisposable(_ disposable: Disposable) {
+    public func addDisposable(_ disposable: Disposable) {
         disposable.addTo(disposables)
     }
 
@@ -84,7 +84,7 @@ class NodeRenderer {
         directRender(force: force, opacity: node.opacity * opacity)
     }
 
-    final func directRender(force: Bool = true, opacity: Double = 1.0) {
+    final public func directRender(force: Bool = true, opacity: Double = 1.0) {
         guard let node = node() else {
             return
         }
@@ -100,7 +100,7 @@ class NodeRenderer {
         doRender(force, opacity: opacity)
     }
 
-    func doRender(_ force: Bool, opacity: Double) {
+    public func doRender(_ force: Bool, opacity: Double) {
         fatalError("Unsupported")
     }
 

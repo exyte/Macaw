@@ -13,16 +13,23 @@ import Foundation
 ///
 open class SVGSerializer {
 
+    public enum Format {
+        case short
+        case pretty
+    }
+
     fileprivate let width: Int?
     fileprivate let height: Int?
     fileprivate let id: String?
     fileprivate let indent: Int
+    fileprivate let format: Format
 
-    fileprivate init(width: Int?, height: Int?, id: String?) {
+    public init(width: Int?, height: Int?, id: String?, format: Format) {
         self.width = width
         self.height = height
         self.id = id
         self.indent = 0
+        self.format = format
     }
 
     // header and footer
@@ -346,8 +353,10 @@ open class SVGSerializer {
             result += transformToSVG(group)
             result += attributesToSVG(group.attributes)
             result += SVGGenericEndTag
+
             for child in group.contentsVar.value {
                 result += serialize(node: child, offset: offset + 1)
+                if format == .pretty { result += "\n" }
             }
 
             result += indentTextWithOffset(SVGGroupCloseTag, offset)
@@ -376,14 +385,19 @@ open class SVGSerializer {
             optionalSection += " id=\"\(i)\""
         }
         var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
+        if format == .pretty { result += "\n" }
         let body = serialize(node: node, offset: 1)
         result += getDefs() + body
         result += indentTextWithOffset(SVGFooter, 0)
         return result
     }
 
-    open class func serialize(node: Node, width: Int? = nil, height: Int? = nil, id: String? = nil) -> String {
-        return SVGSerializer(width: width, height: height, id: id).serialize(node: node)
+    open class func serialize(node: Node,
+                              width: Int? = nil,
+                              height: Int? = nil,
+                              id: String? = nil,
+                              format: Format = .short) -> String {
+        return SVGSerializer(width: width, height: height, id: id, format: format).serialize(node: node)
     }
 
 }

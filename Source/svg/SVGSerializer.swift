@@ -68,10 +68,9 @@ open class SVGSerializer {
         return String(Int(a))
     }
 
-    fileprivate func tag(_ tag: String, _ args: [String: String]=[:], close: Bool = false) -> String {
-        let attrs = args.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
+    fileprivate func tag(_ tag: String, _ attrs: [String: String]=[:], close: Bool = false) -> String {
         let closeTag = close ? " />" : ""
-        return "\(tag) \(attrs) \(closeTag)"
+        return "\(tag) \(attributesToSVG(attrs)) \(closeTag)"
     }
 
     fileprivate func arcToSVG(_ arc: Arc) -> String {
@@ -100,6 +99,10 @@ open class SVGSerializer {
             d += "A \(rx),\(ry) 0.0 \(largeArcFlag), \(sweepFlag) \(x2),\(y2)"
             return tag(SVGPathOpenTag, ["d": d])
         }
+    }
+
+    fileprivate func attributesToSVG(_ attrs: [String: String]) -> String {
+        return attrs.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
     }
 
     fileprivate func polygonToSVG(_ polygon: Polygon) -> String {
@@ -141,7 +144,7 @@ open class SVGSerializer {
     }
 
     fileprivate func imageToSVG(_ image: Image) -> String {
-        var result = tag(SVGImageOpenTag, close: false)
+        var result = tag(SVGImageOpenTag, image.attributes, close: false)
         result += clipToSVG(image.clip)
         result += transformToSVG(image)
         if image.src.contains("memory://") {
@@ -177,7 +180,7 @@ open class SVGSerializer {
     }
 
     fileprivate func textToSVG(_ text: Text) -> String {
-        var result = tag(SVGTextOpenTag)
+        var result = tag(SVGTextOpenTag, text.attributes)
         if let font = text.font {
             result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
             // TODO: check with enums
@@ -323,6 +326,7 @@ open class SVGSerializer {
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         let locus = macawShape.formVar.value
         var result = locusToSVG(locus)
+        result += attributesToSVG(macawShape.attributes)
         result += clipToSVG(macawShape.clip)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
@@ -332,27 +336,32 @@ open class SVGSerializer {
     }
 
     fileprivate func serialize(node: Node, offset: Int) -> String {
-        if let shape = node as? Shape {
+        switch node {
+        case let shape as Shape:
             return indentTextWithOffset(macawShapeToSvgShape(macawShape: shape), offset)
-        }
-        if let group = node as? Group {
+
+        case let group as Group:
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
             result += clipToSVG(group.clip)
             result += transformToSVG(group)
+            result += attributesToSVG(group.attributes)
             result += SVGGenericEndTag
             for child in group.contentsVar.value {
                 result += serialize(node: child, offset: offset + 1)
             }
+
             result += indentTextWithOffset(SVGGroupCloseTag, offset)
             return result
-        }
-        if let image = node as? Image {
+
+        case let image as Image:
             return imageToSVG(image)
-        }
-        if let text = node as? Text {
+
+        case let text as Text:
             return textToSVG(text)
+
+        default:
+            return "SVGUndefinedTag \(node)"
         }
-        return "SVGUndefinedTag \(node)"
     }
 
     fileprivate func serialize(node: Node) -> String {

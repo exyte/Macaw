@@ -4,6 +4,7 @@ included:
 excluded:
   - Dependencies
 disabled_rules:
+  - redundant_string_enum_value
   - unused_optional_binding
   - file_header
   - no_extension_access_modifier
@@ -85,7 +86,6 @@ opt_in_rules:
   - redundant_discardable_let
   - redundant_nil_coalescing
   - redundant_optional_initialization
-  - redundant_string_enum_value
   - redundant_void_return
   - return_arrow_whitespace
   - shorthand_operator

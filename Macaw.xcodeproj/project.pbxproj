@@ -264,6 +264,8 @@
 		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
 		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
+		AC6EBAA820782881006C4760 /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6EBAA720782881006C4760 /* Dictionary+Extensions.swift */; };
+		AC6EBAAA20782A46006C4760 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6EBAA920782A46006C4760 /* Double+Extensions.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
 		C43B064D1F9738EF00787A35 /* clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B064C1F9738EF00787A35 /* clip.svg */; };
@@ -461,6 +463,8 @@
 		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
+		AC6EBAA720782881006C4760 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
+		AC6EBAA920782A46006C4760 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
 		C43B064C1F9738EF00787A35 /* clip.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = clip.svg; sourceTree = "<group>"; };
@@ -551,6 +555,8 @@
 			isa = PBXGroup;
 			children = (
 				57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */,
+				AC6EBAA720782881006C4760 /* Dictionary+Extensions.swift */,
+				AC6EBAA920782A46006C4760 /* Double+Extensions.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -1296,6 +1302,7 @@
 				57E5E16E1E3B393900D1CB28 /* MorphingAnimation.swift in Sources */,
 				57A27BD11E44C5460057BD3A /* ShapeAnimation.swift in Sources */,
 				57E5E15F1E3B393900D1CB28 /* TransformInterpolation.swift in Sources */,
+				AC6EBAAA20782A46006C4760 /* Double+Extensions.swift in Sources */,
 				57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */,
 				57E5E1571E3B393900D1CB28 /* AnimationUtils.swift in Sources */,
 				57E5E1981E3B393900D1CB28 /* Polygon.swift in Sources */,
@@ -1347,6 +1354,7 @@
 				57F1087A1F53C92000DC365B /* MDisplayLink.swift in Sources */,
 				57E5E1641E3B393900D1CB28 /* AnimationRestorer.swift in Sources */,
 				57E5E1741E3B393900D1CB28 /* Event.swift in Sources */,
+				AC6EBAA820782881006C4760 /* Dictionary+Extensions.swift in Sources */,
 				57E5E1841E3B393900D1CB28 /* Gradient.swift in Sources */,
 				57E5E15D1E3B393900D1CB28 /* Interpolable.swift in Sources */,
 				57E5E17A1E3B393900D1CB28 /* Align.swift in Sources */,

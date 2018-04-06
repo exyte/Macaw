@@ -105,6 +105,9 @@ class MacawTests: XCTestCase {
 		let lineShape = Shape(form: Line(x1: 0, y1: 0, x2: 200, y2: 200),
 			stroke: Stroke(fill: Color.white, width: 2, cap: .round, join: .round))
 
-		return Group(contents: [Group(contents: [pathShape, lineShape])])
+        return Group(
+            contents: [Group(contents: [pathShape, lineShape])],
+            boundingBox: Rect(x: 0, y: 0, w: 400, h: 210)
+        )
 	}
 }

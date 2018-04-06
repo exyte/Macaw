@@ -40,6 +40,7 @@ open class SVGParser {
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
+    fileprivate var viewBox: Rect?
 
     fileprivate enum PathCommandType {
         case moveTo
@@ -64,7 +65,7 @@ open class SVGParser {
         prepareSvg(parsedXml.children)
         parseSvg(parsedXml.children)
 
-        let group = Group(contents: self.nodes, place: initialPosition)
+        let group = Group(contents: self.nodes, boundingBox: viewBox, place: initialPosition)
         return group
     }
 
@@ -72,6 +73,7 @@ open class SVGParser {
         children.forEach { child in
             if let element = child.element {
                 if element.name == "svg" {
+                    parseSVGAttributes(element)
                     prepareSvg(child.children)
                 } else {
                     prepareSvg(child)
@@ -145,6 +147,15 @@ open class SVGParser {
                     styleTable[className] = styleAttributes
                 }
             }
+        }
+    }
+
+    fileprivate func parseSVGAttributes(_ element: XMLElement) {
+        if let w = element.allAttributes.number(for: "width"),
+            let h = element.allAttributes.number(for: "height") {
+            self.viewBox = Rect(x: 0, y: 0, w: w, h: h)
+        } else if let viewBox = element.allAttributes.rect(for: "viewBox") {
+            self.viewBox = viewBox
         }
     }
 

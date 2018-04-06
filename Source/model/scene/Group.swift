@@ -2,6 +2,8 @@ import Foundation
 
 open class Group: Node {
 
+    open var boundingBox: Rect?
+
     open var contentsVar: AnimatableVariable<[Node]>
     open var contents: [Node] {
         get { return contentsVar.value }
@@ -20,8 +22,9 @@ open class Group: Node {
         }
     }
 
-    public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(contents: [Node] = [], boundingBox: Rect? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.contentsVar = AnimatableVariable<[Node]>(contents)
+        self.boundingBox = boundingBox
         super.init(
             place: place,
             opaque: opaque,

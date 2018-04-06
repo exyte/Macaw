@@ -18,18 +18,39 @@ open class SVGSerializer {
         case pretty
     }
 
-    fileprivate let width: Int?
-    fileprivate let height: Int?
+    public enum Sizing {
+        case viewBox(Rect)
+        case size(Size)
+
+        var string: String {
+            switch self {
+            case .size(let size):
+                return "width=\"\(Int(size.w))\" height=\"\(Int(size.h))\""
+            case .viewBox(let box):
+                return "viewBox=\"\(Int(box.x)) \(Int(box.y)) \(Int(box.w)) \(Int(box.h))\""
+            }
+        }
+    }
+
+    fileprivate let sizing: Sizing?
     fileprivate let id: String?
     fileprivate let indent: Int
     fileprivate let format: Format
 
-    public init(width: Int?, height: Int?, id: String?, format: Format) {
-        self.width = width
-        self.height = height
+    public init(sizing: Sizing? = nil, id: String?, format: Format) {
         self.id = id
         self.indent = 0
         self.format = format
+        self.sizing = sizing
+    }
+
+    public convenience init(width: Int?, height: Int?, id: String?, format: Format) {
+        var sizing: Sizing?
+        if let w = width, let h = height {
+            sizing = .size(Size(w: Double(w), h: Double(h)))
+        }
+
+        self.init(sizing: sizing, id: id, format: format)
     }
 
     // header and footer
@@ -375,21 +396,23 @@ open class SVGSerializer {
 
     fileprivate func serialize(node: Node) -> String {
         var optionalSection = ""
-        if let w = width {
-            optionalSection += "width=\"\(w)\""
-        }
-        if let h = height {
-            optionalSection += " height=\"\(h)\""
+        if let sizing = self.sizing {
+            optionalSection += sizing.string
         }
         if let i = id {
             optionalSection += " id=\"\(i)\""
         }
+
         var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
         if format == .pretty { result += "\n" }
         let body = serialize(node: node, offset: 1)
         result += getDefs() + body
         result += indentTextWithOffset(SVGFooter, 0)
         return result
+    }
+
+    open class func serialize(node: Node, viewBox: Rect, id: String? = nil, format: Format) -> String {
+        return SVGSerializer(sizing: .viewBox(viewBox), id: id, format: format).serialize(node: node)
     }
 
     open class func serialize(node: Node,

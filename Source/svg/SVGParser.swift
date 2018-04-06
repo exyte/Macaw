@@ -2,7 +2,7 @@ import Foundation
 import CoreGraphics
 
 #if !CARTHAGE
-    import SWXMLHash
+import SWXMLHash
 #endif
 
 ///
@@ -85,7 +85,7 @@ open class SVGParser {
             }
         }
     }
-    
+
     fileprivate func prepareSvg(_ node: XMLIndexer) {
         if let element = node.element {
             if (element.name == "defs") {
@@ -244,7 +244,7 @@ open class SVGParser {
             return .none
         }
     }
-    
+
     fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
         guard let element = group.element else {
             return .none
@@ -966,11 +966,11 @@ open class SVGParser {
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
             let cgTransform = RenderUtils.mapTransform(transform)
-            
+
             let point1 = CGPoint(x: x1, y: y1).applying(cgTransform)
             x1 = point1.x.doubleValue
             y1 = point1.y.doubleValue
-            
+
             let point2 = CGPoint(x: x2, y: y2).applying(cgTransform)
             x2 = point2.x.doubleValue
             y2 = point2.y.doubleValue
@@ -1028,11 +1028,11 @@ open class SVGParser {
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
             let cgTransform = RenderUtils.mapTransform(transform)
-            
+
             let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
             cx = point1.x.doubleValue
             cy = point1.y.doubleValue
-            
+
             let point2 = CGPoint(x: fx, y: fy).applying(cgTransform)
             fx = point2.x.doubleValue
             fy = point2.y.doubleValue
@@ -1222,7 +1222,7 @@ open class SVGParser {
 }
 
 private class PathDataReader {
-    
+
     private let input: String
     private var current: UnicodeScalar?
     private var previous: UnicodeScalar?
@@ -1232,9 +1232,9 @@ private class PathDataReader {
         self.input = input
         self.iterator = input.unicodeScalars.makeIterator()
     }
-    
+
     public func read() -> [PathSegment] {
-        let _ = readNext()
+        _ = readNext()
         var segments = [PathSegment]()
         while let array = readSegments() {
             segments.append(contentsOf: array)
@@ -1322,11 +1322,11 @@ private class PathDataReader {
         current = iterator.next()
         return current
     }
-    
+
     private func readSegmentType() -> PathSegmentType? {
         while(true) {
             if let type = getPathSegmentType() {
-                let _ = readNext()
+                _ = readNext()
                 return type
             }
             if (readNext() == nil) {
@@ -1334,7 +1334,7 @@ private class PathDataReader {
             }
         }
     }
-    
+
     fileprivate func getPathSegmentType() -> PathSegmentType? {
         if let ch = current {
             switch(ch) {
@@ -1362,7 +1362,7 @@ private class PathDataReader {
         }
         return nil
     }
-    
+
     fileprivate func getArgCount(segment: PathSegmentType) -> Int {
         switch(segment) {
         case .H, .h, .V, .v: return 1

@@ -21,10 +21,11 @@ open class TransformHelper: TransformHelperProtocol {
         return TransformHelper(scalingMode: .none)
     }
     
-    public func getTransformOf(_ rect: Rect, into rectToFitIn: Rect) -> Transform {
+    public func getTransformOf(_ inputRect: Rect, into rectToFitIn: Rect) -> Transform {
         
         var result = Transform()
         guard let scalingMode = scalingMode else { return result }
+        let rect = Rect(x: 0, y: 0, w: inputRect.x + inputRect.w, h: inputRect.y + inputRect.h)
         
         let newSize = scalingMode.fit(rect: rect, into: rectToFitIn)
         result = result.scale(

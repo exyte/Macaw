@@ -50,13 +50,9 @@ open class SVGView: MacawView {
     
     fileprivate func render() {
         guard let svgNode = svgNode else { return }
-        guard let nodeBounds = svgNode.bounds()?.cgRect() else { return }
+        guard let nodeBounds = svgNode.bounds() else { return }
 
-        let viewBounds = bounds
-        let svgWidth = nodeBounds.width
-        let svgHeight = nodeBounds.height
-
-        var scalingMode = AspectRatio.none
+        var scalingMode = AspectRatio.meet
         var xAligningMode = Align.mid
         var yAligningMode = Align.mid
 
@@ -94,7 +90,7 @@ open class SVGView: MacawView {
         }
 
         let transformHelper = TransformHelper(scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
-        svgNode.place = transformHelper.getTransformOf(Rect(x: 0, y: 0, w: Double(svgWidth), h: Double(svgHeight)), into: Rect(cgRect: viewBounds))
+        svgNode.place = transformHelper.getTransformOf(nodeBounds, into: Rect(cgRect: bounds))
 
         rootNode.contents = [svgNode]
         node = rootNode

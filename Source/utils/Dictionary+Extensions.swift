@@ -1,4 +1,5 @@
 import UIKit
+import SWXMLHash
 
 extension Dictionary where Value == XMLAttribute {
     func number(for key: Key) -> Double? {

@@ -46,6 +46,7 @@ open class SVGParser {
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
+    fileprivate var defShadows = [String: DropShadow]()
 
     fileprivate enum PathCommandType {
         case moveTo
@@ -180,54 +181,70 @@ open class SVGParser {
             }
         }
     }
-
+    
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        if let element = node.element {
-            let styleAttributes = getStyleAttributes(groupStyle, element: element)
-            let position = getPosition(element)
-            switch element.name {
-            case "path":
-                if let path = parsePath(node) {
-                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "line":
-                if let line = parseLine(node) {
-                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "rect":
-                if let rect = parseRect(node) {
-                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "circle":
-                if let circle = parseCircle(node) {
-                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "ellipse":
-                if let ellipse = parseEllipse(node) {
-                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "polygon":
-                if let polygon = parsePolygon(node) {
-                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "polyline":
-                if let polyline = parsePolyline(node) {
-                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "image":
-                return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
-            case "text":
-                return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
-                                 stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
-            case "use":
-                return parseUse(node, groupStyle: styleAttributes, place: position)
-            case "mask":
-                break
-            default:
-                print("SVG parsing error. Shape \(element.name) not supported")
-                return .none
-            }
+        guard let element = node.element, let parsedNode = parseElementInternal(node, groupStyle: groupStyle) else { return .none }
+        
+        if let filterString = element.allAttributes["filter"]?.text, let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
+            let shadowNode = parseElementInternal(node, groupStyle: groupStyle)! // TODO copy
+            shadowNode.place = shadowNode.place.move(dx: shadow.offset.x, dy: shadow.offset.y)
+            shadowNode.effect = shadow.input
+            return Group(contents: [shadowNode, parsedNode])
         }
+        
+        return parsedNode
+    }
+    
+    fileprivate func parseElementInternal(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+        guard let element = node.element else { return .none }
+        
+        let styleAttributes = getStyleAttributes(groupStyle, element: element)
+        let position = getPosition(element)
+        switch element.name {
+        case "path":
+            if let path = parsePath(node) {
+                return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "line":
+            if let line = parseLine(node) {
+                return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "rect":
+            if let rect = parseRect(node) {
+                return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "circle":
+            if let circle = parseCircle(node) {
+                return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "ellipse":
+            if let ellipse = parseEllipse(node) {
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "polygon":
+            if let polygon = parsePolygon(node) {
+                return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "polyline":
+            if let polyline = parsePolyline(node) {
+                return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "image":
+            return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
+        case "text":
+            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
+                             stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
+        case "use":
+            return parseUse(node, groupStyle: styleAttributes, place: position)
+        case "filter":
+            return parseFilter(node)
+        case "mask":
+            break
+        default:
+            print("SVG parsing error. Shape \(element.name) not supported")
+            return .none
+        }
+        
         return .none
     }
 
@@ -891,6 +908,33 @@ open class SVGParser {
         }
         return path
     }
+    
+    fileprivate func parseFilter(_ filterNode: XMLIndexer) -> Node? {
+        guard let element = filterNode.element, let id = element.allAttributes["id"]?.text else {
+            return .none
+        }
+        var offset: Point?
+        var blur: GaussianBlur?
+        for child in filterNode.children {
+            guard let element = child.element else { continue }
+            switch element.name {
+            case "feOffset":
+                if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
+                    offset = Point(x: dx, y: dy)
+                }
+            case "feGaussianBlur":
+                if let radius = getDoubleValue(element, attribute: "stdDeviation") {
+                    blur = GaussianBlur(radius: radius, input: nil)
+                }
+            default:
+                print("SVG parsing error. Filter \(element.name) not supported")
+                continue
+            }
+        }
+        
+        defShadows[id] = DropShadow(offset: offset ?? Point(x: 0, y: 0), input: blur)
+        return .none
+    }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
         guard let element = mask.element else {
@@ -1080,6 +1124,17 @@ open class SVGParser {
     fileprivate func parsePath(_ path: XMLIndexer) -> Path? {
         if let d = path.element?.allAttributes["d"]?.text {
             return Path(segments: PathDataReader(input: d).read())
+        }
+        return .none
+    }
+    
+    fileprivate func parseIdFromUrl(_ urlString: String) -> String? {
+        if urlString.hasPrefix("url") {
+            let index = urlString.index(urlString.startIndex, offsetBy: 4)
+            return String(urlString.suffix(from: index))
+                .replacingOccurrences(of: "(", with: "")
+                .replacingOccurrences(of: ")", with: "")
+                .replacingOccurrences(of: "#", with: "")
         }
         return .none
     }

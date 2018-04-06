@@ -32,14 +32,53 @@ class ShapeRenderer: NodeRenderer {
     }
 
     override func doRender(_ force: Bool, opacity: Double) {
-        guard let shape = shape else {
-            return
+        guard let shape = shape, let context = ctx.cgContext else { return }
+        
+        if let blur = shape.effect as? GaussianBlur {
+            let shadowInset = min(max(blur.radius * 6, 10), 150) // between 10 and 150
+            guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else { return }
+            
+            guard let filteredImage = applyFilter(shapeImage, blur: blur) else { return }
+            
+            guard let bounds = shape.bounds() else { return }
+            context.draw(filteredImage, in: CGRect(x: bounds.x-shadowInset/2, y: bounds.y-shadowInset/2, width: bounds.w+shadowInset, height: bounds.h+shadowInset))
         }
-
+            
+        else if (shape.fill != nil || shape.stroke != nil) {
+            setGeometry(shape.form, ctx: context)
+            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+        }
+    }
+    
+    fileprivate func applyFilter(_ image: CGImage, blur: GaussianBlur) -> CGImage? {
+        let image = CIImage(cgImage: image)
+        guard let filter = CIFilter(name: "CIGaussianBlur") else { return .none }
+        filter.setDefaults()
+        filter.setValue(blur.radius, forKey: kCIInputRadiusKey)
+        filter.setValue(image, forKey: kCIInputImageKey)
+        
+        let context = CIContext(options: nil)
+        let imageRef = context.createCGImage(filter.outputImage!, from: image.extent)
+        return imageRef
+    }
+    
+    fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> UIImage? {
+        guard let size = shape.bounds() else { return .none }
+        UIGraphicsBeginImageContext(CGSize(width: size.w+shadowInset, height: size.h+shadowInset))
+        
+        guard let tempContext = UIGraphicsGetCurrentContext() else { return .none }
+        
         if (shape.fill != nil || shape.stroke != nil) {
-            setGeometry(shape.form, ctx: ctx.cgContext!)
-            drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
+            // flip y-axis and leave space for the blur
+            tempContext.translateBy(x: CGFloat(shadowInset/2), y: CGFloat(size.h+shadowInset/2))
+            tempContext.scaleBy(x: 1, y: -1)
+            setGeometry(shape.form, ctx: tempContext)
+            drawPath(shape.fill, stroke: shape.stroke, ctx: tempContext, opacity: opacity)
         }
+        
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {

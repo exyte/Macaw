@@ -6,20 +6,20 @@ import UIKit
 import AppKit
 #endif
 
-class ShapeRenderer: NodeRenderer {
+public class ShapeRenderer: NodeRenderer {
 
-    weak var shape: Shape?
+    public weak var shape: Shape?
 
-    init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache?) {
+    public init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache?) {
         self.shape = shape
         super.init(node: shape, ctx: ctx, animationCache: animationCache)
     }
 
-    override func node() -> Node? {
+    public override func node() -> Node? {
         return shape
     }
 
-    override func doAddObservers() {
+    public override func doAddObservers() {
         super.doAddObservers()
 
         guard let shape = shape else {
@@ -31,7 +31,7 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
-    override func doRender(_ force: Bool, opacity: Double) {
+    public override func doRender(_ force: Bool, opacity: Double) {
         guard let shape = shape else {
             return
         }
@@ -42,7 +42,7 @@ class ShapeRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+    public override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
         guard let shape = shape else {
             return .none
         }

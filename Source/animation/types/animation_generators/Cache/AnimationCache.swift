@@ -6,27 +6,27 @@ import UIKit
 import AppKit
 #endif
 
-class AnimationCache {
+public class AnimationCache {
 
-    class CachedLayer {
-        let layer: ShapeLayer
-        let animation: Animation
-        var linksCounter = 1
+    public class CachedLayer {
+        public let layer: ShapeLayer
+        public let animation: Animation
+        public var linksCounter = 1
 
-        required init(layer: ShapeLayer, animation: Animation) {
+        public required init(layer: ShapeLayer, animation: Animation) {
             self.layer = layer
             self.animation = animation
         }
     }
 
-    let sceneLayer: CALayer
-    var layerCache = [Node: CachedLayer]()
+    public let sceneLayer: CALayer
+    public var layerCache = [Node: CachedLayer]()
 
-    required init(sceneLayer: CALayer) {
+    public required init(sceneLayer: CALayer) {
         self.sceneLayer = sceneLayer
     }
 
-    func layerForNode(_ node: Node, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
+    public func layerForNode(_ node: Node, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
         guard let cachedLayer = layerCache[node] else {
             let layer = ShapeLayer()
             layer.shouldRenderContent = shouldRenderContent
@@ -125,7 +125,7 @@ class AnimationCache {
         return defaultScale * CGFloat(sqrt(maxArea))
     }
 
-    func freeLayer(_ node: Node) {
+    public func freeLayer(_ node: Node) {
         guard let cachedLayer = layerCache[node] else {
             return
         }
@@ -142,7 +142,7 @@ class AnimationCache {
         layer.removeFromSuperlayer()
     }
 
-    func isAnimating(_ node: Node) -> Bool {
+    public func isAnimating(_ node: Node) -> Bool {
 
         if let _ = layerCache[node] {
             return true
@@ -151,7 +151,7 @@ class AnimationCache {
         return false
     }
 
-    func isChildrenAnimating(_ group: Group) -> Bool {
+    public func isChildrenAnimating(_ group: Group) -> Bool {
 
         for child in group.contents {
             if isAnimating(child) {
@@ -166,7 +166,7 @@ class AnimationCache {
         return false
     }
 
-    func containsAnimation(_ node: Node) -> Bool {
+    public func containsAnimation(_ node: Node) -> Bool {
         if isAnimating(node) {
             return true
         }
@@ -178,12 +178,12 @@ class AnimationCache {
         return false
     }
 
-    func animations() -> [Animation] {
+    public func animations() -> [Animation] {
 
         return layerCache.map { $0.1.animation }
     }
 
-    func replace(original: Node, replacement: Node) {
+    public func replace(original: Node, replacement: Node) {
         guard let layer = layerCache[original] else {
             return
         }

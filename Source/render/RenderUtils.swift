@@ -6,21 +6,21 @@ import UIKit
 import AppKit
 #endif
 
-class RenderUtils {
-    class func mapColor(_ color: Color) -> CGColor {
+public class RenderUtils {
+    public class func mapColor(_ color: Color) -> CGColor {
         let red = CGFloat(Double(color.r()) / 255.0)
         let green = CGFloat(Double(color.g()) / 255.0)
         let blue = CGFloat(Double(color.b()) / 255.0)
         let alpha = CGFloat(Double(color.a()) / 255.0)
         return MColor(red: red, green: green, blue: blue, alpha: alpha).cgColor
     }
-
-    class func mapTransform(_ t: Transform) -> CGAffineTransform {
+    
+    public class func mapTransform(_ t: Transform) -> CGAffineTransform {
         return CGAffineTransform(a: CGFloat(t.m11), b: CGFloat(t.m12), c: CGFloat(t.m21),
                                  d: CGFloat(t.m22), tx: CGFloat(t.dx), ty: CGFloat(t.dy))
     }
-
-    class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
+    
+    public class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
         switch join {
         case LineJoin.round?:
             return CGLineJoin.round
@@ -30,8 +30,8 @@ class RenderUtils {
             return CGLineJoin.miter
         }
     }
-
-    class func mapLineJoinToString(_ join: LineJoin?) -> String {
+    
+    public class func mapLineJoinToString(_ join: LineJoin?) -> String {
         switch join {
         case LineJoin.round?:
             return kCALineJoinRound
@@ -41,8 +41,8 @@ class RenderUtils {
             return kCALineJoinMiter
         }
     }
-
-    class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
+    
+    public class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
         switch cap {
         case LineCap.round?:
             return CGLineCap.round
@@ -52,8 +52,8 @@ class RenderUtils {
             return CGLineCap.butt
         }
     }
-
-    class func mapLineCapToString(_ cap: LineCap?) -> String {
+    
+    public class func mapLineCapToString(_ cap: LineCap?) -> String {
         switch cap {
         case LineCap.round?:
             return kCALineCapRound
@@ -63,15 +63,15 @@ class RenderUtils {
             return kCALineCapButt
         }
     }
-
-    class func mapDash(_ dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
+    
+    public class func mapDash(_ dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
         let p = UnsafeMutablePointer<CGFloat>.allocate(capacity: dashes.count * MemoryLayout<CGFloat>.size)
         for (index, item) in dashes.enumerated() {
             p[index] = CGFloat(item)
         }
         return p
     }
-
+    
     class func createNodeRenderer(
         _ node: Node,
         context: RenderContext,
@@ -89,8 +89,8 @@ class RenderUtils {
         }
         fatalError("Unsupported node: \(node)")
     }
-
-    class func loadFont(name: String, size: Int) -> MFont? {
+    
+    public class func loadFont(name: String, size: Int) -> MFont? {
         let separationSet = CharacterSet(charactersIn: ",")
         let names = name.components(separatedBy: separationSet)
         var customFont: MFont? = .none
@@ -98,25 +98,25 @@ class RenderUtils {
             if customFont != .none {
                 return
             }
-
+            
             if fontName.first == " " {
                 let index = fontName.index(fontName.startIndex, offsetBy: 1)
                 let fixedName = String(fontName.suffix(from: index))
                 customFont = MFont(name: fixedName, size: CGFloat(size))
                 return
             }
-
+            
             customFont = MFont(name: fontName, size: CGFloat(size))
         }
-
+        
         return customFont
     }
-
-    class func applyOpacity(_ color: Color, opacity: Double) -> Color {
+    
+    public class func applyOpacity(_ color: Color, opacity: Double) -> Color {
         return Color.rgba(r: color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
     }
-
-    class func toCGPath(_ locus: Locus) -> CGPath {
+    
+    public class func toCGPath(_ locus: Locus) -> CGPath {
         if let arc = locus as? Arc {
             if arc.ellipse.rx != arc.ellipse.ry {
                 // http://stackoverflow.com/questions/11365775/how-to-draw-an-elliptical-arc-with-coregraphics
@@ -135,8 +135,8 @@ class RenderUtils {
         }
         return toBezierPath(locus).reversing().cgPath
     }
-
-    class func toBezierPath(_ locus: Locus) -> MBezierPath {
+    
+    public class func toBezierPath(_ locus: Locus) -> MBezierPath {
         if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
             return MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
@@ -170,7 +170,7 @@ class RenderUtils {
         }
         fatalError("Unsupported locus: \(locus)")
     }
-
+    
     fileprivate class func arcToPath(_ arc: Arc) -> MBezierPath {
         let shift = CGFloat(arc.shift)
         let end = shift + CGFloat(arc.extent)
@@ -178,7 +178,7 @@ class RenderUtils {
         let center = CGPoint(x: CGFloat(ellipse.cx), y: CGFloat(ellipse.cy))
         return MBezierPath(arcCenter: center, radius: CGFloat(ellipse.rx), startAngle: shift, endAngle: end, clockwise: true)
     }
-
+    
     fileprivate class func pointsToPath(_ points: [Double]) -> MBezierPath {
         let parts = stride(from: 0, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
         let path = MBezierPath()
@@ -194,21 +194,21 @@ class RenderUtils {
         }
         return path
     }
-
+    
     fileprivate class func toBezierPath(_ path: Path) -> MBezierPath {
         let bezierPath = MBezierPath()
-
+        
         var currentPoint: CGPoint?
         var cubicPoint: CGPoint?
         var quadrPoint: CGPoint?
         var initialPoint: CGPoint?
-
+        
         func M(_ x: Double, y: Double) {
             let point = CGPoint(x: CGFloat(x), y: CGFloat(y))
             bezierPath.move(to: point)
             setInitPoint(point)
         }
-
+        
         func m(_ x: Double, y: Double) {
             if let cur = currentPoint {
                 let next = CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y)
@@ -218,11 +218,11 @@ class RenderUtils {
                 M(x, y: y)
             }
         }
-
+        
         func L(_ x: Double, y: Double) {
             lineTo(CGPoint(x: CGFloat(x), y: CGFloat(y)))
         }
-
+        
         func l(_ x: Double, y: Double) {
             if let cur = currentPoint {
                 lineTo(CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y))
@@ -230,36 +230,36 @@ class RenderUtils {
                 L(x, y: y)
             }
         }
-
+        
         func H(_ x: Double) {
             if let cur = currentPoint {
                 lineTo(CGPoint(x: CGFloat(x), y: CGFloat(cur.y)))
             }
         }
-
+        
         func h(_ x: Double) {
             if let cur = currentPoint {
                 lineTo(CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(cur.y)))
             }
         }
-
+        
         func V(_ y: Double) {
             if let cur = currentPoint {
                 lineTo(CGPoint(x: CGFloat(cur.x), y: CGFloat(y)))
             }
         }
-
+        
         func v(_ y: Double) {
             if let cur = currentPoint {
                 lineTo(CGPoint(x: CGFloat(cur.x), y: CGFloat(y) + cur.y))
             }
         }
-
+        
         func lineTo(_ p: CGPoint) {
             bezierPath.addLine(to: p)
             setPoint(p)
         }
-
+        
         func c(_ x1: Double, y1: Double, x2: Double, y2: Double, x: Double, y: Double) {
             if let cur = currentPoint {
                 let endPoint = CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y)
@@ -269,7 +269,7 @@ class RenderUtils {
                 setCubicPoint(endPoint, cubic: controlPoint2)
             }
         }
-
+        
         func C(_ x1: Double, y1: Double, x2: Double, y2: Double, x: Double, y: Double) {
             let endPoint = CGPoint(x: CGFloat(x), y: CGFloat(y))
             let controlPoint1 = CGPoint(x: CGFloat(x1), y: CGFloat(y1))
@@ -277,12 +277,12 @@ class RenderUtils {
             bezierPath.addCurve(to: endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
             setCubicPoint(endPoint, cubic: controlPoint2)
         }
-
+        
         func s(_ x2: Double, y2: Double, x: Double, y: Double) {
             if let cur = currentPoint {
                 let nextCubic = CGPoint(x: CGFloat(x2) + cur.x, y: CGFloat(y2) + cur.y)
                 let next = CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y)
-
+                
                 var xy1: CGPoint?
                 if let curCubicVal = cubicPoint {
                     xy1 = CGPoint(x: CGFloat(2 * cur.x) - curCubicVal.x, y: CGFloat(2 * cur.y) - curCubicVal.y)
@@ -293,7 +293,7 @@ class RenderUtils {
                 setCubicPoint(next, cubic: nextCubic)
             }
         }
-
+        
         func S(_ x2: Double, y2: Double, x: Double, y: Double) {
             if let cur = currentPoint {
                 let nextCubic = CGPoint(x: CGFloat(x2), y: CGFloat(y2))
@@ -308,7 +308,7 @@ class RenderUtils {
                 setCubicPoint(next, cubic: nextCubic)
             }
         }
-
+        
         func q(_ x1: Double, y1: Double, x: Double, y: Double) {
             if let cur = currentPoint {
                 let dx = Double(cur.x)
@@ -351,20 +351,20 @@ class RenderUtils {
                 setQuadrPoint(next, quadr: quadr!)
             }
         }
-
+        
         func a(_ rx: Double, ry: Double, angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
             if let cur = currentPoint {
                 A(rx, ry: ry, angle: angle, largeArc: largeArc, sweep: sweep, x: x + Double(cur.x), y: y + Double(cur.y))
             }
         }
-
+        
         func A(_ _rx: Double, ry _ry: Double, angle _angle: Double, largeArc: Bool, sweep: Bool, x: Double, y: Double) {
             let angle = _angle * .pi / 180
-
+            
             if let cur = currentPoint {
                 let x1 = Double(cur.x)
                 let y1 = Double(cur.y)
-
+                
                 // find arc center coordinates and points angles as per
                 // http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
                 if _rx == 0 || _ry == 0 {
@@ -411,7 +411,7 @@ class RenderUtils {
                 }
             }
         }
-
+        
         func E(_ x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double, rotation: Double = 0) {
             let extent = CGFloat(startAngle)
             let end = extent + CGFloat(arcAngle)
@@ -422,7 +422,7 @@ class RenderUtils {
             } else {
                 let maxSize = CGFloat(max(w, h))
                 let path = MBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
-
+                
                 #if os(iOS)
                 var transform = CGAffineTransform(translationX: cx, y: cy)
                 transform = transform.rotated(by: CGFloat(rotation))
@@ -432,48 +432,48 @@ class RenderUtils {
                 transform.rotate(byDegrees: CGFloat(rotation))
                 path.transform(using: transform)
                 #endif
-
+                
                 bezierPath.append(path)
             }
         }
-
+        
         func e(_ x: Double, y: Double, w: Double, h: Double, startAngle: Double, arcAngle: Double) {
             // TODO: only circle now
             if let cur = currentPoint {
                 E(x + Double(cur.x), y: y + Double(cur.y), w: w, h: h, startAngle: startAngle, arcAngle: arcAngle)
             }
         }
-
+        
         func Z() {
             if let initPoint = initialPoint {
                 lineTo(initPoint)
             }
             bezierPath.close()
         }
-
+        
         func setQuadrPoint(_ p: CGPoint, quadr: CGPoint) {
             currentPoint = p
             quadrPoint = quadr
             cubicPoint = nil
         }
-
+        
         func setCubicPoint(_ p: CGPoint, cubic: CGPoint) {
             currentPoint = p
             cubicPoint = cubic
             quadrPoint = nil
         }
-
+        
         func setInitPoint(_ p: CGPoint) {
             setPoint(p)
             initialPoint = p
         }
-
+        
         func setPoint(_ p: CGPoint) {
             currentPoint = p
             cubicPoint = nil
             quadrPoint = nil
         }
-
+        
         // TODO: think about this
         for part in path.segments {
             var data = part.data
@@ -564,11 +564,11 @@ class RenderUtils {
             return sign * acos(value)
         }
     }
-
+    
     class func num2bool(_ double: Double) -> Bool {
         return double > 0.5 ? true : false
     }
-
+    
     fileprivate class func newCGRect(_ rect: Rect) -> CGRect {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }

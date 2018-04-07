@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 open class Text: Node {
@@ -85,7 +85,7 @@ open class Text: Node {
             h: size.height.doubleValue
         )
     }
-    
+
     fileprivate func getWeight(_ weight: String) -> MFont.Weight {
         switch weight {
         case "normal":

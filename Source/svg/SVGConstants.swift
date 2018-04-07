@@ -1,5 +1,65 @@
 open class SVGConstants {
 
+    public static var registeredAttributes: [String] {
+        return [pathAttribute] + pointsAttributes + styleAttributes + transformAttributes + headerAttributes
+    }
+
+    public static let pathAttribute = "d"
+
+    public static let headerAttributes = [
+        "xlink:href",
+        "id",
+        "class"
+    ]
+
+    public static let transformAttributes = [
+        "transform",
+        "translate",
+        "scale",
+        "rotate",
+        "skewX",
+        "skewY",
+        "matrix",
+        "width",
+        "height"
+    ]
+
+    public static let pointsAttributes = [
+        "points",
+        "cx",
+        "cy",
+        "fx",
+        "fy",
+        "rx",
+        "ry",
+        "r",
+        "x",
+        "y",
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+    ]
+
+    public static let styleAttributes = [
+        "stroke",
+        "stroke-width",
+        "stroke-opacity",
+        "stroke-dasharray",
+        "stroke-linecap",
+        "stroke-linejoin",
+        "fill",
+        "text-anchor",
+        "clip-path",
+        "fill-opacity",
+        "stop-color",
+        "stop-opacity",
+        "font-family",
+        "font-size",
+        "font-weight",
+        "opacity"
+    ]
+
     open static let valueToColor = [
         0x000000: "black",
         0x000080: "navy",
@@ -294,7 +354,7 @@ open class SVGConstants {
     ]
 
     open static func valueToColor(_ color: Int) -> String? {
-        return SVGConstants.colorList.filter { (_, v) -> Bool in v == color }.map { (k, _) -> String in k }.first
+        return SVGConstants.colorList.filter { _, v -> Bool in v == color }.map { k, _ -> String in k }.first
     }
 
     open static let defaultStrokeLineCap = LineCap.butt

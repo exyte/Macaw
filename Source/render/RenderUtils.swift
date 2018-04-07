@@ -1,13 +1,13 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
-class RenderUtils {
-    class func mapColor(_ color: Color) -> CGColor {
+public class RenderUtils {
+    public class func mapColor(_ color: Color) -> CGColor {
         let red = CGFloat(Double(color.r()) / 255.0)
         let green = CGFloat(Double(color.g()) / 255.0)
         let blue = CGFloat(Double(color.b()) / 255.0)
@@ -15,12 +15,12 @@ class RenderUtils {
         return MColor(red: red, green: green, blue: blue, alpha: alpha).cgColor
     }
 
-    class func mapTransform(_ t: Transform) -> CGAffineTransform {
+    public class func mapTransform(_ t: Transform) -> CGAffineTransform {
         return CGAffineTransform(a: CGFloat(t.m11), b: CGFloat(t.m12), c: CGFloat(t.m21),
                                  d: CGFloat(t.m22), tx: CGFloat(t.dx), ty: CGFloat(t.dy))
     }
 
-    class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
+    public class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
         switch join {
         case LineJoin.round?:
             return CGLineJoin.round
@@ -31,7 +31,7 @@ class RenderUtils {
         }
     }
 
-    class func mapLineJoinToString(_ join: LineJoin?) -> String {
+    public class func mapLineJoinToString(_ join: LineJoin?) -> String {
         switch join {
         case LineJoin.round?:
             return kCALineJoinRound
@@ -42,7 +42,7 @@ class RenderUtils {
         }
     }
 
-    class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
+    public class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
         switch cap {
         case LineCap.round?:
             return CGLineCap.round
@@ -53,7 +53,7 @@ class RenderUtils {
         }
     }
 
-    class func mapLineCapToString(_ cap: LineCap?) -> String {
+    public class func mapLineCapToString(_ cap: LineCap?) -> String {
         switch cap {
         case LineCap.round?:
             return kCALineCapRound
@@ -64,7 +64,7 @@ class RenderUtils {
         }
     }
 
-    class func mapDash(_ dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
+    public class func mapDash(_ dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
         let p = UnsafeMutablePointer<CGFloat>.allocate(capacity: dashes.count * MemoryLayout<CGFloat>.size)
         for (index, item) in dashes.enumerated() {
             p[index] = CGFloat(item)
@@ -90,7 +90,7 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
-    class func loadFont(name: String, size: Int) -> MFont? {
+    public class func loadFont(name: String, size: Int) -> MFont? {
         let separationSet = CharacterSet(charactersIn: ",")
         let names = name.components(separatedBy: separationSet)
         var customFont: MFont? = .none
@@ -112,11 +112,11 @@ class RenderUtils {
         return customFont
     }
 
-    class func applyOpacity(_ color: Color, opacity: Double) -> Color {
+    public class func applyOpacity(_ color: Color, opacity: Double) -> Color {
         return Color.rgba(r: color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
     }
 
-    class func toCGPath(_ locus: Locus) -> CGPath {
+    public class func toCGPath(_ locus: Locus) -> CGPath {
         if let arc = locus as? Arc {
             if arc.ellipse.rx != arc.ellipse.ry {
                 // http://stackoverflow.com/questions/11365775/how-to-draw-an-elliptical-arc-with-coregraphics
@@ -136,7 +136,7 @@ class RenderUtils {
         return toBezierPath(locus).reversing().cgPath
     }
 
-    class func toBezierPath(_ locus: Locus) -> MBezierPath {
+    public class func toBezierPath(_ locus: Locus) -> MBezierPath {
         if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
             return MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
@@ -316,14 +316,14 @@ class RenderUtils {
                 Q(x1 + dx, y1: y1 + dy, x: x + dx, y: y + dy)
             }
         }
-        
+
         func Q(_ x1: Double, y1: Double, x: Double, y: Double) {
             let endPoint = CGPoint(x: x, y: y)
             let controlPoint = CGPoint(x: x1, y: y1)
             bezierPath.addQuadCurve(to: endPoint, controlPoint: controlPoint)
             setQuadrPoint(endPoint, quadr: controlPoint)
         }
-        
+
         func t(_ x: Double, y: Double) {
             if let cur = currentPoint {
                 let next = CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y)
@@ -337,7 +337,7 @@ class RenderUtils {
                 setQuadrPoint(next, quadr: quadr!)
             }
         }
-        
+
         func T(_ x: Double, y: Double) {
             if let cur = currentPoint {
                 let next = CGPoint(x: CGFloat(x), y: CGFloat(y))
@@ -367,20 +367,20 @@ class RenderUtils {
 
                 // find arc center coordinates and points angles as per
                 // http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
-                if (_rx == 0 || _ry == 0) {
+                if _rx == 0 || _ry == 0 {
                     L(x, y: y)
                 } else {
                     var rx = abs(_rx)
                     var ry = abs(_ry)
                     let x1_ = cos(angle) * (x1 - x) / 2 + sin(angle) * (y1 - y) / 2
                     let y1_ = -1 * sin(angle) * (x1 - x) / 2 + cos(angle) * (y1 - y) / 2
-                    
+
                     let rCheck = (x1_ * x1_) / (rx * rx) + (y1_ * y1_) / (ry * ry)
-                    if (rCheck > 1) {
+                    if rCheck > 1 {
                         rx = sqrt(rCheck) * rx
                         ry = sqrt(rCheck) * ry
                     }
-                    
+
                     // make sure the value under the root is positive
                     let underroot = (rx * rx * ry * ry - rx * rx * y1_ * y1_ - ry * ry * x1_ * x1_)
                         / (rx * rx * y1_ * y1_ + ry * ry * x1_ * x1_)
@@ -391,18 +391,18 @@ class RenderUtils {
                     let cy_ = -1 * coef * bigRoot * ry * x1_ / rx
                     let cx = cos(angle) * cx_ - sin(angle) * cy_ + (x1 + x) / 2
                     let cy = sin(angle) * cx_ + cos(angle) * cy_ + (y1 + y) / 2
-                    
+
                     let t1 = calcAngle(ux: 1, uy: 0, vx: (x1_ - cx_) / rx, vy: (y1_ - cy_) / ry)
                     var delta = calcAngle(ux: (x1_ - cx_) / rx, uy: (y1_ - cy_) / ry, vx: (-x1_ - cx_) / rx, vy: (-y1_ - cy_) / ry)
                     let pi2 = Double.pi * 2
-                    if (delta > 0) {
+                    if delta > 0 {
                         delta = delta.truncatingRemainder(dividingBy: pi2)
-                        if (!sweep) {
+                        if !sweep {
                             delta -= pi2
                         }
-                    } else if (delta < 0) {
+                    } else if delta < 0 {
                         delta = -1 * ((-1 * delta).truncatingRemainder(dividingBy: pi2))
-                        if (sweep) {
+                        if sweep {
                             delta += pi2
                         }
                     }
@@ -417,20 +417,20 @@ class RenderUtils {
             let end = extent + CGFloat(arcAngle)
             let cx = CGFloat(x + w / 2)
             let cy = CGFloat(y + h / 2)
-            if (w == h && rotation == 0) {
+            if w == h && rotation == 0 {
                 bezierPath.addArc(withCenter: CGPoint(x: cx, y: cy), radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
             } else {
                 let maxSize = CGFloat(max(w, h))
                 let path = MBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
 
                 #if os(iOS)
-                    var transform = CGAffineTransform(translationX: cx, y: cy)
-                    transform = transform.rotated(by: CGFloat(rotation))
-                    path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))
+                var transform = CGAffineTransform(translationX: cx, y: cy)
+                transform = transform.rotated(by: CGFloat(rotation))
+                path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))
                 #elseif os(OSX)
-                    var transform = AffineTransform(translationByX: cx, byY: cy)
-                    transform.rotate(byDegrees: CGFloat(rotation))
-                    path.transform(using: transform)
+                var transform = AffineTransform(translationByX: cx, byY: cy)
+                transform.rotate(byDegrees: CGFloat(rotation))
+                path.transform(using: transform)
                 #endif
 
                 bezierPath.append(path)
@@ -552,7 +552,7 @@ class RenderUtils {
         }
         return bezierPath
     }
-    
+
     class func calcAngle(ux: Double, uy: Double, vx: Double, vy: Double) -> Double {
         let sign = copysign(1, ux * vy - uy * vx)
         let value = (ux * vx + uy * vy) / (sqrt(ux * ux + uy * uy) * sqrt(vx * vx + vy * vy))

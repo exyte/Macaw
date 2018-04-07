@@ -9,47 +9,47 @@
 import Foundation
 
 #if os(OSX)
-    import AppKit
+import AppKit
 
-    public class MDisplayLink: MDisplayLinkProtocol {
-        private var displayLink: CVDisplayLink?
-        private var onUpdate: (() -> Void)?
+public class MDisplayLink: MDisplayLinkProtocol {
+    private var displayLink: CVDisplayLink?
+    private var onUpdate: (() -> Void)?
 
-        // MARK: - Lifecycle
-        deinit {
-            stop()
+    // MARK: - Lifecycle
+    deinit {
+        stop()
+    }
+
+    // MARK: - MDisplayLinkProtocol
+    func startUpdates(_ onUpdate: @escaping () -> Void) {
+        self.onUpdate = onUpdate
+
+        if CVDisplayLinkCreateWithActiveCGDisplays(&displayLink) != kCVReturnSuccess {
+            return
         }
 
-        // MARK: - MDisplayLinkProtocol
-        func startUpdates(_ onUpdate: @escaping () -> Void) {
-            self.onUpdate = onUpdate
+        CVDisplayLinkSetOutputCallback(displayLink!, { _, _, _, _, _, userData -> CVReturn in
 
-            if CVDisplayLinkCreateWithActiveCGDisplays(&displayLink) != kCVReturnSuccess {
-                return
-            }
+            let `self` = unsafeBitCast(userData, to: MDisplayLink.self)
+            `self`.onUpdate?()
 
-            CVDisplayLinkSetOutputCallback(displayLink!, { (_, _, _, _, _, userData) -> CVReturn in
+            return kCVReturnSuccess
+        }, Unmanaged.passUnretained(self).toOpaque())
 
-                let `self` = unsafeBitCast(userData, to: MDisplayLink.self)
-                `self`.onUpdate?()
-
-                return kCVReturnSuccess
-            }, Unmanaged.passUnretained(self).toOpaque())
-
-            if displayLink != nil {
-                CVDisplayLinkStart(displayLink!)
-            }
-        }
-
-        func invalidate() {
-            stop()
-        }
-
-        private func stop() {
-            if displayLink != nil {
-                CVDisplayLinkStop(displayLink!)
-            }
+        if displayLink != nil {
+            CVDisplayLinkStart(displayLink!)
         }
     }
+
+    func invalidate() {
+        stop()
+    }
+
+    private func stop() {
+        if displayLink != nil {
+            CVDisplayLinkStop(displayLink!)
+        }
+    }
+}
 
 #endif

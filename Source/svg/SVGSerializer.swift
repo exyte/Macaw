@@ -13,16 +13,44 @@ import Foundation
 ///
 open class SVGSerializer {
 
-    fileprivate let width: Int?
-    fileprivate let height: Int?
+    public enum Format {
+        case short
+        case pretty
+    }
+
+    public enum Sizing {
+        case viewBox(Rect)
+        case size(Size)
+
+        var string: String {
+            switch self {
+            case .size(let size):
+                return "width=\"\(Int(size.w))\" height=\"\(Int(size.h))\""
+            case .viewBox(let box):
+                return "viewBox=\"\(Int(box.x)) \(Int(box.y)) \(Int(box.w)) \(Int(box.h))\""
+            }
+        }
+    }
+
+    fileprivate let sizing: Sizing?
     fileprivate let id: String?
     fileprivate let indent: Int
+    fileprivate let format: Format
 
-    fileprivate init(width: Int?, height: Int?, id: String?) {
-        self.width = width
-        self.height = height
+    public init(sizing: Sizing? = nil, id: String?, format: Format) {
         self.id = id
         self.indent = 0
+        self.format = format
+        self.sizing = sizing
+    }
+
+    public convenience init(width: Int?, height: Int?, id: String?, format: Format) {
+        var sizing: Sizing?
+        if let w = width, let h = height {
+            sizing = .size(Size(w: Double(w), h: Double(h)))
+        }
+
+        self.init(sizing: sizing, id: id, format: format)
     }
 
     // header and footer
@@ -68,10 +96,9 @@ open class SVGSerializer {
         return String(Int(a))
     }
 
-    fileprivate func tag(_ tag: String, _ args: [String: String]=[:], close: Bool = false) -> String {
-        let attrs = args.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
+    fileprivate func tag(_ tag: String, _ attrs: [String: String]=[:], close: Bool = false) -> String {
         let closeTag = close ? " />" : ""
-        return "\(tag) \(attrs) \(closeTag)"
+        return "\(tag) \(attributesToSVG(attrs)) \(closeTag)"
     }
 
     fileprivate func arcToSVG(_ arc: Arc) -> String {
@@ -100,6 +127,10 @@ open class SVGSerializer {
             d += "A \(rx),\(ry) 0.0 \(largeArcFlag), \(sweepFlag) \(x2),\(y2)"
             return tag(SVGPathOpenTag, ["d": d])
         }
+    }
+
+    fileprivate func attributesToSVG(_ attrs: [String: String]) -> String {
+        return attrs.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
     }
 
     fileprivate func polygonToSVG(_ polygon: Polygon) -> String {
@@ -141,7 +172,7 @@ open class SVGSerializer {
     }
 
     fileprivate func imageToSVG(_ image: Image) -> String {
-        var result = tag(SVGImageOpenTag, close: false)
+        var result = tag(SVGImageOpenTag, image.attributes, close: false)
         result += clipToSVG(image.clip)
         result += transformToSVG(image)
         if image.src.contains("memory://") {
@@ -177,7 +208,7 @@ open class SVGSerializer {
     }
 
     fileprivate func textToSVG(_ text: Text) -> String {
-        var result = tag(SVGTextOpenTag)
+        var result = tag(SVGTextOpenTag, text.attributes)
         if let font = text.font {
             result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
             // TODO: check with enums
@@ -323,6 +354,7 @@ open class SVGSerializer {
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         let locus = macawShape.formVar.value
         var result = locusToSVG(locus)
+        result += attributesToSVG(macawShape.attributes)
         result += clipToSVG(macawShape.clip)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
@@ -332,49 +364,63 @@ open class SVGSerializer {
     }
 
     fileprivate func serialize(node: Node, offset: Int) -> String {
-        if let shape = node as? Shape {
+        switch node {
+        case let shape as Shape:
             return indentTextWithOffset(macawShapeToSvgShape(macawShape: shape), offset)
-        }
-        if let group = node as? Group {
+
+        case let group as Group:
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
             result += clipToSVG(group.clip)
             result += transformToSVG(group)
+            result += attributesToSVG(group.attributes)
             result += SVGGenericEndTag
+
             for child in group.contentsVar.value {
                 result += serialize(node: child, offset: offset + 1)
+                if format == .pretty { result += "\n" }
             }
+
             result += indentTextWithOffset(SVGGroupCloseTag, offset)
             return result
-        }
-        if let image = node as? Image {
+
+        case let image as Image:
             return imageToSVG(image)
-        }
-        if let text = node as? Text {
+
+        case let text as Text:
             return textToSVG(text)
+
+        default:
+            return "SVGUndefinedTag \(node)"
         }
-        return "SVGUndefinedTag \(node)"
     }
 
     fileprivate func serialize(node: Node) -> String {
         var optionalSection = ""
-        if let w = width {
-            optionalSection += "width=\"\(w)\""
-        }
-        if let h = height {
-            optionalSection += " height=\"\(h)\""
+        if let sizing = self.sizing {
+            optionalSection += sizing.string
         }
         if let i = id {
             optionalSection += " id=\"\(i)\""
         }
+
         var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
+        if format == .pretty { result += "\n" }
         let body = serialize(node: node, offset: 1)
         result += getDefs() + body
         result += indentTextWithOffset(SVGFooter, 0)
         return result
     }
 
-    open class func serialize(node: Node, width: Int? = nil, height: Int? = nil, id: String? = nil) -> String {
-        return SVGSerializer(width: width, height: height, id: id).serialize(node: node)
+    open class func serialize(node: Node, viewBox: Rect, id: String? = nil, format: Format) -> String {
+        return SVGSerializer(sizing: .viewBox(viewBox), id: id, format: format).serialize(node: node)
+    }
+
+    open class func serialize(node: Node,
+                              width: Int? = nil,
+                              height: Int? = nil,
+                              id: String? = nil,
+                              format: Format = .short) -> String {
+        return SVGSerializer(width: width, height: height, id: id, format: format).serialize(node: node)
     }
 
 }

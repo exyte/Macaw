@@ -2,7 +2,7 @@ import Foundation
 import CoreGraphics
 
 #if !CARTHAGE
-    import SWXMLHash
+import SWXMLHash
 #endif
 
 ///
@@ -32,12 +32,6 @@ open class SVGParser {
         return SVGParser(text).parse()
     }
 
-    let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "text-anchor", "clip-path", "fill-opacity",
-                                    "stop-color", "stop-opacity",
-                                    "font-family", "font-size",
-                                    "font-weight", "opacity"]
-
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
 
@@ -46,6 +40,7 @@ open class SVGParser {
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
+    fileprivate var viewBox: Rect?
 
     fileprivate enum PathCommandType {
         case moveTo
@@ -70,7 +65,7 @@ open class SVGParser {
         prepareSvg(parsedXml.children)
         parseSvg(parsedXml.children)
 
-        let group = Group(contents: self.nodes, place: initialPosition)
+        let group = Group(contents: self.nodes, boundingBox: viewBox, place: initialPosition)
         return group
     }
 
@@ -78,6 +73,7 @@ open class SVGParser {
         children.forEach { child in
             if let element = child.element {
                 if element.name == "svg" {
+                    parseSVGAttributes(element)
                     prepareSvg(child.children)
                 } else {
                     prepareSvg(child)
@@ -85,7 +81,7 @@ open class SVGParser {
             }
         }
     }
-    
+
     fileprivate func prepareSvg(_ node: XMLIndexer) {
         if let element = node.element {
             if (element.name == "defs") {
@@ -154,6 +150,15 @@ open class SVGParser {
         }
     }
 
+    fileprivate func parseSVGAttributes(_ element: XMLElement) {
+        if let w = element.allAttributes.number(for: "width"),
+            let h = element.allAttributes.number(for: "height") {
+            self.viewBox = Rect(x: 0, y: 0, w: w, h: h)
+        } else if let viewBox = element.allAttributes.rect(for: "viewBox") {
+            self.viewBox = viewBox
+        }
+    }
+
     fileprivate func parseDefinitions(_ defs: XMLIndexer) {
         for child in defs.children {
             guard let id = child.element?.allAttributes["id"]?.text else {
@@ -182,53 +187,58 @@ open class SVGParser {
     }
 
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        if let element = node.element {
-            let styleAttributes = getStyleAttributes(groupStyle, element: element)
-            let position = getPosition(element)
-            switch element.name {
-            case "path":
-                if let path = parsePath(node) {
-                    return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "line":
-                if let line = parseLine(node) {
-                    return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "rect":
-                if let rect = parseRect(node) {
-                    return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "circle":
-                if let circle = parseCircle(node) {
-                    return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "ellipse":
-                if let ellipse = parseEllipse(node) {
-                    return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "polygon":
-                if let polygon = parsePolygon(node) {
-                    return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "polyline":
-                if let polyline = parsePolyline(node) {
-                    return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
-                }
-            case "image":
-                return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
-            case "text":
-                return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
-                                 stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
-            case "use":
-                return parseUse(node, groupStyle: styleAttributes, place: position)
-            case "mask":
-                break
-            default:
-                print("SVG parsing error. Shape \(element.name) not supported")
-                return .none
-            }
+        guard let element = node.element else {
+            return .none
         }
-        return .none
+
+        let styleAttributes = getStyleAttributes(groupStyle, element: element)
+        let position = getPosition(element)
+        var parsedNode: Node? = nil
+
+        switch element.name {
+        case "path":
+            if let path = parsePath(node) {
+                parsedNode = Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "line":
+            if let line = parseLine(node) {
+                parsedNode = Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "rect":
+            if let rect = parseRect(node) {
+                parsedNode = Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "circle":
+            if let circle = parseCircle(node) {
+                parsedNode = Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "ellipse":
+            if let ellipse = parseEllipse(node) {
+                parsedNode = Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "polygon":
+            if let polygon = parsePolygon(node) {
+                parsedNode = Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "polyline":
+            if let polyline = parsePolyline(node) {
+                parsedNode = Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+            }
+        case "image":
+            parsedNode = parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
+        case "text":
+            parsedNode = parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
+                                   stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
+        case "use":
+            parsedNode = parseUse(node, groupStyle: styleAttributes, place: position)
+        case "mask":
+            break
+        default:
+            print("SVG parsing error. Shape \(element.name) not supported")
+        }
+
+        parsedNode?.attributes = getExtraAttributes(in: element)
+        return parsedNode
     }
 
     fileprivate func parseFill(_ fill: XMLIndexer) -> Fill? {
@@ -244,7 +254,7 @@ open class SVGParser {
             return .none
         }
     }
-    
+
     fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
         guard let element = group.element else {
             return .none
@@ -398,6 +408,12 @@ open class SVGParser {
         return updatedValues
     }
 
+    fileprivate func getExtraAttributes(in element: SWXMLHash.XMLElement) -> [String: String] {
+        let registredNames = SVGConstants.registeredAttributes
+        let extraAttrs = element.allAttributes.filter { !registredNames.contains($0.key) }.values
+        return Dictionary(uniqueKeysWithValues: extraAttrs.map { ($0.name, $0.text) })
+    }
+
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
 
@@ -419,7 +435,7 @@ open class SVGParser {
             }
         }
 
-        self.availableStyleAttributes.forEach { availableAttribute in
+        SVGConstants.styleAttributes.forEach { availableAttribute in
             if let styleAttribute = element.allAttributes[availableAttribute]?.text {
                 styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
             }
@@ -577,8 +593,7 @@ open class SVGParser {
     }
 
     fileprivate func getTag(_ element: SWXMLHash.XMLElement) -> [String] {
-        let id = element.allAttributes["id"]?.text
-        return id != nil ? [id!] : []
+        return element.allAttributes["id"].flatMap { [$0.text] } ?? []
     }
 
     fileprivate func getOpacity(_ styleParts: [String: String]) -> Double {
@@ -966,11 +981,11 @@ open class SVGParser {
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
             let cgTransform = RenderUtils.mapTransform(transform)
-            
+
             let point1 = CGPoint(x: x1, y: y1).applying(cgTransform)
             x1 = point1.x.doubleValue
             y1 = point1.y.doubleValue
-            
+
             let point2 = CGPoint(x: x2, y: y2).applying(cgTransform)
             x2 = point2.x.doubleValue
             y2 = point2.y.doubleValue
@@ -1028,11 +1043,11 @@ open class SVGParser {
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
             let cgTransform = RenderUtils.mapTransform(transform)
-            
+
             let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
             cx = point1.x.doubleValue
             cy = point1.y.doubleValue
-            
+
             let point2 = CGPoint(x: fx, y: fy).applying(cgTransform)
             fx = point2.x.doubleValue
             fy = point2.y.doubleValue
@@ -1078,7 +1093,7 @@ open class SVGParser {
     }
 
     fileprivate func parsePath(_ path: XMLIndexer) -> Path? {
-        if let d = path.element?.allAttributes["d"]?.text {
+        if let d = path.element?.allAttributes[SVGConstants.pathAttribute]?.text {
             return Path(segments: PathDataReader(input: d).read())
         }
         return .none
@@ -1222,7 +1237,7 @@ open class SVGParser {
 }
 
 private class PathDataReader {
-    
+
     private let input: String
     private var current: UnicodeScalar?
     private var previous: UnicodeScalar?
@@ -1232,9 +1247,9 @@ private class PathDataReader {
         self.input = input
         self.iterator = input.unicodeScalars.makeIterator()
     }
-    
+
     public func read() -> [PathSegment] {
-        let _ = readNext()
+        _ = readNext()
         var segments = [PathSegment]()
         while let array = readSegments() {
             segments.append(contentsOf: array)
@@ -1322,11 +1337,11 @@ private class PathDataReader {
         current = iterator.next()
         return current
     }
-    
+
     private func readSegmentType() -> PathSegmentType? {
         while(true) {
             if let type = getPathSegmentType() {
-                let _ = readNext()
+                _ = readNext()
                 return type
             }
             if (readNext() == nil) {
@@ -1334,35 +1349,11 @@ private class PathDataReader {
             }
         }
     }
-    
+
     fileprivate func getPathSegmentType() -> PathSegmentType? {
-        if let ch = current {
-            switch(ch) {
-            case "M": return .M
-            case "m": return .m
-            case "L": return .L
-            case "l": return .l
-            case "C": return .C
-            case "c": return .c
-            case "Q": return .Q
-            case "q": return .q
-            case "A": return .A
-            case "a": return .a
-            case "z", "Z": return .z
-            case "H": return .H
-            case "h": return .h
-            case "V": return .V
-            case "v": return .v
-            case "S": return .S
-            case "s": return .s
-            case "T": return .T
-            case "t": return .t
-            default: break
-            }
-        }
-        return nil
+        return current.flatMap(PathSegmentType.init(c:))
     }
-    
+
     fileprivate func getArgCount(segment: PathSegmentType) -> Int {
         switch(segment) {
         case .H, .h, .V, .v: return 1

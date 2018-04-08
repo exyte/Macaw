@@ -543,7 +543,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     // but I do not see any logging in the file to immitate.
     // but we can keep it disabled :)
     open var willLogPassThrough = false
-    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    override open func point(inside point: CGPoint, with event: MEvent?) -> Bool {
         // all false returns mean do pass the event through
         
         if !willPassThroughWhenNoNodeIsTargeted{

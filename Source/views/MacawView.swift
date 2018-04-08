@@ -528,4 +528,64 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
         return true
     }
+    
+    
+    
+    // Mark: PassThrough
+    
+    // Inexperienced enough, I could not create a Unit test for this
+    // a simple test would be a simple button behind a busy MacawView (full of nodes and stuff) thet can be pressed when no nodes are on it
+    
+    
+    // if activated the view will pass its touches the the views behind
+    open var willPassThroughWhenNoNodeIsTargeted = false
+    // just for logging, we mau add a logger callback in here insted of print
+    // but I do not see any logging in the file to immitate.
+    // but we can keep it disabled :)
+    open var willLogPassThrough = false
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        // all false returns mean do pass the event through
+        
+        if !willPassThroughWhenNoNodeIsTargeted{
+            return super.point(inside: point, with: event)
+        }
+        func printPassedThrough () { mTouchesPassedThrough(); if willLogPassThrough{ print("touches passed to the next view ") }}
+        func printIntercepted () { if willLogPassThrough{ print("intercepting touch") } }
+        
+        // got most of this from    "func mTouchesBegan(_ touches: [MTouchEvent])"
+        
+        if !self.node.shouldCheckForPressed() &&
+            !self.node.shouldCheckForMoved() &&
+            !self.node.shouldCheckForReleased () {
+            printPassedThrough()
+            return false
+        }
+        
+        guard let renderer = renderer else {
+            printPassedThrough()
+            return false
+        }
+        var foundNode: Node? = .none
+        
+        localContext { ctx in
+            // where the magic happens :)
+            // I think the function should return more than one node that coexist in the same point. Please look into this
+            foundNode = renderer.findNodeAt(location: point, ctx: ctx)
+            
+        }
+        if foundNode != .none{
+            printIntercepted()
+            return super.point(inside: point, with: event)
+        }
+        
+        printPassedThrough()
+        return false
+    }
+    // just if someone wants to know they should override this method/ works only when the willPassThroughWhenNoNodeIsTargeted is active
+    func mTouchesPassedThrough() {
+        
+    }
+    
+    
+    
 }

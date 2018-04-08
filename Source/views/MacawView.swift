@@ -536,7 +536,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     // Inexperienced enough, I could not create a Unit test for this
     // a simple test would be a simple button behind a busy MacawView (full of nodes and stuff) thet can be pressed when no nodes are on it
     
-    
+#if os(iOS)
     // if activated the view will pass its touches the the views behind
     open var willPassThroughWhenNoNodeIsTargeted = false
     // just for logging, we mau add a logger callback in here insted of print
@@ -585,7 +585,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     func mTouchesPassedThrough() {
         
     }
-    
+#endif
     
     
 }

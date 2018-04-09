@@ -17,6 +17,13 @@ open class SVGView: MacawView {
             render()
         }
     }
+    
+    open var deviceFileName: URL? {
+        didSet {
+            parseFromLocalFile(file: deviceFileName)
+            render()
+        }
+    }
 
     public init(node: Node = Group(), frame: CGRect) {
         super.init(frame: frame)
@@ -46,6 +53,12 @@ open class SVGView: MacawView {
 
     fileprivate func parseSVG() {
         svgNode = try? SVGParser.parse(path: fileName ?? "")
+    }
+    
+    fileprivate func parseFromLocalFile(file: URL?) {
+        if let file = file {
+            svgNode = try? SVGParser.parse(file: file)
+        }
     }
 
     fileprivate func render() {

@@ -62,11 +62,11 @@ class ShapeRenderer: NodeRenderer {
         return imageRef
     }
     
-    fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> UIImage? {
+    fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> MImage? {
         guard let size = shape.bounds() else { return .none }
-        UIGraphicsBeginImageContext(CGSize(width: size.w+shadowInset, height: size.h+shadowInset))
+        MGraphicsBeginImageContextWithOptions(CGSize(width: size.w+shadowInset, height: size.h+shadowInset), true, 1)
         
-        guard let tempContext = UIGraphicsGetCurrentContext() else { return .none }
+        guard let tempContext = MGraphicsGetCurrentContext() else { return .none }
         
         if (shape.fill != nil || shape.stroke != nil) {
             // flip y-axis and leave space for the blur
@@ -76,8 +76,8 @@ class ShapeRenderer: NodeRenderer {
             drawPath(shape.fill, stroke: shape.stroke, ctx: tempContext, opacity: opacity)
         }
         
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+        let img = MGraphicsGetImageFromCurrentImageContext()
+        MGraphicsEndImageContext()
         return img
     }
 

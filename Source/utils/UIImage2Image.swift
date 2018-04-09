@@ -9,7 +9,7 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
 var imagesMap = [String: MImage]()

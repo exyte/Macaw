@@ -186,9 +186,16 @@ open class SVGParser {
         guard let element = node.element, let parsedNode = parseElementInternal(node, groupStyle: groupStyle) else { return .none }
         
         if let filterString = element.allAttributes["filter"]?.text, let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
+            
             let shadowNode = parseElementInternal(node, groupStyle: groupStyle)! // TODO copy
             shadowNode.place = shadowNode.place.move(dx: shadow.offset.x, dy: shadow.offset.y)
             shadowNode.effect = shadow.input
+            
+            if shadow.source == .SourceAlpha, let shapeNode = shadowNode as? Shape, let stroke = shapeNode.stroke, let color = stroke.fill as? Color {
+                let alphaColor = Color.black.with(a: Double(color.a()) / 255.0)
+                shapeNode.fill = alphaColor
+                shapeNode.stroke = Stroke(fill: alphaColor, width: stroke.width, cap: stroke.cap, join: stroke.join, dashes: stroke.dashes)
+            }
             return Group(contents: [shadowNode, parsedNode])
         }
         
@@ -913,26 +920,44 @@ open class SVGParser {
         guard let element = filterNode.element, let id = element.allAttributes["id"]?.text else {
             return .none
         }
-        var offset: Point?
-        var blur: GaussianBlur?
+        var effects = [String : DropShadow]()
         for child in filterNode.children {
             guard let element = child.element else { continue }
+            
+            let effectIn = element.allAttributes["in"]?.text ?? "SourceGraphic"
+            let effectOut = element.allAttributes["result"]?.text ?? ""
+            let currentEffect = effects[effectIn] ?? DropShadow()
+            if effects[effectIn] == nil, let source = EffectSource(rawValue: effectIn) { // first in the chain
+                currentEffect.source = source
+            }
+            effects.removeValue(forKey: effectIn)
+            
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
-                    offset = Point(x: dx, y: dy)
+                    currentEffect.offset = Point(x: dx, y: dy)
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    blur = GaussianBlur(radius: radius, input: nil)
+                    currentEffect.input = GaussianBlur(radius: radius, input: nil)
+                }
+            case "feBlend":
+                if let effectIn2 = element.allAttributes["in2"]?.text {
+                    if effectIn == EffectSource.SourceGraphic.rawValue {
+                        defShadows[id] = effects[effectIn2]
+                    }
+                    if effectIn2 == EffectSource.SourceGraphic.rawValue {
+                        defShadows[id] = currentEffect
+                    }
+                    return .none
                 }
             default:
                 print("SVG parsing error. Filter \(element.name) not supported")
                 continue
             }
+            
+            effects[effectOut] = currentEffect
         }
-        
-        defShadows[id] = DropShadow(offset: offset ?? Point(x: 0, y: 0), input: blur)
         return .none
     }
 

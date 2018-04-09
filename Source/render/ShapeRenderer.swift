@@ -64,7 +64,7 @@ class ShapeRenderer: NodeRenderer {
     
     fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> MImage? {
         guard let size = shape.bounds() else { return .none }
-        MGraphicsBeginImageContextWithOptions(CGSize(width: size.w+shadowInset, height: size.h+shadowInset), true, 1)
+        MGraphicsBeginImageContextWithOptions(CGSize(width: size.w+shadowInset, height: size.h+shadowInset), false, 1)
         
         guard let tempContext = MGraphicsGetCurrentContext() else { return .none }
         

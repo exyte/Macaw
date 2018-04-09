@@ -1,11 +1,11 @@
 import Foundation
 
 #if os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
 class ImageRenderer: NodeRenderer {
@@ -65,9 +65,9 @@ class ImageRenderer: NodeRenderer {
         }
 
         #if os(iOS)
-            let osImage = MImage(named: image.src)
+        let osImage = MImage(named: image.src)
         #elseif os(OSX)
-            let osImage = MImage(named: NSImage.Name(rawValue: image.src))
+        let osImage = MImage(named: NSImage.Name(rawValue: image.src))
         #endif
 
         if let mImage = osImage {

@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 class TextRenderer: NodeRenderer {
@@ -97,7 +97,7 @@ class TextRenderer: NodeRenderer {
         guard #available(iOS 9.0, macOS 10.11, *) else {
             // This case should never happen, since the deployment target is set to iOS 9.0/macOS 10.11.
             // However it is needed for the Swift Package Manager to work accordingly.
-             return .none
+            return .none
         }
         switch weight {
         case "normal":
@@ -152,9 +152,9 @@ class TextRenderer: NodeRenderer {
         if let color = fill as? Color {
 
             #if os(iOS)
-                return MColor(cgColor: RenderUtils.mapColor(color))
+            return MColor(cgColor: RenderUtils.mapColor(color))
             #elseif os(OSX)
-                return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
+            return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
             #endif
 
         }

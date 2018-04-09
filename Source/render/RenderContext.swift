@@ -1,7 +1,7 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
 class RenderContext {

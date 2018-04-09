@@ -1,11 +1,11 @@
 import Foundation
 
 #if os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
 open class Image: Node {
@@ -160,9 +160,9 @@ open class Image: Node {
 
         // General case
         #if os(iOS)
-            return MImage(named: src)
+        return MImage(named: src)
         #elseif os(OSX)
-            return MImage(named: NSImage.Name(rawValue: src))
+        return MImage(named: NSImage.Name(rawValue: src))
         #endif
     }
 }

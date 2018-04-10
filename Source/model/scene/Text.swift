@@ -121,7 +121,7 @@ open class Text: Node {
             NSAttributedStringKey.font: font
         ]
         let textSize = NSString(string: text).size(withAttributes: textAttributes)
-        return -align.align(x: textSize.width.doubleValue)
+        return -align.align(size: textSize.width.doubleValue)
     }
 
 }

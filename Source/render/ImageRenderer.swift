@@ -100,8 +100,8 @@ class ImageRenderer: NodeRenderer {
                 size: Size(w: Double(image.w), h: Double(image.h)),
                 into: Size(w: Double(imageSize.width), h: Double(imageSize.height))
             )
-            let destX = image.xAlign.align(x: w.doubleValue, y: newSize.w)
-            let destY = image.yAlign.align(x: h.doubleValue, y: newSize.h)
+            let destX = image.xAlign.align(outer: w.doubleValue, inner: newSize.w)
+            let destY = image.yAlign.align(outer: h.doubleValue, inner: newSize.h)
             return CGRect(x: destX, y: destY, width: newSize.w, height: newSize.h)
         }
     }

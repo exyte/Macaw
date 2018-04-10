@@ -144,8 +144,8 @@ open class SVGParser {
             node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
         }
         
-        let transformHelper = TransformHelper(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)
-        node.place = transformHelper.getTransformOf(viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
+        let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)
+        node.place = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
         
         // move to (0, 0)
         node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)

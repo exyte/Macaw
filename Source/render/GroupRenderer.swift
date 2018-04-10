@@ -60,7 +60,7 @@ class GroupRenderer: NodeRenderer {
         renderers.forEach { $0.dispose() }
         renderers.removeAll()
 
-        if let updatedRenderers = group?.contents.flatMap ({ child -> NodeRenderer? in
+        if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
             guard let interval = renderingInterval else {
                 return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache)
             }

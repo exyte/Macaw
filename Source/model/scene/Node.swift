@@ -56,7 +56,7 @@ open class Node: Drawable {
     }
 
     public func nodesBy(tag: String) -> [Node] {
-        return [nodeBy(tag: tag)].flatMap { $0 }
+        return [nodeBy(tag: tag)].compactMap { $0 }
     }
 
     // MARK: - Events

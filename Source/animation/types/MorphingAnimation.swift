@@ -84,8 +84,8 @@ public extension AnimatableVariable where T: ContentsInterpolation {
         }
 
         // Shapes on same hierarhy level
-        let fromShapes = fromNode.contents.flatMap { $0 as? Shape }
-        let toShapes = to.flatMap { $0 as? Shape }
+        let fromShapes = fromNode.contents.compactMap { $0 as? Shape }
+        let toShapes = to.compactMap { $0 as? Shape }
         let minPathsNumber = min(fromShapes.count, toShapes.count)
 
         var animations = [Animation]()
@@ -117,8 +117,8 @@ public extension AnimatableVariable where T: ContentsInterpolation {
         }
 
         // Groups on same hierahy level
-        let fromGroups = fromNode.contents.flatMap { $0 as? Group }
-        let toGroups = to.flatMap { $0 as? Group }
+        let fromGroups = fromNode.contents.compactMap { $0 as? Group }
+        let toGroups = to.compactMap { $0 as? Group }
         let minGroupsNumber = min(fromGroups.count, toGroups.count)
         for i in 0..<minGroupsNumber {
             let fromGroup = fromGroups[i]

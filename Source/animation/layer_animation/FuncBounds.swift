@@ -40,7 +40,7 @@ func boundsWithDerivative(p0: Point, p1: Point, p2: Point, p3: Point) -> Rect? {
     let cy = 3 * p1.y - 3 * p0.y
     let sy = solveEquation(a: ay, b: by, c: cy)
 
-    let solutions = [0, 1, sx.s1, sx.s2, sy.s1, sy.s2].flatMap { $0 }
+    let solutions = [0, 1, sx.s1, sx.s2, sy.s1, sy.s2].compactMap { $0 }
     var minX: Double? = .none
     var minY: Double? = .none
     var maxX: Double? = .none

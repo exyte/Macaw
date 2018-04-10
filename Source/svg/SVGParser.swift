@@ -1071,7 +1071,12 @@ open class SVGParser {
         }
         var color = Color.black
         if let stopColor = getStyleAttributes([:], element: element)["stop-color"] {
-            color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
+            if let defaultColor = SVGConstants.colorList[stopColor] {
+                color = Color(val: defaultColor).with(a: opacity)
+            } else {
+                color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
+            }
+
         }
 
         return Stop(offset: offset, color: color)

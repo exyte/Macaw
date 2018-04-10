@@ -253,10 +253,9 @@
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		5BAA56A8207C73FF0055BC5B /* SvgContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */; };
 		5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9C8206CEAA20049AAAE /* viewBox.svg */; };
 		5BAEA9CB206CEB7D0049AAAE /* viewBox.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9CA206CEB7D0049AAAE /* viewBox.reference */; };
-		5BAEA9CD206CEEB70049AAAE /* TransformHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAEA9CC206CEEB60049AAAE /* TransformHelper.swift */; };
-		5BAEA9CE206CEEBA0049AAAE /* TransformHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAEA9CC206CEEB60049AAAE /* TransformHelper.swift */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
@@ -453,9 +452,9 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvgContentLayout.swift; sourceTree = "<group>"; };
 		5BAEA9C8206CEAA20049AAAE /* viewBox.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.svg; sourceTree = "<group>"; };
 		5BAEA9CA206CEB7D0049AAAE /* viewBox.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.reference; sourceTree = "<group>"; };
-		5BAEA9CC206CEEB60049AAAE /* TransformHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformHelper.swift; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -554,8 +553,8 @@
 		57900FF71EA0DEBF00809FFB /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */,
 				57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */,
-				5BAEA9CC206CEEB60049AAAE /* TransformHelper.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -858,7 +857,8 @@
 				572CEFC31E2CED4B008C7C83 /* Dependencies */,
 				57E5E0E01E3B393900D1CB28 /* Source */,
 			);
-			path = Macaw;
+			name = Macaw;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		57FCD27A1D76EA4600CC0FB6 /* MacawTests */ = {
@@ -1154,7 +1154,6 @@
 				57614B0D1F83D15600875933 /* TimingFunction.swift in Sources */,
 				57614B0E1F83D15600875933 /* AnimationCache.swift in Sources */,
 				57614B0F1F83D15600875933 /* Transform.swift in Sources */,
-				5BAEA9CE206CEEBA0049AAAE /* TransformHelper.swift in Sources */,
 				57614B101F83D15600875933 /* Graphics_macOS.swift in Sources */,
 				57614B111F83D15600875933 /* ShapeRenderer.swift in Sources */,
 				57614B121F83D15600875933 /* LinearGradient.swift in Sources */,
@@ -1280,7 +1279,6 @@
 				57E5E1691E3B393900D1CB28 /* TimingFunction.swift in Sources */,
 				57E5E1631E3B393900D1CB28 /* AnimationCache.swift in Sources */,
 				57E5E19D1E3B393900D1CB28 /* Transform.swift in Sources */,
-				5BAEA9CD206CEEB70049AAAE /* TransformHelper.swift in Sources */,
 				A718CD4E1F45C28F00966E06 /* Graphics_macOS.swift in Sources */,
 				57E5E1A81E3B393900D1CB28 /* ShapeRenderer.swift in Sources */,
 				57E5E1851E3B393900D1CB28 /* LinearGradient.swift in Sources */,
@@ -1364,6 +1362,7 @@
 				57E5E1A01E3B393900D1CB28 /* Node.swift in Sources */,
 				57E5E1751E3B393900D1CB28 /* PanEvent.swift in Sources */,
 				57E5E1771E3B393900D1CB28 /* RotateEvent.swift in Sources */,
+				5BAA56A8207C73FF0055BC5B /* SvgContentLayout.swift in Sources */,
 				57E5E18F1E3B393900D1CB28 /* Insets.swift in Sources */,
 				57E5E19A1E3B393900D1CB28 /* Rect.swift in Sources */,
 				57E5E1941E3B393900D1CB28 /* PathBuilder.swift in Sources */,

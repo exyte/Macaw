@@ -35,7 +35,7 @@ class ShapeRenderer: NodeRenderer {
         guard let shape = shape, let context = ctx.cgContext else { return }
         
         if let blur = shape.effect as? GaussianBlur {
-            let shadowInset = min(max(blur.radius * 6, 10), 150) // between 10 and 150
+            let shadowInset = min(blur.radius * 6 + 1, 150)
             guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else { return }
             
             guard let filteredImage = applyFilter(shapeImage, blur: blur) else { return }
@@ -44,7 +44,7 @@ class ShapeRenderer: NodeRenderer {
             context.draw(filteredImage, in: CGRect(x: bounds.x-shadowInset/2, y: bounds.y-shadowInset/2, width: bounds.w+shadowInset, height: bounds.h+shadowInset))
         }
             
-        else if (shape.fill != nil || shape.stroke != nil) {
+        else if shape.fill != nil || shape.stroke != nil {
             setGeometry(shape.form, ctx: context)
             drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
         }
@@ -70,7 +70,7 @@ class ShapeRenderer: NodeRenderer {
         
         if (shape.fill != nil || shape.stroke != nil) {
             // flip y-axis and leave space for the blur
-            tempContext.translateBy(x: CGFloat(shadowInset/2), y: CGFloat(size.h+shadowInset/2))
+            tempContext.translateBy(x: CGFloat(shadowInset/2 - size.x), y: CGFloat(size.h+shadowInset/2 + size.y))
             tempContext.scaleBy(x: 1, y: -1)
             setGeometry(shape.form, ctx: tempContext)
             drawPath(shape.fill, stroke: shape.stroke, ctx: tempContext, opacity: opacity)

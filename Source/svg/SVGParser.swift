@@ -185,10 +185,17 @@ open class SVGParser {
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element, let parsedNode = parseElementInternal(node, groupStyle: groupStyle) else { return .none }
         
-        if let filterString = element.allAttributes["filter"]?.text, let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
+        let style = getStyleAttributes(groupStyle, element: element)
+        
+        if let filterString = element.allAttributes["filter"]?.text ?? style["filter"], let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
+            if shadow.offset == nil {
+                parsedNode.effect = shadow.input
+                return parsedNode
+            }
             
+            guard let offset = shadow.offset else { return .none }
             let shadowNode = parseElementInternal(node, groupStyle: groupStyle)! // TODO copy
-            shadowNode.place = shadowNode.place.move(dx: shadow.offset.x, dy: shadow.offset.y)
+            shadowNode.place = shadowNode.place.move(dx: offset.x, dy: offset.y)
             shadowNode.effect = shadow.input
             
             if shadow.source == .SourceAlpha, let shapeNode = shadowNode as? Shape, let stroke = shapeNode.stroke, let color = stroke.fill as? Color {
@@ -955,8 +962,11 @@ open class SVGParser {
                 print("SVG parsing error. Filter \(element.name) not supported")
                 continue
             }
-            
             effects[effectOut] = currentEffect
+        }
+        
+        if let effect = effects.first?.value {
+            defShadows[id] = effect
         }
         return .none
     }

@@ -8,7 +8,16 @@ import SWXMLHash
 ///
 /// This class used to parse SVG file and build corresponding Macaw scene
 ///
+
 open class SVGParser {
+    
+    fileprivate class ViewBoxParams {
+        var svgSize: Size?
+        var viewBox: Rect?
+        var scalingMode: AspectRatio?
+        var xAligningMode: Align?
+        var yAligningMode: Align?
+    }
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
@@ -67,22 +76,29 @@ open class SVGParser {
 
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
-        prepareSvg(parsedXml.children)
+        
+        var viewBoxParams: ViewBoxParams?
+        for child in parsedXml.children {
+            if let element = child.element {
+                if element.name == "svg" {
+                    viewBoxParams = parseViewBox(element)
+                    prepareSvg(child.children)
+                    break
+                }
+            }
+        }
         parseSvg(parsedXml.children)
 
         let group = Group(contents: self.nodes, place: initialPosition)
+        if let viewBoxParams = viewBoxParams {
+            addViewBoxClip(toNode: group, viewBoxParams: viewBoxParams)
+        }
         return group
     }
-
+    
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
         children.forEach { child in
-            if let element = child.element {
-                if element.name == "svg" {
-                    prepareSvg(child.children)
-                } else {
-                    prepareSvg(child)
-                }
-            }
+            prepareSvg(child)
         }
     }
 
@@ -110,6 +126,64 @@ open class SVGParser {
                 }
             }
         }
+    }
+    
+    fileprivate func addViewBoxClip(toNode node: Node, viewBoxParams params: ViewBoxParams) {
+        
+        guard let viewBox = params.viewBox else { return }
+        node.clip = viewBox
+        
+        let scalingMode = params.scalingMode ?? AspectRatio.meet
+        guard let svgSize = params.svgSize else { return }
+        
+        if scalingMode === AspectRatio.slice {
+            // setup new clipping to slice extra bits
+            let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
+            let newX = viewBox.x + viewBox.w / 2 - newSize.w / 2
+            let newY = viewBox.y + viewBox.h / 2 - newSize.h / 2
+            node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
+        }
+        
+        let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)
+        node.place = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
+        
+        // move to (0, 0)
+        node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
+    }
+    
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> ViewBoxParams {
+        let params = ViewBoxParams()
+        
+        if let w = getDoubleValue(element, attribute: "width"), let h = getDoubleValue(element, attribute: "height") {
+            params.svgSize = Size(w: w, h: h)
+        }
+        if let viewBoxString = element.allAttributes["viewBox"]?.text {
+            let nums = viewBoxString.components(separatedBy: .whitespaces).map{ Double($0) }
+            if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
+                params.viewBox = Rect(x: x, y: y, w: w, h: h)
+            }
+        }
+        if let contentModeString = element.allAttributes["preserveAspectRatio"]?.text {
+            let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
+            if strings.count == 1 { // none
+                params.scalingMode = parseAspectRatio(strings[0])
+                return params
+            }
+            guard strings.count == 2 else { return params }
+            
+            let alignString = strings[0]
+            var xAlign = alignString.prefix(4).lowercased()
+            xAlign.remove(at: xAlign.startIndex)
+            params.xAligningMode = parseAlign(xAlign)
+            
+            var yAlign = alignString.suffix(4).lowercased()
+            yAlign.remove(at: yAlign.startIndex)
+            params.yAligningMode = parseAlign(yAlign)
+            
+            params.scalingMode = parseAspectRatio(strings[1])
+        }
+        
+        return params
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
@@ -275,6 +349,26 @@ open class SVGParser {
             return Transform.identity
         }
         return parseTransformationAttribute(transformAttribute)
+    }
+    
+    fileprivate func parseAlign(_ string: String) -> Align {
+        if string == "min" {
+            return .min
+        }
+        if string == "mid" {
+            return .mid
+        }
+        return .max
+    }
+    
+    fileprivate func parseAspectRatio(_ string: String) -> AspectRatio {
+        if string == "meet" {
+            return .meet
+        }
+        if string == "slice" {
+            return .slice
+        }
+        return .none
     }
 
     var count = 0

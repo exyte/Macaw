@@ -7,14 +7,14 @@ public protocol ContentLayout {
 
 open class SvgContentLayout: ContentLayout {
     
-    public let scalingMode: AspectRatio!
-    public let xAligningMode: Align!
-    public let yAligningMode: Align!
+    public let scalingMode: AspectRatio
+    public let xAligningMode: Align
+    public let yAligningMode: Align
     
     public init(scalingMode: AspectRatio, xAligningMode: Align? = Align.min, yAligningMode: Align? = Align.min) {
         self.scalingMode = scalingMode
-        self.xAligningMode = xAligningMode
-        self.yAligningMode = yAligningMode
+        self.xAligningMode = xAligningMode ?? Align.min
+        self.yAligningMode = yAligningMode ?? Align.min
     }
     
     public static var standard: ContentLayout {
@@ -24,7 +24,6 @@ open class SvgContentLayout: ContentLayout {
     public func layout(rect: Rect, into rectToFitIn: Rect) -> Transform {
         
         var result = Transform()
-        guard let scalingMode = scalingMode else { return result }
         let r = Rect(x: 0, y: 0, w: rect.x + rect.w, h: rect.y + rect.h)
         
         let newSize = scalingMode.fit(rect: r, into: rectToFitIn)

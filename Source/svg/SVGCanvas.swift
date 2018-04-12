@@ -6,9 +6,9 @@
 //
 
 class SVGCanvas: Group {
-    
+
     private let svgBounds: Rect
-    
+
     override internal func bounds() -> Rect? {
         return svgBounds
     }

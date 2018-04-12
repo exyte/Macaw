@@ -6,15 +6,15 @@ import UIKit
 import AppKit
 #endif
 
-class ShapeLayer: CAShapeLayer {
-    weak var node: Node?
-    var renderingInterval: RenderingInterval?
-    var renderTransform: CGAffineTransform?
-    weak var animationCache: AnimationCache?
-    var shouldRenderContent = true
-    var isForceRenderingEnabled = true
+public class ShapeLayer: CAShapeLayer {
+    public weak var node: Node?
+    public var renderingInterval: RenderingInterval?
+    public var renderTransform: CGAffineTransform?
+    public weak var animationCache: AnimationCache?
+    public var shouldRenderContent = true
+    public var isForceRenderingEnabled = true
 
-    override func draw(in ctx: CGContext) {
+    public override func draw(in ctx: CGContext) {
         if !shouldRenderContent {
             super.draw(in: ctx)
             return

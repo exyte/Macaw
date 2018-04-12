@@ -287,6 +287,10 @@ open class SVGParser {
         guard let element = node.element else { return .none }
         
         let styleAttributes = getStyleAttributes(groupStyle, element: element)
+        if styleAttributes["display"] == "none" {
+            return .none
+        }
+
         let position = getPosition(element)
         switch element.name {
         case "path":

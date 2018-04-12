@@ -145,16 +145,7 @@ class TextRenderer: NodeRenderer {
             NSAttributedStringKey.font: font
         ]
         let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
-        var alignmentOffset = CGFloat(0)
-        switch text.align {
-        case Align.mid:
-            alignmentOffset = textSize.width / 2
-        case Align.max:
-            alignmentOffset = textSize.width
-        default:
-            break
-        }
-        return -alignmentOffset
+        return -CGFloat(text.align.align(size: textSize.width.doubleValue))
     }
 
     fileprivate func getTextColor(_ fill: Fill) -> MColor {

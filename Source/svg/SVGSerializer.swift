@@ -157,16 +157,15 @@ open class SVGSerializer {
         result += SVGGenericCloseTag
         return result
     }
-
+    
     fileprivate func alignToSVG(_ align: Align) -> String {
-        switch align {
-        case .mid:
+        if align === Align.mid {
             return " text-anchor=\"middle\" "
-        case .max:
-            return " text-anchor=\"end "
-        default:
-            return ""
         }
+        if align === Align.max {
+            return " text-anchor=\"end "
+        }
+        return ""
     }
 
     fileprivate func baselineToSVG(_ baseline: Baseline) -> String {

@@ -97,6 +97,10 @@ class MacawSVGTests: XCTestCase {
             }
         }
     }
+    
+    func testViewBox() {
+        validate("viewBox", withReference: true)
+    }
  
     func testClipWithParser() {
         validate("clip", withReference: true)

@@ -121,16 +121,7 @@ open class Text: Node {
             NSAttributedStringKey.font: font
         ]
         let textSize = NSString(string: text).size(withAttributes: textAttributes)
-        var alignmentOffset = 0.0
-        switch align {
-        case .mid:
-            alignmentOffset = (textSize.width / 2).doubleValue
-        case .max:
-            alignmentOffset = textSize.width.doubleValue
-        default:
-            break
-        }
-        return -alignmentOffset
+        return -align.align(size: textSize.width.doubleValue)
     }
 
 }

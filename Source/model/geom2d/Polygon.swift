@@ -45,4 +45,8 @@ open class Polygon: Locus {
                     w: maxX - minX,
                     h: maxY - minY)
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "Polygon", "points": points]
+    }
 }

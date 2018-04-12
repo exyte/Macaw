@@ -26,4 +26,8 @@ open class Ellipse: Locus {
     open func arc(shift: Double, extent: Double) -> Arc {
         return Arc(ellipse: self, shift: shift, extent: extent)
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "Ellipse", "cx": cx, "cy": cy, "rx": rx, "ry": ry]
+    }
 }

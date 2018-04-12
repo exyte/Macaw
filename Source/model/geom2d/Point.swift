@@ -26,4 +26,8 @@ open class Point: Locus {
             x: self.x + point.x,
             y: self.y + point.y)
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "Point", "x": x, "y": y]
+    }
 }

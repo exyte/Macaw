@@ -15,4 +15,12 @@ open class Stroke {
         self.join = join
         self.dashes = dashes
     }
+    
+    open func toDictionary() -> [String:Any] {
+        var result = ["width": width, "cap": "\(cap)", "join": "\(join)", "dashes": dashes] as [String : Any]
+        if let fillColor = fill as? Color {
+            result["fill"] = fillColor.toDictionary()
+        }
+        return result
+    }
 }

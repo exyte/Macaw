@@ -19,6 +19,21 @@ public final class Transform {
         self.dx = dx
         self.dy = dy
     }
+    
+    open func toString() -> String {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 6
+        
+        let nums = [m11, m12, m21, m22, dx, dy]
+        
+        var result = "["
+        for num in nums {
+            result += formatter.string(from: num as NSNumber) ?? "n/a"
+            result += ", "
+        }
+        return result.dropLast(2) + "]"
+    }
 
     // GENERATED NOT
     public func move(dx: Double, dy: Double) -> Transform {

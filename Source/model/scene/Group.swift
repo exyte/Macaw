@@ -150,6 +150,17 @@ open class Group: Node {
 
         return shouldCheck
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        var nodes = [[String:Any]]()
+        for node in contents {
+            nodes.append(node.toDictionary())
+        }
+        var result = super.toDictionary()
+        result["node"] = "Group"
+        result["contents"] = nodes
+        return result
+    }
 }
 
 public extension Array where Element: Node {

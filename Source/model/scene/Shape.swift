@@ -54,4 +54,18 @@ open class Shape: Node {
 
         return bounds
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        var result = super.toDictionary()
+        result["node"] = "Shape"
+        result["form"] = form.toDictionary()
+        if let fillColor = fill as? Color {
+            result["fill"] = fillColor.toDictionary()
+        }
+        if let stroke = stroke {
+            result["stroke"] = stroke
+        }
+        return result
+    }
+    
 }

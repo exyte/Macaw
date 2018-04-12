@@ -165,4 +165,8 @@ open class Image: Node {
         return MImage(named: NSImage.Name(rawValue: src))
         #endif
     }
+    
+    open override func toDictionary() -> [String:Any] {
+        fatalError("Not implemented")
+    }
 }

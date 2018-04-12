@@ -123,5 +123,9 @@ open class Text: Node {
         let textSize = NSString(string: text).size(withAttributes: textAttributes)
         return -align.align(size: textSize.width.doubleValue)
     }
+    
+    open override func toDictionary() -> [String:Any] {
+        fatalError("Not implemented")
+    }
 
 }

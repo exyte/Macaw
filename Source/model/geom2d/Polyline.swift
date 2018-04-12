@@ -45,4 +45,8 @@ open class Polyline: Locus {
                     w: maxX - minX,
                     h: maxY - minY)
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "Polyline", "points": points]
+    }
 }

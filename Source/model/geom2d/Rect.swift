@@ -55,6 +55,10 @@ open class Rect: Locus {
             w: max(self.x + self.w, rect.x + rect.w) - min(self.x, rect.x),
             h: max(self.y + self.h, rect.y + rect.h) - min(self.y, rect.y))
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "Rect", "x": x, "y": y, "w": w, "h": h]
+    }
 
 }
 

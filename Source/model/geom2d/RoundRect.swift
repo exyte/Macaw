@@ -15,4 +15,8 @@ open class RoundRect: Locus {
     override open func bounds() -> Rect {
         return rect
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "RoundRect", "rect": rect.toDictionary(), "rx": rx, "ry": ry]
+    }
 }

@@ -21,4 +21,8 @@ open class Line: Locus {
             w: abs(x1 - x2),
             h: abs(y1 - y2))
     }
+    
+    override open func toDictionary() -> [String:Any] {
+        return ["type": "Line", "x1": x1, "y1": y1, "x2": x2, "y2": y2]
+    }
 }

@@ -73,4 +73,8 @@ open class Color: Fill, Equatable {
     public static func == (lhs: Color, rhs: Color) -> Bool {
         return lhs.val == rhs.val
     }
+    
+    open func toDictionary() -> [String:Any] {
+        return ["type": "Color", "val": val]
+    }
 }

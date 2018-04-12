@@ -19,4 +19,8 @@ open class PathSegment {
             return false
         }
     }
+    
+    open func toDictionary() -> [String:Any] {
+        return ["type": "\(type)", "data": data]
+    }
 }

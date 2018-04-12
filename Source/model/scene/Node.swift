@@ -319,5 +319,12 @@ open class Node: Drawable {
     internal func bounds() -> Rect? {
         return Rect()
     }
-
+    
+    open func toDictionary() -> [String:Any] {
+        var result = ["place": place.toString(), "opaque": String(describing: opaque), "opacity": String(describing: opacity)] as [String : Any]
+        if let clip = clip {
+            result["clip"] = clip.toDictionary()
+        }
+        return result
+    }
 }

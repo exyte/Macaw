@@ -6,7 +6,14 @@ open class Stop {
     open let color: Color
 
     public init(offset: Double = 0, color: Color) {
-        self.offset = offset
         self.color = color
+        
+        if offset < 0 {
+            self.offset = 0
+        } else if offset > 1 {
+            self.offset = 1
+        } else {
+            self.offset = offset
+        }
     }
 }

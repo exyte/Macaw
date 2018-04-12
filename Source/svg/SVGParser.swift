@@ -257,18 +257,23 @@ open class SVGParser {
     }
     
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        guard let element = node.element, let parsedNode = parseElementInternal(node, groupStyle: groupStyle) else { return .none }
+        guard let element = node.element else { return .none }
         
-        let style = getStyleAttributes(groupStyle, element: element)
+        let nodeStyle = getStyleAttributes(groupStyle, element: element)
+        if nodeStyle["display"] == "none" {
+            return .none
+        }
         
-        if let filterString = element.allAttributes["filter"]?.text ?? style["filter"], let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
+        guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
+        
+        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
             if shadow.offset == nil {
                 parsedNode.effect = shadow.input
                 return parsedNode
             }
             
             guard let offset = shadow.offset else { return .none }
-            let shadowNode = parseElementInternal(node, groupStyle: groupStyle)! // TODO copy
+            let shadowNode = parseElementInternal(node, groupStyle: nodeStyle)! // TODO copy
             shadowNode.place = shadowNode.place.move(dx: offset.x, dy: offset.y)
             shadowNode.effect = shadow.input
             
@@ -286,11 +291,7 @@ open class SVGParser {
     fileprivate func parseElementInternal(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element else { return .none }
         
-        let styleAttributes = getStyleAttributes(groupStyle, element: element)
-        if styleAttributes["display"] == "none" {
-            return .none
-        }
-
+        let styleAttributes = groupStyle
         let position = getPosition(element)
         switch element.name {
         case "path":

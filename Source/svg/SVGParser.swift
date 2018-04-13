@@ -15,8 +15,8 @@ open class SVGParser {
         var svgSize: Size?
         var viewBox: Rect?
         var scalingMode: AspectRatio?
-        var xAligningMode: Align?
-        var yAligningMode: Align?
+        var xAligningMode: Align = .mid
+        var yAligningMode: Align = .mid
     }
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
@@ -139,8 +139,8 @@ open class SVGParser {
         if scalingMode === AspectRatio.slice {
             // setup new clipping to slice extra bits
             let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
-            let newX = viewBox.x + viewBox.w / 2 - newSize.w / 2
-            let newY = viewBox.y + viewBox.h / 2 - newSize.h / 2
+            let newX = viewBox.x + params.xAligningMode.align(outer: viewBox.w, inner: newSize.w)
+            let newY = viewBox.y + params.yAligningMode.align(outer: viewBox.h, inner: newSize.h)
             node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
         }
         

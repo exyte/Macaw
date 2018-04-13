@@ -88,12 +88,15 @@ open class SVGParser {
             }
         }
         parseSvg(parsedXml.children)
-
-        let group = Group(contents: self.nodes, place: initialPosition)
+        
         if let viewBoxParams = viewBoxParams {
+            let group = viewBoxParams.svgSize != nil ?
+                SVGCanvas(bounds: Rect(x: 0, y: 0, w: viewBoxParams.svgSize!.w, h: viewBoxParams.svgSize!.h), contents: nodes) :
+                Group(contents: nodes)
             addViewBoxClip(toNode: group, viewBoxParams: viewBoxParams)
+            return group
         }
-        return group
+        return Group(contents: nodes)
     }
     
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {

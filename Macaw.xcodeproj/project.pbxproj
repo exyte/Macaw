@@ -255,6 +255,7 @@
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		602C561D2081C984003AD452 /* rounded.svg in Resources */ = {isa = PBXBuildFile; fileRef = 602C561C2081C984003AD452 /* rounded.svg */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
@@ -452,6 +453,7 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		602C561C2081C984003AD452 /* rounded.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rounded.svg; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -558,6 +560,7 @@
 		57CAB1241D7832E000FD8E47 /* svg */ = {
 			isa = PBXGroup;
 			children = (
+				602C561C2081C984003AD452 /* rounded.svg */,
 				C46E83541F94B20E00208037 /* transform.svg */,
 				C43B064C1F9738EF00787A35 /* clip.svg */,
 				C4153A8E1F8793DD001BA5EE /* small-logo.png */,
@@ -1083,6 +1086,7 @@
 				57CAB1331D7832E000FD8E47 /* polyline.svg in Resources */,
 				57CAB1311D7832E000FD8E47 /* line.svg in Resources */,
 				57B7A4DF1EE70D17009D78D7 /* logo.png in Resources */,
+				602C561D2081C984003AD452 /* rounded.svg in Resources */,
 				57CAB1321D7832E000FD8E47 /* polygon.svg in Resources */,
 				57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */,
 				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,

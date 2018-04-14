@@ -1,11 +1,11 @@
 import Foundation
 
 #if os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #endif
 
 class ImageRenderer: NodeRenderer {
@@ -65,9 +65,9 @@ class ImageRenderer: NodeRenderer {
         }
 
         #if os(iOS)
-            let osImage = MImage(named: image.src)
+        let osImage = MImage(named: image.src)
         #elseif os(OSX)
-            let osImage = MImage(named: NSImage.Name(rawValue: image.src))
+        let osImage = MImage(named: NSImage.Name(rawValue: image.src))
         #endif
 
         if let mImage = osImage {
@@ -95,91 +95,14 @@ class ImageRenderer: NodeRenderer {
             } else if h == 0 {
                 h = imageSize.height * w / imageSize.width
             }
-            switch image.aspectRatio {
-            case AspectRatio.meet:
-                return calculateMeetAspectRatio(image, size: imageSize)
-            case AspectRatio.slice:
-                return calculateSliceAspectRatio(image, size: imageSize)
-            //ctx.cgContext!.clip(to: CGRect(x: 0, y: 0, width: w, height: h))
-            default:
-                return CGRect(x: 0, y: 0, width: w, height: h)
-            }
+            
+            let newSize = image.aspectRatio.fit(
+                size: Size(w: Double(image.w), h: Double(image.h)),
+                into: Size(w: Double(imageSize.width), h: Double(imageSize.height))
+            )
+            let destX = image.xAlign.align(outer: w.doubleValue, inner: newSize.w)
+            let destY = image.yAlign.align(outer: h.doubleValue, inner: newSize.h)
+            return CGRect(x: destX, y: destY, width: newSize.w, height: newSize.h)
         }
-    }
-
-    fileprivate func calculateMeetAspectRatio(_ image: Image, size: CGSize) -> CGRect {
-        let w = CGFloat(image.w)
-        let h = CGFloat(image.h)
-        // destination and source aspect ratios
-        let destAR = w / h
-        let srcAR = size.width / size.height
-        var resultW = w
-        var resultH = h
-        var destX = CGFloat(0)
-        var destY = CGFloat(0)
-        if destAR < srcAR {
-            // fill all available width and scale height
-            resultH = size.height * w / size.width
-        } else {
-            // fill all available height and scale width
-            resultW = size.width * h / size.height
-        }
-        let xalign = image.xAlign
-        switch xalign {
-        case Align.min:
-            destX = 0
-        case Align.mid:
-            destX = w / 2 - resultW / 2
-        case Align.max:
-            destX = w - resultW
-        }
-        let yalign = image.yAlign
-        switch yalign {
-        case Align.min:
-            destY = 0
-        case Align.mid:
-            destY = h / 2 - resultH / 2
-        case Align.max:
-            destY = h - resultH
-        }
-        return CGRect(x: destX, y: destY, width: resultW, height: resultH)
-    }
-
-    fileprivate func calculateSliceAspectRatio(_ image: Image, size: CGSize) -> CGRect {
-        let w = CGFloat(image.w)
-        let h = CGFloat(image.h)
-        var srcX = CGFloat(0)
-        var srcY = CGFloat(0)
-        var totalH: CGFloat = 0
-        var totalW: CGFloat = 0
-        // destination and source aspect ratios
-        let destAR = w / h
-        let srcAR = size.width / size.height
-        if destAR > srcAR {
-            // fill all available width and scale height
-            totalH = size.height * w / size.width
-            totalW = w
-            switch image.yAlign {
-            case Align.min:
-                srcY = 0
-            case Align.mid:
-                srcY = -(totalH / 2 - h / 2)
-            case Align.max:
-                srcY = -(totalH - h)
-            }
-        } else {
-            // fill all available height and scale width
-            totalW = size.width * h / size.height
-            totalH = h
-            switch image.xAlign {
-            case Align.min:
-                srcX = 0
-            case Align.mid:
-                srcX = -(totalW / 2 - w / 2)
-            case Align.max:
-                srcX = -(totalW - w)
-            }
-        }
-        return CGRect(x: srcX, y: srcY, width: totalW, height: totalH)
     }
 }

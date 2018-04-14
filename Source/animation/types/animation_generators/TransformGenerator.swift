@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
@@ -52,11 +52,6 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
             !animation.manualStop &&
             !animation.paused {
             animation.completion?()
-        }
-
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
         }
 
         completion()

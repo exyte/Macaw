@@ -9,9 +9,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
@@ -67,11 +67,6 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
         if !animation.cycled && !animation.manualStop {
             animation.completion?()
-        }
-
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
         }
 
         completion()

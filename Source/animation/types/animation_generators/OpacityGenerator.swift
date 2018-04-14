@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
@@ -44,11 +44,6 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
             !animation.manualStop &&
             !animation.paused {
             animation.completion?()
-        }
-
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
         }
 
         completion()

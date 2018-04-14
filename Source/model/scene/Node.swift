@@ -64,12 +64,12 @@ open class Node: Drawable {
     var touchPressedHandlers = [ChangeHandler<TouchEvent>]()
     var touchMovedHandlers = [ChangeHandler<TouchEvent>]()
     var touchReleasedHandlers = [ChangeHandler<TouchEvent>]()
-    
+
     var prevTouchCount: Int = 0
     var prevTouchTimer: Timer?
     var isLongTapInProgress = false
 
-    var tapHandlers = [Int : [ChangeHandler<TapEvent>]]()
+    var tapHandlers = [Int: [ChangeHandler<TapEvent>]]()
     var longTapHandlers = [ChangeHandler<TapEvent>]()
     var panHandlers = [ChangeHandler<PanEvent>]()
     var rotateHandlers = [ChangeHandler<RotateEvent>]()
@@ -130,16 +130,16 @@ open class Node: Drawable {
             self?.tapHandlers[tapCount]?.remove(at: index)
         }
     }
-    
+
     @discardableResult public func onLongTap(_ f: @escaping (TapEvent) -> Void) -> Disposable {
         let handler = ChangeHandler<TapEvent>(f)
         longTapHandlers.append(handler)
-        
+
         return Disposable { [weak self] in
             guard let index = self?.longTapHandlers.index(of: handler) else {
                 return
             }
-            
+
             self?.longTapHandlers.remove(at: index)
         }
     }
@@ -196,9 +196,9 @@ open class Node: Drawable {
     func handleTouchMoved(_ event: TouchEvent) {
         touchMovedHandlers.forEach { handler in handler.handle(event) }
     }
-    
+
     // MARK: - Multiple tap handling
-    
+
     func handleTap( _ event: TapEvent ) {
         if isLongTapInProgress {
             prevTouchCount = 0
@@ -209,32 +209,32 @@ open class Node: Drawable {
             prevTouchTimer = nil
         }
         prevTouchCount += 1
-        
+
         for tapCount in tapHandlers.keys {
             if tapCount > prevTouchCount { // wait some more - there is a recognizer for even more taps
                 prevTouchTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(onTouchTimer), userInfo: event, repeats: false)
                 return
             }
         }
-        
+
         for (tapCount, handlers) in tapHandlers {
             if tapCount == prevTouchCount { // nothing to wait for - max tap count reached
                 handlers.forEach { handler in handler.handle(event) }
                 prevTouchCount = 0
             }
         }
-        
+
     }
-    
+
     @objc func onTouchTimer(timer: Timer) {
         if isLongTapInProgress {
             prevTouchCount = 0
             return
         }
-        for touchCount in tapHandlers.keys.sorted(by: {$0>$1}) {
+        for touchCount in tapHandlers.keys.sorted(by: { $0>$1 }) {
             if touchCount <= prevTouchCount, let event = timer.userInfo as? TapEvent {
                 // no more taps coming, settle for next best thing
-                for _ in 0..<prevTouchCount/touchCount { // might need to call it multiple times
+                for _ in 0..<prevTouchCount / touchCount { // might need to call it multiple times
                     tapHandlers[touchCount]?.forEach { handler in handler.handle(event) }
                 }
                 break
@@ -242,9 +242,9 @@ open class Node: Drawable {
         }
         prevTouchCount = 0
     }
-    
+
     // MARK: - Helpers
-    
+
     func handleLongTap( _ event: TapEvent, touchBegan: Bool ) {
         isLongTapInProgress = touchBegan
         if touchBegan {
@@ -280,7 +280,7 @@ open class Node: Drawable {
     func shouldCheckForTap() -> Bool {
         return !tapHandlers.isEmpty
     }
-    
+
     func shouldCheckForLongTap() -> Bool {
         return !longTapHandlers.isEmpty
     }

@@ -9,9 +9,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
@@ -62,11 +62,6 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         if  !animation.cycled &&
             !animation.manualStop {
             animation.completion?()
-        }
-
-        if !finished {
-            animationRestorer.addRestoreClosure(completion)
-            return
         }
 
         completion()

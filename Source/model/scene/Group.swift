@@ -114,13 +114,13 @@ open class Group: Node {
 
         return shouldCheck
     }
-    
+
     override func shouldCheckForLongTap() -> Bool {
         var shouldCheck = super.shouldCheckForLongTap()
         contents.forEach { node in
             shouldCheck = shouldCheck || node.shouldCheckForLongTap()
         }
-        
+
         return shouldCheck
     }
 

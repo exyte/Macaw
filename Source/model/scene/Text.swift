@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 
 open class Text: Node {
@@ -85,7 +85,7 @@ open class Text: Node {
             h: size.height.doubleValue
         )
     }
-    
+
     fileprivate func getWeight(_ weight: String) -> MFont.Weight {
         switch weight {
         case "normal":
@@ -121,16 +121,7 @@ open class Text: Node {
             NSAttributedStringKey.font: font
         ]
         let textSize = NSString(string: text).size(withAttributes: textAttributes)
-        var alignmentOffset = 0.0
-        switch align {
-        case .mid:
-            alignmentOffset = (textSize.width / 2).doubleValue
-        case .max:
-            alignmentOffset = textSize.width.doubleValue
-        default:
-            break
-        }
-        return -alignmentOffset
+        return -align.align(size: textSize.width.doubleValue)
     }
 
 }

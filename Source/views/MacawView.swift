@@ -1,9 +1,9 @@
 import Foundation
 
 #if os(iOS)
-    import UIKit
+import UIKit
 #elseif os(OSX)
-    import AppKit
+import AppKit
 #endif
 ///
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
@@ -169,6 +169,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         MGraphicsEndImageContext()
     }
 
+    public final func findNodeAt(location: CGPoint) -> Node? {
+        guard let ctx = context.cgContext else { return .none }
+        return renderer?.findNodeAt(location: location, ctx: ctx)
+    }
+
     // MARK: - Touches
 
     override func mTouchesBegan(_ touches: [MTouchEvent]) {
@@ -326,34 +331,34 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     // MARK: - Tap
-    
+
     @objc func handleLongTap(recognizer: MLongPressGestureRecognizer) {
         if !self.node.shouldCheckForLongTap() {
             return
         }
-        
+
         guard let renderer = renderer else {
             return
         }
-        
+
         let location = recognizer.location(in: self)
         var foundNodes = [Node]()
-        
+
         localContext { ctx in
             guard let foundNode = renderer.findNodeAt(location: location, ctx: ctx) else {
                 return
             }
-            
+
             var parent: Node? = foundNode
             while parent != .none {
                 if parent!.shouldCheckForTap() {
                     foundNodes.append(parent!)
                 }
-                
+
                 parent = nodesMap.parents(parent!).first
             }
         }
-        
+
         foundNodes.forEach { node in
             let inverted = node.place.invert()!
             let loc = location.applying(RenderUtils.mapTransform(inverted))
@@ -361,7 +366,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             node.handleLongTap(event, touchBegan: recognizer.state == .began)
         }
     }
-    
+
     // MARK: - Pan
 
     @objc func handlePan(recognizer: MPanGestureRecognizer) {

@@ -346,6 +346,10 @@ open class Node: Drawable {
             return Shape(dictionary: dictionary)
         }
         
+        if nodeType == "Text" {
+            return Text(dictionary: dictionary)
+        }
+        
         if nodeType == "Group" {
             return Group(dictionary: dictionary)
         }

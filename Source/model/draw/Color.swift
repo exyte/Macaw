@@ -74,7 +74,11 @@ open class Color: Fill, Equatable {
         return lhs.val == rhs.val
     }
     
-    open func toDictionary() -> [String:Any] {
+    internal func toDictionary() -> [String:Any] {
         return ["type": "Color", "val": val]
+    }
+    
+    internal convenience init?(dictionary: [String:Any]) {
+        self.init(val: parse(dictionary["val"]))
     }
 }

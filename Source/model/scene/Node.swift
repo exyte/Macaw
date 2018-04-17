@@ -320,11 +320,49 @@ open class Node: Drawable {
         return Rect()
     }
     
-    open func toDictionary() -> [String:Any] {
+    internal func toDictionary() -> [String:Any] {
         var result = ["place": place.toString(), "opaque": String(describing: opaque), "opacity": String(describing: opacity)] as [String : Any]
         if let clip = clip {
             result["clip"] = clip.toDictionary()
         }
         return result
     }
+    
+    internal func fromDictionary(dictionary: [String:Any]) {
+        place = Transform(string: dictionary["place"] as? String)
+        opaque = Bool(dictionary["opaque"] as? String ?? "") ?? true
+        opacity = Double(dictionary["opacity"] as? String ?? "") ?? 0
+        if let locusDict = dictionary["clip"] as? [String:Any] {
+            clip = Locus.instantiate(dictionary: locusDict)
+        }
+    }
+    
+    internal static func instantiate(dictionary: [String:Any]) -> Node? {
+        guard let nodeType = dictionary["node"] as? String else {
+            fatalError("No node type specified")
+        }
+        
+        if nodeType == "Shape" {
+            return Shape(dictionary: dictionary)
+        }
+        
+        if nodeType == "Group" {
+            return Group(dictionary: dictionary)
+        }
+        
+        print("Node from dictionary error. Node \(nodeType) not supported")
+        return nil
+    }
+}
+
+protocol Initializable {
+    init()
+}
+
+extension Double : Initializable {}
+extension Bool : Initializable {}
+extension Int : Initializable {}
+
+func parse<T: Initializable>(_ from: Any?) -> T {
+    return from as? T ?? T()
 }

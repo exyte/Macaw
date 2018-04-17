@@ -19,4 +19,10 @@ open class RoundRect: Locus {
     override open func toDictionary() -> [String:Any] {
         return ["type": "RoundRect", "rect": rect.toDictionary(), "rx": rx, "ry": ry]
     }
+    
+    internal convenience init(dictionary: [String:Any]) {
+        self.init(rect: Rect(dictionary: dictionary["rect"] as? [String : Any] ?? [:]),
+                  rx: parse(dictionary["rx"]),
+                  ry: parse(dictionary["ry"]))
+    }
 }

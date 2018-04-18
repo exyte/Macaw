@@ -57,14 +57,18 @@ class MacawNewSVGTests: XCTestCase {
     
     // uncomment to create new test reference file
 //    func testCreate() {
-//        create("color-prop-02-f-manual")
+//        create("shapes-circle-01-t-manual")
 //    }
     
     func testViewBox() {
         validate("test")
     }
     
-    func testColorProp02fmanual() {
+    func testColorProp02() {
         validate("color-prop-02-f-manual")
+    }
+    
+    func testShapesCircle01() {
+        validate("shapes-circle-01-t-manual")
     }
 }

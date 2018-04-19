@@ -157,7 +157,7 @@ open class SVGSerializer {
         result += SVGGenericCloseTag
         return result
     }
-    
+
     fileprivate func alignToSVG(_ align: Align) -> String {
         if align === Align.mid {
             return " text-anchor=\"middle\" "

@@ -247,7 +247,7 @@ open class SVGSerializer {
                 result += " stroke-linejoin=\"\(strokeJoin)\""
             }
         }
-        if let strokeDashes = stroke?.dashes {
+        if let strokeDashes = stroke?.dashes, strokeDashes.count > 0 {
             let dashes = strokeDashes.map{ String($0) }.joined(separator: ",")
             result += " stroke-dasharray=\"\(dashes)\""
         }

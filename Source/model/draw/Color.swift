@@ -60,8 +60,9 @@ open class Color: Fill, Equatable {
         return Color( val: ( ( ( x | y ) | z ) | q ) )
     }
 
-    // GENERATED
+    // GENERATED NOT
     open class func rgba(r: Int, g: Int, b: Int, a: Double) -> Color {
+        let a = min(max(a, 0), 1) 
         return rgbt( r: r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
     }
 

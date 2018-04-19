@@ -41,7 +41,7 @@ open class SVGParser {
         return SVGParser(text).parse()
     }
 
-    let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
+    let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
@@ -611,7 +611,8 @@ open class SVGParser {
                           width: getStrokeWidth(styleParts),
                           cap: getStrokeCap(styleParts),
                           join: getStrokeJoin(styleParts),
-                          dashes: getStrokeDashes(styleParts))
+                          dashes: getStrokeDashes(styleParts),
+                          offset: getStrokeOffset(styleParts))
         }
 
         return .none
@@ -673,6 +674,13 @@ open class SVGParser {
             }
         }
         return dashes
+    }
+    
+    fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
+        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = Double(strokeOffset) { // TODO use doubleFromString once it's merged
+            return offset
+        }
+        return 0
     }
 
     fileprivate func getTag(_ element: SWXMLHash.XMLElement) -> [String] {

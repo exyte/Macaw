@@ -247,6 +247,15 @@ open class SVGSerializer {
                 result += " stroke-linejoin=\"\(strokeJoin)\""
             }
         }
+        if let strokeDashes = stroke?.dashes {
+            let dashes = strokeDashes.map{ String($0) }.joined(separator: ",")
+            result += " stroke-dasharray=\"\(dashes)\""
+        }
+        if let strokeOffset = stroke?.offset {
+            if strokeOffset != 0 {
+                result += " stroke-dashoffset=\"\(strokeOffset)\""
+            }
+        }
         return result
     }
 

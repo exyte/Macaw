@@ -267,37 +267,37 @@ open class SVGParser {
         switch element.name {
         case "path":
             if let path = parsePath(node) {
-                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "line":
             if let line = parseLine(node) {
-                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "rect":
             if let rect = parseRect(node) {
-                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "circle":
             if let circle = parseCircle(node) {
-                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "ellipse":
             if let ellipse = parseEllipse(node) {
-                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "polygon":
             if let polygon = parsePolygon(node) {
-                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "polyline":
             if let polyline = parsePolyline(node) {
-                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: groupStyle), stroke: getStroke(styleAttributes, groupStyle: groupStyle), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "image":
             return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
         case "text":
-            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: groupStyle),
-                             stroke: getStroke(styleAttributes, groupStyle: groupStyle), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
+            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: styleAttributes),
+                             stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
         case "mask":

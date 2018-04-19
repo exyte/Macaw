@@ -12,7 +12,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
         let nodeId = animatedNode.id
         let interpolationFunc = { (t: Double) -> Shape in
             if t == 0 {
-                let initialNode = Node.nodeBy(id: nodeId) as! Shape
+                let initialNode = animatedNode
 
                 return Shape(form: initialNode.form,
                              fill: initialNode.fill,
@@ -55,6 +55,25 @@ class ShapeAnimation: AnimationImpl<Shape> {
     // Pause state not available for discreet animation
     override public func pause() {
         stop()
+    }
+    
+    open override func reverse() -> Animation {
+        let factory = { () -> (Double) -> Shape in
+            let original = self.timeFactory()
+            return { (t: Double) -> Shape in
+                return original(1.0 - t)
+            }
+        }
+        
+        let node = Node.nodeBy(id: nodeId!)
+        let reversedAnimation = ShapeAnimation(animatedNode: node as! Shape,
+                                               factory: factory,
+                                               animationDuration: duration,
+                                               fps: logicalFps)
+        reversedAnimation.progress = progress
+        reversedAnimation.completion = completion
+        
+        return reversedAnimation
     }
 }
 

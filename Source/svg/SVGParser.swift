@@ -44,8 +44,8 @@ open class SVGParser {
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-linecap", "stroke-linejoin",
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
-                                    "font-family", "font-size",
-                                    "font-weight", "opacity"]
+                                    "font-family", "font-size", "font-weight",
+                                    "opacity", "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -260,6 +260,9 @@ open class SVGParser {
 
         let styleAttributes = getStyleAttributes(groupStyle, element: element)
         if styleAttributes["display"] == "none" {
+            return .none
+        }
+        if styleAttributes["visibility"] == "hidden" {
             return .none
         }
 

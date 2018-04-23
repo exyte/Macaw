@@ -11,10 +11,10 @@ open class SvgContentLayout: ContentLayout {
     public let xAligningMode: Align
     public let yAligningMode: Align
     
-    public init(scalingMode: AspectRatio, xAligningMode: Align? = Align.min, yAligningMode: Align? = Align.min) {
+    public init(scalingMode: AspectRatio, xAligningMode: Align = Align.min, yAligningMode: Align = Align.min) {
         self.scalingMode = scalingMode
-        self.xAligningMode = xAligningMode ?? Align.min
-        self.yAligningMode = yAligningMode ?? Align.min
+        self.xAligningMode = xAligningMode
+        self.yAligningMode = yAligningMode
     }
     
     public static var standard: ContentLayout {

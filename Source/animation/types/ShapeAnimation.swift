@@ -9,21 +9,18 @@
 class ShapeAnimation: AnimationImpl<Shape> {
     convenience init(animatedNode: Shape, finalValue: Shape, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 
-        let nodeId = animatedNode.id
         let interpolationFunc = { (t: Double) -> Shape in
             if t == 0 {
-                let initialNode = Node.nodeBy(id: nodeId) as! Shape
-
-                return Shape(form: initialNode.form,
-                             fill: initialNode.fill,
-                             stroke: initialNode.stroke,
-                             place: initialNode.place,
-                             opaque: initialNode.opaque,
-                             opacity: initialNode.opacity,
-                             clip: initialNode.clip,
-                             effect: initialNode.effect,
-                             visible: initialNode.visible,
-                             tag: initialNode.tag)
+                return Shape(form: animatedNode.form,
+                             fill: animatedNode.fill,
+                             stroke: animatedNode.stroke,
+                             place: animatedNode.place,
+                             opaque: animatedNode.opaque,
+                             opacity: animatedNode.opacity,
+                             clip: animatedNode.clip,
+                             effect: animatedNode.effect,
+                             visible: animatedNode.visible,
+                             tag: animatedNode.tag)
             }
 
             return finalValue
@@ -55,6 +52,25 @@ class ShapeAnimation: AnimationImpl<Shape> {
     // Pause state not available for discreet animation
     override public func pause() {
         stop()
+    }
+    
+    open override func reverse() -> Animation {
+        let factory = { () -> (Double) -> Shape in
+            let original = self.timeFactory()
+            return { (t: Double) -> Shape in
+                return original(1.0 - t)
+            }
+        }
+        
+        let node = Node.nodeBy(id: nodeId!)
+        let reversedAnimation = ShapeAnimation(animatedNode: node as! Shape,
+                                               factory: factory,
+                                               animationDuration: duration,
+                                               fps: logicalFps)
+        reversedAnimation.progress = progress
+        reversedAnimation.completion = completion
+        
+        return reversedAnimation
     }
 }
 

@@ -45,7 +45,7 @@ open class SVGParser {
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
-                                    "font-weight", "opacity"]
+                                    "font-weight", "opacity", "color"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -228,7 +228,7 @@ open class SVGParser {
         }
     }
 
-    fileprivate func parseDefinitions(_ defs: XMLIndexer) {
+    fileprivate func parseDefinitions(_ defs: XMLIndexer, groupStyle: [String: String] = [:]) {
         for child in defs.children {
             guard let id = child.element?.allAttributes["id"]?.text else {
                 continue
@@ -267,37 +267,37 @@ open class SVGParser {
         switch element.name {
         case "path":
             if let path = parsePath(node) {
-                return Shape(form: path, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "line":
             if let line = parseLine(node) {
-                return Shape(form: line, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "rect":
             if let rect = parseRect(node) {
-                return Shape(form: rect, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "circle":
             if let circle = parseCircle(node) {
-                return Shape(form: circle, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "ellipse":
             if let ellipse = parseEllipse(node) {
-                return Shape(form: ellipse, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "polygon":
             if let polygon = parsePolygon(node) {
-                return Shape(form: polygon, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "polyline":
             if let polyline = parsePolyline(node) {
-                return Shape(form: polyline, fill: getFillColor(styleAttributes), stroke: getStroke(styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "image":
             return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
         case "text":
-            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes),
-                             stroke: getStroke(styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
+            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: styleAttributes),
+                             stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
         case "mask":
@@ -314,11 +314,12 @@ open class SVGParser {
         guard let element = fill.element else {
             return .none
         }
+        let style = getStyleAttributes([:], element: element)
         switch element.name {
         case "linearGradient":
-            return parseLinearGradient(fill)
+            return parseLinearGradient(fill, groupStyle: style)
         case "radialGradient":
-            return parseRadialGradient(fill)
+            return parseRadialGradient(fill, groupStyle: style)
         default:
             return .none
         }
@@ -521,7 +522,7 @@ open class SVGParser {
         }
 
         self.availableStyleAttributes.forEach { availableAttribute in
-            if let styleAttribute = element.allAttributes[availableAttribute]?.text {
+            if let styleAttribute = element.allAttributes[availableAttribute]?.text, styleAttribute != "inherit" {
                 styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
             }
         }
@@ -548,12 +549,15 @@ open class SVGParser {
         return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 
-    fileprivate func getFillColor(_ styleParts: [String: String]) -> Fill? {
-        guard let fillColor = styleParts["fill"] else {
+    fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
+        guard var fillColor = styleParts["fill"] else {
             return Color.black
         }
         if fillColor == "none" || fillColor == "transparent" {
             return .none
+        }
+        if fillColor == "currentColor", let currentColor = groupStyle["color"] {
+            fillColor = currentColor
         }
         var opacity: Double = 1
         var hasFillOpacity = false
@@ -580,12 +584,15 @@ open class SVGParser {
         }
     }
 
-    fileprivate func getStroke(_ styleParts: [String: String]) -> Stroke? {
-        guard let strokeColor = styleParts["stroke"] else {
+    fileprivate func getStroke(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Stroke? {
+        guard var strokeColor = styleParts["stroke"] else {
             return .none
         }
         if strokeColor == "none" {
             return .none
+        }
+        if strokeColor == "currentColor", let currentColor = groupStyle["color"] {
+            strokeColor = currentColor
         }
         var opacity: Double = 1
         if let strokeOpacity = styleParts["stroke-opacity"] {
@@ -1019,7 +1026,7 @@ open class SVGParser {
         return maskShape
     }
 
-    fileprivate func parseLinearGradient(_ gradient: XMLIndexer) -> Fill? {
+    fileprivate func parseLinearGradient(_ gradient: XMLIndexer, groupStyle: [String: String] = [:]) -> Fill? {
         guard let element = gradient.element else {
             return .none
         }
@@ -1035,7 +1042,7 @@ open class SVGParser {
         if gradient.children.isEmpty {
             stopsArray = parentGradient?.stops
         } else {
-            stopsArray = parseStops(gradient.children)
+            stopsArray = parseStops(gradient.children, groupStyle: groupStyle)
         }
 
         guard let stops = stopsArray else {
@@ -1080,7 +1087,7 @@ open class SVGParser {
         return LinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops)
     }
 
-    fileprivate func parseRadialGradient(_ gradient: XMLIndexer) -> Fill? {
+    fileprivate func parseRadialGradient(_ gradient: XMLIndexer, groupStyle: [String: String] = [:]) -> Fill? {
         guard let element = gradient.element else {
             return .none
         }
@@ -1096,7 +1103,7 @@ open class SVGParser {
         if gradient.children.isEmpty {
             stopsArray = parentGradient?.stops
         } else {
-            stopsArray = parseStops(gradient.children)
+            stopsArray = parseStops(gradient.children, groupStyle: groupStyle)
         }
 
         guard let stops = stopsArray else {
@@ -1142,17 +1149,17 @@ open class SVGParser {
         return RadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops)
     }
 
-    fileprivate func parseStops(_ stops: [XMLIndexer]) -> [Stop] {
+    fileprivate func parseStops(_ stops: [XMLIndexer], groupStyle: [String: String] = [:]) -> [Stop] {
         var result = [Stop]()
         stops.forEach { stopXML in
-            if let stop = parseStop(stopXML) {
+            if let stop = parseStop(stopXML, groupStyle: groupStyle) {
                 result.append(stop)
             }
         }
         return result
     }
 
-    fileprivate func parseStop(_ stop: XMLIndexer) -> Stop? {
+    fileprivate func parseStop(_ stop: XMLIndexer, groupStyle: [String: String] = [:]) -> Stop? {
         guard let element = stop.element else {
             return .none
         }
@@ -1166,7 +1173,10 @@ open class SVGParser {
             opacity = doubleValue
         }
         var color = Color.black
-        if let stopColor = getStyleAttributes([:], element: element)["stop-color"] {
+        if var stopColor = getStyleAttributes([:], element: element)["stop-color"] {
+            if stopColor == "currentColor", let currentColor = groupStyle["color"] {
+                stopColor = currentColor
+            }
             if let defaultColor = SVGConstants.colorList[stopColor] {
                 color = Color(val: defaultColor).with(a: opacity)
             } else {

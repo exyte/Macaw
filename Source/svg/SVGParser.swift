@@ -1199,23 +1199,19 @@ open class SVGParser {
         if let doubleValue = Double(string) {
             return doubleValue
         }
-        do {
-            let matcher = try NSRegularExpression(pattern: "([a-zA-Z]+)", options: .caseInsensitive)
-            let fullRange = NSRange(location: 0, length: string.count)
-            if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
-                
-                let unitString = (string as NSString).substring(with: match.range(at: 1))
-                let numberString = String(string.dropLast(unitString.count))
-                switch unitString {
-                case "px" :
-                    return Double(numberString)
-                default:
-                    print("SVG parsing error. Unit \(unitString) not supported")
-                    return Double(numberString)
-                }
+        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
+        let fullRange = NSRange(location: 0, length: string.count)
+        if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
+            
+            let unitString = (string as NSString).substring(with: match.range(at: 1))
+            let numberString = String(string.dropLast(unitString.count))
+            switch unitString {
+            case "px" :
+                return Double(numberString)
+            default:
+                print("SVG parsing error. Unit \(unitString) not supported")
+                return Double(numberString)
             }
-        } catch {
-            print(error.localizedDescription)
         }
         return .none
     }

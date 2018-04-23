@@ -528,6 +528,7 @@ open class SVGParser {
     }
 
     fileprivate func createColor(_ hexString: String, opacity: Double = 1) -> Color {
+        let opacity = min(max(opacity, 0), 1)
         var cleanedHexString = hexString
         if hexString.hasPrefix("#") {
             cleanedHexString = hexString.replacingOccurrences(of: "#", with: "")

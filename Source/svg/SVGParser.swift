@@ -681,7 +681,7 @@ open class SVGParser {
             characterSet.insert(",")
             let separatedValues = strokeDashes.components(separatedBy: characterSet)
             separatedValues.forEach { value in
-                if let doubleValue = Double(value) {
+                if let doubleValue = doubleFromString(value) {
                     dashes.append(doubleValue)
                 }
             }
@@ -1208,10 +1208,31 @@ open class SVGParser {
     }
 
     fileprivate func getDoubleValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
-        guard let attributeValue = element.allAttributes[attribute]?.text, let doubleValue = Double(attributeValue) else {
+        guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
         }
-        return doubleValue
+        return doubleFromString(attributeValue)
+    }
+    
+    fileprivate func doubleFromString(_ string: String) -> Double? {
+        if let doubleValue = Double(string) {
+            return doubleValue
+        }
+        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
+        let fullRange = NSRange(location: 0, length: string.count)
+        if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
+            
+            let unitString = (string as NSString).substring(with: match.range(at: 1))
+            let numberString = String(string.dropLast(unitString.count))
+            switch unitString {
+            case "px" :
+                return Double(numberString)
+            default:
+                print("SVG parsing error. Unit \(unitString) not supported")
+                return Double(numberString)
+            }
+        }
+        return .none
     }
 
     fileprivate func getDoubleValueFromPercentage(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {

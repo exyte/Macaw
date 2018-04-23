@@ -1155,15 +1155,10 @@ open class SVGParser {
             return .none
         }
 
-        guard var offset = getDoubleValueFromPercentage(element, attribute: "offset") else {
+        guard let offset = getDoubleValueFromPercentage(element, attribute: "offset") else {
             return .none
         }
 
-        if offset < 0 {
-            offset = 0
-        } else if offset > 1 {
-            offset = 1
-        }
         var opacity: Double = 1
         if let stopOpacity = getStyleAttributes([:], element: element)["stop-opacity"], let doubleValue = Double(stopOpacity) {
             opacity = doubleValue

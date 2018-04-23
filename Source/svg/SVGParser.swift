@@ -382,6 +382,8 @@ open class SVGParser {
         guard let matcher = SVGParserRegexHelper.getTransformAttributeMatcher() else {
             return transform
         }
+        
+        let attributes = attributes.replacingOccurrences(of: "\n", with: "")
         var finalTransform = transform
         let fullRange = NSRange(location: 0, length: attributes.count)
 

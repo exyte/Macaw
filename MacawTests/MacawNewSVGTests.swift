@@ -17,7 +17,7 @@ class MacawNewSVGTests: XCTestCase {
         let bundle = Bundle(for: type(of: TestUtils()))
         
         do {
-            if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
+            if let path = bundle.path(forResource: referenceFile, ofType: "reference"), let node = node as? Serializable {
                 let referenceContent = try String(contentsOfFile: path)
                 
                 let jsonData = try JSONSerialization.data(withJSONObject: node.toDictionary(), options: .prettyPrinted)
@@ -36,7 +36,11 @@ class MacawNewSVGTests: XCTestCase {
         do {
             let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
             let node = try SVGParser.parse(bundle: bundle, path: test)
-            let jsonData = try JSONSerialization.data(withJSONObject: node.toDictionary(), options: .prettyPrinted)
+            guard let serializableNode = node as? Serializable else {
+                XCTFail()
+                return
+            }
+            let jsonData = try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
             try jsonData.write(to: URL(fileURLWithPath: path!))
         } catch {
             print(error)

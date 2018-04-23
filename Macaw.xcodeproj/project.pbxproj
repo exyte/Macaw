@@ -259,9 +259,10 @@
 		5B1FFD8C2085C63600716A46 /* MacawNewSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1FFD8B2085C63600716A46 /* MacawNewSVGTests.swift */; };
 		5B1FFD8F2085E15B00716A46 /* test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FFD8E2085E15B00716A46 /* test.svg */; };
 		5B1FFD912085E16C00716A46 /* test.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FFD902085E16B00716A46 /* test.reference */; };
-		5B1FFF49208727E200F6F0A0 /* shapes-circle-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FFF48208727E100F6F0A0 /* shapes-circle-01-t-manual.svg */; };
-		5B1FFF4B2087285200F6F0A0 /* shapes-circle-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FFF4A2087285200F6F0A0 /* shapes-circle-01-t-manual.reference */; };
 		5BAA56A8207C73FF0055BC5B /* SvgContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */; };
+		5BAE2019208DEE22006BF277 /* SceneSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE2018208DEE22006BF277 /* SceneSerialization.swift */; };
+		5BAE201C208E01E2006BF277 /* shapes-circle-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE201A208E01E2006BF277 /* shapes-circle-01-t-manual.svg */; };
+		5BAE201D208E01E2006BF277 /* shapes-circle-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE201B208E01E2006BF277 /* shapes-circle-01-t-manual.reference */; };
 		5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9C8206CEAA20049AAAE /* viewBox.svg */; };
 		5BAEA9CB206CEB7D0049AAAE /* viewBox.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9CA206CEB7D0049AAAE /* viewBox.reference */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
@@ -465,9 +466,10 @@
 		5B1FFD8B2085C63600716A46 /* MacawNewSVGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawNewSVGTests.swift; sourceTree = "<group>"; };
 		5B1FFD8E2085E15B00716A46 /* test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.svg; sourceTree = "<group>"; };
 		5B1FFD902085E16B00716A46 /* test.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.reference; sourceTree = "<group>"; };
-		5B1FFF48208727E100F6F0A0 /* shapes-circle-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.svg"; sourceTree = "<group>"; };
-		5B1FFF4A2087285200F6F0A0 /* shapes-circle-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.reference"; sourceTree = "<group>"; };
 		5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvgContentLayout.swift; sourceTree = "<group>"; };
+		5BAE2018208DEE22006BF277 /* SceneSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSerialization.swift; sourceTree = "<group>"; };
+		5BAE201A208E01E2006BF277 /* shapes-circle-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.svg"; sourceTree = "<group>"; };
+		5BAE201B208E01E2006BF277 /* shapes-circle-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.reference"; sourceTree = "<group>"; };
 		5BAEA9C8206CEAA20049AAAE /* viewBox.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.svg; sourceTree = "<group>"; };
 		5BAEA9CA206CEB7D0049AAAE /* viewBox.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.reference; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -887,6 +889,7 @@
 				57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */,
 				C4820B191F458D64008CE0FF /* MacawSVGTests.swift */,
 				5B1FFD8B2085C63600716A46 /* MacawNewSVGTests.swift */,
+				5BAE2018208DEE22006BF277 /* SceneSerialization.swift */,
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
@@ -897,8 +900,8 @@
 			children = (
 				5B1F01EA2086077000716A46 /* color-prop-02-f-manual.reference */,
 				5B1F01E62085FF8800716A46 /* color-prop-02-f-manual.svg */,
-				5B1FFF4A2087285200F6F0A0 /* shapes-circle-01-t-manual.reference */,
-				5B1FFF48208727E100F6F0A0 /* shapes-circle-01-t-manual.svg */,
+				5BAE201B208E01E2006BF277 /* shapes-circle-01-t-manual.reference */,
+				5BAE201A208E01E2006BF277 /* shapes-circle-01-t-manual.svg */,
 				5B1FFD902085E16B00716A46 /* test.reference */,
 				5B1FFD8E2085E15B00716A46 /* test.svg */,
 			);
@@ -1118,7 +1121,7 @@
 				5B1F01EB2086077000716A46 /* color-prop-02-f-manual.reference in Resources */,
 				C43B06661F99EE7300787A35 /* cubicAbsolute.svg in Resources */,
 				C46E83551F94B20E00208037 /* transform.svg in Resources */,
-				5B1FFF49208727E200F6F0A0 /* shapes-circle-01-t-manual.svg in Resources */,
+				5BAE201C208E01E2006BF277 /* shapes-circle-01-t-manual.svg in Resources */,
 				5B1FFD8F2085E15B00716A46 /* test.svg in Resources */,
 				57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */,
 				57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */,
@@ -1130,7 +1133,7 @@
 				57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */,
 				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,
 				C43B06551F98A53600787A35 /* group.reference in Resources */,
-				5B1FFF4B2087285200F6F0A0 /* shapes-circle-01-t-manual.reference in Resources */,
+				5BAE201D208E01E2006BF277 /* shapes-circle-01-t-manual.reference in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1427,6 +1430,7 @@
 				57B7A4E31EE70DC3009D78D7 /* ImageBoundsTests.swift in Sources */,
 				C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */,
 				5713C4F91E5C3FEE00BBA4D9 /* DelayedAnimationTests.swift in Sources */,
+				5BAE2019208DEE22006BF277 /* SceneSerialization.swift in Sources */,
 				5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */,
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,
 				A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */,

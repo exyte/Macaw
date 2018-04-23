@@ -123,52 +123,6 @@ open class Text: Node {
         let textSize = NSString(string: text).size(withAttributes: textAttributes)
         return -align.align(size: textSize.width.doubleValue)
     }
-    
-    internal override func toDictionary() -> [String:Any] {
-        var result = super.toDictionary()
-        result["node"] = "Text"
-        result["text"] = text
-        if let font = font {
-            result["font"] = font.toDictionary()
-        }
-        if let fillColor = fill as? Color {
-            result["fill"] = fillColor.toDictionary()
-        }
-        if let stroke = stroke {
-            result["stroke"] = stroke.toDictionary()
-        }
-        result["align"] = align.toString()
-        result["baseline"] = "\(baseline)"
-        return result
-    }
-    
-    internal convenience init?(dictionary: [String:Any]) {
-        guard let text = dictionary["text"] as? String else {
-            return nil
-        }
-        self.init(text: text)
-        
-        if let fontDict = dictionary["font"] as? [String:Any] {
-            font = Font(dictionary: fontDict)
-        }
-        if let fillDict = dictionary["fill"] as? [String:Any],
-            let fillType = fillDict["type"] as? String,
-            fillType == "Color",
-            let color = Color(dictionary: fillDict) {
-            fill = color
-        }
-        if let strokeDict = dictionary["stroke"] as? [String:Any] {
-            stroke = Stroke(dictionary: strokeDict)
-        }
-        if let alignString = dictionary["align"] as? String {
-            align = Align.instantiate(string: alignString)
-        }
-        if let baselineString = dictionary["baseline"] as? String {
-            baseline = baselineForString(baselineString)
-        }
-        
-        fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
-    }
 
 }
 

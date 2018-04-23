@@ -55,34 +55,4 @@ open class Shape: Node {
         return bounds
     }
     
-    internal override func toDictionary() -> [String:Any] {
-        var result = super.toDictionary()
-        result["node"] = "Shape"
-        result["form"] = form.toDictionary()
-        if let fillColor = fill as? Color {
-            result["fill"] = fillColor.toDictionary()
-        }
-        if let stroke = stroke {
-            result["stroke"] = stroke.toDictionary()
-        }
-        return result
-    }
-    
-    internal convenience init?(dictionary: [String:Any]) {
-        
-        guard let locusDict = dictionary["form"] as? [String:Any], let locus = Locus.instantiate(dictionary: locusDict) else {
-            return nil
-        }
-        self.init(form: locus)
-        
-        if let fillDict = dictionary["fill"] as? [String:Any], let fillType = fillDict["type"] as? String, fillType == "Color" {
-            fill = Color(dictionary: fillDict)
-        }
-        if let strokeDict = dictionary["stroke"] as? [String:Any] {
-            stroke = Stroke(dictionary: strokeDict)
-        }
-        
-        fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
-    }
-    
 }

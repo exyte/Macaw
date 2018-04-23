@@ -24,14 +24,4 @@ open class Circle: Locus {
     open func arc(shift: Double, extent: Double) -> Arc {
         return Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
     }
-    
-    internal override func toDictionary() -> [String:Any] {
-        return ["type": "Circle", "cx": cx, "cy": cy, "r": r]
-    }
-    
-    internal convenience init(dictionary: [String:Any]) {
-        self.init(cx: parse(dictionary["cx"]),
-                  cy: parse(dictionary["cy"]),
-                  r: parse(dictionary["r"]))
-    }
 }

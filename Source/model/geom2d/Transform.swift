@@ -85,32 +85,4 @@ public final class Transform {
                          dx: (m21 * dy - m22 * dx) / det,
                          dy: (m12 * dx - m11 * dy) / det)
     }
-    
-    internal func toString() -> String {
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 6
-        
-        let nums = [m11, m12, m21, m22, dx, dy]
-        
-        var result = ""
-        for num in nums {
-            result += formatter.string(from: num as NSNumber) ?? "n/a"
-            result += ", "
-        }
-        return result.dropLast(2) + ""
-    }
-    
-    internal convenience init(string: String?) {
-        guard let string = string else {
-            self.init()
-            return
-        }
-        let vals = string.components(separatedBy: ", ").map{ Double($0) ?? 0 }
-        if vals.count == 6 {
-            self.init(m11: vals[0], m12: vals[1], m21: vals[2], m22: vals[3], dx: vals[4], dy: vals[5])
-        } else {
-            self.init()
-        }
-    }
 }

@@ -19,14 +19,4 @@ open class Arc: Locus {
             w: ellipse.rx * 2.0,
             h: ellipse.ry * 2.0)
     }
-    
-    internal override func toDictionary() -> [String:Any] {
-        return ["type": "Arc", "ellipse": ellipse.toDictionary(), "shift": shift, "extent": extent]
-    }
-    
-    internal convenience init(dictionary: [String:Any]) {
-        self.init(ellipse: Ellipse(dictionary: dictionary["ellipse"] as? [String : Any] ?? [:]),
-                  shift: parse(dictionary["shift"]),
-                  extent: parse(dictionary["extent"]))
-    }
 }

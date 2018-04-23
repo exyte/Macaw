@@ -150,33 +150,6 @@ open class Group: Node {
 
         return shouldCheck
     }
-    
-    internal override func toDictionary() -> [String:Any] {
-        var nodes = [[String:Any]]()
-        for node in contents {
-            nodes.append(node.toDictionary())
-        }
-        var result = super.toDictionary()
-        result["node"] = "Group"
-        result["contents"] = nodes
-        return result
-    }
-    
-    internal convenience init?(dictionary: [String:Any]) {
-        
-        guard let contents = dictionary["contents"] as? [[String:Any]] else {
-            return nil
-        }
-        var nodes = [Node]()
-        for dict in contents {
-            if let node = Node.instantiate(dictionary: dict) {
-                nodes.append(node)
-            }
-        }
-        self.init()
-        self.contents = nodes        
-        fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
-    }
 }
 
 public extension Array where Element: Node {

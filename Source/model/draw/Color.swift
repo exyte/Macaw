@@ -73,12 +73,4 @@ open class Color: Fill, Equatable {
     public static func == (lhs: Color, rhs: Color) -> Bool {
         return lhs.val == rhs.val
     }
-    
-    internal func toDictionary() -> [String:Any] {
-        return ["type": "Color", "val": val]
-    }
-    
-    internal convenience init?(dictionary: [String:Any]) {
-        self.init(val: parse(dictionary["val"]))
-    }
 }

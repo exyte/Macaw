@@ -167,14 +167,9 @@ class ShapeRenderer: NodeRenderer {
         ctx!.setLineWidth(CGFloat(stroke.width))
         ctx!.setLineJoin(RenderUtils.mapLineJoin(stroke.join))
         ctx!.setLineCap(RenderUtils.mapLineCap(stroke.cap))
-        let dashes = stroke.dashes
-        if !dashes.isEmpty {
-            var floatDashes = [CGFloat]()
-            dashes.forEach { dash in
-                floatDashes.append(CGFloat(dash))
-            }
-
-            ctx?.setLineDash(phase: 0.0, lengths: floatDashes)
+        if !stroke.dashes.isEmpty {
+            ctx?.setLineDash(phase: CGFloat(stroke.offset),
+                             lengths: stroke.dashes.map{ CGFloat($0) })
         }
     }
 

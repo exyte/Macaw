@@ -10,7 +10,7 @@ import SWXMLHash
 ///
 
 open class SVGParser {
-    
+
     fileprivate class ViewBoxParams {
         var svgSize: Size?
         var viewBox: Rect?
@@ -76,7 +76,7 @@ open class SVGParser {
 
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
-        
+
         var viewBoxParams: ViewBoxParams?
         for child in parsedXml.children {
             if let element = child.element {
@@ -87,6 +87,7 @@ open class SVGParser {
                 }
             }
         }
+
         parseSvg(parsedXml.children)
 
         let group = Group(contents: self.nodes, place: initialPosition)
@@ -95,7 +96,7 @@ open class SVGParser {
         }
         return group
     }
-    
+
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
         children.forEach { child in
             prepareSvg(child)
@@ -127,15 +128,15 @@ open class SVGParser {
             }
         }
     }
-    
+
     fileprivate func addViewBoxClip(toNode node: Node, viewBoxParams params: ViewBoxParams) {
-        
+
         guard let viewBox = params.viewBox else { return }
         node.clip = viewBox
-        
+
         let scalingMode = params.scalingMode ?? AspectRatio.meet
         guard let svgSize = params.svgSize else { return }
-        
+
         if scalingMode === AspectRatio.slice {
             // setup new clipping to slice extra bits
             let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
@@ -143,22 +144,22 @@ open class SVGParser {
             let newY = viewBox.y + viewBox.h / 2 - newSize.h / 2
             node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
         }
-        
+
         let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)
         node.place = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
-        
+
         // move to (0, 0)
         node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
     }
-    
+
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> ViewBoxParams {
         let params = ViewBoxParams()
-        
+
         if let w = getDoubleValue(element, attribute: "width"), let h = getDoubleValue(element, attribute: "height") {
             params.svgSize = Size(w: w, h: h)
         }
         if let viewBoxString = element.allAttributes["viewBox"]?.text {
-            let nums = viewBoxString.components(separatedBy: .whitespaces).map{ Double($0) }
+            let nums = viewBoxString.components(separatedBy: .whitespaces).map { Double($0) }
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
                 params.viewBox = Rect(x: x, y: y, w: w, h: h)
             }
@@ -170,39 +171,49 @@ open class SVGParser {
                 return params
             }
             guard strings.count == 2 else { return params }
-            
+
             let alignString = strings[0]
             var xAlign = alignString.prefix(4).lowercased()
             xAlign.remove(at: xAlign.startIndex)
             params.xAligningMode = parseAlign(xAlign)
-            
+
             var yAlign = alignString.suffix(4).lowercased()
             yAlign.remove(at: yAlign.startIndex)
             params.yAligningMode = parseAlign(yAlign)
-            
+
             params.scalingMode = parseAspectRatio(strings[1])
         }
-        
+
         return params
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        if let element = node.element {
-            switch(element.name) {
-            case "g":
-                return parseGroup(node, groupStyle: groupStyle)
-            case "clipPath":
-                if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
-                    self.defClip[id] = clip
-                }
-            case "style", "defs":
-                // do nothing - it was parsed on first iteration
-                return .none
-            default:
-                return parseElement(node, groupStyle: groupStyle)
-            }
+        guard let element = node.element  else {
+            return nil
         }
-        return .none
+
+        switch element.name {
+        case "g":
+            return parseGroup(node, groupStyle: groupStyle)
+
+        case "clipPath":
+            if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
+                self.defClip[id] = clip
+            }
+
+        // in case svg was generated with Adobe Illustrator
+        case "linearGradient", "radialGradient":
+            parseDefinition(node)
+
+        case "style", "defs":
+            // do nothing - it was parsed on first iteration
+            return nil
+
+        default:
+            return parseElement(node, groupStyle: groupStyle)
+        }
+
+        return nil
     }
 
     fileprivate var styleTable: [String: [String: String]] = [:]
@@ -229,29 +240,32 @@ open class SVGParser {
     }
 
     fileprivate func parseDefinitions(_ defs: XMLIndexer) {
-        for child in defs.children {
-            guard let id = child.element?.allAttributes["id"]?.text else {
-                continue
-            }
-            if let fill = parseFill(child) {
-                self.defFills[id] = fill
-                continue
-            }
+        defs.children.forEach(parseDefinition(_:))
+    }
 
-            if let _ = parseNode(child) {
-                // TODO we don't really need to parse node
-                self.defNodes[id] = child
-                continue
-            }
+    private func parseDefinition(_ element: XMLIndexer) {
+        guard let id = element.element?.allAttributes["id"]?.text else {
+            return
+        }
 
-            if let mask = parseMask(child) {
-                self.defMasks[id] = mask
-                continue
-            }
+        if let fill = parseFill(element) {
+            self.defFills[id] = fill
+            return
+        }
 
-            if let clip = parseClip(child) {
-                self.defClip[id] = clip
-            }
+        if let _ = parseNode(element) {
+            // TODO we don't really need to parse node
+            self.defNodes[id] = element
+            return
+        }
+
+        if let mask = parseMask(element) {
+            self.defMasks[id] = mask
+            return
+        }
+
+        if let clip = parseClip(element) {
+            self.defClip[id] = clip
         }
     }
 
@@ -355,7 +369,7 @@ open class SVGParser {
         }
         return parseTransformationAttribute(transformAttribute)
     }
-    
+
     fileprivate func parseAlign(_ string: String) -> Align {
         if string == "min" {
             return .min
@@ -365,7 +379,7 @@ open class SVGParser {
         }
         return .max
     }
-    
+
     fileprivate func parseAspectRatio(_ string: String) -> AspectRatio {
         if string == "meet" {
             return .meet

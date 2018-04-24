@@ -45,7 +45,7 @@ open class SVGParser {
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
-                                    "font-weight", "opacity", "color"]
+                                    "font-weight", "opacity", "color", "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -262,6 +262,10 @@ open class SVGParser {
         if styleAttributes["display"] == "none" {
             return .none
         }
+        if styleAttributes["visibility"] == "hidden" {
+            return .none
+        }
+
 
         let position = getPosition(element)
         switch element.name {

@@ -1272,13 +1272,10 @@ open class SVGParser {
     }
 
     fileprivate func getFontSize(_ attributes: [String: String]) -> Int? {
-        guard let fontSize = attributes["font-size"] else {
+        guard let fontSize = attributes["font-size"], let size = doubleFromString(fontSize) else {
             return .none
         }
-        if let size = Double(fontSize) {
-            return (Int(round(size)))
-        }
-        return .none
+        return Int(round(size))
     }
 
     fileprivate func getFontStyle(_ attributes: [String: String], style: String) -> Bool? {

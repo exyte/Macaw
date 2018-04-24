@@ -18,6 +18,18 @@ open class SVGParser {
         var xAligningMode: Align = .mid
         var yAligningMode: Align = .mid
     }
+    
+    fileprivate enum EffectSource: String {
+        case SourceGraphic, SourceAlpha, BackgroundImage, BackgroundAlpha, FillPaint, StrokePaint
+    }
+    
+    fileprivate class Filter {
+        var radius: Double = 0
+        var offset: Point?
+        var color: Color = .clear
+        var input: Effect?
+        var source: EffectSource = .SourceGraphic
+    }
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
@@ -55,7 +67,7 @@ open class SVGParser {
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
-    fileprivate var defShadows = [String: DropShadow]()
+    fileprivate var defFilters = [String: Filter]()
 
     fileprivate enum PathCommandType {
         case moveTo
@@ -231,27 +243,29 @@ open class SVGParser {
 
     fileprivate func parseDefinitions(_ defs: XMLIndexer, groupStyle: [String: String] = [:]) {
         for child in defs.children {
-            guard let id = child.element?.allAttributes["id"]?.text else {
+            guard let id = child.element?.allAttributes["id"]?.text, let element = child.element else {
                 continue
             }
-            if let fill = parseFill(child) {
-                self.defFills[id] = fill
-                continue
+            
+            if element.name == "fill", let fill = parseFill(child) {
+                defFills[id] = fill
             }
 
-            if let _ = parseNode(child) {
+            else if element.name == "mask", let mask = parseMask(child) {
+                defMasks[id] = mask
+            }
+            
+            else if element.name == "filter" {
+                parseFilter(child)
+            }
+
+            else if element.name == "clip", let clip = parseClip(child) {
+                defClip[id] = clip
+            }
+            
+            else if let _ = parseNode(child) {
                 // TODO we don't really need to parse node
-                self.defNodes[id] = child
-                continue
-            }
-
-            if let mask = parseMask(child) {
-                self.defMasks[id] = mask
-                continue
-            }
-
-            if let clip = parseClip(child) {
-                self.defClip[id] = clip
+                defNodes[id] = child
             }
         }
     }
@@ -266,7 +280,7 @@ open class SVGParser {
         
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
         
-        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let shadowId = parseIdFromUrl(filterString), let shadow = defShadows[shadowId] {
+        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let shadowId = parseIdFromUrl(filterString), let shadow = defFilters[shadowId] {
             if shadow.offset == nil {
                 parsedNode.effect = shadow.input
                 return parsedNode
@@ -330,7 +344,8 @@ open class SVGParser {
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
         case "filter":
-            return parseFilter(node)
+            parseFilter(node)
+            break
         case "mask":
             break
         default:
@@ -603,13 +618,8 @@ open class SVGParser {
         if fillColor.hasPrefix("rgb") {
             let color = parseRGBNotation(colorString: fillColor)
             return hasFillOpacity ? color.with(a: opacity) : color
-        } else if fillColor.hasPrefix("url") {
-            let index = fillColor.index(fillColor.startIndex, offsetBy: 4)
-            let id = String(fillColor.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
-            return defFills[id]
+        } else if let colorId = parseIdFromUrl(fillColor) {
+            return defFills[colorId]
         } else {
             return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
         }
@@ -635,13 +645,8 @@ open class SVGParser {
             fill = color.with(a: opacity)
         } else if strokeColor.hasPrefix("rgb") {
             fill = parseRGBNotation(colorString: strokeColor)
-        } else if strokeColor.hasPrefix("url") {
-            let index = strokeColor.index(strokeColor.startIndex, offsetBy: 4)
-            let id = String(strokeColor.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
-            fill = defFills[id]
+        } else if let colorId = parseIdFromUrl(strokeColor) {
+            fill = defFills[colorId]
         } else {
             fill = createColor(strokeColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
         }
@@ -1043,52 +1048,52 @@ open class SVGParser {
         return path
     }
     
-    fileprivate func parseFilter(_ filterNode: XMLIndexer) -> Node? {
+    fileprivate func parseFilter(_ filterNode: XMLIndexer) {
         guard let element = filterNode.element, let id = element.allAttributes["id"]?.text else {
-            return .none
+            return
         }
-        var effects = [String : DropShadow]()
+        var filters = [String : Filter]()
         for child in filterNode.children {
             guard let element = child.element else { continue }
             
-            let effectIn = element.allAttributes["in"]?.text ?? "SourceGraphic"
-            let effectOut = element.allAttributes["result"]?.text ?? ""
-            let currentEffect = effects[effectIn] ?? DropShadow()
-            if effects[effectIn] == nil, let source = EffectSource(rawValue: effectIn) { // first in the chain
-                currentEffect.source = source
+            let filterIn = element.allAttributes["in"]?.text ?? "SourceGraphic"
+            let filterOut = element.allAttributes["result"]?.text ?? ""
+            let currentFilter = filters[filterIn] ?? Filter()
+            if filters[filterIn] == nil, let source = EffectSource(rawValue: filterIn) { // first in the chain
+                currentFilter.source = source
             }
-            effects.removeValue(forKey: effectIn)
+            filters.removeValue(forKey: filterIn)
             
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
-                    currentEffect.offset = Point(x: dx, y: dy)
+                    currentFilter.offset = Point(x: dx, y: dy)
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    currentEffect.input = GaussianBlur(radius: radius, input: nil)
+                    currentFilter.input = GaussianBlur(radius: radius, input: nil)
                 }
             case "feBlend":
-                if let effectIn2 = element.allAttributes["in2"]?.text {
-                    if effectIn == EffectSource.SourceGraphic.rawValue {
-                        defShadows[id] = effects[effectIn2]
+                if let filterIn2 = element.allAttributes["in2"]?.text {
+                    if filterIn == EffectSource.SourceGraphic.rawValue {
+                        defFilters[id] = filters[filterIn2]
                     }
-                    if effectIn2 == EffectSource.SourceGraphic.rawValue {
-                        defShadows[id] = currentEffect
+                    if filterIn2 == EffectSource.SourceGraphic.rawValue {
+                        defFilters[id] = currentFilter
                     }
-                    return .none
+                    return
                 }
             default:
                 print("SVG parsing error. Filter \(element.name) not supported")
                 continue
             }
-            effects[effectOut] = currentEffect
+            filters[filterOut] = currentFilter
         }
         
-        if let effect = effects.first?.value {
-            defShadows[id] = effect
+        if let filter = filters.first?.value {
+            defFilters[id] = filter
         }
-        return .none
+        return
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
@@ -1288,11 +1293,7 @@ open class SVGParser {
     
     fileprivate func parseIdFromUrl(_ urlString: String) -> String? {
         if urlString.hasPrefix("url") {
-            let index = urlString.index(urlString.startIndex, offsetBy: 4)
-            return String(urlString.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
+            return urlString.substringWithOffset(fromStart: 5, fromEnd: 1)
         }
         return .none
     }
@@ -1370,12 +1371,7 @@ open class SVGParser {
     }
 
     fileprivate func getClipPath(_ attributes: [String: String]) -> Locus? {
-        if let clipPath = attributes["clip-path"] {
-            let index = clipPath.index(clipPath.startIndex, offsetBy: 4)
-            let id = String(clipPath.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let locus = defClip[id] {
                 return locus
             }
@@ -1594,4 +1590,12 @@ private class PathDataReader {
         return false
     }
 
+}
+
+fileprivate extension String {
+    func substringWithOffset(fromStart: Int, fromEnd: Int) -> String {
+        let start = index(startIndex, offsetBy: fromStart)
+        let end = index(endIndex, offsetBy: -fromEnd)
+        return String(self[start..<end])
+    }
 }

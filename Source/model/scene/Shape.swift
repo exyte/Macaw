@@ -54,5 +54,4 @@ open class Shape: Node {
 
         return bounds
     }
-    
 }

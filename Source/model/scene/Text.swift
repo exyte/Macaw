@@ -125,13 +125,3 @@ open class Text: Node {
     }
 
 }
-
-fileprivate func baselineForString(_ string: String) -> Baseline {
-    switch(string) {
-    case "top": return .top
-    case "alphabetic": return .alphabetic
-    case "bottom": return .bottom
-    case "mid": return .mid
-    default: return .top
-    }
-}

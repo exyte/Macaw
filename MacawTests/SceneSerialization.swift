@@ -62,8 +62,7 @@ extension Node {
             return Group(dictionary: dictionary)
         }
         
-        print("Node from dictionary error. Node \(nodeType) not supported")
-        return nil
+        fatalError("Node from dictionary error. Node \(nodeType) not supported")
     }
 }
 
@@ -228,8 +227,7 @@ extension Locus {
             return RoundRect(dictionary: dictionary)
         }
         
-        print("Locus from dictionary error. Locus \(type) not supported")
-        return nil
+        fatalError("Locus from dictionary error. Locus \(type) not supported")
     }
 }
 

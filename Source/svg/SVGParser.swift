@@ -45,7 +45,7 @@ open class SVGParser {
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
-                                    "font-weight", "opacity", "color"]
+                                    "font-weight", "opacity", "color", "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -88,12 +88,15 @@ open class SVGParser {
             }
         }
         parseSvg(parsedXml.children)
-
-        let group = Group(contents: self.nodes, place: initialPosition)
+        
         if let viewBoxParams = viewBoxParams {
+            let group = viewBoxParams.svgSize != nil ?
+                SVGCanvas(bounds: Rect(x: 0, y: 0, w: viewBoxParams.svgSize!.w, h: viewBoxParams.svgSize!.h), contents: nodes) :
+                Group(contents: nodes)
             addViewBoxClip(toNode: group, viewBoxParams: viewBoxParams)
+            return group
         }
-        return group
+        return Group(contents: nodes)
     }
     
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
@@ -262,6 +265,10 @@ open class SVGParser {
         if styleAttributes["display"] == "none" {
             return .none
         }
+        if styleAttributes["visibility"] == "hidden" {
+            return .none
+        }
+
 
         let position = getPosition(element)
         switch element.name {
@@ -1265,13 +1272,10 @@ open class SVGParser {
     }
 
     fileprivate func getFontSize(_ attributes: [String: String]) -> Int? {
-        guard let fontSize = attributes["font-size"] else {
+        guard let fontSize = attributes["font-size"], let size = doubleFromString(fontSize) else {
             return .none
         }
-        if let size = Double(fontSize) {
-            return (Int(round(size)))
-        }
-        return .none
+        return Int(round(size))
     }
 
     fileprivate func getFontStyle(_ attributes: [String: String], style: String) -> Bool? {

@@ -280,7 +280,7 @@ open class SVGParser {
         if nodeStyle["display"] == "none" {
             return .none
         }
-        if styleAttributes["visibility"] == "hidden" {
+        if nodeStyle["visibility"] == "hidden" {
             return .none
         }
         

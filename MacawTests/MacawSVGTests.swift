@@ -19,7 +19,8 @@ class MacawSVGTests: XCTestCase {
         do {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
                 let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                XCTAssertEqual(SVGSerializer.serialize(node: node), clipReferenceContent)
+                let result = SVGSerializer.serialize(node: node)
+                XCTAssertEqual(result, clipReferenceContent)
             }
         } catch {
             print(error)
@@ -27,27 +28,39 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    func validate(_ test: String, withReference: Bool = false) {
+    func validate(_ test: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
-        var ext = "svg"
-        if withReference {
-            ext = "reference"
-        }
         do {
-            if let path = bundle.path(forResource: test, ofType: ext) {
-                let referenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                let node = try SVGParser.parse(bundle:bundle, path: test)
-                let testContent = SVGSerializer.serialize(node: node)
-                    .replacingOccurrences(of: "version=\"1.1\"  ><g>", with: "version=\"1.1\"  >")
-                    .replacingOccurrences(of: "defs><g>", with: "defs>")
-                    .replacingOccurrences(of: "</g></svg>", with: "</svg>")
-                XCTAssertEqual(testContent, referenceContent)
-            }
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            validate(node: node, referenceFile: test)
         } catch {
             print(error)
             XCTFail()
         }
     }
+    
+    
+    func create(_ test: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            let result = SVGSerializer.serialize(node: node)
+            try result.write(to: URL(fileURLWithPath: path!), atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    // uncomment to create new test reference file
+        func testCreate() {
+            create("group")
+//            let bundle = Bundle(for: type(of: TestUtils()))
+//            for file in bundle.paths(forResourcesOfType: "svg", inDirectory: ".") {
+//                create(String((file as NSString).lastPathComponent.dropLast(4)))
+//            }
+        }
     
     func testTextBasicTransform() {
         let text1 = Text(text: "Point")
@@ -99,19 +112,19 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testViewBox() {
-        validate("viewBox", withReference: true)
+        validate("viewBox")
     }
  
     func testClipWithParser() {
-        validate("clip", withReference: true)
+        validate("clip")
     }
     
     func testCSSStyleReference() {
-        validate("style", withReference: true)
+        validate("style")
     }
     
     func testSVGTransformSkew() {
-        validate("transform", withReference: true)
+        validate("transform")
     }
     
     func testSVGEllipse() {
@@ -123,7 +136,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testSVGGroup() {
-        validate("group", withReference: true)
+        validate("group")
     }
     
     func testSVGLine() {

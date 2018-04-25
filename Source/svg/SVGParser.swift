@@ -57,7 +57,7 @@ open class SVGParser {
                                     "fill", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
-                                    "font-weight", "opacity", "color"]
+                                    "font-weight", "opacity", "color", "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -101,12 +101,15 @@ open class SVGParser {
             }
         }
         parseSvg(parsedXml.children)
-
-        let group = Group(contents: self.nodes, place: initialPosition)
+        
         if let viewBoxParams = viewBoxParams {
+            let group = viewBoxParams.svgSize != nil ?
+                SVGCanvas(bounds: Rect(x: 0, y: 0, w: viewBoxParams.svgSize!.w, h: viewBoxParams.svgSize!.h), contents: nodes) :
+                Group(contents: nodes)
             addViewBoxClip(toNode: group, viewBoxParams: viewBoxParams)
+            return group
         }
-        return group
+        return Group(contents: nodes)
     }
     
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
@@ -275,6 +278,9 @@ open class SVGParser {
         
         let nodeStyle = getStyleAttributes(groupStyle, element: element)
         if nodeStyle["display"] == "none" {
+            return .none
+        }
+        if styleAttributes["visibility"] == "hidden" {
             return .none
         }
         
@@ -577,6 +583,7 @@ open class SVGParser {
     }
 
     fileprivate func createColor(_ hexString: String, opacity: Double = 1) -> Color {
+        let opacity = min(max(opacity, 0), 1)
         var cleanedHexString = hexString
         if hexString.hasPrefix("#") {
             cleanedHexString = hexString.replacingOccurrences(of: "#", with: "")
@@ -717,7 +724,7 @@ open class SVGParser {
             characterSet.insert(",")
             let separatedValues = strokeDashes.components(separatedBy: characterSet)
             separatedValues.forEach { value in
-                if let doubleValue = Double(value) {
+                if let doubleValue = doubleFromString(value) {
                     dashes.append(doubleValue)
                 }
             }
@@ -1299,10 +1306,31 @@ open class SVGParser {
     }
 
     fileprivate func getDoubleValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
-        guard let attributeValue = element.allAttributes[attribute]?.text, let doubleValue = Double(attributeValue) else {
+        guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
         }
-        return doubleValue
+        return doubleFromString(attributeValue)
+    }
+    
+    fileprivate func doubleFromString(_ string: String) -> Double? {
+        if let doubleValue = Double(string) {
+            return doubleValue
+        }
+        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
+        let fullRange = NSRange(location: 0, length: string.count)
+        if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
+            
+            let unitString = (string as NSString).substring(with: match.range(at: 1))
+            let numberString = String(string.dropLast(unitString.count))
+            switch unitString {
+            case "px" :
+                return Double(numberString)
+            default:
+                print("SVG parsing error. Unit \(unitString) not supported")
+                return Double(numberString)
+            }
+        }
+        return .none
     }
 
     fileprivate func getDoubleValueFromPercentage(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
@@ -1334,13 +1362,10 @@ open class SVGParser {
     }
 
     fileprivate func getFontSize(_ attributes: [String: String]) -> Int? {
-        guard let fontSize = attributes["font-size"] else {
+        guard let fontSize = attributes["font-size"], let size = doubleFromString(fontSize) else {
             return .none
         }
-        if let size = Double(fontSize) {
-            return (Int(round(size)))
-        }
-        return .none
+        return Int(round(size))
     }
 
     fileprivate func getFontStyle(_ attributes: [String: String], style: String) -> Bool? {

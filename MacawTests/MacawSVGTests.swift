@@ -53,15 +53,6 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    // uncomment to create new test reference file
-        func testCreate() {
-            create("group")
-//            let bundle = Bundle(for: type(of: TestUtils()))
-//            for file in bundle.paths(forResourcesOfType: "svg", inDirectory: ".") {
-//                create(String((file as NSString).lastPathComponent.dropLast(4)))
-//            }
-        }
-    
     func testTextBasicTransform() {
         let text1 = Text(text: "Point")
         text1.place = Transform(m11: cos(.pi/4.0), m12: -sin(.pi/4.0), m21: sin(.pi/4.0), m22: cos(.pi/4.0), dx: 0, dy: 0)
@@ -161,5 +152,58 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGTriangle() {
         validate("triangle")
+    }
+    
+    
+    
+    func validateJSON(node: Node, referenceFile: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        
+        do {
+            if let path = bundle.path(forResource: referenceFile, ofType: "reference"), let node = node as? Serializable {
+                let referenceContent = try String(contentsOfFile: path)
+                
+                let jsonData = try JSONSerialization.data(withJSONObject: node.toDictionary(), options: .prettyPrinted)
+                let nodeContent = String(data: jsonData, encoding: String.Encoding.utf8)
+                
+                XCTAssertEqual(nodeContent, referenceContent)
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func validateJSON(_ test: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            validateJSON(node: node, referenceFile: test)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func createJSON(_ test: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            guard let serializableNode = node as? Serializable else {
+                XCTFail()
+                return
+            }
+            let jsonData = try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
+            try jsonData.write(to: URL(fileURLWithPath: path!))
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testColorProp02() {
+        validateJSON("color-prop-02-f-manual")
+    }
+    
+    func testShapesCircle01() {
+        validateJSON("shapes-circle-01-t-manual")
     }
 }

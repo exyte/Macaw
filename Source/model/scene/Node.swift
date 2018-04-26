@@ -319,5 +319,5 @@ open class Node: Drawable {
     internal func bounds() -> Rect? {
         return Rect()
     }
-    
+
 }

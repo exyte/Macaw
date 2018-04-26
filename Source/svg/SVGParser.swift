@@ -42,7 +42,7 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "text-anchor", "clip-path", "fill-opacity",
+                                    "fill", "fill-rule", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
                                     "font-weight", "opacity", "color", "visibility"]
@@ -273,7 +273,10 @@ open class SVGParser {
         let position = getPosition(element)
         switch element.name {
         case "path":
-            if let path = parsePath(node) {
+            if var path = parsePath(node) {
+                if let rule = getFillRule(styleAttributes) {
+                    path = Path(segments: path.segments, fillRule: rule)
+                }
                 return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "line":
@@ -1334,6 +1337,20 @@ open class SVGParser {
             return true
         }
         return false
+    }
+    
+    fileprivate func getFillRule(_ attributes: [String: String]) -> FillRule? {
+        if let rule = attributes["fill-rule"] {
+            switch rule {
+            case "nonzero":
+                return .nonzero
+            case "evenodd":
+                return .evenodd
+            default:
+                return .none
+            }
+        }
+        return .none
     }
 
     fileprivate func copyNode(_ referenceNode: Node) -> Node? {

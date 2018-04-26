@@ -26,6 +26,76 @@ internal protocol Serializable {
     func toDictionary() -> [String:Any]
 }
 
+
+
+class NodeSerializer {
+    
+    var factories = [String:([String:Any]) -> Node]()
+    
+    static var shared = NodeSerializer()
+    
+    init() {
+        factories["Shape"] = { dictionary in
+            let locusDict = dictionary["form"] as! [String:Any]
+            let locus = LocusSerializer.shared.instance(dictionary: locusDict)
+            
+            let shape = Shape(form: locus)
+            shape.fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
+            
+            if let fillDict = dictionary["fill"] as? [String:Any], let fillType = fillDict["type"] as? String, fillType == "Color" {
+                shape.fill = Color(dictionary: fillDict)
+            }
+            if let strokeDict = dictionary["stroke"] as? [String:Any] {
+                shape.stroke = Stroke(dictionary: strokeDict)
+            }
+            
+            return shape
+        }
+        factories["Text"] = { dictionary in
+            let textString = dictionary["text"] as! String
+            let text = Text(text: textString)
+            text.fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
+            
+            if let fontDict = dictionary["font"] as? [String:Any] {
+                text.font = Font(dictionary: fontDict)
+            }
+            if let fillDict = dictionary["fill"] as? [String:Any],
+                let fillType = fillDict["type"] as? String,
+                fillType == "Color",
+                let color = Color(dictionary: fillDict) {
+                text.fill = color
+            }
+            if let strokeDict = dictionary["stroke"] as? [String:Any] {
+                text.stroke = Stroke(dictionary: strokeDict)
+            }
+            if let alignString = dictionary["align"] as? String {
+                text.align = Align.instantiate(string: alignString)
+            }
+            if let baselineString = dictionary["baseline"] as? String {
+                text.baseline = baselineForString(baselineString)
+            }
+            
+            return text
+        }
+        factories["Group"] = { dictionary in
+            let contents = dictionary["contents"] as! [[String:Any]]
+            var nodes = [Node]()
+            for dict in contents {
+                nodes.append(NodeSerializer.shared.instance(dictionary: dict))
+            }
+            let group = Group()
+            group.fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
+            group.contents = nodes
+            return group
+        }
+    }
+    
+    func instance(dictionary: [String:Any]) -> Node {
+        let type = dictionary["node"] as! String
+        return factories[type]!(dictionary)
+    }
+}
+
 extension Node {
     
     func baseToDictionary() -> [String:Any] {
@@ -44,26 +114,6 @@ extension Node {
             clip = LocusSerializer().instance(dictionary: locusDict)
         }
     }
-    
-    static func instantiate(dictionary: [String:Any]) -> Node? {
-        guard let nodeType = dictionary["node"] as? String else {
-            fatalError("No node type specified")
-        }
-        
-        if nodeType == "Shape" {
-            return Shape(dictionary: dictionary)
-        }
-        
-        if nodeType == "Text" {
-            return Text(dictionary: dictionary)
-        }
-        
-        if nodeType == "Group" {
-            return Group(dictionary: dictionary)
-        }
-        
-        fatalError("Node from dictionary error. Node \(nodeType) not supported")
-    }
 }
 
 extension Shape: Serializable {
@@ -81,23 +131,6 @@ extension Shape: Serializable {
             result["stroke"] = stroke.toDictionary()
         }
         return result
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        
-        let locusDict = dictionary["form"] as! [String:Any]
-        let locus = LocusSerializer().instance(dictionary: locusDict)
-        
-        self.init(form: locus)
-        
-        if let fillDict = dictionary["fill"] as? [String:Any], let fillType = fillDict["type"] as? String, fillType == "Color" {
-            fill = Color(dictionary: fillDict)
-        }
-        if let strokeDict = dictionary["stroke"] as? [String:Any] {
-            stroke = Stroke(dictionary: strokeDict)
-        }
-        
-        fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
     }
 }
 
@@ -120,44 +153,6 @@ extension Text: Serializable {
         result["baseline"] = "\(baseline)"
         return result
     }
-    
-    convenience init?(dictionary: [String:Any]) {
-        guard let text = dictionary["text"] as? String else {
-            return nil
-        }
-        self.init(text: text)
-        
-        if let fontDict = dictionary["font"] as? [String:Any] {
-            font = Font(dictionary: fontDict)
-        }
-        if let fillDict = dictionary["fill"] as? [String:Any],
-            let fillType = fillDict["type"] as? String,
-            fillType == "Color",
-            let color = Color(dictionary: fillDict) {
-            fill = color
-        }
-        if let strokeDict = dictionary["stroke"] as? [String:Any] {
-            stroke = Stroke(dictionary: strokeDict)
-        }
-        if let alignString = dictionary["align"] as? String {
-            align = Align.instantiate(string: alignString)
-        }
-        if let baselineString = dictionary["baseline"] as? String {
-            baseline = baselineForString(baselineString)
-        }
-        
-        fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
-    }
-    
-    fileprivate func baselineForString(_ string: String) -> Baseline {
-        switch(string) {
-        case "top": return .top
-        case "alphabetic": return .alphabetic
-        case "bottom": return .bottom
-        case "mid": return .mid
-        default: return .top
-        }
-    }
 }
 
 extension Group: Serializable {
@@ -174,22 +169,6 @@ extension Group: Serializable {
         result["contents"] = nodes
         return result
     }
-    
-    convenience init?(dictionary: [String:Any]) {
-        
-        guard let contents = dictionary["contents"] as? [[String:Any]] else {
-            return nil
-        }
-        var nodes = [Node]()
-        for dict in contents {
-            if let node = Node.instantiate(dictionary: dict) {
-                nodes.append(node)
-            }
-        }
-        self.init()
-        self.contents = nodes
-        fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
-    }
 }
 
 
@@ -197,6 +176,8 @@ extension Group: Serializable {
 class LocusSerializer {
     
     var factories = [String:([String:Any]) -> Locus]()
+    
+    static var shared = LocusSerializer()
     
     init() {
         factories["Arc"] = { dictionary in
@@ -490,5 +471,15 @@ fileprivate func lineJoinForString(_ string: String) -> LineJoin {
     case "round": return .round
     case "bevel": return .bevel
     default: return .miter
+    }
+}
+
+fileprivate func baselineForString(_ string: String) -> Baseline {
+    switch(string) {
+    case "top": return .top
+    case "alphabetic": return .alphabetic
+    case "bottom": return .bottom
+    case "mid": return .mid
+    default: return .top
     }
 }

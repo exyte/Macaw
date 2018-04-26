@@ -53,14 +53,6 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    // uncomment to create new test reference file
-//        func testCreate() {
-//            let bundle = Bundle(for: type(of: TestUtils()))
-//            for file in bundle.paths(forResourcesOfType: "svg", inDirectory: ".") {
-//                create(String((file as NSString).lastPathComponent.dropLast(4)))
-//            }
-//        }
-    
     func testTextBasicTransform() {
         let text1 = Text(text: "Point")
         text1.place = Transform(m11: cos(.pi/4.0), m12: -sin(.pi/4.0), m21: sin(.pi/4.0), m22: cos(.pi/4.0), dx: 0, dy: 0)
@@ -206,11 +198,6 @@ class MacawSVGTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
-    // uncomment to create new test reference file
-//    func testCreateJSON() {
-//        createJSON("shapes-circle-01-t-manual")
-//    }
     
     func testColorProp02() {
         validateJSON("color-prop-02-f-manual")

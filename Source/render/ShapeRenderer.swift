@@ -47,6 +47,7 @@ class ShapeRenderer: NodeRenderer {
             return .none
         }
 
+
         setGeometry(shape.form, ctx: ctx)
         var drawingMode: CGPathDrawingMode? = nil
         if let stroke = shape.stroke {

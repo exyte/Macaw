@@ -83,11 +83,11 @@ extension Shape: Serializable {
         return result
     }
     
-    convenience init?(dictionary: [String:Any]) {
+    convenience init(dictionary: [String:Any]) {
         
-        guard let locusDict = dictionary["form"] as? [String:Any], let locus = Locus.instantiate(dictionary: locusDict) else {
-            return nil
-        }
+        let locusDict = dictionary["form"] as! [String:Any]
+        let locus = LocusSerializer().instance(dictionary: locusDict)
+        
         self.init(form: locus)
         
         if let fillDict = dictionary["fill"] as? [String:Any], let fillType = fillDict["type"] as? String, fillType == "Color" {
@@ -194,40 +194,63 @@ extension Group: Serializable {
 
 
 
-extension Locus {
-    static func instantiate(dictionary: [String:Any]) -> Locus? {
-        guard let type = dictionary["type"] as? String else {
-            fatalError("No type specified")
+class LocusSerializer {
+    
+    var factories = [String:([String:Any]) -> Locus]()
+    
+    init() {
+        factories["Arc"] = { dictionary in
+            Arc(ellipse: self.instance(dictionary: dictionary["Ellipse"] as! [String:Any]) as! Ellipse,
+                shift: parse(dictionary["shift"]),
+                extent: parse(dictionary["extent"]))
         }
-        if type == "Arc" {
-            return Arc(dictionary: dictionary)
+        factories["Circle"] = { dictionary in
+            Circle(cx: parse(dictionary["cx"]),
+                   cy: parse(dictionary["cy"]),
+                   r: parse(dictionary["r"]))
         }
-        if type == "Circle" {
-            return Circle(dictionary: dictionary)
+        factories["Ellipse"] = { dictionary in
+            Ellipse(cx: parse(dictionary["cx"]),
+                    cy: parse(dictionary["cy"]),
+                    rx: parse(dictionary["rx"]),
+                    ry: parse(dictionary["rx"]))
         }
-        if type == "Ellipse" {
-            return Ellipse(dictionary: dictionary)
+        factories["Line"] = { dictionary in
+            Line(x1: parse(dictionary["x1"]),
+                 y1: parse(dictionary["y1"]),
+                 x2: parse(dictionary["x2"]),
+                 y2: parse(dictionary["y2"]))
         }
-        if type == "Line" {
-            return Line(dictionary: dictionary)
+        factories["Path"] = { dictionary in
+            let array = dictionary["segments"] as! [[String:Any]]
+            var pathSegments = [PathSegment]()
+            for dict in array {
+                pathSegments.append(PathSegment(dictionary: dict))
+            }
+            return Path(segments: pathSegments)
         }
-        if type == "Path" {
-            return Path(dictionary: dictionary)
+        factories["Polygon"] = { dictionary in
+            Polygon.init(points: dictionary["points"] as! [Double])
         }
-        if type == "Polygon" {
-            return Polygon(dictionary: dictionary)
+        factories["Polyline"] = { dictionary in
+            Polyline.init(points: dictionary["points"] as! [Double])
         }
-        if type == "Polyline" {
-            return Polyline(dictionary: dictionary)
+        factories["Rect"] = { dictionary in
+            Rect(x: parse(dictionary["x"]),
+                 y: parse(dictionary["y"]),
+                 w: parse(dictionary["w"]),
+                 h: parse(dictionary["h"]))
         }
-        if type == "Rect" {
-            return Rect(dictionary: dictionary)
+        factories["RoundRect"] = { dictionary in
+            RoundRect(rect: self.instance(dictionary: dictionary["Rect"] as! [String:Any]) as! Rect,
+                      rx: parse(dictionary["rx"]),
+                      ry: parse(dictionary["ry"]))
         }
-        if type == "RoundRect" {
-            return RoundRect(dictionary: dictionary)
-        }
-        
-        fatalError("Locus from dictionary error. Locus \(type) not supported")
+    }
+    
+    func instance(dictionary: [String:Any]) -> Locus {
+        let type = dictionary["type"] as! String
+        return factories[type]!(dictionary)
     }
 }
 
@@ -236,24 +259,12 @@ extension Arc: Serializable {
     func toDictionary() -> [String:Any] {
         return ["type": "Arc", "ellipse": ellipse.toDictionary(), "shift": shift, "extent": extent]
     }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(ellipse: Ellipse(dictionary: dictionary["ellipse"] as? [String : Any] ?? [:]),
-                  shift: parse(dictionary["shift"]),
-                  extent: parse(dictionary["extent"]))
-    }
 }
 
 extension Circle: Serializable {
     
     func toDictionary() -> [String:Any] {
         return ["type": "Circle", "cx": cx, "cy": cy, "r": r]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(cx: parse(dictionary["cx"]),
-                  cy: parse(dictionary["cy"]),
-                  r: parse(dictionary["r"]))
     }
 }
 
@@ -262,26 +273,12 @@ extension Ellipse: Serializable {
     func toDictionary() -> [String:Any] {
         return ["type": "Ellipse", "cx": cx, "cy": cy, "rx": rx, "ry": ry]
     }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(cx: parse(dictionary["cx"]),
-                  cy: parse(dictionary["cy"]),
-                  rx: parse(dictionary["rx"]),
-                  ry: parse(dictionary["ry"]))
-    }    
 }
 
 extension Line: Serializable {
     
     func toDictionary() -> [String:Any] {
         return ["type": "Line", "x1": x1, "y1": y1, "x2": x2, "y2": y2]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(x1: parse(dictionary["x1"]),
-                  y1: parse(dictionary["y1"]),
-                  x2: parse(dictionary["x2"]),
-                  y2: parse(dictionary["y2"]))
     }
 }
 
@@ -294,16 +291,37 @@ extension Path: Serializable {
         }
         return ["type": "Path", "segments": pathSegments]
     }
+}
+
+extension Polygon: Serializable {
     
-    convenience init(dictionary: [String:Any]) {
-        guard let array = dictionary["segments"] as? [[String:Any]] else { self.init(); return }
-        var pathSegments = [PathSegment]()
-        for dict in array {
-            pathSegments.append(PathSegment(dictionary: dict))
-        }
-        self.init(segments: pathSegments)
+    func toDictionary() -> [String:Any] {
+        return ["type": "Polygon", "points": points]
     }
 }
+
+extension Polyline: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["type": "Polyline", "points": points]
+    }
+}
+
+extension Rect: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["type": "Rect", "x": x, "y": y, "w": w, "h": h]
+    }
+}
+
+extension RoundRect: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["type": "RoundRect", "rect": rect.toDictionary(), "rx": rx, "ry": ry]
+    }
+}
+
+
 
 extension PathSegment: Serializable {
     
@@ -318,57 +336,6 @@ extension PathSegment: Serializable {
                   data: array)
     }
 }
-
-extension Polygon: Serializable {
-    
-    func toDictionary() -> [String:Any] {
-        return ["type": "Polygon", "points": points]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(points: dictionary["points"] as? [Double] ?? [])
-    }
-}
-
-extension Polyline: Serializable {
-    
-    func toDictionary() -> [String:Any] {
-        return ["type": "Polyline", "points": points]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(points: dictionary["points"] as? [Double] ?? [])
-    }
-}
-
-extension Rect: Serializable {
-    
-    func toDictionary() -> [String:Any] {
-        return ["type": "Rect", "x": x, "y": y, "w": w, "h": h]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(x: parse(dictionary["x"]),
-                  y: parse(dictionary["y"]),
-                  w: parse(dictionary["w"]),
-                  h: parse(dictionary["h"]))
-    }
-}
-
-extension RoundRect: Serializable {
-    
-    func toDictionary() -> [String:Any] {
-        return ["type": "RoundRect", "rect": rect.toDictionary(), "rx": rx, "ry": ry]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        self.init(rect: Rect(dictionary: dictionary["rect"] as? [String : Any] ?? [:]),
-                  rx: parse(dictionary["rx"]),
-                  ry: parse(dictionary["ry"]))
-    }
-}
-
-
 
 extension Color: Serializable {
     

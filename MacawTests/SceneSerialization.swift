@@ -111,7 +111,7 @@ extension Node {
         opaque = Bool(dictionary["opaque"] as? String ?? "") ?? true
         opacity = Double(dictionary["opacity"] as? String ?? "") ?? 0
         if let locusDict = dictionary["clip"] as? [String:Any] {
-            clip = LocusSerializer().instance(dictionary: locusDict)
+            clip = LocusSerializer.shared.instance(dictionary: locusDict)
         }
     }
 }

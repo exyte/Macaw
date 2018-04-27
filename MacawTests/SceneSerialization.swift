@@ -21,26 +21,22 @@ func parse<T: Initializable>(_ from: Any?) -> T {
     return from as? T ?? T()
 }
 
-
-internal protocol Serializable {
+protocol Serializable {
     func toDictionary() -> [String:Any]
 }
-
-
 
 class NodeSerializer {
     
     var factories = [String:([String:Any]) -> Node]()
     
-    static var shared = NodeSerializer()
+    let locusSerializer = LocusSerializer()
     
     init() {
         factories["Shape"] = { dictionary in
             let locusDict = dictionary["form"] as! [String:Any]
-            let locus = LocusSerializer.shared.instance(dictionary: locusDict)
+            let locus = self.locusSerializer.instance(dictionary: locusDict)
             
             let shape = Shape(form: locus)
-            shape.fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
             
             if let fillDict = dictionary["fill"] as? [String:Any], let fillType = fillDict["type"] as? String, fillType == "Color" {
                 shape.fill = Color(dictionary: fillDict)
@@ -54,7 +50,6 @@ class NodeSerializer {
         factories["Text"] = { dictionary in
             let textString = dictionary["text"] as! String
             let text = Text(text: textString)
-            text.fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
             
             if let fontDict = dictionary["font"] as? [String:Any] {
                 text.font = Font(dictionary: fontDict)
@@ -81,18 +76,22 @@ class NodeSerializer {
             let contents = dictionary["contents"] as! [[String:Any]]
             var nodes = [Node]()
             for dict in contents {
-                nodes.append(NodeSerializer.shared.instance(dictionary: dict))
+                nodes.append(self.instance(dictionary: dict))
             }
-            let group = Group()
-            group.fromDictionary(dictionary: dictionary) // fill in the fields inherited from Node
-            group.contents = nodes
-            return group
+            return Group(contents: nodes)
         }
     }
     
     func instance(dictionary: [String:Any]) -> Node {
         let type = dictionary["node"] as! String
-        return factories[type]!(dictionary)
+        let node = factories[type]!(dictionary)
+        node.place = Transform(string: dictionary["place"] as? String)
+        node.opaque = Bool(dictionary["opaque"] as? String ?? "") ?? true
+        node.opacity = Double(dictionary["opacity"] as? String ?? "") ?? 0
+        if let locusDict = dictionary["clip"] as? [String:Any] {
+            node.clip = locusSerializer.instance(dictionary: locusDict)
+        }
+        return node
     }
 }
 
@@ -104,15 +103,6 @@ extension Node {
             result["clip"] = clip.toDictionary()
         }
         return result
-    }
-    
-    func fromDictionary(dictionary: [String:Any]) {
-        place = Transform(string: dictionary["place"] as? String)
-        opaque = Bool(dictionary["opaque"] as? String ?? "") ?? true
-        opacity = Double(dictionary["opacity"] as? String ?? "") ?? 0
-        if let locusDict = dictionary["clip"] as? [String:Any] {
-            clip = LocusSerializer.shared.instance(dictionary: locusDict)
-        }
     }
 }
 
@@ -171,13 +161,9 @@ extension Group: Serializable {
     }
 }
 
-
-
 class LocusSerializer {
     
     var factories = [String:([String:Any]) -> Locus]()
-    
-    static var shared = LocusSerializer()
     
     init() {
         factories["Arc"] = { dictionary in
@@ -206,7 +192,9 @@ class LocusSerializer {
             let array = dictionary["segments"] as! [[String:Any]]
             var pathSegments = [PathSegment]()
             for dict in array {
-                pathSegments.append(PathSegment(dictionary: dict))
+                pathSegments.append(PathSegment(
+                    type: typeForString(dict["type"] as! String),
+                    data: dict["data"] as! [Double]))
             }
             return Path(segments: pathSegments)
         }
@@ -228,7 +216,7 @@ class LocusSerializer {
                       ry: parse(dictionary["ry"]))
         }
     }
-    
+
     func instance(dictionary: [String:Any]) -> Locus {
         let type = dictionary["type"] as! String
         return factories[type]!(dictionary)
@@ -302,19 +290,10 @@ extension RoundRect: Serializable {
     }
 }
 
-
-
 extension PathSegment: Serializable {
     
-    internal func toDictionary() -> [String:Any] {
+    func toDictionary() -> [String:Any] {
         return ["type": "\(type)", "data": data]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        guard let typeString = dictionary["type"] as? String, let array = dictionary["data"] as? [Double] else { self.init(); return }
-        
-        self.init(type: typeForString(typeString),
-                  data: array)
     }
 }
 
@@ -331,7 +310,7 @@ extension Color: Serializable {
 
 extension Stroke: Serializable {
     
-    internal func toDictionary() -> [String:Any] {
+    func toDictionary() -> [String:Any] {
         var result = ["width": width, "cap": "\(cap)", "join": "\(join)", "dashes": dashes] as [String : Any]
         if let fillColor = fill as? Color {
             result["fill"] = fillColor.toDictionary()
@@ -339,7 +318,7 @@ extension Stroke: Serializable {
         return result
     }
     
-    internal convenience init?(dictionary: [String:Any]) {
+    convenience init?(dictionary: [String:Any]) {
         
         guard let fillDict = dictionary["fill"] as? [String:Any], let fillType = fillDict["type"] as? String, fillType == "Color", let fill = Color(dictionary: fillDict) else {
             return nil
@@ -363,7 +342,7 @@ extension Stroke: Serializable {
 
 extension Font: Serializable {
     
-    internal func toDictionary() -> [String:Any] {
+    func toDictionary() -> [String:Any] {
         return ["name": name, "size": size, "weight": weight]
     }
     
@@ -407,7 +386,7 @@ extension Transform {
 
 extension Align {
     
-    internal func toString() -> String {
+    func toString() -> String {
         if self === Align.mid {
             return "mid"
         }
@@ -417,7 +396,7 @@ extension Align {
         return "min"
     }
     
-    internal static func instantiate(string: String) -> Align {
+    static func instantiate(string: String) -> Align {
         switch string {
         case "mid":
             return .mid
@@ -428,8 +407,6 @@ extension Align {
         }
     }
 }
-
-
 
 fileprivate func typeForString(_ string: String) -> PathSegmentType {
     switch(string) {

@@ -1268,7 +1268,7 @@ open class SVGParser {
     }
 
     fileprivate func getFontName(_ attributes: [String: String]) -> String? {
-        return attributes["font-family"]
+        return attributes["font-family"]?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     fileprivate func getFontSize(_ attributes: [String: String]) -> Int? {

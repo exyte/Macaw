@@ -90,7 +90,7 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
-    static let availableFonts = UIFont.familyNames.map{ $0.lowercased() }
+    static let availableFonts = MFont.familyNames.map{ $0.lowercased() }
     
     class func loadFont(name: String, size: Int) -> MFont? {
         

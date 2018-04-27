@@ -90,7 +90,7 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
-    class func loadFont(name: String, size: Int) -> MFont? {
+    class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
         let separationSet = CharacterSet(charactersIn: ",")
         let names = name.components(separatedBy: separationSet)
         var customFont: MFont? = .none
@@ -99,14 +99,12 @@ class RenderUtils {
                 return
             }
 
-            if fontName.first == " " {
-                let index = fontName.index(fontName.startIndex, offsetBy: 1)
-                let fixedName = String(fontName.suffix(from: index))
-                customFont = MFont(name: fixedName, size: CGFloat(size))
-                return
+            let fontName = fontName.trimmingCharacters(in: .whitespaces)
+            var fontDec = UIFontDescriptor(name: fontName, size: CGFloat(size))
+            if weight == "bold" || weight == "bolder" {
+                fontDec = fontDec.withSymbolicTraits(.traitBold)!
             }
-
-            customFont = MFont(name: fontName, size: CGFloat(size))
+            customFont = MFont(descriptor: fontDec, size: CGFloat(size))
         }
 
         return customFont

@@ -843,7 +843,7 @@ open class SVGParser {
         if let anchor = textAnchor {
             if anchor == "middle" {
                 return .mid
-            } else if anchor == "right" {
+            } else if anchor == "end" {
                 return .max
             }
         }

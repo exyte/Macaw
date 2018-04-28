@@ -98,11 +98,16 @@ class RenderUtils {
             if customFont != .none {
                 return
             }
-
+            
             let fontName = fontName.trimmingCharacters(in: .whitespaces)
-            var fontDec = UIFontDescriptor(name: fontName, size: CGFloat(size))
+            var fontDec = MFontDescriptor(name: fontName, size: CGFloat(size))
             if weight == "bold" || weight == "bolder" {
+                #if os(iOS)
                 fontDec = fontDec.withSymbolicTraits(.traitBold)!
+                #elseif os(OSX)
+                fontDec = fontDec.withSymbolicTraits(.bold)
+                #endif
+                
             }
             customFont = MFont(descriptor: fontDec, size: CGFloat(size))
         }

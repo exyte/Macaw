@@ -24,16 +24,14 @@ open class SvgContentLayout: ContentLayout {
     public func layout(rect: Rect, into rectToFitIn: Rect) -> Transform {
         
         var result = Transform()
-        let r = Rect(x: 0, y: 0, w: rect.x + rect.w, h: rect.y + rect.h)
-        
-        let newSize = scalingMode.fit(rect: r, into: rectToFitIn)
+        let newSize = scalingMode.fit(rect: rect, into: rectToFitIn)
         result = result.scale(
-            sx: newSize.w / r.w,
-            sy: newSize.h / r.h
+            sx: newSize.w / rect.w,
+            sy: newSize.h / rect.h
         )
         
-        let dx = xAligningMode.align(outer: rectToFitIn.w, inner: newSize.w) / (newSize.w / r.w)
-        let dy = yAligningMode.align(outer: rectToFitIn.h, inner: newSize.h) / (newSize.h / r.h)
+        let dx = xAligningMode.align(outer: rectToFitIn.w, inner: newSize.w) / (newSize.w / rect.w)
+        let dy = yAligningMode.align(outer: rectToFitIn.h, inner: newSize.h) / (newSize.h / rect.h)
         result = result.move(dx: dx, dy: dy)
         
         return result

@@ -10,14 +10,6 @@ import SWXMLHash
 ///
 
 open class SVGParser {
-    
-    fileprivate class ViewBoxParams {
-        var svgSize: Size?
-        var viewBox: Rect?
-        var scalingMode: AspectRatio?
-        var xAligningMode: Align = .mid
-        var yAligningMode: Align = .mid
-    }
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
@@ -90,11 +82,7 @@ open class SVGParser {
         parseSvg(parsedXml.children)
         
         if let viewBoxParams = viewBoxParams {
-            let group = viewBoxParams.svgSize != nil ?
-                SVGCanvas(bounds: Rect(x: 0, y: 0, w: viewBoxParams.svgSize!.w, h: viewBoxParams.svgSize!.h), contents: nodes) :
-                Group(contents: nodes)
-            addViewBoxClip(toNode: group, viewBoxParams: viewBoxParams)
-            return group
+            return SVGCanvas(viewBoxParams: viewBoxParams, contents: nodes)
         }
         return Group(contents: nodes)
     }
@@ -131,62 +119,43 @@ open class SVGParser {
         }
     }
     
-    fileprivate func addViewBoxClip(toNode node: Node, viewBoxParams params: ViewBoxParams) {
-        
-        guard let viewBox = params.viewBox else { return }
-        node.clip = viewBox
-        
-        let scalingMode = params.scalingMode ?? AspectRatio.meet
-        guard let svgSize = params.svgSize else { return }
-        
-        if scalingMode === AspectRatio.slice {
-            // setup new clipping to slice extra bits
-            let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
-            let newX = viewBox.x + params.xAligningMode.align(outer: viewBox.w, inner: newSize.w)
-            let newY = viewBox.y + params.yAligningMode.align(outer: viewBox.h, inner: newSize.h)
-            node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
-        }
-        
-        let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)
-        node.place = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
-        
-        // move to (0, 0)
-        node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
-    }
-    
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> ViewBoxParams {
-        let params = ViewBoxParams()
-        
-        if let w = getDoubleValue(element, attribute: "width"), let h = getDoubleValue(element, attribute: "height") {
-            params.svgSize = Size(w: w, h: h)
+        var svgDimensions: Dimensions?
+        if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
+            svgDimensions = Dimensions(width: w, height: h)
         }
+        
+        var viewBox: Rect?
         if let viewBoxString = element.allAttributes["viewBox"]?.text {
             let nums = viewBoxString.components(separatedBy: .whitespaces).map{ Double($0) }
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
-                params.viewBox = Rect(x: x, y: y, w: w, h: h)
+                viewBox = Rect(x: x, y: y, w: w, h: h)
             }
         }
+        
+        var xAligningMode, yAligningMode: Align?
+        var scalingMode: AspectRatio?
         if let contentModeString = element.allAttributes["preserveAspectRatio"]?.text {
             let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
             if strings.count == 1 { // none
-                params.scalingMode = parseAspectRatio(strings[0])
-                return params
+                scalingMode = parseAspectRatio(strings[0])
+                return ViewBoxParams(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
             }
-            guard strings.count == 2 else { return params }
+            guard strings.count == 2 else { fatalError("Invalid content mode") }
             
             let alignString = strings[0]
             var xAlign = alignString.prefix(4).lowercased()
             xAlign.remove(at: xAlign.startIndex)
-            params.xAligningMode = parseAlign(xAlign)
+            xAligningMode = parseAlign(xAlign)
             
             var yAlign = alignString.suffix(4).lowercased()
             yAlign.remove(at: yAlign.startIndex)
-            params.yAligningMode = parseAlign(yAlign)
+            yAligningMode = parseAlign(yAlign)
             
-            params.scalingMode = parseAspectRatio(strings[1])
+            scalingMode = parseAspectRatio(strings[1])
         }
         
-        return params
+        return ViewBoxParams(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
@@ -1217,6 +1186,23 @@ open class SVGParser {
         return doubleFromString(attributeValue)
     }
     
+    fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Dimension? {
+        guard let attributeValue = element.allAttributes[attribute]?.text else {
+            return .none
+        }
+        return dimensionFromString(attributeValue)
+    }
+    
+    fileprivate func dimensionFromString(_ string: String) -> Dimension? {
+        if let value = doubleFromString(string) {
+            return Dimension(pixels: value)
+        }
+        if string.hasSuffix("%") {
+            return Dimension(percent: Double(string.dropLast())!)
+        }
+        return .none
+    }
+    
     fileprivate func doubleFromString(_ string: String) -> Double? {
         if let doubleValue = Double(string) {
             return doubleValue
@@ -1227,12 +1213,13 @@ open class SVGParser {
             
             let unitString = (string as NSString).substring(with: match.range(at: 1))
             let numberString = String(string.dropLast(unitString.count))
+            let value = Double(numberString)!
             switch unitString {
             case "px" :
-                return Double(numberString)
+                return value
             default:
                 print("SVG parsing error. Unit \(unitString) not supported")
-                return Double(numberString)
+                return value
             }
         }
         return .none

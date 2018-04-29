@@ -18,6 +18,34 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         didSet {
+            if let canvas = node as? SVGCanvas, let dimensions = canvas.viewBoxParams.svgDimensions {
+                
+                let width = dimensionToPixels(dimensions.width, framePixels: Double(frame.width))
+                let height = dimensionToPixels(dimensions.height, framePixels: Double(frame.height))
+                let svgSize = Size(w: width, h: height)
+                
+                let params = canvas.viewBoxParams
+                let scalingMode = params.scalingMode
+                if let viewBox = params.viewBox {
+                    canvas.clip = viewBox
+                }
+                let viewBox = params.viewBox ?? Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h)
+                
+                if scalingMode === AspectRatio.slice {
+                    // setup new clipping to slice extra bits
+                    let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
+                    let newX = viewBox.x + params.xAligningMode.align(outer: viewBox.w, inner: newSize.w)
+                    let newY = viewBox.y + params.yAligningMode.align(outer: viewBox.h, inner: newSize.h)
+                    node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
+                }
+                
+                let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: params.xAligningMode, yAligningMode: params.yAligningMode)
+                node.place = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
+                
+                // move to (0, 0)
+                node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
+            }
+            
             nodesMap.add(node, view: self)
             self.renderer?.dispose()
             if let cache = animationCache {
@@ -172,6 +200,15 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     public final func findNodeAt(location: CGPoint) -> Node? {
         guard let ctx = context.cgContext else { return .none }
         return renderer?.findNodeAt(location: location, ctx: ctx)
+    }
+    
+    fileprivate func dimensionToPixels(_ dimension: Dimension, framePixels: Double) -> Double {
+        switch(dimension) {
+        case let .percent(percent):
+            return framePixels * percent / 100.0
+        case let .pixels(pixels):
+            return pixels
+        }
     }
 
     // MARK: - Touches

@@ -100,13 +100,13 @@ class RenderUtils {
                 return MFont(name: font, size: CGFloat(size))
             }
             
-            if name == "serif" {
+            if font == "serif" {
                 return MFont(name: "Georgia", size: CGFloat(size))
             }
-            if name == "sans-serif" {
+            if font == "sans-serif" {
                 return MFont(name: "Arial", size: CGFloat(size))
             }
-            if name == "monospace" {
+            if font == "monospace" {
                 return MFont(name: "Courier", size: CGFloat(size))
             }
         }

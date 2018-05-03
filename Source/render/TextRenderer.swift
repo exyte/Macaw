@@ -79,18 +79,18 @@ class TextRenderer: NodeRenderer {
         guard let text = text else {
             return MFont.systemFont(ofSize: 18.0)
         }
-
-        if let textFont = text.font {
-            if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
-                return customFont
-            } else {
-                if let weight = getWeight(textFont.weight) {
-                    return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
-                }
-                return MFont.systemFont(ofSize: CGFloat(textFont.size))
-            }
+        guard let textFont = text.font else {
+            return MFont.systemFont(ofSize: MFont.mSystemFontSize)
         }
-        return MFont.systemFont(ofSize: MFont.mSystemFontSize)
+        
+        if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
+            return customFont
+        } else {
+            if let weight = getWeight(textFont.weight) {
+                return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
+            }
+            return MFont.systemFont(ofSize: CGFloat(textFont.size))
+        }
     }
 
     fileprivate func getWeight(_ weight: String) -> MFont.Weight? {

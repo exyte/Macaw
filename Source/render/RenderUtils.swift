@@ -90,26 +90,28 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
+    static let availableFonts = MFont.mFamilyNames.map{ $0.lowercased() }
+    
     class func loadFont(name: String, size: Int) -> MFont? {
-        let separationSet = CharacterSet(charactersIn: ",")
-        let names = name.components(separatedBy: separationSet)
-        var customFont: MFont? = .none
-        names.forEach { fontName in
-            if customFont != .none {
-                return
+        
+        let fontPriorities = name.split(separator: ",").map{ String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
+        for font in fontPriorities {
+            if availableFonts.contains(font) {
+                return MFont(name: font, size: CGFloat(size))
             }
-
-            if fontName.first == " " {
-                let index = fontName.index(fontName.startIndex, offsetBy: 1)
-                let fixedName = String(fontName.suffix(from: index))
-                customFont = MFont(name: fixedName, size: CGFloat(size))
-                return
+            
+            if font == "serif" {
+                return MFont(name: "Georgia", size: CGFloat(size))
             }
-
-            customFont = MFont(name: fontName, size: CGFloat(size))
+            if font == "sans-serif" {
+                return MFont(name: "Arial", size: CGFloat(size))
+            }
+            if font == "monospace" {
+                return MFont(name: "Courier", size: CGFloat(size))
+            }
         }
 
-        return customFont
+        return .none
     }
 
     class func applyOpacity(_ color: Color, opacity: Double) -> Color {

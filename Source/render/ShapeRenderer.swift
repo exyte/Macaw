@@ -38,7 +38,12 @@ class ShapeRenderer: NodeRenderer {
 
         if shape.fill != nil || shape.stroke != nil {
             setGeometry(shape.form, ctx: ctx.cgContext!)
-            drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity)
+            
+            var fillRule = FillRule.nonzero
+            if let path = shape.form as? Path {
+                fillRule = path.fillRule
+            }
+            drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity, fillRule: fillRule)
         }
     }
 
@@ -102,7 +107,7 @@ class ShapeRenderer: NodeRenderer {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
 
-    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double) {
+    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
         var shouldStrokePath = false
         if fill is Gradient || stroke?.fill is Gradient {
             shouldStrokePath = true
@@ -112,15 +117,15 @@ class ShapeRenderer: NodeRenderer {
             let path = ctx!.path
             setFill(fill, ctx: ctx, opacity: opacity)
             if stroke.fill is Gradient && !(fill is Gradient) {
-                ctx!.drawPath(using: .fill)
+                ctx!.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
             }
-            drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: .fillStroke)
+            drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: fillRule == .nonzero ? .fillStroke : .eoFillStroke)
             return
         }
 
         if let fill = fill {
             setFill(fill, ctx: ctx, opacity: opacity)
-            ctx!.drawPath(using: .fill)
+            ctx!.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
             return
         }
 

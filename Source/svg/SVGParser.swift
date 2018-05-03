@@ -639,13 +639,8 @@ open class SVGParser {
     }
 
     fileprivate func getStrokeWidth(_ styleParts: [String: String]) -> Double {
-        if let strokeWidth = styleParts["stroke-width"] {
-            let characterSet = NSCharacterSet.decimalDigits.union(NSCharacterSet.punctuationCharacters).inverted
-            let digitsArray = strokeWidth.components(separatedBy: characterSet)
-            let digits = digitsArray.joined()
-            if let value = Double(digits) {
-                return value
-            }
+        if let strokeWidth = styleParts["stroke-width"], let value = doubleFromString(strokeWidth) {
+            return value
         }
         return 1
     }

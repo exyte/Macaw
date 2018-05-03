@@ -119,7 +119,7 @@ open class SVGParser {
         }
     }
     
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> ViewBoxParams {
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> ViewBoxParams? {
         var svgDimensions: Dimensions?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
             svgDimensions = Dimensions(width: w, height: h)
@@ -131,6 +131,10 @@ open class SVGParser {
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
                 viewBox = Rect(x: x, y: y, w: w, h: h)
             }
+        }
+        
+        if svgDimensions == nil && viewBox == nil {
+            return .none
         }
         
         var xAligningMode, yAligningMode: Align?

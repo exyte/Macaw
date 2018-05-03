@@ -93,6 +93,10 @@ extension NSFont {
     class var mSystemFontSize: CGFloat {
         return NSFont.systemFontSize
     }
+    
+    class var mFamilyNames: [String] {
+        return NSFontManager.shared.availableFontFamilies
+    }
 }
 
 extension NSScreen {

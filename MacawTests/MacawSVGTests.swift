@@ -154,8 +154,6 @@ class MacawSVGTests: XCTestCase {
         validate("triangle")
     }
     
-    
-    
     func validateJSON(node: Node, referenceFile: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         

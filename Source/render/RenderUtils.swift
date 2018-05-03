@@ -90,29 +90,41 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
+    static let availableFonts = MFont.mFamilyNames.map{ $0.lowercased() }
+    
     class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
-        let separationSet = CharacterSet(charactersIn: ",")
-        let names = name.components(separatedBy: separationSet)
-        var customFont: MFont? = .none
-        names.forEach { fontName in
-            if customFont != .none {
-                return
+       
+        var fontName = ""
+        let fontPriorities = name.split(separator: ",").map{ String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
+        for font in fontPriorities {
+            if availableFonts.contains(font) {
+                fontName = font
             }
             
-            let fontName = fontName.trimmingCharacters(in: .whitespaces)
-            var fontDec = MFontDescriptor(name: fontName, size: CGFloat(size))
-            if weight == "bold" || weight == "bolder" {
-                #if os(iOS)
-                fontDec = fontDec.withSymbolicTraits(.traitBold)!
-                #elseif os(OSX)
-                fontDec = fontDec.withSymbolicTraits(.bold)
-                #endif
-                
+            if font == "serif" {
+                fontName = "Georgia"
             }
-            customFont = MFont(descriptor: fontDec, size: CGFloat(size))
+            if font == "sans-serif" {
+                fontName = "Arial"
+            }
+            if font == "monospace" {
+                fontName = "Courier"
+            }
         }
-
-        return customFont
+        if fontName.isEmpty {
+            return .none
+        }
+        
+        var fontDesc = MFontDescriptor(name: fontName, size: CGFloat(size))
+        if weight == "bold" || weight == "bolder" {
+            #if os(iOS)
+            fontDesc = fontDesc.withSymbolicTraits(.traitBold)!
+            #elseif os(OSX)
+            fontDesc = fontDesc.withSymbolicTraits(.bold)
+            #endif
+            
+        }
+        return MFont(descriptor: fontDesc, size: CGFloat(size))
     }
 
     class func applyOpacity(_ color: Color, opacity: Double) -> Color {

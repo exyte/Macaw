@@ -76,21 +76,18 @@ class TextRenderer: NodeRenderer {
             // However it is needed for the Swift Package Manager to work accordingly.
             return MFont()
         }
-        guard let text = text else {
-            return MFont.systemFont(ofSize: 18.0)
+        guard let text = text, let textFont = text.font else {
+            return MFont.systemFont(ofSize: MFont.mSystemFontSize)
         }
-
-        if let textFont = text.font {
-            if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size, weight: textFont.weight) {
-                return customFont
-            } else {
-                if let weight = getWeight(textFont.weight) {
-                    return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
-                }
-                return MFont.systemFont(ofSize: CGFloat(textFont.size))
+        
+        if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size, weight: textFont.weight) {
+            return customFont
+        } else {
+            if let weight = getWeight(textFont.weight) {
+                return MFont.systemFont(ofSize: CGFloat(textFont.size), weight: weight)
             }
+            return MFont.systemFont(ofSize: CGFloat(textFont.size))
         }
-        return MFont.systemFont(ofSize: MFont.mSystemFontSize)
     }
 
     fileprivate func getWeight(_ weight: String) -> MFont.Weight? {

@@ -69,11 +69,11 @@ open class SVGParser {
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
         
-        var viewBoxParams: ViewBoxParams?
+        var contentLayout: ContentLayout?
         for child in parsedXml.children {
             if let element = child.element {
                 if element.name == "svg" {
-                    viewBoxParams = parseViewBox(element)
+                    contentLayout = parseViewBox(element)
                     prepareSvg(child.children)
                     break
                 }
@@ -81,8 +81,8 @@ open class SVGParser {
         }
         parseSvg(parsedXml.children)
         
-        if let viewBoxParams = viewBoxParams {
-            return SVGCanvas(viewBoxParams: viewBoxParams, contents: nodes)
+        if let contentLayout = contentLayout {
+            return SVGCanvas(contentLayout: contentLayout, contents: nodes)
         }
         return Group(contents: nodes)
     }
@@ -119,7 +119,7 @@ open class SVGParser {
         }
     }
     
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> ViewBoxParams? {
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SvgContentLayout? {
         var svgDimensions: Dimensions?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
             svgDimensions = Dimensions(width: w, height: h)
@@ -143,7 +143,7 @@ open class SVGParser {
             let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
             if strings.count == 1 { // none
                 scalingMode = parseAspectRatio(strings[0])
-                return ViewBoxParams(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
+                return SvgContentLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
             
@@ -159,7 +159,7 @@ open class SVGParser {
             scalingMode = parseAspectRatio(strings[1])
         }
         
-        return ViewBoxParams(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
+        return SvgContentLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {

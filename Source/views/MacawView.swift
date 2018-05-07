@@ -18,7 +18,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         didSet {
-            if let canvas = node as? SVGCanvas, let params = canvas.contentLayout as? SvgContentLayout, let dimensions = params.svgDimensions {
+            if let canvas = node as? SVGCanvas, let params = canvas.layout as? SvgContentLayout, let dimensions = params.svgDimensions {
                 
                 let width = dimensionToPixels(dimensions.width, framePixels: Double(frame.width))
                 let height = dimensionToPixels(dimensions.height, framePixels: Double(frame.height))

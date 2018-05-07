@@ -69,11 +69,11 @@ open class SVGParser {
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
         
-        var contentLayout: ContentLayout?
+        var layout: ContentLayout?
         for child in parsedXml.children {
             if let element = child.element {
                 if element.name == "svg" {
-                    contentLayout = parseViewBox(element)
+                    layout = parseViewBox(element)
                     prepareSvg(child.children)
                     break
                 }
@@ -81,8 +81,8 @@ open class SVGParser {
         }
         parseSvg(parsedXml.children)
         
-        if let contentLayout = contentLayout {
-            return SVGCanvas(contentLayout: contentLayout, contents: nodes)
+        if let layout = layout {
+            return SVGCanvas(layout: layout, contents: nodes)
         }
         return Group(contents: nodes)
     }

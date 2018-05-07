@@ -1,5 +1,5 @@
 
-public enum Dimension {
+enum Dimension {
     case percent(Double)
     case pixels(Double)
     
@@ -12,7 +12,7 @@ public enum Dimension {
     }
 }
 
-public class Dimensions {
+class Dimensions {
     let width: Dimension
     let height: Dimension
     
@@ -30,13 +30,22 @@ public protocol ContentLayout {
 
 open class SvgContentLayout: ContentLayout {
     
-    public let svgDimensions: Dimensions?
-    public let viewBox: Rect?
     public let scalingMode: AspectRatio
     public let xAligningMode: Align
     public let yAligningMode: Align
     
-    public init(svgDimensions: Dimensions? = .none, viewBox: Rect? = .none, scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
+    let svgDimensions: Dimensions?
+    let viewBox: Rect?
+    
+    public init(scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
+        self.svgDimensions = .none
+        self.viewBox = .none
+        self.scalingMode = scalingMode ?? .meet
+        self.xAligningMode = xAligningMode ?? .mid
+        self.yAligningMode = yAligningMode ?? .mid
+    }
+    
+    init(svgDimensions: Dimensions? = .none, viewBox: Rect? = .none, scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
         self.svgDimensions = svgDimensions
         self.viewBox = viewBox
         self.scalingMode = scalingMode ?? .meet

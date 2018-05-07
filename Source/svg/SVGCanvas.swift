@@ -7,10 +7,10 @@
 
 class SVGCanvas: Group {
     
-    let contentLayout: ContentLayout
+    let layout: ContentLayout
 
-    public init(contentLayout: ContentLayout, contents: [Node] = []) {
-        self.contentLayout = contentLayout
+    public init(layout: ContentLayout, contents: [Node] = []) {
+        self.layout = layout
         super.init(contents: contents)
     }
 

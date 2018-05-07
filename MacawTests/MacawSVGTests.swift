@@ -19,7 +19,8 @@ class MacawSVGTests: XCTestCase {
         do {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
                 let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                XCTAssertEqual(SVGSerializer.serialize(node: node), clipReferenceContent)
+                let result = SVGSerializer.serialize(node: node)
+                XCTAssertEqual(result, clipReferenceContent)
             }
         } catch {
             print(error)
@@ -27,22 +28,25 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    func validate(_ test: String, withReference: Bool = false) {
+    func validate(_ test: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
-        var ext = "svg"
-        if withReference {
-            ext = "reference"
-        }
         do {
-            if let path = bundle.path(forResource: test, ofType: ext) {
-                let referenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                let node = try SVGParser.parse(bundle:bundle, path: test)
-                let testContent = SVGSerializer.serialize(node: node)
-                    .replacingOccurrences(of: "version=\"1.1\"  ><g>", with: "version=\"1.1\"  >")
-                    .replacingOccurrences(of: "defs><g>", with: "defs>")
-                    .replacingOccurrences(of: "</g></svg>", with: "</svg>")
-                XCTAssertEqual(testContent, referenceContent)
-            }
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            validate(node: node, referenceFile: test)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    
+    func create(_ test: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            let result = SVGSerializer.serialize(node: node)
+            try result.write(to: URL(fileURLWithPath: path!), atomically: true, encoding: String.Encoding.utf8)
         } catch {
             print(error)
             XCTFail()
@@ -99,19 +103,19 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testViewBox() {
-        validate("viewBox", withReference: true)
+        validate("viewBox")
     }
  
     func testClipWithParser() {
-        validate("clip", withReference: true)
+        validate("clip")
     }
     
     func testCSSStyleReference() {
-        validate("style", withReference: true)
+        validate("style")
     }
     
     func testSVGTransformSkew() {
-        validate("transform", withReference: true)
+        validate("transform")
     }
     
     func testSVGEllipse() {
@@ -123,7 +127,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testSVGGroup() {
-        validate("group", withReference: true)
+        validate("group")
     }
     
     func testSVGLine() {
@@ -148,5 +152,56 @@ class MacawSVGTests: XCTestCase {
     
     func testSVGTriangle() {
         validate("triangle")
+    }
+    
+    func validateJSON(node: Node, referenceFile: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        
+        do {
+            if let path = bundle.path(forResource: referenceFile, ofType: "reference"), let node = node as? Serializable {
+                let referenceContent = try String(contentsOfFile: path)
+                
+                let jsonData = try JSONSerialization.data(withJSONObject: node.toDictionary(), options: .prettyPrinted)
+                let nodeContent = String(data: jsonData, encoding: String.Encoding.utf8)
+                
+                XCTAssertEqual(nodeContent, referenceContent)
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func validateJSON(_ test: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            validateJSON(node: node, referenceFile: test)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func createJSON(_ test: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            guard let serializableNode = node as? Serializable else {
+                XCTFail()
+                return
+            }
+            let jsonData = try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
+            try jsonData.write(to: URL(fileURLWithPath: path!))
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testColorProp02() {
+        validateJSON("color-prop-02-f-manual")
+    }
+    
+    func testShapesCircle01() {
+        validateJSON("shapes-circle-01-t-manual")
     }
 }

@@ -42,10 +42,10 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "text-anchor", "clip-path", "fill-opacity",
+                                    "fill", "fill-rule", "text-anchor", "clip-path", "fill-opacity",
                                     "stop-color", "stop-opacity",
                                     "font-family", "font-size",
-                                    "font-weight", "opacity", "color"]
+                                    "font-weight", "opacity", "color", "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -88,12 +88,15 @@ open class SVGParser {
             }
         }
         parseSvg(parsedXml.children)
-
-        let group = Group(contents: self.nodes, place: initialPosition)
+        
         if let viewBoxParams = viewBoxParams {
+            let group = viewBoxParams.svgSize != nil ?
+                SVGCanvas(bounds: Rect(x: 0, y: 0, w: viewBoxParams.svgSize!.w, h: viewBoxParams.svgSize!.h), contents: nodes) :
+                Group(contents: nodes)
             addViewBoxClip(toNode: group, viewBoxParams: viewBoxParams)
+            return group
         }
-        return group
+        return Group(contents: nodes)
     }
     
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
@@ -262,11 +265,18 @@ open class SVGParser {
         if styleAttributes["display"] == "none" {
             return .none
         }
+        if styleAttributes["visibility"] == "hidden" {
+            return .none
+        }
+
 
         let position = getPosition(element)
         switch element.name {
         case "path":
-            if let path = parsePath(node) {
+            if var path = parsePath(node) {
+                if let rule = getFillRule(styleAttributes) {
+                    path = Path(segments: path.segments, fillRule: rule)
+                }
                 return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
             }
         case "line":
@@ -629,13 +639,8 @@ open class SVGParser {
     }
 
     fileprivate func getStrokeWidth(_ styleParts: [String: String]) -> Double {
-        if let strokeWidth = styleParts["stroke-width"] {
-            let characterSet = NSCharacterSet.decimalDigits.union(NSCharacterSet.punctuationCharacters).inverted
-            let digitsArray = strokeWidth.components(separatedBy: characterSet)
-            let digits = digitsArray.joined()
-            if let value = Double(digits) {
-                return value
-            }
+        if let strokeWidth = styleParts["stroke-width"], let value = doubleFromString(strokeWidth) {
+            return value
         }
         return 1
     }
@@ -836,7 +841,7 @@ open class SVGParser {
         if let anchor = textAnchor {
             if anchor == "middle" {
                 return .mid
-            } else if anchor == "right" {
+            } else if anchor == "end" {
                 return .max
             }
         }
@@ -1261,17 +1266,14 @@ open class SVGParser {
     }
 
     fileprivate func getFontName(_ attributes: [String: String]) -> String? {
-        return attributes["font-family"]
+        return attributes["font-family"]?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     fileprivate func getFontSize(_ attributes: [String: String]) -> Int? {
-        guard let fontSize = attributes["font-size"] else {
+        guard let fontSize = attributes["font-size"], let size = doubleFromString(fontSize) else {
             return .none
         }
-        if let size = Double(fontSize) {
-            return (Int(round(size)))
-        }
-        return .none
+        return Int(round(size))
     }
 
     fileprivate func getFontStyle(_ attributes: [String: String], style: String) -> Bool? {
@@ -1330,6 +1332,20 @@ open class SVGParser {
             return true
         }
         return false
+    }
+    
+    fileprivate func getFillRule(_ attributes: [String: String]) -> FillRule? {
+        if let rule = attributes["fill-rule"] {
+            switch rule {
+            case "nonzero":
+                return .nonzero
+            case "evenodd":
+                return .evenodd
+            default:
+                return .none
+            }
+        }
+        return .none
     }
 
     fileprivate func copyNode(_ referenceNode: Node) -> Node? {

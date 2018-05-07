@@ -1,27 +1,4 @@
 
-enum Dimension {
-    case percent(Double)
-    case pixels(Double)
-    
-    init(percent: Double) {
-        self = .percent(percent)
-    }
-    
-    init(pixels: Double) {
-        self = .pixels(pixels)
-    }
-}
-
-class Dimensions {
-    let width: Dimension
-    let height: Dimension
-    
-    public init(width: Dimension, height: Dimension) {
-        self.width = width
-        self.height = height
-    }
-}
-
 public protocol ContentLayout {
     
     static var standard: ContentLayout { get }
@@ -30,24 +7,11 @@ public protocol ContentLayout {
 
 class SvgContentLayout: ContentLayout {
     
-    public let scalingMode: AspectRatio
-    public let xAligningMode: Align
-    public let yAligningMode: Align
+    let scalingMode: AspectRatio
+    let xAligningMode: Align
+    let yAligningMode: Align
     
-    let svgDimensions: Dimensions?
-    let viewBox: Rect?
-    
-    public init(scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
-        self.svgDimensions = .none
-        self.viewBox = .none
-        self.scalingMode = scalingMode ?? .meet
-        self.xAligningMode = xAligningMode ?? .mid
-        self.yAligningMode = yAligningMode ?? .mid
-    }
-    
-    init(svgDimensions: Dimensions? = .none, viewBox: Rect? = .none, scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
-        self.svgDimensions = svgDimensions
-        self.viewBox = viewBox
+    init(scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
         self.scalingMode = scalingMode ?? .meet
         self.xAligningMode = xAligningMode ?? .mid
         self.yAligningMode = yAligningMode ?? .mid

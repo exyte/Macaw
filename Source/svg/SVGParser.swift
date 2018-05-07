@@ -69,7 +69,7 @@ open class SVGParser {
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
         
-        var layout: ContentLayout?
+        var layout: NodeLayout?
         for child in parsedXml.children {
             if let element = child.element {
                 if element.name == "svg" {
@@ -119,7 +119,7 @@ open class SVGParser {
         }
     }
     
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SvgContentLayout? {
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SvgNodeLayout? {
         var svgDimensions: Dimensions?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
             svgDimensions = Dimensions(width: w, height: h)
@@ -143,7 +143,7 @@ open class SVGParser {
             let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
             if strings.count == 1 { // none
                 scalingMode = parseAspectRatio(strings[0])
-                return SvgContentLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
+                return SvgNodeLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
             
@@ -159,7 +159,7 @@ open class SVGParser {
             scalingMode = parseAspectRatio(strings[1])
         }
         
-        return SvgContentLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
+        return SvgNodeLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {

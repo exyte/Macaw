@@ -1,8 +1,8 @@
 ## W3C SVG Test Suite Coverage
 
-Total:  6
+Total:  288
 
-Passed: 33%
+Passed: 23.9%
 
 |Name  |Status |
 |------|-------|
@@ -263,6 +263,39 @@ Passed: 33%
 |[text-fonts-03-t-manual](w3cSVGTests/text-fonts-03-t-manual.svg)       | ❌                                                 |
 |[text-fonts-04-t-manual](w3cSVGTests/text-fonts-04-t-manual.svg)       | ❌                                                 |
 |[text-fonts-05-f-manual](w3cSVGTests/text-fonts-05-f-manual.svg)       | ❌                                                 |
+|[text-fonts-202-t-manual](w3cSVGTests/text-fonts-202-t-manual.svg)       | ❌                                                 |
+|[text-fonts-203-t-manual](w3cSVGTests/text-fonts-203-t-manual.svg)       | ❌                                                 |
+|[text-fonts-204-t-manual](w3cSVGTests/text-fonts-204-t-manual.svg)       | ❌                                                 |
+|[text-intro-01-t-manual](w3cSVGTests/text-intro-01-t-manual.svg)       | ❌                                                 |
+|[text-intro-02-b-manual](w3cSVGTests/text-intro-02-b-manual.svg)       | ❌                                                 |
+|[text-intro-03-b-manual](w3cSVGTests/text-intro-03-b-manual.svg)       | ❌                                                 |
+|[text-intro-04-t-manual](w3cSVGTests/text-intro-04-t-manual.svg)       | ❌                                                 |
+|[text-intro-05-t-manual](w3cSVGTests/text-intro-05-t-manual.svg)       | ❌                                                 |
+|[text-intro-06-t-manual](w3cSVGTests/text-intro-06-t-manual.svg)       | ❌                                                 |
+|[text-intro-07-t-manual](w3cSVGTests/text-intro-07-t-manual.svg)       | ❌                                                 |
+|[text-intro-09-b-manual](w3cSVGTests/text-intro-09-b-manual.svg)       | ❌                                                 |
+|[text-intro-10-f-manual](w3cSVGTests/text-intro-10-f-manual.svg)       | ❌                                                 |
+|[text-intro-11-t-manual](w3cSVGTests/text-intro-11-t-manual.svg)       | ❌                                                 |
+|[text-intro-12-t-manual](w3cSVGTests/text-intro-12-t-manual.svg)       | ❌                                                 |
+|[text-path-01-b-manual](w3cSVGTests/text-path-01-b-manual.svg)       | ❌                                                 |
+|[text-path-02-b-manual](w3cSVGTests/text-path-02-b-manual.svg)       | ❌                                                 |
+|[text-spacing-01-b-manual](w3cSVGTests/text-spacing-01-b-manual.svg)       | ❌                                                 |
+|[text-text-01-b-manual](w3cSVGTests/text-text-01-b-manual.svg)       | ❌                                                 |
+|[text-text-03-b-manual](w3cSVGTests/text-text-03-b-manual.svg)       | ❌                                                 |
+|[text-text-04-t-manual](w3cSVGTests/text-text-04-t-manual.svg)       | ❌                                                 |
+|[text-text-05-t-manual](w3cSVGTests/text-text-05-t-manual.svg)       | ❌                                                 |
+|[text-text-06-t-manual](w3cSVGTests/text-text-06-t-manual.svg)       | ❌                                                 |
+|[text-text-07-t-manual](w3cSVGTests/text-text-07-t-manual.svg)       | ❌                                                 |
+|[text-text-08-b-manual](w3cSVGTests/text-text-08-b-manual.svg)       | ❌                                                 |
+|[text-text-09-t-manual](w3cSVGTests/text-text-09-t-manual.svg)       | ❌                                                 |
+|[text-text-10-t-manual](w3cSVGTests/text-text-10-t-manual.svg)       | ❌                                                 |
+|[text-text-11-t-manual](w3cSVGTests/text-text-11-t-manual.svg)       | ❌                                                 |
+|[text-text-12-t-manual](w3cSVGTests/text-text-12-t-manual.svg)       | ❌                                                 |
+|[text-tref-01-b-manual](w3cSVGTests/text-tref-01-b-manual.svg)       | ❌                                                 |
+|[text-tref-02-b-manual](w3cSVGTests/text-tref-02-b-manual.svg)       | ❌                                                 |
+|[text-tref-03-b-manual](w3cSVGTests/text-tref-03-b-manual.svg)       | ❌                                                 |
+|[text-tspan-01-b-manual](w3cSVGTests/text-tspan-01-b-manual.svg)       | ❌                                                 |
+|[text-tspan-02-b-manual](w3cSVGTests/text-tspan-02-b-manual.svg)       | ❌                                                 |
 |[types-basic-01-f-manual](w3cSVGTests/types-basic-01-f-manual.svg)       | ✅                                                 |
 
 

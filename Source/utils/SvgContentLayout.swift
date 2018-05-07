@@ -28,7 +28,7 @@ public protocol ContentLayout {
     func layout(rect: Rect, into rectToFitIn: Rect) -> Transform
 }
 
-open class SvgContentLayout: ContentLayout {
+class SvgContentLayout: ContentLayout {
     
     public let scalingMode: AspectRatio
     public let xAligningMode: Align

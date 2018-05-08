@@ -548,7 +548,7 @@ public enum XMLIndexer {
     /// All child elements from the currently indexed level
     public var children: [XMLIndexer] {
         var list = [XMLIndexer]()
-        for elem in all.flatMap({ $0.element }) {
+        for elem in all.compactMap({ $0.element }) {
             for elem in elem.xmlChildren {
                 list.append(XMLIndexer(elem))
             }
@@ -817,7 +817,7 @@ public class XMLElement: XMLContent {
     var index: Int
 
     var xmlChildren: [XMLElement] {
-        return children.flatMap { $0 as? XMLElement }
+        return children.compactMap { $0 as? XMLElement }
     }
 
     /**

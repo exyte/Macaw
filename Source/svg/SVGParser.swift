@@ -581,6 +581,7 @@ open class SVGParser {
         var opacity: Double = 1
         if let strokeOpacity = styleParts["stroke-opacity"] {
             opacity = Double(strokeOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+            opacity = min(max(opacity, 0), 1)
         }
         var fill: Fill?
         if let defaultColor = SVGConstants.colorList[strokeColor] {

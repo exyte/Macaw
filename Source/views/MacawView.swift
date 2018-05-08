@@ -19,7 +19,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         didSet {
             if let canvas = node as? SVGCanvas, let layout = canvas.layout as? SvgNodeLayout {
-                (canvas.place, canvas.clip) = layout.layout(in: Rect(cgRect: bounds))
+                layout.layout(node: canvas, in: Rect(cgRect: bounds))
             }
             
             nodesMap.add(node, view: self)

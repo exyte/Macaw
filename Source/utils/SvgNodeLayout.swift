@@ -24,7 +24,7 @@ class Dimensions {
 
 public protocol NodeLayout {
     
-    func layout(in rect: Rect) -> (Transform, Locus?)
+    func layout(node: Node, in rect: Rect)
 }
 
 class SvgNodeLayout: NodeLayout {
@@ -43,21 +43,15 @@ class SvgNodeLayout: NodeLayout {
         self.yAligningMode = yAligningMode ?? .mid
     }
     
-    public func layout(in rect: Rect) -> (Transform, Locus?) {
+    public func layout(node: Node, in rect: Rect) {
         
-        var clip: Locus? = .none
-        var transform = Transform.identity
-        
-        guard let dimensions = svgDimensions else {
-            return (transform, clip)
-        }
-        
+        guard let dimensions = svgDimensions else { return }
         let width = dimensionToPixels(dimensions.width, framePixels: rect.w)
         let height = dimensionToPixels(dimensions.height, framePixels: rect.h)
         let svgSize = Size(w: width, h: height)
         
         if let viewBox = self.viewBox {
-            clip = viewBox
+            node.clip = viewBox
         }
         let viewBox = self.viewBox ?? Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h)
         
@@ -66,15 +60,14 @@ class SvgNodeLayout: NodeLayout {
             let newSize = AspectRatio.meet.fit(size: svgSize, into: viewBox)
             let newX = viewBox.x + xAligningMode.align(outer: viewBox.w, inner: newSize.w)
             let newY = viewBox.y + yAligningMode.align(outer: viewBox.h, inner: newSize.h)
-            clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
+            node.clip = Rect(x: newX, y: newY, w: newSize.w, h: newSize.h)
         }
         
         let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
-        transform = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
+        node.place = contentLayout.layout(rect: viewBox, into: Rect(x: 0, y: 0, w: svgSize.w, h: svgSize.h))
         
         // move to (0, 0)
-        transform = transform.move(dx: -viewBox.x, dy: -viewBox.y)
-        return (transform, clip)
+        node.place = node.place.move(dx: -viewBox.x, dy: -viewBox.y)
     }
 }
 

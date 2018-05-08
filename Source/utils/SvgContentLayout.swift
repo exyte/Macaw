@@ -5,35 +5,33 @@ public protocol ContentLayout {
     func layout(rect: Rect, into rectToFitIn: Rect) -> Transform
 }
 
-open class SvgContentLayout: ContentLayout {
+class SvgContentLayout: ContentLayout {
     
-    public let scalingMode: AspectRatio
-    public let xAligningMode: Align
-    public let yAligningMode: Align
+    let scalingMode: AspectRatio
+    let xAligningMode: Align
+    let yAligningMode: Align
     
-    public init(scalingMode: AspectRatio, xAligningMode: Align = Align.min, yAligningMode: Align = Align.min) {
-        self.scalingMode = scalingMode
-        self.xAligningMode = xAligningMode
-        self.yAligningMode = yAligningMode
+    init(scalingMode: AspectRatio? = .meet, xAligningMode: Align? = .mid, yAligningMode: Align? = .mid) {
+        self.scalingMode = scalingMode ?? .meet
+        self.xAligningMode = xAligningMode ?? .mid
+        self.yAligningMode = yAligningMode ?? .mid
     }
     
     public static var standard: ContentLayout {
-        return SvgContentLayout(scalingMode: .none)
+        return SvgContentLayout()
     }
     
     public func layout(rect: Rect, into rectToFitIn: Rect) -> Transform {
         
         var result = Transform()
-        let r = Rect(x: 0, y: 0, w: rect.x + rect.w, h: rect.y + rect.h)
-        
-        let newSize = scalingMode.fit(rect: r, into: rectToFitIn)
+        let newSize = scalingMode.fit(rect: rect, into: rectToFitIn)
         result = result.scale(
-            sx: newSize.w / r.w,
-            sy: newSize.h / r.h
+            sx: newSize.w / rect.w,
+            sy: newSize.h / rect.h
         )
         
-        let dx = xAligningMode.align(outer: rectToFitIn.w, inner: newSize.w) / (newSize.w / r.w)
-        let dy = yAligningMode.align(outer: rectToFitIn.h, inner: newSize.h) / (newSize.h / r.h)
+        let dx = xAligningMode.align(outer: rectToFitIn.w, inner: newSize.w) / (newSize.w / rect.w)
+        let dy = yAligningMode.align(outer: rectToFitIn.h, inner: newSize.h) / (newSize.h / rect.h)
         result = result.move(dx: dx, dy: dy)
         
         return result

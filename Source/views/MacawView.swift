@@ -18,6 +18,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         didSet {
+            if let canvas = node as? SVGCanvas, let layout = canvas.layout as? SvgNodeLayout {
+                layout.layout(node: canvas, in: Rect(cgRect: bounds))
+            }
+            
             nodesMap.add(node, view: self)
             self.renderer?.dispose()
             if let cache = animationCache {

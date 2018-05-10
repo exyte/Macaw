@@ -18,7 +18,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
                              opaque: animatedNode.opaque,
                              opacity: animatedNode.opacity,
                              clip: animatedNode.clip,
-                             effect: animatedNode.effect,
+                             filter: animatedNode.filter,
                              visible: animatedNode.visible,
                              tag: animatedNode.tag)
             }

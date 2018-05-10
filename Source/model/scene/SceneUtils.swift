@@ -15,7 +15,7 @@ class SceneUtils {
                           opaque: from.opaque,
                           opacity: from.opacity,
                           clip: from.clip,
-                          effect: from.effect,
+                          filter: from.filter,
                           visible: from.visible,
                           tag: from.tag)
 

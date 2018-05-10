@@ -18,18 +18,6 @@ open class SVGParser {
         var xAligningMode: Align = .mid
         var yAligningMode: Align = .mid
     }
-    
-    fileprivate enum EffectSource: String {
-        case SourceGraphic, SourceAlpha, BackgroundImage, BackgroundAlpha, FillPaint, StrokePaint
-    }
-    
-    fileprivate class Filter {
-        var radius: Double = 0
-        var offset: Point?
-        var color: Color = .clear
-        var input: Effect?
-        var source: EffectSource = .SourceGraphic
-    }
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
     /// - returns: Root node of the corresponding Macaw scene.
@@ -286,23 +274,8 @@ open class SVGParser {
         
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
         
-        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let shadowId = parseIdFromUrl(filterString), let shadow = defFilters[shadowId] {
-            if shadow.offset == nil {
-                parsedNode.effect = shadow.input
-                return parsedNode
-            }
-            
-            guard let offset = shadow.offset else { return .none }
-            let shadowNode = parseElementInternal(node, groupStyle: nodeStyle)! // TODO copy
-            shadowNode.place = shadowNode.place.move(dx: offset.x, dy: offset.y)
-            shadowNode.effect = shadow.input
-            
-            if shadow.source == .SourceAlpha, let shapeNode = shadowNode as? Shape, let stroke = shapeNode.stroke, let color = stroke.fill as? Color {
-                let alphaColor = Color.black.with(a: Double(color.a()) / 255.0)
-                shapeNode.fill = alphaColor
-                shapeNode.stroke = Stroke(fill: alphaColor, width: stroke.width, cap: stroke.cap, join: stroke.join, dashes: stroke.dashes)
-            }
-            return Group(contents: [shadowNode, parsedNode])
+        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let filter = defFilters[filterId] {
+            parsedNode.filter = filter
         }
         
         return parsedNode
@@ -1074,11 +1047,11 @@ open class SVGParser {
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
-                    currentFilter.offset = Point(x: dx, y: dy)
+                    currentFilter.effects.append(Offset(dx: dx, dy: dy))
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    currentFilter.input = GaussianBlur(radius: radius, input: nil)
+                    currentFilter.effects.append(GaussianBlur(radius: radius))
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
@@ -1100,7 +1073,6 @@ open class SVGParser {
         if let filter = filters.first?.value {
             defFilters[id] = filter
         }
-        return
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {

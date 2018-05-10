@@ -33,24 +33,61 @@ class ShapeRenderer: NodeRenderer {
 
     override func doRender(_ force: Bool, opacity: Double) {
         guard let shape = shape, let context = ctx.cgContext else { return }
+        if shape.fill == nil && shape.stroke == nil { return }
         
-        if let blur = shape.effect as? GaussianBlur {
-            let shadowInset = min(blur.radius * 6 + 1, 150)
-            guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else { return }
-            
-            guard let filteredImage = applyFilter(shapeImage, blur: blur) else { return }
-            
-            guard let bounds = shape.bounds() else { return }
-            context.draw(filteredImage, in: CGRect(x: bounds.x-shadowInset/2, y: bounds.y-shadowInset/2, width: bounds.w+shadowInset, height: bounds.h+shadowInset))
+        // no effects, just draw as usual
+        guard let filter = shape.filter else {
+            setGeometry(shape.form, ctx: context)
+            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+            return
         }
+        
+        let offset = filter.effects.filter { $0 is Offset }.first
+        let otherEffects = filter.effects.filter { !($0 is Offset) }
+        if let offset = offset as? Offset {
+            let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
+            context.concatenate(RenderUtils.mapTransform(move))
             
-        else if shape.fill != nil || shape.stroke != nil {
+            if otherEffects.count == 0 {
+                // draw offset shape
+                setGeometry(shape.form, ctx: context)
+                drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+            } else {
+                // apply other effects to offest shape
+                applyEffects(filter.effects, opacity: opacity)
+            }
+            
+            // move back and draw the shape itself
+            context.concatenate(RenderUtils.mapTransform(move.invert()!))
             setGeometry(shape.form, ctx: context)
             drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
         }
+        else {
+            // draw the shape
+            setGeometry(shape.form, ctx: context)
+            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+            
+            // apply other effects to shape
+            applyEffects(filter.effects, opacity: opacity)
+        }
     }
     
-    fileprivate func applyFilter(_ image: CGImage, blur: GaussianBlur) -> CGImage? {
+    fileprivate func applyEffects(_ effects: [Effect], opacity: Double) {
+        guard let shape = shape, let context = ctx.cgContext else { return }
+        for effect in effects {
+            if let blur = effect as? GaussianBlur {
+                let shadowInset = min(blur.radius * 6 + 1, 150)
+                guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else { return }
+                
+                guard let filteredImage = applyBlur(shapeImage, blur: blur) else { return }
+                
+                guard let bounds = shape.bounds() else { return }
+                context.draw(filteredImage, in: CGRect(x: bounds.x-shadowInset/2, y: bounds.y-shadowInset/2, width: bounds.w+shadowInset, height: bounds.h+shadowInset))
+            }
+        }
+    }
+    
+    fileprivate func applyBlur(_ image: CGImage, blur: GaussianBlur) -> CGImage? {
         let image = CIImage(cgImage: image)
         guard let filter = CIFilter(name: "CIGaussianBlur") else { return .none }
         filter.setDefaults()

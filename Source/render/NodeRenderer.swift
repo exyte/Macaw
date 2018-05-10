@@ -46,7 +46,7 @@ class NodeRenderer {
         observe(node.opaqueVar)
         observe(node.opacityVar)
         observe(node.clipVar)
-        observe(node.effectVar)
+        observe(node.fillterVar)
     }
 
     func observe<E>(_ v: Variable<E>) {

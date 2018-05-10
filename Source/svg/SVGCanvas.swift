@@ -7,14 +7,10 @@
 
 class SVGCanvas: Group {
     
-    private let svgBounds: Rect
-    
-    override internal func bounds() -> Rect? {
-        return svgBounds
-    }
+    let layout: NodeLayout
 
-    public init(bounds: Rect, contents: [Node] = []) {
-        self.svgBounds = bounds
+    public init(layout: NodeLayout, contents: [Node] = []) {
+        self.layout = layout
         super.init(contents: contents)
     }
 

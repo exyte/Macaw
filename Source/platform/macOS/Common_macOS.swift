@@ -13,6 +13,7 @@ import Cocoa
 import Quartz
 
 public typealias MFont = NSFont
+public typealias MFontDescriptor = NSFontDescriptor
 public typealias MColor = NSColor
 public typealias MEvent = NSEvent
 public typealias MTouch = NSTouch
@@ -91,6 +92,10 @@ extension NSFont {
 
     class var mSystemFontSize: CGFloat {
         return NSFont.systemFontSize
+    }
+    
+    class var mFamilyNames: [String] {
+        return NSFontManager.shared.availableFontFamilies
     }
 }
 

@@ -30,6 +30,16 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.fillVar)
         observe(shape.strokeVar)
     }
+    
+    fileprivate func drawShape(opacity: Double) {
+        guard let shape = shape, let context = ctx.cgContext else { return }
+        setGeometry(shape.form, ctx: context)
+        var fillRule = FillRule.nonzero
+        if let path = shape.form as? Path {
+            fillRule = path.fillRule
+        }
+        drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity, fillRule: fillRule)
+    }
 
     override func doRender(_ force: Bool, opacity: Double) {
         guard let shape = shape, let context = ctx.cgContext else { return }
@@ -37,8 +47,7 @@ class ShapeRenderer: NodeRenderer {
         
         // no effects, just draw as usual
         guard let filter = shape.filter else {
-            setGeometry(shape.form, ctx: context)
-            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+            drawShape(opacity: opacity)
             return
         }
         
@@ -50,8 +59,7 @@ class ShapeRenderer: NodeRenderer {
             
             if otherEffects.count == 0 {
                 // draw offset shape
-                setGeometry(shape.form, ctx: context)
-                drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+                drawShape(opacity: opacity)
             } else {
                 // apply other effects to offest shape
                 applyEffects(filter.effects, opacity: opacity)
@@ -59,13 +67,11 @@ class ShapeRenderer: NodeRenderer {
             
             // move back and draw the shape itself
             context.concatenate(RenderUtils.mapTransform(move.invert()!))
-            setGeometry(shape.form, ctx: context)
-            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+            drawShape(opacity: opacity)
         }
         else {
             // draw the shape
-            setGeometry(shape.form, ctx: context)
-            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity)
+            drawShape(opacity: opacity)
             
             // apply other effects to shape
             applyEffects(filter.effects, opacity: opacity)
@@ -178,7 +184,7 @@ class ShapeRenderer: NodeRenderer {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
 
-    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double) {
+    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
         var shouldStrokePath = false
         if fill is Gradient || stroke?.fill is Gradient {
             shouldStrokePath = true
@@ -188,15 +194,15 @@ class ShapeRenderer: NodeRenderer {
             let path = ctx!.path
             setFill(fill, ctx: ctx, opacity: opacity)
             if stroke.fill is Gradient && !(fill is Gradient) {
-                ctx!.drawPath(using: .fill)
+                ctx!.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
             }
-            drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: .fillStroke)
+            drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: fillRule == .nonzero ? .fillStroke : .eoFillStroke)
             return
         }
 
         if let fill = fill {
             setFill(fill, ctx: ctx, opacity: opacity)
-            ctx!.drawPath(using: .fill)
+            ctx!.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
             return
         }
 

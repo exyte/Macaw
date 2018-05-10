@@ -13,6 +13,7 @@ import UIKit
 
 public typealias MRectCorner = UIRectCorner
 public typealias MFont = UIFont
+public typealias MFontDescriptor = UIFontDescriptor
 public typealias MColor = UIColor
 public typealias MEvent = UIEvent
 public typealias MTouch = UITouch
@@ -76,6 +77,10 @@ extension MPinchGestureRecognizer {
 extension MFont {
     class var mSystemFontSize: CGFloat {
         return UIFont.systemFontSize
+    }
+    
+    class var mFamilyNames: [String] {
+        return UIFont.familyNames
     }
 }
 

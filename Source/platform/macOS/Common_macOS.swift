@@ -13,6 +13,7 @@ import Cocoa
 import Quartz
 
 public typealias MFont = NSFont
+public typealias MFontDescriptor = NSFontDescriptor
 public typealias MColor = NSColor
 public typealias MEvent = NSEvent
 public typealias MTouch = NSTouch

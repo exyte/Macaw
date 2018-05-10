@@ -92,26 +92,39 @@ class RenderUtils {
 
     static let availableFonts = MFont.mFamilyNames.map{ $0.lowercased() }
     
-    class func loadFont(name: String, size: Int) -> MFont? {
-        
+    class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
+       
+        var fontName = ""
         let fontPriorities = name.split(separator: ",").map{ String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
         for font in fontPriorities {
             if availableFonts.contains(font) {
-                return MFont(name: font, size: CGFloat(size))
+                fontName = font
             }
             
             if font == "serif" {
-                return MFont(name: "Georgia", size: CGFloat(size))
+                fontName = "Georgia"
             }
             if font == "sans-serif" {
-                return MFont(name: "Arial", size: CGFloat(size))
+                fontName = "Arial"
             }
             if font == "monospace" {
-                return MFont(name: "Courier", size: CGFloat(size))
+                fontName = "Courier"
             }
         }
-
-        return .none
+        if fontName.isEmpty {
+            return .none
+        }
+        
+        var fontDesc = MFontDescriptor(name: fontName, size: CGFloat(size))
+        if weight == "bold" || weight == "bolder" {
+            #if os(iOS)
+            fontDesc = fontDesc.withSymbolicTraits(.traitBold)!
+            #elseif os(OSX)
+            fontDesc = fontDesc.withSymbolicTraits(.bold)
+            #endif
+            
+        }
+        return MFont(descriptor: fontDesc, size: CGFloat(size))
     }
 
     class func applyOpacity(_ color: Color, opacity: Double) -> Color {

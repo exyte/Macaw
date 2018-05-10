@@ -1,28 +1,33 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "place" : "1, 0, 0, 1, 0, 30",
-          "node" : "Group",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "contents" : [
             {
-              "place" : "1, 0, 0, 1, 0, 0",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10.5,
                     "type" : "Line",
@@ -31,11 +36,6 @@
                     "y2" : 10.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -47,11 +47,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 20.5,
                     "type" : "Line",
@@ -60,11 +62,6 @@
                     "y2" : 20.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -76,11 +73,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 30.5,
                     "type" : "Line",
@@ -89,11 +88,6 @@
                     "y2" : 30.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -105,11 +99,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 40.5,
                     "type" : "Line",
@@ -118,11 +114,6 @@
                     "y2" : 40.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -134,11 +125,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 50.5,
                     "type" : "Line",
@@ -147,11 +140,6 @@
                     "y2" : 50.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -163,11 +151,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 60.5,
                     "type" : "Line",
@@ -176,11 +166,6 @@
                     "y2" : 60.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -192,11 +177,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 70.5,
                     "type" : "Line",
@@ -205,11 +192,6 @@
                     "y2" : 70.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -221,11 +203,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 80.5,
                     "type" : "Line",
@@ -234,11 +218,6 @@
                     "y2" : 80.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -250,11 +229,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 90.5,
                     "type" : "Line",
@@ -263,11 +244,6 @@
                     "y2" : 90.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -279,11 +255,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 100.5,
                     "type" : "Line",
@@ -292,11 +270,6 @@
                     "y2" : 100.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -308,11 +281,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 110.5,
                     "type" : "Line",
@@ -321,11 +296,6 @@
                     "y2" : 110.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -337,11 +307,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 120.5,
                     "type" : "Line",
@@ -350,11 +322,6 @@
                     "y2" : 120.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -366,11 +333,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 130.5,
                     "type" : "Line",
@@ -379,11 +348,6 @@
                     "y2" : 130.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -395,11 +359,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 140.5,
                     "type" : "Line",
@@ -408,11 +374,6 @@
                     "y2" : 140.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -424,11 +385,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 150.5,
                     "type" : "Line",
@@ -437,11 +400,6 @@
                     "y2" : 150.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -453,11 +411,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 160.5,
                     "type" : "Line",
@@ -466,11 +426,6 @@
                     "y2" : 160.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -482,11 +437,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 170.5,
                     "type" : "Line",
@@ -495,11 +452,6 @@
                     "y2" : 170.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -511,11 +463,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 180.5,
                     "type" : "Line",
@@ -524,11 +478,6 @@
                     "y2" : 180.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -540,11 +489,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 190.5,
                     "type" : "Line",
@@ -553,11 +504,6 @@
                     "y2" : 190.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -569,11 +515,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 200.5,
                     "type" : "Line",
@@ -582,11 +530,6 @@
                     "y2" : 200.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -598,11 +541,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 210.5,
                     "type" : "Line",
@@ -611,11 +556,6 @@
                     "y2" : 210.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -627,11 +567,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 220.5,
                     "type" : "Line",
@@ -640,11 +582,6 @@
                     "y2" : 220.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -656,11 +593,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 230.5,
                     "type" : "Line",
@@ -669,11 +608,6 @@
                     "y2" : 230.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -685,11 +619,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 240.5,
                     "type" : "Line",
@@ -698,11 +634,6 @@
                     "y2" : 240.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -714,11 +645,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 250.5,
                     "type" : "Line",
@@ -727,11 +660,6 @@
                     "y2" : 250.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -743,11 +671,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 260.5,
                     "type" : "Line",
@@ -756,11 +686,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -772,11 +697,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -785,11 +712,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -801,11 +723,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -814,11 +738,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -830,11 +749,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -843,11 +764,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -859,11 +775,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -872,11 +790,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -888,11 +801,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -901,11 +816,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -917,11 +827,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -930,11 +842,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -946,11 +853,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -959,11 +868,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -975,11 +879,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -988,11 +894,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1004,11 +905,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1017,11 +920,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1033,11 +931,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1046,11 +946,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1062,11 +957,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1075,11 +972,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1091,11 +983,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1104,11 +998,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1120,11 +1009,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1133,11 +1024,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1149,11 +1035,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1162,11 +1050,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1178,11 +1061,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1191,11 +1076,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1207,11 +1087,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1220,11 +1102,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1236,11 +1113,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1249,11 +1128,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1265,11 +1139,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1278,11 +1154,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1294,11 +1165,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1307,11 +1180,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1323,11 +1191,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1336,11 +1206,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1352,11 +1217,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1365,11 +1232,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1381,11 +1243,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1394,11 +1258,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1410,11 +1269,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1423,11 +1284,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1439,11 +1295,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1452,11 +1310,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1468,11 +1321,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1481,11 +1336,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1497,11 +1347,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1510,11 +1362,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1526,11 +1373,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1539,11 +1388,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1555,11 +1399,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1568,11 +1414,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1584,11 +1425,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1597,11 +1440,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1613,11 +1451,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1626,11 +1466,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1642,11 +1477,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1655,11 +1492,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1671,11 +1503,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1684,11 +1518,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1700,11 +1529,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1713,11 +1544,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1729,11 +1555,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1742,11 +1570,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1758,11 +1581,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1771,11 +1596,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1787,11 +1607,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1800,11 +1622,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1816,11 +1633,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1829,11 +1648,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1845,11 +1659,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1858,11 +1674,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1874,11 +1685,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1887,11 +1700,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1903,11 +1711,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1916,11 +1726,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1932,11 +1737,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1945,11 +1752,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1961,11 +1763,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -1974,11 +1778,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -1990,11 +1789,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -2003,11 +1804,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -2019,11 +1815,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -2032,11 +1830,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -2048,11 +1841,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -2061,11 +1856,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -2077,11 +1867,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -2090,11 +1882,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -2106,11 +1893,13 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 10,
                     "type" : "Line",
@@ -2119,11 +1908,6 @@
                     "y2" : 260.5
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -2135,32 +1919,24 @@
 
                     ],
                     "width" : 1
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 }
-              ]
+              ],
+              "node" : "Group"
             },
             {
               "place" : "1, 0, 0, 1, 0, 10",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
                       "place" : "1, 0, 0, 1, 50, 50",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 255
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 20,
@@ -2168,16 +1944,13 @@
                             "y" : 0,
                             "h" : 2
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 255
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         },
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 16711680
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 2,
@@ -2185,24 +1958,19 @@
                             "y" : 0,
                             "h" : 20
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 16711680
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     },
                     {
                       "place" : "0, -1, 1, 0, 150, 70",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 255
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 20,
@@ -2210,16 +1978,13 @@
                             "y" : 0,
                             "h" : 2
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 255
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         },
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 16711680
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 2,
@@ -2227,24 +1992,19 @@
                             "y" : 0,
                             "h" : 20
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 16711680
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     },
                     {
                       "place" : "1, 0, 1, 1, 250, 50",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 255
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 20,
@@ -2252,16 +2012,13 @@
                             "y" : 0,
                             "h" : 2
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 255
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         },
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 16711680
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 2,
@@ -2269,24 +2026,19 @@
                             "y" : 0,
                             "h" : 20
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 16711680
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     },
                     {
                       "place" : "1, 1, 0, 1, 350, 50",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 255
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 20,
@@ -2294,16 +2046,13 @@
                             "y" : 0,
                             "h" : 2
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 255
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         },
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 16711680
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 2,
@@ -2311,24 +2060,19 @@
                             "y" : 0,
                             "h" : 20
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 16711680
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     },
                     {
                       "place" : "2, 0, 0, 2, 210, 120",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 255
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 20,
@@ -2336,16 +2080,13 @@
                             "y" : 0,
                             "h" : 1
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 255
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         },
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 16711680
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 1,
@@ -2353,23 +2094,15 @@
                             "y" : 0,
                             "h" : 20
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 16711680
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 },
                 {
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
                       "baseline" : "bottom",
@@ -2380,9 +2113,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "translate (50, 50)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 40, 40",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2390,7 +2121,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 48,
                         "w" : 5,
@@ -2398,16 +2132,13 @@
                         "y" : 48,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 68,
                         "w" : 5,
@@ -2415,16 +2146,13 @@
                         "y" : 48,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 48,
                         "w" : 5,
@@ -2432,13 +2160,7 @@
                         "y" : 68,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
                       "baseline" : "bottom",
@@ -2449,9 +2171,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "rotate(-90)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 140, 40",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2459,7 +2179,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 148,
                         "w" : 5,
@@ -2467,16 +2190,13 @@
                         "y" : 68,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 148,
                         "w" : 5,
@@ -2484,16 +2204,13 @@
                         "y" : 48,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 168,
                         "w" : 5,
@@ -2501,13 +2218,7 @@
                         "y" : 68,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
                       "baseline" : "bottom",
@@ -2518,9 +2229,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "skew x (45)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 240, 40",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2528,7 +2237,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 248,
                         "w" : 5,
@@ -2536,16 +2248,13 @@
                         "y" : 48,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 268,
                         "w" : 5,
@@ -2553,16 +2262,13 @@
                         "y" : 48,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 268,
                         "w" : 5,
@@ -2570,13 +2276,7 @@
                         "y" : 68,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
                       "baseline" : "bottom",
@@ -2587,9 +2287,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "skew y (45)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 340, 40",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2597,7 +2295,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 348,
                         "w" : 5,
@@ -2605,16 +2306,13 @@
                         "y" : 48,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 368,
                         "w" : 5,
@@ -2622,16 +2320,13 @@
                         "y" : 68,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 348,
                         "w" : 5,
@@ -2639,13 +2334,7 @@
                         "y" : 68,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
                       "baseline" : "bottom",
@@ -2656,9 +2345,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "scale (2)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 200, 110",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2666,7 +2353,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 208,
                         "w" : 5,
@@ -2674,16 +2364,13 @@
                         "y" : 118,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 248,
                         "w" : 5,
@@ -2691,16 +2378,13 @@
                         "y" : 118,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 208,
                         "w" : 5,
@@ -2708,38 +2392,26 @@
                         "y" : 158,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 }
-              ]
+              ],
+              "node" : "Group"
             },
             {
-              "place" : "1, 0, 0, 1, 0, 0",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
                       "place" : "3, 0, 0, 2, 50.000001, 210",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 255
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 20,
@@ -2747,16 +2419,13 @@
                             "y" : 0,
                             "h" : 1
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 255
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         },
                         {
-                          "place" : "1, 0, 0, 1, 0, 0",
+                          "fill" : {
+                            "type" : "Color",
+                            "val" : 16711680
+                          },
                           "form" : {
                             "x" : 0,
                             "w" : 0.67000000000000004,
@@ -2764,36 +2433,25 @@
                             "y" : 0,
                             "h" : 20
                           },
-                          "node" : "Shape",
-                          "opaque" : "true",
-                          "fill" : {
-                            "type" : "Color",
-                            "val" : 16711680
-                          },
-                          "opacity" : "1.0"
+                          "node" : "Shape"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     },
                     {
                       "place" : "1, 0, 0, 1, 200, 0",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
                           "place" : "3, 0, 0, 2, 0, 0",
-                          "node" : "Group",
-                          "opaque" : "true",
-                          "opacity" : "1.0",
                           "contents" : [
                             {
                               "place" : "1, 0, 0, 1, 16.666667, 105",
-                              "node" : "Group",
-                              "opaque" : "true",
-                              "opacity" : "1.0",
                               "contents" : [
                                 {
-                                  "place" : "1, 0, 0, 1, 0, 0",
+                                  "fill" : {
+                                    "type" : "Color",
+                                    "val" : 255
+                                  },
                                   "form" : {
                                     "x" : 0,
                                     "w" : 20,
@@ -2801,16 +2459,13 @@
                                     "y" : 0,
                                     "h" : 1
                                   },
-                                  "node" : "Shape",
-                                  "opaque" : "true",
-                                  "fill" : {
-                                    "type" : "Color",
-                                    "val" : 255
-                                  },
-                                  "opacity" : "1.0"
+                                  "node" : "Shape"
                                 },
                                 {
-                                  "place" : "1, 0, 0, 1, 0, 0",
+                                  "fill" : {
+                                    "type" : "Color",
+                                    "val" : 16711680
+                                  },
                                   "form" : {
                                     "x" : 0,
                                     "w" : 0.67000000000000004,
@@ -2818,27 +2473,21 @@
                                     "y" : 0,
                                     "h" : 20
                                   },
-                                  "node" : "Shape",
-                                  "opaque" : "true",
-                                  "fill" : {
-                                    "type" : "Color",
-                                    "val" : 16711680
-                                  },
-                                  "opacity" : "1.0"
+                                  "node" : "Shape"
                                 }
-                              ]
+                              ],
+                              "node" : "Group"
                             }
-                          ]
+                          ],
+                          "node" : "Group"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 },
                 {
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
                       "baseline" : "bottom",
@@ -2849,9 +2498,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "scale(25, 95) and translate(2, 2)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 40, 200",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2859,7 +2506,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 48,
                         "w" : 5,
@@ -2867,16 +2517,13 @@
                         "y" : 208,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 108,
                         "w" : 5,
@@ -2884,16 +2531,13 @@
                         "y" : 208,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 48,
                         "w" : 5,
@@ -2901,13 +2545,7 @@
                         "y" : 248,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
                       "baseline" : "bottom",
@@ -2918,9 +2556,7 @@
                       "node" : "Text",
                       "align" : "min",
                       "text" : "scale(25, 95) then translate(2, 2)",
-                      "opacity" : "1.0",
                       "place" : "1, 0, 0, 1, 240, 200",
-                      "opaque" : "true",
                       "font" : {
                         "name" : "SVGFreeSansASCII,sans-serif",
                         "size" : 13,
@@ -2928,7 +2564,10 @@
                       }
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 248,
                         "w" : 5,
@@ -2936,16 +2575,13 @@
                         "y" : 208,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 255
+                      },
                       "form" : {
                         "x" : 308,
                         "w" : 5,
@@ -2953,16 +2589,13 @@
                         "y" : 208,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 255
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     },
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 16711680
+                      },
                       "form" : {
                         "x" : 248,
                         "w" : 5,
@@ -2970,27 +2603,21 @@
                         "y" : 248,
                         "h" : 5
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 16711680
-                      },
-                      "opacity" : "1.0"
+                      "node" : "Shape"
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 }
-              ]
+              ],
+              "node" : "Group"
             }
-          ]
+          ],
+          "node" : "Group"
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -3001,29 +2628,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.6 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -3035,7 +2650,16 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

@@ -1,23 +1,38 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
-          "place" : "1, 0, 0, 1, 0, 0",
-          "node" : "Group",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "contents" : [
             {
-              "place" : "1, 0, 0, 1, 0, 0",
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
               "form" : {
                 "x" : 50,
                 "w" : 35,
@@ -25,9 +40,9 @@
                 "y" : 50,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -39,10 +54,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 50,
                 "w" : 35,
@@ -50,9 +62,9 @@
                 "y" : 155,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -64,10 +76,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 130,
                 "w" : 35,
@@ -75,9 +84,9 @@
                 "y" : 50,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -89,10 +98,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 130,
                 "w" : 35,
@@ -100,9 +106,9 @@
                 "y" : 155,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -114,10 +120,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 210,
                 "w" : 60,
@@ -125,9 +128,9 @@
                 "y" : 50,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -139,10 +142,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 210,
                 "w" : 60,
@@ -150,9 +150,9 @@
                 "y" : 155,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -164,10 +164,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 315,
                 "w" : 35,
@@ -175,9 +172,9 @@
                 "y" : 50,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -189,10 +186,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 315,
                 "w" : 35,
@@ -200,9 +194,9 @@
                 "y" : 155,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -214,10 +208,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 394,
                 "w" : 35,
@@ -225,9 +216,9 @@
                 "y" : 50,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -239,10 +230,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 394,
                 "w" : 35,
@@ -250,9 +238,9 @@
                 "y" : 155,
                 "h" : 60
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
+              "node" : "Shape"
+            },
+            {
               "stroke" : {
                 "join" : "miter",
                 "cap" : "butt",
@@ -264,10 +252,7 @@
 
                 ],
                 "width" : 1
-              }
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
+              },
               "form" : {
                 "x" : 235,
                 "w" : 10,
@@ -275,29 +260,12 @@
                 "y" : 260,
                 "h" : 10
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
-              "stroke" : {
-                "join" : "miter",
-                "cap" : "butt",
-                "fill" : {
-                  "type" : "Color",
-                  "val" : 0
-                },
-                "dashes" : [
-
-                ],
-                "width" : 1
-              }
+              "node" : "Shape"
             }
-          ]
+          ],
+          "node" : "Group"
         },
         {
-          "place" : "1, 0, 0, 1, 0, 0",
-          "node" : "Group",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "contents" : [
             {
               "baseline" : "bottom",
@@ -308,9 +276,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Stroked",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 5, 90",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -326,9 +292,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Unstroked",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 5, 195",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -344,9 +308,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Zero width rect",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 50, 135",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -362,9 +324,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Zero height rect",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 130, 135",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -380,9 +340,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Zero radius circle",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 210, 135",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -398,9 +356,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Zero x radius ellipse",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 315, 135",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -416,9 +372,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Zero y radius ellipse",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 394, 135",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
@@ -434,18 +388,21 @@
               "node" : "Text",
               "align" : "min",
               "text" : "Zero length line",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 235, 290",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial",
                 "size" : 8,
                 "weight" : "normal"
               }
             }
-          ]
+          ],
+          "node" : "Group"
         },
         {
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
           "form" : {
             "y1" : 265,
             "type" : "Line",
@@ -454,11 +411,6 @@
             "y2" : 265
           },
           "node" : "Shape",
-          "fill" : {
-            "type" : "Color",
-            "val" : 0
-          },
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -470,17 +422,12 @@
 
             ],
             "width" : 1
-          },
-          "place" : "1, 0, 0, 1, 0, 0",
-          "opaque" : "true"
+          }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -491,29 +438,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.5 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -525,7 +460,16 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

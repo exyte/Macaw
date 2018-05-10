@@ -1,59 +1,24 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
-          "place" : "1, 0, 0, 1, 0, 0",
-          "form" : {
-            "type" : "Path",
-            "segments" : [
-              {
-                "type" : "M",
-                "data" : [
-                  50,
-                  50
-                ]
-              },
-              {
-                "type" : "L",
-                "data" : [
-                  50,
-                  150
-                ]
-              },
-              {
-                "type" : "L",
-                "data" : [
-                  150,
-                  150
-                ]
-              },
-              {
-                "type" : "L",
-                "data" : [
-                  150,
-                  50
-                ]
-              },
-              {
-                "type" : "z",
-                "data" : [
-
-                ]
-              }
-            ]
-          },
-          "node" : "Shape",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -65,10 +30,7 @@
 
             ],
             "width" : 5
-          }
-        },
-        {
-          "place" : "1, 0, 0, 1, 0, 0",
+          },
           "form" : {
             "type" : "Path",
             "segments" : [
@@ -108,9 +70,9 @@
               }
             ]
           },
-          "node" : "Shape",
-          "opaque" : "true",
-          "opacity" : "1.0",
+          "node" : "Shape"
+        },
+        {
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -122,38 +84,35 @@
 
             ],
             "width" : 6
-          }
-        },
-        {
-          "place" : "1, 0, 0, 1, 0, 0",
+          },
           "form" : {
             "type" : "Path",
             "segments" : [
               {
                 "type" : "M",
                 "data" : [
-                  250,
+                  50,
                   50
                 ]
               },
               {
                 "type" : "L",
                 "data" : [
-                  250,
+                  50,
                   150
                 ]
               },
               {
                 "type" : "L",
                 "data" : [
-                  350,
+                  150,
                   150
                 ]
               },
               {
                 "type" : "L",
                 "data" : [
-                  350,
+                  150,
                   50
                 ]
               },
@@ -165,9 +124,9 @@
               }
             ]
           },
-          "node" : "Shape",
-          "opaque" : "true",
-          "opacity" : "1.0",
+          "node" : "Shape"
+        },
+        {
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -179,10 +138,7 @@
 
             ],
             "width" : 5
-          }
-        },
-        {
-          "place" : "1, 0, 0, 1, 0, 0",
+          },
           "form" : {
             "type" : "Path",
             "segments" : [
@@ -222,9 +178,9 @@
               }
             ]
           },
-          "node" : "Shape",
-          "opaque" : "true",
-          "opacity" : "1.0",
+          "node" : "Shape"
+        },
+        {
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -236,15 +192,52 @@
 
             ],
             "width" : 6
-          }
+          },
+          "form" : {
+            "type" : "Path",
+            "segments" : [
+              {
+                "type" : "M",
+                "data" : [
+                  250,
+                  50
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  250,
+                  150
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  350,
+                  150
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  350,
+                  50
+                ]
+              },
+              {
+                "type" : "z",
+                "data" : [
+
+                ]
+              }
+            ]
+          },
+          "node" : "Shape"
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -255,29 +248,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.4 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -289,7 +270,16 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

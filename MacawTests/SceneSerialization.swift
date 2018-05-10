@@ -107,7 +107,14 @@ class NodeSerializer {
 extension Node {
     
     func baseToDictionary() -> [String:Any] {
-        var result = ["place": place.toString(), "opaque": String(describing: opaque), "opacity": String(describing: opacity)] as [String : Any]
+        var result = [String : Any]()
+        if place != .identity {
+            result["place"] = place.toString()
+        }
+        if !opaque {
+            result["opaque"] = String(describing: opaque)
+            result["opacity"] = String(describing: opacity)
+        }
         if let clip = clip as? Serializable {
             result["clip"] = clip.toDictionary()
         }
@@ -157,12 +164,12 @@ extension Text: Serializable {
 extension Group: Serializable {
     
     func toDictionary() -> [String:Any] {
+        if let canvas = self as? SVGCanvas {
+            return canvas.canvasDictionary()
+        }
+        
         var nodes = [[String:Any]]()
         for node in contents {
-            if let canvas = node as? SVGCanvas {
-                nodes.append(canvas.canvasDictionary())
-                continue
-            }
             if let node = node as? Serializable {
                 nodes.append(node.toDictionary())
             }
@@ -183,9 +190,10 @@ extension SVGCanvas {
                 nodes.append(node.toDictionary())
             }
         }
-        var result = super.toDictionary()
+        var result = super.baseToDictionary()
         result["node"] = "Canvas"
         result["layout"] = (layout as! SVGNodeLayout).toDictionary()
+        result["contents"] = nodes
         return result
     }
 }

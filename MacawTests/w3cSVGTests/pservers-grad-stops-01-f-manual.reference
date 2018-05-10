@@ -1,16 +1,28 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
           "form" : {
             "x" : 10,
             "w" : 100,
@@ -19,11 +31,6 @@
             "h" : 100
           },
           "node" : "Shape",
-          "fill" : {
-            "type" : "Color",
-            "val" : 255
-          },
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -35,11 +42,13 @@
 
             ],
             "width" : 5
-          },
-          "place" : "1, 0, 0, 1, 0, 0",
-          "opaque" : "true"
+          }
         },
         {
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
           "form" : {
             "x" : 120,
             "w" : 100,
@@ -48,11 +57,6 @@
             "h" : 100
           },
           "node" : "Shape",
-          "fill" : {
-            "type" : "Color",
-            "val" : 255
-          },
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -64,11 +68,13 @@
 
             ],
             "width" : 5
-          },
-          "place" : "1, 0, 0, 1, 0, 0",
-          "opaque" : "true"
+          }
         },
         {
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
           "form" : {
             "x" : 10,
             "w" : 100,
@@ -77,11 +83,6 @@
             "h" : 100
           },
           "node" : "Shape",
-          "fill" : {
-            "type" : "Color",
-            "val" : 255
-          },
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -93,11 +94,13 @@
 
             ],
             "width" : 5
-          },
-          "place" : "1, 0, 0, 1, 0, 0",
-          "opaque" : "true"
+          }
         },
         {
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
           "form" : {
             "x" : 120,
             "w" : 100,
@@ -106,11 +109,6 @@
             "h" : 100
           },
           "node" : "Shape",
-          "fill" : {
-            "type" : "Color",
-            "val" : 255
-          },
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -122,17 +120,12 @@
 
             ],
             "width" : 5
-          },
-          "place" : "1, 0, 0, 1, 0, 0",
-          "opaque" : "true"
+          }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -143,29 +136,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.3 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -177,15 +158,23 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
+          "fill" : {
+            "type" : "Color",
+            "val" : 16711680
+          },
           "form" : {
             "x" : 1,
             "w" : 478,
@@ -194,11 +183,6 @@
             "h" : 20
           },
           "node" : "Shape",
-          "fill" : {
-            "type" : "Color",
-            "val" : 16711680
-          },
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -210,9 +194,7 @@
 
             ],
             "width" : 1
-          },
-          "place" : "1, 0, 0, 1, 0, 0",
-          "opaque" : "true"
+          }
         },
         {
           "baseline" : "bottom",
@@ -223,7 +205,6 @@
           "node" : "Text",
           "align" : "mid",
           "text" : "DRAFT",
-          "opacity" : "1.0",
           "stroke" : {
             "join" : "miter",
             "cap" : "butt",
@@ -237,14 +218,15 @@
             "width" : 0.5
           },
           "place" : "1, 0, 0, 1, 240, 18",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 20,
             "weight" : "bold"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

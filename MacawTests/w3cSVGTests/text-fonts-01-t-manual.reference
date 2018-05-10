@@ -1,20 +1,24 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
-          "place" : "1, 0, 0, 1, 0, 0",
-          "node" : "Group",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "contents" : [
             {
               "baseline" : "bottom",
@@ -25,9 +29,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "A serifed face 画像",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 20, 80",
-              "opaque" : "true",
               "font" : {
                 "name" : "Georgia, 'Minion Web', 'Times New Roman', Times, 'MS PMincho', Heisei-Mincho, serif",
                 "size" : 24,
@@ -43,9 +45,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "A sans-serif face 画像",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 20, 160",
-              "opaque" : "true",
               "font" : {
                 "name" : "Arial, 'Arial Unicode', 'Myriad Web', Geneva, 'Lucida Sans Unicode', 'MS PGothic', Osaka, sans-serif",
                 "size" : 24,
@@ -61,9 +61,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "A mono (iW) face 画像",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 20, 240",
-              "opaque" : "true",
               "font" : {
                 "name" : "'Lucida Console', 'Courier New', Courier, Monaco, 'MS Gothic', Osaka-Mono, monospace",
                 "size" : 24,
@@ -71,10 +69,6 @@
               }
             },
             {
-              "place" : "1, 0, 0, 1, 0, 0",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
                   "baseline" : "bottom",
@@ -85,9 +79,7 @@
                   "node" : "Text",
                   "align" : "min",
                   "text" : "A serifed face 画像",
-                  "opacity" : "1.0",
                   "place" : "1, 0, 0, 1, 40, 50",
-                  "opaque" : "true",
                   "font" : {
                     "name" : "serif",
                     "size" : 24,
@@ -103,9 +95,7 @@
                   "node" : "Text",
                   "align" : "min",
                   "text" : "A sans-serif face 画像",
-                  "opacity" : "1.0",
                   "place" : "1, 0, 0, 1, 40, 130",
-                  "opaque" : "true",
                   "font" : {
                     "name" : "sans-serif",
                     "size" : 24,
@@ -121,16 +111,15 @@
                   "node" : "Text",
                   "align" : "min",
                   "text" : "A mono (iW) face 画像",
-                  "opacity" : "1.0",
                   "place" : "1, 0, 0, 1, 40, 210",
-                  "opaque" : "true",
                   "font" : {
                     "name" : "monospace",
                     "size" : 24,
                     "weight" : "normal"
                   }
                 }
-              ]
+              ],
+              "node" : "Group"
             },
             {
               "baseline" : "bottom",
@@ -141,24 +130,20 @@
               "node" : "Text",
               "align" : "min",
               "text" : "This must be displayed",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 40, 290",
-              "opaque" : "true",
               "font" : {
                 "name" : "'No such font at all', 'another fictitious one', sillynamewithoutspaces",
                 "size" : 24,
                 "weight" : "normal"
               }
             }
-          ]
+          ],
+          "node" : "Group"
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -169,29 +154,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.5 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -203,7 +176,16 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

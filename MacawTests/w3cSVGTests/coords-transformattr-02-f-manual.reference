@@ -1,29 +1,34 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "place" : "1, 0, 0, 1, 150, 0",
-          "node" : "Group",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "contents" : [
             {
               "place" : "1.414214, 1.414214, -1.414214, 1.414214, -17.071068, 1.213203",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
-                  "place" : "1, 0, 0, 1, 0, 0",
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 16711680
+                  },
                   "form" : {
                     "x" : 0,
                     "w" : 50,
@@ -31,31 +36,26 @@
                     "y" : 0,
                     "h" : 50
                   },
-                  "node" : "Shape",
-                  "opaque" : "true",
+                  "node" : "Shape"
+                },
+                {
                   "fill" : {
                     "type" : "Color",
                     "val" : 16711680
                   },
-                  "opacity" : "1.0"
-                },
-                {
-                  "place" : "1, 0, 0, 1, 0, 0",
                   "form" : {
                     "cy" : 50,
                     "type" : "Circle",
                     "r" : 25,
                     "cx" : 50
                   },
-                  "node" : "Shape",
-                  "opaque" : "true",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 16711680
-                  },
-                  "opacity" : "1.0"
+                  "node" : "Shape"
                 },
                 {
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 0
+                  },
                   "form" : {
                     "y1" : 50,
                     "type" : "Line",
@@ -64,11 +64,6 @@
                     "y2" : 100
                   },
                   "node" : "Shape",
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 0
-                  },
-                  "opacity" : "1.0",
                   "stroke" : {
                     "join" : "miter",
                     "cap" : "butt",
@@ -80,38 +75,28 @@
 
                     ],
                     "width" : 10
-                  },
-                  "place" : "1, 0, 0, 1, 0, 0",
-                  "opaque" : "true"
+                  }
                 }
-              ]
+              ],
+              "node" : "Group"
             },
             {
               "place" : "1, 0, 0, 1, -10, -20",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
                   "place" : "2, 0, 0, 2, 0, 0",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
                       "place" : ".707107, .707107, -.707107, .707107, 0, 0",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
                           "place" : "1, 0, 0, 1, 5, 10",
-                          "node" : "Group",
-                          "opaque" : "true",
-                          "opacity" : "1.0",
                           "contents" : [
                             {
-                              "place" : "1, 0, 0, 1, 0, 0",
+                              "fill" : {
+                                "type" : "Color",
+                                "val" : 0
+                              },
                               "form" : {
                                 "x" : 0,
                                 "w" : 50,
@@ -119,31 +104,26 @@
                                 "y" : 0,
                                 "h" : 50
                               },
-                              "node" : "Shape",
-                              "opaque" : "true",
+                              "node" : "Shape"
+                            },
+                            {
                               "fill" : {
                                 "type" : "Color",
                                 "val" : 0
                               },
-                              "opacity" : "1.0"
-                            },
-                            {
-                              "place" : "1, 0, 0, 1, 0, 0",
                               "form" : {
                                 "cy" : 50,
                                 "type" : "Circle",
                                 "r" : 25,
                                 "cx" : 50
                               },
-                              "node" : "Shape",
-                              "opaque" : "true",
+                              "node" : "Shape"
+                            },
+                            {
                               "fill" : {
                                 "type" : "Color",
                                 "val" : 0
                               },
-                              "opacity" : "1.0"
-                            },
-                            {
                               "form" : {
                                 "y1" : 50,
                                 "type" : "Line",
@@ -152,11 +132,6 @@
                                 "y2" : 100
                               },
                               "node" : "Shape",
-                              "fill" : {
-                                "type" : "Color",
-                                "val" : 0
-                              },
-                              "opacity" : "1.0",
                               "stroke" : {
                                 "join" : "miter",
                                 "cap" : "butt",
@@ -168,50 +143,40 @@
 
                                 ],
                                 "width" : 10
-                              },
-                              "place" : "1, 0, 0, 1, 0, 0",
-                              "opaque" : "true"
+                              }
                             }
-                          ]
+                          ],
+                          "node" : "Group"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 }
-              ]
+              ],
+              "node" : "Group"
             },
             {
               "place" : "1, 0, 0, 1, 200, 0",
-              "node" : "Group",
-              "opaque" : "true",
-              "opacity" : "1.0",
               "contents" : [
                 {
                   "place" : "1, 0, 0, 1, -10, -20",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
                       "place" : "2, 0, 0, 2, 0, 0",
-                      "node" : "Group",
-                      "opaque" : "true",
-                      "opacity" : "1.0",
                       "contents" : [
                         {
                           "place" : ".707107, .707107, -.707107, .707107, 0, 0",
-                          "node" : "Group",
-                          "opaque" : "true",
-                          "opacity" : "1.0",
                           "contents" : [
                             {
                               "place" : "1, 0, 0, 1, 5, 10",
-                              "node" : "Group",
-                              "opaque" : "true",
-                              "opacity" : "1.0",
                               "contents" : [
                                 {
-                                  "place" : "1, 0, 0, 1, 0, 0",
+                                  "fill" : {
+                                    "type" : "Color",
+                                    "val" : 16711680
+                                  },
                                   "form" : {
                                     "x" : 0,
                                     "w" : 50,
@@ -219,31 +184,26 @@
                                     "y" : 0,
                                     "h" : 50
                                   },
-                                  "node" : "Shape",
-                                  "opaque" : "true",
+                                  "node" : "Shape"
+                                },
+                                {
                                   "fill" : {
                                     "type" : "Color",
                                     "val" : 16711680
                                   },
-                                  "opacity" : "1.0"
-                                },
-                                {
-                                  "place" : "1, 0, 0, 1, 0, 0",
                                   "form" : {
                                     "cy" : 50,
                                     "type" : "Circle",
                                     "r" : 25,
                                     "cx" : 50
                                   },
-                                  "node" : "Shape",
-                                  "opaque" : "true",
-                                  "fill" : {
-                                    "type" : "Color",
-                                    "val" : 16711680
-                                  },
-                                  "opacity" : "1.0"
+                                  "node" : "Shape"
                                 },
                                 {
+                                  "fill" : {
+                                    "type" : "Color",
+                                    "val" : 0
+                                  },
                                   "form" : {
                                     "y1" : 50,
                                     "type" : "Line",
@@ -252,11 +212,6 @@
                                     "y2" : 100
                                   },
                                   "node" : "Shape",
-                                  "fill" : {
-                                    "type" : "Color",
-                                    "val" : 0
-                                  },
-                                  "opacity" : "1.0",
                                   "stroke" : {
                                     "join" : "miter",
                                     "cap" : "butt",
@@ -268,26 +223,28 @@
 
                                     ],
                                     "width" : 10
-                                  },
-                                  "place" : "1, 0, 0, 1, 0, 0",
-                                  "opaque" : "true"
+                                  }
                                 }
-                              ]
+                              ],
+                              "node" : "Group"
                             }
-                          ]
+                          ],
+                          "node" : "Group"
                         }
-                      ]
+                      ],
+                      "node" : "Group"
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 },
                 {
                   "place" : "1.414214, 1.414214, -1.414214, 1.414214, -17.071068, 1.213203",
-                  "node" : "Group",
-                  "opaque" : "true",
-                  "opacity" : "1.0",
                   "contents" : [
                     {
-                      "place" : "1, 0, 0, 1, 0, 0",
+                      "fill" : {
+                        "type" : "Color",
+                        "val" : 0
+                      },
                       "form" : {
                         "x" : 0,
                         "w" : 50,
@@ -295,31 +252,26 @@
                         "y" : 0,
                         "h" : 50
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
+                      "node" : "Shape"
+                    },
+                    {
                       "fill" : {
                         "type" : "Color",
                         "val" : 0
                       },
-                      "opacity" : "1.0"
-                    },
-                    {
-                      "place" : "1, 0, 0, 1, 0, 0",
                       "form" : {
                         "cy" : 50,
                         "type" : "Circle",
                         "r" : 25,
                         "cx" : 50
                       },
-                      "node" : "Shape",
-                      "opaque" : "true",
+                      "node" : "Shape"
+                    },
+                    {
                       "fill" : {
                         "type" : "Color",
                         "val" : 0
                       },
-                      "opacity" : "1.0"
-                    },
-                    {
                       "form" : {
                         "y1" : 50,
                         "type" : "Line",
@@ -328,11 +280,6 @@
                         "y2" : 100
                       },
                       "node" : "Shape",
-                      "fill" : {
-                        "type" : "Color",
-                        "val" : 0
-                      },
-                      "opacity" : "1.0",
                       "stroke" : {
                         "join" : "miter",
                         "cap" : "butt",
@@ -344,23 +291,21 @@
 
                         ],
                         "width" : 10
-                      },
-                      "place" : "1, 0, 0, 1, 0, 0",
-                      "opaque" : "true"
+                      }
                     }
-                  ]
+                  ],
+                  "node" : "Group"
                 }
-              ]
+              ],
+              "node" : "Group"
             }
-          ]
+          ],
+          "node" : "Group"
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -371,29 +316,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.4 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -405,7 +338,16 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

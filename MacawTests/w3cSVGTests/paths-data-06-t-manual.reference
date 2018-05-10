@@ -1,20 +1,25 @@
 {
-  "place" : "1, 0, 0, 1, 0, 0",
-  "node" : "Group",
-  "opaque" : "true",
-  "opacity" : "1.0",
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
   "contents" : [
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "place" : "1.8, 0, 0, 1.8, -360, 0",
-          "node" : "Group",
-          "opaque" : "true",
-          "opacity" : "1.0",
           "contents" : [
             {
               "baseline" : "bottom",
@@ -25,9 +30,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "M, H, V, H,",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 288, 30",
-              "opaque" : "true",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 12,
@@ -43,9 +46,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "V. H, V, H,",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 288, 46",
-              "opaque" : "true",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 12,
@@ -61,9 +62,7 @@
               "node" : "Text",
               "align" : "min",
               "text" : "V, Z",
-              "opacity" : "1.0",
               "place" : "1, 0, 0, 1, 304, 62",
-              "opaque" : "true",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 12,
@@ -71,7 +70,18 @@
               }
             },
             {
-              "place" : "1, 0, 0, 1, 0, 0",
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
               "form" : {
                 "type" : "Path",
                 "segments" : [
@@ -138,24 +148,13 @@
                   }
                 ]
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "opacity" : "1.0",
-              "stroke" : {
-                "join" : "miter",
-                "cap" : "butt",
-                "fill" : {
-                  "type" : "Color",
-                  "val" : 0
-                },
-                "dashes" : [
-
-                ],
-                "width" : 1
-              }
+              "node" : "Shape"
             },
             {
-              "place" : "1, 0, 0, 1, 0, 0",
+              "fill" : {
+                "type" : "Color",
+                "val" : 16776960
+              },
               "form" : {
                 "x" : 238,
                 "w" : 4,
@@ -163,16 +162,13 @@
                 "y" : 54,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 268,
                 "w" : 4,
@@ -180,16 +176,13 @@
                 "y" : 54,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 268,
                 "w" : 4,
@@ -197,16 +190,13 @@
                 "y" : 84,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 298,
                 "w" : 4,
@@ -214,16 +204,13 @@
                 "y" : 84,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 298,
                 "w" : 4,
@@ -231,16 +218,13 @@
                 "y" : 114,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 328,
                 "w" : 4,
@@ -248,16 +232,13 @@
                 "y" : 114,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 328,
                 "w" : 4,
@@ -265,16 +246,13 @@
                 "y" : 144,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 238,
                 "w" : 4,
@@ -282,16 +260,13 @@
                 "y" : 144,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "fill" : {
-                "type" : "Color",
-                "val" : 16776960
-              },
-              "opacity" : "1.0"
+              "node" : "Shape"
             },
             {
-              "place" : "1, 0, 0, 1, 0, 0",
+              "fill" : {
+                "type" : "Color",
+                "val" : 255
+              },
               "form" : {
                 "type" : "Path",
                 "segments" : [
@@ -358,16 +333,13 @@
                   }
                 ]
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "fill" : {
-                "type" : "Color",
-                "val" : 255
-              },
-              "opacity" : "1.0"
+              "node" : "Shape"
             },
             {
-              "place" : "1, 0, 0, 1, 0, 0",
+              "fill" : {
+                "type" : "Color",
+                "val" : 16776960
+              },
               "form" : {
                 "x" : 348,
                 "w" : 4,
@@ -375,16 +347,13 @@
                 "y" : 54,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 378,
                 "w" : 4,
@@ -392,16 +361,13 @@
                 "y" : 54,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 378,
                 "w" : 4,
@@ -409,16 +375,13 @@
                 "y" : 84,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 408,
                 "w" : 4,
@@ -426,16 +389,13 @@
                 "y" : 84,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 408,
                 "w" : 4,
@@ -443,16 +403,13 @@
                 "y" : 114,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 438,
                 "w" : 4,
@@ -460,16 +417,13 @@
                 "y" : 114,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 438,
                 "w" : 4,
@@ -477,16 +431,13 @@
                 "y" : 144,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
+              "node" : "Shape"
+            },
+            {
               "fill" : {
                 "type" : "Color",
                 "val" : 16776960
               },
-              "opacity" : "1.0"
-            },
-            {
-              "place" : "1, 0, 0, 1, 0, 0",
               "form" : {
                 "x" : 348,
                 "w" : 4,
@@ -494,23 +445,15 @@
                 "y" : 144,
                 "h" : 4
               },
-              "node" : "Shape",
-              "opaque" : "true",
-              "fill" : {
-                "type" : "Color",
-                "val" : 16776960
-              },
-              "opacity" : "1.0"
+              "node" : "Shape"
             }
-          ]
+          ],
+          "node" : "Group"
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "node" : "Group",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "contents" : [
         {
           "baseline" : "bottom",
@@ -521,29 +464,17 @@
           "node" : "Text",
           "align" : "min",
           "text" : "$Revision: 1.7 $",
-          "opacity" : "1.0",
           "place" : "1, 0, 0, 1, 10, 340",
-          "opaque" : "true",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
           }
         }
-      ]
+      ],
+      "node" : "Group"
     },
     {
-      "place" : "1, 0, 0, 1, 0, 0",
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape",
-      "opaque" : "true",
-      "opacity" : "1.0",
       "stroke" : {
         "join" : "miter",
         "cap" : "butt",
@@ -555,7 +486,16 @@
 
         ],
         "width" : 1
-      }
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
     }
-  ]
+  ],
+  "node" : "Canvas"
 }

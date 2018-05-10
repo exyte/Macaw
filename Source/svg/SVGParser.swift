@@ -119,10 +119,10 @@ open class SVGParser {
         }
     }
     
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SvgNodeLayout? {
-        var svgDimensions: Dimensions?
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
+        var svgSize: SVGSize?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
-            svgDimensions = Dimensions(width: w, height: h)
+            svgSize = SVGSize(width: w, height: h)
         }
         
         var viewBox: Rect?
@@ -133,7 +133,7 @@ open class SVGParser {
             }
         }
         
-        if svgDimensions == nil && viewBox == nil {
+        if svgSize == nil && viewBox == nil {
             return .none
         }
         
@@ -143,7 +143,7 @@ open class SVGParser {
             let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
             if strings.count == 1 { // none
                 scalingMode = parseAspectRatio(strings[0])
-                return SvgNodeLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
+                return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
             
@@ -159,7 +159,7 @@ open class SVGParser {
             scalingMode = parseAspectRatio(strings[1])
         }
         
-        return SvgNodeLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
+        return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
@@ -1194,19 +1194,19 @@ open class SVGParser {
         return doubleFromString(attributeValue)
     }
     
-    fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Dimension? {
+    fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> SVGLength? {
         guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
         }
         return dimensionFromString(attributeValue)
     }
     
-    fileprivate func dimensionFromString(_ string: String) -> Dimension? {
+    fileprivate func dimensionFromString(_ string: String) -> SVGLength? {
         if let value = doubleFromString(string) {
-            return Dimension(pixels: value)
+            return SVGLength(pixels: value)
         }
         if string.hasSuffix("%") {
-            return Dimension(percent: Double(string.dropLast())!)
+            return SVGLength(percent: Double(string.dropLast())!)
         }
         return .none
     }

@@ -1,0 +1,213 @@
+{
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 16753920
+            },
+            "dashes" : [
+              10,
+              20,
+              20
+            ],
+            "width" : 20
+          },
+          "form" : {
+            "type" : "Path",
+            "segments" : [
+              {
+                "type" : "M",
+                "data" : [
+                  100,
+                  100
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  100,
+                  190
+                ]
+              }
+            ]
+          },
+          "node" : "Shape"
+        },
+        {
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+              10,
+              20,
+              20
+            ],
+            "width" : 20
+          },
+          "form" : {
+            "type" : "Path",
+            "segments" : [
+              {
+                "type" : "M",
+                "data" : [
+                  100,
+                  190
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  100,
+                  100
+                ]
+              }
+            ]
+          },
+          "node" : "Shape"
+        },
+        {
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 16753920
+            },
+            "dashes" : [
+              10,
+              10,
+              10
+            ],
+            "width" : 20
+          },
+          "form" : {
+            "type" : "Path",
+            "segments" : [
+              {
+                "type" : "M",
+                "data" : [
+                  200,
+                  100
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  200,
+                  190
+                ]
+              }
+            ]
+          },
+          "node" : "Shape"
+        },
+        {
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+              10,
+              10,
+              10
+            ],
+            "width" : 20
+          },
+          "form" : {
+            "type" : "Path",
+            "segments" : [
+              {
+                "type" : "M",
+                "data" : [
+                  200,
+                  190
+                ]
+              },
+              {
+                "type" : "L",
+                "data" : [
+                  200,
+                  100
+                ]
+              }
+            ]
+          },
+          "node" : "Shape"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.3 $",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
+    }
+  ],
+  "node" : "Canvas"
+}

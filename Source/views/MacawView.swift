@@ -18,7 +18,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         didSet {
-            if let canvas = node as? SVGCanvas, let layout = canvas.layout as? SvgNodeLayout {
+            if let canvas = node as? SVGCanvas, let layout = canvas.layout as? SVGNodeLayout {
                 layout.layout(node: canvas, in: Rect(cgRect: bounds))
             }
             

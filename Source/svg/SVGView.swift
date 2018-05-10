@@ -89,7 +89,7 @@ open class SVGView: MacawView {
             break
         }
 
-        let contentLayout = SvgContentLayout(scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
+        let contentLayout = SVGContentLayout(scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
         svgNode.place = contentLayout.layout(rect: nodeBounds, into: Rect(cgRect: bounds))
 
         rootNode.contents = [svgNode]

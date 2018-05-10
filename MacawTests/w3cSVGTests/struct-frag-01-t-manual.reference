@@ -1,0 +1,17 @@
+{
+  "place" : "1, 0, 0, 1, 0, 0",
+  "node" : "Group",
+  "opaque" : "true",
+  "opacity" : "1.0",
+  "contents" : [
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+
+      ]
+    }
+  ]
+}

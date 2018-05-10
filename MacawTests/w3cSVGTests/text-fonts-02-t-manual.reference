@@ -1,0 +1,325 @@
+{
+  "place" : "1, 0, 0, 1, 0, 0",
+  "node" : "Group",
+  "opaque" : "true",
+  "opacity" : "1.0",
+  "contents" : [
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+        {
+          "place" : "1, 0, 0, 1, 0, 0",
+          "node" : "Group",
+          "opaque" : "true",
+          "opacity" : "1.0",
+          "contents" : [
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "100",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 50",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "100"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "200",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 85",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "200"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "300",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 120",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "300"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "400",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 155",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "400"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "500",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 190",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "500"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 32768
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "600",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 225",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "600"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 32768
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "700",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 260",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "700"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 32768
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "800",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 295",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "800"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 32768
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "900",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 360, 330",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "900"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "This is bold",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 60, 80",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "bold"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "This is normal",
+              "opacity" : "1.0",
+              "place" : "1, 0, 0, 1, 60, 130",
+              "opaque" : "true",
+              "font" : {
+                "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                "size" : 30,
+                "weight" : "normal"
+              }
+            },
+            {
+              "place" : "1, 0, 0, 1, 0, 0",
+              "node" : "Group",
+              "opaque" : "true",
+              "opacity" : "1.0",
+              "contents" : [
+                {
+                  "baseline" : "bottom",
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 255
+                  },
+                  "node" : "Text",
+                  "align" : "min",
+                  "text" : "Blue is bolder",
+                  "opacity" : "1.0",
+                  "place" : "1, 0, 0, 1, 60, 180",
+                  "opaque" : "true",
+                  "font" : {
+                    "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                    "size" : 30,
+                    "weight" : "bolder"
+                  }
+                }
+              ]
+            },
+            {
+              "place" : "1, 0, 0, 1, 0, 0",
+              "node" : "Group",
+              "opaque" : "true",
+              "opacity" : "1.0",
+              "contents" : [
+                {
+                  "baseline" : "bottom",
+                  "fill" : {
+                    "type" : "Color",
+                    "val" : 255
+                  },
+                  "node" : "Text",
+                  "align" : "min",
+                  "text" : "Blue is lighter",
+                  "opacity" : "1.0",
+                  "place" : "1, 0, 0, 1, 60, 230",
+                  "opaque" : "true",
+                  "font" : {
+                    "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
+                    "size" : 30,
+                    "weight" : "lighter"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.5 $",
+          "opacity" : "1.0",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "opaque" : "true",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ]
+    },
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      }
+    }
+  ]
+}

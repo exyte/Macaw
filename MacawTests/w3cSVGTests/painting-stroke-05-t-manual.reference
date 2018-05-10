@@ -1,0 +1,883 @@
+{
+  "place" : "1, 0, 0, 1, 0, 0",
+  "node" : "Group",
+  "opaque" : "true",
+  "opacity" : "1.0",
+  "contents" : [
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "mid",
+          "text" : "Rendering thin strokes",
+          "opacity" : "1.0",
+          "place" : "1, 0, 0, 1, 240, 30",
+          "opaque" : "true",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 20,
+            "weight" : "normal"
+          }
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              30,
+              50,
+              30,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              50,
+              50,
+              50,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.10000000000000001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              70,
+              50,
+              70,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.20000000000000001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              90,
+              50,
+              90,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.29999999999999999
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              110,
+              50,
+              110,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.40000000000000002
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              130,
+              50,
+              130,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.5
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              150,
+              50,
+              150,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.59999999999999998
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              170,
+              50,
+              170,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.69999999999999996
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              190,
+              50,
+              190,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.80000000000000004
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              210,
+              50,
+              210,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.90000000000000002
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              230,
+              50,
+              230,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              250,
+              50,
+              250,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.1000000000000001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              270,
+              50,
+              270,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.2
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              290,
+              50,
+              290,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.3
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              310,
+              50,
+              310,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.3999999999999999
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              330,
+              50,
+              330,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.5
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              350,
+              50,
+              350,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.6000000000000001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              370,
+              50,
+              370,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.7
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              390,
+              50,
+              390,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.8
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              410,
+              50,
+              410,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1.8999999999999999
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              430,
+              50,
+              430,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 2
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "type" : "Polyline",
+            "points" : [
+              450,
+              50,
+              450,
+              300
+            ]
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 2.1000000000000001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "y1" : 100,
+            "type" : "Line",
+            "x1" : 10,
+            "x2" : 470,
+            "y2" : 100
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 139
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.10000000000000001
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "y1" : 150,
+            "type" : "Line",
+            "x1" : 10,
+            "x2" : 470,
+            "y2" : 150
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 139
+            },
+            "dashes" : [
+
+            ],
+            "width" : 0.5
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "y1" : 200,
+            "type" : "Line",
+            "x1" : 10,
+            "x2" : 470,
+            "y2" : 200
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 139
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "y1" : 250,
+            "type" : "Line",
+            "x1" : 10,
+            "x2" : 470,
+            "y2" : 250
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 139
+            },
+            "dashes" : [
+
+            ],
+            "width" : 2
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        }
+      ]
+    },
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.6 $",
+          "opacity" : "1.0",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "opaque" : "true",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ]
+    },
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      }
+    }
+  ]
+}

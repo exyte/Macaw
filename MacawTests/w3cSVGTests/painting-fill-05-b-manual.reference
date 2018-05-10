@@ -1,0 +1,415 @@
+{
+  "place" : "1, 0, 0, 1, 0, 0",
+  "node" : "Group",
+  "opaque" : "true",
+  "opacity" : "1.0",
+  "contents" : [
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+        {
+          "form" : {
+            "x" : 20,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 20,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 4278190335
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 50,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 50,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 3422552319
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 80,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 80,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 2566914303
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 110,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 110,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 1711276287
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 140,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 140,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 838861055
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 170,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 170,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 200,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 20,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 4278190335
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 230,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 50,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 4278190335
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 260,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 80,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 4278190335
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 290,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 110,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 320,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 140,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        },
+        {
+          "form" : {
+            "x" : 350,
+            "w" : 60,
+            "type" : "Rect",
+            "y" : 170,
+            "h" : 60
+          },
+          "node" : "Shape",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "opacity" : "1.0",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          },
+          "place" : "1, 0, 0, 1, 0, 0",
+          "opaque" : "true"
+        }
+      ]
+    },
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "node" : "Group",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.5 $",
+          "opacity" : "1.0",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "opaque" : "true",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ]
+    },
+    {
+      "place" : "1, 0, 0, 1, 0, 0",
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape",
+      "opaque" : "true",
+      "opacity" : "1.0",
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Macaw
+@testable import Macaw
 
 protocol Initializable {
     init()
@@ -80,6 +80,15 @@ class NodeSerializer {
             }
             return Group(contents: nodes)
         }
+        factories["Canvas"] = { dictionary in
+            let layout = SVGNodeLayout(dictionary: dictionary["layout"] as! [String : Any])
+            let contents = dictionary["contents"] as! [[String:Any]]
+            var nodes = [Node]()
+            for dict in contents {
+                nodes.append(self.instance(dictionary: dict))
+            }
+            return SVGCanvas(layout: layout, contents: nodes)
+        }
     }
     
     func instance(dictionary: [String:Any]) -> Node {
@@ -150,6 +159,10 @@ extension Group: Serializable {
     func toDictionary() -> [String:Any] {
         var nodes = [[String:Any]]()
         for node in contents {
+            if let canvas = node as? SVGCanvas {
+                nodes.append(canvas.canvasDictionary())
+                continue
+            }
             if let node = node as? Serializable {
                 nodes.append(node.toDictionary())
             }
@@ -160,6 +173,79 @@ extension Group: Serializable {
         return result
     }
 }
+
+extension SVGCanvas {
+    
+    func canvasDictionary() -> [String:Any] {
+        var nodes = [[String:Any]]()
+        for node in contents {
+            if let node = node as? Serializable {
+                nodes.append(node.toDictionary())
+            }
+        }
+        var result = super.toDictionary()
+        result["node"] = "Canvas"
+        result["layout"] = (layout as! SVGNodeLayout).toDictionary()
+        return result
+    }
+}
+
+extension SVGNodeLayout: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["svgSize" : svgSize?.toDictionary() as Any,
+                "viewBox" : viewBox?.toDictionary() as Any,
+                "scalingMode" : scalingMode.toString(),
+                "xAligningMode" : xAligningMode.toString(),
+                "yAligningMode" : yAligningMode.toString()]
+    }
+    
+    convenience init(dictionary: [String:Any]) {
+        let viewBox = LocusSerializer().instance(dictionary: dictionary["viewBox"] as! [String:Any]) as? Rect
+        self.init(svgSize: SVGSize(dictionary: dictionary["svgSize"] as! [String : Any]),
+                  viewBox: viewBox,
+                  scalingMode: AspectRatio.instantiate(string: dictionary["scalingMode"] as! String),
+                  xAligningMode: Align.instantiate(string: dictionary["xAligningMode"] as! String),
+                  yAligningMode: Align.instantiate(string: dictionary["yAligningMode"] as! String)
+        )
+    }
+}
+
+extension SVGSize: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["width" : width.toString(), "height": height.toString()]
+    }
+    
+    convenience init(dictionary: [String:Any]) {
+        self.init(width: SVGLength(string: dictionary["width"] as? String), height: SVGLength(string: dictionary["height"] as? String))
+    }
+}
+
+extension SVGLength {
+    
+    func toString() -> String {
+        switch(self) {
+        case let .percent(percent):
+            return "\(percent)%"
+        case let .pixels(pixels):
+            return String(describing: pixels)
+        }
+    }
+    
+    init(string: String?) {
+        self.init(pixels: 0)
+        guard let string = string else {
+            return
+        }
+        if string.hasSuffix("%") {
+            self = SVGLength.percent(Double(string.dropLast())!)
+        } else {
+            self = SVGLength.pixels(Double(string)!)
+        }
+    }
+}
+
 
 class LocusSerializer {
     
@@ -404,6 +490,30 @@ extension Align {
             return .max
         default:
             return .min
+        }
+    }
+}
+
+extension AspectRatio {
+    
+    func toString() -> String {
+        if self === AspectRatio.meet {
+            return "meet"
+        }
+        if self === AspectRatio.slice {
+            return "slice"
+        }
+        return "none"
+    }
+    
+    static func instantiate(string: String) -> AspectRatio {
+        switch string {
+        case "meet":
+            return .meet
+        case "slice":
+            return .slice
+        default:
+            return .none
         }
     }
 }

@@ -197,11 +197,279 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    func testColorProp02() {
-        validateJSON("color-prop-02-f-manual")
+    func testTextAlign01() {
+        validateJSON("text-align-01-b-manual")
     }
     
-    func testShapesCircle01() {
-        validateJSON("shapes-circle-01-t-manual")
+    func testPathsData07() {
+        validateJSON("paths-data-07-t-manual")
+    }
+    
+    func testColorProp01() {
+        validateJSON("color-prop-01-b-manual")
+    }
+    
+    func testShapesEllipse01() {
+        validateJSON("shapes-ellipse-01-t-manual")
+    }
+    
+    func testPathsData15() {
+        validateJSON("paths-data-15-t-manual")
+    }
+    
+    func testPathsData12() {
+        validateJSON("paths-data-12-t-manual")
+    }
+    
+    func testCoordsTrans06() {
+        validateJSON("coords-trans-06-t-manual")
+    }
+    
+    func testCoordsCoord01() {
+        validateJSON("coords-coord-01-t-manual")
+    }
+    
+    func testPaintingControl06() {
+        validateJSON("painting-control-06-f-manual")
+    }
+    
+    func testShapesLine02() {
+        validateJSON("shapes-line-02-f-manual")
+    }
+    
+    func testPathsData13() {
+        validateJSON("paths-data-13-t-manual")
+    }
+    
+    func testPaintingStroke02() {
+        validateJSON("painting-stroke-02-t-manual")
+    }
+    
+    func testPathsData01() {
+        validateJSON("paths-data-01-t-manual")
+    }
+    
+    func testPathsData06() {
+        validateJSON("paths-data-06-t-manual")
+    }
+    
+    func testCoordsTrans07() {
+        validateJSON("coords-trans-07-t-manual")
+    }
+    
+    func testCoordsTrans01() {
+        validateJSON("coords-trans-01-b-manual")
+    }
+    
+    func testPaintingStroke01() {
+        validateJSON("painting-stroke-01-t-manual")
+    }
+    
+    func testShapesIntro01() {
+        validateJSON("shapes-intro-01-t-manual")
+    }
+    
+    func testCoordsTransformattr05() {
+        validateJSON("coords-transformattr-05-f-manual")
+    }
+    
+    func testCoordsTransformattr02() {
+        validateJSON("coords-transformattr-02-f-manual")
+    }
+    
+    func testPaintingFill03() {
+        validateJSON("painting-fill-03-t-manual")
+    }
+    
+    func testShapesRect05() {
+        validateJSON("shapes-rect-05-f-manual")
+    }
+    
+    func testPaintingFill04() {
+        validateJSON("painting-fill-04-t-manual")
+    }
+    
+    func testShapesPolyline01() {
+        validateJSON("shapes-polyline-01-t-manual")
+    }
+    
+    func testShapesPolygon02() {
+        validateJSON("shapes-polygon-02-t-manual")
+    }
+    
+    func testPaintingFill05() {
+        validateJSON("painting-fill-05-b-manual")
+    }
+    
+    func testStructFrag01() {
+        validateJSON("struct-frag-01-t-manual")
+    }
+    
+    func testShapesLine01() {
+        validateJSON("shapes-line-01-t-manual")
+    }
+    
+    func testPathsData17() {
+        validateJSON("paths-data-17-f-manual")
+    }
+    
+    func testRenderElems02() {
+        validateJSON("render-elems-02-t-manual")
+    }
+    
+    func testPaintingFill02() {
+        validateJSON("painting-fill-02-t-manual")
+    }
+    
+    func testShapesRect04() {
+        validateJSON("shapes-rect-04-f-manual")
+    }
+    
+    func testCoordsTransformattr03() {
+        validateJSON("coords-transformattr-03-f-manual")
+    }
+    
+    func testCoordsTransformattr04() {
+        validateJSON("coords-transformattr-04-f-manual")
+    }
+    
+    func testRenderElems03() {
+        validateJSON("render-elems-03-t-manual")
+    }
+    
+    func testTextFonts02() {
+        validateJSON("text-fonts-02-t-manual")
+    }
+    
+    func testShapesPolygon01() {
+        validateJSON("shapes-polygon-01-t-manual")
+    }
+    
+    func testPaintingStroke08() {
+        validateJSON("painting-stroke-08-t-manual")
+    }
+    
+    func testCoordsTransformattr01() {
+        validateJSON("coords-transformattr-01-f-manual")
+    }
+    
+    func testCoordsTrans09() {
+        validateJSON("coords-trans-09-t-manual")
+    }
+    
+    func testShapesCircle02() {
+        validateJSON("shapes-circle-02-t-manual")
+    }
+    
+    func testRenderElems01() {
+        validateJSON("render-elems-01-t-manual")
+    }
+    
+    func testPserversGradStops01() {
+        validateJSON("pservers-grad-stops-01-f-manual")
+    }
+    
+    func testStructFrag02() {
+        validateJSON("struct-frag-02-t-manual")
+    }
+    
+    func testPaintingStroke03() {
+        validateJSON("painting-stroke-03-t-manual")
+    }
+    
+    func testPaintingStroke09() {
+        validateJSON("painting-stroke-09-t-manual")
+    }
+    
+    func testCoordsTrans08() {
+        validateJSON("coords-trans-08-t-manual")
+    }
+    
+    func testPaintingFill01() {
+        validateJSON("painting-fill-01-t-manual")
+    }
+    
+    func testTextFonts01() {
+        validateJSON("text-fonts-01-t-manual")
+    }
+    
+    func testStructFrag04() {
+        validateJSON("struct-frag-04-t-manual")
+    }
+    
+    func testStructFrag03() {
+        validateJSON("struct-frag-03-t-manual")
+    }
+    
+    func testStructUse12() {
+        validateJSON("struct-use-12-f-manual")
+    }
+    
+    func testStructUse03() {
+        validateJSON("struct-use-03-t-manual")
+    }
+    
+    func testColorProp03() {
+        validateJSON("color-prop-03-t-manual")
+    }
+    
+    func testTypesBasic01() {
+        validateJSON("types-basic-01-f-manual")
+    }
+    
+    func testShapesEllipse02() {
+        validateJSON("shapes-ellipse-02-t-manual")
+    }
+    
+    func testPaintingControl02() {
+        validateJSON("painting-control-02-f-manual")
+    }
+    
+    func testCoordsCoord02() {
+        validateJSON("coords-coord-02-t-manual")
+    }
+    
+    func testCoordsTrans05() {
+        validateJSON("coords-trans-05-t-manual")
+    }
+    
+    func testCoordsTrans02() {
+        validateJSON("coords-trans-02-t-manual")
+    }
+    
+    func testPathsData02() {
+        validateJSON("paths-data-02-t-manual")
+    }
+    
+    func testPathsData19() {
+        validateJSON("paths-data-19-f-manual")
+    }
+    
+    func testStructGroup01() {
+        validateJSON("struct-group-01-t-manual")
+    }
+    
+    func testPaintingStroke05() {
+        validateJSON("painting-stroke-05-t-manual")
+    }
+    
+    func testCoordsTrans03() {
+        validateJSON("coords-trans-03-t-manual")
+    }
+    
+    func testCoordsTrans04() {
+        validateJSON("coords-trans-04-t-manual")
+    }
+    
+    func testMetadataExample01() {
+        validateJSON("metadata-example-01-t-manual")
+    }
+    
+    func testStructDefs01() {
+        validateJSON("struct-defs-01-t-manual")
+    }
+    
+    func testPaintingControl03() {
+        validateJSON("painting-control-03-f-manual")
     }
 }

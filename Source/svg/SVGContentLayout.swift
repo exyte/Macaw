@@ -5,7 +5,7 @@ public protocol ContentLayout {
     func layout(rect: Rect, into rectToFitIn: Rect) -> Transform
 }
 
-class SvgContentLayout: ContentLayout {
+class SVGContentLayout: ContentLayout {
     
     let scalingMode: AspectRatio
     let xAligningMode: Align
@@ -18,7 +18,7 @@ class SvgContentLayout: ContentLayout {
     }
     
     public static var standard: ContentLayout {
-        return SvgContentLayout()
+        return SVGContentLayout()
     }
     
     public func layout(rect: Rect, into rectToFitIn: Rect) -> Transform {

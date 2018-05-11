@@ -1,0 +1,471 @@
+{
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "contents" : [
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 16711680
+              },
+              "form" : {
+                "cy" : 40,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 75
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 16711680
+              },
+              "form" : {
+                "cy" : 40,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 115
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 16711680
+              },
+              "form" : {
+                "cy" : 80,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 75
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 16711680
+              },
+              "form" : {
+                "cy" : 80,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 115
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 16711680
+              },
+              "form" : {
+                "type" : "Polygon",
+                "points" : [
+                  95,
+                  40,
+                  115,
+                  60,
+                  95,
+                  80,
+                  75,
+                  60
+                ]
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 65280
+              },
+              "form" : {
+                "cy" : 40,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 200
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 65280
+              },
+              "form" : {
+                "cy" : 40,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 240
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 65280
+              },
+              "form" : {
+                "cy" : 80,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 200
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 65280
+              },
+              "form" : {
+                "cy" : 80,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 240
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 65280
+              },
+              "form" : {
+                "type" : "Polygon",
+                "points" : [
+                  220,
+                  40,
+                  240,
+                  60,
+                  220,
+                  80,
+                  200,
+                  60
+                ]
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 255
+              },
+              "form" : {
+                "cy" : 40,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 325
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 255
+              },
+              "form" : {
+                "cy" : 40,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 365
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 255
+              },
+              "form" : {
+                "cy" : 80,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 325
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 255
+              },
+              "form" : {
+                "cy" : 80,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 365
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 255
+              },
+              "form" : {
+                "type" : "Polygon",
+                "points" : [
+                  345,
+                  40,
+                  365,
+                  60,
+                  345,
+                  80,
+                  325,
+                  60
+                ]
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 11141137
+              },
+              "form" : {
+                "cy" : 135,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 75
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 11141137
+              },
+              "form" : {
+                "cy" : 135,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 115
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 11141137
+              },
+              "form" : {
+                "cy" : 175,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 75
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 11206674
+              },
+              "form" : {
+                "cy" : 175,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 115
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 3390259
+              },
+              "form" : {
+                "cy" : 135,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 200
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 3390259
+              },
+              "form" : {
+                "cy" : 135,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 240
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 3390259
+              },
+              "form" : {
+                "cy" : 175,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 200
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 3390259
+              },
+              "form" : {
+                "cy" : 175,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 240
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 5601262
+              },
+              "form" : {
+                "cy" : 135,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 325
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 5601262
+              },
+              "form" : {
+                "cy" : 135,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 365
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 5601262
+              },
+              "form" : {
+                "cy" : 175,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 325
+              },
+              "node" : "Shape"
+            },
+            {
+              "fill" : {
+                "type" : "Color",
+                "val" : 5601262
+              },
+              "form" : {
+                "cy" : 175,
+                "type" : "Circle",
+                "r" : 20,
+                "cx" : 365
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.9 $",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
+    }
+  ],
+  "node" : "Canvas"
+}

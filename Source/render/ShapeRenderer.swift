@@ -31,14 +31,14 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
     
-    fileprivate func drawShape(opacity: Double) {
-        guard let shape = shape, let context = ctx.cgContext else { return }
+    fileprivate func drawShape(in context: CGContext, opacity: Double) {
+        guard let shape = shape else { return }
         setGeometry(shape.form, ctx: context)
         var fillRule = FillRule.nonzero
         if let path = shape.form as? Path {
             fillRule = path.fillRule
         }
-        drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity, fillRule: fillRule)
+        drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
     }
 
     override func doRender(_ force: Bool, opacity: Double) {
@@ -46,35 +46,42 @@ class ShapeRenderer: NodeRenderer {
         if shape.fill == nil && shape.stroke == nil { return }
         
         // no effects, just draw as usual
-        guard let filter = shape.filter else {
-            drawShape(opacity: opacity)
+        guard let effect = shape.effect else {
+            drawShape(in: context, opacity: opacity)
             return
         }
         
-        let offset = filter.effects.filter { $0 is Offset }.first
-        let otherEffects = filter.effects.filter { !($0 is Offset) }
-        if let offset = offset as? Offset {
+        var effects = [Effect]()
+        var next: Effect? = effect
+        while next != nil {
+            effects.append(next!)
+            next = next?.input
+        }
+        
+        let offset = effects.filter { $0 is OffsetEffect }.first
+        let otherEffects = effects.filter { !($0 is OffsetEffect) }
+        if let offset = offset as? OffsetEffect {
             let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
             context.concatenate(RenderUtils.mapTransform(move))
             
             if otherEffects.count == 0 {
                 // draw offset shape
-                drawShape(opacity: opacity)
+                drawShape(in: context, opacity: opacity)
             } else {
-                // apply other effects to offest shape
-                applyEffects(filter.effects, opacity: opacity)
+                // apply other effects to offset shape
+                applyEffects(otherEffects, opacity: opacity)
             }
             
             // move back and draw the shape itself
             context.concatenate(RenderUtils.mapTransform(move.invert()!))
-            drawShape(opacity: opacity)
+            drawShape(in: context, opacity: opacity)
         }
         else {
             // draw the shape
-            drawShape(opacity: opacity)
+            drawShape(in: context, opacity: opacity)
             
             // apply other effects to shape
-            applyEffects(filter.effects, opacity: opacity)
+            applyEffects(otherEffects, opacity: opacity)
         }
     }
     
@@ -97,7 +104,7 @@ class ShapeRenderer: NodeRenderer {
         let image = CIImage(cgImage: image)
         guard let filter = CIFilter(name: "CIGaussianBlur") else { return .none }
         filter.setDefaults()
-        filter.setValue(blur.radius, forKey: kCIInputRadiusKey)
+        filter.setValue(Int(blur.radius), forKey: kCIInputRadiusKey)
         filter.setValue(image, forKey: kCIInputImageKey)
         
         let context = CIContext(options: nil)
@@ -115,8 +122,7 @@ class ShapeRenderer: NodeRenderer {
             // flip y-axis and leave space for the blur
             tempContext.translateBy(x: CGFloat(shadowInset/2 - size.x), y: CGFloat(size.h+shadowInset/2 + size.y))
             tempContext.scaleBy(x: 1, y: -1)
-            setGeometry(shape.form, ctx: tempContext)
-            drawPath(shape.fill, stroke: shape.stroke, ctx: tempContext, opacity: opacity)
+            drawShape(in: tempContext, opacity: opacity)
         }
         
         let img = MGraphicsGetImageFromCurrentImageContext()

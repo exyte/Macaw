@@ -1,5 +1,5 @@
 
-open class Offset: Effect {
+open class OffsetEffect: Effect {
     
     open let dx: Double
     open let dy: Double

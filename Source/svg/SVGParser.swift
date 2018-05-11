@@ -47,7 +47,7 @@ open class SVGParser {
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
-    fileprivate var defFilters = [String: Filter]()
+    fileprivate var defEffects = [String: Effect]()
 
     fileprivate enum PathCommandType {
         case moveTo
@@ -247,8 +247,8 @@ open class SVGParser {
         
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
         
-        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let filter = defFilters[filterId] {
-            parsedNode.filter = filter
+        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
+            parsedNode.effect = effect
         }
         
         return parsedNode
@@ -1004,34 +1004,36 @@ open class SVGParser {
         guard let element = filterNode.element, let id = element.allAttributes["id"]?.text else {
             return
         }
-        var filters = [String : Filter]()
+        let defaultSource = "SourceGraphic"
+        var resultEffect: Effect?
+        var effects = [String : Effect]()
         for child in filterNode.children {
             guard let element = child.element else { continue }
             
-            let filterIn = element.allAttributes["in"]?.text ?? "SourceGraphic"
+            let filterIn = element.allAttributes["in"]?.text ?? defaultSource
             let filterOut = element.allAttributes["result"]?.text ?? ""
-            let currentFilter = filters[filterIn] ?? Filter()
-            if filters[filterIn] == nil, let source = EffectSource(rawValue: filterIn) { // first in the chain
-                currentFilter.source = source
+            var currentEffect = effects[filterIn]
+            if currentEffect == nil { // first in the chain
+                currentEffect = filterIn == defaultSource ? SourceGraphicEffect() : AlphaEffect()
             }
-            filters.removeValue(forKey: filterIn)
+            if resultEffect == nil {
+                resultEffect = currentEffect!
+            }
+            effects.removeValue(forKey: filterIn)
             
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
-                    currentFilter.effects.append(Offset(dx: dx, dy: dy))
+                    currentEffect?.input = OffsetEffect(dx: dx, dy: dy)
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    currentFilter.effects.append(GaussianBlur(radius: radius))
+                    currentEffect?.input = GaussianBlur(radius: radius)
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
-                    if filterIn == EffectSource.SourceGraphic.rawValue {
-                        defFilters[id] = filters[filterIn2]
-                    }
-                    if filterIn2 == EffectSource.SourceGraphic.rawValue {
-                        defFilters[id] = currentFilter
+                    if effects[filterIn] != nil || effects[filterIn2] != nil {
+                        defEffects[id] = resultEffect
                     }
                     return
                 }
@@ -1039,11 +1041,7 @@ open class SVGParser {
                 print("SVG parsing error. Filter \(element.name) not supported")
                 continue
             }
-            filters[filterOut] = currentFilter
-        }
-        
-        if let filter = filters.first?.value {
-            defFilters[id] = filter
+            effects[filterOut] = currentEffect?.input
         }
     }
 

@@ -18,7 +18,6 @@
 		57614AFE1F83D15600875933 /* TextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1441E3B393900D1CB28 /* TextRenderer.swift */; };
 		57614AFF1F83D15600875933 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */; };
 		57614B001F83D15600875933 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */; };
-		57614B011F83D15600875933 /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11B1E3B393900D1CB28 /* GaussianBlur.swift */; };
 		57614B021F83D15600875933 /* RoundRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1341E3B393900D1CB28 /* RoundRect.swift */; };
 		57614B031F83D15600875933 /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
 		57614B041F83D15600875933 /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1471E3B393900D1CB28 /* SVGParser.swift */; };
@@ -101,7 +100,6 @@
 		57614B511F83D15600875933 /* NodeHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F91E3B393900D1CB28 /* NodeHashable.swift */; };
 		57614B521F83D15600875933 /* GeomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1271E3B393900D1CB28 /* GeomUtils.swift */; };
 		57614B531F83D15600875933 /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14C1E3B393900D1CB28 /* CAAnimationClosure.swift */; };
-		57614B541F83D15600875933 /* DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1171E3B393900D1CB28 /* DropShadow.swift */; };
 		57614B551F83D15600875933 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		57614B561F83D15600875933 /* Common_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD491F45C28F00966E06 /* Common_macOS.swift */; };
 		57614B571F83D15600875933 /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108791F53C92000DC365B /* MDisplayLink.swift */; };
@@ -122,7 +120,6 @@
 		57614B671F83D15600875933 /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
 		57614B681F83D15600875933 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13E1E3B393900D1CB28 /* GroupRenderer.swift */; };
 		57614B691F83D15600875933 /* SVGParserRegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */; };
-		57614B6A1F83D15600875933 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1181E3B393900D1CB28 /* Effect.swift */; };
 		57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14E1E3B393900D1CB28 /* NSTimer+Closure.swift */; };
 		57614B6C1F83D15600875933 /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC51E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift */; };
 		57614B6D1F83D15600875933 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FF1E3B393900D1CB28 /* AnimationSequence.swift */; };
@@ -194,11 +191,8 @@
 		57E5E17C1E3B393900D1CB28 /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1141E3B393900D1CB28 /* Baseline.swift */; };
 		57E5E17D1E3B393900D1CB28 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1151E3B393900D1CB28 /* Color.swift */; };
 		57E5E17E1E3B393900D1CB28 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1161E3B393900D1CB28 /* Drawable.swift */; };
-		57E5E17F1E3B393900D1CB28 /* DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1171E3B393900D1CB28 /* DropShadow.swift */; };
-		57E5E1801E3B393900D1CB28 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1181E3B393900D1CB28 /* Effect.swift */; };
 		57E5E1811E3B393900D1CB28 /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1191E3B393900D1CB28 /* Fill.swift */; };
 		57E5E1821E3B393900D1CB28 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11A1E3B393900D1CB28 /* Font.swift */; };
-		57E5E1831E3B393900D1CB28 /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11B1E3B393900D1CB28 /* GaussianBlur.swift */; };
 		57E5E1841E3B393900D1CB28 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11C1E3B393900D1CB28 /* Gradient.swift */; };
 		57E5E1851E3B393900D1CB28 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11D1E3B393900D1CB28 /* LinearGradient.swift */; };
 		57E5E1861E3B393900D1CB28 /* LineCap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11E1E3B393900D1CB28 /* LineCap.swift */; };
@@ -253,6 +247,16 @@
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
+		5B101BCD20A59A2300E50F10 /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BC820A59A2200E50F10 /* GaussianBlur.swift */; };
+		5B101BCE20A59A2300E50F10 /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BC920A59A2200E50F10 /* OffsetEffect.swift */; };
+		5B101BCF20A59A2300E50F10 /* AlphaEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BCA20A59A2200E50F10 /* AlphaEffect.swift */; };
+		5B101BD020A59A2300E50F10 /* SourceGraphicEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BCB20A59A2300E50F10 /* SourceGraphicEffect.swift */; };
+		5B101BD120A59A2300E50F10 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BCC20A59A2300E50F10 /* Effect.swift */; };
+		5B101BD220A59A8300E50F10 /* AlphaEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BCA20A59A2200E50F10 /* AlphaEffect.swift */; };
+		5B101BD320A59A8500E50F10 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BCC20A59A2300E50F10 /* Effect.swift */; };
+		5B101BD420A59A8500E50F10 /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BC820A59A2200E50F10 /* GaussianBlur.swift */; };
+		5B101BD520A59A8500E50F10 /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BC920A59A2200E50F10 /* OffsetEffect.swift */; };
+		5B101BD620A59A8500E50F10 /* SourceGraphicEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B101BCB20A59A2300E50F10 /* SourceGraphicEffect.swift */; };
 		5B1A8C7620A15F7300E5FFAE /* SvgNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SvgNodeLayout.swift */; };
 		5B1A8C7720A15F7300E5FFAE /* SvgNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SvgNodeLayout.swift */; };
 		5B1FFD7A207E083600716A46 /* SvgContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */; };
@@ -409,11 +413,8 @@
 		57E5E1141E3B393900D1CB28 /* Baseline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baseline.swift; sourceTree = "<group>"; };
 		57E5E1151E3B393900D1CB28 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		57E5E1161E3B393900D1CB28 /* Drawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
-		57E5E1171E3B393900D1CB28 /* DropShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropShadow.swift; sourceTree = "<group>"; };
-		57E5E1181E3B393900D1CB28 /* Effect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 		57E5E1191E3B393900D1CB28 /* Fill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fill.swift; sourceTree = "<group>"; };
 		57E5E11A1E3B393900D1CB28 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		57E5E11B1E3B393900D1CB28 /* GaussianBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaussianBlur.swift; sourceTree = "<group>"; };
 		57E5E11C1E3B393900D1CB28 /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		57E5E11D1E3B393900D1CB28 /* LinearGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
 		57E5E11E1E3B393900D1CB28 /* LineCap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineCap.swift; sourceTree = "<group>"; };
@@ -470,6 +471,11 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B101BC820A59A2200E50F10 /* GaussianBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GaussianBlur.swift; path = Source/model/effects/GaussianBlur.swift; sourceTree = SOURCE_ROOT; };
+		5B101BC920A59A2200E50F10 /* OffsetEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetEffect.swift; path = Source/model/effects/OffsetEffect.swift; sourceTree = SOURCE_ROOT; };
+		5B101BCA20A59A2200E50F10 /* AlphaEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlphaEffect.swift; path = Source/model/effects/AlphaEffect.swift; sourceTree = SOURCE_ROOT; };
+		5B101BCB20A59A2300E50F10 /* SourceGraphicEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SourceGraphicEffect.swift; path = Source/model/effects/SourceGraphicEffect.swift; sourceTree = SOURCE_ROOT; };
+		5B101BCC20A59A2300E50F10 /* Effect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Effect.swift; path = Source/model/effects/Effect.swift; sourceTree = SOURCE_ROOT; };
 		5B1A8C7520A15F7300E5FFAE /* SvgNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvgNodeLayout.swift; sourceTree = "<group>"; };
 		5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvgContentLayout.swift; sourceTree = "<group>"; };
 		5BAE201E208E1211006BF277 /* SVGCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGCanvas.swift; sourceTree = "<group>"; };
@@ -753,6 +759,7 @@
 		57E5E1101E3B393900D1CB28 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				5B101BC720A599E800E50F10 /* effects */,
 				57E5E1111E3B393900D1CB28 /* draw */,
 				57E5E1231E3B393900D1CB28 /* geom2d */,
 				57E5E1371E3B393900D1CB28 /* scene */,
@@ -768,11 +775,8 @@
 				57E5E1141E3B393900D1CB28 /* Baseline.swift */,
 				57E5E1151E3B393900D1CB28 /* Color.swift */,
 				57E5E1161E3B393900D1CB28 /* Drawable.swift */,
-				57E5E1171E3B393900D1CB28 /* DropShadow.swift */,
-				57E5E1181E3B393900D1CB28 /* Effect.swift */,
 				57E5E1191E3B393900D1CB28 /* Fill.swift */,
 				57E5E11A1E3B393900D1CB28 /* Font.swift */,
-				57E5E11B1E3B393900D1CB28 /* GaussianBlur.swift */,
 				57E5E11C1E3B393900D1CB28 /* Gradient.swift */,
 				57E5E11D1E3B393900D1CB28 /* LinearGradient.swift */,
 				57E5E11E1E3B393900D1CB28 /* LineCap.swift */,
@@ -918,6 +922,19 @@
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
+			sourceTree = "<group>";
+		};
+		5B101BC720A599E800E50F10 /* effects */ = {
+			isa = PBXGroup;
+			children = (
+				5B101BCA20A59A2200E50F10 /* AlphaEffect.swift */,
+				5B101BCC20A59A2300E50F10 /* Effect.swift */,
+				5B101BC820A59A2200E50F10 /* GaussianBlur.swift */,
+				5B101BC920A59A2200E50F10 /* OffsetEffect.swift */,
+				5B101BCB20A59A2300E50F10 /* SourceGraphicEffect.swift */,
+			);
+			name = effects;
+			path = effect;
 			sourceTree = "<group>";
 		};
 		5BAE205A208F2504006BF277 /* w3cSVGTests */ = {
@@ -1208,7 +1225,6 @@
 				57614AFE1F83D15600875933 /* TextRenderer.swift in Sources */,
 				57614AFF1F83D15600875933 /* CGFloat+Double.swift in Sources */,
 				57614B001F83D15600875933 /* CGExtensions.swift in Sources */,
-				57614B011F83D15600875933 /* GaussianBlur.swift in Sources */,
 				57614B021F83D15600875933 /* RoundRect.swift in Sources */,
 				57614B031F83D15600875933 /* UIImage2Image.swift in Sources */,
 				57614B041F83D15600875933 /* SVGParser.swift in Sources */,
@@ -1237,6 +1253,7 @@
 				57614B1B1F83D15600875933 /* Image.swift in Sources */,
 				57614B1C1F83D15600875933 /* TransformGenerator.swift in Sources */,
 				57614B1D1F83D15600875933 /* AnimationImpl.swift in Sources */,
+				5B101BD220A59A8300E50F10 /* AlphaEffect.swift in Sources */,
 				57614B1E1F83D15600875933 /* AnimOperators.swift in Sources */,
 				57614B1F1F83D15600875933 /* Circle.swift in Sources */,
 				57614B201F83D15600875933 /* Color.swift in Sources */,
@@ -1256,12 +1273,15 @@
 				57614B2D1F83D15600875933 /* TransformAnimation.swift in Sources */,
 				57614B2E1F83D15600875933 /* CombineAnimation.swift in Sources */,
 				57614B2F1F83D15600875933 /* TransformHashable.swift in Sources */,
+				5B101BD420A59A8500E50F10 /* GaussianBlur.swift in Sources */,
 				57614B301F83D15600875933 /* MoveTo.swift in Sources */,
 				57614B311F83D15600875933 /* NodeRenderer.swift in Sources */,
 				57614B321F83D15600875933 /* Font.swift in Sources */,
 				57614B331F83D15600875933 /* Animation.swift in Sources */,
+				5B101BD520A59A8500E50F10 /* OffsetEffect.swift in Sources */,
 				57614B341F83D15600875933 /* SVGParserError.swift in Sources */,
 				57614B351F83D15600875933 /* Drawable.swift in Sources */,
+				5B101BD320A59A8500E50F10 /* Effect.swift in Sources */,
 				57614B361F83D15600875933 /* Disposable.swift in Sources */,
 				57614B371F83D15600875933 /* Path.swift in Sources */,
 				57614B381F83D15600875933 /* Line.swift in Sources */,
@@ -1293,7 +1313,6 @@
 				57614B511F83D15600875933 /* NodeHashable.swift in Sources */,
 				57614B521F83D15600875933 /* GeomUtils.swift in Sources */,
 				57614B531F83D15600875933 /* CAAnimationClosure.swift in Sources */,
-				57614B541F83D15600875933 /* DropShadow.swift in Sources */,
 				57614B551F83D15600875933 /* Common_iOS.swift in Sources */,
 				57614B561F83D15600875933 /* Common_macOS.swift in Sources */,
 				57614B571F83D15600875933 /* MDisplayLink.swift in Sources */,
@@ -1314,7 +1333,7 @@
 				57614B671F83D15600875933 /* ContentsInterpolation.swift in Sources */,
 				57614B681F83D15600875933 /* GroupRenderer.swift in Sources */,
 				57614B691F83D15600875933 /* SVGParserRegexHelper.swift in Sources */,
-				57614B6A1F83D15600875933 /* Effect.swift in Sources */,
+				5B101BD620A59A8500E50F10 /* SourceGraphicEffect.swift in Sources */,
 				57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */,
 				57614B6C1F83D15600875933 /* SWXMLHash+TypeConversion.swift in Sources */,
 				57614B6D1F83D15600875933 /* AnimationSequence.swift in Sources */,
@@ -1335,7 +1354,6 @@
 				57E5E1A91E3B393900D1CB28 /* TextRenderer.swift in Sources */,
 				57E5E1B01E3B393900D1CB28 /* CGFloat+Double.swift in Sources */,
 				57E5E1591E3B393900D1CB28 /* CGExtensions.swift in Sources */,
-				57E5E1831E3B393900D1CB28 /* GaussianBlur.swift in Sources */,
 				57E5E19B1E3B393900D1CB28 /* RoundRect.swift in Sources */,
 				57900FF91EA0DEBF00809FFB /* UIImage2Image.swift in Sources */,
 				57E5E1AB1E3B393900D1CB28 /* SVGParser.swift in Sources */,
@@ -1383,6 +1401,7 @@
 				57E5E1701E3B393900D1CB28 /* TransformAnimation.swift in Sources */,
 				57E5E16C1E3B393900D1CB28 /* CombineAnimation.swift in Sources */,
 				57E5E1661E3B393900D1CB28 /* TransformHashable.swift in Sources */,
+				5B101BCD20A59A2300E50F10 /* GaussianBlur.swift in Sources */,
 				57E5E1921E3B393900D1CB28 /* MoveTo.swift in Sources */,
 				57E5E1A51E3B393900D1CB28 /* NodeRenderer.swift in Sources */,
 				57E5E1821E3B393900D1CB28 /* Font.swift in Sources */,
@@ -1390,7 +1409,9 @@
 				57E5E1AC1E3B393900D1CB28 /* SVGParserError.swift in Sources */,
 				57E5E17E1E3B393900D1CB28 /* Drawable.swift in Sources */,
 				57E5E1711E3B393900D1CB28 /* Disposable.swift in Sources */,
+				5B101BCE20A59A2300E50F10 /* OffsetEffect.swift in Sources */,
 				57E5E1931E3B393900D1CB28 /* Path.swift in Sources */,
+				5B101BCF20A59A2300E50F10 /* AlphaEffect.swift in Sources */,
 				57E5E1901E3B393900D1CB28 /* Line.swift in Sources */,
 				57E5E1611E3B393900D1CB28 /* PathBounds.swift in Sources */,
 				57E5E1561E3B393900D1CB28 /* AnimationProducer.swift in Sources */,
@@ -1398,6 +1419,7 @@
 				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
 				A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */,
 				57E5E1871E3B393900D1CB28 /* LineJoin.swift in Sources */,
+				5B101BD020A59A2300E50F10 /* SourceGraphicEffect.swift in Sources */,
 				57E5E1881E3B393900D1CB28 /* RadialGradient.swift in Sources */,
 				57614BDA1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
 				57E5E1891E3B393900D1CB28 /* Stop.swift in Sources */,
@@ -1420,7 +1442,6 @@
 				57E5E1651E3B393900D1CB28 /* NodeHashable.swift in Sources */,
 				57E5E18E1E3B393900D1CB28 /* GeomUtils.swift in Sources */,
 				57E5E1AF1E3B393900D1CB28 /* CAAnimationClosure.swift in Sources */,
-				57E5E17F1E3B393900D1CB28 /* DropShadow.swift in Sources */,
 				A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */,
 				A718CD4D1F45C28F00966E06 /* Common_macOS.swift in Sources */,
 				57F1087A1F53C92000DC365B /* MDisplayLink.swift in Sources */,
@@ -1442,10 +1463,10 @@
 				57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */,
 				57E5E1A31E3B393900D1CB28 /* GroupRenderer.swift in Sources */,
 				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,
-				57E5E1801E3B393900D1CB28 /* Effect.swift in Sources */,
 				57E5E1B11E3B393900D1CB28 /* NSTimer+Closure.swift in Sources */,
 				572CEFC71E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift in Sources */,
 				57E5E16B1E3B393900D1CB28 /* AnimationSequence.swift in Sources */,
+				5B101BD120A59A2300E50F10 /* Effect.swift in Sources */,
 				5B1A8C7620A15F7300E5FFAE /* SvgNodeLayout.swift in Sources */,
 				57E5E1671E3B393900D1CB28 /* MorphingGenerator.swift in Sources */,
 				57E5E1AA1E3B393900D1CB28 /* SVGConstants.swift in Sources */,

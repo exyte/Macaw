@@ -26,10 +26,10 @@ open class Node: Drawable {
         set(val) { clipVar.value = val }
     }
 
-    open let fillterVar: Variable<Filter?>
-    open var filter: Filter? {
-        get { return fillterVar.value }
-        set(val) { fillterVar.value = val }
+    open let effectVar: Variable<Effect?>
+    open var effect: Effect? {
+        get { return effectVar.value }
+        set(val) { effectVar.value = val }
     }
 
     internal var id: String {
@@ -297,12 +297,12 @@ open class Node: Drawable {
         return !pinchHandlers.isEmpty
     }
 
-    public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, filter: Filter? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.placeVar = AnimatableVariable<Transform>(place)
         self.opaqueVar = Variable<Bool>(opaque)
         self.opacityVar = AnimatableVariable<Double>(opacity)
         self.clipVar = Variable<Locus?>(clip)
-        self.fillterVar = Variable<Filter?>(filter)
+        self.effectVar = Variable<Effect?>(effect)
         self.id = NSUUID().uuidString
 
         super.init(

@@ -48,7 +48,7 @@ open class Image: Node {
 
     private var mImage: MImage?
 
-    public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, filter: Filter? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.srcVar = Variable<String>(src)
         self.xAlignVar = Variable<Align>(xAlign)
         self.yAlignVar = Variable<Align>(yAlign)
@@ -60,13 +60,13 @@ open class Image: Node {
             opaque: opaque,
             opacity: opacity,
             clip: clip,
-            filter: filter,
+            effect: effect,
             visible: visible,
             tag: tag
         )
     }
 
-    public init(image: MImage, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, filter: Filter? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(image: MImage, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
 
         var oldId: String?
         for key in imagesMap.keys where image === imagesMap[key] {
@@ -87,7 +87,7 @@ open class Image: Node {
             opaque: opaque,
             opacity: opacity,
             clip: clip,
-            filter: filter,
+            effect: effect,
             visible: visible,
             tag: tag
         )

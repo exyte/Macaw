@@ -59,7 +59,7 @@ class TextRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let contains = node()?.bounds()?.cgRect().contains(location) else {
+        guard let contains = node()?.bounds()?.toCG().contains(location) else {
             return .none
         }
 
@@ -149,9 +149,9 @@ class TextRenderer: NodeRenderer {
         if let color = fill as? Color {
 
             #if os(iOS)
-            return MColor(cgColor: RenderUtils.mapColor(color))
+            return MColor(cgColor: color.toCG())
             #elseif os(OSX)
-            return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
+            return MColor(cgColor: color.toCG()) ?? .black
             #endif
 
         }

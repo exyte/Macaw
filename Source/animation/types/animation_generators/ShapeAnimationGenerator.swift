@@ -87,12 +87,12 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         animation.onProgressUpdate?(t)
     }
 
-    layer.path = RenderUtils.toCGPath(fromShape.form)
+    layer.path = fromShape.form.toCGPath()
 
     // Stroke
     if let stroke = shape.stroke {
         if let color = stroke.fill as? Color {
-            layer.strokeColor = RenderUtils.mapColor(color)
+            layer.strokeColor = color.toCG()
         } else {
             layer.strokeColor = MColor.black.cgColor
         }
@@ -108,7 +108,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
     // Fill
     if let color = shape.fill as? Color {
-        layer.fillColor = RenderUtils.mapColor(color)
+        layer.fillColor = color.toCG()
     } else {
         layer.fillColor = MColor.clear.cgColor
     }
@@ -127,8 +127,8 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
     // Shape
     // Path
     var transform = renderTransform
-    let fromPath = RenderUtils.toCGPath(from.form).copy(using: &transform)
-    let toPath = RenderUtils.toCGPath(to.form).copy(using: &transform)
+    let fromPath = from.form.toCGPath().copy(using: &transform)
+    let toPath = to.form.toCGPath().copy(using: &transform)
 
     let pathAnimation = CABasicAnimation(keyPath: "path")
     pathAnimation.fromValue = fromPath
@@ -143,8 +143,8 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
 
     if fromFillColor != toFillColor {
         let fillAnimation = CABasicAnimation(keyPath: "fillColor")
-        fillAnimation.fromValue = RenderUtils.mapColor(fromFillColor)
-        fillAnimation.toValue = RenderUtils.mapColor(toFillColor)
+        fillAnimation.fromValue = fromFillColor.toCG()
+        fillAnimation.toValue = toFillColor.toCG()
         fillAnimation.duration = duration
 
         group.animations?.append(fillAnimation)
@@ -170,8 +170,8 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
 
     if fromStrokeColor != toStrokeColor {
         let strokeColorAnimation = CABasicAnimation(keyPath: "strokeColor")
-        strokeColorAnimation.fromValue = RenderUtils.mapColor(fromStrokeColor)
-        strokeColorAnimation.toValue = RenderUtils.mapColor(toStrokeColor)
+        strokeColorAnimation.fromValue = fromStrokeColor.toCG()
+        strokeColorAnimation.toValue = toStrokeColor.toCG()
         strokeColorAnimation.duration = duration
 
         group.animations?.append(strokeColorAnimation)

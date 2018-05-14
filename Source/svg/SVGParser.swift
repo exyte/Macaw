@@ -1065,7 +1065,7 @@ open class SVGParser {
 
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
-            let cgTransform = RenderUtils.mapTransform(transform)
+            let cgTransform = transform.toCG()
 
             let point1 = CGPoint(x: x1, y: y1).applying(cgTransform)
             x1 = point1.x.doubleValue
@@ -1127,7 +1127,7 @@ open class SVGParser {
 
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
-            let cgTransform = RenderUtils.mapTransform(transform)
+            let cgTransform = transform.toCG()
 
             let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
             cx = point1.x.doubleValue

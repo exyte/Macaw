@@ -6,8 +6,8 @@ import UIKit
 import AppKit
 #endif
 
-class RenderUtils {
-    class func mapColor(_ color: Color) -> CGColor {
+public class RenderUtils {
+    public class func mapColor(_ color: Color) -> CGColor {
         let red = CGFloat(Double(color.r()) / 255.0)
         let green = CGFloat(Double(color.g()) / 255.0)
         let blue = CGFloat(Double(color.b()) / 255.0)
@@ -20,7 +20,7 @@ class RenderUtils {
                                  d: CGFloat(t.m22), tx: CGFloat(t.dx), ty: CGFloat(t.dy))
     }
 
-    class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
+    public class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
         switch join {
         case LineJoin.round?:
             return CGLineJoin.round
@@ -42,7 +42,7 @@ class RenderUtils {
         }
     }
 
-    class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
+    public class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
         switch cap {
         case LineCap.round?:
             return CGLineCap.round
@@ -131,7 +131,7 @@ class RenderUtils {
         return Color.rgba(r: color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
     }
 
-    class func toCGPath(_ locus: Locus) -> CGPath {
+    public class func toCGPath(_ locus: Locus) -> CGPath {
         if let arc = locus as? Arc {
             if arc.ellipse.rx != arc.ellipse.ry {
                 // http://stackoverflow.com/questions/11365775/how-to-draw-an-elliptical-arc-with-coregraphics

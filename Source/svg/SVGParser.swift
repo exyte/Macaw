@@ -1404,14 +1404,23 @@ private class PathDataReader {
             var result = [PathSegment]()
             let data = readData()
             var index = 0
-            while (index < data.count) {
+            var isFirstSegment = true
+            while index < data.count {
                 let end = index + count
-                if (end > data.count) {
+                if end > data.count {
                     // TODO need to generate error:
                     // "Path '\(type)' has invalid number of arguments: \(data.count)"
                     break
                 }
-                result.append(PathSegment(type: type, data: Array(data[index..<end])))
+                var currentType = type
+                if type == .M && !isFirstSegment {
+                    currentType = .L
+                }
+                if type == .m && !isFirstSegment {
+                    currentType = .l
+                }
+                result.append(PathSegment(type: currentType, data: Array(data[index..<end])))
+                isFirstSegment = false
                 index = end
             }
             return result

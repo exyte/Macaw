@@ -148,7 +148,7 @@ class RenderUtils {
                 return path
             }
         }
-        return toBezierPath(locus).reversing().cgPath
+        return toBezierPath(locus).cgPath
     }
 
     class func toBezierPath(_ locus: Locus) -> MBezierPath {

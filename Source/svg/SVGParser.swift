@@ -857,7 +857,7 @@ open class SVGParser {
             if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
+            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
         }
         // parse as regular text element
         var textString: NSString
@@ -876,9 +876,12 @@ open class SVGParser {
                         fill: fill ?? Color.black, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .alphabetic,
                         place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
         collection.append(text)
+        if tagRange.location >= fullString.length { // leave recursion
+            return collection
+        }
         return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection,
                              withWhitespace: nextStringWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke,
-                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
+                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
     }
 
     fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
@@ -894,7 +897,7 @@ open class SVGParser {
         let attributes = getStyleAttributes([:], element: element)
 
         return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                    fill: fill ?? getFillColor(attributes) ?? Color.black, stroke: stroke ?? getStroke(attributes),
+                    fill: ((attributes["fill"] != nil) ? getFillColor(attributes)! : fill) ?? Color.black, stroke: stroke ?? getStroke(attributes),
                     align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }

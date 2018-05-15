@@ -59,7 +59,7 @@ class TextRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let contains = node()?.bounds()?.cgRect().contains(location) else {
+        guard let contains = node()?.bounds()?.toCG().contains(location) else {
             return .none
         }
 
@@ -76,14 +76,11 @@ class TextRenderer: NodeRenderer {
             // However it is needed for the Swift Package Manager to work accordingly.
             return MFont()
         }
-        guard let text = text else {
-            return MFont.systemFont(ofSize: 18.0)
-        }
-        guard let textFont = text.font else {
+        guard let text = text, let textFont = text.font else {
             return MFont.systemFont(ofSize: MFont.mSystemFontSize)
         }
         
-        if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size) {
+        if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size, weight: textFont.weight) {
             return customFont
         } else {
             if let weight = getWeight(textFont.weight) {
@@ -152,9 +149,9 @@ class TextRenderer: NodeRenderer {
         if let color = fill as? Color {
 
             #if os(iOS)
-            return MColor(cgColor: RenderUtils.mapColor(color))
+            return MColor(cgColor: color.toCG())
             #elseif os(OSX)
-            return MColor(cgColor: RenderUtils.mapColor(color)) ?? .black
+            return MColor(cgColor: color.toCG()) ?? .black
             #endif
 
         }

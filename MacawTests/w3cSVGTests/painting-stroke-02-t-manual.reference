@@ -1,0 +1,161 @@
+{
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "Basic paint: stroke properties.",
+          "place" : "1, 0, 0, 1, 10, 40",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 36,
+            "weight" : "normal"
+          }
+        },
+        {
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 16753920
+            },
+            "dashes" : [
+
+            ],
+            "width" : 20
+          },
+          "form" : {
+            "x" : 90,
+            "w" : 300,
+            "type" : "Rect",
+            "y" : 70,
+            "h" : 50
+          },
+          "node" : "Shape"
+        },
+        {
+          "stroke" : {
+            "join" : "round",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 16753920
+            },
+            "dashes" : [
+
+            ],
+            "width" : 20
+          },
+          "form" : {
+            "x" : 90,
+            "w" : 300,
+            "type" : "Rect",
+            "y" : 190,
+            "h" : 50
+          },
+          "node" : "Shape"
+        },
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "stroke-width=\"20\"",
+          "place" : "1, 0, 0, 1, 120, 160",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 40,
+            "weight" : "normal"
+          }
+        },
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "stroke-linejoin=\"round\"",
+          "place" : "1, 0, 0, 1, 58, 290",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 40,
+            "weight" : "normal"
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.7 $",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
+    }
+  ],
+  "node" : "Canvas"
+}

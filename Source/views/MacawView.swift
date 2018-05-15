@@ -18,6 +18,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         didSet {
+            if let canvas = node as? SVGCanvas, let layout = canvas.layout as? SVGNodeLayout {
+                layout.layout(node: canvas, in: bounds.toMacaw())
+            }
+            
             nodesMap.add(node, view: self)
             self.renderer?.dispose()
             if let cache = animationCache {
@@ -201,7 +205,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                 }
 
                 let inverted = node.place.invert()!
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let loc = location.applying(inverted.toCG())
 
                 let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
                 let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
@@ -244,7 +248,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                 let currentTouch = touches[currentIndex]
                 let location = CGPoint(x: currentTouch.x, y: currentTouch.y)
                 let inverted = currentNode.place.invert()!
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let loc = location.applying(inverted.toCG())
                 let point = TouchPoint(id: currentTouch.id, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 points.append(point)
             }
@@ -273,7 +277,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
                 let inverted = node.place.invert()!
                 let location = CGPoint(x: touch.x, y: touch.y)
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let loc = location.applying(inverted.toCG())
                 let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
                 let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
                 let touchEvent = TouchEvent(node: node, points: [point])
@@ -324,7 +328,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         foundNodes.forEach { node in
             let inverted = node.place.invert()!
-            let loc = location.applying(RenderUtils.mapTransform(inverted))
+            let loc = location.applying(inverted.toCG())
             let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
             node.handleTap(event)
         }
@@ -361,7 +365,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         foundNodes.forEach { node in
             let inverted = node.place.invert()!
-            let loc = location.applying(RenderUtils.mapTransform(inverted))
+            let loc = location.applying(inverted.toCG())
             let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
             node.handleLongTap(event, touchBegan: recognizer.state == .began)
         }

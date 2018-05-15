@@ -1,0 +1,123 @@
+{
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 100,
+      "w" : 100,
+      "type" : "Rect",
+      "y" : 100,
+      "h" : 100
+    }
+  },
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "fill" : {
+            "type" : "Color",
+            "val" : 14423100
+          },
+          "form" : {
+            "x" : 100,
+            "w" : 50,
+            "type" : "Rect",
+            "y" : 100,
+            "h" : 50
+          },
+          "node" : "Shape"
+        },
+        {
+          "fill" : {
+            "type" : "Color",
+            "val" : 14423100
+          },
+          "form" : {
+            "x" : 150,
+            "w" : 50,
+            "type" : "Rect",
+            "y" : 150,
+            "h" : 50
+          },
+          "node" : "Shape"
+        },
+        {
+          "fill" : {
+            "type" : "Color",
+            "val" : 16766720
+          },
+          "form" : {
+            "cy" : 175,
+            "type" : "Circle",
+            "r" : 25,
+            "cx" : 125
+          },
+          "node" : "Shape"
+        },
+        {
+          "fill" : {
+            "type" : "Color",
+            "val" : 16766720
+          },
+          "form" : {
+            "cy" : 125,
+            "type" : "Circle",
+            "r" : 25,
+            "cx" : 175
+          },
+          "node" : "Shape"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.5 $",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      },
+      "form" : {
+        "x" : 100,
+        "w" : 100,
+        "type" : "Rect",
+        "y" : 100,
+        "h" : 100
+      },
+      "node" : "Shape"
+    }
+  ],
+  "node" : "Canvas"
+}

@@ -1,0 +1,475 @@
+{
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : {
+      "x" : 0,
+      "w" : 480,
+      "type" : "Rect",
+      "y" : 0,
+      "h" : 360
+    }
+  },
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "contents" : [
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 50,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 50,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 50,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 155,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 130,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 50,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 130,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 155,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 210,
+                "w" : 60,
+                "type" : "Rect",
+                "y" : 50,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 210,
+                "w" : 60,
+                "type" : "Rect",
+                "y" : 155,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 315,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 50,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 315,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 155,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 394,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 50,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 394,
+                "w" : 35,
+                "type" : "Rect",
+                "y" : 155,
+                "h" : 60
+              },
+              "node" : "Shape"
+            },
+            {
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 0
+                },
+                "dashes" : [
+
+                ],
+                "width" : 1
+              },
+              "form" : {
+                "x" : 235,
+                "w" : 10,
+                "type" : "Rect",
+                "y" : 260,
+                "h" : 10
+              },
+              "node" : "Shape"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Stroked",
+              "place" : "1, 0, 0, 1, 5, 90",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Unstroked",
+              "place" : "1, 0, 0, 1, 5, 195",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Zero width rect",
+              "place" : "1, 0, 0, 1, 50, 135",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Zero height rect",
+              "place" : "1, 0, 0, 1, 130, 135",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Zero radius circle",
+              "place" : "1, 0, 0, 1, 210, 135",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Zero x radius ellipse",
+              "place" : "1, 0, 0, 1, 315, 135",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Zero y radius ellipse",
+              "place" : "1, 0, 0, 1, 394, 135",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            },
+            {
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "node" : "Text",
+              "align" : "min",
+              "text" : "Zero length line",
+              "place" : "1, 0, 0, 1, 235, 290",
+              "font" : {
+                "name" : "Arial",
+                "size" : 8,
+                "weight" : "normal"
+              }
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "form" : {
+            "y1" : 265,
+            "type" : "Line",
+            "x1" : 240,
+            "x2" : 240,
+            "y2" : 265
+          },
+          "node" : "Shape",
+          "stroke" : {
+            "join" : "miter",
+            "cap" : "butt",
+            "fill" : {
+              "type" : "Color",
+              "val" : 255
+            },
+            "dashes" : [
+
+            ],
+            "width" : 1
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "node" : "Text",
+          "align" : "min",
+          "text" : "$Revision: 1.5 $",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          }
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "stroke" : {
+        "join" : "miter",
+        "cap" : "butt",
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "dashes" : [
+
+        ],
+        "width" : 1
+      },
+      "form" : {
+        "x" : 1,
+        "w" : 478,
+        "type" : "Rect",
+        "y" : 1,
+        "h" : 358
+      },
+      "node" : "Shape"
+    }
+  ],
+  "node" : "Canvas"
+}

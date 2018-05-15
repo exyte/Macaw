@@ -17,7 +17,6 @@
 		57614AFD1F83D15600875933 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1381E3B393900D1CB28 /* Group.swift */; };
 		57614AFE1F83D15600875933 /* TextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1441E3B393900D1CB28 /* TextRenderer.swift */; };
 		57614AFF1F83D15600875933 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */; };
-		57614B001F83D15600875933 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */; };
 		57614B011F83D15600875933 /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E11B1E3B393900D1CB28 /* GaussianBlur.swift */; };
 		57614B021F83D15600875933 /* RoundRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1341E3B393900D1CB28 /* RoundRect.swift */; };
 		57614B031F83D15600875933 /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
@@ -159,7 +158,6 @@
 		57E5E1561E3B393900D1CB28 /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E51E3B393900D1CB28 /* AnimationProducer.swift */; };
 		57E5E1571E3B393900D1CB28 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E61E3B393900D1CB28 /* AnimationUtils.swift */; };
 		57E5E1581E3B393900D1CB28 /* Easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E71E3B393900D1CB28 /* Easing.swift */; };
-		57E5E1591E3B393900D1CB28 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */; };
 		57E5E15A1E3B393900D1CB28 /* AnimOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */; };
 		57E5E15B1E3B393900D1CB28 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */; };
 		57E5E15D1E3B393900D1CB28 /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */; };
@@ -253,8 +251,154 @@
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
-		5B1FFD7A207E083600716A46 /* SvgContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */; };
-		5BAA56A8207C73FF0055BC5B /* SvgContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */; };
+		5835969B20A9CA150090400C /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
+		5835969C20A9CA150090400C /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
+		5B1A8C7620A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */; };
+		5B1A8C7720A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */; };
+		5B1FFD7A207E083600716A46 /* SVGContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SVGContentLayout.swift */; };
+		5B574C0620A409FA003DE2BF /* coords-trans-07-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7820A409DF003DE2BF /* coords-trans-07-t-manual.reference */; };
+		5B574C0720A409FA003DE2BF /* shapes-polygon-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7920A409E0003DE2BF /* shapes-polygon-01-t-manual.svg */; };
+		5B574C0820A409FA003DE2BF /* coords-coord-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7A20A409E0003DE2BF /* coords-coord-01-t-manual.reference */; };
+		5B574C0920A409FA003DE2BF /* shapes-polygon-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7B20A409E0003DE2BF /* shapes-polygon-02-t-manual.reference */; };
+		5B574C0A20A409FA003DE2BF /* shapes-rect-04-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7C20A409E0003DE2BF /* shapes-rect-04-f-manual.reference */; };
+		5B574C0B20A409FA003DE2BF /* coords-transformattr-05-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7D20A409E0003DE2BF /* coords-transformattr-05-f-manual.reference */; };
+		5B574C0C20A409FA003DE2BF /* color-prop-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7E20A409E0003DE2BF /* color-prop-02-f-manual.svg */; };
+		5B574C0D20A409FA003DE2BF /* paths-data-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B7F20A409E0003DE2BF /* paths-data-02-t-manual.svg */; };
+		5B574C0E20A409FA003DE2BF /* shapes-ellipse-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8020A409E0003DE2BF /* shapes-ellipse-02-t-manual.reference */; };
+		5B574C0F20A409FA003DE2BF /* metadata-example-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8120A409E0003DE2BF /* metadata-example-01-t-manual.svg */; };
+		5B574C1020A409FA003DE2BF /* painting-fill-04-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8220A409E0003DE2BF /* painting-fill-04-t-manual.svg */; };
+		5B574C1120A409FA003DE2BF /* coords-trans-08-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8320A409E0003DE2BF /* coords-trans-08-t-manual.reference */; };
+		5B574C1220A409FA003DE2BF /* painting-stroke-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8420A409E1003DE2BF /* painting-stroke-02-t-manual.reference */; };
+		5B574C1320A409FA003DE2BF /* shapes-line-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8520A409E1003DE2BF /* shapes-line-02-f-manual.reference */; };
+		5B574C1420A409FA003DE2BF /* paths-data-17-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8620A409E1003DE2BF /* paths-data-17-f-manual.reference */; };
+		5B574C1520A409FA003DE2BF /* painting-control-06-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8720A409E1003DE2BF /* painting-control-06-f-manual.svg */; };
+		5B574C1620A409FA003DE2BF /* painting-control-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8820A409E1003DE2BF /* painting-control-02-f-manual.reference */; };
+		5B574C1720A409FA003DE2BF /* color-prop-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8920A409E1003DE2BF /* color-prop-02-f-manual.reference */; };
+		5B574C1820A409FA003DE2BF /* painting-control-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8A20A409E1003DE2BF /* painting-control-03-f-manual.reference */; };
+		5B574C1920A409FA003DE2BF /* painting-fill-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8B20A409E1003DE2BF /* painting-fill-04-t-manual.reference */; };
+		5B574C1A20A409FA003DE2BF /* paths-data-13-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8C20A409E1003DE2BF /* paths-data-13-t-manual.reference */; };
+		5B574C1B20A409FA003DE2BF /* render-elems-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8D20A409E2003DE2BF /* render-elems-02-t-manual.svg */; };
+		5B574C1C20A409FA003DE2BF /* render-elems-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8E20A409E2003DE2BF /* render-elems-01-t-manual.reference */; };
+		5B574C1D20A409FA003DE2BF /* shapes-polygon-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B8F20A409E2003DE2BF /* shapes-polygon-02-t-manual.svg */; };
+		5B574C1E20A409FA003DE2BF /* struct-use-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9020A409E2003DE2BF /* struct-use-03-t-manual.svg */; };
+		5B574C1F20A409FA003DE2BF /* painting-stroke-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9120A409E2003DE2BF /* painting-stroke-02-t-manual.svg */; };
+		5B574C2020A409FA003DE2BF /* painting-fill-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9220A409E2003DE2BF /* painting-fill-01-t-manual.reference */; };
+		5B574C2120A409FA003DE2BF /* coords-coord-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9320A409E2003DE2BF /* coords-coord-01-t-manual.svg */; };
+		5B574C2220A409FA003DE2BF /* painting-stroke-05-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9420A409E2003DE2BF /* painting-stroke-05-t-manual.svg */; };
+		5B574C2320A409FA003DE2BF /* pservers-grad-stops-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9520A409E2003DE2BF /* pservers-grad-stops-01-f-manual.svg */; };
+		5B574C2420A409FA003DE2BF /* shapes-polyline-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9620A409E3003DE2BF /* shapes-polyline-01-t-manual.svg */; };
+		5B574C2520A409FA003DE2BF /* struct-frag-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9720A409E3003DE2BF /* struct-frag-04-t-manual.reference */; };
+		5B574C2620A409FA003DE2BF /* text-fonts-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9820A409E3003DE2BF /* text-fonts-01-t-manual.reference */; };
+		5B574C2720A409FA003DE2BF /* painting-fill-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9920A409E3003DE2BF /* painting-fill-03-t-manual.reference */; };
+		5B574C2820A409FA003DE2BF /* paths-data-07-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9A20A409E3003DE2BF /* paths-data-07-t-manual.svg */; };
+		5B574C2920A409FA003DE2BF /* struct-frag-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9B20A409E3003DE2BF /* struct-frag-02-t-manual.reference */; };
+		5B574C2A20A409FA003DE2BF /* struct-defs-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9C20A409E3003DE2BF /* struct-defs-01-t-manual.svg */; };
+		5B574C2B20A409FA003DE2BF /* paths-data-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9D20A409E3003DE2BF /* paths-data-02-t-manual.reference */; };
+		5B574C2C20A409FA003DE2BF /* coords-trans-09-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9E20A409E4003DE2BF /* coords-trans-09-t-manual.svg */; };
+		5B574C2D20A409FA003DE2BF /* render-elems-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574B9F20A409E4003DE2BF /* render-elems-01-t-manual.svg */; };
+		5B574C2E20A409FA003DE2BF /* paths-data-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA020A409E4003DE2BF /* paths-data-01-t-manual.reference */; };
+		5B574C2F20A409FA003DE2BF /* paths-data-07-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA120A409E4003DE2BF /* paths-data-07-t-manual.reference */; };
+		5B574C3020A409FA003DE2BF /* coords-transformattr-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA220A409E4003DE2BF /* coords-transformattr-02-f-manual.svg */; };
+		5B574C3120A409FA003DE2BF /* metadata-example-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA320A409E4003DE2BF /* metadata-example-01-t-manual.reference */; };
+		5B574C3220A409FA003DE2BF /* shapes-rect-04-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA420A409E4003DE2BF /* shapes-rect-04-f-manual.svg */; };
+		5B574C3320A409FA003DE2BF /* painting-stroke-09-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA520A409E4003DE2BF /* painting-stroke-09-t-manual.svg */; };
+		5B574C3420A409FA003DE2BF /* coords-coord-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA620A409E5003DE2BF /* coords-coord-02-t-manual.svg */; };
+		5B574C3520A409FA003DE2BF /* coords-trans-08-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA720A409E5003DE2BF /* coords-trans-08-t-manual.svg */; };
+		5B574C3620A409FA003DE2BF /* text-fonts-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA820A409E5003DE2BF /* text-fonts-02-t-manual.reference */; };
+		5B574C3720A409FA003DE2BF /* painting-fill-05-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BA920A409E5003DE2BF /* painting-fill-05-b-manual.reference */; };
+		5B574C3820A409FA003DE2BF /* paths-data-19-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BAA20A409E5003DE2BF /* paths-data-19-f-manual.svg */; };
+		5B574C3920A409FA003DE2BF /* struct-frag-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BAB20A409E5003DE2BF /* struct-frag-03-t-manual.svg */; };
+		5B574C3A20A409FA003DE2BF /* shapes-ellipse-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BAC20A409E5003DE2BF /* shapes-ellipse-02-t-manual.svg */; };
+		5B574C3B20A409FA003DE2BF /* coords-coord-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BAD20A409E5003DE2BF /* coords-coord-02-t-manual.reference */; };
+		5B574C3C20A409FA003DE2BF /* shapes-rect-05-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BAE20A409E6003DE2BF /* shapes-rect-05-f-manual.reference */; };
+		5B574C3D20A409FA003DE2BF /* coords-trans-07-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BAF20A409E6003DE2BF /* coords-trans-07-t-manual.svg */; };
+		5B574C3E20A409FA003DE2BF /* coords-trans-04-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB020A409E6003DE2BF /* coords-trans-04-t-manual.svg */; };
+		5B574C3F20A409FA003DE2BF /* coords-transformattr-04-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB120A409E6003DE2BF /* coords-transformattr-04-f-manual.svg */; };
+		5B574C4020A409FA003DE2BF /* painting-fill-05-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB220A409E6003DE2BF /* painting-fill-05-b-manual.svg */; };
+		5B574C4120A409FA003DE2BF /* coords-trans-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB320A409E6003DE2BF /* coords-trans-01-b-manual.svg */; };
+		5B574C4220A409FA003DE2BF /* paths-data-12-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB420A409E6003DE2BF /* paths-data-12-t-manual.reference */; };
+		5B574C4320A409FA003DE2BF /* struct-frag-04-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB520A409E6003DE2BF /* struct-frag-04-t-manual.svg */; };
+		5B574C4420A409FA003DE2BF /* struct-use-12-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB620A409E7003DE2BF /* struct-use-12-f-manual.reference */; };
+		5B574C4520A409FA003DE2BF /* painting-stroke-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB720A409E7003DE2BF /* painting-stroke-03-t-manual.reference */; };
+		5B574C4620A409FA003DE2BF /* shapes-polyline-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB820A409E7003DE2BF /* shapes-polyline-01-t-manual.reference */; };
+		5B574C4720A409FA003DE2BF /* struct-group-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BB920A409E7003DE2BF /* struct-group-01-t-manual.reference */; };
+		5B574C4820A409FA003DE2BF /* color-prop-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BBA20A409E7003DE2BF /* color-prop-01-b-manual.svg */; };
+		5B574C4920A409FA003DE2BF /* color-prop-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BBB20A409E7003DE2BF /* color-prop-03-t-manual.reference */; };
+		5B574C4A20A409FA003DE2BF /* struct-group-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BBC20A409E7003DE2BF /* struct-group-01-t-manual.svg */; };
+		5B574C4B20A409FA003DE2BF /* paths-data-12-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BBD20A409E8003DE2BF /* paths-data-12-t-manual.svg */; };
+		5B574C4C20A409FA003DE2BF /* coords-trans-06-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BBE20A409E8003DE2BF /* coords-trans-06-t-manual.reference */; };
+		5B574C4D20A409FA003DE2BF /* paths-data-17-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BBF20A409E8003DE2BF /* paths-data-17-f-manual.svg */; };
+		5B574C4E20A409FA003DE2BF /* shapes-ellipse-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC020A409E8003DE2BF /* shapes-ellipse-01-t-manual.reference */; };
+		5B574C4F20A409FA003DE2BF /* struct-frag-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC120A409E8003DE2BF /* struct-frag-01-t-manual.reference */; };
+		5B574C5020A409FA003DE2BF /* color-prop-01-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC220A409E8003DE2BF /* color-prop-01-b-manual.reference */; };
+		5B574C5120A409FA003DE2BF /* painting-control-03-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC320A409E8003DE2BF /* painting-control-03-f-manual.svg */; };
+		5B574C5220A409FA003DE2BF /* shapes-polygon-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC420A409E8003DE2BF /* shapes-polygon-01-t-manual.reference */; };
+		5B574C5320A409FA003DE2BF /* painting-control-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC520A409E9003DE2BF /* painting-control-02-f-manual.svg */; };
+		5B574C5420A409FA003DE2BF /* coords-transformattr-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC620A409E9003DE2BF /* coords-transformattr-01-f-manual.svg */; };
+		5B574C5520A409FA003DE2BF /* paths-data-06-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC720A409E9003DE2BF /* paths-data-06-t-manual.reference */; };
+		5B574C5620A409FA003DE2BF /* paths-data-19-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC820A409E9003DE2BF /* paths-data-19-f-manual.reference */; };
+		5B574C5720A409FA003DE2BF /* shapes-line-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BC920A409E9003DE2BF /* shapes-line-01-t-manual.reference */; };
+		5B574C5820A409FA003DE2BF /* painting-stroke-08-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BCA20A409E9003DE2BF /* painting-stroke-08-t-manual.reference */; };
+		5B574C5920A409FA003DE2BF /* paths-data-15-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BCB20A409E9003DE2BF /* paths-data-15-t-manual.svg */; };
+		5B574C5A20A409FA003DE2BF /* coords-trans-01-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BCC20A409E9003DE2BF /* coords-trans-01-b-manual.reference */; };
+		5B574C5B20A409FA003DE2BF /* paths-data-06-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BCD20A409E9003DE2BF /* paths-data-06-t-manual.svg */; };
+		5B574C5C20A409FA003DE2BF /* paths-data-13-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BCE20A409EA003DE2BF /* paths-data-13-t-manual.svg */; };
+		5B574C5D20A409FA003DE2BF /* struct-frag-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BCF20A409EA003DE2BF /* struct-frag-03-t-manual.reference */; };
+		5B574C5E20A409FA003DE2BF /* coords-transformattr-04-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD020A409EA003DE2BF /* coords-transformattr-04-f-manual.reference */; };
+		5B574C5F20A409FA003DE2BF /* coords-transformattr-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD120A409EA003DE2BF /* coords-transformattr-03-f-manual.reference */; };
+		5B574C6020A409FA003DE2BF /* struct-frag-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD220A409EE003DE2BF /* struct-frag-01-t-manual.svg */; };
+		5B574C6120A409FA003DE2BF /* coords-trans-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD320A409F1003DE2BF /* coords-trans-03-t-manual.reference */; };
+		5B574C6220A409FA003DE2BF /* painting-fill-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD420A409F1003DE2BF /* painting-fill-02-t-manual.svg */; };
+		5B574C6320A409FA003DE2BF /* shapes-intro-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD520A409F2003DE2BF /* shapes-intro-01-t-manual.svg */; };
+		5B574C6420A409FA003DE2BF /* paths-data-15-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD620A409F2003DE2BF /* paths-data-15-t-manual.reference */; };
+		5B574C6520A409FA003DE2BF /* coords-trans-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD720A409F2003DE2BF /* coords-trans-03-t-manual.svg */; };
+		5B574C6620A409FA003DE2BF /* render-elems-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD820A409F3003DE2BF /* render-elems-03-t-manual.svg */; };
+		5B574C6720A409FA003DE2BF /* painting-stroke-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BD920A409F3003DE2BF /* painting-stroke-01-t-manual.svg */; };
+		5B574C6820A409FA003DE2BF /* painting-stroke-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BDA20A409F3003DE2BF /* painting-stroke-01-t-manual.reference */; };
+		5B574C6920A409FA003DE2BF /* paths-data-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BDB20A409F3003DE2BF /* paths-data-01-t-manual.svg */; };
+		5B574C6A20A409FA003DE2BF /* struct-defs-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BDC20A409F3003DE2BF /* struct-defs-01-t-manual.reference */; };
+		5B574C6B20A409FA003DE2BF /* text-align-01-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BDD20A409F3003DE2BF /* text-align-01-b-manual.reference */; };
+		5B574C6C20A409FA003DE2BF /* coords-trans-09-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BDE20A409F3003DE2BF /* coords-trans-09-t-manual.reference */; };
+		5B574C6D20A409FA003DE2BF /* struct-use-12-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BDF20A409F3003DE2BF /* struct-use-12-f-manual.svg */; };
+		5B574C6E20A409FA003DE2BF /* coords-transformattr-01-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE020A409F3003DE2BF /* coords-transformattr-01-f-manual.reference */; };
+		5B574C6F20A409FA003DE2BF /* painting-control-06-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE120A409F3003DE2BF /* painting-control-06-f-manual.reference */; };
+		5B574C7020A409FA003DE2BF /* shapes-circle-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE220A409F3003DE2BF /* shapes-circle-02-t-manual.reference */; };
+		5B574C7120A409FA003DE2BF /* shapes-circle-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE320A409F3003DE2BF /* shapes-circle-01-t-manual.svg */; };
+		5B574C7220A409FA003DE2BF /* painting-fill-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE420A409F3003DE2BF /* painting-fill-01-t-manual.svg */; };
+		5B574C7320A409FA003DE2BF /* coords-trans-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE520A409F3003DE2BF /* coords-trans-04-t-manual.reference */; };
+		5B574C7420A409FA003DE2BF /* render-elems-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE620A409F3003DE2BF /* render-elems-02-t-manual.reference */; };
+		5B574C7520A409FA003DE2BF /* coords-trans-06-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE720A409F4003DE2BF /* coords-trans-06-t-manual.svg */; };
+		5B574C7620A409FA003DE2BF /* render-elems-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE820A409F4003DE2BF /* render-elems-03-t-manual.reference */; };
+		5B574C7720A409FA003DE2BF /* types-basic-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BE920A409F4003DE2BF /* types-basic-01-f-manual.svg */; };
+		5B574C7820A409FA003DE2BF /* struct-use-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BEA20A409F4003DE2BF /* struct-use-03-t-manual.reference */; };
+		5B574C7920A409FA003DE2BF /* coords-transformattr-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BEB20A409F4003DE2BF /* coords-transformattr-02-f-manual.reference */; };
+		5B574C7A20A409FA003DE2BF /* coords-trans-05-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BEC20A409F4003DE2BF /* coords-trans-05-t-manual.reference */; };
+		5B574C7B20A409FA003DE2BF /* painting-fill-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BED20A409F4003DE2BF /* painting-fill-02-t-manual.reference */; };
+		5B574C7C20A409FA003DE2BF /* struct-frag-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BEE20A409F4003DE2BF /* struct-frag-02-t-manual.svg */; };
+		5B574C7D20A409FA003DE2BF /* coords-trans-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BEF20A409F4003DE2BF /* coords-trans-02-t-manual.reference */; };
+		5B574C7E20A409FA003DE2BF /* color-prop-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF020A409F4003DE2BF /* color-prop-03-t-manual.svg */; };
+		5B574C7F20A409FA003DE2BF /* coords-trans-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF120A409F4003DE2BF /* coords-trans-02-t-manual.svg */; };
+		5B574C8020A409FA003DE2BF /* coords-trans-05-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF220A409F4003DE2BF /* coords-trans-05-t-manual.svg */; };
+		5B574C8120A409FA003DE2BF /* pservers-grad-stops-01-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF320A409F4003DE2BF /* pservers-grad-stops-01-f-manual.reference */; };
+		5B574C8220A409FA003DE2BF /* shapes-line-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF420A409F4003DE2BF /* shapes-line-02-f-manual.svg */; };
+		5B574C8320A409FA003DE2BF /* coords-transformattr-05-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF520A409F4003DE2BF /* coords-transformattr-05-f-manual.svg */; };
+		5B574C8420A409FA003DE2BF /* shapes-circle-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF620A409F5003DE2BF /* shapes-circle-02-t-manual.svg */; };
+		5B574C8520A409FA003DE2BF /* text-fonts-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF720A409F5003DE2BF /* text-fonts-01-t-manual.svg */; };
+		5B574C8620A409FA003DE2BF /* shapes-intro-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF820A409F6003DE2BF /* shapes-intro-01-t-manual.reference */; };
+		5B574C8720A409FA003DE2BF /* coords-transformattr-03-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BF920A409F6003DE2BF /* coords-transformattr-03-f-manual.svg */; };
+		5B574C8820A409FA003DE2BF /* painting-stroke-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BFA20A409F6003DE2BF /* painting-stroke-03-t-manual.svg */; };
+		5B574C8920A409FA003DE2BF /* shapes-rect-05-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BFB20A409F6003DE2BF /* shapes-rect-05-f-manual.svg */; };
+		5B574C8A20A409FA003DE2BF /* painting-stroke-08-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BFC20A409F6003DE2BF /* painting-stroke-08-t-manual.svg */; };
+		5B574C8B20A409FA003DE2BF /* shapes-ellipse-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BFD20A409F6003DE2BF /* shapes-ellipse-01-t-manual.svg */; };
+		5B574C8C20A409FA003DE2BF /* text-align-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BFE20A409F7003DE2BF /* text-align-01-b-manual.svg */; };
+		5B574C8D20A409FA003DE2BF /* text-fonts-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574BFF20A409F8003DE2BF /* text-fonts-02-t-manual.svg */; };
+		5B574C8E20A409FA003DE2BF /* shapes-circle-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574C0020A409F9003DE2BF /* shapes-circle-01-t-manual.reference */; };
+		5B574C8F20A409FA003DE2BF /* painting-stroke-09-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574C0120A409F9003DE2BF /* painting-stroke-09-t-manual.reference */; };
+		5B574C9020A409FA003DE2BF /* shapes-line-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574C0220A409F9003DE2BF /* shapes-line-01-t-manual.svg */; };
+		5B574C9120A409FA003DE2BF /* painting-fill-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B574C0320A409F9003DE2BF /* painting-fill-03-t-manual.svg */; };
+		5B574C9220A409FA003DE2BF /* types-basic-01-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574C0420A409F9003DE2BF /* types-basic-01-f-manual.reference */; };
+		5B574C9320A409FA003DE2BF /* painting-stroke-05-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B574C0520A409FA003DE2BF /* painting-stroke-05-t-manual.reference */; };
+		5BAA56A8207C73FF0055BC5B /* SVGContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SVGContentLayout.swift */; };
 		5BAE201F208E1211006BF277 /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE201E208E1211006BF277 /* SVGCanvas.swift */; };
 		5BAE2038208E163D006BF277 /* polyline.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2022208E1637006BF277 /* polyline.reference */; };
 		5BAE2039208E163D006BF277 /* polygon.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2023208E1637006BF277 /* polygon.reference */; };
@@ -274,10 +418,6 @@
 		5BAE204B208E163D006BF277 /* clip.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2035208E163C006BF277 /* clip.reference */; };
 		5BAE204C208E1EF4006BF277 /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE201E208E1211006BF277 /* SVGCanvas.swift */; };
 		5BAE2058208F24DE006BF277 /* SceneSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE2057208F24DE006BF277 /* SceneSerialization.swift */; };
-		5BAE2061208F2504006BF277 /* color-prop-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE205B208F2504006BF277 /* color-prop-02-f-manual.svg */; };
-		5BAE2062208F2504006BF277 /* shapes-circle-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE205C208F2504006BF277 /* shapes-circle-01-t-manual.svg */; };
-		5BAE2063208F2504006BF277 /* shapes-circle-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE205D208F2504006BF277 /* shapes-circle-01-t-manual.reference */; };
-		5BAE2066208F2504006BF277 /* color-prop-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2060208F2504006BF277 /* color-prop-02-f-manual.reference */; };
 		5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9C8206CEAA20049AAAE /* viewBox.svg */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
@@ -371,7 +511,6 @@
 		57E5E0E51E3B393900D1CB28 /* AnimationProducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationProducer.swift; sourceTree = "<group>"; };
 		57E5E0E61E3B393900D1CB28 /* AnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationUtils.swift; sourceTree = "<group>"; };
 		57E5E0E71E3B393900D1CB28 /* Easing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Easing.swift; sourceTree = "<group>"; };
-		57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
 		57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimOperators.swift; sourceTree = "<group>"; };
 		57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleInterpolation.swift; sourceTree = "<group>"; };
 		57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpolable.swift; sourceTree = "<group>"; };
@@ -468,7 +607,151 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvgContentLayout.swift; sourceTree = "<group>"; };
+		5835969A20A9CA140090400C /* CGMappings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMappings.swift; sourceTree = "<group>"; };
+		5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGNodeLayout.swift; sourceTree = "<group>"; };
+		5B574B7820A409DF003DE2BF /* coords-trans-07-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-07-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B7920A409E0003DE2BF /* shapes-polygon-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polygon-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B7A20A409E0003DE2BF /* coords-coord-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-coord-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B7B20A409E0003DE2BF /* shapes-polygon-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polygon-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B7C20A409E0003DE2BF /* shapes-rect-04-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-04-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B7D20A409E0003DE2BF /* coords-transformattr-05-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-05-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B7E20A409E0003DE2BF /* color-prop-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-02-f-manual.svg"; sourceTree = "<group>"; };
+		5B574B7F20A409E0003DE2BF /* paths-data-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B8020A409E0003DE2BF /* shapes-ellipse-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B8120A409E0003DE2BF /* metadata-example-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "metadata-example-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B8220A409E0003DE2BF /* painting-fill-04-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-04-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B8320A409E0003DE2BF /* coords-trans-08-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-08-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B8420A409E1003DE2BF /* painting-stroke-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B8520A409E1003DE2BF /* shapes-line-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-line-02-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B8620A409E1003DE2BF /* paths-data-17-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-17-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B8720A409E1003DE2BF /* painting-control-06-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-06-f-manual.svg"; sourceTree = "<group>"; };
+		5B574B8820A409E1003DE2BF /* painting-control-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-02-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B8920A409E1003DE2BF /* color-prop-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-02-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B8A20A409E1003DE2BF /* painting-control-03-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-03-f-manual.reference"; sourceTree = "<group>"; };
+		5B574B8B20A409E1003DE2BF /* painting-fill-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-04-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B8C20A409E1003DE2BF /* paths-data-13-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-13-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B8D20A409E2003DE2BF /* render-elems-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B8E20A409E2003DE2BF /* render-elems-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B8F20A409E2003DE2BF /* shapes-polygon-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polygon-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9020A409E2003DE2BF /* struct-use-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9120A409E2003DE2BF /* painting-stroke-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9220A409E2003DE2BF /* painting-fill-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B9320A409E2003DE2BF /* coords-coord-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-coord-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9420A409E2003DE2BF /* painting-stroke-05-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-05-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9520A409E2003DE2BF /* pservers-grad-stops-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-stops-01-f-manual.svg"; sourceTree = "<group>"; };
+		5B574B9620A409E3003DE2BF /* shapes-polyline-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polyline-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9720A409E3003DE2BF /* struct-frag-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-04-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B9820A409E3003DE2BF /* text-fonts-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-fonts-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B9920A409E3003DE2BF /* painting-fill-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B9A20A409E3003DE2BF /* paths-data-07-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-07-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9B20A409E3003DE2BF /* struct-frag-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B9C20A409E3003DE2BF /* struct-defs-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-defs-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9D20A409E3003DE2BF /* paths-data-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574B9E20A409E4003DE2BF /* coords-trans-09-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-09-t-manual.svg"; sourceTree = "<group>"; };
+		5B574B9F20A409E4003DE2BF /* render-elems-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BA020A409E4003DE2BF /* paths-data-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BA120A409E4003DE2BF /* paths-data-07-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-07-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BA220A409E4003DE2BF /* coords-transformattr-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-02-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BA320A409E4003DE2BF /* metadata-example-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "metadata-example-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BA420A409E4003DE2BF /* shapes-rect-04-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-04-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BA520A409E4003DE2BF /* painting-stroke-09-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-09-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BA620A409E5003DE2BF /* coords-coord-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-coord-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BA720A409E5003DE2BF /* coords-trans-08-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-08-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BA820A409E5003DE2BF /* text-fonts-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-fonts-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BA920A409E5003DE2BF /* painting-fill-05-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-05-b-manual.reference"; sourceTree = "<group>"; };
+		5B574BAA20A409E5003DE2BF /* paths-data-19-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-19-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BAB20A409E5003DE2BF /* struct-frag-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BAC20A409E5003DE2BF /* shapes-ellipse-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BAD20A409E5003DE2BF /* coords-coord-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-coord-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BAE20A409E6003DE2BF /* shapes-rect-05-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-05-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BAF20A409E6003DE2BF /* coords-trans-07-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-07-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BB020A409E6003DE2BF /* coords-trans-04-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-04-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BB120A409E6003DE2BF /* coords-transformattr-04-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-04-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BB220A409E6003DE2BF /* painting-fill-05-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-05-b-manual.svg"; sourceTree = "<group>"; };
+		5B574BB320A409E6003DE2BF /* coords-trans-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-01-b-manual.svg"; sourceTree = "<group>"; };
+		5B574BB420A409E6003DE2BF /* paths-data-12-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-12-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BB520A409E6003DE2BF /* struct-frag-04-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-04-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BB620A409E7003DE2BF /* struct-use-12-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-12-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BB720A409E7003DE2BF /* painting-stroke-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BB820A409E7003DE2BF /* shapes-polyline-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polyline-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BB920A409E7003DE2BF /* struct-group-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-group-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BBA20A409E7003DE2BF /* color-prop-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-01-b-manual.svg"; sourceTree = "<group>"; };
+		5B574BBB20A409E7003DE2BF /* color-prop-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BBC20A409E7003DE2BF /* struct-group-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-group-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BBD20A409E8003DE2BF /* paths-data-12-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-12-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BBE20A409E8003DE2BF /* coords-trans-06-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-06-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BBF20A409E8003DE2BF /* paths-data-17-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-17-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BC020A409E8003DE2BF /* shapes-ellipse-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BC120A409E8003DE2BF /* struct-frag-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BC220A409E8003DE2BF /* color-prop-01-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-01-b-manual.reference"; sourceTree = "<group>"; };
+		5B574BC320A409E8003DE2BF /* painting-control-03-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-03-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BC420A409E8003DE2BF /* shapes-polygon-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polygon-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BC520A409E9003DE2BF /* painting-control-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-02-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BC620A409E9003DE2BF /* coords-transformattr-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-01-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BC720A409E9003DE2BF /* paths-data-06-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-06-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BC820A409E9003DE2BF /* paths-data-19-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-19-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BC920A409E9003DE2BF /* shapes-line-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-line-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BCA20A409E9003DE2BF /* painting-stroke-08-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-08-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BCB20A409E9003DE2BF /* paths-data-15-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-15-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BCC20A409E9003DE2BF /* coords-trans-01-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-01-b-manual.reference"; sourceTree = "<group>"; };
+		5B574BCD20A409E9003DE2BF /* paths-data-06-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-06-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BCE20A409EA003DE2BF /* paths-data-13-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-13-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BCF20A409EA003DE2BF /* struct-frag-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BD020A409EA003DE2BF /* coords-transformattr-04-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-04-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BD120A409EA003DE2BF /* coords-transformattr-03-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-03-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BD220A409EE003DE2BF /* struct-frag-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BD320A409F1003DE2BF /* coords-trans-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BD420A409F1003DE2BF /* painting-fill-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BD520A409F2003DE2BF /* shapes-intro-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-intro-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BD620A409F2003DE2BF /* paths-data-15-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-15-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BD720A409F2003DE2BF /* coords-trans-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BD820A409F3003DE2BF /* render-elems-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BD920A409F3003DE2BF /* painting-stroke-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BDA20A409F3003DE2BF /* painting-stroke-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BDB20A409F3003DE2BF /* paths-data-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BDC20A409F3003DE2BF /* struct-defs-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-defs-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BDD20A409F3003DE2BF /* text-align-01-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-align-01-b-manual.reference"; sourceTree = "<group>"; };
+		5B574BDE20A409F3003DE2BF /* coords-trans-09-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-09-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BDF20A409F3003DE2BF /* struct-use-12-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-12-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BE020A409F3003DE2BF /* coords-transformattr-01-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-01-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BE120A409F3003DE2BF /* painting-control-06-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-06-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BE220A409F3003DE2BF /* shapes-circle-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BE320A409F3003DE2BF /* shapes-circle-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BE420A409F3003DE2BF /* painting-fill-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BE520A409F3003DE2BF /* coords-trans-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-04-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BE620A409F3003DE2BF /* render-elems-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BE720A409F4003DE2BF /* coords-trans-06-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-06-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BE820A409F4003DE2BF /* render-elems-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BE920A409F4003DE2BF /* types-basic-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "types-basic-01-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BEA20A409F4003DE2BF /* struct-use-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-03-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BEB20A409F4003DE2BF /* coords-transformattr-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-02-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BEC20A409F4003DE2BF /* coords-trans-05-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-05-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BED20A409F4003DE2BF /* painting-fill-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BEE20A409F4003DE2BF /* struct-frag-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BEF20A409F4003DE2BF /* coords-trans-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-02-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BF020A409F4003DE2BF /* color-prop-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BF120A409F4003DE2BF /* coords-trans-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BF220A409F4003DE2BF /* coords-trans-05-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-05-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BF320A409F4003DE2BF /* pservers-grad-stops-01-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-stops-01-f-manual.reference"; sourceTree = "<group>"; };
+		5B574BF420A409F4003DE2BF /* shapes-line-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-line-02-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BF520A409F4003DE2BF /* coords-transformattr-05-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-05-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BF620A409F5003DE2BF /* shapes-circle-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BF720A409F5003DE2BF /* text-fonts-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-fonts-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BF820A409F6003DE2BF /* shapes-intro-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-intro-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574BF920A409F6003DE2BF /* coords-transformattr-03-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-03-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BFA20A409F6003DE2BF /* painting-stroke-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BFB20A409F6003DE2BF /* shapes-rect-05-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-05-f-manual.svg"; sourceTree = "<group>"; };
+		5B574BFC20A409F6003DE2BF /* painting-stroke-08-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-08-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BFD20A409F6003DE2BF /* shapes-ellipse-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574BFE20A409F7003DE2BF /* text-align-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-align-01-b-manual.svg"; sourceTree = "<group>"; };
+		5B574BFF20A409F8003DE2BF /* text-fonts-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-fonts-02-t-manual.svg"; sourceTree = "<group>"; };
+		5B574C0020A409F9003DE2BF /* shapes-circle-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.reference"; sourceTree = "<group>"; };
+		5B574C0120A409F9003DE2BF /* painting-stroke-09-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-09-t-manual.reference"; sourceTree = "<group>"; };
+		5B574C0220A409F9003DE2BF /* shapes-line-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-line-01-t-manual.svg"; sourceTree = "<group>"; };
+		5B574C0320A409F9003DE2BF /* painting-fill-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-03-t-manual.svg"; sourceTree = "<group>"; };
+		5B574C0420A409F9003DE2BF /* types-basic-01-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "types-basic-01-f-manual.reference"; sourceTree = "<group>"; };
+		5B574C0520A409FA003DE2BF /* painting-stroke-05-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-05-t-manual.reference"; sourceTree = "<group>"; };
+		5BAA56A7207C73FF0055BC5B /* SVGContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGContentLayout.swift; sourceTree = "<group>"; };
 		5BAE201E208E1211006BF277 /* SVGCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGCanvas.swift; sourceTree = "<group>"; };
 		5BAE2022208E1637006BF277 /* polyline.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = polyline.reference; sourceTree = "<group>"; };
 		5BAE2023208E1637006BF277 /* polygon.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = polygon.reference; sourceTree = "<group>"; };
@@ -487,10 +770,6 @@
 		5BAE2034208E163B006BF277 /* roundRect.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = roundRect.reference; sourceTree = "<group>"; };
 		5BAE2035208E163C006BF277 /* clip.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clip.reference; sourceTree = "<group>"; };
 		5BAE2057208F24DE006BF277 /* SceneSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneSerialization.swift; sourceTree = "<group>"; };
-		5BAE205B208F2504006BF277 /* color-prop-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-02-f-manual.svg"; sourceTree = "<group>"; };
-		5BAE205C208F2504006BF277 /* shapes-circle-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.svg"; sourceTree = "<group>"; };
-		5BAE205D208F2504006BF277 /* shapes-circle-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-01-t-manual.reference"; sourceTree = "<group>"; };
-		5BAE2060208F2504006BF277 /* color-prop-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-02-f-manual.reference"; sourceTree = "<group>"; };
 		5BAEA9C8206CEAA20049AAAE /* viewBox.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.svg; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -583,7 +862,7 @@
 		57900FF71EA0DEBF00809FFB /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				5BAA56A7207C73FF0055BC5B /* SvgContentLayout.swift */,
+				5835969A20A9CA140090400C /* CGMappings.swift */,
 				57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */,
 			);
 			path = utils;
@@ -662,7 +941,6 @@
 		57E5E0E81E3B393900D1CB28 /* layer_animation */ = {
 			isa = PBXGroup;
 			children = (
-				57E5E0E91E3B393900D1CB28 /* CGExtensions.swift */,
 				57E5E0EA1E3B393900D1CB28 /* Extensions */,
 				57E5E0F11E3B393900D1CB28 /* FuncBounds.swift */,
 				57E5E0F21E3B393900D1CB28 /* PathBounds.swift */,
@@ -839,11 +1117,13 @@
 			children = (
 				5BAE201E208E1211006BF277 /* SVGCanvas.swift */,
 				57E5E1461E3B393900D1CB28 /* SVGConstants.swift */,
+				5BAA56A7207C73FF0055BC5B /* SVGContentLayout.swift */,
+				5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */,
 				57E5E1471E3B393900D1CB28 /* SVGParser.swift */,
 				57E5E1481E3B393900D1CB28 /* SVGParserError.swift */,
 				57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */,
-				57E5E14A1E3B393900D1CB28 /* SVGView.swift */,
 				C4820B171F458D0E008CE0FF /* SVGSerializer.swift */,
+				57E5E14A1E3B393900D1CB28 /* SVGView.swift */,
 			);
 			path = svg;
 			sourceTree = "<group>";
@@ -919,10 +1199,148 @@
 		5BAE205A208F2504006BF277 /* w3cSVGTests */ = {
 			isa = PBXGroup;
 			children = (
-				5BAE2060208F2504006BF277 /* color-prop-02-f-manual.reference */,
-				5BAE205B208F2504006BF277 /* color-prop-02-f-manual.svg */,
-				5BAE205D208F2504006BF277 /* shapes-circle-01-t-manual.reference */,
-				5BAE205C208F2504006BF277 /* shapes-circle-01-t-manual.svg */,
+				5B574BC220A409E8003DE2BF /* color-prop-01-b-manual.reference */,
+				5B574BBA20A409E7003DE2BF /* color-prop-01-b-manual.svg */,
+				5B574B8920A409E1003DE2BF /* color-prop-02-f-manual.reference */,
+				5B574B7E20A409E0003DE2BF /* color-prop-02-f-manual.svg */,
+				5B574BBB20A409E7003DE2BF /* color-prop-03-t-manual.reference */,
+				5B574BF020A409F4003DE2BF /* color-prop-03-t-manual.svg */,
+				5B574B7A20A409E0003DE2BF /* coords-coord-01-t-manual.reference */,
+				5B574B9320A409E2003DE2BF /* coords-coord-01-t-manual.svg */,
+				5B574BAD20A409E5003DE2BF /* coords-coord-02-t-manual.reference */,
+				5B574BA620A409E5003DE2BF /* coords-coord-02-t-manual.svg */,
+				5B574BCC20A409E9003DE2BF /* coords-trans-01-b-manual.reference */,
+				5B574BB320A409E6003DE2BF /* coords-trans-01-b-manual.svg */,
+				5B574BEF20A409F4003DE2BF /* coords-trans-02-t-manual.reference */,
+				5B574BF120A409F4003DE2BF /* coords-trans-02-t-manual.svg */,
+				5B574BD320A409F1003DE2BF /* coords-trans-03-t-manual.reference */,
+				5B574BD720A409F2003DE2BF /* coords-trans-03-t-manual.svg */,
+				5B574BE520A409F3003DE2BF /* coords-trans-04-t-manual.reference */,
+				5B574BB020A409E6003DE2BF /* coords-trans-04-t-manual.svg */,
+				5B574BEC20A409F4003DE2BF /* coords-trans-05-t-manual.reference */,
+				5B574BF220A409F4003DE2BF /* coords-trans-05-t-manual.svg */,
+				5B574BBE20A409E8003DE2BF /* coords-trans-06-t-manual.reference */,
+				5B574BE720A409F4003DE2BF /* coords-trans-06-t-manual.svg */,
+				5B574B7820A409DF003DE2BF /* coords-trans-07-t-manual.reference */,
+				5B574BAF20A409E6003DE2BF /* coords-trans-07-t-manual.svg */,
+				5B574B8320A409E0003DE2BF /* coords-trans-08-t-manual.reference */,
+				5B574BA720A409E5003DE2BF /* coords-trans-08-t-manual.svg */,
+				5B574BDE20A409F3003DE2BF /* coords-trans-09-t-manual.reference */,
+				5B574B9E20A409E4003DE2BF /* coords-trans-09-t-manual.svg */,
+				5B574BE020A409F3003DE2BF /* coords-transformattr-01-f-manual.reference */,
+				5B574BC620A409E9003DE2BF /* coords-transformattr-01-f-manual.svg */,
+				5B574BEB20A409F4003DE2BF /* coords-transformattr-02-f-manual.reference */,
+				5B574BA220A409E4003DE2BF /* coords-transformattr-02-f-manual.svg */,
+				5B574BD120A409EA003DE2BF /* coords-transformattr-03-f-manual.reference */,
+				5B574BF920A409F6003DE2BF /* coords-transformattr-03-f-manual.svg */,
+				5B574BD020A409EA003DE2BF /* coords-transformattr-04-f-manual.reference */,
+				5B574BB120A409E6003DE2BF /* coords-transformattr-04-f-manual.svg */,
+				5B574B7D20A409E0003DE2BF /* coords-transformattr-05-f-manual.reference */,
+				5B574BF520A409F4003DE2BF /* coords-transformattr-05-f-manual.svg */,
+				5B574BA320A409E4003DE2BF /* metadata-example-01-t-manual.reference */,
+				5B574B8120A409E0003DE2BF /* metadata-example-01-t-manual.svg */,
+				5B574B8820A409E1003DE2BF /* painting-control-02-f-manual.reference */,
+				5B574BC520A409E9003DE2BF /* painting-control-02-f-manual.svg */,
+				5B574B8A20A409E1003DE2BF /* painting-control-03-f-manual.reference */,
+				5B574BC320A409E8003DE2BF /* painting-control-03-f-manual.svg */,
+				5B574BE120A409F3003DE2BF /* painting-control-06-f-manual.reference */,
+				5B574B8720A409E1003DE2BF /* painting-control-06-f-manual.svg */,
+				5B574B9220A409E2003DE2BF /* painting-fill-01-t-manual.reference */,
+				5B574BE420A409F3003DE2BF /* painting-fill-01-t-manual.svg */,
+				5B574BED20A409F4003DE2BF /* painting-fill-02-t-manual.reference */,
+				5B574BD420A409F1003DE2BF /* painting-fill-02-t-manual.svg */,
+				5B574B9920A409E3003DE2BF /* painting-fill-03-t-manual.reference */,
+				5B574C0320A409F9003DE2BF /* painting-fill-03-t-manual.svg */,
+				5B574B8B20A409E1003DE2BF /* painting-fill-04-t-manual.reference */,
+				5B574B8220A409E0003DE2BF /* painting-fill-04-t-manual.svg */,
+				5B574BA920A409E5003DE2BF /* painting-fill-05-b-manual.reference */,
+				5B574BB220A409E6003DE2BF /* painting-fill-05-b-manual.svg */,
+				5B574BDA20A409F3003DE2BF /* painting-stroke-01-t-manual.reference */,
+				5B574BD920A409F3003DE2BF /* painting-stroke-01-t-manual.svg */,
+				5B574B8420A409E1003DE2BF /* painting-stroke-02-t-manual.reference */,
+				5B574B9120A409E2003DE2BF /* painting-stroke-02-t-manual.svg */,
+				5B574BB720A409E7003DE2BF /* painting-stroke-03-t-manual.reference */,
+				5B574BFA20A409F6003DE2BF /* painting-stroke-03-t-manual.svg */,
+				5B574C0520A409FA003DE2BF /* painting-stroke-05-t-manual.reference */,
+				5B574B9420A409E2003DE2BF /* painting-stroke-05-t-manual.svg */,
+				5B574BCA20A409E9003DE2BF /* painting-stroke-08-t-manual.reference */,
+				5B574BFC20A409F6003DE2BF /* painting-stroke-08-t-manual.svg */,
+				5B574C0120A409F9003DE2BF /* painting-stroke-09-t-manual.reference */,
+				5B574BA520A409E4003DE2BF /* painting-stroke-09-t-manual.svg */,
+				5B574BA020A409E4003DE2BF /* paths-data-01-t-manual.reference */,
+				5B574BDB20A409F3003DE2BF /* paths-data-01-t-manual.svg */,
+				5B574B9D20A409E3003DE2BF /* paths-data-02-t-manual.reference */,
+				5B574B7F20A409E0003DE2BF /* paths-data-02-t-manual.svg */,
+				5B574BC720A409E9003DE2BF /* paths-data-06-t-manual.reference */,
+				5B574BCD20A409E9003DE2BF /* paths-data-06-t-manual.svg */,
+				5B574BA120A409E4003DE2BF /* paths-data-07-t-manual.reference */,
+				5B574B9A20A409E3003DE2BF /* paths-data-07-t-manual.svg */,
+				5B574BB420A409E6003DE2BF /* paths-data-12-t-manual.reference */,
+				5B574BBD20A409E8003DE2BF /* paths-data-12-t-manual.svg */,
+				5B574B8C20A409E1003DE2BF /* paths-data-13-t-manual.reference */,
+				5B574BCE20A409EA003DE2BF /* paths-data-13-t-manual.svg */,
+				5B574BD620A409F2003DE2BF /* paths-data-15-t-manual.reference */,
+				5B574BCB20A409E9003DE2BF /* paths-data-15-t-manual.svg */,
+				5B574B8620A409E1003DE2BF /* paths-data-17-f-manual.reference */,
+				5B574BBF20A409E8003DE2BF /* paths-data-17-f-manual.svg */,
+				5B574BC820A409E9003DE2BF /* paths-data-19-f-manual.reference */,
+				5B574BAA20A409E5003DE2BF /* paths-data-19-f-manual.svg */,
+				5B574BF320A409F4003DE2BF /* pservers-grad-stops-01-f-manual.reference */,
+				5B574B9520A409E2003DE2BF /* pservers-grad-stops-01-f-manual.svg */,
+				5B574B8E20A409E2003DE2BF /* render-elems-01-t-manual.reference */,
+				5B574B9F20A409E4003DE2BF /* render-elems-01-t-manual.svg */,
+				5B574BE620A409F3003DE2BF /* render-elems-02-t-manual.reference */,
+				5B574B8D20A409E2003DE2BF /* render-elems-02-t-manual.svg */,
+				5B574BE820A409F4003DE2BF /* render-elems-03-t-manual.reference */,
+				5B574BD820A409F3003DE2BF /* render-elems-03-t-manual.svg */,
+				5B574C0020A409F9003DE2BF /* shapes-circle-01-t-manual.reference */,
+				5B574BE320A409F3003DE2BF /* shapes-circle-01-t-manual.svg */,
+				5B574BE220A409F3003DE2BF /* shapes-circle-02-t-manual.reference */,
+				5B574BF620A409F5003DE2BF /* shapes-circle-02-t-manual.svg */,
+				5B574BC020A409E8003DE2BF /* shapes-ellipse-01-t-manual.reference */,
+				5B574BFD20A409F6003DE2BF /* shapes-ellipse-01-t-manual.svg */,
+				5B574B8020A409E0003DE2BF /* shapes-ellipse-02-t-manual.reference */,
+				5B574BAC20A409E5003DE2BF /* shapes-ellipse-02-t-manual.svg */,
+				5B574BF820A409F6003DE2BF /* shapes-intro-01-t-manual.reference */,
+				5B574BD520A409F2003DE2BF /* shapes-intro-01-t-manual.svg */,
+				5B574BC920A409E9003DE2BF /* shapes-line-01-t-manual.reference */,
+				5B574C0220A409F9003DE2BF /* shapes-line-01-t-manual.svg */,
+				5B574B8520A409E1003DE2BF /* shapes-line-02-f-manual.reference */,
+				5B574BF420A409F4003DE2BF /* shapes-line-02-f-manual.svg */,
+				5B574BC420A409E8003DE2BF /* shapes-polygon-01-t-manual.reference */,
+				5B574B7920A409E0003DE2BF /* shapes-polygon-01-t-manual.svg */,
+				5B574B7B20A409E0003DE2BF /* shapes-polygon-02-t-manual.reference */,
+				5B574B8F20A409E2003DE2BF /* shapes-polygon-02-t-manual.svg */,
+				5B574BB820A409E7003DE2BF /* shapes-polyline-01-t-manual.reference */,
+				5B574B9620A409E3003DE2BF /* shapes-polyline-01-t-manual.svg */,
+				5B574B7C20A409E0003DE2BF /* shapes-rect-04-f-manual.reference */,
+				5B574BA420A409E4003DE2BF /* shapes-rect-04-f-manual.svg */,
+				5B574BAE20A409E6003DE2BF /* shapes-rect-05-f-manual.reference */,
+				5B574BFB20A409F6003DE2BF /* shapes-rect-05-f-manual.svg */,
+				5B574BDC20A409F3003DE2BF /* struct-defs-01-t-manual.reference */,
+				5B574B9C20A409E3003DE2BF /* struct-defs-01-t-manual.svg */,
+				5B574BC120A409E8003DE2BF /* struct-frag-01-t-manual.reference */,
+				5B574BD220A409EE003DE2BF /* struct-frag-01-t-manual.svg */,
+				5B574B9B20A409E3003DE2BF /* struct-frag-02-t-manual.reference */,
+				5B574BEE20A409F4003DE2BF /* struct-frag-02-t-manual.svg */,
+				5B574BCF20A409EA003DE2BF /* struct-frag-03-t-manual.reference */,
+				5B574BAB20A409E5003DE2BF /* struct-frag-03-t-manual.svg */,
+				5B574B9720A409E3003DE2BF /* struct-frag-04-t-manual.reference */,
+				5B574BB520A409E6003DE2BF /* struct-frag-04-t-manual.svg */,
+				5B574BB920A409E7003DE2BF /* struct-group-01-t-manual.reference */,
+				5B574BBC20A409E7003DE2BF /* struct-group-01-t-manual.svg */,
+				5B574BEA20A409F4003DE2BF /* struct-use-03-t-manual.reference */,
+				5B574B9020A409E2003DE2BF /* struct-use-03-t-manual.svg */,
+				5B574BB620A409E7003DE2BF /* struct-use-12-f-manual.reference */,
+				5B574BDF20A409F3003DE2BF /* struct-use-12-f-manual.svg */,
+				5B574BDD20A409F3003DE2BF /* text-align-01-b-manual.reference */,
+				5B574BFE20A409F7003DE2BF /* text-align-01-b-manual.svg */,
+				5B574B9820A409E3003DE2BF /* text-fonts-01-t-manual.reference */,
+				5B574BF720A409F5003DE2BF /* text-fonts-01-t-manual.svg */,
+				5B574BA820A409E5003DE2BF /* text-fonts-02-t-manual.reference */,
+				5B574BFF20A409F8003DE2BF /* text-fonts-02-t-manual.svg */,
+				5B574C0420A409F9003DE2BF /* types-basic-01-f-manual.reference */,
+				5B574BE920A409F4003DE2BF /* types-basic-01-f-manual.svg */,
 			);
 			path = w3cSVGTests;
 			sourceTree = "<group>";
@@ -1116,47 +1534,185 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BAE203C208E163D006BF277 /* triangle.reference in Resources */,
+				5B574C5720A409FA003DE2BF /* shapes-line-01-t-manual.reference in Resources */,
+				5B574C8E20A409FA003DE2BF /* shapes-circle-01-t-manual.reference in Resources */,
+				5B574C0920A409FA003DE2BF /* shapes-polygon-02-t-manual.reference in Resources */,
+				5B574C3520A409FA003DE2BF /* coords-trans-08-t-manual.svg in Resources */,
+				5B574C4220A409FA003DE2BF /* paths-data-12-t-manual.reference in Resources */,
+				5B574C2320A409FA003DE2BF /* pservers-grad-stops-01-f-manual.svg in Resources */,
+				5B574C6F20A409FA003DE2BF /* painting-control-06-f-manual.reference in Resources */,
+				5B574C7720A409FA003DE2BF /* types-basic-01-f-manual.svg in Resources */,
+				5B574C0A20A409FA003DE2BF /* shapes-rect-04-f-manual.reference in Resources */,
+				5B574C4A20A409FA003DE2BF /* struct-group-01-t-manual.svg in Resources */,
+				5B574C8020A409FA003DE2BF /* coords-trans-05-t-manual.svg in Resources */,
+				5B574C0820A409FA003DE2BF /* coords-coord-01-t-manual.reference in Resources */,
+				5B574C6920A409FA003DE2BF /* paths-data-01-t-manual.svg in Resources */,
+				5B574C6220A409FA003DE2BF /* painting-fill-02-t-manual.svg in Resources */,
+				5B574C7420A409FA003DE2BF /* render-elems-02-t-manual.reference in Resources */,
+				5B574C7A20A409FA003DE2BF /* coords-trans-05-t-manual.reference in Resources */,
+				5B574C1720A409FA003DE2BF /* color-prop-02-f-manual.reference in Resources */,
+				5B574C2B20A409FA003DE2BF /* paths-data-02-t-manual.reference in Resources */,
+				5B574C6420A409FA003DE2BF /* paths-data-15-t-manual.reference in Resources */,
+				5B574C2D20A409FA003DE2BF /* render-elems-01-t-manual.svg in Resources */,
+				5B574C1320A409FA003DE2BF /* shapes-line-02-f-manual.reference in Resources */,
+				5B574C2520A409FA003DE2BF /* struct-frag-04-t-manual.reference in Resources */,
 				C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */,
-				5BAE2061208F2504006BF277 /* color-prop-02-f-manual.svg in Resources */,
+				5B574C4820A409FA003DE2BF /* color-prop-01-b-manual.svg in Resources */,
+				5B574C6720A409FA003DE2BF /* painting-stroke-01-t-manual.svg in Resources */,
+				5B574C5B20A409FA003DE2BF /* paths-data-06-t-manual.svg in Resources */,
+				5B574C8A20A409FA003DE2BF /* painting-stroke-08-t-manual.svg in Resources */,
+				5B574C6A20A409FA003DE2BF /* struct-defs-01-t-manual.reference in Resources */,
+				5B574C8820A409FA003DE2BF /* painting-stroke-03-t-manual.svg in Resources */,
+				5B574C0C20A409FA003DE2BF /* color-prop-02-f-manual.svg in Resources */,
 				5BAE2048208E163D006BF277 /* line.reference in Resources */,
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
+				5B574C9020A409FA003DE2BF /* shapes-line-01-t-manual.svg in Resources */,
 				C43B06691F99FC2300787A35 /* pathbounds4.svg in Resources */,
 				C43B06631F99A33400787A35 /* pathbounds3.svg in Resources */,
+				5B574C0E20A409FA003DE2BF /* shapes-ellipse-02-t-manual.reference in Resources */,
+				5B574C7220A409FA003DE2BF /* painting-fill-01-t-manual.svg in Resources */,
 				5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */,
+				5B574C7820A409FA003DE2BF /* struct-use-03-t-manual.reference in Resources */,
+				5B574C6620A409FA003DE2BF /* render-elems-03-t-manual.svg in Resources */,
+				5B574C5520A409FA003DE2BF /* paths-data-06-t-manual.reference in Resources */,
 				5BAE204B208E163D006BF277 /* clip.reference in Resources */,
+				5B574C4E20A409FA003DE2BF /* shapes-ellipse-01-t-manual.reference in Resources */,
+				5B574C7020A409FA003DE2BF /* shapes-circle-02-t-manual.reference in Resources */,
+				5B574C8620A409FA003DE2BF /* shapes-intro-01-t-manual.reference in Resources */,
+				5B574C3220A409FA003DE2BF /* shapes-rect-04-f-manual.svg in Resources */,
+				5B574C2C20A409FA003DE2BF /* coords-trans-09-t-manual.svg in Resources */,
 				C43B064D1F9738EF00787A35 /* clip.svg in Resources */,
+				5B574C8D20A409FA003DE2BF /* text-fonts-02-t-manual.svg in Resources */,
+				5B574C5420A409FA003DE2BF /* coords-transformattr-01-f-manual.svg in Resources */,
+				5B574C2720A409FA003DE2BF /* painting-fill-03-t-manual.reference in Resources */,
+				5B574C8520A409FA003DE2BF /* text-fonts-01-t-manual.svg in Resources */,
+				5B574C5120A409FA003DE2BF /* painting-control-03-f-manual.svg in Resources */,
+				5B574C5620A409FA003DE2BF /* paths-data-19-f-manual.reference in Resources */,
+				5B574C1C20A409FA003DE2BF /* render-elems-01-t-manual.reference in Resources */,
 				5BAE2040208E163D006BF277 /* ellipse.reference in Resources */,
+				5B574C5820A409FA003DE2BF /* painting-stroke-08-t-manual.reference in Resources */,
+				5B574C8C20A409FA003DE2BF /* text-align-01-b-manual.svg in Resources */,
+				5B574C5F20A409FA003DE2BF /* coords-transformattr-03-f-manual.reference in Resources */,
 				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,
+				5B574C2E20A409FA003DE2BF /* paths-data-01-t-manual.reference in Resources */,
 				5BAE2047208E163D006BF277 /* viewBox.reference in Resources */,
 				5BAE2042208E163D006BF277 /* group.reference in Resources */,
+				5B574C6120A409FA003DE2BF /* coords-trans-03-t-manual.reference in Resources */,
 				C43B06671F99EE7300787A35 /* cubicRelative.svg in Resources */,
+				5B574C2620A409FA003DE2BF /* text-fonts-01-t-manual.reference in Resources */,
 				5BAE204A208E163D006BF277 /* roundRect.reference in Resources */,
+				5B574C5220A409FA003DE2BF /* shapes-polygon-01-t-manual.reference in Resources */,
 				5BAE203E208E163D006BF277 /* circle.reference in Resources */,
+				5B574C2F20A409FA003DE2BF /* paths-data-07-t-manual.reference in Resources */,
+				5B574C1520A409FA003DE2BF /* painting-control-06-f-manual.svg in Resources */,
 				C43B064D1F9738EF00787A35 /* clip.svg in Resources */,
+				5B574C3E20A409FA003DE2BF /* coords-trans-04-t-manual.svg in Resources */,
+				5B574C1E20A409FA003DE2BF /* struct-use-03-t-manual.svg in Resources */,
+				5B574C2A20A409FA003DE2BF /* struct-defs-01-t-manual.svg in Resources */,
+				5B574C8720A409FA003DE2BF /* coords-transformattr-03-f-manual.svg in Resources */,
+				5B574C5320A409FA003DE2BF /* painting-control-02-f-manual.svg in Resources */,
+				5B574C4F20A409FA003DE2BF /* struct-frag-01-t-manual.reference in Resources */,
+				5B574C4C20A409FA003DE2BF /* coords-trans-06-t-manual.reference in Resources */,
+				5B574C1620A409FA003DE2BF /* painting-control-02-f-manual.reference in Resources */,
+				5B574C3F20A409FA003DE2BF /* coords-transformattr-04-f-manual.svg in Resources */,
+				5B574C4420A409FA003DE2BF /* struct-use-12-f-manual.reference in Resources */,
+				5B574C4720A409FA003DE2BF /* struct-group-01-t-manual.reference in Resources */,
+				5B574C1B20A409FA003DE2BF /* render-elems-02-t-manual.svg in Resources */,
+				5B574C7B20A409FA003DE2BF /* painting-fill-02-t-manual.reference in Resources */,
+				5B574C1A20A409FA003DE2BF /* paths-data-13-t-manual.reference in Resources */,
+				5B574C5E20A409FA003DE2BF /* coords-transformattr-04-f-manual.reference in Resources */,
+				5B574C1F20A409FA003DE2BF /* painting-stroke-02-t-manual.svg in Resources */,
+				5B574C3920A409FA003DE2BF /* struct-frag-03-t-manual.svg in Resources */,
 				57B7A4E11EE70DA5009D78D7 /* logo_base64.txt in Resources */,
+				5B574C8320A409FA003DE2BF /* coords-transformattr-05-f-manual.svg in Resources */,
 				C410148E1F834D290022EE44 /* style.svg in Resources */,
-				5BAE2063208F2504006BF277 /* shapes-circle-01-t-manual.reference in Resources */,
+				5B574C0720A409FA003DE2BF /* shapes-polygon-01-t-manual.svg in Resources */,
+				5B574C0B20A409FA003DE2BF /* coords-transformattr-05-f-manual.reference in Resources */,
+				5B574C8B20A409FA003DE2BF /* shapes-ellipse-01-t-manual.svg in Resources */,
+				5B574C3B20A409FA003DE2BF /* coords-coord-02-t-manual.reference in Resources */,
+				5B574C5A20A409FA003DE2BF /* coords-trans-01-b-manual.reference in Resources */,
+				5B574C1420A409FA003DE2BF /* paths-data-17-f-manual.reference in Resources */,
 				C4BD40BB1F8F58B0003034F0 /* pathbounds1.svg in Resources */,
+				5B574C3120A409FA003DE2BF /* metadata-example-01-t-manual.reference in Resources */,
+				5B574C2920A409FA003DE2BF /* struct-frag-02-t-manual.reference in Resources */,
+				5B574C0D20A409FA003DE2BF /* paths-data-02-t-manual.svg in Resources */,
 				C4BD40BC1F8F58B0003034F0 /* pathbounds2.svg in Resources */,
 				5BAE2039208E163D006BF277 /* polygon.reference in Resources */,
+				5B574C6D20A409FA003DE2BF /* struct-use-12-f-manual.svg in Resources */,
+				5B574C4020A409FA003DE2BF /* painting-fill-05-b-manual.svg in Resources */,
+				5B574C7E20A409FA003DE2BF /* color-prop-03-t-manual.svg in Resources */,
+				5B574C3020A409FA003DE2BF /* coords-transformattr-02-f-manual.svg in Resources */,
+				5B574C4D20A409FA003DE2BF /* paths-data-17-f-manual.svg in Resources */,
+				5B574C8F20A409FA003DE2BF /* painting-stroke-09-t-manual.reference in Resources */,
+				5B574C3D20A409FA003DE2BF /* coords-trans-07-t-manual.svg in Resources */,
+				5B574C1220A409FA003DE2BF /* painting-stroke-02-t-manual.reference in Resources */,
+				5B574C8120A409FA003DE2BF /* pservers-grad-stops-01-f-manual.reference in Resources */,
+				5B574C8220A409FA003DE2BF /* shapes-line-02-f-manual.svg in Resources */,
 				5BAE2043208E163D006BF277 /* textBasicTransform.reference in Resources */,
+				5B574C7520A409FA003DE2BF /* coords-trans-06-t-manual.svg in Resources */,
+				5B574C2120A409FA003DE2BF /* coords-coord-01-t-manual.svg in Resources */,
+				5B574C4920A409FA003DE2BF /* color-prop-03-t-manual.reference in Resources */,
+				5B574C6020A409FA003DE2BF /* struct-frag-01-t-manual.svg in Resources */,
+				5B574C1120A409FA003DE2BF /* coords-trans-08-t-manual.reference in Resources */,
 				57CAB1301D7832E000FD8E47 /* group.svg in Resources */,
 				5BAE2045208E163D006BF277 /* arcsgroup.reference in Resources */,
-				5BAE2062208F2504006BF277 /* shapes-circle-01-t-manual.svg in Resources */,
+				5B574C7620A409FA003DE2BF /* render-elems-03-t-manual.reference in Resources */,
 				5BAE203F208E163D006BF277 /* transform.reference in Resources */,
 				5BAE2038208E163D006BF277 /* polyline.reference in Resources */,
+				5B574C2220A409FA003DE2BF /* painting-stroke-05-t-manual.svg in Resources */,
+				5B574C2420A409FA003DE2BF /* shapes-polyline-01-t-manual.svg in Resources */,
+				5B574C7920A409FA003DE2BF /* coords-transformattr-02-f-manual.reference in Resources */,
 				C43B06661F99EE7300787A35 /* cubicAbsolute.svg in Resources */,
+				5B574C1920A409FA003DE2BF /* painting-fill-04-t-manual.reference in Resources */,
 				C46E83551F94B20E00208037 /* transform.svg in Resources */,
+				5B574C1D20A409FA003DE2BF /* shapes-polygon-02-t-manual.svg in Resources */,
+				5B574C3320A409FA003DE2BF /* painting-stroke-09-t-manual.svg in Resources */,
+				5B574C3C20A409FA003DE2BF /* shapes-rect-05-f-manual.reference in Resources */,
 				57CAB1351D7832E000FD8E47 /* roundRect.svg in Resources */,
+				5B574C6B20A409FA003DE2BF /* text-align-01-b-manual.reference in Resources */,
+				5B574C6320A409FA003DE2BF /* shapes-intro-01-t-manual.svg in Resources */,
 				5BAE203D208E163D006BF277 /* clipManual.reference in Resources */,
+				5B574C3420A409FA003DE2BF /* coords-coord-02-t-manual.svg in Resources */,
+				5B574C5D20A409FA003DE2BF /* struct-frag-03-t-manual.reference in Resources */,
+				5B574C7D20A409FA003DE2BF /* coords-trans-02-t-manual.reference in Resources */,
 				57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */,
-				5BAE2066208F2504006BF277 /* color-prop-02-f-manual.reference in Resources */,
+				5B574C4B20A409FA003DE2BF /* paths-data-12-t-manual.svg in Resources */,
+				5B574C5C20A409FA003DE2BF /* paths-data-13-t-manual.svg in Resources */,
+				5B574C6E20A409FA003DE2BF /* coords-transformattr-01-f-manual.reference in Resources */,
+				5B574C6820A409FA003DE2BF /* painting-stroke-01-t-manual.reference in Resources */,
+				5B574C4120A409FA003DE2BF /* coords-trans-01-b-manual.svg in Resources */,
 				57CAB1331D7832E000FD8E47 /* polyline.svg in Resources */,
+				5B574C4520A409FA003DE2BF /* painting-stroke-03-t-manual.reference in Resources */,
 				57CAB1311D7832E000FD8E47 /* line.svg in Resources */,
 				57B7A4DF1EE70D17009D78D7 /* logo.png in Resources */,
+				5B574C4620A409FA003DE2BF /* shapes-polyline-01-t-manual.reference in Resources */,
+				5B574C9320A409FA003DE2BF /* painting-stroke-05-t-manual.reference in Resources */,
+				5B574C7C20A409FA003DE2BF /* struct-frag-02-t-manual.svg in Resources */,
+				5B574C5920A409FA003DE2BF /* paths-data-15-t-manual.svg in Resources */,
 				57CAB1321D7832E000FD8E47 /* polygon.svg in Resources */,
+				5B574C0620A409FA003DE2BF /* coords-trans-07-t-manual.reference in Resources */,
 				5BAE203A208E163D006BF277 /* rect.reference in Resources */,
+				5B574C5020A409FA003DE2BF /* color-prop-01-b-manual.reference in Resources */,
+				5B574C8920A409FA003DE2BF /* shapes-rect-05-f-manual.svg in Resources */,
+				5B574C7320A409FA003DE2BF /* coords-trans-04-t-manual.reference in Resources */,
+				5B574C3620A409FA003DE2BF /* text-fonts-02-t-manual.reference in Resources */,
+				5B574C7F20A409FA003DE2BF /* coords-trans-02-t-manual.svg in Resources */,
+				5B574C8420A409FA003DE2BF /* shapes-circle-02-t-manual.svg in Resources */,
+				5B574C1020A409FA003DE2BF /* painting-fill-04-t-manual.svg in Resources */,
+				5B574C3720A409FA003DE2BF /* painting-fill-05-b-manual.reference in Resources */,
+				5B574C6520A409FA003DE2BF /* coords-trans-03-t-manual.svg in Resources */,
+				5B574C7120A409FA003DE2BF /* shapes-circle-01-t-manual.svg in Resources */,
+				5B574C3A20A409FA003DE2BF /* shapes-ellipse-02-t-manual.svg in Resources */,
+				5B574C9220A409FA003DE2BF /* types-basic-01-f-manual.reference in Resources */,
+				5B574C3820A409FA003DE2BF /* paths-data-19-f-manual.svg in Resources */,
+				5B574C4320A409FA003DE2BF /* struct-frag-04-t-manual.svg in Resources */,
+				5B574C1820A409FA003DE2BF /* painting-control-03-f-manual.reference in Resources */,
+				5B574C0F20A409FA003DE2BF /* metadata-example-01-t-manual.svg in Resources */,
 				5BAE2044208E163D006BF277 /* style.reference in Resources */,
+				5B574C2820A409FA003DE2BF /* paths-data-07-t-manual.svg in Resources */,
+				5B574C6C20A409FA003DE2BF /* coords-trans-09-t-manual.reference in Resources */,
+				5B574C2020A409FA003DE2BF /* painting-fill-01-t-manual.reference in Resources */,
+				5B574C9120A409FA003DE2BF /* painting-fill-03-t-manual.svg in Resources */,
 				57CAB12F1D7832E000FD8E47 /* ellipse.svg in Resources */,
 				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,
 			);
@@ -1198,12 +1754,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B1FFD7A207E083600716A46 /* SvgContentLayout.swift in Sources */,
+				5B1FFD7A207E083600716A46 /* SVGContentLayout.swift in Sources */,
 				57614AFD1F83D15600875933 /* Group.swift in Sources */,
 				57D9DAE11FC9AA4C0002555D /* Locus+ToPath.swift in Sources */,
 				57614AFE1F83D15600875933 /* TextRenderer.swift in Sources */,
 				57614AFF1F83D15600875933 /* CGFloat+Double.swift in Sources */,
-				57614B001F83D15600875933 /* CGExtensions.swift in Sources */,
 				57614B011F83D15600875933 /* GaussianBlur.swift in Sources */,
 				57614B021F83D15600875933 /* RoundRect.swift in Sources */,
 				57614B031F83D15600875933 /* UIImage2Image.swift in Sources */,
@@ -1274,6 +1829,7 @@
 				57614B421F83D15600875933 /* MDisplayLink_iOS.swift in Sources */,
 				57614B431F83D15600875933 /* RenderContext.swift in Sources */,
 				57614B441F83D15600875933 /* Size.swift in Sources */,
+				5835969C20A9CA150090400C /* CGMappings.swift in Sources */,
 				57614B451F83D15600875933 /* Polyline.swift in Sources */,
 				57614B461F83D15600875933 /* ContentsAnimation.swift in Sources */,
 				57614B471F83D15600875933 /* TouchEvent.swift in Sources */,
@@ -1314,6 +1870,7 @@
 				57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */,
 				57614B6C1F83D15600875933 /* SWXMLHash+TypeConversion.swift in Sources */,
 				57614B6D1F83D15600875933 /* AnimationSequence.swift in Sources */,
+				5B1A8C7720A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */,
 				57614B6E1F83D15600875933 /* MorphingGenerator.swift in Sources */,
 				57614B6F1F83D15600875933 /* SVGConstants.swift in Sources */,
 				57614B701F83D15600875933 /* ShapeLayer.swift in Sources */,
@@ -1329,7 +1886,6 @@
 				C43B06511F9866E400787A35 /* Locus+ToPath.swift in Sources */,
 				57E5E1A91E3B393900D1CB28 /* TextRenderer.swift in Sources */,
 				57E5E1B01E3B393900D1CB28 /* CGFloat+Double.swift in Sources */,
-				57E5E1591E3B393900D1CB28 /* CGExtensions.swift in Sources */,
 				57E5E1831E3B393900D1CB28 /* GaussianBlur.swift in Sources */,
 				57E5E19B1E3B393900D1CB28 /* RoundRect.swift in Sources */,
 				57900FF91EA0DEBF00809FFB /* UIImage2Image.swift in Sources */,
@@ -1401,6 +1957,7 @@
 				57E5E1A61E3B393900D1CB28 /* RenderContext.swift in Sources */,
 				57E5E19C1E3B393900D1CB28 /* Size.swift in Sources */,
 				57E5E1991E3B393900D1CB28 /* Polyline.swift in Sources */,
+				5835969B20A9CA150090400C /* CGMappings.swift in Sources */,
 				57E5E16D1E3B393900D1CB28 /* ContentsAnimation.swift in Sources */,
 				5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */,
 				A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */,
@@ -1429,7 +1986,7 @@
 				57E5E1A01E3B393900D1CB28 /* Node.swift in Sources */,
 				57E5E1751E3B393900D1CB28 /* PanEvent.swift in Sources */,
 				57E5E1771E3B393900D1CB28 /* RotateEvent.swift in Sources */,
-				5BAA56A8207C73FF0055BC5B /* SvgContentLayout.swift in Sources */,
+				5BAA56A8207C73FF0055BC5B /* SVGContentLayout.swift in Sources */,
 				57E5E18F1E3B393900D1CB28 /* Insets.swift in Sources */,
 				57E5E19A1E3B393900D1CB28 /* Rect.swift in Sources */,
 				57E5E1941E3B393900D1CB28 /* PathBuilder.swift in Sources */,
@@ -1441,6 +1998,7 @@
 				57E5E1B11E3B393900D1CB28 /* NSTimer+Closure.swift in Sources */,
 				572CEFC71E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift in Sources */,
 				57E5E16B1E3B393900D1CB28 /* AnimationSequence.swift in Sources */,
+				5B1A8C7620A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */,
 				57E5E1671E3B393900D1CB28 /* MorphingGenerator.swift in Sources */,
 				57E5E1AA1E3B393900D1CB28 /* SVGConstants.swift in Sources */,
 				57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */,

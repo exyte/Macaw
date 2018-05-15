@@ -39,7 +39,7 @@ class AnimationCache {
 
             let calculatedBounds = customBounds ?? node.bounds()
             if let shapeBounds = calculatedBounds {
-                let cgRect = shapeBounds.cgRect()
+                let cgRect = shapeBounds.toCG()
 
                 let origFrame = CGRect(x: 0.0, y: 0.0,
                                        width: round(cgRect.width),
@@ -54,7 +54,7 @@ class AnimationCache {
 
                 layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
 
-                let nodeTransform = RenderUtils.mapTransform(AnimationUtils.absolutePosition(node))
+                let nodeTransform = AnimationUtils.absolutePosition(node).toCG()
                 layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
 
                 // Clip
@@ -100,7 +100,7 @@ class AnimationCache {
         let origBounds = Rect(x: 0.0, y: 0.0, w: 1.0, h: 1.0)
 
         let startTransform = animFunc(0.0)
-        let startBounds = origBounds.applyTransform(startTransform)
+        let startBounds = origBounds.applying(startTransform)
         var startArea = startBounds.w * startBounds.h
 
         // zero scale protection
@@ -113,7 +113,7 @@ class AnimationCache {
         let step = 0.1
         while t <= 1.0 {
             let currentTransform = animFunc(t)
-            let currentBounds = origBounds.applyTransform(currentTransform)
+            let currentBounds = origBounds.applying(currentTransform)
             let currentArea = currentBounds.w * currentBounds.h
             if maxArea < currentArea {
                 maxArea = currentArea

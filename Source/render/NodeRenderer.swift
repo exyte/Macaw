@@ -79,7 +79,7 @@ class NodeRenderer {
             return
         }
 
-        ctx.cgContext!.concatenate(RenderUtils.mapTransform(node.place))
+        ctx.cgContext!.concatenate(node.place.toCG())
         applyClip()
         directRender(force: force, opacity: node.opacity * opacity)
     }
@@ -117,9 +117,9 @@ class NodeRenderer {
                     ctx.restoreGState()
                 }
 
-                ctx.concatenate(RenderUtils.mapTransform(place))
+                ctx.concatenate(place.toCG())
                 applyClip()
-                let loc = location.applying(RenderUtils.mapTransform(inverted))
+                let loc = location.applying(inverted.toCG())
                 let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
                 return result
             }

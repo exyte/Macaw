@@ -779,6 +779,9 @@ open class SVGParser {
             }
         }
 
+        if resultPoints.count % 2 == 1 {
+            resultPoints.removeLast()
+        }
         return resultPoints
     }
 

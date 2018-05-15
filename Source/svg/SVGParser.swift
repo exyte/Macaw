@@ -1215,6 +1215,9 @@ open class SVGParser {
         if let doubleValue = Double(string) {
             return doubleValue
         }
+        if string == "none" {
+            return 0
+        }
         guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
         let fullRange = NSRange(location: 0, length: string.count)
         if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {

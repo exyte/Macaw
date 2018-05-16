@@ -424,6 +424,10 @@
 		5B6E189A20AC3C7F00454E7E /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189620AC3C7F00454E7E /* Effect.swift */; };
 		5B6E189B20AC3C7F00454E7E /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189720AC3C7F00454E7E /* GaussianBlur.swift */; };
 		5B6E189C20AC3C7F00454E7E /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189820AC3C7F00454E7E /* OffsetEffect.swift */; };
+		5B6E189F20AC444100454E7E /* AlphaEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189520AC3C7F00454E7E /* AlphaEffect.swift */; };
+		5B6E18A020AC444100454E7E /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189620AC3C7F00454E7E /* Effect.swift */; };
+		5B6E18A120AC444100454E7E /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189720AC3C7F00454E7E /* GaussianBlur.swift */; };
+		5B6E18A220AC444100454E7E /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E189820AC3C7F00454E7E /* OffsetEffect.swift */; };
 		5BAA56A8207C73FF0055BC5B /* SVGContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA56A7207C73FF0055BC5B /* SVGContentLayout.swift */; };
 		5BAE201F208E1211006BF277 /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE201E208E1211006BF277 /* SVGCanvas.swift */; };
 		5BAE2038208E163D006BF277 /* polyline.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2022208E1637006BF277 /* polyline.reference */; };
@@ -1908,6 +1912,7 @@
 				57614B1C1F83D15600875933 /* TransformGenerator.swift in Sources */,
 				57614B1D1F83D15600875933 /* AnimationImpl.swift in Sources */,
 				57614B1E1F83D15600875933 /* AnimOperators.swift in Sources */,
+				5B6E189F20AC444100454E7E /* AlphaEffect.swift in Sources */,
 				57614B1F1F83D15600875933 /* Circle.swift in Sources */,
 				57614B201F83D15600875933 /* Color.swift in Sources */,
 				5BAE204C208E1EF4006BF277 /* SVGCanvas.swift in Sources */,
@@ -1927,12 +1932,15 @@
 				57614B2E1F83D15600875933 /* CombineAnimation.swift in Sources */,
 				57614B2F1F83D15600875933 /* TransformHashable.swift in Sources */,
 				57614B301F83D15600875933 /* MoveTo.swift in Sources */,
+				5B6E18A120AC444100454E7E /* GaussianBlur.swift in Sources */,
 				57614B311F83D15600875933 /* NodeRenderer.swift in Sources */,
 				57614B321F83D15600875933 /* Font.swift in Sources */,
 				57614B331F83D15600875933 /* Animation.swift in Sources */,
 				57614B341F83D15600875933 /* SVGParserError.swift in Sources */,
+				5B6E18A220AC444100454E7E /* OffsetEffect.swift in Sources */,
 				57614B351F83D15600875933 /* Drawable.swift in Sources */,
 				57614B361F83D15600875933 /* Disposable.swift in Sources */,
+				5B6E18A020AC444100454E7E /* Effect.swift in Sources */,
 				57614B371F83D15600875933 /* Path.swift in Sources */,
 				57614B381F83D15600875933 /* Line.swift in Sources */,
 				57614B391F83D15600875933 /* PathBounds.swift in Sources */,

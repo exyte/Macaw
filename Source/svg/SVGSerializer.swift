@@ -103,19 +103,19 @@ open class SVGSerializer {
     }
 
     fileprivate func polygonToSVG(_ polygon: Polygon) -> String {
-        let points = polygon.points.flatMap { String($0) }.joined(separator: ",")
+        let points = polygon.points.compactMap { String($0) }.joined(separator: ",")
         return tag(SVGPolygonOpenTag, ["points": points])
     }
 
     fileprivate func polylineToSVG(_ polyline: Polyline) -> String {
-        let points = polyline.points.flatMap { String($0) }.joined(separator: ",")
+        let points = polyline.points.compactMap { String($0) }.joined(separator: ",")
         return tag(SVGPolylineOpenTag, ["points": points])
     }
 
     fileprivate func pathToSVG(_ path: Path) -> String {
         var d = ""
         for segment in path.segments {
-            d += "\(segment.type) \(segment.data.flatMap { String(Int($0)) }.joined(separator: " "))"
+            d += "\(segment.type) \(segment.data.compactMap { String(Int($0)) }.joined(separator: " "))"
         }
         return tag(SVGPathOpenTag, ["d": d])
     }
@@ -157,7 +157,7 @@ open class SVGSerializer {
         result += SVGGenericCloseTag
         return result
     }
-    
+
     fileprivate func alignToSVG(_ align: Align) -> String {
         if align === Align.mid {
             return " text-anchor=\"middle\" "
@@ -248,7 +248,7 @@ open class SVGSerializer {
             }
         }
         if let strokeDashes = stroke?.dashes, strokeDashes.count > 0 {
-            let dashes = strokeDashes.map{ String($0) }.joined(separator: ",")
+            let dashes = strokeDashes.map { String($0) }.joined(separator: ",")
             result += " stroke-dasharray=\"\(dashes)\""
         }
         if let strokeOffset = stroke?.offset {

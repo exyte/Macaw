@@ -56,17 +56,17 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
-    static let availableFonts = MFont.mFamilyNames.map{ $0.lowercased() }
-    
+    static let availableFonts = MFont.mFamilyNames.map { $0.lowercased() }
+
     class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
-       
+
         var fontName = ""
-        let fontPriorities = name.split(separator: ",").map{ String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
+        let fontPriorities = name.split(separator: ",").map { String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
         for font in fontPriorities {
             if availableFonts.contains(font) {
                 fontName = font
             }
-            
+
             if font == "serif" {
                 fontName = "Georgia"
             }
@@ -80,7 +80,7 @@ class RenderUtils {
         if fontName.isEmpty {
             return .none
         }
-        
+
         var fontDesc = MFontDescriptor(name: fontName, size: CGFloat(size))
         if weight == "bold" || weight == "bolder" {
             #if os(iOS)
@@ -88,7 +88,7 @@ class RenderUtils {
             #elseif os(OSX)
             fontDesc = fontDesc.withSymbolicTraits(.bold)
             #endif
-            
+
         }
         return MFont(descriptor: fontDesc, size: CGFloat(size))
     }
@@ -161,7 +161,8 @@ class RenderUtils {
     }
 
     fileprivate class func pointsToPath(_ points: [Double]) -> MBezierPath {
-        let parts = stride(from: 0, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
+        let count = points.count / 2 * 2 // points count divisible by 2
+        let parts = stride(from: 0, to: count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
         let path = MBezierPath()
         var first = true
         for part in parts {

@@ -69,7 +69,7 @@ open class SVGParser {
 
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
-        
+
         var layout: NodeLayout?
         for child in parsedXml.children {
             if let element = child.element {
@@ -81,13 +81,13 @@ open class SVGParser {
             }
         }
         parseSvg(parsedXml.children)
-        
+
         if let layout = layout {
             return SVGCanvas(layout: layout, contents: nodes)
         }
         return Group(contents: nodes)
     }
-    
+
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
         children.forEach { child in
             prepareSvg(child)
@@ -119,25 +119,25 @@ open class SVGParser {
             }
         }
     }
-    
+
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
         var svgSize: SVGSize?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
             svgSize = SVGSize(width: w, height: h)
         }
-        
+
         var viewBox: Rect?
         if let viewBoxString = element.allAttributes["viewBox"]?.text {
-            let nums = viewBoxString.components(separatedBy: .whitespaces).map{ Double($0) }
+            let nums = viewBoxString.components(separatedBy: .whitespaces).map { Double($0) }
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
                 viewBox = Rect(x: x, y: y, w: w, h: h)
             }
         }
-        
+
         if svgSize == nil && viewBox == nil {
             return .none
         }
-        
+
         var xAligningMode, yAligningMode: Align?
         var scalingMode: AspectRatio?
         if let contentModeString = element.allAttributes["preserveAspectRatio"]?.text {
@@ -147,19 +147,19 @@ open class SVGParser {
                 return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
-            
+
             let alignString = strings[0]
             var xAlign = alignString.prefix(4).lowercased()
             xAlign.remove(at: xAlign.startIndex)
             xAligningMode = parseAlign(xAlign)
-            
+
             var yAlign = alignString.suffix(4).lowercased()
             yAlign.remove(at: yAlign.startIndex)
             yAligningMode = parseAlign(yAlign)
-            
+
             scalingMode = parseAspectRatio(strings[1])
         }
-        
+
         return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
@@ -172,6 +172,8 @@ open class SVGParser {
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
                 }
+            case "linearGradient", "radialGradient":
+                parseDefinition(node)
             case "style", "defs":
                 // do nothing - it was parsed on first iteration
                 return .none
@@ -206,37 +208,31 @@ open class SVGParser {
     }
 
     fileprivate func parseDefinitions(_ defs: XMLIndexer, groupStyle: [String: String] = [:]) {
-        for child in defs.children {
-            guard let id = child.element?.allAttributes["id"]?.text, let element = child.element else {
-                continue
-            }
-            
-            if element.name == "fill", let fill = parseFill(child) {
-                defFills[id] = fill
-            }
+        defs.children.forEach(parseDefinition(_:))
+    }
 
-            else if element.name == "mask", let mask = parseMask(child) {
-                defMasks[id] = mask
-            }
-            
-            else if element.name == "filter", let effect = parseEffect(child) {
-                defEffects[id] = effect
-            }
+    private func parseDefinition(_ child: XMLIndexer) {
+        guard let id = child.element?.allAttributes["id"]?.text, let element = child.element else {
+            return
+        }
 
-            else if element.name == "clip", let clip = parseClip(child) {
-                defClip[id] = clip
-            }
-            
-            else if let _ = parseNode(child) {
-                // TODO we don't really need to parse node
-                defNodes[id] = child
-            }
+        if element.name == "fill", let fill = parseFill(child) {
+            defFills[id] = fill
+        } else if element.name == "mask", let mask = parseMask(child) {
+            defMasks[id] = mask
+        } else if element.name == "filter", let effect = parseEffect(child) {
+            defEffects[id] = effect
+        } else if element.name == "clip", let clip = parseClip(child) {
+            defClip[id] = clip
+        } else if let _ = parseNode(child) {
+            // TODO we don't really need to parse node
+            defNodes[id] = child
         }
     }
-    
+
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element else { return .none }
-        
+
         let nodeStyle = getStyleAttributes(groupStyle, element: element)
         if nodeStyle["display"] == "none" {
             return .none
@@ -244,19 +240,19 @@ open class SVGParser {
         if nodeStyle["visibility"] == "hidden" {
             return .none
         }
-        
+
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
-        
+
         if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
             parsedNode.effect = effect
         }
-        
+
         return parsedNode
     }
-    
+
     fileprivate func parseElementInternal(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element else { return .none }
-        
+
         let styleAttributes = groupStyle
         let position = getPosition(element)
         switch element.name {
@@ -309,7 +305,7 @@ open class SVGParser {
             print("SVG parsing error. Shape \(element.name) not supported")
             return .none
         }
-        
+
         return .none
     }
 
@@ -359,7 +355,7 @@ open class SVGParser {
         }
         return parseTransformationAttribute(transformAttribute)
     }
-    
+
     fileprivate func parseAlign(_ string: String) -> Align {
         if string == "min" {
             return .min
@@ -369,7 +365,7 @@ open class SVGParser {
         }
         return .max
     }
-    
+
     fileprivate func parseAspectRatio(_ string: String) -> AspectRatio {
         if string == "meet" {
             return .meet
@@ -386,7 +382,7 @@ open class SVGParser {
         guard let matcher = SVGParserRegexHelper.getTransformAttributeMatcher() else {
             return transform
         }
-        
+
         let attributes = attributes.replacingOccurrences(of: "\n", with: "")
         var finalTransform = transform
         let fullRange = NSRange(location: 0, length: attributes.count)
@@ -678,7 +674,7 @@ open class SVGParser {
         }
         return dashes
     }
-    
+
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
         if let strokeOffset = styleParts["stroke-dashoffset"], let offset = Double(strokeOffset) { // TODO use doubleFromString once it's merged
             return offset
@@ -789,6 +785,9 @@ open class SVGParser {
             }
         }
 
+        if resultPoints.count % 2 == 1 {
+            resultPoints.removeLast()
+        }
         return resultPoints
     }
 
@@ -1004,21 +1003,18 @@ open class SVGParser {
         }
         return path
     }
-    
+
     fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
-        guard let element = filterNode.element else {
-            return nil
-        }
         let defaultSource = "SourceGraphic"
-        var effects = [String : Effect?]()
+        var effects = [String: Effect?]()
         for child in filterNode.children.reversed() {
             guard let element = child.element else { continue }
-            
+
             let filterIn = element.allAttributes["in"]?.text ?? defaultSource
             let filterOut = element.allAttributes["result"]?.text ?? ""
             let currentEffect = effects[filterOut] ?? nil
             effects.removeValue(forKey: filterOut)
-            
+
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
@@ -1032,8 +1028,7 @@ open class SVGParser {
                 if let filterIn2 = element.allAttributes["in2"]?.text {
                     if filterIn2 == defaultSource {
                         effects[filterIn] = nil
-                    }
-                    else if filterIn == defaultSource {
+                    } else if filterIn == defaultSource {
                         effects[filterIn2] = nil
                     }
                 }
@@ -1239,7 +1234,7 @@ open class SVGParser {
         }
         return .none
     }
-    
+
     fileprivate func parseIdFromUrl(_ urlString: String) -> String? {
         if urlString.hasPrefix("url") {
             return urlString.substringWithOffset(fromStart: 5, fromEnd: 1)
@@ -1253,14 +1248,14 @@ open class SVGParser {
         }
         return doubleFromString(attributeValue)
     }
-    
+
     fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> SVGLength? {
         guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
         }
         return dimensionFromString(attributeValue)
     }
-    
+
     fileprivate func dimensionFromString(_ string: String) -> SVGLength? {
         if let value = doubleFromString(string) {
             return SVGLength(pixels: value)
@@ -1270,7 +1265,7 @@ open class SVGParser {
         }
         return .none
     }
-    
+
     fileprivate func doubleFromString(_ string: String) -> Double? {
         if let doubleValue = Double(string) {
             return doubleValue
@@ -1281,7 +1276,7 @@ open class SVGParser {
         guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
         let fullRange = NSRange(location: 0, length: string.count)
         if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
-            
+
             let unitString = (string as NSString).substring(with: match.range(at: 1))
             let numberString = String(string.dropLast(unitString.count))
             let value = Double(numberString)!
@@ -1383,7 +1378,7 @@ open class SVGParser {
         }
         return false
     }
-    
+
     fileprivate func getFillRule(_ attributes: [String: String]) -> FillRule? {
         if let rule = attributes["fill-rule"] {
             switch rule {

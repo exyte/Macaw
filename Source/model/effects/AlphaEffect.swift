@@ -1,3 +1,2 @@
-
 open class AlphaEffect: Effect {
 }

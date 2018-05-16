@@ -95,7 +95,7 @@ class ImageRenderer: NodeRenderer {
             } else if h == 0 {
                 h = imageSize.height * w / imageSize.width
             }
-            
+
             let newSize = image.aspectRatio.fit(
                 size: Size(w: Double(image.w), h: Double(image.h)),
                 into: Size(w: Double(imageSize.width), h: Double(imageSize.height))

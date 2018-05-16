@@ -6,7 +6,7 @@
 //
 
 class SVGCanvas: Group {
-    
+
     let layout: NodeLayout
 
     public init(layout: NodeLayout, contents: [Node] = []) {

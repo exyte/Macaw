@@ -78,7 +78,7 @@ extension MFont {
     class var mSystemFontSize: CGFloat {
         return UIFont.systemFontSize
     }
-    
+
     class var mFamilyNames: [String] {
         return UIFont.familyNames
     }

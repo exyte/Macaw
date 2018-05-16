@@ -76,12 +76,12 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         animation.onProgressUpdate?(t)
     }
 
-    layer.path = RenderUtils.toCGPath(fromLocus)
+    layer.path = fromLocus.toCGPath()
 
     // Stroke
     if let stroke = mutatingShape.stroke {
         if let color = stroke.fill as? Color {
-            layer.strokeColor = RenderUtils.mapColor(color)
+            layer.strokeColor = color.toCG()
         } else {
             layer.strokeColor = MColor.black.cgColor
         }
@@ -97,7 +97,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
 
     // Fill
     if let color = mutatingShape.fill as? Color {
-        layer.fillColor = RenderUtils.mapColor(color)
+        layer.fillColor = color.toCG()
     } else {
         layer.fillColor = MColor.clear.cgColor
     }
@@ -112,8 +112,8 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
 fileprivate func pathAnimation(from: Locus, to: Locus, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
 
     var transform = renderTransform
-    let fromPath = RenderUtils.toCGPath(from).copy(using: &transform)
-    let toPath = RenderUtils.toCGPath(to).copy(using: &transform)
+    let fromPath = from.toCGPath().copy(using: &transform)
+    let toPath = to.toCGPath().copy(using: &transform)
 
     let animation = CABasicAnimation(keyPath: "path")
     animation.fromValue = fromPath

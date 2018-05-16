@@ -1,8 +1,9 @@
 import Foundation
 
 open class Effect {
-    open var input: Effect?
+    open let input: Effect?
     
-    public init() {
+    public init(input: Effect?) {
+        self.input = input
     }
 }

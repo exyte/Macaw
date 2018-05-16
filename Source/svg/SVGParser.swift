@@ -120,10 +120,10 @@ open class SVGParser {
         }
     }
     
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SvgNodeLayout? {
-        var svgDimensions: Dimensions?
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
+        var svgSize: SVGSize?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
-            svgDimensions = Dimensions(width: w, height: h)
+            svgSize = SVGSize(width: w, height: h)
         }
         
         var viewBox: Rect?
@@ -134,7 +134,7 @@ open class SVGParser {
             }
         }
         
-        if svgDimensions == nil && viewBox == nil {
+        if svgSize == nil && viewBox == nil {
             return .none
         }
         
@@ -144,7 +144,7 @@ open class SVGParser {
             let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
             if strings.count == 1 { // none
                 scalingMode = parseAspectRatio(strings[0])
-                return SvgNodeLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode)
+                return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
             
@@ -160,7 +160,7 @@ open class SVGParser {
             scalingMode = parseAspectRatio(strings[1])
         }
         
-        return SvgNodeLayout(svgDimensions: svgDimensions, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
+        return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
@@ -219,8 +219,8 @@ open class SVGParser {
                 defMasks[id] = mask
             }
             
-            else if element.name == "filter" {
-                parseFilter(child)
+            else if element.name == "filter", let effect = parseEffect(child) {
+                defEffects[id] = effect
             }
 
             else if element.name == "clip", let clip = parseClip(child) {
@@ -299,7 +299,9 @@ open class SVGParser {
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
         case "filter":
-            parseFilter(node)
+            if let effect = parseEffect(node), let id = node.element?.allAttributes["id"]?.text {
+                defEffects[id] = effect
+            }
             break
         case "mask":
             break
@@ -865,7 +867,7 @@ open class SVGParser {
             if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
+            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
         }
         // parse as regular text element
         var textString: NSString
@@ -884,9 +886,12 @@ open class SVGParser {
                         fill: fill ?? Color.black, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .alphabetic,
                         place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
         collection.append(text)
+        if tagRange.location >= fullString.length { // leave recursion
+            return collection
+        }
         return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection,
                              withWhitespace: nextStringWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke,
-                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: text.bounds())
+                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
     }
 
     fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
@@ -902,7 +907,7 @@ open class SVGParser {
         let attributes = getStyleAttributes([:], element: element)
 
         return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                    fill: fill ?? getFillColor(attributes) ?? Color.black, stroke: stroke ?? getStroke(attributes),
+                    fill: ((attributes["fill"] != nil) ? getFillColor(attributes)! : fill) ?? Color.black, stroke: stroke ?? getStroke(attributes),
                     align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
@@ -1000,49 +1005,44 @@ open class SVGParser {
         return path
     }
     
-    fileprivate func parseFilter(_ filterNode: XMLIndexer) {
-        guard let element = filterNode.element, let id = element.allAttributes["id"]?.text else {
-            return
+    fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
+        guard let element = filterNode.element else {
+            return nil
         }
         let defaultSource = "SourceGraphic"
-        var resultEffect: Effect?
-        var effects = [String : Effect]()
-        for child in filterNode.children {
+        var effects = [String : Effect?]()
+        for child in filterNode.children.reversed() {
             guard let element = child.element else { continue }
             
             let filterIn = element.allAttributes["in"]?.text ?? defaultSource
             let filterOut = element.allAttributes["result"]?.text ?? ""
-            var currentEffect = effects[filterIn]
-            if currentEffect == nil { // first in the chain
-                currentEffect = filterIn == defaultSource ? SourceGraphicEffect() : AlphaEffect()
-            }
-            if resultEffect == nil {
-                resultEffect = currentEffect!
-            }
-            effects.removeValue(forKey: filterIn)
+            let currentEffect = effects[filterOut] ?? nil
+            effects.removeValue(forKey: filterOut)
             
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
-                    currentEffect?.input = OffsetEffect(dx: dx, dy: dy)
+                    effects[filterIn] = OffsetEffect(dx: dx, dy: dy, input: currentEffect)
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    currentEffect?.input = GaussianBlur(radius: radius)
+                    effects[filterIn] = GaussianBlur(radius: radius, input: currentEffect)
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
-                    if effects[filterIn] != nil || effects[filterIn2] != nil {
-                        defEffects[id] = resultEffect
+                    if filterIn2 == defaultSource {
+                        effects[filterIn] = nil
                     }
-                    return
+                    else if filterIn == defaultSource {
+                        effects[filterIn2] = nil
+                    }
                 }
             default:
                 print("SVG parsing error. Filter \(element.name) not supported")
                 continue
             }
-            effects[filterOut] = currentEffect?.input
         }
+        return effects.first?.value
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
@@ -1118,7 +1118,7 @@ open class SVGParser {
 
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
-            let cgTransform = RenderUtils.mapTransform(transform)
+            let cgTransform = transform.toCG()
 
             let point1 = CGPoint(x: x1, y: y1).applying(cgTransform)
             x1 = point1.x.doubleValue
@@ -1180,7 +1180,7 @@ open class SVGParser {
 
         if let gradientTransform = element.allAttributes["gradientTransform"]?.text {
             let transform = parseTransformationAttribute(gradientTransform)
-            let cgTransform = RenderUtils.mapTransform(transform)
+            let cgTransform = transform.toCG()
 
             let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
             cx = point1.x.doubleValue
@@ -1254,19 +1254,19 @@ open class SVGParser {
         return doubleFromString(attributeValue)
     }
     
-    fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Dimension? {
+    fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> SVGLength? {
         guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
         }
         return dimensionFromString(attributeValue)
     }
     
-    fileprivate func dimensionFromString(_ string: String) -> Dimension? {
+    fileprivate func dimensionFromString(_ string: String) -> SVGLength? {
         if let value = doubleFromString(string) {
-            return Dimension(pixels: value)
+            return SVGLength(pixels: value)
         }
         if string.hasSuffix("%") {
-            return Dimension(percent: Double(string.dropLast())!)
+            return SVGLength(percent: Double(string.dropLast())!)
         }
         return .none
     }
@@ -1274,6 +1274,9 @@ open class SVGParser {
     fileprivate func doubleFromString(_ string: String) -> Double? {
         if let doubleValue = Double(string) {
             return doubleValue
+        }
+        if string == "none" {
+            return 0
         }
         guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
         let fullRange = NSRange(location: 0, length: string.count)
@@ -1459,14 +1462,23 @@ private class PathDataReader {
             var result = [PathSegment]()
             let data = readData()
             var index = 0
-            while (index < data.count) {
+            var isFirstSegment = true
+            while index < data.count {
                 let end = index + count
-                if (end > data.count) {
+                if end > data.count {
                     // TODO need to generate error:
                     // "Path '\(type)' has invalid number of arguments: \(data.count)"
                     break
                 }
-                result.append(PathSegment(type: type, data: Array(data[index..<end])))
+                var currentType = type
+                if type == .M && !isFirstSegment {
+                    currentType = .L
+                }
+                if type == .m && !isFirstSegment {
+                    currentType = .l
+                }
+                result.append(PathSegment(type: currentType, data: Array(data[index..<end])))
+                isFirstSegment = false
                 index = end
             }
             return result

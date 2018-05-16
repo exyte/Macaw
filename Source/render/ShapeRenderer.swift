@@ -62,7 +62,7 @@ class ShapeRenderer: NodeRenderer {
         let otherEffects = effects.filter { !($0 is OffsetEffect) }
         if let offset = offset as? OffsetEffect {
             let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
-            context.concatenate(RenderUtils.mapTransform(move))
+            context.concatenate(move.toCG())
             
             if otherEffects.count == 0 {
                 // draw offset shape
@@ -73,7 +73,7 @@ class ShapeRenderer: NodeRenderer {
             }
             
             // move back and draw the shape itself
-            context.concatenate(RenderUtils.mapTransform(move.invert()!))
+            context.concatenate(move.invert()!.toCG())
             drawShape(in: context, opacity: opacity)
         }
         else {
@@ -182,7 +182,7 @@ class ShapeRenderer: NodeRenderer {
             let ry = ellipse.ry
             ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
         } else {
-            ctx.addPath(RenderUtils.toCGPath(locus))
+            ctx.addPath(locus.toCGPath())
         }
     }
 
@@ -224,7 +224,7 @@ class ShapeRenderer: NodeRenderer {
         }
         if let fillColor = fill as? Color {
             let color = RenderUtils.applyOpacity(fillColor, opacity: opacity)
-            ctx!.setFillColor(RenderUtils.mapColor(color))
+            ctx!.setFillColor(color.toCG())
         } else if let gradient = fill as? Gradient {
             drawGradient(gradient, ctx: ctx, opacity: opacity)
         } else {
@@ -253,8 +253,8 @@ class ShapeRenderer: NodeRenderer {
 
     fileprivate func setStrokeAttributes(_ stroke: Stroke, ctx: CGContext?) {
         ctx!.setLineWidth(CGFloat(stroke.width))
-        ctx!.setLineJoin(RenderUtils.mapLineJoin(stroke.join))
-        ctx!.setLineCap(RenderUtils.mapLineCap(stroke.cap))
+        ctx!.setLineJoin(stroke.join.toCG())
+        ctx!.setLineCap(stroke.cap.toCG())
         if !stroke.dashes.isEmpty {
             ctx?.setLineDash(phase: CGFloat(stroke.offset),
                              lengths: stroke.dashes.map{ CGFloat($0) })
@@ -266,7 +266,7 @@ class ShapeRenderer: NodeRenderer {
             return
         }
         let color = RenderUtils.applyOpacity(strokeColor, opacity: opacity)
-        ctx!.setStrokeColor(RenderUtils.mapColor(color))
+        ctx!.setStrokeColor(color.toCG())
     }
 
     fileprivate func gradientStroke(_ stroke: Stroke, ctx: CGContext?, opacity: Double) {
@@ -284,7 +284,7 @@ class ShapeRenderer: NodeRenderer {
         for stop in gradient.stops {
             stops.append(CGFloat(stop.offset))
             let color = RenderUtils.applyOpacity(stop.color, opacity: opacity)
-            colors.append(RenderUtils.mapColor(color))
+            colors.append(color.toCG())
         }
 
         if let gradient = gradient as? LinearGradient {

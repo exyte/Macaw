@@ -1,0 +1,21 @@
+{
+  "layout" : {
+    "yAligningMode" : "mid",
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "xAligningMode" : "mid",
+    "viewBox" : null
+  },
+  "contents" : [
+    {
+      "contents" : [
+
+      ],
+      "node" : "Group"
+    }
+  ],
+  "node" : "Canvas"
+}

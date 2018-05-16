@@ -15,6 +15,7 @@
 		575129B61CBD14AF00BD3C2E /* AnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575129B51CBD14AF00BD3C2E /* AnimationsView.swift */; };
 		57AF398C1E67E9DB00F0BFE2 /* EventsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */; };
 		58E4D50C1D841C6E00EC8815 /* TransformExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */; };
+		5B6E189320AC1A0300454E7E /* test.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6E189220AC1A0300454E7E /* test.svg */; };
 		66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66AE19DA1CC8CB3C00B78B5E /* tiger.svg */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
 		B02E75F61C16104900D1971D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02E75F41C16104900D1971D /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		575129B51CBD14AF00BD3C2E /* AnimationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationsView.swift; sourceTree = "<group>"; };
 		57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsExampleController.swift; sourceTree = "<group>"; };
 		58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformExampleView.swift; sourceTree = "<group>"; };
+		5B6E189220AC1A0300454E7E /* test.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.svg; path = ../../../Downloads/test.svg; sourceTree = "<group>"; };
 		66AE19DA1CC8CB3C00B78B5E /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = Example/Assets/SVG/tiger.svg; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02E75F01C16104900D1971D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				66AE19DA1CC8CB3C00B78B5E /* tiger.svg */,
+				5B6E189220AC1A0300454E7E /* test.svg */,
 			);
 			name = SVG;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			files = (
 				B02E75FB1C16104900D1971D /* LaunchScreen.storyboard in Resources */,
 				B02E75F81C16104900D1971D /* Assets.xcassets in Resources */,
+				5B6E189320AC1A0300454E7E /* test.svg in Resources */,
 				66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */,
 				B02E75F61C16104900D1971D /* Main.storyboard in Resources */,
 			);
@@ -273,9 +277,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -318,13 +327,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -127,10 +127,6 @@ extension MBezierPath {
         close()
     }
 
-    func reversing() -> MBezierPath {
-        return self.reversed
-    }
-
     func addLine(to: NSPoint) {
         self.line(to: to)
     }

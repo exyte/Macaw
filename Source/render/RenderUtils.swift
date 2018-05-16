@@ -7,29 +7,6 @@ import AppKit
 #endif
 
 class RenderUtils {
-    class func mapColor(_ color: Color) -> CGColor {
-        let red = CGFloat(Double(color.r()) / 255.0)
-        let green = CGFloat(Double(color.g()) / 255.0)
-        let blue = CGFloat(Double(color.b()) / 255.0)
-        let alpha = CGFloat(Double(color.a()) / 255.0)
-        return MColor(red: red, green: green, blue: blue, alpha: alpha).cgColor
-    }
-
-    class func mapTransform(_ t: Transform) -> CGAffineTransform {
-        return CGAffineTransform(a: CGFloat(t.m11), b: CGFloat(t.m12), c: CGFloat(t.m21),
-                                 d: CGFloat(t.m22), tx: CGFloat(t.dx), ty: CGFloat(t.dy))
-    }
-
-    class func mapLineJoin(_ join: LineJoin?) -> CGLineJoin {
-        switch join {
-        case LineJoin.round?:
-            return CGLineJoin.round
-        case LineJoin.bevel?:
-            return CGLineJoin.bevel
-        default:
-            return CGLineJoin.miter
-        }
-    }
 
     class func mapLineJoinToString(_ join: LineJoin?) -> String {
         switch join {
@@ -39,17 +16,6 @@ class RenderUtils {
             return kCALineJoinBevel
         default:
             return kCALineJoinMiter
-        }
-    }
-
-    class func mapLineCap(_ cap: LineCap?) -> CGLineCap {
-        switch cap {
-        case LineCap.round?:
-            return CGLineCap.round
-        case LineCap.square?:
-            return CGLineCap.square
-        default:
-            return CGLineCap.butt
         }
     }
 
@@ -148,13 +114,13 @@ class RenderUtils {
                 return path
             }
         }
-        return toBezierPath(locus).reversing().cgPath
+        return toBezierPath(locus).cgPath
     }
 
     class func toBezierPath(_ locus: Locus) -> MBezierPath {
         if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            return MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
+            return MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
                 MRectCorner.allCorners, cornerRadii: corners)
         } else if let arc = locus as? Arc {
             if arc.ellipse.rx == arc.ellipse.ry {
@@ -177,9 +143,9 @@ class RenderUtils {
         } else if let polygon = locus as? Polyline {
             return pointsToPath(polygon.points)
         } else if let rect = locus as? Rect {
-            return MBezierPath(rect: rect.cgRect())
+            return MBezierPath(rect: rect.toCG())
         } else if let circle = locus as? Circle {
-            return MBezierPath(ovalIn: circle.bounds().cgRect())
+            return MBezierPath(ovalIn: circle.bounds().toCG())
         } else if let path = locus as? Path {
             return toBezierPath(path)
         }
@@ -582,9 +548,5 @@ class RenderUtils {
 
     class func num2bool(_ double: Double) -> Bool {
         return double > 0.5 ? true : false
-    }
-
-    fileprivate class func newCGRect(_ rect: Rect) -> CGRect {
-        return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
 }

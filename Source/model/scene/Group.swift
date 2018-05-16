@@ -69,7 +69,7 @@ open class Group: Node {
         var union: Rect?
 
         contents.forEach { node in
-            guard let nodeBounds = node.bounds()?.applyTransform(node.place) else {
+            guard let nodeBounds = node.bounds()?.applying(node.place) else {
                 return
             }
 

@@ -47,6 +47,7 @@ open class SVGParser {
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
     fileprivate var defClip = [String: Locus]()
+    fileprivate var defEffects = [String: Effect]()
 
     fileprivate enum PathCommandType {
         case moveTo
@@ -171,8 +172,6 @@ open class SVGParser {
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
                 }
-            case "linearGradient", "radialGradient":
-                parseDefinition(node)
             case "style", "defs":
                 // do nothing - it was parsed on first iteration
                 return .none
@@ -211,40 +210,49 @@ open class SVGParser {
     }
     
     private func parseDefinition(_ child: XMLIndexer) {
-        guard let id = child.element?.allAttributes["id"]?.text else {
+        guard let id = child.element?.allAttributes["id"]?.text, let element = child.element else {
             return
         }
-        if let fill = parseFill(child) {
+
+        if element.name == "fill", let fill = parseFill(child) {
             defFills[id] = fill
-        }
-        
-        else if let _ = parseNode(child) {
+        } else if element.name == "mask", let mask = parseMask(child) {
+            defMasks[id] = mask
+        } else if element.name == "filter", let effect = parseEffect(child) {
+            defEffects[id] = effect
+        } else if element.name == "clip", let clip = parseClip(child) {
+            defClip[id] = clip
+        } else if let _ = parseNode(child) {
             // TODO we don't really need to parse node
             defNodes[id] = child
         }
-        
-        else if let mask = parseMask(child) {
-            defMasks[id] = mask
-        }
-        
-        else if let clip = parseClip(child) {
-            defClip[id] = clip
-        }
     }
-
 
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element else { return .none }
 
-        let styleAttributes = getStyleAttributes(groupStyle, element: element)
-        if styleAttributes["display"] == "none" {
+        let nodeStyle = getStyleAttributes(groupStyle, element: element)
+        if nodeStyle["display"] == "none" {
             return .none
         }
-        if styleAttributes["visibility"] == "hidden" {
+        if nodeStyle["visibility"] == "hidden" {
             return .none
         }
 
+        guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
 
+        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
+            parsedNode.effect = effect
+        }
+
+        return parsedNode
+    }
+
+    fileprivate func parseElementInternal(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+        guard let element = node.element else { return .none }
+        let id = node.element?.allAttributes["id"]?.text
+
+        let styleAttributes = groupStyle
         let position = getPosition(element)
         switch element.name {
         case "path":
@@ -285,6 +293,14 @@ open class SVGParser {
                              stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
+        case "linearGradient", "radialGradient", "fill":
+            if let fill = parseFill(node), let id = id {
+                defFills[id] = fill
+            }
+        case "filter":
+            if let effect = parseEffect(node), let id = id {
+                defEffects[id] = effect
+            }
         case "mask":
             break
         default:
@@ -558,13 +574,8 @@ open class SVGParser {
         if fillColor.hasPrefix("rgb") {
             let color = parseRGBNotation(colorString: fillColor)
             return hasFillOpacity ? color.with(a: opacity) : color
-        } else if fillColor.hasPrefix("url") {
-            let index = fillColor.index(fillColor.startIndex, offsetBy: 4)
-            let id = String(fillColor.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
-            return defFills[id]
+        } else if let colorId = parseIdFromUrl(fillColor) {
+            return defFills[colorId]
         } else {
             return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
         }
@@ -591,13 +602,8 @@ open class SVGParser {
             fill = color.with(a: opacity)
         } else if strokeColor.hasPrefix("rgb") {
             fill = parseRGBNotation(colorString: strokeColor)
-        } else if strokeColor.hasPrefix("url") {
-            let index = strokeColor.index(strokeColor.startIndex, offsetBy: 4)
-            let id = String(strokeColor.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
-            fill = defFills[id]
+        } else if let colorId = parseIdFromUrl(strokeColor) {
+            fill = defFills[colorId]
         } else {
             fill = createColor(strokeColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
         }
@@ -1000,6 +1006,42 @@ open class SVGParser {
         return path
     }
 
+    fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
+        let defaultSource = "SourceGraphic"
+        var effects = [String: Effect]()
+        for child in filterNode.children.reversed() {
+            guard let element = child.element else { continue }
+
+            let filterIn = element.allAttributes["in"]?.text ?? defaultSource
+            let filterOut = element.allAttributes["result"]?.text ?? ""
+            let currentEffect = effects[filterOut]
+            effects.removeValue(forKey: filterOut)
+
+            switch element.name {
+            case "feOffset":
+                if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
+                    effects[filterIn] = OffsetEffect(dx: dx, dy: dy, input: currentEffect)
+                }
+            case "feGaussianBlur":
+                if let radius = getDoubleValue(element, attribute: "stdDeviation") {
+                    effects[filterIn] = GaussianBlur(radius: radius, input: currentEffect)
+                }
+            case "feBlend":
+                if let filterIn2 = element.allAttributes["in2"]?.text {
+                    if filterIn2 == defaultSource {
+                        effects[filterIn] = nil
+                    } else if filterIn == defaultSource {
+                        effects[filterIn2] = nil
+                    }
+                }
+            default:
+                print("SVG parsing error. Filter \(element.name) not supported")
+                continue
+            }
+        }
+        return effects.first?.value
+    }
+
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
         guard let element = mask.element else {
             return .none
@@ -1195,6 +1237,13 @@ open class SVGParser {
         return .none
     }
 
+    fileprivate func parseIdFromUrl(_ urlString: String) -> String? {
+        if urlString.hasPrefix("url") {
+            return urlString.substringWithOffset(fromStart: 5, fromEnd: 1)
+        }
+        return .none
+    }
+
     fileprivate func getDoubleValue(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
         guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
@@ -1307,12 +1356,7 @@ open class SVGParser {
     }
 
     fileprivate func getClipPath(_ attributes: [String: String]) -> Locus? {
-        if let clipPath = attributes["clip-path"] {
-            let index = clipPath.index(clipPath.startIndex, offsetBy: 4)
-            let id = String(clipPath.suffix(from: index))
-                .replacingOccurrences(of: "(", with: "")
-                .replacingOccurrences(of: ")", with: "")
-                .replacingOccurrences(of: "#", with: "")
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let locus = defClip[id] {
                 return locus
             }
@@ -1554,4 +1598,12 @@ private class PathDataReader {
         return false
     }
 
+}
+
+fileprivate extension String {
+    func substringWithOffset(fromStart: Int, fromEnd: Int) -> String {
+        let start = index(startIndex, offsetBy: fromStart)
+        let end = index(endIndex, offsetBy: -fromEnd)
+        return String(self[start..<end])
+    }
 }

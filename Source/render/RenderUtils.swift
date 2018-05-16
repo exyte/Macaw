@@ -161,7 +161,8 @@ class RenderUtils {
     }
 
     fileprivate class func pointsToPath(_ points: [Double]) -> MBezierPath {
-        let parts = stride(from: 0, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
+        let count = points.count / 2 * 2 // points count divisible by 2
+        let parts = stride(from: 0, to: count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
         let path = MBezierPath()
         var first = true
         for part in parts {

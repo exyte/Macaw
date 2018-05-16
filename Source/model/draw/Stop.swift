@@ -7,7 +7,7 @@ open class Stop {
 
     public init(offset: Double = 0, color: Color) {
         self.color = color
-        
+
         if offset < 0 {
             self.offset = 0
         } else if offset > 1 {

@@ -53,7 +53,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
     override public func pause() {
         stop()
     }
-    
+
     open override func reverse() -> Animation {
         let factory = { () -> (Double) -> Shape in
             let original = self.timeFactory()
@@ -61,7 +61,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
                 return original(1.0 - t)
             }
         }
-        
+
         let node = Node.nodeBy(id: nodeId!)
         let reversedAnimation = ShapeAnimation(animatedNode: node as! Shape,
                                                factory: factory,
@@ -69,7 +69,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
                                                fps: logicalFps)
         reversedAnimation.progress = progress
         reversedAnimation.completion = completion
-        
+
         return reversedAnimation
     }
 }

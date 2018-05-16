@@ -157,7 +157,7 @@ open class SVGSerializer {
         result += SVGGenericCloseTag
         return result
     }
-    
+
     fileprivate func alignToSVG(_ align: Align) -> String {
         if align === Align.mid {
             return " text-anchor=\"middle\" "
@@ -248,7 +248,7 @@ open class SVGSerializer {
             }
         }
         if let strokeDashes = stroke?.dashes, strokeDashes.count > 0 {
-            let dashes = strokeDashes.map{ String($0) }.joined(separator: ",")
+            let dashes = strokeDashes.map { String($0) }.joined(separator: ",")
             result += " stroke-dasharray=\"\(dashes)\""
         }
         if let strokeOffset = stroke?.offset {

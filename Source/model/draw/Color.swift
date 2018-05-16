@@ -1,5 +1,3 @@
-import Foundation
-
 open class Color: Fill, Equatable {
 
     open let val: Int
@@ -26,32 +24,26 @@ open class Color: Fill, Equatable {
         self.val = val
     }
 
-    // GENERATED
     open func r() -> Int {
         return ( ( val >> 16 ) & 0xff )
     }
 
-    // GENERATED
     open func g() -> Int {
         return ( ( val >> 8 ) & 0xff )
     }
 
-    // GENERATED
     open func b() -> Int {
         return ( val & 0xff )
     }
 
-    // GENERATED
     open func a() -> Int {
         return ( 255 - ( ( val >> 24 ) & 0xff ) )
     }
 
-    // GENERATED
     public func with(a: Double) -> Color {
         return Color.rgba(r: r(), g: g(), b: b(), a: a)
     }
 
-    // GENERATED
     open class func rgbt(r: Int, g: Int, b: Int, t: Int) -> Color {
         let x = ( ( t & 0xff ) << 24 )
         let y = ( ( r & 0xff ) << 16 )
@@ -60,12 +52,10 @@ open class Color: Fill, Equatable {
         return Color( val: ( ( ( x | y ) | z ) | q ) )
     }
 
-    // GENERATED
     open class func rgba(r: Int, g: Int, b: Int, a: Double) -> Color {
         return rgbt( r: r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
     }
 
-    // GENERATED
     open class func rgb(r: Int, g: Int, b: Int) -> Color {
         return rgbt( r: r, g: g, b: b, t: 0 )
     }

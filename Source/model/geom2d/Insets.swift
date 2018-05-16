@@ -1,5 +1,3 @@
-import Foundation
-
 open class Insets {
 
     open let top: Double

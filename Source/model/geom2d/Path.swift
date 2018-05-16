@@ -1,5 +1,3 @@
-import Foundation
-
 public enum FillRule {
     case nonzero, evenodd
 }

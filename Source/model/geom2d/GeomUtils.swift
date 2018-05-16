@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO need to replace this class with model methods
 open class GeomUtils {
     open class func concat(t1: Transform, t2: Transform) -> Transform {
         let nm11 = t2.m11 * t1.m11 + t2.m12 * t1.m21

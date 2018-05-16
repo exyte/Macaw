@@ -1,5 +1,3 @@
-import Foundation
-
 open class Circle: Locus {
 
     open let cx: Double
@@ -20,7 +18,6 @@ open class Circle: Locus {
             h: r * 2.0)
     }
 
-    // GENERATED NOT
     open func arc(shift: Double, extent: Double) -> Arc {
         return Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
     }

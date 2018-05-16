@@ -1,5 +1,3 @@
-import Foundation
-
 open class RoundRect: Locus {
 
     open let rect: Rect

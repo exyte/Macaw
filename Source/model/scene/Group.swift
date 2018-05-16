@@ -1,5 +1,3 @@
-import Foundation
-
 open class Group: Node {
 
     open var contentsVar: AnimatableVariable<[Node]>
@@ -64,7 +62,6 @@ open class Group: Node {
         return result
     }
 
-    // GENERATED NOT
     override internal func bounds() -> Rect? {
         var union: Rect?
 

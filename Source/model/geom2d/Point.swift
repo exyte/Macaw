@@ -1,5 +1,3 @@
-import Foundation
-
 open class Point: Locus {
 
     open let x: Double
@@ -20,7 +18,6 @@ open class Point: Locus {
             h: 0.0)
     }
 
-    // GENERATED NOT
     open func add(_ point: Point) -> Point {
         return Point(
             x: self.x + point.x,

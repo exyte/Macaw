@@ -1,5 +1,3 @@
-import Foundation
-
 open class Stroke {
 
     open let fill: Fill

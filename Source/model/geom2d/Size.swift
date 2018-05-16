@@ -1,5 +1,3 @@
-import Foundation
-
 open class Size {
 
     open let w: Double

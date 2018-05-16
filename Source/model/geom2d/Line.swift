@@ -1,5 +1,3 @@
-import Foundation
-
 open class Line: Locus {
 
     open let x1: Double

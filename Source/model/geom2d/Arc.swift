@@ -1,5 +1,3 @@
-import Foundation
-
 open class Arc: Locus {
 
     open let ellipse: Ellipse

@@ -1,5 +1,3 @@
-import Foundation
-
 open class Drawable {
 
     open let visible: Bool

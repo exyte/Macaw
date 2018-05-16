@@ -1,5 +1,3 @@
-import Foundation
-
 open class Shape: Node {
 
     open let formVar: AnimatableVariable<Locus>
@@ -39,7 +37,6 @@ open class Shape: Node {
         self.fillVar.node = self
     }
 
-    // GENERATED NOT
     override internal func bounds() -> Rect? {
         var bounds = form.bounds()
 

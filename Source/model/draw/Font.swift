@@ -1,5 +1,3 @@
-import Foundation
-
 open class Font {
 
     open let name: String

@@ -1,5 +1,3 @@
-import Foundation
-
 open class Gradient: Fill {
 
     open let userSpace: Bool

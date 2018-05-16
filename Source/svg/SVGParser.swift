@@ -172,8 +172,6 @@ open class SVGParser {
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
                 }
-            case "linearGradient", "radialGradient":
-                parseDefinition(node)
             case "style", "defs":
                 // do nothing - it was parsed on first iteration
                 return .none
@@ -252,6 +250,7 @@ open class SVGParser {
 
     fileprivate func parseElementInternal(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element else { return .none }
+        let id = node.element?.allAttributes["id"]?.text
 
         let styleAttributes = groupStyle
         let position = getPosition(element)
@@ -294,11 +293,14 @@ open class SVGParser {
                              stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
+        case "linearGradient", "radialGradient", "fill":
+            if let fill = parseFill(node), let id = id {
+                defFills[id] = fill
+            }
         case "filter":
-            if let effect = parseEffect(node), let id = node.element?.allAttributes["id"]?.text {
+            if let effect = parseEffect(node), let id = id {
                 defEffects[id] = effect
             }
-            break
         case "mask":
             break
         default:

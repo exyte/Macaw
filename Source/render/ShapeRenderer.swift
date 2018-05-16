@@ -31,20 +31,102 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
+    fileprivate func drawShape(in context: CGContext, opacity: Double) {
+        guard let shape = shape else { return }
+        setGeometry(shape.form, ctx: context)
+        var fillRule = FillRule.nonzero
+        if let path = shape.form as? Path {
+            fillRule = path.fillRule
+        }
+        drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
+    }
+
     override func doRender(_ force: Bool, opacity: Double) {
-        guard let shape = shape else {
+        guard let shape = shape, let context = ctx.cgContext else { return }
+        if shape.fill == nil && shape.stroke == nil { return }
+
+        // no effects, just draw as usual
+        guard let effect = shape.effect else {
+            drawShape(in: context, opacity: opacity)
             return
         }
 
-        if shape.fill != nil || shape.stroke != nil {
-            setGeometry(shape.form, ctx: ctx.cgContext!)
-            
-            var fillRule = FillRule.nonzero
-            if let path = shape.form as? Path {
-                fillRule = path.fillRule
-            }
-            drawPath(shape.fill, stroke: shape.stroke, ctx: ctx.cgContext!, opacity: opacity, fillRule: fillRule)
+        var effects = [Effect]()
+        var next: Effect? = effect
+        while next != nil {
+            effects.append(next!)
+            next = next?.input
         }
+
+        let offset = effects.filter { $0 is OffsetEffect }.first
+        let otherEffects = effects.filter { !($0 is OffsetEffect) }
+        if let offset = offset as? OffsetEffect {
+            let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
+            context.concatenate(move.toCG())
+
+            if otherEffects.count == 0 {
+                // draw offset shape
+                drawShape(in: context, opacity: opacity)
+            } else {
+                // apply other effects to offset shape
+                applyEffects(otherEffects, opacity: opacity)
+            }
+
+            // move back and draw the shape itself
+            context.concatenate(move.invert()!.toCG())
+            drawShape(in: context, opacity: opacity)
+        } else {
+            // draw the shape
+            drawShape(in: context, opacity: opacity)
+
+            // apply other effects to shape
+            applyEffects(otherEffects, opacity: opacity)
+        }
+    }
+
+    fileprivate func applyEffects(_ effects: [Effect], opacity: Double) {
+        guard let shape = shape, let context = ctx.cgContext else { return }
+        for effect in effects {
+            if let blur = effect as? GaussianBlur {
+                let shadowInset = min(blur.radius * 6 + 1, 150)
+                guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else { return }
+
+                guard let filteredImage = applyBlur(shapeImage, blur: blur) else { return }
+
+                guard let bounds = shape.bounds() else { return }
+                context.draw(filteredImage, in: CGRect(x: bounds.x - shadowInset / 2, y: bounds.y - shadowInset / 2, width: bounds.w + shadowInset, height: bounds.h + shadowInset))
+            }
+        }
+    }
+
+    fileprivate func applyBlur(_ image: CGImage, blur: GaussianBlur) -> CGImage? {
+        let image = CIImage(cgImage: image)
+        guard let filter = CIFilter(name: "CIGaussianBlur") else { return .none }
+        filter.setDefaults()
+        filter.setValue(Int(blur.radius), forKey: kCIInputRadiusKey)
+        filter.setValue(image, forKey: kCIInputImageKey)
+
+        let context = CIContext(options: nil)
+        let imageRef = context.createCGImage(filter.outputImage!, from: image.extent)
+        return imageRef
+    }
+
+    fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> MImage? {
+        guard let size = shape.bounds() else { return .none }
+        MGraphicsBeginImageContextWithOptions(CGSize(width: size.w + shadowInset, height: size.h + shadowInset), false, 1)
+
+        guard let tempContext = MGraphicsGetCurrentContext() else { return .none }
+
+        if (shape.fill != nil || shape.stroke != nil) {
+            // flip y-axis and leave space for the blur
+            tempContext.translateBy(x: CGFloat(shadowInset / 2 - size.x), y: CGFloat(size.h + shadowInset / 2 + size.y))
+            tempContext.scaleBy(x: 1, y: -1)
+            drawShape(in: tempContext, opacity: opacity)
+        }
+
+        let img = MGraphicsGetImageFromCurrentImageContext()
+        MGraphicsEndImageContext()
+        return img
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {

@@ -1006,13 +1006,13 @@ open class SVGParser {
 
     fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
         let defaultSource = "SourceGraphic"
-        var effects = [String: Effect?]()
+        var effects = [String: Effect]()
         for child in filterNode.children.reversed() {
             guard let element = child.element else { continue }
 
             let filterIn = element.allAttributes["in"]?.text ?? defaultSource
             let filterOut = element.allAttributes["result"]?.text ?? ""
-            let currentEffect = effects[filterOut] ?? nil
+            let currentEffect = effects[filterOut]
             effects.removeValue(forKey: filterOut)
 
             switch element.name {

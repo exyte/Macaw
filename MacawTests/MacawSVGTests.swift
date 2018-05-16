@@ -21,6 +21,8 @@ class MacawSVGTests: XCTestCase {
                 let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
                 let result = SVGSerializer.serialize(node: node)
                 XCTAssertEqual(result, clipReferenceContent)
+            } else {
+                XCTFail("No file \(referenceFile)")
             }
         } catch {
             print(error)
@@ -60,7 +62,7 @@ class MacawSVGTests: XCTestCase {
         group1.place = Transform(dx: 100, dy: 100)
         let node = Group(contents: [group1])
         
-        validate(node: node, referenceFile: "testBasicTransform")
+        validate(node: node, referenceFile: "textBasicTransform")
     }
 
     func testClipManual() {
@@ -88,7 +90,7 @@ class MacawSVGTests: XCTestCase {
         let g3 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 3.14159250259399, extent: 2.67794513702393).stroke(fill: Color.green)], place: Transform(dx:110, dy: 140) )
         let group = Group(contents:[g1, g2, g3])
         
-        validate(node: group, referenceFile: "arcsGroup")
+        validate(node: group, referenceFile: "arcsgroup")
     }
     
     func testSVGImage() {
@@ -165,6 +167,8 @@ class MacawSVGTests: XCTestCase {
                 let nodeContent = String(data: jsonData, encoding: String.Encoding.utf8)
                 
                 XCTAssertEqual(nodeContent, referenceContent)
+            } else {
+                XCTFail("No file \(referenceFile)")
             }
         } catch {
             XCTFail(error.localizedDescription)
@@ -471,5 +475,61 @@ class MacawSVGTests: XCTestCase {
     
     func testPaintingControl03() {
         validateJSON("painting-control-03-f-manual")
+    }
+    
+    func testPaintingControl01() {
+        validateJSON("painting-control-01-f-manual")
+    }
+    
+    func testPathsData14() {
+        validateJSON("paths-data-14-t-manual")
+    }
+    
+    func testPaintingStroke06() {
+        validateJSON("painting-stroke-06-t-manual")
+    }
+    
+    func testShapesEllipse03() {
+        validateJSON("shapes-ellipse-03-f-manual")
+    }
+    
+    func testStructFrag06() {
+        validateJSON("struct-frag-06-t-manual")
+    }
+    
+    func testShapesPolygon03() {
+        validateJSON("shapes-polygon-03-t-manual")
+    }
+    
+    func testPathsData03() {
+        validateJSON("paths-data-03-f-manual")
+    }
+    
+    func testPathsData08() {
+        validateJSON("paths-data-08-t-manual")
+    }
+    
+    func testPathsData09() {
+        validateJSON("paths-data-09-t-manual")
+    }
+    
+    func testPathsData16() {
+        validateJSON("paths-data-16-t-manual")
+    }
+    
+    func testPathsData04() {
+        validateJSON("paths-data-04-t-manual")
+    }
+    
+    func testPaintingStroke04() {
+        validateJSON("painting-stroke-04-t-manual")
+    }
+    
+    func testPathsData05() {
+        validateJSON("paths-data-05-t-manual")
+    }
+    
+    func testPathsData10() {
+        validateJSON("paths-data-10-t-manual")
     }
 }

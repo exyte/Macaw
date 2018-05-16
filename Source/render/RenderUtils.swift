@@ -56,17 +56,17 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
-    static let availableFonts = MFont.mFamilyNames.map{ $0.lowercased() }
-    
+    static let availableFonts = MFont.mFamilyNames.map { $0.lowercased() }
+
     class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
-       
+
         var fontName = ""
-        let fontPriorities = name.split(separator: ",").map{ String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
+        let fontPriorities = name.split(separator: ",").map { String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
         for font in fontPriorities {
             if availableFonts.contains(font) {
                 fontName = font
             }
-            
+
             if font == "serif" {
                 fontName = "Georgia"
             }
@@ -80,7 +80,7 @@ class RenderUtils {
         if fontName.isEmpty {
             return .none
         }
-        
+
         var fontDesc = MFontDescriptor(name: fontName, size: CGFloat(size))
         if weight == "bold" || weight == "bolder" {
             #if os(iOS)
@@ -88,7 +88,7 @@ class RenderUtils {
             #elseif os(OSX)
             fontDesc = fontDesc.withSymbolicTraits(.bold)
             #endif
-            
+
         }
         return MFont(descriptor: fontDesc, size: CGFloat(size))
     }
@@ -538,9 +538,9 @@ class RenderUtils {
     class func calcAngle(ux: Double, uy: Double, vx: Double, vy: Double) -> Double {
         let sign = copysign(1, ux * vy - uy * vx)
         let value = (ux * vx + uy * vy) / (sqrt(ux * ux + uy * uy) * sqrt(vx * vx + vy * vy))
-        if (value < -1) {
+        if value < -1 {
             return sign * .pi
-        } else if (value > 1) {
+        } else if value > 1 {
             return 0
         } else {
             return sign * acos(value)

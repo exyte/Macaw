@@ -79,7 +79,7 @@ class TextRenderer: NodeRenderer {
         guard let text = text, let textFont = text.font else {
             return MFont.systemFont(ofSize: MFont.mSystemFontSize)
         }
-        
+
         if let customFont = RenderUtils.loadFont(name: textFont.name, size: textFont.size, weight: textFont.weight) {
             return customFont
         } else {

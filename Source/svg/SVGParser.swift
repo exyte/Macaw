@@ -69,7 +69,7 @@ open class SVGParser {
 
     fileprivate func parse() -> Group {
         let parsedXml = SWXMLHash.parse(xmlString)
-        
+
         var layout: NodeLayout?
         for child in parsedXml.children {
             if let element = child.element {
@@ -81,13 +81,13 @@ open class SVGParser {
             }
         }
         parseSvg(parsedXml.children)
-        
+
         if let layout = layout {
             return SVGCanvas(layout: layout, contents: nodes)
         }
         return Group(contents: nodes)
     }
-    
+
     fileprivate func prepareSvg(_ children: [XMLIndexer]) {
         children.forEach { child in
             prepareSvg(child)
@@ -96,11 +96,11 @@ open class SVGParser {
 
     fileprivate func prepareSvg(_ node: XMLIndexer) {
         if let element = node.element {
-            if (element.name == "defs") {
+            if element.name == "defs" {
                 parseDefinitions(node)
-            } else if (element.name == "style") {
+            } else if element.name == "style" {
                 parseStyle(node)
-            } else if (element.name == "g") {
+            } else if element.name == "g" {
                 node.children.forEach { child in
                     prepareSvg(child)
                 }
@@ -119,25 +119,25 @@ open class SVGParser {
             }
         }
     }
-    
+
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
         var svgSize: SVGSize?
         if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
             svgSize = SVGSize(width: w, height: h)
         }
-        
+
         var viewBox: Rect?
         if let viewBoxString = element.allAttributes["viewBox"]?.text {
-            let nums = viewBoxString.components(separatedBy: .whitespaces).map{ Double($0) }
+            let nums = viewBoxString.components(separatedBy: .whitespaces).map { Double($0) }
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {
                 viewBox = Rect(x: x, y: y, w: w, h: h)
             }
         }
-        
+
         if svgSize == nil && viewBox == nil {
             return .none
         }
-        
+
         var xAligningMode, yAligningMode: Align?
         var scalingMode: AspectRatio?
         if let contentModeString = element.allAttributes["preserveAspectRatio"]?.text {
@@ -147,25 +147,25 @@ open class SVGParser {
                 return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
-            
+
             let alignString = strings[0]
             var xAlign = alignString.prefix(4).lowercased()
             xAlign.remove(at: xAlign.startIndex)
             xAligningMode = parseAlign(xAlign)
-            
+
             var yAlign = alignString.suffix(4).lowercased()
             yAlign.remove(at: yAlign.startIndex)
             yAligningMode = parseAlign(yAlign)
-            
+
             scalingMode = parseAspectRatio(strings[1])
         }
-        
+
         return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         if let element = node.element {
-            switch(element.name) {
+            switch element.name {
             case "g":
                 return parseGroup(node, groupStyle: groupStyle)
             case "clipPath":
@@ -208,7 +208,7 @@ open class SVGParser {
     fileprivate func parseDefinitions(_ defs: XMLIndexer, groupStyle: [String: String] = [:]) {
         defs.children.forEach(parseDefinition(_:))
     }
-    
+
     private func parseDefinition(_ child: XMLIndexer) {
         guard let id = child.element?.allAttributes["id"]?.text, let element = child.element else {
             return
@@ -229,7 +229,9 @@ open class SVGParser {
     }
 
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        guard let element = node.element else { return .none }
+        guard let element = node.element else {
+            return .none
+        }
 
         let nodeStyle = getStyleAttributes(groupStyle, element: element)
         if nodeStyle["display"] == "none" {
@@ -239,7 +241,9 @@ open class SVGParser {
             return .none
         }
 
-        guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else { return .none }
+        guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else {
+            return .none
+        }
 
         if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
             parsedNode.effect = effect
@@ -249,7 +253,9 @@ open class SVGParser {
     }
 
     fileprivate func parseElementInternal(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        guard let element = node.element else { return .none }
+        guard let element = node.element else {
+            return .none
+        }
         let id = node.element?.allAttributes["id"]?.text
 
         let styleAttributes = groupStyle
@@ -357,7 +363,7 @@ open class SVGParser {
         }
         return parseTransformationAttribute(transformAttribute)
     }
-    
+
     fileprivate func parseAlign(_ string: String) -> Align {
         if string == "min" {
             return .min
@@ -367,7 +373,7 @@ open class SVGParser {
         }
         return .max
     }
-    
+
     fileprivate func parseAspectRatio(_ string: String) -> AspectRatio {
         if string == "meet" {
             return .meet
@@ -384,7 +390,7 @@ open class SVGParser {
         guard let matcher = SVGParserRegexHelper.getTransformAttributeMatcher() else {
             return transform
         }
-        
+
         let attributes = attributes.replacingOccurrences(of: "\n", with: "")
         var finalTransform = transform
         let fullRange = NSRange(location: 0, length: attributes.count)
@@ -676,7 +682,7 @@ open class SVGParser {
         }
         return dashes
     }
-    
+
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
         if let strokeOffset = styleParts["stroke-dashoffset"], let offset = Double(strokeOffset) { // TODO use doubleFromString once it's merged
             return offset
@@ -1250,14 +1256,14 @@ open class SVGParser {
         }
         return doubleFromString(attributeValue)
     }
-    
+
     fileprivate func getDimensionValue(_ element: SWXMLHash.XMLElement, attribute: String) -> SVGLength? {
         guard let attributeValue = element.allAttributes[attribute]?.text else {
             return .none
         }
         return dimensionFromString(attributeValue)
     }
-    
+
     fileprivate func dimensionFromString(_ string: String) -> SVGLength? {
         if let value = doubleFromString(string) {
             return SVGLength(pixels: value)
@@ -1267,7 +1273,7 @@ open class SVGParser {
         }
         return .none
     }
-    
+
     fileprivate func doubleFromString(_ string: String) -> Double? {
         if let doubleValue = Double(string) {
             return doubleValue
@@ -1275,10 +1281,12 @@ open class SVGParser {
         if string == "none" {
             return 0
         }
-        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else { return .none }
+        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else {
+            return .none
+        }
         let fullRange = NSRange(location: 0, length: string.count)
         if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
-            
+
             let unitString = (string as NSString).substring(with: match.range(at: 1))
             let numberString = String(string.dropLast(unitString.count))
             let value = Double(numberString)!
@@ -1380,7 +1388,7 @@ open class SVGParser {
         }
         return false
     }
-    
+
     fileprivate func getFillRule(_ attributes: [String: String]) -> FillRule? {
         if let rule = attributes["fill-rule"] {
             switch rule {
@@ -1452,8 +1460,8 @@ private class PathDataReader {
 
     private func readSegments() -> [PathSegment]? {
         if let type = readSegmentType() {
-            let count = getArgCount(segment: type)
-            if (count == 0) {
+            let argCount = getArgCount(segment: type)
+            if argCount == 0 {
                 return [PathSegment(type: type)]
             }
             var result = [PathSegment]()
@@ -1461,7 +1469,7 @@ private class PathDataReader {
             var index = 0
             var isFirstSegment = true
             while index < data.count {
-                let end = index + count
+                let end = index + argCount
                 if end > data.count {
                     // TODO need to generate error:
                     // "Path '\(type)' has invalid number of arguments: \(data.count)"
@@ -1485,9 +1493,9 @@ private class PathDataReader {
 
     private func readData() -> [Double] {
         var data = [Double]()
-        while(true) {
-            while(!isNumStart()) {
-                if (getPathSegmentType() != nil || readNext() == nil) {
+        while true {
+            while !isNumStart() {
+                if getPathSegmentType() != nil || readNext() == nil {
                     return data
                 }
             }
@@ -1510,9 +1518,9 @@ private class PathDataReader {
 
     fileprivate func readDigit(_ hasDot: inout Bool) -> UnicodeScalar? {
         if let ch = readNext() {
-            if ((ch >= "0" && ch <= "9") || ch == "e" || (previous == "e" && ch == "-") ) {
+            if (ch >= "0" && ch <= "9") || ch == "e" || (previous == "e" && ch == "-") {
                 return ch
-            } else if (ch == "." && !hasDot) {
+            } else if ch == "." && !hasDot {
                 hasDot = true
                 return ch
             }
@@ -1521,8 +1529,9 @@ private class PathDataReader {
     }
 
     fileprivate func isNum(ch: UnicodeScalar, hasDot: inout Bool) -> Bool {
-        switch(ch) {
-        case "0"..."9": return true
+        switch ch {
+        case "0"..."9":
+            return true
         case ".":
             if hasDot {
                 return false
@@ -1541,12 +1550,12 @@ private class PathDataReader {
     }
 
     private func readSegmentType() -> PathSegmentType? {
-        while(true) {
+        while true {
             if let type = getPathSegmentType() {
                 _ = readNext()
                 return type
             }
-            if (readNext() == nil) {
+            if readNext() == nil {
                 return nil
             }
         }
@@ -1554,40 +1563,66 @@ private class PathDataReader {
 
     fileprivate func getPathSegmentType() -> PathSegmentType? {
         if let ch = current {
-            switch(ch) {
-            case "M": return .M
-            case "m": return .m
-            case "L": return .L
-            case "l": return .l
-            case "C": return .C
-            case "c": return .c
-            case "Q": return .Q
-            case "q": return .q
-            case "A": return .A
-            case "a": return .a
-            case "z", "Z": return .z
-            case "H": return .H
-            case "h": return .h
-            case "V": return .V
-            case "v": return .v
-            case "S": return .S
-            case "s": return .s
-            case "T": return .T
-            case "t": return .t
-            default: break
+            switch ch {
+            case "M":
+                return .M
+            case "m":
+                return .m
+            case "L":
+                return .L
+            case "l":
+                return .l
+            case "C":
+                return .C
+            case "c":
+                return .c
+            case "Q":
+                return .Q
+            case "q":
+                return .q
+            case "A":
+                return .A
+            case "a":
+                return .a
+            case "z", "Z":
+                return .z
+            case "H":
+                return .H
+            case "h":
+                return .h
+            case "V":
+                return .V
+            case "v":
+                return .v
+            case "S":
+                return .S
+            case "s":
+                return .s
+            case "T":
+                return .T
+            case "t":
+                return .t
+            default:
+                break
             }
         }
         return nil
     }
 
     fileprivate func getArgCount(segment: PathSegmentType) -> Int {
-        switch(segment) {
-        case .H, .h, .V, .v: return 1
-        case .M, .m, .L, .l, .T, .t: return 2
-        case .S, .s, .Q, .q: return 4
-        case .C, .c: return 6
-        case .A, .a: return 7
-        default: return 0
+        switch segment {
+        case .H, .h, .V, .v:
+            return 1
+        case .M, .m, .L, .l, .T, .t:
+            return 2
+        case .S, .s, .Q, .q:
+            return 4
+        case .C, .c:
+            return 6
+        case .A, .a:
+            return 7
+        default:
+            return 0
         }
     }
 

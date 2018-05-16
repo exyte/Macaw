@@ -210,20 +210,17 @@ open class Node: Drawable {
         }
         prevTouchCount += 1
 
-        for tapCount in tapHandlers.keys {
-            if tapCount > prevTouchCount { // wait some more - there is a recognizer for even more taps
-                prevTouchTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(onTouchTimer), userInfo: event, repeats: false)
-                return
-            }
+        for tapCount in tapHandlers.keys where tapCount > prevTouchCount {
+            // wait some more - there is a recognizer for even more taps
+            prevTouchTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(onTouchTimer), userInfo: event, repeats: false)
+            return
         }
 
-        for (tapCount, handlers) in tapHandlers {
-            if tapCount == prevTouchCount { // nothing to wait for - max tap count reached
-                handlers.forEach { handler in handler.handle(event) }
-                prevTouchCount = 0
-            }
+        for (tapCount, handlers) in tapHandlers where tapCount == prevTouchCount {
+            // nothing to wait for - max tap count reached
+            handlers.forEach { handler in handler.handle(event) }
+            prevTouchCount = 0
         }
-
     }
 
     @objc func onTouchTimer(timer: Timer) {

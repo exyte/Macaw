@@ -47,10 +47,14 @@ open class SVGView: MacawView {
     fileprivate func parseSVG() {
         svgNode = try? SVGParser.parse(path: fileName ?? "")
     }
-    
+
     fileprivate func render() {
-        guard let svgNode = svgNode else { return }
-        guard let nodeBounds = svgNode.bounds() else { return }
+        guard let svgNode = svgNode else {
+            return
+        }
+        guard let nodeBounds = svgNode.bounds() else {
+            return
+        }
 
         var scalingMode = AspectRatio.meet
         var xAligningMode = Align.mid

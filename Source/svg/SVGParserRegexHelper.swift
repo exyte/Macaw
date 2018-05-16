@@ -57,13 +57,13 @@ class SVGParserRegexHelper {
         }
         return self.maskIdenitifierMatcher
     }
-    
+
     class func getUnitsIdenitifierMatcher() -> NSRegularExpression? {
         if unitsMatcher == nil {
             do {
                 unitsMatcher = try NSRegularExpression(pattern: unitsIdenitifierPattern, options: .caseInsensitive)
             } catch {
-                
+
             }
         }
         return unitsMatcher

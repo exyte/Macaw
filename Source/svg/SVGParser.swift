@@ -171,6 +171,8 @@ open class SVGParser {
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
                 }
+            case "linearGradient", "radialGradient":
+                parseDefinition(node)
             case "style", "defs":
                 // do nothing - it was parsed on first iteration
                 return .none
@@ -205,31 +207,31 @@ open class SVGParser {
     }
 
     fileprivate func parseDefinitions(_ defs: XMLIndexer, groupStyle: [String: String] = [:]) {
-        for child in defs.children {
-            guard let id = child.element?.allAttributes["id"]?.text else {
-                continue
-            }
-            if let fill = parseFill(child) {
-                self.defFills[id] = fill
-                continue
-            }
-
-            if let _ = parseNode(child) {
-                // TODO we don't really need to parse node
-                self.defNodes[id] = child
-                continue
-            }
-
-            if let mask = parseMask(child) {
-                self.defMasks[id] = mask
-                continue
-            }
-
-            if let clip = parseClip(child) {
-                self.defClip[id] = clip
-            }
+        defs.children.forEach(parseDefinition(_:))
+    }
+    
+    private func parseDefinition(_ child: XMLIndexer) {
+        guard let id = child.element?.allAttributes["id"]?.text else {
+            return
+        }
+        if let fill = parseFill(child) {
+            defFills[id] = fill
+        }
+        
+        else if let _ = parseNode(child) {
+            // TODO we don't really need to parse node
+            defNodes[id] = child
+        }
+        
+        else if let mask = parseMask(child) {
+            defMasks[id] = mask
+        }
+        
+        else if let clip = parseClip(child) {
+            defClip[id] = clip
         }
     }
+
 
     fileprivate func parseElement(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
         guard let element = node.element else { return .none }
@@ -779,6 +781,9 @@ open class SVGParser {
             }
         }
 
+        if resultPoints.count % 2 == 1 {
+            resultPoints.removeLast()
+        }
         return resultPoints
     }
 

@@ -34,8 +34,10 @@ open class Node: Drawable {
 
     internal var id: String {
         didSet {
-            Node.map.removeObject(forKey: id as NSString)
-            Node.map.setObject(self, forKey: id as NSString)
+            synchronized(Node.map) {
+                Node.map.removeObject(forKey: id as NSString)
+                Node.map.setObject(self, forKey: id as NSString)
+            }
         }
     }
 
@@ -43,7 +45,9 @@ open class Node: Drawable {
     private static let map = NSMapTable<NSString, Node>(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
 
     open static func nodeBy(id: String) -> Node? {
-        return Node.map.object(forKey: id as NSString)
+        return synchronized(Node.map) {
+            return Node.map.object(forKey: id as NSString)
+        }
     }
 
     // MARK: - Searching
@@ -309,7 +313,9 @@ open class Node: Drawable {
         self.placeVar.node = self
         self.opacityVar.node = self
 
-        Node.map.setObject(self, forKey: self.id as NSString)
+        synchronized(Node.map) {
+            Node.map.setObject(self, forKey: self.id as NSString)
+        }
     }
 
     internal func bounds() -> Rect? {

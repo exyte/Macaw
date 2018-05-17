@@ -459,6 +459,7 @@
 		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
 		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
+		ACAE273020ADC9A300EE5B0D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE272F20ADC9A300EE5B0D /* Utils.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
 		C43B06511F9866E400787A35 /* Locus+ToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43B06501F9866E400787A35 /* Locus+ToPath.swift */; };
@@ -839,6 +840,7 @@
 		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
+		ACAE272F20ADC9A300EE5B0D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
 		C43B064C1F9738EF00787A35 /* clip.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = clip.svg; sourceTree = "<group>"; };
@@ -923,6 +925,7 @@
 			children = (
 				5835969A20A9CA140090400C /* CGMappings.swift */,
 				57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */,
+				ACAE272F20ADC9A300EE5B0D /* Utils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -2053,6 +2056,7 @@
 				57E5E1A51E3B393900D1CB28 /* NodeRenderer.swift in Sources */,
 				5B6E193920AC58F900454E7E /* Drawable.swift in Sources */,
 				57E5E1541E3B393900D1CB28 /* Animation.swift in Sources */,
+				ACAE273020ADC9A300EE5B0D /* Utils.swift in Sources */,
 				57E5E1AC1E3B393900D1CB28 /* SVGParserError.swift in Sources */,
 				57E5E1711E3B393900D1CB28 /* Disposable.swift in Sources */,
 				57E5E1931E3B393900D1CB28 /* Path.swift in Sources */,

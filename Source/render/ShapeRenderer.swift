@@ -66,17 +66,19 @@ class ShapeRenderer: NodeRenderer {
 
         let offset = effects.first { $0 is OffsetEffect }
         let otherEffects = effects.filter { !($0 is OffsetEffect) }
-        
+
         let isAlpha = effects.contains { effect -> Bool in
-            return effect is AlphaEffect
+            effect is AlphaEffect
         }
         let color = shape.fill != nil ? shape.fill as! Color : .black
-        let fill = isAlpha ? Color.black.with(a: Double(color.a())/255.0) : color
-        
-        let strokeColor = shape.stroke?.fill as! Color
-        let newStrokeColor = isAlpha ? Color.black.with(a: Double(strokeColor.a())/255.0) : strokeColor
-        let stroke = shape.stroke != nil ? Stroke(fill: newStrokeColor, width: shape.stroke!.width, cap: shape.stroke!.cap, join: shape.stroke!.join, dashes: shape.stroke!.dashes, offset: shape.stroke!.offset) : nil
-        
+        let fill = isAlpha ? Color.black.with(a: Double(color.a()) / 255.0) : color
+
+        var stroke = shape.stroke
+        if let strokeColor = shape.stroke?.fill as? Color {
+            let newStrokeColor = isAlpha ? Color.black.with(a: Double(strokeColor.a()) / 255.0) : strokeColor
+            stroke = shape.stroke != nil ? Stroke(fill: newStrokeColor, width: shape.stroke!.width, cap: shape.stroke!.cap, join: shape.stroke!.join, dashes: shape.stroke!.dashes, offset: shape.stroke!.offset) : nil
+        }
+
         if let offset = offset as? OffsetEffect {
             let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
             context.concatenate(move.toCG())

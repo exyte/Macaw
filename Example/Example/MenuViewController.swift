@@ -8,7 +8,7 @@ open class MenuViewController: UIViewController, UITableViewDataSource, UITableV
         "FirstPageViewController",
         "TransformExampleController",
         "AnimationsExampleController",
-        "SVGExampleViewController",
+        "SVGViewController",
         "EasingExampleController",
         "MorphingExampleController",
         "EventsExampleController"

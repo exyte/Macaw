@@ -31,7 +31,7 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
-    fileprivate func drawShape(in context: CGContext, opacity: Double) {
+    fileprivate func drawShape(in context: CGContext, fill: Fill?, stroke: Stroke?, opacity: Double) {
         guard let shape = shape else {
             return
         }
@@ -40,7 +40,7 @@ class ShapeRenderer: NodeRenderer {
         if let path = shape.form as? Path {
             fillRule = path.fillRule
         }
-        drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
+        drawPath(fill: fill, stroke: stroke, ctx: context, opacity: opacity, fillRule: fillRule)
     }
 
     override func doRender(_ force: Bool, opacity: Double) {
@@ -53,7 +53,7 @@ class ShapeRenderer: NodeRenderer {
 
         // no effects, just draw as usual
         guard let effect = shape.effect else {
-            drawShape(in: context, opacity: opacity)
+            drawShape(in: context, fill: shape.fill, stroke: shape.stroke, opacity: opacity)
             return
         }
 
@@ -66,38 +66,49 @@ class ShapeRenderer: NodeRenderer {
 
         let offset = effects.first { $0 is OffsetEffect }
         let otherEffects = effects.filter { !($0 is OffsetEffect) }
+        
+        let isAlpha = effects.contains { effect -> Bool in
+            return effect is AlphaEffect
+        }
+        let color = shape.fill != nil ? shape.fill as! Color : .black
+        let fill = isAlpha ? Color.black.with(a: Double(color.a())/255.0) : color
+        
+        let strokeColor = shape.stroke?.fill as! Color
+        let newStrokeColor = isAlpha ? Color.black.with(a: Double(strokeColor.a())/255.0) : strokeColor
+        let stroke = shape.stroke != nil ? Stroke(fill: newStrokeColor, width: shape.stroke!.width, cap: shape.stroke!.cap, join: shape.stroke!.join, dashes: shape.stroke!.dashes, offset: shape.stroke!.offset) : nil
+        
         if let offset = offset as? OffsetEffect {
             let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
             context.concatenate(move.toCG())
 
             if otherEffects.isEmpty {
                 // draw offset shape
-                drawShape(in: context, opacity: opacity)
+                drawShape(in: context, fill: fill, stroke: stroke, opacity: opacity)
             } else {
                 // apply other effects to offset shape
-                applyEffects(otherEffects, opacity: opacity)
+                applyEffects(otherEffects, fill: fill, stroke: stroke, opacity: opacity)
             }
 
             // move back and draw the shape itself
             context.concatenate(move.invert()!.toCG())
-            drawShape(in: context, opacity: opacity)
+            drawShape(in: context, fill: shape.fill, stroke: shape.stroke, opacity: opacity)
         } else {
             // draw the shape
-            drawShape(in: context, opacity: opacity)
+            drawShape(in: context, fill: fill, stroke: stroke, opacity: opacity)
 
             // apply other effects to shape
-            applyEffects(otherEffects, opacity: opacity)
+            applyEffects(otherEffects, fill: fill, stroke: stroke, opacity: opacity)
         }
     }
 
-    fileprivate func applyEffects(_ effects: [Effect], opacity: Double) {
+    fileprivate func applyEffects(_ effects: [Effect], fill: Fill?, stroke: Stroke?, opacity: Double) {
         guard let shape = shape, let context = ctx.cgContext else {
             return
         }
         for effect in effects {
             if let blur = effect as? GaussianBlur {
                 let shadowInset = min(blur.radius * 6 + 1, 150)
-                guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else {
+                guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, fill: fill, stroke: stroke, opacity: opacity)?.cgImage else {
                     return
                 }
 
@@ -127,7 +138,7 @@ class ShapeRenderer: NodeRenderer {
         return imageRef
     }
 
-    fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> MImage? {
+    fileprivate func saveToImage(shape: Shape, shadowInset: Double, fill: Fill?, stroke: Stroke?, opacity: Double) -> MImage? {
         guard let size = shape.bounds() else {
             return .none
         }
@@ -137,11 +148,11 @@ class ShapeRenderer: NodeRenderer {
             return .none
         }
 
-        if shape.fill != nil || shape.stroke != nil {
+        if fill != nil || stroke != nil {
             // flip y-axis and leave space for the blur
             tempContext.translateBy(x: CGFloat(shadowInset / 2 - size.x), y: CGFloat(size.h + shadowInset / 2 + size.y))
             tempContext.scaleBy(x: 1, y: -1)
-            drawShape(in: tempContext, opacity: opacity)
+            drawShape(in: tempContext, fill: fill, stroke: stroke, opacity: opacity)
         }
 
         let img = MGraphicsGetImageFromCurrentImageContext()
@@ -209,7 +220,7 @@ class ShapeRenderer: NodeRenderer {
         return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
 
-    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
+    fileprivate func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
         var shouldStrokePath = false
         if fill is Gradient || stroke?.fill is Gradient {
             shouldStrokePath = true

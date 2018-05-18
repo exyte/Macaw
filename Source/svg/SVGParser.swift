@@ -307,7 +307,7 @@ open class SVGParser {
             if let effect = parseEffect(node), let id = id {
                 defEffects[id] = effect
             }
-        case "mask":
+        case "mask", "title":
             break
         default:
             print("SVG parsing error. Shape \(element.name) not supported")

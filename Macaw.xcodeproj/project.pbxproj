@@ -218,6 +218,8 @@
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
 		5835969B20A9CA150090400C /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
 		5835969C20A9CA150090400C /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
+		5852891620B29D67003E51D1 /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
+		5852891720B29D67003E51D1 /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
 		58944BDA20AC8A9A00657640 /* logo_base64.txt in Resources */ = {isa = PBXBuildFile; fileRef = 57B7A4E01EE70DA5009D78D7 /* logo_base64.txt */; };
 		58944BDB20AC8A9A00657640 /* clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B064C1F9738EF00787A35 /* clip.svg */; };
 		5B1A8C7620A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */; };
@@ -621,6 +623,7 @@
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5835969A20A9CA140090400C /* CGMappings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMappings.swift; sourceTree = "<group>"; };
+		5852891520B29D67003E51D1 /* TransformedLocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformedLocus.swift; sourceTree = "<group>"; };
 		5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGNodeLayout.swift; sourceTree = "<group>"; };
 		5B6E173120AAF64D00454E7E /* text-align-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-align-01-b-manual.svg"; sourceTree = "<group>"; };
 		5B6E173220AAF64D00454E7E /* paths-data-06-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-06-t-manual.reference"; sourceTree = "<group>"; };
@@ -1141,6 +1144,7 @@
 				57E5E1341E3B393900D1CB28 /* RoundRect.swift */,
 				57E5E1351E3B393900D1CB28 /* Size.swift */,
 				57E5E1361E3B393900D1CB28 /* Transform.swift */,
+				5852891520B29D67003E51D1 /* TransformedLocus.swift */,
 			);
 			path = geom2d;
 			sourceTree = "<group>";
@@ -1907,6 +1911,7 @@
 				5BAE204C208E1EF4006BF277 /* SVGCanvas.swift in Sources */,
 				57614B211F83D15600875933 /* PathSegment.swift in Sources */,
 				5B6E193E20AC58F900454E7E /* Fill.swift in Sources */,
+				5852891720B29D67003E51D1 /* TransformedLocus.swift in Sources */,
 				57614B221F83D15600875933 /* ImageRenderer.swift in Sources */,
 				57614B231F83D15600875933 /* PathFunctions.swift in Sources */,
 				57614B241F83D15600875933 /* SVGSerializer.swift in Sources */,
@@ -2036,6 +2041,7 @@
 				5BAE201F208E1211006BF277 /* SVGCanvas.swift in Sources */,
 				57E5E1A41E3B393900D1CB28 /* ImageRenderer.swift in Sources */,
 				5B6E193D20AC58F900454E7E /* Fill.swift in Sources */,
+				5852891620B29D67003E51D1 /* TransformedLocus.swift in Sources */,
 				57E5E1621E3B393900D1CB28 /* PathFunctions.swift in Sources */,
 				C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */,
 				57E5E16E1E3B393900D1CB28 /* MorphingAnimation.swift in Sources */,

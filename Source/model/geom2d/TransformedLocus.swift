@@ -6,7 +6,7 @@
 //
 
 open class TransformedLocus: Locus {
-    
+
     public let locus: Locus
     public let transform: Transform
 

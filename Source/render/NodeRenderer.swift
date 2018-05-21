@@ -141,7 +141,13 @@ class NodeRenderer {
         }
 
         MGraphicsPushContext(context)
+        if let transformedLocus = clip as? TransformedLocus {
+            context.concatenate(transformedLocus.transform.toCG())
+        }
         defer {
+            if let transformedLocus = clip as? TransformedLocus {
+                context.concatenate((transformedLocus.transform.invert()?.toCG())!)
+            }
             MGraphicsPopContext()
         }
 

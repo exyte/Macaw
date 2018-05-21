@@ -14,4 +14,10 @@ class SVGCanvas: Group {
         super.init(contents: contents)
     }
 
+    public func layout(size: Size) -> Size {
+        let size = layout.computeSize(parent: size)
+        layout.layout(node: self, in: size)
+        return size
+    }
+
 }

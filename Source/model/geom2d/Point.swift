@@ -23,4 +23,8 @@ open class Point: Locus {
             x: self.x + point.x,
             y: self.y + point.y)
     }
+
+    open func rect(size: Size) -> Rect {
+        return Rect(point: self, size: size)
+    }
 }

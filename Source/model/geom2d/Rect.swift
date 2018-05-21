@@ -12,6 +12,13 @@ open class Rect: Locus {
         self.h = h
     }
 
+    public init(point: Point, size: Size) {
+        self.x = point.x
+        self.y = point.y
+        self.w = size.w
+        self.h = size.h
+    }
+
     override open func bounds() -> Rect {
         return self
     }

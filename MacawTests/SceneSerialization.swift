@@ -81,7 +81,14 @@ class NodeSerializer {
             return Group(contents: nodes)
         }
         factories["Canvas"] = { dictionary in
-            let layout = SVGNodeLayout(dictionary: dictionary["layout"] as! [String : Any])
+            let layoutDict = dictionary["layout"] as! [String : Any]
+            let viewBoxDict = layoutDict["viewBox"] as! [String:Any]
+            let layout = SVGNodeLayout(
+                svgSize: SVGSize(dictionary: layoutDict["svgSize"] as! [String : Any]),
+                viewBox: self.locusSerializer.instance(dictionary: viewBoxDict) as? Rect,
+                scaling: AspectRatio.instantiate(string: layoutDict["scalingMode"] as! String),
+                xAlign: Align.instantiate(string: layoutDict["xAligningMode"] as! String),
+                yAlign: Align.instantiate(string: layoutDict["yAligningMode"] as! String))
             let contents = dictionary["contents"] as! [[String:Any]]
             var nodes = [Node]()
             for dict in contents {
@@ -201,21 +208,11 @@ extension SVGCanvas {
 extension SVGNodeLayout: Serializable {
     
     func toDictionary() -> [String:Any] {
-        return ["svgSize" : svgSize?.toDictionary() as Any,
+        return ["svgSize" : svgSize.toDictionary() as Any,
                 "viewBox" : viewBox?.toDictionary() as Any,
-                "scalingMode" : scalingMode.toString(),
-                "xAligningMode" : xAligningMode.toString(),
-                "yAligningMode" : yAligningMode.toString()]
-    }
-    
-    convenience init(dictionary: [String:Any]) {
-        let viewBox = LocusSerializer().instance(dictionary: dictionary["viewBox"] as! [String:Any]) as? Rect
-        self.init(svgSize: SVGSize(dictionary: dictionary["svgSize"] as! [String : Any]),
-                  viewBox: viewBox,
-                  scalingMode: AspectRatio.instantiate(string: dictionary["scalingMode"] as! String),
-                  xAligningMode: Align.instantiate(string: dictionary["xAligningMode"] as! String),
-                  yAligningMode: Align.instantiate(string: dictionary["yAligningMode"] as! String)
-        )
+                "scalingMode" : scaling.toString(),
+                "xAligningMode" : xAlign.toString(),
+                "yAligningMode" : yAlign.toString()]
     }
 }
 

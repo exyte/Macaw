@@ -120,11 +120,10 @@ open class SVGParser {
         }
     }
 
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
-        var svgSize: SVGSize?
-        if let w = getDimensionValue(element, attribute: "width"), let h = getDimensionValue(element, attribute: "height") {
-            svgSize = SVGSize(width: w, height: h)
-        }
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout {
+        let w = getDimensionValue(element, attribute: "width") ?? SVGLength(percent: 100)
+        let h = getDimensionValue(element, attribute: "height") ?? SVGLength(percent: 100)
+        let svgSize = SVGSize(width: w, height: h)
 
         var viewBox: Rect?
         if let viewBoxString = element.allAttributes["viewBox"]?.text {
@@ -134,17 +133,13 @@ open class SVGParser {
             }
         }
 
-        if svgSize == nil && viewBox == nil {
-            return .none
-        }
-
         var xAligningMode, yAligningMode: Align?
         var scalingMode: AspectRatio?
         if let contentModeString = element.allAttributes["preserveAspectRatio"]?.text {
             let strings = contentModeString.components(separatedBy: CharacterSet(charactersIn: " "))
             if strings.count == 1 { // none
                 scalingMode = parseAspectRatio(strings[0])
-                return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode)
+                return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scaling: scalingMode)
             }
             guard strings.count == 2 else { fatalError("Invalid content mode") }
 
@@ -160,7 +155,7 @@ open class SVGParser {
             scalingMode = parseAspectRatio(strings[1])
         }
 
-        return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scalingMode: scalingMode, xAligningMode: xAligningMode, yAligningMode: yAligningMode)
+        return SVGNodeLayout(svgSize: svgSize, viewBox: viewBox, scaling: scalingMode, xAlign: xAligningMode, yAlign: yAligningMode)
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {

@@ -34,10 +34,10 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "fill-rule", "text-anchor", "clip-path", "fill-opacity",
-                                    "stop-color", "stop-opacity",
-                                    "font-family", "font-size",
-                                    "font-weight", "opacity", "color", "visibility"]
+                                    "fill", "fill-rule", "fill-opacity", "clip-path",
+                                    "opacity", "color", "stop-color", "stop-opacity",
+                                    "font-family", "font-size", "font-weight", "text-anchor",
+                                    "visibility", "filter"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -1040,7 +1040,15 @@ open class SVGParser {
                 continue
             }
         }
-        return effects.first?.value
+
+        if let effect = effects["SourceAlpha"] {
+            return AlphaEffect(input: effect)
+        }
+
+        if let effect = effects[defaultSource] {
+            return effect
+        }
+        return nil
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {

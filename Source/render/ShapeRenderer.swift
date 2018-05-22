@@ -10,9 +10,9 @@ class ShapeRenderer: NodeRenderer {
 
     weak var shape: Shape?
 
-    init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache?) {
+    init(shape: Shape, animationCache: AnimationCache?) {
         self.shape = shape
-        super.init(node: shape, ctx: ctx, animationCache: animationCache)
+        super.init(node: shape, animationCache: animationCache)
     }
 
     override func node() -> Node? {
@@ -43,8 +43,8 @@ class ShapeRenderer: NodeRenderer {
         drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
     }
 
-    override func doRender(_ force: Bool, opacity: Double) {
-        guard let shape = shape, let context = ctx.cgContext else {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double) {
+        guard let shape = shape else {
             return
         }
         if shape.fill == nil && shape.stroke == nil {
@@ -75,7 +75,7 @@ class ShapeRenderer: NodeRenderer {
                 drawShape(in: context, opacity: opacity)
             } else {
                 // apply other effects to offset shape
-                applyEffects(otherEffects, opacity: opacity)
+                applyEffects(otherEffects, context: context, opacity: opacity)
             }
 
             // move back and draw the shape itself
@@ -86,12 +86,12 @@ class ShapeRenderer: NodeRenderer {
             drawShape(in: context, opacity: opacity)
 
             // apply other effects to shape
-            applyEffects(otherEffects, opacity: opacity)
+            applyEffects(otherEffects, context: context, opacity: opacity)
         }
     }
 
-    fileprivate func applyEffects(_ effects: [Effect], opacity: Double) {
-        guard let shape = shape, let context = ctx.cgContext else {
+    fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double) {
+        guard let shape = shape else {
             return
         }
         for effect in effects {
@@ -183,10 +183,10 @@ class ShapeRenderer: NodeRenderer {
 
     fileprivate func setGeometry(_ locus: Locus, ctx: CGContext) {
         if let rect = locus as? Rect {
-            ctx.addRect(newCGRect(rect))
+            ctx.addRect(rect.toCG())
         } else if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            let path = MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
+            let path = MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
                 MRectCorner.allCorners, cornerRadii: corners).cgPath
             ctx.addPath(path)
         } else if let circle = locus as? Circle {
@@ -203,10 +203,6 @@ class ShapeRenderer: NodeRenderer {
         } else {
             ctx.addPath(locus.toCGPath())
         }
-    }
-
-    fileprivate func newCGRect(_ rect: Rect) -> CGRect {
-        return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
     }
 
     fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {

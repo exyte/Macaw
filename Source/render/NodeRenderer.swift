@@ -11,6 +11,7 @@ struct RenderingInterval {
 
 class NodeRenderer {
 
+    @available(*, deprecated)
     let ctx: RenderContext
 
     fileprivate let onNodeChange: () -> Void
@@ -18,6 +19,7 @@ class NodeRenderer {
     fileprivate var active = false
     weak var animationCache: AnimationCache?
 
+    @available(*, deprecated, message: "Please use \'init(node: Node, animationCache: AnimationCache?)\'")
     init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
         self.ctx = ctx
         self.animationCache = animationCache
@@ -32,6 +34,23 @@ class NodeRenderer {
             }
 
             ctx.view?.setNeedsDisplay()
+        }
+
+        addObservers()
+    }
+
+    init(node: Node, animationCache: AnimationCache?) {
+        self.ctx = RenderContext(view: nil)
+        self.animationCache = animationCache
+
+        onNodeChange = {
+            guard let isAnimating = animationCache?.isAnimating(node) else {
+                return
+            }
+
+            if isAnimating {
+                return
+            }
         }
 
         addObservers()
@@ -69,6 +88,7 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
+    @available(*, deprecated, message: "Please use \'render(in context: CGContext, force: Bool, opacity: Double)\'")
     final public func render(force: Bool, opacity: Double) {
         ctx.cgContext!.saveGState()
         defer {
@@ -80,11 +100,26 @@ class NodeRenderer {
         }
 
         ctx.cgContext!.concatenate(node.place.toCG())
-        applyClip()
-        directRender(force: force, opacity: node.opacity * opacity)
+        applyClip(in: ctx.cgContext!)
+        directRender(in: ctx.cgContext!, force: force, opacity: node.opacity * opacity)
     }
 
-    final func directRender(force: Bool = true, opacity: Double = 1.0) {
+    final public func render(in context: CGContext, force: Bool, opacity: Double) {
+        context.saveGState()
+        defer {
+            context.restoreGState()
+        }
+
+        guard let node = node() else {
+            return
+        }
+
+        context.concatenate(node.place.toCG())
+        applyClip(in: context)
+        directRender(in: context, force: force, opacity: node.opacity * opacity)
+    }
+
+    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0) {
         guard let node = node() else {
             return
         }
@@ -97,10 +132,10 @@ class NodeRenderer {
         } else {
             self.addObservers()
         }
-        doRender(force, opacity: opacity)
+        doRender(in: context, force: force, opacity: opacity)
     }
 
-    func doRender(_ force: Bool, opacity: Double) {
+    func doRender(in context: CGContext, force: Bool, opacity: Double) {
         fatalError("Unsupported")
     }
 
@@ -118,7 +153,7 @@ class NodeRenderer {
                 }
 
                 ctx.concatenate(place.toCG())
-                applyClip()
+                applyClip(in: ctx)
                 let loc = location.applying(inverted.toCG())
                 let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
                 return result
@@ -131,12 +166,12 @@ class NodeRenderer {
         return nil
     }
 
-    private func applyClip() {
+    private func applyClip(in context: CGContext) {
         guard let node = node() else {
             return
         }
 
-        guard let clip = node.clip, let context = ctx.cgContext else {
+        guard let clip = node.clip else {
             return
         }
 

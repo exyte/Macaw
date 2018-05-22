@@ -13,9 +13,9 @@ class ImageRenderer: NodeRenderer {
 
     var renderedPaths: [CGPath] = [CGPath]()
 
-    init(image: Image, ctx: RenderContext, animationCache: AnimationCache?) {
+    init(image: Image, animationCache: AnimationCache?) {
         self.image = image
-        super.init(node: image, ctx: ctx, animationCache: animationCache)
+        super.init(node: image, animationCache: animationCache)
     }
 
     override func node() -> Node? {
@@ -37,7 +37,7 @@ class ImageRenderer: NodeRenderer {
         observe(image.hVar)
     }
 
-    override func doRender(_ force: Bool, opacity: Double) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double) {
         guard let image = image else {
             return
         }
@@ -52,10 +52,10 @@ class ImageRenderer: NodeRenderer {
 
         if let mImage = mImage {
             let rect = getRect(mImage)
-            ctx.cgContext!.scaleBy(x: 1.0, y: -1.0)
-            ctx.cgContext!.translateBy(x: 0.0, y: -1.0 * rect.height)
-            ctx.cgContext!.setAlpha(CGFloat(opacity))
-            ctx.cgContext!.draw(mImage.cgImage!, in: rect)
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.translateBy(x: 0.0, y: -1.0 * rect.height)
+            context.setAlpha(CGFloat(opacity))
+            context.draw(mImage.cgImage!, in: rect)
         }
     }
 

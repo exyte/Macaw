@@ -343,7 +343,7 @@ open class SVGParser {
             .replacingOccurrences(of: "url(#", with: "")
             .replacingOccurrences(of: ")", with: "") {
             let maskShape = defMasks[maskId]
-            mask = TransformedLocus(locus: (maskShape?.form)!, transform: (maskShape?.place)!)
+            mask = TransformedLocus(locus: maskShape!.form, transform: maskShape!.place)
         }
         group.children.forEach { child in
             if let node = parseNode(child, groupStyle: style) {

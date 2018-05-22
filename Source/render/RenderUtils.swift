@@ -118,11 +118,6 @@ class RenderUtils {
     }
 
     class func toBezierPath(_ locus: Locus) -> MBezierPath {
-        var locus = locus
-        if let transformedLocus = locus as? TransformedLocus {
-            locus = transformedLocus.locus
-        }
-
         if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
             return MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
@@ -153,6 +148,10 @@ class RenderUtils {
             return MBezierPath(ovalIn: circle.bounds().toCG())
         } else if let path = locus as? Path {
             return toBezierPath(path)
+        } else if let transformedLocus = locus as? TransformedLocus {
+            let path = toBezierPath(transformedLocus.locus)
+            path.apply(transformedLocus.transform.toCG())
+            return path
         }
         fatalError("Unsupported locus: \(locus)")
     }

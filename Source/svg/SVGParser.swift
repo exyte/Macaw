@@ -1074,13 +1074,13 @@ open class SVGParser {
         if let circle = shape.form as? Circle {
             maskShape = Shape(form: circle.arc(shift: 0, extent: degreesToRadians(360)), tag: getTag(element))
         } else {
-            maskShape = Shape(form: shape.form, place: (node?.place)!, tag: getTag(element))
+            maskShape = Shape(form: shape.form, place: node!.place, tag: getTag(element))
         }
         let maskStyleAttributes = getStyleAttributes([:], element: element)
         maskShape.fill = getFillColor(maskStyleAttributes)
 
         if let id = mask.element?.allAttributes["id"]?.text {
-            maskShape.place = (node?.place)!
+            maskShape.place = node!.place
             defMasks[id] = maskShape
             return .none
         }

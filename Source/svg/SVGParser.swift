@@ -302,7 +302,11 @@ open class SVGParser {
             if let effect = parseEffect(node), let id = id {
                 defEffects[id] = effect
             }
-        case "mask", "title":
+        case "mask":
+            if let mask = parseMask(node), let id = id {
+                defMasks[id] = mask
+            }
+        case "title":
             break
         default:
             print("SVG parsing error. Shape \(element.name) not supported")
@@ -334,12 +338,19 @@ open class SVGParser {
         var groupNodes: [Node] = []
         let style = getStyleAttributes(groupStyle, element: element)
         let position = getPosition(element)
+        var mask: TransformedLocus?
+        if let maskId = element.allAttributes["mask"]?.text
+            .replacingOccurrences(of: "url(#", with: "")
+            .replacingOccurrences(of: ")", with: "") {
+            let maskShape = defMasks[maskId]
+            mask = TransformedLocus(locus: maskShape!.form, transform: maskShape!.place)
+        }
         group.children.forEach { child in
             if let node = parseNode(child, groupStyle: style) {
                 groupNodes.append(node)
             }
         }
-        return Group(contents: groupNodes, place: position, tag: getTag(element))
+        return Group(contents: groupNodes, place: position, clip: mask, tag: getTag(element))
     }
 
     fileprivate func getMask(mask: String) -> Locus? {
@@ -954,8 +965,8 @@ open class SVGParser {
         }
         if let referenceNode = self.defNodes[id] {
             if let node = parseNode(referenceNode, groupStyle: groupStyle) {
-                let place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
-                return Group(contents: [node], place: place)
+                node.place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
+                return node
             }
         }
         return .none
@@ -1049,7 +1060,8 @@ open class SVGParser {
         }
         var node: Node?
         mask.children.forEach { indexer in
-            if let useNode = parseUse(indexer) {
+            let position = getPosition(indexer.element!)
+            if let useNode = parseUse(indexer, place: position) {
                 node = useNode
             } else if let contentNode = parseNode(indexer) {
                 node = contentNode
@@ -1062,10 +1074,17 @@ open class SVGParser {
         if let circle = shape.form as? Circle {
             maskShape = Shape(form: circle.arc(shift: 0, extent: degreesToRadians(360)), tag: getTag(element))
         } else {
-            maskShape = Shape(form: shape.form, tag: getTag(element))
+            maskShape = Shape(form: shape.form, place: node!.place, tag: getTag(element))
         }
         let maskStyleAttributes = getStyleAttributes([:], element: element)
         maskShape.fill = getFillColor(maskStyleAttributes)
+
+        if let id = mask.element?.allAttributes["id"]?.text {
+            maskShape.place = node!.place
+            defMasks[id] = maskShape
+            return .none
+        }
+
         return maskShape
     }
 

@@ -87,35 +87,30 @@
           "contents" : [
             {
               "place" : ".707107, .707107, -.707107, .707107, 120, 99.289322",
-              "contents" : [
-                {
-                  "fill" : {
-                    "type" : "Color",
-                    "val" : 65535
-                  },
-                  "form" : {
-                    "x" : 0,
-                    "w" : 100,
-                    "type" : "Rect",
-                    "y" : 0,
-                    "h" : 100
-                  },
-                  "node" : "Shape",
-                  "stroke" : {
-                    "join" : "miter",
-                    "cap" : "butt",
-                    "fill" : {
-                      "type" : "Color",
-                      "val" : 255
-                    },
-                    "dashes" : [
+              "form" : {
+                "x" : 0,
+                "w" : 100,
+                "type" : "Rect",
+                "y" : 0,
+                "h" : 100
+              },
+              "node" : "Shape",
+              "fill" : {
+                "type" : "Color",
+                "val" : 65535
+              },
+              "stroke" : {
+                "join" : "miter",
+                "cap" : "butt",
+                "fill" : {
+                  "type" : "Color",
+                  "val" : 255
+                },
+                "dashes" : [
 
-                    ],
-                    "width" : 20
-                  }
-                }
-              ],
-              "node" : "Group"
+                ],
+                "width" : 20
+              }
             }
           ],
           "node" : "Group"

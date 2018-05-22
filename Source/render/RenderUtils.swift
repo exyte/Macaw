@@ -148,6 +148,10 @@ class RenderUtils {
             return MBezierPath(ovalIn: circle.bounds().toCG())
         } else if let path = locus as? Path {
             return toBezierPath(path)
+        } else if let transformedLocus = locus as? TransformedLocus {
+            let path = toBezierPath(transformedLocus.locus)
+            path.apply(transformedLocus.transform.toCG())
+            return path
         }
         fatalError("Unsupported locus: \(locus)")
     }

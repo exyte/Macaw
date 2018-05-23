@@ -1052,7 +1052,7 @@ open class SVGParser {
                 continue
             }
         }
-        
+
         if let effect = effects["SourceAlpha"] {
             return AlphaEffect(input: effect)
         }

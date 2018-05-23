@@ -34,10 +34,10 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
-                                    "fill", "fill-rule", "text-anchor", "clip-path", "fill-opacity",
-                                    "stop-color", "stop-opacity",
-                                    "font-family", "font-size",
-                                    "font-weight", "opacity", "color", "visibility"]
+                                    "fill", "fill-rule", "fill-opacity", "clip-path",
+                                    "opacity", "color", "stop-color", "stop-opacity",
+                                    "font-family", "font-size", "font-weight", "text-anchor",
+                                    "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -159,10 +159,11 @@ open class SVGParser {
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+        var result: Node? = nil
         if let element = node.element {
             switch element.name {
             case "g":
-                return parseGroup(node, groupStyle: groupStyle)
+                result = parseGroup(node, groupStyle: groupStyle)
             case "clipPath":
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
@@ -171,10 +172,14 @@ open class SVGParser {
                 // do nothing - it was parsed on first iteration
                 return .none
             default:
-                return parseElement(node, groupStyle: groupStyle)
+                result = parseElement(node, groupStyle: groupStyle)
+            }
+
+            if let result = result, let filterString = element.allAttributes["filter"]?.text ?? groupStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
+                result.effect = effect
             }
         }
-        return .none
+        return result
     }
 
     fileprivate var styleTable: [String: [String: String]] = [:]
@@ -238,10 +243,6 @@ open class SVGParser {
 
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else {
             return .none
-        }
-
-        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
-            parsedNode.effect = effect
         }
 
         return parsedNode
@@ -1051,7 +1052,14 @@ open class SVGParser {
                 continue
             }
         }
-        return effects.first?.value
+
+        if let effect = effects["SourceAlpha"] {
+            return AlphaEffect(input: effect)
+        }
+        if let effect = effects[defaultSource] {
+            return effect
+        }
+        return nil
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {

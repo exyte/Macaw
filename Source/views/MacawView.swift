@@ -22,7 +22,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             nodesMap.add(node, view: self)
             self.renderer?.dispose()
             if let cache = animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+                self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
             }
 
             if let _ = superview {
@@ -93,7 +93,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             initializeView()
 
             if let cache = self.animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+                self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
             }
         }
     }
@@ -107,7 +107,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.node = node
         nodesMap.add(node, view: self)
         if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+            self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
         }
     }
 
@@ -117,7 +117,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.node = node
         nodesMap.add(node, view: self)
         if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, context: context, animationCache: cache)
+            self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
         }
     }
 
@@ -186,7 +186,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             return
         }
         ctx.concatenate(layoutHelper.getTransform(node, contentLayout, bounds.size.toMacaw()))
-        renderer.render(force: false, opacity: node.opacity)
+        renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
 
     private func localContext( _ callback: (CGContext) -> Void) {

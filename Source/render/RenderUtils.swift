@@ -40,18 +40,17 @@ class RenderUtils {
 
     class func createNodeRenderer(
         _ node: Node,
-        context: RenderContext,
         animationCache: AnimationCache?,
         interval: RenderingInterval? = .none
         ) -> NodeRenderer {
         if let group = node as? Group {
-            return GroupRenderer(group: group, ctx: context, animationCache: animationCache, interval: interval)
+            return GroupRenderer(group: group, animationCache: animationCache, interval: interval)
         } else if let shape = node as? Shape {
-            return ShapeRenderer(shape: shape, ctx: context, animationCache: animationCache)
+            return ShapeRenderer(shape: shape, animationCache: animationCache)
         } else if let text = node as? Text {
-            return TextRenderer(text: text, ctx: context, animationCache: animationCache)
+            return TextRenderer(text: text, animationCache: animationCache)
         } else if let image = node as? Image {
-            return ImageRenderer(image: image, ctx: context, animationCache: animationCache)
+            return ImageRenderer(image: image, animationCache: animationCache)
         }
         fatalError("Unsupported node: \(node)")
     }

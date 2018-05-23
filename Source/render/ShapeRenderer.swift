@@ -31,27 +31,34 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
-    fileprivate func drawShape(in context: CGContext, opacity: Double) {
-        guard let shape = shape else {
-            return
-        }
-        setGeometry(shape.form, ctx: context)
-        var fillRule = FillRule.nonzero
-        if let path = shape.form as? Path {
-            fillRule = path.fillRule
-        }
-        drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
-    }
-
-    override func doRender(in context: CGContext, force: Bool, opacity: Double) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
         guard let shape = shape else {
             return
         }
         if shape.fill == nil && shape.stroke == nil {
             return
         }
+        
+        setGeometry(shape.form, ctx: context)
+        
+        var fillRule = FillRule.nonzero
+        if let path = shape.form as? Path {
+            fillRule = path.fillRule
+        }
+        
+        if !useAlphaOnly {
+            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
+            return
+        }
+        
+        let color = shape.fill != nil ? shape.fill as! Color : .black
+        let fill = Color.black.with(a: Double(color.a())/255.0)
+        
+        let strokeColor = shape.stroke != nil ? shape.stroke?.fill as! Color : .black
+        let newStrokeColor = Color.black.with(a: Double(strokeColor.a())/255.0)
+        let stroke = shape.stroke != nil ? Stroke(fill: newStrokeColor, width: shape.stroke!.width, cap: shape.stroke!.cap, join: shape.stroke!.join, dashes: shape.stroke!.dashes, offset: shape.stroke!.offset) : nil
 
-        drawShape(in: context, opacity: opacity)
+        drawPath(fill, stroke: stroke, ctx: context, opacity: opacity, fillRule: fillRule)
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {

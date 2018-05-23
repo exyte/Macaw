@@ -1052,7 +1052,14 @@ open class SVGParser {
                 continue
             }
         }
-        return effects.first?.value
+        
+        if let effect = effects["SourceAlpha"] {
+            return AlphaEffect(input: effect)
+        }
+        if let effect = effects[defaultSource] {
+            return effect
+        }
+        return nil
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {

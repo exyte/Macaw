@@ -64,7 +64,7 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    final public func render(in context: CGContext, force: Bool, opacity: Double) {
+    final public func render(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
         context.saveGState()
         defer {
             context.restoreGState()
@@ -79,7 +79,7 @@ class NodeRenderer {
 
         // no effects, just draw as usual
         guard let effect = node.effect else {
-            directRender(in: context, force: force, opacity: newOpacity)
+            directRender(in: context, force: force, opacity: newOpacity, useAlphaOnly: useAlphaOnly)
             return
         }
 
@@ -90,33 +90,30 @@ class NodeRenderer {
             next = next?.input
         }
 
-        let offset = effects.first { $0 is OffsetEffect }
+        let offset = effects.first { $0 is OffsetEffect } as? OffsetEffect
         let otherEffects = effects.filter { !($0 is OffsetEffect) }
-        if let offset = offset as? OffsetEffect {
-            let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
-            context.concatenate(move.toCG())
-
-            if otherEffects.isEmpty {
-                // draw offset shape
-                directRender(in: context, force: force, opacity: newOpacity)
-            } else {
-                // apply other effects to offset shape
-                applyEffects(otherEffects, context: context, opacity: opacity)
-            }
-
-            // move back and draw the shape itself
-            context.concatenate(move.invert()!.toCG())
-            directRender(in: context, force: force, opacity: newOpacity)
-        } else {
-            // draw the shape
-            directRender(in: context, force: force, opacity: newOpacity)
-
-            // apply other effects to shape
-            applyEffects(otherEffects, context: context, opacity: opacity)
+        let useAlphaOnly = otherEffects.contains { effect -> Bool in
+            return effect is AlphaEffect
         }
+        
+        // move to offset
+        let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset?.dx ?? 0, dy: offset?.dy ?? 0)
+        context.concatenate(move.toCG())
+        
+        if otherEffects.isEmpty {
+            // just draw offset shape
+            directRender(in: context, force: force, opacity: newOpacity, useAlphaOnly: useAlphaOnly)
+        } else {
+            // apply other effects to offset shape and draw it
+            applyEffects(otherEffects, context: context, opacity: opacity, useAlphaOnly: useAlphaOnly)
+        }
+        
+        // move back and draw the shape itself
+        context.concatenate(move.invert()!.toCG())
+        directRender(in: context, force: force, opacity: newOpacity)
     }
 
-    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0) {
+    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, useAlphaOnly: Bool = false) {
         guard let node = node() else {
             return
         }
@@ -129,10 +126,10 @@ class NodeRenderer {
         } else {
             self.addObservers()
         }
-        doRender(in: context, force: force, opacity: opacity)
+        doRender(in: context, force: force, opacity: opacity, useAlphaOnly: useAlphaOnly)
     }
 
-    fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double) {
+    fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, useAlphaOnly: Bool = false) {
         guard let node = node() else {
             return
         }
@@ -142,7 +139,7 @@ class NodeRenderer {
                     return
                 }
                 let shadowInset = min(blur.radius * 6 + 1, 150)
-                guard let shapeImage = renderToImage(bounds: bounds, inset: shadowInset)?.cgImage else {
+                guard let shapeImage = renderToImage(bounds: bounds, inset: shadowInset, useAlphaOnly: useAlphaOnly)?.cgImage else {
                     return
                 }
                 guard let filteredImage = applyBlur(shapeImage, blur: blur) else {
@@ -167,7 +164,7 @@ class NodeRenderer {
         return imageRef
     }
 
-    func renderToImage(bounds: Rect, inset: Double) -> UIImage? {
+    func renderToImage(bounds: Rect, inset: Double, useAlphaOnly: Bool = false) -> UIImage? {
         MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, 1)
 
         guard let tempContext = MGraphicsGetCurrentContext() else {
@@ -177,14 +174,14 @@ class NodeRenderer {
         // flip y-axis and leave space for the blur
         tempContext.translateBy(x: CGFloat(inset / 2 - bounds.x), y: CGFloat(bounds.h + inset / 2 + bounds.y))
         tempContext.scaleBy(x: 1, y: -1)
-        directRender(in: tempContext, force: false, opacity: 1.0)
+        directRender(in: tempContext, force: false, opacity: 1.0, useAlphaOnly: useAlphaOnly)
 
         let img = MGraphicsGetImageFromCurrentImageContext()
         MGraphicsEndImageContext()
         return img
     }
 
-    func doRender(in context: CGContext, force: Bool, opacity: Double) {
+    func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
         fatalError("Unsupported")
     }
 

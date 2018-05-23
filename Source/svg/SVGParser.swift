@@ -159,10 +159,11 @@ open class SVGParser {
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+        var result: Node? = nil
         if let element = node.element {
             switch element.name {
             case "g":
-                return parseGroup(node, groupStyle: groupStyle)
+                result = parseGroup(node, groupStyle: groupStyle)
             case "clipPath":
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
@@ -171,10 +172,14 @@ open class SVGParser {
                 // do nothing - it was parsed on first iteration
                 return .none
             default:
-                return parseElement(node, groupStyle: groupStyle)
+                result = parseElement(node, groupStyle: groupStyle)
+            }
+
+            if let result = result, let filterString = element.allAttributes["filter"]?.text ?? groupStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
+                result.effect = effect
             }
         }
-        return .none
+        return result
     }
 
     fileprivate var styleTable: [String: [String: String]] = [:]
@@ -238,10 +243,6 @@ open class SVGParser {
 
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else {
             return .none
-        }
-
-        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
-            parsedNode.effect = effect
         }
 
         return parsedNode

@@ -11,36 +11,12 @@ struct RenderingInterval {
 
 class NodeRenderer {
 
-    @available(*, deprecated)
-    let ctx: RenderContext
-
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
     weak var animationCache: AnimationCache?
 
-    @available(*, deprecated, message: "Please use \'init(node: Node, animationCache: AnimationCache?)\'")
-    init(node: Node, ctx: RenderContext, animationCache: AnimationCache?) {
-        self.ctx = ctx
-        self.animationCache = animationCache
-
-        onNodeChange = {
-            guard let isAnimating = animationCache?.isAnimating(node) else {
-                return
-            }
-
-            if isAnimating {
-                return
-            }
-
-            ctx.view?.setNeedsDisplay()
-        }
-
-        addObservers()
-    }
-
     init(node: Node, animationCache: AnimationCache?) {
-        self.ctx = RenderContext(view: nil)
         self.animationCache = animationCache
 
         onNodeChange = {
@@ -88,35 +64,56 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    @available(*, deprecated, message: "Please use \'render(in context: CGContext, force: Bool, opacity: Double)\'")
-    final public func render(force: Bool, opacity: Double) {
-        ctx.cgContext!.saveGState()
-        defer {
-            ctx.cgContext!.restoreGState()
-        }
-
-        guard let node = node() else {
-            return
-        }
-
-        ctx.cgContext!.concatenate(node.place.toCG())
-        applyClip(in: ctx.cgContext!)
-        directRender(in: ctx.cgContext!, force: force, opacity: node.opacity * opacity)
-    }
-
     final public func render(in context: CGContext, force: Bool, opacity: Double) {
         context.saveGState()
         defer {
             context.restoreGState()
         }
-
         guard let node = node() else {
             return
         }
+        let newOpacity = node.opacity * opacity
 
         context.concatenate(node.place.toCG())
         applyClip(in: context)
-        directRender(in: context, force: force, opacity: node.opacity * opacity)
+
+        // no effects, just draw as usual
+        guard let effect = node.effect else {
+            directRender(in: context, force: force, opacity: newOpacity)
+            return
+        }
+
+        var effects = [Effect]()
+        var next: Effect? = effect
+        while next != nil {
+            effects.append(next!)
+            next = next?.input
+        }
+
+        let offset = effects.first { $0 is OffsetEffect }
+        let otherEffects = effects.filter { !($0 is OffsetEffect) }
+        if let offset = offset as? OffsetEffect {
+            let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
+            context.concatenate(move.toCG())
+
+            if otherEffects.isEmpty {
+                // draw offset shape
+                directRender(in: context, force: force, opacity: newOpacity)
+            } else {
+                // apply other effects to offset shape
+                applyEffects(otherEffects, context: context, opacity: opacity)
+            }
+
+            // move back and draw the shape itself
+            context.concatenate(move.invert()!.toCG())
+            directRender(in: context, force: force, opacity: newOpacity)
+        } else {
+            // draw the shape
+            directRender(in: context, force: force, opacity: newOpacity)
+
+            // apply other effects to shape
+            applyEffects(otherEffects, context: context, opacity: opacity)
+        }
     }
 
     final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0) {
@@ -133,6 +130,58 @@ class NodeRenderer {
             self.addObservers()
         }
         doRender(in: context, force: force, opacity: opacity)
+    }
+
+    fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double) {
+        guard let node = node() else {
+            return
+        }
+        for effect in effects {
+            if let blur = effect as? GaussianBlur {
+                guard let bounds = node.bounds() else {
+                    return
+                }
+                let shadowInset = min(blur.radius * 6 + 1, 150)
+                guard let shapeImage = renderToImage(bounds: bounds, inset: shadowInset)?.cgImage else {
+                    return
+                }
+                guard let filteredImage = applyBlur(shapeImage, blur: blur) else {
+                    return
+                }
+                context.draw(filteredImage, in: CGRect(x: bounds.x - shadowInset / 2, y: bounds.y - shadowInset / 2, width: bounds.w + shadowInset, height: bounds.h + shadowInset))
+            }
+        }
+    }
+
+    fileprivate func applyBlur(_ image: CGImage, blur: GaussianBlur) -> CGImage? {
+        let image = CIImage(cgImage: image)
+        guard let filter = CIFilter(name: "CIGaussianBlur") else {
+            return .none
+        }
+        filter.setDefaults()
+        filter.setValue(Int(blur.radius), forKey: kCIInputRadiusKey)
+        filter.setValue(image, forKey: kCIInputImageKey)
+
+        let context = CIContext(options: nil)
+        let imageRef = context.createCGImage(filter.outputImage!, from: image.extent)
+        return imageRef
+    }
+
+    func renderToImage(bounds: Rect, inset: Double) -> UIImage? {
+        MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, 1)
+
+        guard let tempContext = MGraphicsGetCurrentContext() else {
+            return .none
+        }
+
+        // flip y-axis and leave space for the blur
+        tempContext.translateBy(x: CGFloat(inset / 2 - bounds.x), y: CGFloat(bounds.h + inset / 2 + bounds.y))
+        tempContext.scaleBy(x: 1, y: -1)
+        directRender(in: tempContext, force: false, opacity: 1.0)
+
+        let img = MGraphicsGetImageFromCurrentImageContext()
+        MGraphicsEndImageContext()
+        return img
     }
 
     func doRender(in context: CGContext, force: Bool, opacity: Double) {

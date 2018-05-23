@@ -2,6 +2,8 @@ import Foundation
 
 #if os(iOS)
 import UIKit
+#elseif os(OSX)
+import AppKit
 #endif
 
 struct RenderingInterval {

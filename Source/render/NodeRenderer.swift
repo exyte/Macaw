@@ -83,22 +83,15 @@ class NodeRenderer {
             return
         }
 
-        var effects = [Effect]()
-        var next: Effect? = effect
-        while next != nil {
-            effects.append(next!)
-            next = next?.input
-        }
-
-        let offset = effects.first { $0 is OffsetEffect } as? OffsetEffect
-        let otherEffects = effects.filter { !($0 is OffsetEffect) }
+        let (offset, otherEffects) = separateEffects(effect)
         let useAlphaOnly = otherEffects.contains { effect -> Bool in
             effect is AlphaEffect
         }
 
         // move to offset
-        let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset?.dx ?? 0, dy: offset?.dy ?? 0)
-        context.concatenate(move.toCG())
+        if let offset = offset {
+            context.concatenate(CGAffineTransform(translationX: CGFloat(offset.dx), y: CGFloat(offset.dy)))
+        }
 
         if otherEffects.isEmpty {
             // just draw offset shape
@@ -109,7 +102,9 @@ class NodeRenderer {
         }
 
         // move back and draw the shape itself
-        context.concatenate(move.invert()!.toCG())
+        if let offset = offset {
+            context.concatenate(CGAffineTransform(translationX: CGFloat(-offset.dx), y: CGFloat(-offset.dy)))
+        }
         directRender(in: context, force: force, opacity: newOpacity)
     }
 
@@ -127,6 +122,23 @@ class NodeRenderer {
             self.addObservers()
         }
         doRender(in: context, force: force, opacity: opacity, useAlphaOnly: useAlphaOnly)
+    }
+    
+    fileprivate func separateEffects(_ effect: Effect) -> (OffsetEffect?, [Effect]) {
+        var next: Effect? = effect
+        var otherEffects = [Effect]()
+        var dx: Double = 0, dy: Double = 0
+        while next != nil {
+            if let offset = next as? OffsetEffect {
+                dx += offset.dx
+                dy += offset.dy
+            } else {
+                otherEffects.append(next!)
+            }
+            next = next?.input
+        }
+        let offset = dx != 0 || dy != 0 ? OffsetEffect(dx: dx, dy: dy, input: nil) : nil
+        return (offset, otherEffects)
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, useAlphaOnly: Bool = false) {
@@ -164,7 +176,7 @@ class NodeRenderer {
         return imageRef
     }
 
-    func renderToImage(bounds: Rect, inset: Double, useAlphaOnly: Bool = false) -> UIImage? {
+    func renderToImage(bounds: Rect, inset: Double, useAlphaOnly: Bool = false) -> MImage? {
         MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, 1)
 
         guard let tempContext = MGraphicsGetCurrentContext() else {

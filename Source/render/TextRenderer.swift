@@ -9,9 +9,9 @@ import AppKit
 class TextRenderer: NodeRenderer {
     weak var text: Text?
 
-    init(text: Text, ctx: RenderContext, animationCache: AnimationCache?) {
+    init(text: Text, animationCache: AnimationCache?) {
         self.text = text
-        super.init(node: text, ctx: ctx, animationCache: animationCache)
+        super.init(node: text, animationCache: animationCache)
     }
 
     override func node() -> Node? {
@@ -33,7 +33,7 @@ class TextRenderer: NodeRenderer {
         observe(text.baselineVar)
     }
 
-    override func doRender(_ force: Bool, opacity: Double) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
         guard let text = text else {
             return
         }
@@ -52,7 +52,7 @@ class TextRenderer: NodeRenderer {
                 }
                 attributes[NSAttributedStringKey.strokeWidth] = stroke.width as NSObject?
             }
-            MGraphicsPushContext(ctx.cgContext!)
+            MGraphicsPushContext(context)
             message.draw(in: getBounds(font), withAttributes: attributes)
             MGraphicsPopContext()
         }

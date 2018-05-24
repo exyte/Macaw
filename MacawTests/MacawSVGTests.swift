@@ -361,6 +361,10 @@ class MacawSVGTests: XCTestCase {
         validateJSON("coords-trans-09-t-manual")
     }
     
+    func testShapesCircle01() {
+        validateJSON("shapes-circle-01-t-manual")
+    }
+    
     func testShapesCircle02() {
         validateJSON("shapes-circle-02-t-manual")
     }

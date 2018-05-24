@@ -12,6 +12,11 @@ class MacawSVGTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    func testCreate() {
+        createJSON("painting-stroke-07-t-manual")
+        createJSON("shapes-polyline-02-t-manual")
+    }
 
     func validate(node: Node, referenceFile: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
@@ -249,6 +254,11 @@ class MacawSVGTests: XCTestCase {
         validateJSON("painting-stroke-02-t-manual")
     }
     
+    func testPaintingStroke07() {
+        validateJSON("painting-stroke-07-t-manual")
+    }
+    
+
     func testPathsData01() {
         validateJSON("paths-data-01-t-manual")
     }
@@ -295,6 +305,10 @@ class MacawSVGTests: XCTestCase {
     
     func testShapesPolyline01() {
         validateJSON("shapes-polyline-01-t-manual")
+    }
+    
+    func testShapesPolyline02() {
+        validateJSON("shapes-polyline-02-t-manual")
     }
     
     func testShapesPolygon02() {

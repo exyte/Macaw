@@ -1,17 +1,36 @@
 ## W3C SVG Test Suite Coverage
 
-Total:  281
+There are 521 SVG tests in total. However 212 files uses features that not covered by Macaw right now, namely:
+* scripts (57)
+* animation (71)
+* condition (7)
+* external use (5)
+* interact (32)
+* linking (12)
+* style (25)
+* glyphs (3)
 
-Passed: 30.2%
+The rest 309 tests can be split to following categories:
+* 27.5% passed (85)
+* 21% not yet covered (65)
+* 14% filters (43)
+* 7.8% images (24)
+* 2.6% markers (8)
+* 19.7% text (61)
+* 7.4% blocked by issues (23)
+
+Status of each test:
 
 |Name  |Status |
 |------|-------|
 |[color-prof-01-f-manual](w3cSVGTests/color-prof-01-f-manual.svg)       | ❌                                                 |
-|[color-prop-01-f-manual](w3cSVGTests/color-prop-01-f-manual.svg)       | ✅                                                |
+|[color-prop-01-b-manual](w3cSVGTests/color-prop-01-b-manual.svg)       | ✅                                                |
 |[color-prop-02-f-manual](w3cSVGTests/color-prop-02-f-manual.svg)       | ✅                                                |
-|[color-prop-03-f-manual](w3cSVGTests/color-prop-03-f-manual.svg)       | ✅                                                |
+|[color-prop-03-t-manual](w3cSVGTests/color-prop-03-t-manual.svg)       | ✅                                                |
 |[color-prop-04-t-manual](w3cSVGTests/color-prop-04-t-manual.svg)       | ❌                                                 |
 |[color-prop-05-t-manual](w3cSVGTests/color-prop-05-t-manual.svg)       | ❌                                                |
+|[conform-viewers-02-f-manual](w3cSVGTests/conform-viewers-02-f-manual.svg)       | ❌                                                 |
+|[conform-viewers-03-f-manual](w3cSVGTests/conform-viewers-03-f-manual.svg)       | ❌                                                 |
 |[coords-coord-01-t-manual](w3cSVGTests/coords-coord-01-t-manual.svg)       | ✅                                                 |
 |[coords-coord-02-t-manual](w3cSVGTests/coords-coord-02-t-manual.svg)       | ✅                                                 |
 |[coords-trans-01-b-manual](w3cSVGTests/coords-trans-01-b-manual.svg)       | ✅                                                 |
@@ -142,9 +161,9 @@ Passed: 30.2%
 |[painting-render-01-b-manual](w3cSVGTests/painting-render-01-b-manual.svg)       | [#184](https://github.com/exyte/Macaw/issues/184) |
 |[painting-render-02-b-manual](w3cSVGTests/painting-render-02-b-manual.svg)       | [#184](https://github.com/exyte/Macaw/issues/184) |
 |[painting-stroke-01-t-manual](w3cSVGTests/painting-stroke-01-t-manual.svg)       | ✅                                                 |
-|[painting-stroke-02-t-manua](w3cSVGTests/painting-stroke-02-t-manual.svg)       | ✅                                                 |
-|[painting-stroke-03-t-manua](w3cSVGTests/painting-stroke-03-t-manual.svg)       | ✅                                                 |
-|[painting-stroke-04-t-manua](w3cSVGTests/painting-stroke-04-t-manual.svg)       | ✅                                                 |
+|[painting-stroke-02-t-manual](w3cSVGTests/painting-stroke-02-t-manual.svg)       | ✅                                                 |
+|[painting-stroke-03-t-manual](w3cSVGTests/painting-stroke-03-t-manual.svg)       | ✅                                                 |
+|[painting-stroke-04-t-manual](w3cSVGTests/painting-stroke-04-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-05-t-manual](w3cSVGTests/painting-stroke-05-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-06-t-manual](w3cSVGTests/painting-stroke-06-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-07-t-manual](w3cSVGTests/painting-stroke-07-t-manual.svg)       | [#348](https://github.com/exyte/Macaw/issues/348) |
@@ -170,6 +189,7 @@ Passed: 30.2%
 |[paths-data-18-f-manual](w3cSVGTests/paths-data-18-f-manual.svg)       | ❌                                                 |
 |[paths-data-19-f-manual](w3cSVGTests/paths-data-19-f-manual.svg)       | ✅                                                 |
 |[paths-data-20-f-manual](w3cSVGTests/paths-data-20-f-manual.svg)       | ❌                                                 |
+|[pservers-grad-01-b-manual](w3cSVGTests/pservers-grad-01-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-02-b-manual](w3cSVGTests/pservers-grad-02-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-03-b-manual](w3cSVGTests/pservers-grad-03-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-04-b-manual](w3cSVGTests/pservers-grad-04-b-manual.svg)       | ❌                                                 |
@@ -221,7 +241,9 @@ Passed: 30.2%
 |[shapes-polygon-02-t-manual](w3cSVGTests/shapes-polygon-02-t-manual.svg)       | ✅                                                 |
 |[shapes-polygon-03-t-manual](w3cSVGTests/shapes-polygon-03-t-manual.svg)       | ✅                                                 |
 |[shapes-polyline-01-t-manual](w3cSVGTests/shapes-polyline-01-t-manual.svg)       | ✅                                                 |
-|[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌  ios bug https://stackoverflow.com/questions/18880919/why-is-cornerradii-parameter-of-cgsize-type-in-uibezierpath-bezierpathwithroun?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa   |
+|[shapes-polyline-02-t-manual](w3cSVGTests/shapes-polyline-02-t-manual.svg)       | ❌                                                 |
+|[shapes-rect-02-t-manual](w3cSVGTests/shapes-rect-02-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
+|[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
 |[shapes-rect-04-f-manual](w3cSVGTests/shapes-rect-04-f-manual.svg)       | ✅                                                 |
 |[shapes-rect-05-f-manual](w3cSVGTests/shapes-rect-05-f-manual.svg)       | ✅                                                 |
 |[shapes-rect-06-f-manual](w3cSVGTests/shapes-rect-06-f-manual.svg)       | ❌                                                 |
@@ -236,7 +258,28 @@ Passed: 30.2%
 |[struct-group-01-t-manual](w3cSVGTests/struct-group-01-t-manual.svg)       | ✅                                                 |
 |[struct-group-02-b-manual](w3cSVGTests/struct-group-02-b-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344)   |
 |[struct-group-03-t-manual](w3cSVGTests/struct-group-03-t-manual.svg)       | ❌                                                 |
+|[struct-image-01-t-manual](w3cSVGTests/struct-image-01-t-manual.svg)       | ❌                                                 |
+|[struct-image-02-b-manual](w3cSVGTests/struct-image-02-b-manual.svg)       | ❌                                                 |
+|[struct-image-03-t-manual](w3cSVGTests/struct-image-03-t-manual.svg)       | ❌                                                 |
+|[struct-image-04-t-manual](w3cSVGTests/struct-image-04-t-manual.svg)       | ❌                                                 |
+|[struct-image-05-b-manual](w3cSVGTests/struct-image-05-b-manual.svg)       | ❌                                                 |
+|[struct-image-06-t-manual](w3cSVGTests/struct-image-06-t-manual.svg)       | ❌                                                 |
+|[struct-image-07-t-manual](w3cSVGTests/struct-image-07-t-manual.svg)       | ❌                                                 |
+|[struct-image-08-t-manual](w3cSVGTests/struct-image-08-t-manual.svg)       | ❌                                                 |
+|[struct-image-09-t-manual](w3cSVGTests/struct-image-09-t-manual.svg)       | ❌                                                 |
+|[struct-image-10-t-manual](w3cSVGTests/struct-image-10-t-manual.svg)       | ❌                                                 |
+|[struct-image-11-b-manual](w3cSVGTests/struct-image-11-b-manual.svg)       | ❌                                                 |
+|[struct-image-12-b-manual](w3cSVGTests/struct-image-12-b-manual.svg)       | ❌                                                 |
+|[struct-image-13-f-manual](w3cSVGTests/struct-image-13-f-manual.svg)       | ❌                                                 |
+|[struct-image-14-f-manual](w3cSVGTests/struct-image-14-f-manual.svg)       | ❌                                                 |
+|[struct-image-15-f-manual](w3cSVGTests/struct-image-15-f-manual.svg)       | ❌                                                 |
+|[struct-image-16-f-manual](w3cSVGTests/struct-image-16-f-manual.svg)       | ❌                                                 |
+|[struct-image-17-b-manual](w3cSVGTests/struct-image-17-b-manual.svg)       | ❌                                                 |
+|[struct-image-18-f-manual](w3cSVGTests/struct-image-18-f-manual.svg)       | ❌                                                 |
+|[struct-image-19-f-manual](w3cSVGTests/struct-image-19-f-manual.svg)       | ❌                                                 |
 |[struct-svg-03-f-manual](w3cSVGTests/struct-svg-03-f-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344)   |
+|[struct-symbol-01-b-manual](w3cSVGTests/struct-symbol-01-b-manual.svg)       | ❌                                                 |
+|[struct-use-01-t-manual](w3cSVGTests/struct-use-01-t-manual.svg)       | ❌                                                 |
 |[struct-use-03-t-manual](w3cSVGTests/struct-use-03-t-manual.svg)       | ✅                                                 |
 |[struct-use-09-b-manual](w3cSVGTests/struct-use-09-b-manual.svg)       | ❌                                                 |
 |[struct-use-12-f-manual](w3cSVGTests/struct-use-12-f-manual.svg)       | ✅                                                 |
@@ -248,6 +291,7 @@ Passed: 30.2%
 |[text-align-06-b-manual](w3cSVGTests/text-align-06-b-manual.svg)       | ❌                                                 |
 |[text-align-07-t-manual](w3cSVGTests/text-align-07-t-manual.svg)       | ❌                                                 |
 |[text-align-08-b-manual](w3cSVGTests/text-align-08-b-manual.svg)       | ❌                                                 |
+|[text-bidi-01-t-manual](w3cSVGTests/text-bidi-01-t-manual.svg)       | ❌                                                 |
 |[text-deco-01-b-manual](w3cSVGTests/text-deco-01-b-manual.svg)       | ❌                                                 |
 |[text-fonts-01-t-manual](w3cSVGTests/text-fonts-01-t-manual.svg)       | ✅                                                 |
 |[text-fonts-02-t-manual](w3cSVGTests/text-fonts-02-t-manual.svg)       | ✅                                                 |
@@ -287,6 +331,4 @@ Passed: 30.2%
 |[text-tref-03-b-manual](w3cSVGTests/text-tref-03-b-manual.svg)       | ❌                                                 |
 |[text-tspan-01-b-manual](w3cSVGTests/text-tspan-01-b-manual.svg)       | ❌                                                 |
 |[text-tspan-02-b-manual](w3cSVGTests/text-tspan-02-b-manual.svg)       | ❌                                                 |
-|[types-basic-01-f-manual](w3cSVGTests/types-basic-01-f-manual.svg)       | ✅                                                 |
-
-
+|[types-basic-01-f-manual](w3cSVGTests/types-basic-01-f-manual.svg)       | ✅                                               |

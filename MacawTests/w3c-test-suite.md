@@ -1,16 +1,15 @@
 ## W3C SVG Test Suite Coverage
 
-There are 521 SVG tests in total. However 212 files uses features that not covered by Macaw right now, namely:
-* scripts (57)
-* animation (71)
-* condition (7)
-* external use (5)
-* interact (32)
-* linking (12)
-* style (25)
-* glyphs (3)
+There are 521 SVG tests in total. 212 files uses features that are not covered by Macaw right now, namely:
+* [Scripts](https://www.w3.org/TR/SVG11/script.html#ScriptElement) (57)
+* [Interactivity](https://www.w3.org/TR/SVG11/interact.html) (33)
+* [Linking](https://www.w3.org/TR/SVG11/linking.html) (16)
+* [Glyphs](https://www.w3.org/TR/SVG11/text.html#AltGlyphElement) (3)
+* [Styling](https://www.w3.org/TR/SVG11/styling.html#StyleElement) (25)
+* [Animation](https://www.w3.org/TR/SVG11/animate.html#AnimateElement) (71)
+* [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
-The rest 309 tests can be split to following categories:
+The rest 309 tests can be split into following categories:
 * 27.5% passed (85)
 * 21% not yet covered (65)
 * 14% filters (43)

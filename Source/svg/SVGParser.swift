@@ -677,10 +677,7 @@ open class SVGParser {
     fileprivate func getStrokeDashes(_ styleParts: [String: String]) -> [Double] {
         var dashes = [Double]()
         if let strokeDashes = styleParts["stroke-dasharray"] {
-            var characterSet = CharacterSet()
-            characterSet.insert(" ")
-            characterSet.insert(",")
-            let separatedValues = strokeDashes.components(separatedBy: characterSet)
+            let separatedValues = strokeDashes.components(separatedBy: CharacterSet(charactersIn: " ,"))
             separatedValues.forEach { value in
                 if let doubleValue = doubleFromString(value) {
                     dashes.append(doubleValue)
@@ -688,6 +685,19 @@ open class SVGParser {
             }
         }
         return dashes
+    }
+    
+    fileprivate func getMatrix(_ element: SWXMLHash.XMLElement, attribute: String) -> [Double] {
+        var result = [Double]()
+        if let values = element.allAttributes[attribute]?.text {
+            let separatedValues = values.components(separatedBy: CharacterSet(charactersIn: " ,"))
+            separatedValues.forEach { value in
+                if let doubleValue = doubleFromString(value) {
+                    result.append(doubleValue)
+                }
+            }
+        }
+        return result
     }
 
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
@@ -1039,12 +1049,17 @@ open class SVGParser {
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
                     effects[filterIn] = GaussianBlur(radius: radius, input: currentEffect)
                 }
+            case "feColorMatrix":
+                let matrix = getMatrix(element, attribute: "values")
+                if matrix.count == 20 {
+                    effects[filterIn] = ColorMatrixEffect(matrix: matrix, input: currentEffect)
+                }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
                     if filterIn2 == defaultSource {
-                        effects[filterIn] = nil
+                        effects[filterIn] = BlendEffect(input: nil)
                     } else if filterIn == defaultSource {
-                        effects[filterIn2] = nil
+                        effects[filterIn2] = BlendEffect(input: nil)
                     }
                 }
             default:

@@ -166,7 +166,7 @@ Status of each test:
 |[painting-stroke-04-t-manual](w3cSVGTests/painting-stroke-04-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-05-t-manual](w3cSVGTests/painting-stroke-05-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-06-t-manual](w3cSVGTests/painting-stroke-06-t-manual.svg)       | ✅                                                 |
-|[painting-stroke-07-t-manual](w3cSVGTests/painting-stroke-07-t-manual.svg)       | [#348](https://github.com/exyte/Macaw/issues/348) |
+|[painting-stroke-07-t-manual](w3cSVGTests/painting-stroke-07-t-manual.svg)       | ✅ |
 |[painting-stroke-08-t-manual](w3cSVGTests/painting-stroke-08-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-09-t-manual](w3cSVGTests/painting-stroke-09-t-manual.svg)       | ✅                                                 |
 |[painting-stroke-10-t-manual](w3cSVGTests/painting-stroke-10-t-manual.svg)       | ❌                                                 |
@@ -241,7 +241,7 @@ Status of each test:
 |[shapes-polygon-02-t-manual](w3cSVGTests/shapes-polygon-02-t-manual.svg)       | ✅                                                 |
 |[shapes-polygon-03-t-manual](w3cSVGTests/shapes-polygon-03-t-manual.svg)       | ✅                                                 |
 |[shapes-polyline-01-t-manual](w3cSVGTests/shapes-polyline-01-t-manual.svg)       | ✅                                                 |
-|[shapes-polyline-02-t-manual](w3cSVGTests/shapes-polyline-02-t-manual.svg)       | ❌                                                 |
+|[shapes-polyline-02-t-manual](w3cSVGTests/shapes-polyline-02-t-manual.svg)       | ✅                                                 |
 |[shapes-rect-02-t-manual](w3cSVGTests/shapes-rect-02-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
 |[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
 |[shapes-rect-04-f-manual](w3cSVGTests/shapes-rect-04-f-manual.svg)       | ✅                                                 |

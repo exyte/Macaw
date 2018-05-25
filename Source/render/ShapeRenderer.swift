@@ -274,6 +274,7 @@ class ShapeRenderer: NodeRenderer {
         ctx!.setLineWidth(CGFloat(stroke.width))
         ctx!.setLineJoin(stroke.join.toCG())
         ctx!.setLineCap(stroke.cap.toCG())
+        ctx!.setMiterLimit(CGFloat(stroke.miterLimit))
         if !stroke.dashes.isEmpty {
             ctx?.setLineDash(phase: CGFloat(stroke.offset),
                              lengths: stroke.dashes.map { CGFloat($0) })

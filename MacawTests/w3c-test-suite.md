@@ -1,27 +1,25 @@
 ## W3C SVG Test Suite Coverage
 
-Total:  521
+There are 521 SVG tests in total. However 212 files uses features that not covered by Macaw right now, namely:
+* scripts (57)
+* animation (71)
+* condition (7)
+* external use (5)
+* interact (32)
+* linking (12)
+* style (25)
+* glyphs (3)
 
-|212 | not supported|
-|71 | animation|
-|7 | condition|
-|5 | external use|
-|32 | interact|
-|12 | linking|
-|57 | script|
-|25 | style|
-|3 | glyphs|
+The rest 309 tests can be split to following categories:
+* 27.5% passed (85)
+* 21% not yet covered (65)
+* 14% filters (43)
+* 7.8% images (24)
+* 2.6% markers (8)
+* 19.7% text (61)
+* 7.4% blocked by issues (23)
 
-|309| in progress|
-|85| done|
-|43| filters|
-|24| images|
-|8| markers|
-|61| text|
-|23| issue created|
-|65| other|
-
-Passed: 27.5%
+Status of each test:
 
 |Name  |Status |
 |------|-------|
@@ -244,8 +242,8 @@ Passed: 27.5%
 |[shapes-polygon-03-t-manual](w3cSVGTests/shapes-polygon-03-t-manual.svg)       | ✅                                                 |
 |[shapes-polyline-01-t-manual](w3cSVGTests/shapes-polyline-01-t-manual.svg)       | ✅                                                 |
 |[shapes-polyline-02-t-manual](w3cSVGTests/shapes-polyline-02-t-manual.svg)       | ❌                                                 |
-|[shapes-rect-02-t-manual](w3cSVGTests/shapes-rect-02-t-manual.svg)       | ❌  ios bug https://stackoverflow.com/questions/18880919/why-is-cornerradii-parameter-of-cgsize-type-in-uibezierpath-bezierpathwithroun?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa   |
-|[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌  ios bug https://stackoverflow.com/questions/18880919/why-is-cornerradii-parameter-of-cgsize-type-in-uibezierpath-bezierpathwithroun?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa   |
+|[shapes-rect-02-t-manual](w3cSVGTests/shapes-rect-02-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
+|[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
 |[shapes-rect-04-f-manual](w3cSVGTests/shapes-rect-04-f-manual.svg)       | ✅                                                 |
 |[shapes-rect-05-f-manual](w3cSVGTests/shapes-rect-05-f-manual.svg)       | ✅                                                 |
 |[shapes-rect-06-f-manual](w3cSVGTests/shapes-rect-06-f-manual.svg)       | ❌                                                 |
@@ -333,4 +331,4 @@ Passed: 27.5%
 |[text-tref-03-b-manual](w3cSVGTests/text-tref-03-b-manual.svg)       | ❌                                                 |
 |[text-tspan-01-b-manual](w3cSVGTests/text-tspan-01-b-manual.svg)       | ❌                                                 |
 |[text-tspan-02-b-manual](w3cSVGTests/text-tspan-02-b-manual.svg)       | ❌                                                 |
-|[types-basic-01-f-manual](w3cSVGTests/types-basic-01-f-manual.svg)       | ✅                                                 |
+|[types-basic-01-f-manual](w3cSVGTests/types-basic-01-f-manual.svg)       | ✅                                               |

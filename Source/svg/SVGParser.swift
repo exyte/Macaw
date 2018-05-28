@@ -33,7 +33,7 @@ open class SVGParser {
         return SVGParser(text).parse()
     }
 
-    let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin",
+    let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit",
                                     "fill", "fill-rule", "fill-opacity", "clip-path",
                                     "opacity", "color", "stop-color", "stop-opacity",
                                     "font-family", "font-size", "font-weight", "text-anchor",
@@ -626,6 +626,7 @@ open class SVGParser {
                           width: getStrokeWidth(styleParts),
                           cap: getStrokeCap(styleParts),
                           join: getStrokeJoin(styleParts),
+                          miterLimit: getStrokeMiterLimit(styleParts),
                           dashes: getStrokeDashes(styleParts),
                           offset: getStrokeOffset(styleParts))
         }
@@ -638,6 +639,13 @@ open class SVGParser {
             return value
         }
         return 1
+    }
+
+    fileprivate func getStrokeMiterLimit(_ styleParts: [String: String]) -> Double {
+        if let strokeWidth = styleParts["stroke-miterlimit"], let value = doubleFromString(strokeWidth) {
+            return value
+        }
+        return 4
     }
 
     fileprivate func getStrokeCap(_ styleParts: [String: String]) -> LineCap {
@@ -686,7 +694,7 @@ open class SVGParser {
         }
         return dashes
     }
-    
+
     fileprivate func getMatrix(_ element: SWXMLHash.XMLElement, attribute: String) -> [Double] {
         var result = [Double]()
         if let values = element.allAttributes[attribute]?.text {

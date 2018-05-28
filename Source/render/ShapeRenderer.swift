@@ -47,18 +47,10 @@ class ShapeRenderer: NodeRenderer {
         }
 
         if !useAlphaOnly {
-            drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
-            return
+            drawPath(fill: shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
+        } else {
+            drawPath(fill: shape.fill?.fillUsingAlphaOnly(), stroke: shape.stroke?.strokeUsingAlphaOnly(), ctx: context, opacity: opacity, fillRule: fillRule)
         }
-
-        let color = shape.fill != nil ? shape.fill as! Color : .black
-        let fill = Color.black.with(a: Double(color.a()) / 255.0)
-
-        let strokeColor = shape.stroke != nil ? shape.stroke?.fill as! Color : .black
-        let newStrokeColor = Color.black.with(a: Double(strokeColor.a()) / 255.0)
-        let stroke = shape.stroke != nil ? Stroke(fill: newStrokeColor, width: shape.stroke!.width, cap: shape.stroke!.cap, join: shape.stroke!.join, dashes: shape.stroke!.dashes, offset: shape.stroke!.offset) : nil
-
-        drawPath(fill, stroke: stroke, ctx: context, opacity: opacity, fillRule: fillRule)
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
@@ -117,7 +109,7 @@ class ShapeRenderer: NodeRenderer {
         }
     }
 
-    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
+    fileprivate func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
         var shouldStrokePath = false
         if fill is Gradient || stroke?.fill is Gradient {
             shouldStrokePath = true
@@ -182,6 +174,7 @@ class ShapeRenderer: NodeRenderer {
         ctx!.setLineWidth(CGFloat(stroke.width))
         ctx!.setLineJoin(stroke.join.toCG())
         ctx!.setLineCap(stroke.cap.toCG())
+        ctx!.setMiterLimit(CGFloat(stroke.miterLimit))
         if !stroke.dashes.isEmpty {
             ctx?.setLineDash(phase: CGFloat(stroke.offset),
                              lengths: stroke.dashes.map { CGFloat($0) })
@@ -252,4 +245,30 @@ class ShapeRenderer: NodeRenderer {
         ctx!.restoreGState()
     }
 
+}
+
+extension Stroke {
+    func strokeUsingAlphaOnly() -> Stroke? {
+        let alphaFill = fill.fillUsingAlphaOnly()
+        return Stroke(fill: alphaFill!, width: width, cap: cap, join: join, dashes: dashes, offset: offset)
+    }
+}
+
+extension Fill {
+    func fillUsingAlphaOnly() -> Fill? {
+        if let color = self as? Color {
+            return color.colorUsingAlphaOnly()
+        }
+        if let gradient = self as? Gradient {
+            let stops = gradient.stops.map { Stop(offset: $0.offset, color: $0.color.colorUsingAlphaOnly()) }
+            return Gradient(userSpace: gradient.userSpace, stops: stops)
+        }
+        return .none
+    }
+}
+
+extension Color {
+    func colorUsingAlphaOnly() -> Color {
+        return Color.black.with(a: Double(a()) / 255.0)
+    }
 }

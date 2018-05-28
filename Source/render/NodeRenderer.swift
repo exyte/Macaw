@@ -102,7 +102,7 @@ class NodeRenderer {
             // apply other effects to offset shape and draw it
             applyEffects(otherEffects, context: context, opacity: opacity, useAlphaOnly: useAlphaOnly)
         }
-        
+
         if otherEffects.contains(where: { effect -> Bool in
             effect is BlendEffect
         }) {
@@ -129,7 +129,7 @@ class NodeRenderer {
         }
         doRender(in: context, force: force, opacity: opacity, useAlphaOnly: useAlphaOnly)
     }
-    
+
     fileprivate func separateEffects(_ effect: Effect) -> (OffsetEffect?, [Effect]) {
         var next: Effect? = effect
         var otherEffects = [Effect]()
@@ -157,9 +157,9 @@ class NodeRenderer {
                 inset = min(blur.radius * 6 + 1, 150)
             }
         }
-        
+
         let shapeImage = CIImage(cgImage: renderToImage(bounds: bounds, inset: inset, useAlphaOnly: useAlphaOnly)!.cgImage!)
-        
+
         var filteredImage = shapeImage
         for effect in effects {
             if let blur = effect as? GaussianBlur {
@@ -169,7 +169,7 @@ class NodeRenderer {
                 filteredImage = applyColorMatrix(filteredImage, colorMatrixEffect: matrix)
             }
         }
-        
+
         let ciContext = CIContext(options: nil)
         let finalImage = ciContext.createCGImage(filteredImage, from: shapeImage.extent)!
         context.draw(finalImage, in: CGRect(x: bounds.x - inset / 2, y: bounds.y - inset / 2, width: bounds.w + inset, height: bounds.h + inset))
@@ -182,15 +182,14 @@ class NodeRenderer {
         filter.setValue(image, forKey: kCIInputImageKey)
         return filter.outputImage!
     }
-    
+
     fileprivate func applyColorMatrix(_ image: CIImage, colorMatrixEffect: ColorMatrixEffect) -> CIImage {
-        let matrix = colorMatrixEffect.matrix!.map{ CGFloat($0) }
+        let matrix = colorMatrixEffect.matrix.map { CGFloat($0) }
         let filter = CIFilter(name: "CIColorMatrix")!
         filter.setDefaults()
         filter.setValue(CIVector(x: matrix[0], y: matrix[1], z: matrix[2], w: matrix[3]), forKey: "inputRVector")
         filter.setValue(CIVector(x: matrix[5], y: matrix[6], z: matrix[7], w: matrix[8]), forKey: "inputGVector")
         filter.setValue(CIVector(x: matrix[10], y: matrix[11], z: matrix[12], w: matrix[13]), forKey: "inputBVector")
-        filter.setValue(CIVector(x: matrix[15], y: matrix[16], z: matrix[17], w: matrix[18]), forKey: "inputAVector")
         filter.setValue(CIVector(x: matrix[4], y: matrix[9], z: matrix[14], w: matrix[19]), forKey: "inputBiasVector")
         filter.setValue(image, forKey: kCIInputImageKey)
         return filter.outputImage!

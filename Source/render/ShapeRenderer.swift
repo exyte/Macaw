@@ -260,8 +260,13 @@ extension Fill {
             return color.colorUsingAlphaOnly()
         }
         if let gradient = self as? Gradient {
-            let stops = gradient.stops.map { Stop(offset: $0.offset, color: $0.color.colorUsingAlphaOnly()) }
-            return Gradient(userSpace: gradient.userSpace, stops: stops)
+            let newStops = gradient.stops.map { Stop(offset: $0.offset, color: $0.color.colorUsingAlphaOnly()) }
+            if let radial = self as? RadialGradient {
+                return RadialGradient(cx: radial.cx, cy: radial.cy, fx: radial.fx, fy: radial.fy, r: radial.r, userSpace: radial.userSpace, stops: newStops)
+            }
+            if let linear = self as? LinearGradient {
+                return LinearGradient(x1: linear.x1, y1: linear.y1, x2: linear.x2, y2: linear.y2, userSpace: linear.userSpace, stops: newStops)
+            }
         }
         return .none
     }

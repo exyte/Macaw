@@ -16,9 +16,20 @@
       <feGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
       <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
     </filter>
+
+    <filter id="alphaColorFilter" x="0" y="0" width="200%" height="200%">
+      <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+      <feColorMatrix type="matrix" result="colorOut" in="offOut" 
+        values=".33 0 0 0 .33                       
+                .5 .5 0 0 0                       
+                .33 .33 .33 0 1                       
+                1 1 1 1 0"/>
+      <feGaussianBlur result="blurOut" in="colorOut" stdDeviation="4" />
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
   </defs>
   <g filter="url(#colorFilter)">
-    <rect width="90" height="90" stroke="green" stroke-width="3"
+    <rect x="10" y="10" width="90" height="90" stroke="green" stroke-width="3"
   fill="yellow"  />
 
     <linearGradient id="Grad1a" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="0">
@@ -29,5 +40,12 @@
     <rect x="20" y="170" width="100" height="80" fill="url(#Grad1a)"/>
   </g>
 
-  <circle fill="red" cx="100" cy="100" r="40" filter="url(#alphaFilter)"/>
+  <circle fill="violet" cx="170" cy="70" r="40" filter="url(#alphaFilter)"/>
+
+    <linearGradient id="GradOp" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="blue" offset="0" stop-opacity="0.3"/>
+      <stop stop-color="pink" offset="1" stop-opacity="1"/>
+    </linearGradient>
+    <rect x="150" y="200" width="90" height="90" stroke="green" stroke-width="3"
+  fill="url(#GradOp)" filter="url(#alphaColorFilter)"/>
 </svg>

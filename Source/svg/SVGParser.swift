@@ -1517,6 +1517,9 @@ private class PathDataReader {
         var data = [Double]()
         while true {
             while !isNumStart() {
+                if !isSymbolAcceptable(current) {
+                    return data
+                }
                 if getPathSegmentType() != nil || readNext() == nil {
                     return data
                 }
@@ -1569,6 +1572,13 @@ private class PathDataReader {
         previous = current
         current = iterator.next()
         return current
+    }
+
+    private func isSymbolAcceptable(_ ch: UnicodeScalar?) -> Bool {
+        if let ch = ch {
+            return (ch >= "0" && ch <= "9") || " MLCQAzHVSTmlcqahvstEe,".contains(String(ch))
+        }
+        return false
     }
 
     private func readSegmentType() -> PathSegmentType? {

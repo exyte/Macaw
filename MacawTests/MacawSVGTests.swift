@@ -258,6 +258,9 @@ class MacawSVGTests: XCTestCase {
         validateJSON("painting-stroke-07-t-manual")
     }
     
+    func testPathsData18() {
+        createJSON("paths-data-18-f-manual")
+    }
 
     func testPathsData01() {
         validateJSON("paths-data-01-t-manual")

@@ -1058,9 +1058,21 @@ open class SVGParser {
                     effects[filterIn] = GaussianBlur(radius: radius, input: currentEffect)
                 }
             case "feColorMatrix":
-                let matrix = getMatrix(element, attribute: "values")
-                if matrix.count == 20 {
-                    effects[filterIn] = ColorMatrixEffect(matrix: matrix, input: currentEffect)
+                if let type = element.allAttributes["type"]?.text {
+                    if type == "saturate" {
+                        effects[filterIn] = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
+                    }
+                    if type == "hueRotate" {
+                        effects[filterIn] = ColorMatrixEffect(hueRotate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
+                    }
+                    if type == "luminanceToAlpha" {
+                        effects[filterIn] = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
+                    } else { // "matrix"
+                        let matrix = getMatrix(element, attribute: "values")
+                        if matrix.count == 20 {
+                            effects[filterIn] = ColorMatrixEffect(matrix: matrix, input: currentEffect)
+                        }
+                    }
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {

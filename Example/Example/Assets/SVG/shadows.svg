@@ -6,7 +6,7 @@
         values=".33 0 0 0 .33                       
                 .5 .5 0 0 0                       
                 .33 .33 .33 0 1                       
-                1 1 1 1 0"/>
+                0 0 0 1 0"/>
       <feGaussianBlur result="blurOut" in="colorOut" stdDeviation="4" />
       <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
     </filter>

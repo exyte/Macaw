@@ -10,8 +10,8 @@ There are 521 SVG tests in total. 212 files uses features that are not covered b
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 309 tests can be split into following categories:
-* 27.5% passed (85)
-* 21% not yet covered (65)
+* 28.4% passed (88)
+* 20% not yet covered (62)
 * 14% filters (43)
 * 7.8% images (24)
 * 2.6% markers (8)
@@ -185,7 +185,7 @@ Status of each test:
 |[paths-data-15-t-manual](w3cSVGTests/paths-data-15-t-manual.svg)       | ✅                                                 |
 |[paths-data-16-t-manual](w3cSVGTests/paths-data-16-t-manual.svg)       | ✅                                                 |
 |[paths-data-17-f-manual](w3cSVGTests/paths-data-17-f-manual.svg)       | ✅                                                 |
-|[paths-data-18-f-manual](w3cSVGTests/paths-data-18-f-manual.svg)       | ❌                                                 |
+|[paths-data-18-f-manual](w3cSVGTests/paths-data-18-f-manual.svg)       | ✅                                                 |
 |[paths-data-19-f-manual](w3cSVGTests/paths-data-19-f-manual.svg)       | ✅                                                 |
 |[paths-data-20-f-manual](w3cSVGTests/paths-data-20-f-manual.svg)       | ❌                                                 |
 |[pservers-grad-01-b-manual](w3cSVGTests/pservers-grad-01-b-manual.svg)       | ❌                                                 |

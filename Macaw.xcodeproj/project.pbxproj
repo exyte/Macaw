@@ -460,6 +460,8 @@
 		5BFEF5CF20B80A83008DAC11 /* BlendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */; };
 		5BFEF5D020B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */; };
 		5BFEF5D120B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */; };
+		5BFEF5D620BC1C1F008DAC11 /* paths-data-18-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */; };
+		5BFEF5D720BC1C1F008DAC11 /* paths-data-18-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
@@ -847,6 +849,8 @@
 		5BAEA9C8206CEAA20049AAAE /* viewBox.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.svg; sourceTree = "<group>"; };
 		5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendEffect.swift; sourceTree = "<group>"; };
 		5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMatrixEffect.swift; sourceTree = "<group>"; };
+		5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-18-f-manual.svg"; sourceTree = "<group>"; };
+		5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-18-f-manual.reference"; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -1395,6 +1399,8 @@
 				5B1AE20220B6A669007EECCB /* paths-data-16-t-manual.svg */,
 				5B1AE1B020B6A669007EECCB /* paths-data-17-f-manual.reference */,
 				5B1AE1C520B6A669007EECCB /* paths-data-17-f-manual.svg */,
+				5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */,
+				5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */,
 				5B1AE1D720B6A669007EECCB /* paths-data-19-f-manual.reference */,
 				5B1AE21A20B6A669007EECCB /* paths-data-19-f-manual.svg */,
 				5B1AE1F020B6A669007EECCB /* pservers-grad-stops-01-f-manual.reference */,
@@ -1660,6 +1666,7 @@
 				5BAE2048208E163D006BF277 /* line.reference in Resources */,
 				5B1AE2A420B6A669007EECCB /* paths-data-12-t-manual.reference in Resources */,
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
+				5BFEF5D620BC1C1F008DAC11 /* paths-data-18-f-manual.svg in Resources */,
 				5B1AE23620B6A669007EECCB /* paths-data-07-t-manual.svg in Resources */,
 				C43B06691F99FC2300787A35 /* pathbounds4.svg in Resources */,
 				5B1AE27720B6A669007EECCB /* coords-trans-03-t-manual.reference in Resources */,
@@ -1784,6 +1791,7 @@
 				5BAE2045208E163D006BF277 /* arcsgroup.reference in Resources */,
 				5B1AE25920B6A669007EECCB /* coords-trans-01-b-manual.svg in Resources */,
 				5B1AE28C20B6A669007EECCB /* shapes-polygon-01-t-manual.svg in Resources */,
+				5BFEF5D720BC1C1F008DAC11 /* paths-data-18-f-manual.reference in Resources */,
 				5BAE203F208E163D006BF277 /* transform.reference in Resources */,
 				5B1AE24920B6A669007EECCB /* painting-control-06-f-manual.svg in Resources */,
 				5B1AE2B320B6A669007EECCB /* coords-trans-04-t-manual.reference in Resources */,

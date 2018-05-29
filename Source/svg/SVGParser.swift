@@ -1552,26 +1552,37 @@ private class PathDataReader {
     private func readData() -> [Double] {
         var data = [Double]()
         while true {
-            while !isNumStart() {
-                if getPathSegmentType() != nil || readNext() == nil {
-                    return data
-                }
-            }
-            if let double = Double(readNum()) {
-                data.append(double)
+            skipSpaces()
+            if let value = readNum() {
+                data.append(value)
+            } else {
+                return data
             }
         }
     }
 
-    fileprivate func readNum() -> String {
-        var chars = [current!]
-        var hasDot = current == "."
-        while let ch = readDigit(&hasDot) {
-            chars.append(ch)
+    private func skipSpaces() {
+        var ch = current
+        while ch != nil && "\n\r\t ,".contains(String(ch!)) {
+            ch = readNext()
         }
-        var buf = ""
-        buf.unicodeScalars.append(contentsOf: chars)
-        return buf
+    }
+
+    fileprivate func readNum() -> Double? {
+        guard let ch = current else {
+            return nil
+        }
+        if (ch >= "0" && ch <= "9") || ch == "." || ch == "-" {
+            var chars = [ch]
+            var hasDot = ch == "."
+            while let ch = readDigit(&hasDot) {
+                chars.append(ch)
+            }
+            var buf = ""
+            buf.unicodeScalars.append(contentsOf: chars)
+            return Double(buf)
+        }
+        return nil
     }
 
     fileprivate func readDigit(_ hasDot: inout Bool) -> UnicodeScalar? {
@@ -1605,6 +1616,13 @@ private class PathDataReader {
         previous = current
         current = iterator.next()
         return current
+    }
+
+    private func isAcceptableSeparator(_ ch: UnicodeScalar?) -> Bool {
+        if let ch = ch {
+            return "\n\r\t ,".contains(String(ch))
+        }
+        return false
     }
 
     private func readSegmentType() -> PathSegmentType? {
@@ -1682,13 +1700,6 @@ private class PathDataReader {
         default:
             return 0
         }
-    }
-
-    fileprivate func isNumStart() -> Bool {
-        if let ch = current {
-            return (ch >= "0" && ch <= "9") || ch == "." || ch == "-"
-        }
-        return false
     }
 
 }

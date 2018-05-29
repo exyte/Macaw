@@ -1517,6 +1517,9 @@ private class PathDataReader {
         var data = [Double]()
         while true {
             while !isNumStart() {
+                if !isAcceptableSeparator(current) {
+                    return data
+                }
                 if getPathSegmentType() != nil || readNext() == nil {
                     return data
                 }
@@ -1569,6 +1572,13 @@ private class PathDataReader {
         previous = current
         current = iterator.next()
         return current
+    }
+
+    private func isAcceptableSeparator(_ ch: UnicodeScalar?) -> Bool {
+        if let ch = ch {
+            return "\n\r\t ,".contains(String(ch))
+        }
+        return false
     }
 
     private func readSegmentType() -> PathSegmentType? {

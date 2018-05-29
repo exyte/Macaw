@@ -4,7 +4,10 @@ open class ColorMatrixEffect: Effect {
 
     public let matrix: [Double]
 
-    public init(matrix: [Double] = [], input: Effect? = nil) {
+    public init(matrix: [Double] = [1, 0, 0, 0, 0,
+                                    0, 1, 0, 0, 0,
+                                    0, 0, 1, 0, 0,
+                                    0, 0, 0, 1, 0], input: Effect? = nil) {
         self.matrix = matrix
         super.init(input: input)
     }
@@ -27,9 +30,8 @@ open class ColorMatrixEffect: Effect {
     }
 
     public init(hueRotate: Double, input: Effect? = nil) {
-        let radians = hueRotate / 180 * Double.pi
-        let c = cos(radians)
-        let s = sin(radians)
+        let c = cos(hueRotate)
+        let s = sin(hueRotate)
         let m1 = [0.213, 0.715, 0.072,
                   0.213, 0.715, 0.072,
                   0.213, 0.715, 0.072]
@@ -49,7 +51,7 @@ open class ColorMatrixEffect: Effect {
         super.init(input: input)
     }
 
-    public static func luminanceToAlpha(input: Effect? = nil) -> ColorMatrixEffect {
+    static func luminanceToAlpha(input: Effect? = nil) -> ColorMatrixEffect {
         return ColorMatrixEffect(matrix: [1, 0, 0, 0, 0,
                                           0, 1, 0, 0, 0,
                                           0, 0, 1, 0, 0,

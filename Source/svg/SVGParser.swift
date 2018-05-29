@@ -1063,7 +1063,8 @@ open class SVGParser {
                         effects[filterIn] = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
                     }
                     if type == "hueRotate" {
-                        effects[filterIn] = ColorMatrixEffect(hueRotate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
+                        let degrees = getDoubleValue(element, attribute: "values")!
+                        effects[filterIn] = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
                     }
                     if type == "luminanceToAlpha" {
                         effects[filterIn] = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)

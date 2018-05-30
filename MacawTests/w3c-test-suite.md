@@ -10,13 +10,13 @@ There are 521 SVG tests in total. 212 files uses features that are not covered b
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 309 tests can be split into following categories:
-* 29.4% passed (91)
-* 19% not yet covered (59)
+* 29.7% passed (92)
+* 18.4% not yet covered (57)
 * 14% filters (43)
 * 7.8% images (24)
 * 2.6% markers (8)
 * 19.7% text (61)
-* 7.4% blocked by issues (23)
+* 7.7% blocked by issues (24)
 
 Status of each test:
 
@@ -188,13 +188,13 @@ Status of each test:
 |[paths-data-18-f-manual](w3cSVGTests/paths-data-18-f-manual.svg)       | ✅                                                 |
 |[paths-data-19-f-manual](w3cSVGTests/paths-data-19-f-manual.svg)       | ✅                                                 |
 |[paths-data-20-f-manual](w3cSVGTests/paths-data-20-f-manual.svg)       | ❌                                                 |
-|[pservers-grad-01-b-manual](w3cSVGTests/pservers-grad-01-b-manual.svg)       | ❌                                                 |
-|[pservers-grad-02-b-manual](w3cSVGTests/pservers-grad-02-b-manual.svg)       | ❌                                                 |
+|[pservers-grad-01-b-manual](w3cSVGTests/pservers-grad-01-b-manual.svg)       | ✅                                                 |
+|[pservers-grad-02-b-manual](w3cSVGTests/pservers-grad-02-b-manual.svg)       | ✅                                                 |
 |[pservers-grad-03-b-manual](w3cSVGTests/pservers-grad-03-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-04-b-manual](w3cSVGTests/pservers-grad-04-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-05-b-manual](w3cSVGTests/pservers-grad-05-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-06-b-manual](w3cSVGTests/pservers-grad-06-b-manual.svg)       | ❌                                                 |
-|[pservers-grad-07-b-manual](w3cSVGTests/pservers-grad-07-b-manual.svg)       | ❌                                                 |
+|[pservers-grad-07-b-manual](w3cSVGTests/pservers-grad-07-b-manual.svg)      | ✅                                                 |
 |[pservers-grad-08-b-manual](w3cSVGTests/pservers-grad-08-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-09-b-manual](w3cSVGTests/pservers-grad-09-b-manual.svg)       | ❌                                                 |
 |[pservers-grad-10-b-manual](w3cSVGTests/pservers-grad-10-b-manual.svg)       | ❌                                                 |
@@ -231,7 +231,7 @@ Status of each test:
 |[shapes-ellipse-01-t-manual](w3cSVGTests/shapes-ellipse-01-t-manual.svg)       | ✅                                                 |
 |[shapes-ellipse-02-t-manual](w3cSVGTests/shapes-ellipse-02-t-manual.svg)       | ✅                                                 |
 |[shapes-ellipse-03-f-manual](w3cSVGTests/shapes-ellipse-03-f-manual.svg)       | ✅                                                 |
-|[shapes-grammar-01-f-manual](w3cSVGTests/shapes-grammar-01-f-manual.svg)       | ❌                                                 |
+|[shapes-grammar-01-f-manual](w3cSVGTests/shapes-grammar-01-f-manual.svg)       | ✅                                                 |
 |[shapes-intro-01-t-manual](w3cSVGTests/shapes-intro-01-t-manual.svg)       | ✅                                                 |
 |[shapes-intro-02-f-manual](w3cSVGTests/shapes-intro-02-f-manual.svg)       | ❌                                                 |
 |[shapes-line-01-t-manual](w3cSVGTests/shapes-line-01-t-manual.svg)       | ✅                                                 |

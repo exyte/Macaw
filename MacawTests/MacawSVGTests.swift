@@ -548,4 +548,16 @@ class MacawSVGTests: XCTestCase {
     func testPathsData10() {
         validateJSON("paths-data-10-t-manual")
     }
+    
+    func testPserversGrad01() {
+        validateJSON("pservers-grad-01-b-manual")
+    }
+    
+    func testPserversGrad02() {
+        validateJSON("pservers-grad-02-b-manual")
+    }
+    
+    func testPserversGrad07() {
+        validateJSON("pservers-grad-07-b-manual")
+    }
 }

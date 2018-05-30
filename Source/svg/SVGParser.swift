@@ -544,8 +544,7 @@ open class SVGParser {
         return styleAttributes
     }
 
-    fileprivate func createColor(_ hexString: String, opacity: Double = 1) -> Color {
-        let opacity = min(max(opacity, 0), 1)
+    fileprivate func createColorFromHex(_ hexString: String, opacity: Double = 1) -> Color {
         var cleanedHexString = hexString
         if hexString.hasPrefix("#") {
             cleanedHexString = hexString.replacingOccurrences(of: "#", with: "")
@@ -564,41 +563,42 @@ open class SVGParser {
         return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 
+    fileprivate func createColor(_ colorString: String, opacity: Double = 1) -> Color? {
+        if colorString == "none" || colorString == "transparent" {
+            return .none
+        }
+        let opacity = min(max(opacity, 0), 1)
+        if let defaultColor = SVGConstants.colorList[colorString] {
+            let color = Color(val: defaultColor)
+            return opacity != 1 ? color.with(a: opacity) : color
+        }
+        if colorString.hasPrefix("rgb") {
+            let color = parseRGBNotation(colorString: colorString)
+            return opacity != 1 ? color.with(a: opacity) : color
+        }
+        return createColorFromHex(colorString, opacity: opacity)
+    }
+
     fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
         guard var fillColor = styleParts["fill"] else {
             return Color.black
         }
-        if fillColor == "none" || fillColor == "transparent" {
-            return .none
+        if let colorId = parseIdFromUrl(fillColor) {
+            return defFills[colorId]
         }
         if fillColor == "currentColor", let currentColor = groupStyle["color"] {
             fillColor = currentColor
         }
+
         var opacity: Double = 1
-        var hasFillOpacity = false
         if let fillOpacity = styleParts["fill-opacity"] {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
-            hasFillOpacity = true
         }
-        if let defaultColor = SVGConstants.colorList[fillColor] {
-            let color = Color(val: defaultColor)
-            return hasFillOpacity ? color.with(a: opacity) : color
-        }
-        if fillColor.hasPrefix("rgb") {
-            let color = parseRGBNotation(colorString: fillColor)
-            return hasFillOpacity ? color.with(a: opacity) : color
-        } else if let colorId = parseIdFromUrl(fillColor) {
-            return defFills[colorId]
-        } else {
-            return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
-        }
+        return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
     }
 
     fileprivate func getStroke(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Stroke? {
         guard var strokeColor = styleParts["stroke"] else {
-            return .none
-        }
-        if strokeColor == "none" {
             return .none
         }
         if strokeColor == "currentColor", let currentColor = groupStyle["color"] {
@@ -610,12 +610,7 @@ open class SVGParser {
             opacity = min(max(opacity, 0), 1)
         }
         var fill: Fill?
-        if let defaultColor = SVGConstants.colorList[strokeColor] {
-            let color = Color(val: defaultColor)
-            fill = color.with(a: opacity)
-        } else if strokeColor.hasPrefix("rgb") {
-            fill = parseRGBNotation(colorString: strokeColor)
-        } else if let colorId = parseIdFromUrl(strokeColor) {
+        if let colorId = parseIdFromUrl(strokeColor) {
             fill = defFills[colorId]
         } else {
             fill = createColor(strokeColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
@@ -1266,7 +1261,6 @@ open class SVGParser {
         guard let element = stop.element else {
             return .none
         }
-
         guard let offset = getDoubleValueFromPercentage(element, attribute: "offset") else {
             return .none
         }
@@ -1280,12 +1274,7 @@ open class SVGParser {
             if stopColor == "currentColor", let currentColor = groupStyle["color"] {
                 stopColor = currentColor
             }
-            if let defaultColor = SVGConstants.colorList[stopColor] {
-                color = Color(val: defaultColor).with(a: opacity)
-            } else {
-                color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
-            }
-
+            color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)!
         }
 
         return Stop(offset: offset, color: color)

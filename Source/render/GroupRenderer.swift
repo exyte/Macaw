@@ -11,10 +11,10 @@ class GroupRenderer: NodeRenderer {
     fileprivate var renderers: [NodeRenderer] = []
     let renderingInterval: RenderingInterval?
 
-    init(group: Group, ctx: RenderContext, animationCache: AnimationCache?, interval: RenderingInterval? = .none) {
+    init(group: Group, animationCache: AnimationCache?, interval: RenderingInterval? = .none) {
         self.group = group
         self.renderingInterval = interval
-        super.init(node: group, ctx: ctx, animationCache: animationCache)
+        super.init(node: group, animationCache: animationCache)
         updateRenderers()
     }
 
@@ -35,9 +35,9 @@ class GroupRenderer: NodeRenderer {
         return group
     }
 
-    override func doRender(_ force: Bool, opacity: Double) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
         renderers.forEach { renderer in
-            renderer.render(force: force, opacity: opacity)
+            renderer.render(in: context, force: force, opacity: opacity, useAlphaOnly: useAlphaOnly)
         }
     }
 
@@ -62,12 +62,12 @@ class GroupRenderer: NodeRenderer {
 
         if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
             guard let interval = renderingInterval else {
-                return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache)
+                return RenderUtils.createNodeRenderer(child, animationCache: animationCache)
             }
 
             let index = AnimationUtils.absoluteIndex(child, useCache: true)
             if index > interval.from && index < interval.to {
-                return RenderUtils.createNodeRenderer(child, context: ctx, animationCache: animationCache, interval: interval)
+                return RenderUtils.createNodeRenderer(child, animationCache: animationCache, interval: interval)
             }
 
             return .none

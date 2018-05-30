@@ -34,10 +34,10 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit",
-                                    "fill", "fill-rule", "text-anchor", "clip-path", "fill-opacity",
-                                    "stop-color", "stop-opacity",
-                                    "font-family", "font-size",
-                                    "font-weight", "opacity", "color", "visibility"]
+                                    "fill", "fill-rule", "fill-opacity", "clip-path",
+                                    "opacity", "color", "stop-color", "stop-opacity",
+                                    "font-family", "font-size", "font-weight", "text-anchor",
+                                    "visibility"]
 
     fileprivate let xmlString: String
     fileprivate let initialPosition: Transform
@@ -159,10 +159,11 @@ open class SVGParser {
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
+        var result: Node? = nil
         if let element = node.element {
             switch element.name {
             case "g":
-                return parseGroup(node, groupStyle: groupStyle)
+                result = parseGroup(node, groupStyle: groupStyle)
             case "clipPath":
                 if let id = element.allAttributes["id"]?.text, let clip = parseClip(node) {
                     self.defClip[id] = clip
@@ -171,10 +172,14 @@ open class SVGParser {
                 // do nothing - it was parsed on first iteration
                 return .none
             default:
-                return parseElement(node, groupStyle: groupStyle)
+                result = parseElement(node, groupStyle: groupStyle)
+            }
+
+            if let result = result, let filterString = element.allAttributes["filter"]?.text ?? groupStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
+                result.effect = effect
             }
         }
-        return .none
+        return result
     }
 
     fileprivate var styleTable: [String: [String: String]] = [:]
@@ -238,10 +243,6 @@ open class SVGParser {
 
         guard let parsedNode = parseElementInternal(node, groupStyle: nodeStyle) else {
             return .none
-        }
-
-        if let filterString = element.allAttributes["filter"]?.text ?? nodeStyle["filter"], let filterId = parseIdFromUrl(filterString), let effect = defEffects[filterId] {
-            parsedNode.effect = effect
         }
 
         return parsedNode
@@ -684,10 +685,7 @@ open class SVGParser {
     fileprivate func getStrokeDashes(_ styleParts: [String: String]) -> [Double] {
         var dashes = [Double]()
         if let strokeDashes = styleParts["stroke-dasharray"] {
-            var characterSet = CharacterSet()
-            characterSet.insert(" ")
-            characterSet.insert(",")
-            let separatedValues = strokeDashes.components(separatedBy: characterSet)
+            let separatedValues = strokeDashes.components(separatedBy: CharacterSet(charactersIn: " ,"))
             separatedValues.forEach { value in
                 if let doubleValue = doubleFromString(value) {
                     dashes.append(doubleValue)
@@ -695,6 +693,19 @@ open class SVGParser {
             }
         }
         return dashes
+    }
+
+    fileprivate func getMatrix(_ element: SWXMLHash.XMLElement, attribute: String) -> [Double] {
+        var result = [Double]()
+        if let values = element.allAttributes[attribute]?.text {
+            let separatedValues = values.components(separatedBy: CharacterSet(charactersIn: " ,"))
+            separatedValues.forEach { value in
+                if let doubleValue = doubleFromString(value) {
+                    result.append(doubleValue)
+                }
+            }
+        }
+        return result
     }
 
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
@@ -1046,12 +1057,27 @@ open class SVGParser {
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
                     effects[filterIn] = GaussianBlur(radius: radius, input: currentEffect)
                 }
+            case "feColorMatrix":
+                if let type = element.allAttributes["type"]?.text {
+                    if type == "saturate" {
+                        effects[filterIn] = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
+                    }
+                    if type == "hueRotate" {
+                        let degrees = getDoubleValue(element, attribute: "values")!
+                        effects[filterIn] = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
+                    }
+                    if type == "luminanceToAlpha" {
+                        effects[filterIn] = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
+                    } else { // "matrix"
+                        effects[filterIn] = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
+                    }
+                }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
                     if filterIn2 == defaultSource {
-                        effects[filterIn] = nil
+                        effects[filterIn] = BlendEffect(input: nil)
                     } else if filterIn == defaultSource {
-                        effects[filterIn2] = nil
+                        effects[filterIn2] = BlendEffect(input: nil)
                     }
                 }
             default:
@@ -1059,7 +1085,14 @@ open class SVGParser {
                 continue
             }
         }
-        return effects.first?.value
+
+        if let effect = effects["SourceAlpha"] {
+            return AlphaEffect(input: effect)
+        }
+        if let effect = effects[defaultSource] {
+            return effect
+        }
+        return nil
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {

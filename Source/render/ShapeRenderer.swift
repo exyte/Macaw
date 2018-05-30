@@ -10,9 +10,9 @@ class ShapeRenderer: NodeRenderer {
 
     weak var shape: Shape?
 
-    init(shape: Shape, ctx: RenderContext, animationCache: AnimationCache?) {
+    init(shape: Shape, animationCache: AnimationCache?) {
         self.shape = shape
-        super.init(node: shape, ctx: ctx, animationCache: animationCache)
+        super.init(node: shape, animationCache: animationCache)
     }
 
     override func node() -> Node? {
@@ -31,122 +31,26 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
-    fileprivate func drawShape(in context: CGContext, opacity: Double) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
         guard let shape = shape else {
-            return
-        }
-        setGeometry(shape.form, ctx: context)
-        var fillRule = FillRule.nonzero
-        if let path = shape.form as? Path {
-            fillRule = path.fillRule
-        }
-        drawPath(shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
-    }
-
-    override func doRender(_ force: Bool, opacity: Double) {
-        guard let shape = shape, let context = ctx.cgContext else {
             return
         }
         if shape.fill == nil && shape.stroke == nil {
             return
         }
 
-        // no effects, just draw as usual
-        guard let effect = shape.effect else {
-            drawShape(in: context, opacity: opacity)
-            return
+        setGeometry(shape.form, ctx: context)
+
+        var fillRule = FillRule.nonzero
+        if let path = shape.form as? Path {
+            fillRule = path.fillRule
         }
 
-        var effects = [Effect]()
-        var next: Effect? = effect
-        while next != nil {
-            effects.append(next!)
-            next = next?.input
-        }
-
-        let offset = effects.first { $0 is OffsetEffect }
-        let otherEffects = effects.filter { !($0 is OffsetEffect) }
-        if let offset = offset as? OffsetEffect {
-            let move = Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: offset.dx, dy: offset.dy)
-            context.concatenate(move.toCG())
-
-            if otherEffects.isEmpty {
-                // draw offset shape
-                drawShape(in: context, opacity: opacity)
-            } else {
-                // apply other effects to offset shape
-                applyEffects(otherEffects, opacity: opacity)
-            }
-
-            // move back and draw the shape itself
-            context.concatenate(move.invert()!.toCG())
-            drawShape(in: context, opacity: opacity)
+        if !useAlphaOnly {
+            drawPath(fill: shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
         } else {
-            // draw the shape
-            drawShape(in: context, opacity: opacity)
-
-            // apply other effects to shape
-            applyEffects(otherEffects, opacity: opacity)
+            drawPath(fill: shape.fill?.fillUsingAlphaOnly(), stroke: shape.stroke?.strokeUsingAlphaOnly(), ctx: context, opacity: opacity, fillRule: fillRule)
         }
-    }
-
-    fileprivate func applyEffects(_ effects: [Effect], opacity: Double) {
-        guard let shape = shape, let context = ctx.cgContext else {
-            return
-        }
-        for effect in effects {
-            if let blur = effect as? GaussianBlur {
-                let shadowInset = min(blur.radius * 6 + 1, 150)
-                guard let shapeImage = saveToImage(shape: shape, shadowInset: shadowInset, opacity: opacity)?.cgImage else {
-                    return
-                }
-
-                guard let filteredImage = applyBlur(shapeImage, blur: blur) else {
-                    return
-                }
-
-                guard let bounds = shape.bounds() else {
-                    return
-                }
-                context.draw(filteredImage, in: CGRect(x: bounds.x - shadowInset / 2, y: bounds.y - shadowInset / 2, width: bounds.w + shadowInset, height: bounds.h + shadowInset))
-            }
-        }
-    }
-
-    fileprivate func applyBlur(_ image: CGImage, blur: GaussianBlur) -> CGImage? {
-        let image = CIImage(cgImage: image)
-        guard let filter = CIFilter(name: "CIGaussianBlur") else {
-            return .none
-        }
-        filter.setDefaults()
-        filter.setValue(Int(blur.radius), forKey: kCIInputRadiusKey)
-        filter.setValue(image, forKey: kCIInputImageKey)
-
-        let context = CIContext(options: nil)
-        let imageRef = context.createCGImage(filter.outputImage!, from: image.extent)
-        return imageRef
-    }
-
-    fileprivate func saveToImage(shape: Shape, shadowInset: Double, opacity: Double) -> MImage? {
-        guard let size = shape.bounds() else {
-            return .none
-        }
-        MGraphicsBeginImageContextWithOptions(CGSize(width: size.w + shadowInset, height: size.h + shadowInset), false, 1)
-
-        guard let tempContext = MGraphicsGetCurrentContext() else {
-            return .none
-        }
-
-        if shape.fill != nil || shape.stroke != nil {
-            // flip y-axis and leave space for the blur
-            tempContext.translateBy(x: CGFloat(shadowInset / 2 - size.x), y: CGFloat(size.h + shadowInset / 2 + size.y))
-            tempContext.scaleBy(x: 1, y: -1)
-            drawShape(in: tempContext, opacity: opacity)
-        }
-
-        let img = MGraphicsGetImageFromCurrentImageContext()
-        MGraphicsEndImageContext()
-        return img
     }
 
     override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
@@ -183,10 +87,10 @@ class ShapeRenderer: NodeRenderer {
 
     fileprivate func setGeometry(_ locus: Locus, ctx: CGContext) {
         if let rect = locus as? Rect {
-            ctx.addRect(newCGRect(rect))
+            ctx.addRect(rect.toCG())
         } else if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            let path = MBezierPath(roundedRect: newCGRect(round.rect), byRoundingCorners:
+            let path = MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
                 MRectCorner.allCorners, cornerRadii: corners).cgPath
             ctx.addPath(path)
         } else if let circle = locus as? Circle {
@@ -205,11 +109,7 @@ class ShapeRenderer: NodeRenderer {
         }
     }
 
-    fileprivate func newCGRect(_ rect: Rect) -> CGRect {
-        return CGRect(x: CGFloat(rect.x), y: CGFloat(rect.y), width: CGFloat(rect.w), height: CGFloat(rect.h))
-    }
-
-    fileprivate func drawPath(_ fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
+    fileprivate func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
         var shouldStrokePath = false
         if fill is Gradient || stroke?.fill is Gradient {
             shouldStrokePath = true
@@ -345,4 +245,31 @@ class ShapeRenderer: NodeRenderer {
         ctx!.restoreGState()
     }
 
+}
+
+extension Stroke {
+    func strokeUsingAlphaOnly() -> Stroke {
+        return Stroke(fill: fill.fillUsingAlphaOnly(), width: width, cap: cap, join: join, dashes: dashes, offset: offset)
+    }
+}
+
+extension Fill {
+    func fillUsingAlphaOnly() -> Fill {
+        if let color = self as? Color {
+            return color.colorUsingAlphaOnly()
+        }
+        let gradient = self as! Gradient
+        let newStops = gradient.stops.map { Stop(offset: $0.offset, color: $0.color.colorUsingAlphaOnly()) }
+        if let radial = self as? RadialGradient {
+            return RadialGradient(cx: radial.cx, cy: radial.cy, fx: radial.fx, fy: radial.fy, r: radial.r, userSpace: radial.userSpace, stops: newStops)
+        }
+        let linear = self as! LinearGradient
+        return LinearGradient(x1: linear.x1, y1: linear.y1, x2: linear.x2, y2: linear.y2, userSpace: linear.userSpace, stops: newStops)
+    }
+}
+
+extension Color {
+    func colorUsingAlphaOnly() -> Color {
+        return Color.black.with(a: Double(a()) / 255.0)
+    }
 }

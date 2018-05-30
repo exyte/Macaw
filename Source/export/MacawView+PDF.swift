@@ -28,7 +28,7 @@ public extension MacawView {
         )
 
         context.cgContext = ctx
-        renderer?.render(force: false, opacity: node.opacity)
+        renderer?.render(in: ctx, force: false, opacity: node.opacity)
 
         ctx.endPDFPage()
     }

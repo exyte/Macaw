@@ -456,6 +456,10 @@
 		5BAE204C208E1EF4006BF277 /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE201E208E1211006BF277 /* SVGCanvas.swift */; };
 		5BAE2058208F24DE006BF277 /* SceneSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE2057208F24DE006BF277 /* SceneSerialization.swift */; };
 		5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9C8206CEAA20049AAAE /* viewBox.svg */; };
+		5BFEF5CE20B80A83008DAC11 /* BlendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */; };
+		5BFEF5CF20B80A83008DAC11 /* BlendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */; };
+		5BFEF5D020B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */; };
+		5BFEF5D120B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */; };
 		5BFEF5D620BC1C1F008DAC11 /* paths-data-18-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */; };
 		5BFEF5D720BC1C1F008DAC11 /* paths-data-18-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
@@ -843,6 +847,8 @@
 		5BAE2035208E163C006BF277 /* clip.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clip.reference; sourceTree = "<group>"; };
 		5BAE2057208F24DE006BF277 /* SceneSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneSerialization.swift; sourceTree = "<group>"; };
 		5BAEA9C8206CEAA20049AAAE /* viewBox.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.svg; sourceTree = "<group>"; };
+		5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendEffect.swift; sourceTree = "<group>"; };
+		5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMatrixEffect.swift; sourceTree = "<group>"; };
 		5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-18-f-manual.svg"; sourceTree = "<group>"; };
 		5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-18-f-manual.reference"; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -1116,7 +1122,9 @@
 				5B6E190F20AC58F700454E7E /* AlphaEffect.swift */,
 				5B6E191420AC58F700454E7E /* AspectRatio.swift */,
 				5B6E191820AC58F800454E7E /* Baseline.swift */,
+				5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */,
 				5B6E191F20AC58F900454E7E /* Color.swift */,
+				5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */,
 				5B6E191B20AC58F800454E7E /* Drawable.swift */,
 				5B6E191C20AC58F800454E7E /* Effect.swift */,
 				5B6E191D20AC58F900454E7E /* Fill.swift */,
@@ -1982,8 +1990,10 @@
 				57614B461F83D15600875933 /* ContentsAnimation.swift in Sources */,
 				57614B471F83D15600875933 /* TouchEvent.swift in Sources */,
 				57614B481F83D15600875933 /* MBezierPath+Extension_macOS.swift in Sources */,
+				5BFEF5CF20B80A83008DAC11 /* BlendEffect.swift in Sources */,
 				57614B491F83D15600875933 /* MView_macOS.swift in Sources */,
 				5B6E192E20AC58F900454E7E /* Font.swift in Sources */,
+				5BFEF5D120B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */,
 				57614B4A1F83D15600875933 /* Easing.swift in Sources */,
 				57614B4B1F83D15600875933 /* Point.swift in Sources */,
 				5B6E192620AC58F900454E7E /* GaussianBlur.swift in Sources */,
@@ -2112,8 +2122,10 @@
 				57E5E16D1E3B393900D1CB28 /* ContentsAnimation.swift in Sources */,
 				5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */,
 				A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */,
+				5BFEF5CE20B80A83008DAC11 /* BlendEffect.swift in Sources */,
 				A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */,
 				57E5E1581E3B393900D1CB28 /* Easing.swift in Sources */,
+				5BFEF5D020B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */,
 				5B6E192D20AC58F900454E7E /* Font.swift in Sources */,
 				57E5E1971E3B393900D1CB28 /* Point.swift in Sources */,
 				57E5E1681E3B393900D1CB28 /* OpacityGenerator.swift in Sources */,

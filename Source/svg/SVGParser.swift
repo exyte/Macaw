@@ -802,7 +802,7 @@ open class SVGParser {
 
     fileprivate func parsePoints(_ pointsString: String) -> [Double] {
         var resultPoints: [Double] = []
-        let pointPairs = pointsString.components(separatedBy: " ")
+        let pointPairs = pointsString.replacingOccurrences(of: "-", with: " -").components(separatedBy: " ")
 
         pointPairs.forEach { pointPair in
             let points = pointPair.components(separatedBy: ",")

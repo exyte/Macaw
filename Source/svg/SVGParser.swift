@@ -1069,10 +1069,7 @@ open class SVGParser {
                     if type == "luminanceToAlpha" {
                         effects[filterIn] = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
                     } else { // "matrix"
-                        let matrix = getMatrix(element, attribute: "values")
-                        if matrix.count == 20 {
-                            effects[filterIn] = ColorMatrixEffect(matrix: matrix, input: currentEffect)
-                        }
+                        effects[filterIn] = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
                     }
                 }
             case "feBlend":

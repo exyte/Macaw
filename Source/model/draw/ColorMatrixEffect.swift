@@ -8,6 +8,9 @@ open class ColorMatrixEffect: Effect {
                                     0, 1, 0, 0, 0,
                                     0, 0, 1, 0, 0,
                                     0, 0, 0, 1, 0], input: Effect? = nil) {
+        if matrix.count != 20 {
+            fatalError("ColorMatrixEffect: wrong matrix count")
+        }
         self.matrix = matrix
         super.init(input: input)
     }

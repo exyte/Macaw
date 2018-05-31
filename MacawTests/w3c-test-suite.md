@@ -121,7 +121,6 @@ Status of each test:
 |[imp-path-01-f-manual](w3cSVGTests/imp-path-01-f-manual.svg)       | ❌                                                 |
 |[masking-filter-01-f-manual](w3cSVGTests/masking-filter-01-f-manual.svg)       | ❌                                                 |
 |[masking-intro-01-f-manual](w3cSVGTests/masking-intro-01-f-manual.svg)       | ❌                                                 |
-|[masking-mask-01-b-manual](w3cSVGTests/masking-mask-01-b-manual.svg)       | ❌                                                 |
 |[masking-mask-02-f-manual](w3cSVGTests/masking-mask-02-f-manual.svg)       | ❌                                                 |
 |[masking-opacity-01-b-manual](w3cSVGTests/masking-opacity-01-b-manual.svg)       | ❌                                                 |
 |[masking-path-01-b-manual](w3cSVGTests/masking-path-01-b-manual.svg)       | ❌                                                 |
@@ -132,10 +131,8 @@ Status of each test:
 |[masking-path-06-b-manual](w3cSVGTests/masking-path-06-b-manual.svg)       | ❌                                                 |
 |[masking-path-07-b-manual](w3cSVGTests/masking-path-07-b-manual.svg)       | ❌                                                 |
 |[masking-path-08-b-manual](w3cSVGTests/masking-path-08-b-manual.svg)       | ❌                                                 |
-|[masking-path-09-b-manual](w3cSVGTests/masking-path-09-b-manual.svg)       | ❌                                                 |
 |[masking-path-10-b-manual](w3cSVGTests/masking-path-10-b-manual.svg)       | ❌                                                 |
 |[masking-path-11-b-manual](w3cSVGTests/masking-path-11-b-manual.svg)       | ❌                                                 |
-|[masking-path-12-f-manual](w3cSVGTests/masking-path-12-f-manual.svg)       | ❌                                                 |
 |[masking-path-13-f-manual](w3cSVGTests/masking-path-13-f-manual.svg)       | ❌                                                 |
 |[masking-path-14-f-manual](w3cSVGTests/masking-path-14-f-manual.svg)       | ❌                                                 |
 |[metadata-example-01-t-manual](w3cSVGTests/metadata-example-01-t-manual.svg)       | ✅                                                 |

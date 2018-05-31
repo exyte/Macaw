@@ -10,13 +10,13 @@ There are 521 SVG tests in total. 215 files use features that are not covered by
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 30% passed (92)
-* 16.9% not yet covered (52)
-* 14% filters (43)
+* 30.1% passed (92)
+* 17% not yet covered (52)
+* 14.1% filters (43)
 * 7.8% images (24)
 * 2.6% markers (8)
 * 19.9% text (61)
-* 8.4% blocked by issues (26)
+* 8.5% blocked by issues (26)
 
 Status of each test:
 

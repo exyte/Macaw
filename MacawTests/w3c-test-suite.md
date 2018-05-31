@@ -1,22 +1,22 @@
 ## W3C SVG Test Suite Coverage
 
-There are 521 SVG tests in total. 212 files uses features that are not covered by Macaw right now, namely:
-* [Scripts](https://www.w3.org/TR/SVG11/script.html#ScriptElement) (57)
+There are 521 SVG tests in total. 215 files use features that are not covered by Macaw right now, namely:
+* [Scripts](https://www.w3.org/TR/SVG11/script.html#ScriptElement) (59)
 * [Interactivity](https://www.w3.org/TR/SVG11/interact.html) (33)
 * [Linking](https://www.w3.org/TR/SVG11/linking.html) (16)
-* [Glyphs](https://www.w3.org/TR/SVG11/text.html#AltGlyphElement) (3)
+* [Glyphs](https://www.w3.org/TR/SVG11/text.html#AltGlyphElement) (4)
 * [Styling](https://www.w3.org/TR/SVG11/styling.html#StyleElement) (25)
 * [Animation](https://www.w3.org/TR/SVG11/animate.html#AnimateElement) (71)
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
-The rest 309 tests can be split into following categories:
-* 29.7% passed (92)
-* 18.4% not yet covered (57)
+The rest 306 tests can be split into following categories:
+* 30% passed (92)
+* 16.9% not yet covered (52)
 * 14% filters (43)
 * 7.8% images (24)
 * 2.6% markers (8)
-* 19.7% text (61)
-* 7.7% blocked by issues (24)
+* 19.9% text (61)
+* 8.4% blocked by issues (26)
 
 Status of each test:
 
@@ -241,12 +241,12 @@ Status of each test:
 |[shapes-polygon-03-t-manual](w3cSVGTests/shapes-polygon-03-t-manual.svg)       | ✅                                                 |
 |[shapes-polyline-01-t-manual](w3cSVGTests/shapes-polyline-01-t-manual.svg)       | ✅                                                 |
 |[shapes-polyline-02-t-manual](w3cSVGTests/shapes-polyline-02-t-manual.svg)       | ✅                                                 |
-|[shapes-rect-02-t-manual](w3cSVGTests/shapes-rect-02-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
-|[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌[ios bug](https://stackoverflow.com/q/18880919)|
+|[shapes-rect-02-t-manual](w3cSVGTests/shapes-rect-02-t-manual.svg)       | ❌ [ios bug](https://stackoverflow.com/q/18880919)|
+|[shapes-rect-03-t-manual](w3cSVGTests/shapes-rect-03-t-manual.svg)       | ❌ [ios bug](https://stackoverflow.com/q/18880919)|
 |[shapes-rect-04-f-manual](w3cSVGTests/shapes-rect-04-f-manual.svg)       | ✅                                                 |
 |[shapes-rect-05-f-manual](w3cSVGTests/shapes-rect-05-f-manual.svg)       | ✅                                                 |
-|[shapes-rect-06-f-manual](w3cSVGTests/shapes-rect-06-f-manual.svg)       | ❌                                                 |
-|[shapes-rect-07-f-manual](w3cSVGTests/shapes-rect-07-f-manual.svg)       | ❌                                                 |
+|[shapes-rect-06-f-manual](w3cSVGTests/shapes-rect-06-f-manual.svg)       | ❌ [ios bug](https://stackoverflow.com/q/18880919)                                                 |
+|[shapes-rect-07-f-manual](w3cSVGTests/shapes-rect-07-f-manual.svg)       | ❌ [ios bug](https://stackoverflow.com/q/18880919)                                                 |
 |[struct-defs-01-t-manual](w3cSVGTests/struct-defs-01-t-manual.svg)       | ✅                                                 |
 |[struct-frag-01-t-manual](w3cSVGTests/struct-frag-01-t-manual.svg)       | ✅                                                 |
 |[struct-frag-02-t-manual](w3cSVGTests/struct-frag-02-t-manual.svg)       | ✅                                                 |

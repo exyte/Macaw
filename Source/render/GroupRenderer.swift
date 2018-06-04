@@ -11,10 +11,10 @@ class GroupRenderer: NodeRenderer {
     fileprivate var renderers: [NodeRenderer] = []
     let renderingInterval: RenderingInterval?
 
-    init(group: Group, animationCache: AnimationCache?, interval: RenderingInterval? = .none) {
+    init(group: Group, view: MView?, animationCache: AnimationCache?, interval: RenderingInterval? = .none) {
         self.group = group
         self.renderingInterval = interval
-        super.init(node: group, animationCache: animationCache)
+        super.init(node: group, view: view, animationCache: animationCache)
         updateRenderers()
     }
 
@@ -62,12 +62,12 @@ class GroupRenderer: NodeRenderer {
 
         if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
             guard let interval = renderingInterval else {
-                return RenderUtils.createNodeRenderer(child, animationCache: animationCache)
+                return RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
             }
 
             let index = AnimationUtils.absoluteIndex(child, useCache: true)
             if index > interval.from && index < interval.to {
-                return RenderUtils.createNodeRenderer(child, animationCache: animationCache, interval: interval)
+                return RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache, interval: interval)
             }
 
             return .none

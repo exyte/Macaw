@@ -9,9 +9,9 @@ import AppKit
 class TextRenderer: NodeRenderer {
     weak var text: Text?
 
-    init(text: Text, animationCache: AnimationCache?) {
+    init(text: Text, view: MView?, animationCache: AnimationCache?) {
         self.text = text
-        super.init(node: text, animationCache: animationCache)
+        super.init(node: text, view: view, animationCache: animationCache)
     }
 
     override func node() -> Node? {

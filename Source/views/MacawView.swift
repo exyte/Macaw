@@ -22,7 +22,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             nodesMap.add(node, view: self)
             self.renderer?.dispose()
             if let cache = animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
+                self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
             }
 
             if let _ = superview {
@@ -93,7 +93,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             initializeView()
 
             if let cache = self.animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
+                self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
             }
         }
     }
@@ -107,7 +107,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.node = node
         nodesMap.add(node, view: self)
         if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
+            self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
         }
     }
 
@@ -117,7 +117,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.node = node
         nodesMap.add(node, view: self)
         if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, animationCache: cache)
+            self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
         }
     }
 

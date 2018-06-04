@@ -13,9 +13,9 @@ class ImageRenderer: NodeRenderer {
 
     var renderedPaths: [CGPath] = [CGPath]()
 
-    init(image: Image, animationCache: AnimationCache?) {
+    init(image: Image, view: MView?, animationCache: AnimationCache?) {
         self.image = image
-        super.init(node: image, animationCache: animationCache)
+        super.init(node: image, view: view, animationCache: animationCache)
     }
 
     override func node() -> Node? {

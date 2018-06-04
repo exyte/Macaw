@@ -12,13 +12,16 @@ struct RenderingInterval {
 }
 
 class NodeRenderer {
+    
+    let view: MView?
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
     weak var animationCache: AnimationCache?
 
-    init(node: Node, animationCache: AnimationCache?) {
+    init(node: Node, view: MView?, animationCache: AnimationCache?) {
+        self.view = view
         self.animationCache = animationCache
 
         onNodeChange = {
@@ -29,6 +32,8 @@ class NodeRenderer {
             if isAnimating {
                 return
             }
+            
+            view?.setNeedsDisplay()
         }
 
         addObservers()

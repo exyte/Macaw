@@ -35,7 +35,7 @@ class ShapeLayer: CAShapeLayer {
             ctx.concatenate(renderTransform)
         }
 
-        let renderer = RenderUtils.createNodeRenderer(node, animationCache: animationCache, interval: renderingInterval)
+        let renderer = RenderUtils.createNodeRenderer(node, view: renderContext.view, animationCache: animationCache, interval: renderingInterval)
         renderer.directRender(in: ctx, force: isForceRenderingEnabled)
         renderer.dispose()
     }

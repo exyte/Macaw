@@ -11,10 +11,10 @@ There are 521 SVG tests in total. 215 files use features that are not covered by
 
 The rest 306 tests can be split into following categories:
 * 30.1% passed (92)
-* 14.1% filters (43)
-* 7.8% images (24)
-* 2.6% markers (8)
-* 19.9% text (61)
+* 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
+* 7.8% images (24) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
+* 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
+* 19.9% text (61) [#391](https://github.com/exyte/Macaw/issues/391) 
 * 25.5% blocked by issues (78)
 
 Status of each test:
@@ -146,13 +146,13 @@ Status of each test:
 |[painting-fill-03-t-manual](w3cSVGTests/painting-fill-03-t-manual.svg)       | ✅                                                 |
 |[painting-fill-04-t-manual](w3cSVGTests/painting-fill-04-t-manual.svg)       | ✅                                                 |
 |[painting-fill-05-b-manual](w3cSVGTests/painting-fill-05-b-manual.svg)       | ✅                                                 |
-|[painting-marker-01-f-manual](w3cSVGTests/painting-marker-01-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)   |
-|[painting-marker-02-f-manual](w3cSVGTests/painting-marker-02-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)   |
-|[painting-marker-03-f-manual](w3cSVGTests/painting-marker-03-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)   |
-|[painting-marker-04-f-manual](w3cSVGTests/painting-marker-04-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)   |
-|[painting-marker-05-f-manual](w3cSVGTests/painting-marker-05-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)  |
-|[painting-marker-06-f-manual](w3cSVGTests/painting-marker-06-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)   |
-|[painting-marker-07-f-manual](w3cSVGTests/painting-marker-07-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)    |
+|[painting-marker-01-f-manual](w3cSVGTests/painting-marker-01-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)   |
+|[painting-marker-02-f-manual](w3cSVGTests/painting-marker-02-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)   |
+|[painting-marker-03-f-manual](w3cSVGTests/painting-marker-03-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)   |
+|[painting-marker-04-f-manual](w3cSVGTests/painting-marker-04-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)   |
+|[painting-marker-05-f-manual](w3cSVGTests/painting-marker-05-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)  |
+|[painting-marker-06-f-manual](w3cSVGTests/painting-marker-06-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)   |
+|[painting-marker-07-f-manual](w3cSVGTests/painting-marker-07-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)    |
 |[painting-render-01-b-manual](w3cSVGTests/painting-render-01-b-manual.svg)       | [#184](https://github.com/exyte/Macaw/issues/184) |
 |[painting-render-02-b-manual](w3cSVGTests/painting-render-02-b-manual.svg)       | [#184](https://github.com/exyte/Macaw/issues/184) |
 |[painting-stroke-01-t-manual](w3cSVGTests/painting-stroke-01-t-manual.svg)       | ✅                                                 |

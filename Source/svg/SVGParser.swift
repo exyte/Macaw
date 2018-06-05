@@ -1035,57 +1035,66 @@ open class SVGParser {
     fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
         let defaultSource = "SourceGraphic"
         var effects = [String: Effect]()
-        for child in filterNode.children.reversed() {
+        for child in filterNode.children {
             guard let element = child.element else { continue }
 
-            let filterIn = element.allAttributes["in"]?.text ?? defaultSource
-            let filterOut = element.allAttributes["result"]?.text ?? ""
-            let currentEffect = effects[filterOut]
-            effects.removeValue(forKey: filterOut)
+            let filterIn = element.allAttributes["in"]!.text
+            var currentEffect = effects[filterIn]
+            if currentEffect == nil && filterIn == "SourceAlpha" {
+                currentEffect = AlphaEffect(input: nil)
+            } else if currentEffect == nil && filterIn != defaultSource {
+                fatalError("Filter parsing: Incorrect effects order")
+            }
+            effects.removeValue(forKey: filterIn)
+
+            let filterOut = element.allAttributes["result"]?.text
+            var resultingEffect: Effect? = .none
 
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"), let dy = getDoubleValue(element, attribute: "dy") {
-                    effects[filterIn] = OffsetEffect(dx: dx, dy: dy, input: currentEffect)
+                    resultingEffect = OffsetEffect(dx: dx, dy: dy, input: currentEffect)
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    effects[filterIn] = GaussianBlur(radius: radius, input: currentEffect)
+                    resultingEffect = GaussianBlur(radius: radius, input: currentEffect)
                 }
             case "feColorMatrix":
                 if let type = element.allAttributes["type"]?.text {
                     if type == "saturate" {
-                        effects[filterIn] = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
+                        resultingEffect = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
                     }
                     if type == "hueRotate" {
                         let degrees = getDoubleValue(element, attribute: "values")!
-                        effects[filterIn] = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
+                        resultingEffect = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
                     }
                     if type == "luminanceToAlpha" {
-                        effects[filterIn] = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
+                        resultingEffect = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
                     } else { // "matrix"
-                        effects[filterIn] = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
+                        resultingEffect = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
                     }
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
-                    if filterIn2 == defaultSource {
-                        effects[filterIn] = BlendEffect(input: nil)
-                    } else if filterIn == defaultSource {
-                        effects[filterIn2] = BlendEffect(input: nil)
+                    if currentEffect != nil {
+                        resultingEffect = BlendEffect(input: currentEffect)
+                    } else if let currentEffect = effects[filterIn2] {
+                        resultingEffect = BlendEffect(input: currentEffect)
                     }
                 }
             default:
                 print("SVG parsing error. Filter \(element.name) not supported")
                 continue
             }
+
+            if filterOut == nil {
+                return resultingEffect
+            }
+            effects[filterOut!] = resultingEffect
         }
 
-        if let effect = effects["SourceAlpha"] {
-            return AlphaEffect(input: effect)
-        }
-        if let effect = effects[defaultSource] {
-            return effect
+        if effects.count == 1 {
+            return effects.first?.value
         }
         return nil
     }

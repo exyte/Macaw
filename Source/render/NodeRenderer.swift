@@ -12,7 +12,7 @@ struct RenderingInterval {
 }
 
 class NodeRenderer {
-    
+
     let view: MView?
 
     fileprivate let onNodeChange: () -> Void
@@ -32,7 +32,7 @@ class NodeRenderer {
             if isAnimating {
                 return
             }
-            
+
             view?.setNeedsDisplay()
         }
 
@@ -149,7 +149,7 @@ class NodeRenderer {
             next = next?.input
         }
         let offset = dx != 0 || dy != 0 ? OffsetEffect(dx: dx, dy: dy, input: nil) : nil
-        return (offset, otherEffects)
+        return (offset, otherEffects.reversed())
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, useAlphaOnly: Bool = false) {

@@ -46,7 +46,7 @@ open class SVGParser {
     fileprivate var defNodes = [String: XMLIndexer]()
     fileprivate var defFills = [String: Fill]()
     fileprivate var defMasks = [String: Shape]()
-    fileprivate var defClip = [String: Locus]()
+    fileprivate var defClip = [String: UserSpaceLocus]()
     fileprivate var defEffects = [String: Effect]()
 
     fileprivate enum PathCommandType {
@@ -262,34 +262,34 @@ open class SVGParser {
                 if let rule = getFillRule(styleAttributes) {
                     path = Path(segments: path.segments, fillRule: rule)
                 }
-                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), tag: getTag(element))
             }
         case "line":
             if let line = parseLine(node) {
-                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), tag: getTag(element))
             }
         case "rect":
             if let rect = parseRect(node) {
-                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), tag: getTag(element))
             }
         case "circle":
             if let circle = parseCircle(node) {
-                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), tag: getTag(element))
             }
         case "ellipse":
             if let ellipse = parseEllipse(node) {
-                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), tag: getTag(element))
             }
         case "polygon":
             if let polygon = parsePolygon(node) {
-                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), tag: getTag(element))
             }
         case "polyline":
             if let polyline = parsePolyline(node) {
-                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes), tag: getTag(element))
+                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), tag: getTag(element))
             }
         case "image":
-            return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes))
+            return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes, locus: nil))
         case "text":
             return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: styleAttributes),
                              stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
@@ -1018,18 +1018,30 @@ open class SVGParser {
         return node
     }
 
-    fileprivate func parseClip(_ clip: XMLIndexer) -> Locus? {
+    fileprivate func parseClip(_ clip: XMLIndexer) -> UserSpaceLocus? {
+        var userSpace = true
+        if let units = clip.element?.allAttributes["clipPathUnits"]?.text, units == "objectBoundingBox" {
+            userSpace = false
+        }
+
+        if clip.children.count == 0 {
+            return .none
+        }
+        if clip.children.count == 1 {
+            let shape = parseNode(clip.children.first!) as! Shape
+            return UserSpaceLocus(locus: shape.form, userSpace: userSpace)
+        }
         var path: Path? = .none
         clip.children.forEach { indexer in
             if let shape = parseNode(indexer) as? Shape {
                 if let p = path {
-                    path = Path(segments: p.segments + shape.form.toPath() .segments)
+                    path = Path(segments: p.segments + shape.form.toPath().segments, fillRule: p.fillRule)
                 } else {
-                    path = shape.form.toPath()
+                    path = Path(segments: shape.form.toPath().segments)
                 }
             }
         }
-        return path
+        return UserSpaceLocus(locus: path!, userSpace: userSpace)
     }
 
     fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
@@ -1407,10 +1419,15 @@ open class SVGParser {
         return false
     }
 
-    fileprivate func getClipPath(_ attributes: [String: String]) -> Locus? {
-        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
-            if let locus = defClip[id] {
-                return locus
+    fileprivate func getClipPath(_ attributes: [String: String], locus: Locus?) -> Locus? {
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath), let locus = locus {
+            if let userSpaceLocus = defClip[id] {
+                if !userSpaceLocus.userSpace {
+                    let boundingBox = locus.bounds()
+                    let transform = ContentLayout.of(contentMode: .scaleAspectFit).layout(size: Size(w: 1, h: 1), into: boundingBox.size()).move(dx: boundingBox.x / boundingBox.w, dy: boundingBox.y / boundingBox.h)
+                    return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
+                }
+                return userSpaceLocus.locus
             }
         }
         return .none
@@ -1695,5 +1712,15 @@ fileprivate extension String {
         let start = index(startIndex, offsetBy: fromStart)
         let end = index(endIndex, offsetBy: -fromEnd)
         return String(self[start..<end])
+    }
+}
+
+fileprivate class UserSpaceLocus {
+    let locus: Locus
+    let userSpace: Bool
+
+    init(locus: Locus, userSpace: Bool) {
+        self.locus = locus
+        self.userSpace = userSpace
     }
 }

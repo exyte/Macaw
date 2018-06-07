@@ -133,7 +133,7 @@ open class SVGSerializer {
     }
 
     fileprivate func roundRectToSVG(_ roundRect: RoundRect) -> String {
-        return tag(SVGRectOpenTag, ["rx": att(roundRect.rx), "ry": att(roundRect.ry), "width": att(roundRect.rect.w), "height": att(roundRect.rect.h)])
+        return tag(SVGRectOpenTag, ["x": att(roundRect.rect.x), "y": att(roundRect.rect.y), "width": att(roundRect.rect.w), "height": att(roundRect.rect.h), "rx": att(roundRect.rx), "ry": att(roundRect.ry)])
     }
 
     fileprivate func rectToSVG(_ rect: Rect) -> String {

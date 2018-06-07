@@ -289,7 +289,7 @@ open class SVGParser {
                 return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), tag: getTag(element))
             }
         case "image":
-            return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes, locus: Rect()))
+            return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes, locus: nil))
         case "text":
             return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: styleAttributes),
                              stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
@@ -1419,8 +1419,8 @@ open class SVGParser {
         return false
     }
 
-    fileprivate func getClipPath(_ attributes: [String: String], locus: Locus) -> Locus? {
-        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
+    fileprivate func getClipPath(_ attributes: [String: String], locus: Locus?) -> Locus? {
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath), let locus = locus {
             if let userSpaceLocus = defClip[id] {
                 if !userSpaceLocus.userSpace {
                     let boundingBox = locus.bounds()

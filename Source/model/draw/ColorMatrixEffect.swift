@@ -7,7 +7,8 @@ open class ColorMatrixEffect: Effect {
     public init(matrix: [Double] = [1, 0, 0, 0, 0,
                                     0, 1, 0, 0, 0,
                                     0, 0, 1, 0, 0,
-                                    0, 0, 0, 1, 0], input: Effect? = nil) {
+                                    0, 0, 0, 1, 0],
+                input: Effect? = nil) {
         if matrix.count != 20 {
             fatalError("ColorMatrixEffect: wrong matrix count")
         }

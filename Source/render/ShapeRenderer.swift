@@ -31,7 +31,7 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
-    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         guard let shape = shape else {
             return
         }
@@ -46,9 +46,12 @@ class ShapeRenderer: NodeRenderer {
             fillRule = path.fillRule
         }
 
-        if !useAlphaOnly {
+        switch coloringMode {
+        case .rgb:
             drawPath(fill: shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
-        } else {
+        case .greyscale:
+            drawPath(fill: shape.fill?.fillUsingGrayscaleNoAlpha(), stroke: shape.stroke?.strokeUsingGrayscaleNoAlpha(), ctx: context, opacity: opacity, fillRule: fillRule)
+        case .alphaOnly:
             drawPath(fill: shape.fill?.fillUsingAlphaOnly(), stroke: shape.stroke?.strokeUsingAlphaOnly(), ctx: context, opacity: opacity, fillRule: fillRule)
         }
     }
@@ -251,6 +254,9 @@ extension Stroke {
     func strokeUsingAlphaOnly() -> Stroke {
         return Stroke(fill: fill.fillUsingAlphaOnly(), width: width, cap: cap, join: join, dashes: dashes, offset: offset)
     }
+    func strokeUsingGrayscaleNoAlpha() -> Stroke {
+        return Stroke(fill: fill.fillUsingGrayscaleNoAlpha(), width: width, cap: cap, join: join, dashes: dashes, offset: offset)
+    }
 }
 
 extension Fill {
@@ -266,10 +272,28 @@ extension Fill {
         let linear = self as! LinearGradient
         return LinearGradient(x1: linear.x1, y1: linear.y1, x2: linear.x2, y2: linear.y2, userSpace: linear.userSpace, stops: newStops)
     }
+
+    func fillUsingGrayscaleNoAlpha() -> Fill {
+        if let color = self as? Color {
+            return color.toGrayscaleNoAlpha()
+        }
+        let gradient = self as! Gradient
+        let newStops = gradient.stops.map { Stop(offset: $0.offset, color: $0.color.toGrayscaleNoAlpha()) }
+        if let radial = self as? RadialGradient {
+            return RadialGradient(cx: radial.cx, cy: radial.cy, fx: radial.fx, fy: radial.fy, r: radial.r, userSpace: radial.userSpace, stops: newStops)
+        }
+        let linear = self as! LinearGradient
+        return LinearGradient(x1: linear.x1, y1: linear.y1, x2: linear.x2, y2: linear.y2, userSpace: linear.userSpace, stops: newStops)
+    }
 }
 
 extension Color {
     func colorUsingAlphaOnly() -> Color {
         return Color.black.with(a: Double(a()) / 255.0)
+    }
+
+    func toGrayscaleNoAlpha() -> Color {
+        let grey = Int(0.21 * Double(r()) + 0.72 * Double(g()) + 0.07 * Double(b()))
+        return Color.rgb(r: grey, g: grey, b: grey)
     }
 }

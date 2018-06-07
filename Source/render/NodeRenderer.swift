@@ -11,6 +11,10 @@ struct RenderingInterval {
     let to: Int
 }
 
+enum ColoringMode {
+    case rgb, greyscale, alphaOnly
+}
+
 class NodeRenderer {
 
     let view: MView?
@@ -71,7 +75,7 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    final public func render(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    final public func render(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         context.saveGState()
         defer {
             context.restoreGState()
@@ -84,16 +88,23 @@ class NodeRenderer {
         context.concatenate(node.place.toCG())
         applyClip(in: context)
 
+        // draw masked image
+        if let mask = node.mask {
+            let bounds = mask.bounds()!
+            context.draw(getMaskedImage(bounds: bounds), in: bounds.toCG())
+            return
+        }
+
         // no effects, just draw as usual
         guard let effect = node.effect else {
-            directRender(in: context, force: force, opacity: newOpacity, useAlphaOnly: useAlphaOnly)
+            directRender(in: context, force: force, opacity: newOpacity, coloringMode: coloringMode)
             return
         }
 
         let (offset, otherEffects) = separateEffects(effect)
-        let useAlphaOnly = otherEffects.contains { effect -> Bool in
+        let effectColoringMode = otherEffects.contains { effect -> Bool in
             effect is AlphaEffect
-        }
+            } ? ColoringMode.alphaOnly : coloringMode
 
         // move to offset
         if let offset = offset {
@@ -102,10 +113,10 @@ class NodeRenderer {
 
         if otherEffects.isEmpty {
             // just draw offset shape
-            directRender(in: context, force: force, opacity: newOpacity, useAlphaOnly: useAlphaOnly)
+            directRender(in: context, force: force, opacity: newOpacity, coloringMode: effectColoringMode)
         } else {
             // apply other effects to offset shape and draw it
-            applyEffects(otherEffects, context: context, opacity: opacity, useAlphaOnly: useAlphaOnly)
+            applyEffects(otherEffects, context: context, opacity: opacity, coloringMode: effectColoringMode)
         }
 
         if otherEffects.contains(where: { effect -> Bool in
@@ -119,7 +130,7 @@ class NodeRenderer {
         }
     }
 
-    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, useAlphaOnly: Bool = false) {
+    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, coloringMode: ColoringMode = .rgb) {
         guard let node = node() else {
             return
         }
@@ -132,7 +143,7 @@ class NodeRenderer {
         } else {
             self.addObservers()
         }
-        doRender(in: context, force: force, opacity: opacity, useAlphaOnly: useAlphaOnly)
+        doRender(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
     }
 
     fileprivate func separateEffects(_ effect: Effect) -> (OffsetEffect?, [Effect]) {
@@ -152,7 +163,7 @@ class NodeRenderer {
         return (offset, otherEffects.reversed())
     }
 
-    fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, useAlphaOnly: Bool = false) {
+    fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, coloringMode: ColoringMode = .rgb) {
         guard let node = node(), let bounds = node.bounds() else {
             return
         }
@@ -163,7 +174,7 @@ class NodeRenderer {
             }
         }
 
-        let shapeImage = CIImage(cgImage: renderToImage(bounds: bounds, inset: inset, useAlphaOnly: useAlphaOnly)!.cgImage!)
+        let shapeImage = CIImage(cgImage: renderToImage(bounds: bounds, inset: inset, coloringMode: coloringMode)!.cgImage!)
 
         var filteredImage = shapeImage
         for effect in effects {
@@ -201,7 +212,7 @@ class NodeRenderer {
         return filter.outputImage!
     }
 
-    func renderToImage(bounds: Rect, inset: Double, useAlphaOnly: Bool = false) -> MImage? {
+    func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage? {
         MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, 1)
 
         guard let tempContext = MGraphicsGetCurrentContext() else {
@@ -211,14 +222,14 @@ class NodeRenderer {
         // flip y-axis and leave space for the blur
         tempContext.translateBy(x: CGFloat(inset / 2 - bounds.x), y: CGFloat(bounds.h + inset / 2 + bounds.y))
         tempContext.scaleBy(x: 1, y: -1)
-        directRender(in: tempContext, force: false, opacity: 1.0, useAlphaOnly: useAlphaOnly)
+        directRender(in: tempContext, force: false, opacity: 1.0, coloringMode: coloringMode)
 
         let img = MGraphicsGetImageFromCurrentImageContext()
         MGraphicsEndImageContext()
         return img
     }
 
-    func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         fatalError("Unsupported")
     }
 
@@ -269,6 +280,35 @@ class NodeRenderer {
         }
 
         RenderUtils.toBezierPath(clip).addClip()
+    }
+
+    private func getMaskedImage(bounds: Rect) -> CGImage {
+        let mask = node()!.mask!
+        let image = renderToImage(bounds: bounds)!
+        let nodeRenderer = ShapeRenderer(shape: mask, view: .none, animationCache: animationCache)
+        let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)!
+        return apply(maskImage: maskImage, to: image)
+    }
+
+    func apply(maskImage: MImage, to image: MImage) -> CGImage {
+        let imageReference = image.cgImage!
+        let maskReference = maskImage.cgImage!
+
+        let decode = [CGFloat(1), CGFloat(0),
+                      CGFloat(0), CGFloat(1),
+                      CGFloat(0), CGFloat(1),
+                      CGFloat(0), CGFloat(1)]
+
+        let invertedMask = CGImage(maskWidth: maskReference.width,
+                                   height: maskReference.height,
+                                   bitsPerComponent: maskReference.bitsPerComponent,
+                                   bitsPerPixel: maskReference.bitsPerPixel,
+                                   bytesPerRow: maskReference.bytesPerRow,
+                                   provider: maskReference.dataProvider!,
+                                   decode: decode,
+                                   shouldInterpolate: maskReference.shouldInterpolate)!
+
+        return imageReference.masking(invertedMask)!
     }
 
     private func addObservers() {

@@ -1,13 +1,4 @@
-//
-//  Pattern.swift
-//  Macaw
-//
-//  Created by Alisa Mylnikova on 08/06/2018.
-//
-
-import UIKit
-
-class Pattern: Fill {
+open class Pattern: Fill {
 
     open let content: Node
     open let bounds: Rect

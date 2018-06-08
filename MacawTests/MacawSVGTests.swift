@@ -564,4 +564,8 @@ class MacawSVGTests: XCTestCase {
     func testShapesGrammar01() {
         validateJSON("shapes-grammar-01-f-manual")
     }
+    
+    func testPserversGrad03() {
+        createJSON("pservers-grad-03-b-manual")
+    }
 }

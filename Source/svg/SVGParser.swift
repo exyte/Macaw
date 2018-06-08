@@ -295,7 +295,7 @@ open class SVGParser {
                              stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
-        case "linearGradient", "radialGradient", "fill":
+        case "linearGradient", "radialGradient", "pattern", "fill":
             if let fill = parseFill(node), let id = id {
                 defFills[id] = fill
             }
@@ -327,9 +327,56 @@ open class SVGParser {
             return parseLinearGradient(fill, groupStyle: style)
         case "radialGradient":
             return parseRadialGradient(fill, groupStyle: style)
+        case "pattern":
+            return parsePattern(fill, groupStyle: style)
         default:
             return .none
         }
+    }
+
+    fileprivate func parsePattern(_ pattern: XMLIndexer, groupStyle: [String: String] = [:]) -> Fill? {
+        guard let element = pattern.element else {
+            return .none
+        }
+
+        var parentPattern: Pattern?
+        if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: ""), link.hasPrefix("#") {
+            let id = link.replacingOccurrences(of: "#", with: "")
+            parentPattern = defFills[id] as? Pattern
+        }
+
+        let x = getDoubleValue(element, attribute: "x") ?? parentPattern?.bounds.x ?? 0
+        let y = getDoubleValue(element, attribute: "y") ?? parentPattern?.bounds.y ?? 0
+        let w = getDoubleValue(element, attribute: "width") ?? parentPattern?.bounds.w ?? 0
+        let h = getDoubleValue(element, attribute: "height") ?? parentPattern?.bounds.h ?? 0
+        let bounds = Rect(x: x, y: y, w: w, h: h)
+
+        var userSpace = parentPattern?.userSpace ?? false
+        if let units = element.allAttributes["patternUnits"]?.text, units == "userSpaceOnUse" {
+            userSpace = true
+        }
+        var contentUserSpace = parentPattern?.contentUserSpace ?? true
+        if let units = element.allAttributes["patternContentUnits"]?.text, units == "objectBoundingBox" {
+            contentUserSpace = false
+        }
+
+        if pattern.children.isEmpty {
+            if let parentPattern = parentPattern {
+                return Pattern(content: parentPattern.content, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+            }
+            return .none
+        }
+
+        if pattern.children.count == 1 {
+            let shape = parseNode(pattern.children.first!) as! Shape
+            return Pattern(content: shape, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+        }
+
+        var shapes = [Shape]()
+        pattern.children.forEach { indexer in
+            shapes.append(parseNode(indexer) as! Shape)
+        }
+        return Pattern(content: Group(contents: shapes), bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
@@ -1027,7 +1074,7 @@ open class SVGParser {
         if clip.children.isEmpty {
             return .none
         }
-        
+
         if clip.children.count == 1 {
             let shape = parseNode(clip.children.first!) as! Shape
             return UserSpaceLocus(locus: shape.form, userSpace: userSpace)

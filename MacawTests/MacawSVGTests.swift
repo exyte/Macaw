@@ -173,7 +173,11 @@ class MacawSVGTests: XCTestCase {
                 
                 let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
                 
-                XCTAssertEqual(nodeContent, referenceContent)
+                if nodeContent != referenceContent {
+                    let referencePath = writeToFile(string: referenceContent, fileName: referenceFile + "_reference.txt")
+                    let _ = writeToFile(string: nodeContent!, fileName: referenceFile + "_incorrect.txt")
+                    XCTFail("Not equal, see both files in \(String(describing: referencePath!.deletingLastPathComponent().path))")
+                }
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -196,8 +200,9 @@ class MacawSVGTests: XCTestCase {
         do {
             let bundle = Bundle(for: type(of: TestUtils()))
             let node = try SVGParser.parse(resource: testResourcePath, fromBundle: bundle)
-            let path = testResourcePath + ".reference"
-            try getJSONData(node: node).write(to: URL(fileURLWithPath: path))
+            let fileName = testResourcePath + ".reference"
+            let jsonData = getJSONData(node: node)
+            print("New reference file in \(String(writeToFile(data: jsonData, fileName: fileName)!.path))")
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -217,6 +222,34 @@ class MacawSVGTests: XCTestCase {
         } catch {
             XCTFail(error.localizedDescription)
             return Data()
+        }
+    }
+    
+    func writeToFile(string: String, fileName: String) -> URL? {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+            return .none
+        }
+        do {
+            let path = directory.appendingPathComponent("\(fileName)")!
+            try string.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+            return path
+        } catch {
+            print(error.localizedDescription)
+            return .none
+        }
+    }
+
+    func writeToFile(data: Data, fileName: String) -> URL? {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+            return .none
+        }
+        do {
+            let path = directory.appendingPathComponent("\(fileName)")!
+            try data.write(to: URL(fileURLWithPath: fileName))
+            return path
+        } catch {
+            print(error.localizedDescription)
+            return .none
         }
     }
     
@@ -583,12 +616,16 @@ class MacawSVGTests: XCTestCase {
     func testShapesGrammar01() {
         validateJSON("shapes-grammar-01-f-manual")
     }
-    
+
     func testMaskingPath02() {
         validateJSON("masking-path-02-b-manual")
     }
     
     func testMaskingIntro01() {
         validateJSON("masking-intro-01-f-manual")
+    }
+
+    func testPserversGrad03() {
+        validateJSON("pservers-grad-03-b-manual")
     }
 }

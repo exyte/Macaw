@@ -52,4 +52,25 @@ final internal class BoundsUtils {
         }
         return union
     }
+
+    class func transformForLocusInRespectiveCoords(respectiveLocus: Locus, absoluteLocus: Locus) -> Transform {
+        let absoluteBounds = absoluteLocus.bounds()
+        let respectiveBounds = respectiveLocus.bounds()
+        let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
+                             h: absoluteBounds.h * respectiveBounds.h)
+        let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
+        return Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
+    }
+
+    class func applyTransformToNodeInRespectiveCoords(respectiveNode: Node, absoluteLocus: Locus) {
+        if let patternShape = respectiveNode as? Shape {
+            let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: patternShape.form, absoluteLocus: absoluteLocus)
+            patternShape.place = patternShape.place.concat(with: tranform)
+        }
+        if let patternGroup = respectiveNode as? Group {
+            for groupNode in patternGroup.contents {
+                applyTransformToNodeInRespectiveCoords(respectiveNode: groupNode, absoluteLocus: absoluteLocus)
+            }
+        }
+    }
 }

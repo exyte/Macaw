@@ -1051,7 +1051,7 @@ open class SVGParser {
         for child in filterNode.children {
             guard let element = child.element else { continue }
 
-            let filterIn = element.allAttributes["in"]!.text
+            let filterIn = element.allAttributes["in"]?.text ?? defaultSource
             var currentEffect = effects[filterIn]
             if currentEffect == nil && filterIn == "SourceAlpha" {
                 currentEffect = AlphaEffect(input: nil)

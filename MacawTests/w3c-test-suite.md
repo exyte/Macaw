@@ -123,7 +123,7 @@ Status of each test:
 |[masking-mask-02-f-manual](w3cSVGTests/masking-mask-02-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-opacity-01-b-manual](w3cSVGTests/masking-opacity-01-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-01-b-manual](w3cSVGTests/masking-path-01-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
-|[masking-path-02-b-manual](w3cSVGTests/masking-path-02-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
+|[masking-path-02-b-manual](w3cSVGTests/masking-path-02-b-manual.svg)       | ✅                |
 |[masking-path-03-b-manual](w3cSVGTests/masking-path-03-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-04-b-manual](w3cSVGTests/masking-path-04-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-05-f-manual](w3cSVGTests/masking-path-05-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |

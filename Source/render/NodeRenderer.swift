@@ -89,8 +89,7 @@ class NodeRenderer {
         applyClip(in: context)
 
         // draw masked image
-        if let mask = node.mask {
-            let bounds = mask.bounds()!
+        if let mask = node.mask, let bounds = mask.bounds() {
             context.draw(getMaskedImage(bounds: bounds), in: bounds.toCG())
             return
         }
@@ -174,7 +173,7 @@ class NodeRenderer {
             }
         }
 
-        let shapeImage = CIImage(cgImage: renderToImage(bounds: bounds, inset: inset, coloringMode: coloringMode)!.cgImage!)
+        let shapeImage = CIImage(cgImage: renderToImage(bounds: bounds, inset: inset, coloringMode: coloringMode).cgImage!)
 
         var filteredImage = shapeImage
         for effect in effects {
@@ -212,12 +211,9 @@ class NodeRenderer {
         return filter.outputImage!
     }
 
-    func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage? {
+    func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage {
         MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, 1)
-
-        guard let tempContext = MGraphicsGetCurrentContext() else {
-            return .none
-        }
+        let tempContext = MGraphicsGetCurrentContext()!
 
         // flip y-axis and leave space for the blur
         tempContext.translateBy(x: CGFloat(inset / 2 - bounds.x), y: CGFloat(bounds.h + inset / 2 + bounds.y))
@@ -226,7 +222,7 @@ class NodeRenderer {
 
         let img = MGraphicsGetImageFromCurrentImageContext()
         MGraphicsEndImageContext()
-        return img
+        return img!
     }
 
     func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
@@ -284,9 +280,9 @@ class NodeRenderer {
 
     private func getMaskedImage(bounds: Rect) -> CGImage {
         let mask = node()!.mask!
-        let image = renderToImage(bounds: bounds)!
+        let image = renderToImage(bounds: bounds)
         let nodeRenderer = ShapeRenderer(shape: mask, view: .none, animationCache: animationCache)
-        let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)!
+        let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)
         return apply(maskImage: maskImage, to: image)
     }
 

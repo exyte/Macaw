@@ -37,35 +37,34 @@ class AnimationCache {
             // layer.borderWidth = 1.0
             // layer.borderColor = MColor.blue.cgColor
 
-            let calculatedBounds = customBounds ?? node.bounds()
-            if let shapeBounds = calculatedBounds {
-                let cgRect = shapeBounds.toCG()
+            let shapeBounds = customBounds ?? node.bounds()
 
-                let origFrame = CGRect(x: 0.0, y: 0.0,
-                                       width: round(cgRect.width),
-                                       height: round(cgRect.height))
+            let cgRect = shapeBounds.toCG()
 
-                layer.bounds = origFrame
-                layer.anchorPoint = CGPoint(
-                    x: -1.0 * cgRect.origin.x / cgRect.width,
-                    y: -1.0 * cgRect.origin.y / cgRect.height
-                )
-                layer.zPosition = CGFloat(AnimationUtils.absoluteIndex(node))
+            let origFrame = CGRect(x: 0.0, y: 0.0,
+                                   width: round(cgRect.width),
+                                   height: round(cgRect.height))
 
-                layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+            layer.bounds = origFrame
+            layer.anchorPoint = CGPoint(
+                x: -1.0 * cgRect.origin.x / cgRect.width,
+                y: -1.0 * cgRect.origin.y / cgRect.height
+            )
+            layer.zPosition = CGFloat(AnimationUtils.absoluteIndex(node))
 
-                let nodeTransform = AnimationUtils.absolutePosition(node).toCG()
-                layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
+            layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
 
-                // Clip
-                if let clip = AnimationUtils.absoluteClip(node: node) {
-                    let maskLayer = CAShapeLayer()
-                    let origPath = clip.toCGPath()
-                    var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
-                    let clipPath = origPath.mutableCopy(using: &offsetTransform)
-                    maskLayer.path = clipPath
-                    layer.mask = maskLayer
-                }
+            let nodeTransform = AnimationUtils.absolutePosition(node).toCG()
+            layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
+
+            // Clip
+            if let clip = AnimationUtils.absoluteClip(node: node) {
+                let maskLayer = CAShapeLayer()
+                let origPath = clip.toCGPath()
+                var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+                let clipPath = origPath.mutableCopy(using: &offsetTransform)
+                maskLayer.path = clipPath
+                layer.mask = maskLayer
             }
 
             layer.opacity = Float(node.opacity)

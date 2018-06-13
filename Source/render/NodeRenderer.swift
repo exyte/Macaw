@@ -153,9 +153,12 @@ class NodeRenderer {
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, useAlphaOnly: Bool = false) {
-        guard let node = node(), let bounds = node.bounds() else {
+        guard let node = node() else {
             return
         }
+
+        let bounds = node.bounds()
+
         var inset: Double = 0
         for effect in effects {
             if let blur = effect as? GaussianBlur {

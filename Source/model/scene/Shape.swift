@@ -1,3 +1,9 @@
+#if os(iOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
 open class Shape: Node {
 
     open let formVar: AnimatableVariable<Locus>
@@ -37,18 +43,31 @@ open class Shape: Node {
         self.fillVar.node = self
     }
 
-    override internal func bounds() -> Rect? {
-        var bounds = form.bounds()
-
-        if let shapeStroke = self.stroke {
-            let r = shapeStroke.width / 2.0
-            bounds = Rect(
-                x: bounds.x - r,
-                y: bounds.y - r,
-                w: bounds.w + r * 2.0,
-                h: bounds.h + r * 2.0)
+    override open func bounds() -> Rect {
+        guard let ctx = createContext() else {
+            return .zero()
         }
 
-        return bounds
+        let path = RenderUtils.toCGPath(self.form)
+
+        ctx.addPath(path)
+        if let stroke = stroke {
+            ctx.setLineWidth(CGFloat(stroke.width))
+            ctx.setLineCap(stroke.cap.toCG())
+            ctx.setLineJoin(stroke.join.toCG())
+            ctx.setMiterLimit(CGFloat(stroke.miterLimit))
+            if !stroke.dashes.isEmpty {
+                ctx.setLineDash(phase: CGFloat(stroke.offset),
+                                lengths: stroke.dashes.map { CGFloat($0) })
+            }
+
+            ctx.replacePathWithStrokedPath()
+        }
+
+        let rect = ctx.boundingBoxOfPath
+
+        endContext()
+
+        return rect.toMacaw()
     }
 }

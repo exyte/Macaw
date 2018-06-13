@@ -91,21 +91,17 @@ open class Image: Node {
         )
     }
 
-    override func bounds() -> Rect? {
-        if w != 0 && h != 0 {
-            return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
-        }
+    override open func bounds() -> Rect {
 
         mImage = image()
 
         guard let mImage = mImage else {
-            return .none
+            return .zero()
         }
 
-        return Rect(x: 0.0, y: 0.0,
-                    w: Double(mImage.size.width),
-                    h: Double(mImage.size.height))
+        let rect = BoundsUtils.getRect(of: self, mImage: mImage)
 
+        return rect.toMacaw()
     }
 
     internal enum ImageRepresentationType {

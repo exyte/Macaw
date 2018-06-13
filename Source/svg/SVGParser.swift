@@ -34,7 +34,7 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit",
-                                    "fill", "fill-rule", "fill-opacity", "clip-path",
+                                    "fill", "fill-rule", "fill-opacity", "clip-path", "mask",
                                     "opacity", "color", "stop-color", "stop-opacity",
                                     "font-family", "font-size", "font-weight", "text-anchor",
                                     "visibility"]
@@ -45,7 +45,7 @@ open class SVGParser {
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: XMLIndexer]()
     fileprivate var defFills = [String: Fill]()
-    fileprivate var defMasks = [String: Shape]()
+    fileprivate var defMasks = [String: Node]()
     fileprivate var defClip = [String: UserSpaceLocus]()
     fileprivate var defEffects = [String: Effect]()
 
@@ -262,31 +262,31 @@ open class SVGParser {
                 if let rule = getFillRule(styleAttributes) {
                     path = Path(segments: path.segments, fillRule: rule)
                 }
-                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), tag: getTag(element))
+                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "line":
             if let line = parseLine(node) {
-                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), tag: getTag(element))
+                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "rect":
             if let rect = parseRect(node) {
-                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), tag: getTag(element))
+                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "circle":
             if let circle = parseCircle(node) {
-                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), tag: getTag(element))
+                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "ellipse":
             if let ellipse = parseEllipse(node) {
-                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), tag: getTag(element))
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "polygon":
             if let polygon = parsePolygon(node) {
-                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), tag: getTag(element))
+                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "polyline":
             if let polyline = parsePolyline(node) {
-                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), tag: getTag(element))
+                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), mask: getMask(styleAttributes: styleAttributes), tag: getTag(element))
             }
         case "image":
             return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes, locus: nil))
@@ -339,29 +339,25 @@ open class SVGParser {
         var groupNodes: [Node] = []
         let style = getStyleAttributes(groupStyle, element: element)
         let position = getPosition(element)
-        var mask: TransformedLocus?
+        var mask: Node?
         if let maskId = element.allAttributes["mask"]?.text
             .replacingOccurrences(of: "url(#", with: "")
             .replacingOccurrences(of: ")", with: "") {
-            let maskShape = defMasks[maskId]
-            mask = TransformedLocus(locus: maskShape!.form, transform: maskShape!.place)
+            mask = defMasks[maskId]
         }
         group.children.forEach { child in
             if let node = parseNode(child, groupStyle: style) {
                 groupNodes.append(node)
             }
         }
-        return Group(contents: groupNodes, place: position, clip: mask, tag: getTag(element))
+        return Group(contents: groupNodes, place: position, mask: mask, tag: getTag(element))
     }
 
-    fileprivate func getMask(mask: String) -> Locus? {
-        if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-            let fullRange = NSRange(location: 0, length: mask.count)
-            if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
-                return maskReferenceNode.form
-            }
+    fileprivate func getMask(styleAttributes: [String: String]) -> Node? {
+        guard let mask = styleAttributes["mask"], let id = parseIdFromUrl(mask) else {
+            return .none
         }
-        return .none
+        return defMasks[id]
     }
 
     fileprivate func getPosition(_ element: SWXMLHash.XMLElement) -> Transform {
@@ -994,12 +990,8 @@ open class SVGParser {
             if let line = stroke {
                 shape.stroke = line
             }
-            if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-                let fullRange = NSRange(location: 0, length: mask.count)
-                if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
-                    shape.clip = maskReferenceNode.form
-                    shape.fill = .none
-                }
+            if let id = parseIdFromUrl(mask), let mask = defMasks[id] {
+                shape.mask = mask
             }
             return shape
         }
@@ -1113,9 +1105,6 @@ open class SVGParser {
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
-        guard let element = mask.element else {
-            return .none
-        }
         var node: Node?
         mask.children.forEach { indexer in
             let position = getPosition(indexer.element!)
@@ -1128,22 +1117,8 @@ open class SVGParser {
         guard let shape = node as? Shape else {
             return .none
         }
-        let maskShape: Shape
-        if let circle = shape.form as? Circle {
-            maskShape = Shape(form: circle.arc(shift: 0, extent: degreesToRadians(360)), tag: getTag(element))
-        } else {
-            maskShape = Shape(form: shape.form, place: node!.place, tag: getTag(element))
-        }
-        let maskStyleAttributes = getStyleAttributes([:], element: element)
-        maskShape.fill = getFillColor(maskStyleAttributes)
 
-        if let id = mask.element?.allAttributes["id"]?.text {
-            maskShape.place = node!.place
-            defMasks[id] = maskShape
-            return .none
-        }
-
-        return maskShape
+        return shape
     }
 
     fileprivate func parseLinearGradient(_ gradient: XMLIndexer, groupStyle: [String: String] = [:]) -> Fill? {

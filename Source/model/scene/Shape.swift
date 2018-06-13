@@ -64,7 +64,14 @@ open class Shape: Node {
             ctx.replacePathWithStrokedPath()
         }
 
-        let rect = ctx.boundingBoxOfPath
+        var rect = ctx.boundingBoxOfPath
+
+        if rect.height == 0,
+            rect.width == 0 {
+
+            let point = ctx.currentPointOfPath
+            rect.origin = point
+        }
 
         endContext()
 

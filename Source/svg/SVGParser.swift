@@ -1438,7 +1438,7 @@ open class SVGParser {
                     let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
                                          h: absoluteBounds.h * respectiveBounds.h)
                     let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
-                    let transform = Transform.identity.move(dx: absoluteBounds.x, dy: absoluteBounds.y).scale(sx: scale.m11, sy: scale.m22)
+                    let transform = Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }
                 return userSpaceLocus.locus

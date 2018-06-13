@@ -1104,21 +1104,25 @@ open class SVGParser {
         return nil
     }
 
-    fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
-        var node: Node?
+    fileprivate func parseMask(_ mask: XMLIndexer) -> Node? {
+        var nodes = [Node]()
         mask.children.forEach { indexer in
             let position = getPosition(indexer.element!)
             if let useNode = parseUse(indexer, place: position) {
-                node = useNode
+                nodes.append(useNode)
             } else if let contentNode = parseNode(indexer) {
-                node = contentNode
+                nodes.append(contentNode)
             }
         }
-        guard let shape = node as? Shape else {
+
+        if nodes.isEmpty {
             return .none
         }
+        if nodes.count == 1 {
+            return nodes.first
+        }
 
-        return shape
+        return Group(contents: nodes)
     }
 
     fileprivate func parseLinearGradient(_ gradient: XMLIndexer, groupStyle: [String: String] = [:]) -> Fill? {

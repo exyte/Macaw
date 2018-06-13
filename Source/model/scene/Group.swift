@@ -18,7 +18,7 @@ open class Group: Node {
         }
     }
 
-    public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Shape? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.contentsVar = AnimatableVariable<[Node]>(contents)
         super.init(
             place: place,

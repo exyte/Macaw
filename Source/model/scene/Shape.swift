@@ -18,7 +18,7 @@ open class Shape: Node {
         set(val) { strokeVar.value = val }
     }
 
-    public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Shape? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.formVar = AnimatableVariable<Locus>(form)
         self.fillVar = AnimatableVariable<Fill?>(fill)
         self.strokeVar = AnimatableVariable<Stroke?>(stroke)

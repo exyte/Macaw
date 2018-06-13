@@ -281,7 +281,7 @@ class NodeRenderer {
     private func getMaskedImage(bounds: Rect) -> CGImage {
         let mask = node()!.mask!
         let image = renderToImage(bounds: bounds)
-        let nodeRenderer = ShapeRenderer(shape: mask, view: .none, animationCache: animationCache)
+        let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none, animationCache: animationCache)
         let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)
         return apply(maskImage: maskImage, to: image)
     }

@@ -45,7 +45,7 @@ open class SVGParser {
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: XMLIndexer]()
     fileprivate var defFills = [String: Fill]()
-    fileprivate var defMasks = [String: Shape]()
+    fileprivate var defMasks = [String: Node]()
     fileprivate var defClip = [String: UserSpaceLocus]()
     fileprivate var defEffects = [String: Effect]()
 
@@ -339,7 +339,7 @@ open class SVGParser {
         var groupNodes: [Node] = []
         let style = getStyleAttributes(groupStyle, element: element)
         let position = getPosition(element)
-        var mask: Shape?
+        var mask: Node?
         if let maskId = element.allAttributes["mask"]?.text
             .replacingOccurrences(of: "url(#", with: "")
             .replacingOccurrences(of: ")", with: "") {
@@ -353,7 +353,7 @@ open class SVGParser {
         return Group(contents: groupNodes, place: position, mask: mask, tag: getTag(element))
     }
 
-    fileprivate func getMask(styleAttributes: [String: String]) -> Shape? {
+    fileprivate func getMask(styleAttributes: [String: String]) -> Node? {
         guard let mask = styleAttributes["mask"], let id = parseIdFromUrl(mask) else {
             return .none
         }

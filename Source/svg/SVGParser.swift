@@ -455,7 +455,7 @@ open class SVGParser {
                     let dx = Double(values[4]), let dy = Double(values[5]) {
 
                     let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = GeomUtils.concat(t1: transform, t2: transformMatrix)
+                    finalTransform = transform.concat(with: transformMatrix)
                 }
             default:
                 break

@@ -2,7 +2,7 @@ import Foundation
 
 // TODO need to replace this class with model methods
 open class GeomUtils {
-    
+
     @available(*, deprecated)
     open class func concat(t1: Transform, t2: Transform) -> Transform {
         return t1.concat(with: t2)
@@ -24,9 +24,9 @@ open class GeomUtils {
             dx: 0.0, dy: 0.0
         )
 
-        let t1 = GeomUtils.concat(t1: move, t2: rotation)
-        let t2 = GeomUtils.concat(t1: t1, t2: move.invert()!)
-        let result = GeomUtils.concat(t1: place, t2: t2)
+        let t1 = move.concat(with: rotation)
+        let t2 = t1.concat(with: move.invert()!)
+        let result = t1.concat(with: t2)
 
         return result
     }

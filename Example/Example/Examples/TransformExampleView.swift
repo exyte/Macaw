@@ -36,7 +36,7 @@ class TransformExampleView: MacawView {
 		}
 		var combines: [Transform] = [Transform.identity]
 		for transform in transforms {
-			combines.append(GeomUtils.concat(t1: transform, t2: combines.last!))
+			combines.append(transform.concat(with: combines.last!))
 		}
 		var state = 0
 

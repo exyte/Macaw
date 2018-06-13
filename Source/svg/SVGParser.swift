@@ -455,7 +455,7 @@ open class SVGParser {
                     let dx = Double(values[4]), let dy = Double(values[5]) {
 
                     let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = GeomUtils.concat(t1: transform, t2: transformMatrix)
+                    finalTransform = transform.concat(with: transformMatrix)
                 }
             default:
                 break
@@ -1027,7 +1027,7 @@ open class SVGParser {
         if clip.children.isEmpty {
             return .none
         }
-        
+
         if clip.children.count == 1 {
             let shape = parseNode(clip.children.first!) as! Shape
             return UserSpaceLocus(locus: shape.form, userSpace: userSpace)
@@ -1433,8 +1433,12 @@ open class SVGParser {
         if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath), let locus = locus {
             if let userSpaceLocus = defClip[id] {
                 if !userSpaceLocus.userSpace {
-                    let boundingBox = locus.bounds()
-                    let transform = ContentLayout.of(contentMode: .scaleAspectFit).layout(size: Size(w: 1, h: 1), into: boundingBox.size()).move(dx: boundingBox.x / boundingBox.w, dy: boundingBox.y / boundingBox.h)
+                    let absoluteBounds = locus.bounds()
+                    let respectiveBounds = userSpaceLocus.locus.bounds()
+                    let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
+                                         h: absoluteBounds.h * respectiveBounds.h)
+                    let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
+                    let transform = Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }
                 return userSpaceLocus.locus

@@ -65,6 +65,16 @@ public final class Transform {
         return Transform.move(dx: x, dy: y).rotate(angle: angle).move(dx: -x, dy: -y)
     }
 
+    public func concat(with: Transform) -> Transform {
+        let nm11 = with.m11 * m11 + with.m12 * m21
+        let nm21 = with.m21 * m11 + with.m22 * m21
+        let ndx = with.dx * m11 + with.dy * m21 + dx
+        let nm12 = with.m11 * m12 + with.m12 * m22
+        let nm22 = with.m21 * m12 + with.m22 * m22
+        let ndy = with.dx * m12 + with.dy * m22 + dy
+        return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
+    }
+
     public func invert() -> Transform? {
         let det = self.m11 * self.m22 - self.m12 * self.m21
         if det == 0 {

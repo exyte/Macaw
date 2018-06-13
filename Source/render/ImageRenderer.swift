@@ -97,8 +97,8 @@ class ImageRenderer: NodeRenderer {
             }
 
             let newSize = image.aspectRatio.fit(
-                size: Size(w: Double(image.w), h: Double(image.h)),
-                into: Size(w: Double(imageSize.width), h: Double(imageSize.height))
+                size: Size(w: Double(imageSize.width), h: Double(imageSize.height)),
+                into: Size(w: w.doubleValue, h: h.doubleValue)
             )
             let destX = image.xAlign.align(outer: w.doubleValue, inner: newSize.w)
             let destY = image.yAlign.align(outer: h.doubleValue, inner: newSize.h)

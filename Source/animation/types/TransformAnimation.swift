@@ -87,7 +87,6 @@ public extension AnimatableVariable where T: TransformInterpolation {
     }
 
     public func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        let origin = node!.place
         let bounds = node!.bounds()!
 
         let factory = { () -> (Double) -> Transform in

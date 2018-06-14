@@ -125,6 +125,9 @@ extension Node {
         if let clip = clip as? Serializable {
             result["clip"] = clip.toDictionary()
         }
+        if let mask = mask as? Serializable {
+            result["mask"] = mask.toDictionary()
+        }
         return result
     }
 }

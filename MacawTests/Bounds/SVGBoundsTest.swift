@@ -56,5 +56,9 @@ class SVGBoundsTest: XCTestCase {
     func testPathBoundsCubicRelative() {
         validate(name: "cubicRelative", referenceBounds: Rect(x: 49.5, y: 49.5, w: 51, h: 17.57))
     }
+    
+    func testPolyline() {
+        validate(name: "shapes-polyline-1", referenceBounds: Rect(x: 265.2, y: 181.3, w: 161.1, h: 102.7))
+    }
 }
 

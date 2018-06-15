@@ -11,6 +11,7 @@
 		3002331A20CB908600EFD92D /* NodeContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331820CB908600EFD92D /* NodeContextExtension.swift */; };
 		3002331C20CC0BDD00EFD92D /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */; };
 		3002331D20CC0BDD00EFD92D /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */; };
+		3002334020D3A04300EFD92D /* shapes-polyline-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3002333F20D3A04200EFD92D /* shapes-polyline-1.svg */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -532,6 +533,7 @@
 /* Begin PBXFileReference section */
 		3002331820CB908600EFD92D /* NodeContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeContextExtension.swift; sourceTree = "<group>"; };
 		3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundsUtils.swift; sourceTree = "<group>"; };
+		3002333F20D3A04200EFD92D /* shapes-polyline-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polyline-1.svg"; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -1544,6 +1546,7 @@
 				C43B06621F99A33400787A35 /* pathbounds3.svg */,
 				C4BD40B91F8F58B0003034F0 /* pathbounds1.svg */,
 				C4BD40BA1F8F58B0003034F0 /* pathbounds2.svg */,
+				3002333F20D3A04200EFD92D /* shapes-polyline-1.svg */,
 				57B7A4E01EE70DA5009D78D7 /* logo_base64.txt */,
 				57B7A4DE1EE70D17009D78D7 /* logo.png */,
 				A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */,
@@ -1862,6 +1865,7 @@
 				5B1AE26D20B6A669007EECCB /* painting-stroke-09-t-manual.reference in Resources */,
 				5B1AE2B720B6A669007EECCB /* struct-frag-03-t-manual.reference in Resources */,
 				5B1AE25C20B6A669007EECCB /* shapes-intro-01-t-manual.svg in Resources */,
+				3002334020D3A04300EFD92D /* shapes-polyline-1.svg in Resources */,
 				57CAB12E1D7832E000FD8E47 /* circle.svg in Resources */,
 				5B1AE2D820B6A669007EECCB /* metadata-example-01-t-manual.svg in Resources */,
 				5B1AE2C620B6A669007EECCB /* painting-fill-05-b-manual.reference in Resources */,

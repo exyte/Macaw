@@ -320,7 +320,7 @@ open class Node: Drawable {
     }
 
     open func bounds() -> Rect? {
-        return Rect()
+        return .none
     }
 
 }

@@ -50,8 +50,8 @@ class ImageRenderer: NodeRenderer {
             mImage = image.image()
         }
 
-        if let mImage = mImage {
-            let rect = BoundsUtils.getRect(of: image, mImage: mImage)
+        if let mImage = mImage,
+            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
             context.scaleBy(x: 1.0, y: -1.0)
             context.translateBy(x: 0.0, y: -1.0 * rect.height)
             context.setAlpha(CGFloat(opacity))
@@ -70,12 +70,13 @@ class ImageRenderer: NodeRenderer {
         let osImage = MImage(named: NSImage.Name(rawValue: image.src))
         #endif
 
-        if let mImage = osImage {
-            let rect = BoundsUtils.getRect(of: image, mImage: mImage)
+        if let mImage = osImage,
+            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
+
             if rect.contains(location) {
                 return node()
             }
         }
-        return nil
+        return .none
     }
 }

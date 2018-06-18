@@ -97,10 +97,12 @@ open class Image: Node {
         mImage = image()
 
         guard let mImage = mImage else {
-            return .zero()
+            return .none
         }
 
-        let rect = BoundsUtils.getRect(of: self, mImage: mImage)
+        guard let rect = BoundsUtils.getRect(of: self, mImage: mImage) else {
+            return .none
+        }
 
         return rect.toMacaw()
     }

@@ -33,7 +33,7 @@ class TextRenderer: NodeRenderer {
         observe(text.baselineVar)
     }
 
-    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         guard let text = text else {
             return
         }

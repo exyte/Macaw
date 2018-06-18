@@ -254,7 +254,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testPathsData18() {
-        createJSON("paths-data-18-f-manual")
+        validateJSON("paths-data-18-f-manual")
     }
 
     func testPathsData01() {
@@ -563,5 +563,13 @@ class MacawSVGTests: XCTestCase {
 
     func testShapesGrammar01() {
         validateJSON("shapes-grammar-01-f-manual")
+    }
+    
+    func testMaskingPath02() {
+        validateJSON("masking-path-02-b-manual")
+    }
+    
+    func testMaskingIntro01() {
+        validateJSON("masking-intro-01-f-manual")
     }
 }

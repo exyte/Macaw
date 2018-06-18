@@ -37,7 +37,7 @@ class ImageRenderer: NodeRenderer {
         observe(image.hVar)
     }
 
-    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         guard let image = image else {
             return
         }

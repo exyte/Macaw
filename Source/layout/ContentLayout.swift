@@ -49,6 +49,9 @@ open class ContentLayout {
         }
     }
 
+    public init() {
+    }
+
     open func layout(size: Size, into sizeToFitIn: Size) -> Transform {
         return layout(rect: size.rect(), into: sizeToFitIn)
     }

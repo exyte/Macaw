@@ -2,14 +2,10 @@ import Foundation
 
 // TODO need to replace this class with model methods
 open class GeomUtils {
+
+    @available(*, deprecated)
     open class func concat(t1: Transform, t2: Transform) -> Transform {
-        let nm11 = t2.m11 * t1.m11 + t2.m12 * t1.m21
-        let nm21 = t2.m21 * t1.m11 + t2.m22 * t1.m21
-        let ndx = t2.dx * t1.m11 + t2.dy * t1.m21 + t1.dx
-        let nm12 = t2.m11 * t1.m12 + t2.m12 * t1.m22
-        let nm22 = t2.m21 * t1.m12 + t2.m22 * t1.m22
-        let ndy = t2.dx * t1.m12 + t2.dy * t1.m22 + t1.dy
-        return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
+        return t1.concat(with: t2)
     }
 
     open class func centerRotation(node: Node, place: Transform, angle: Double) -> Transform {
@@ -28,9 +24,9 @@ open class GeomUtils {
             dx: 0.0, dy: 0.0
         )
 
-        let t1 = GeomUtils.concat(t1: move, t2: rotation)
-        let t2 = GeomUtils.concat(t1: t1, t2: move.invert()!)
-        let result = GeomUtils.concat(t1: place, t2: t2)
+        let t1 = move.concat(with: rotation)
+        let t2 = t1.concat(with: move.invert()!)
+        let result = t1.concat(with: t2)
 
         return result
     }

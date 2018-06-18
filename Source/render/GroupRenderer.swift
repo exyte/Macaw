@@ -35,9 +35,9 @@ class GroupRenderer: NodeRenderer {
         return group
     }
 
-    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         renderers.forEach { renderer in
-            renderer.render(in: context, force: force, opacity: opacity, useAlphaOnly: useAlphaOnly)
+            renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
         }
     }
 

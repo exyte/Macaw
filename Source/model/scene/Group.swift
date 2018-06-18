@@ -63,7 +63,7 @@ open class Group: Node {
         return result
     }
 
-    override internal func bounds() -> Rect? {
+    override open func bounds() -> Rect? {
         var union: Rect?
 
         contents.forEach { node in

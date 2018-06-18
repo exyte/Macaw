@@ -319,8 +319,8 @@ open class Node: Drawable {
         Node.map.setObject(self, forKey: self.id as NSString)
     }
 
-    internal func bounds() -> Rect? {
-        return Rect()
+    open func bounds() -> Rect? {
+        return .none
     }
 
 }

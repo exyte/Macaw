@@ -67,10 +67,6 @@ class NodeBoundsTests: XCTestCase {
         
         let shape = Shape(form: ellipse)
         checkBounds(rect1: shape.bounds(), rect2: targetRect)
-        //Removing this case for now (ARC is has more complex calculations in context)
-        
-        //shape = Shape(form: Arc(ellipse: ellipse, shift: 2.0, extent: 3.0))
-        //checkBounds(rect1: shape.bounds(), rect2: targetRect)
     }
     
     func testShapePath() {

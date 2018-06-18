@@ -136,6 +136,14 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
     pathAnimation.duration = duration
 
     group.animations = [pathAnimation]
+    
+    // Transform
+    let scaleAnimation = CABasicAnimation(keyPath: "transform")
+    scaleAnimation.duration = duration
+    scaleAnimation.fromValue = CATransform3DMakeAffineTransform(from.place.toCG())
+    scaleAnimation.toValue = CATransform3DMakeAffineTransform(to.place.toCG())
+    
+    group.animations?.append(scaleAnimation)
 
     // Fill
     let fromFillColor = from.fill as? Color ?? Color.clear

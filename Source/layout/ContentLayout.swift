@@ -48,7 +48,7 @@ open class ContentLayout {
             return of(xAlign: .max, yAlign: .max)
         }
     }
-    
+
     public init() {
     }
 

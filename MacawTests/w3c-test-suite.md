@@ -10,12 +10,12 @@ There are 521 SVG tests in total. 215 files use features that are not covered by
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 30.1% passed (92)
+* 30.7% passed (94)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 7.8% images (24) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 19.9% text (61) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 25.5% blocked by issues (78)
+* 24.9% blocked by issues (76)
 
 Status of each test:
 
@@ -119,7 +119,7 @@ Status of each test:
 |[fonts-overview-201-t-manual](w3cSVGTests/fonts-overview-201-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[imp-path-01-f-manual](w3cSVGTests/imp-path-01-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)     |
 |[masking-filter-01-f-manual](w3cSVGTests/masking-filter-01-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)  |
-|[masking-intro-01-f-manual](w3cSVGTests/masking-intro-01-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
+|[masking-intro-01-f-manual](w3cSVGTests/masking-intro-01-f-manual.svg)       | ✅               |
 |[masking-mask-02-f-manual](w3cSVGTests/masking-mask-02-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-opacity-01-b-manual](w3cSVGTests/masking-opacity-01-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-01-b-manual](w3cSVGTests/masking-path-01-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |

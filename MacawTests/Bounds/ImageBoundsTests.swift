@@ -21,7 +21,10 @@ class ImageBoundsTests: XCTestCase {
         }
         
         let image = Image(src: path)
-        let bounds = image.bounds()
+        guard let bounds = image.bounds() else {
+            XCTFail("Bounds not available")
+            return
+        }
         
         XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for path src")
     }
@@ -41,7 +44,10 @@ class ImageBoundsTests: XCTestCase {
         }
         
         let image = Image(src: base64Content)
-        let bounds = image.bounds()
+        guard let bounds = image.bounds() else {
+            XCTFail("Bounds not available")
+            return
+        }
         
         XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for base64 src")
     }
@@ -54,7 +60,10 @@ class ImageBoundsTests: XCTestCase {
         }
         
         let image = Image(image: mImage)
-        let bounds = image.bounds()
+        guard let bounds = image.bounds() else {
+            XCTFail("Bounds not available")
+            return
+        }
         
         XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for in-memory image")
     }

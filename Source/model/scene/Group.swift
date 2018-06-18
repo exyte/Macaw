@@ -62,20 +62,18 @@ open class Group: Node {
         return result
     }
 
-    override open func bounds() -> Rect {
+    override open func bounds() -> Rect? {
         var union: Rect?
 
         contents.forEach { node in
-            let nodeBounds = node.bounds().applying(node.place)
+            guard let nodeBounds = node.bounds()?.applying(node.place) else {
+                return
+            }
 
             union = union?.union(rect: nodeBounds) ?? nodeBounds
         }
 
-        guard let unionUnwrapped = union else {
-            return Rect()
-        }
-
-        return unionUnwrapped
+        return union
     }
 
     override func shouldCheckForPressed() -> Bool {

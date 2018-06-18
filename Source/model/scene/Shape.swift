@@ -43,9 +43,9 @@ open class Shape: Node {
         self.fillVar.node = self
     }
 
-    override open func bounds() -> Rect {
+    override open func bounds() -> Rect? {
         guard let ctx = createContext() else {
-            return .zero()
+            return .none
         }
 
         let path = RenderUtils.toCGPath(self.form)
@@ -76,5 +76,17 @@ open class Shape: Node {
         endContext()
 
         return rect.toMacaw()
+    }
+
+    fileprivate func createContext() -> CGContext? {
+
+        let smallSize = CGSize(width: 1.0, height: 1.0)
+
+        MGraphicsBeginImageContextWithOptions(smallSize, false, 0.0)
+        return MGraphicsGetCurrentContext()
+    }
+
+    fileprivate func endContext() {
+        MGraphicsEndImageContext()
     }
 }

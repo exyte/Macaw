@@ -37,34 +37,35 @@ class AnimationCache {
             // layer.borderWidth = 1.0
             // layer.borderColor = MColor.blue.cgColor
 
-            let shapeBounds = customBounds ?? node.bounds()
+            let calculatedBounds = customBounds ?? node.bounds()
+            if let shapeBounds = calculatedBounds {
+                let cgRect = shapeBounds.toCG()
 
-            let cgRect = shapeBounds.toCG()
+                let origFrame = CGRect(x: 0.0, y: 0.0,
+                                       width: round(cgRect.width),
+                                       height: round(cgRect.height))
 
-            let origFrame = CGRect(x: 0.0, y: 0.0,
-                                   width: round(cgRect.width),
-                                   height: round(cgRect.height))
+                layer.bounds = origFrame
+                layer.anchorPoint = CGPoint(
+                    x: -1.0 * cgRect.origin.x / cgRect.width,
+                    y: -1.0 * cgRect.origin.y / cgRect.height
+                )
+                layer.zPosition = CGFloat(AnimationUtils.absoluteIndex(node))
 
-            layer.bounds = origFrame
-            layer.anchorPoint = CGPoint(
-                x: -1.0 * cgRect.origin.x / cgRect.width,
-                y: -1.0 * cgRect.origin.y / cgRect.height
-            )
-            layer.zPosition = CGFloat(AnimationUtils.absoluteIndex(node))
+                layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
 
-            layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+                let nodeTransform = AnimationUtils.absolutePosition(node).toCG()
+                layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
 
-            let nodeTransform = AnimationUtils.absolutePosition(node).toCG()
-            layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
-
-            // Clip
-            if let clip = AnimationUtils.absoluteClip(node: node) {
-                let maskLayer = CAShapeLayer()
-                let origPath = clip.toCGPath()
-                var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
-                let clipPath = origPath.mutableCopy(using: &offsetTransform)
-                maskLayer.path = clipPath
-                layer.mask = maskLayer
+                // Clip
+                if let clip = AnimationUtils.absoluteClip(node: node) {
+                    let maskLayer = CAShapeLayer()
+                    let origPath = clip.toCGPath()
+                    var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+                    let clipPath = origPath.mutableCopy(using: &offsetTransform)
+                    maskLayer.path = clipPath
+                    layer.mask = maskLayer
+                }
             }
 
             layer.opacity = Float(node.opacity)

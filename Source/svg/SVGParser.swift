@@ -1027,7 +1027,7 @@ open class SVGParser {
         if clip.children.isEmpty {
             return .none
         }
-        
+
         if clip.children.count == 1 {
             let shape = parseNode(clip.children.first!) as! Shape
             return UserSpaceLocus(locus: shape.form, userSpace: userSpace)

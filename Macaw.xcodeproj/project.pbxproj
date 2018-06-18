@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3002331920CB908600EFD92D /* NodeContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331820CB908600EFD92D /* NodeContextExtension.swift */; };
-		3002331A20CB908600EFD92D /* NodeContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331820CB908600EFD92D /* NodeContextExtension.swift */; };
 		3002331C20CC0BDD00EFD92D /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */; };
 		3002331D20CC0BDD00EFD92D /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */; };
 		3002334020D3A04300EFD92D /* shapes-polyline-1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3002333F20D3A04200EFD92D /* shapes-polyline-1.svg */; };
@@ -531,7 +529,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3002331820CB908600EFD92D /* NodeContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeContextExtension.swift; sourceTree = "<group>"; };
 		3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundsUtils.swift; sourceTree = "<group>"; };
 		3002333F20D3A04200EFD92D /* shapes-polyline-1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-polyline-1.svg"; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
@@ -1203,7 +1200,6 @@
 				57E5E13A1E3B393900D1CB28 /* Node.swift */,
 				57E5E13B1E3B393900D1CB28 /* Shape.swift */,
 				57E5E13C1E3B393900D1CB28 /* Text.swift */,
-				3002331820CB908600EFD92D /* NodeContextExtension.swift */,
 				3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */,
 			);
 			path = scene;
@@ -2003,7 +1999,6 @@
 				5B6E193020AC58F900454E7E /* LinearGradient.swift in Sources */,
 				57614B261F83D15600875933 /* ShapeAnimation.swift in Sources */,
 				57614B271F83D15600875933 /* TransformInterpolation.swift in Sources */,
-				3002331A20CB908600EFD92D /* NodeContextExtension.swift in Sources */,
 				57614B281F83D15600875933 /* ShapeAnimationGenerator.swift in Sources */,
 				57614B291F83D15600875933 /* AnimationUtils.swift in Sources */,
 				57614B2A1F83D15600875933 /* Polygon.swift in Sources */,
@@ -2137,7 +2132,6 @@
 				5B6E192320AC58F900454E7E /* OffsetEffect.swift in Sources */,
 				5B6E192F20AC58F900454E7E /* LinearGradient.swift in Sources */,
 				57E5E15F1E3B393900D1CB28 /* TransformInterpolation.swift in Sources */,
-				3002331920CB908600EFD92D /* NodeContextExtension.swift in Sources */,
 				57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */,
 				57E5E1571E3B393900D1CB28 /* AnimationUtils.swift in Sources */,
 				57E5E1981E3B393900D1CB28 /* Polygon.swift in Sources */,

@@ -92,4 +92,8 @@ func MGraphicsEndImageContext() {
     }
 }
 
+func MNoIntrinsicMetric() -> CGFloat {
+    return NSView.noIntrinsicMetric
+}
+
 #endif

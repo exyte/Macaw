@@ -70,6 +70,14 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         animationProducer.addStoredAnimations(node)
     }
 
+    override open var intrinsicContentSize: CGSize {
+        if let bounds = node.bounds() {
+            return bounds.size().toCG()
+        } else {
+            return CGSize(width: MNoIntrinsicMetric(), height: MNoIntrinsicMetric())
+        }
+    }
+
     private let layoutHelper = LayoutHelper()
 
     var touchesMap = [MTouchEvent: [Node]]()

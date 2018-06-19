@@ -30,6 +30,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             }
 
             self.setNeedsDisplay()
+            invalidateIntrinsicContentSize()
         }
     }
 
@@ -37,6 +38,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         didSet {
             layoutHelper.layoutChanged()
             setNeedsDisplay()
+            invalidateIntrinsicContentSize()
         }
     }
 

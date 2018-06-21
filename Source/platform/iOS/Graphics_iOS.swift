@@ -47,4 +47,8 @@ func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ sca
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
 }
 
+func MNoIntrinsicMetric() -> CGFloat {
+    return UIViewNoIntrinsicMetric
+}
+
 #endif

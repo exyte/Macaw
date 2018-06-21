@@ -1,15 +1,20 @@
 import Foundation
 
 class AnimationUtils {
-    class func absolutePosition(_ node: Node) -> Transform {
-        return AnimationUtils.absoluteTransform(node, pos: node.place)
+    class func absolutePosition(_ node: Node, view: MacawView? = nil) -> Transform {
+        return AnimationUtils.absoluteTransform(node, pos: node.place, view: view)
     }
 
-    class func absoluteTransform(_ node: Node, pos: Transform) -> Transform {
+    class func absoluteTransform(_ node: Node, pos: Transform, view: MacawView? = nil) -> Transform {
         var transform = pos
         var parent = nodesMap.parents(node).first
         while parent != .none {
-            transform = parent!.place.concat(with: transform)
+            var parentPlace = parent!.place
+            if let canvas = parent as? SVGCanvas, let macawView = view {
+                let viewSize = macawView.bounds.size.toMacaw()
+                parentPlace = macawView.contentLayout.layout(size: canvas.layout.svgSize.toPixels(total: viewSize), into: viewSize)
+            }
+            transform = parentPlace.concat(with: transform)
             parent = nodesMap.parents(parent!).first
         }
 

@@ -582,7 +582,7 @@ private class LayoutHelper {
 
     public func getTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
         setSize(size: size)
-        if let rect = getNodeBounds(node: node) {
+        if let rect = node.bounds() {
             setRect(rect: rect)
             if let transform = prevTransform {
                 return transform

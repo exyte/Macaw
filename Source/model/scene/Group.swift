@@ -31,6 +31,7 @@ open class Group: Node {
             tag: tag
         )
 
+        self.contents = contents
         self.contentsVar.node = self
     }
 

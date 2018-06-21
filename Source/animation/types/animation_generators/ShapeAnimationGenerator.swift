@@ -37,7 +37,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
     // Creating proper animation
     let generatedAnim = generateShapeAnimation(
-        from: fromShape,
+        from: mutatingShape,
         to: toShape,
         duration: duration,
         renderTransform: layer.renderTransform!)
@@ -136,13 +136,14 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
     pathAnimation.duration = duration
 
     group.animations = [pathAnimation]
-    
+
     // Transform
     let scaleAnimation = CABasicAnimation(keyPath: "transform")
     scaleAnimation.duration = duration
-    scaleAnimation.fromValue = CATransform3DMakeAffineTransform(from.place.toCG())
-    scaleAnimation.toValue = CATransform3DMakeAffineTransform(to.place.toCG())
-    
+    let view = nodesMap.getView(from)
+    scaleAnimation.fromValue = CATransform3DMakeAffineTransform(AnimationUtils.absolutePosition(from, view: view).toCG())
+    scaleAnimation.toValue = CATransform3DMakeAffineTransform(AnimationUtils.absolutePosition(to, view: view).toCG())
+
     group.animations?.append(scaleAnimation)
 
     // Fill

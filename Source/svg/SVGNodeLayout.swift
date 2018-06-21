@@ -40,6 +40,7 @@ class SVGSize {
 
 protocol NodeLayout {
 
+    var svgSize: SVGSize { get }
     func computeSize(parent: Size) -> Size
 
     func layout(node: Node, in size: Size)

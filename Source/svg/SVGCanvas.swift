@@ -20,4 +20,11 @@ class SVGCanvas: Group {
         return size
     }
 
+    override func bounds() -> Rect? {
+        if let view = nodesMap.getView(self) {
+            return layout(size: view.bounds.size.toMacaw()).rect()
+        }
+        return super.bounds()
+    }
+
 }

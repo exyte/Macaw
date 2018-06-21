@@ -142,6 +142,7 @@ open class SVGSerializer {
 
     fileprivate func imageToSVG(_ image: Image) -> String {
         var result = tag(SVGImageOpenTag, close: false)
+        result += idToSVG(image.tag)
         result += clipToSVG(image.clip)
         result += transformToSVG(image)
         if image.src.contains("memory://") {
@@ -177,6 +178,7 @@ open class SVGSerializer {
 
     fileprivate func textToSVG(_ text: Text) -> String {
         var result = tag(SVGTextOpenTag)
+        result += idToSVG(text.tag)
         if let font = text.font {
             result += " font-family=\"\(font.name)\" font-size=\"\(font.size)\" "
             // TODO: check with enums
@@ -320,6 +322,13 @@ open class SVGSerializer {
         defs += "<clipPath id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(clip) + SVGGenericCloseTag + "</clipPath>"
     }
 
+    fileprivate func idToSVG(_ tag: [String]?) -> String {
+        guard let tag = tag, !tag.isEmpty, let id = tag.first else {
+            return ""
+        }
+        return " id=\"\(id)\""
+    }
+
     fileprivate func clipToSVG(_ clipLocus: Locus?) -> String {
         guard let clip = clipLocus else {
             return ""
@@ -331,6 +340,7 @@ open class SVGSerializer {
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         let locus = macawShape.formVar.value
         var result = locusToSVG(locus)
+        result += idToSVG(macawShape.tag)
         result += clipToSVG(macawShape.clip)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
@@ -345,6 +355,7 @@ open class SVGSerializer {
         }
         if let group = node as? Group {
             var result = indentTextWithOffset(SVGGroupOpenTag, offset)
+            result += idToSVG(group.tag)
             result += clipToSVG(group.clip)
             result += transformToSVG(group)
             result += SVGGenericEndTag

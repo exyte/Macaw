@@ -63,11 +63,11 @@ open class Group: Node {
         return result
     }
 
-    override open func bounds() -> Rect? {
+    override open var bounds: Rect? {
         var union: Rect?
 
         contents.forEach { node in
-            guard let nodeBounds = node.bounds()?.applying(node.place) else {
+            guard let nodeBounds = node.bounds?.applying(node.place) else {
                 return
             }
 

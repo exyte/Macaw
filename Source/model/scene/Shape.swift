@@ -44,7 +44,7 @@ open class Shape: Node {
         self.fillVar.node = self
     }
 
-    override open func bounds() -> Rect? {
+    override open var bounds: Rect? {
         guard let ctx = createContext() else {
             return .none
         }

@@ -92,7 +92,7 @@ open class Image: Node {
         )
     }
 
-    override open func bounds() -> Rect? {
+    override open var bounds: Rect? {
 
         mImage = image()
 

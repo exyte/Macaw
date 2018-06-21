@@ -89,7 +89,7 @@ class NodeRenderer {
         applyClip(in: context)
 
         // draw masked image
-        if let mask = node.mask, let bounds = mask.bounds() {
+        if let mask = node.mask, let bounds = mask.bounds {
             context.draw(getMaskedImage(bounds: bounds), in: bounds.toCG())
             return
         }
@@ -163,7 +163,7 @@ class NodeRenderer {
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let node = node(), let bounds = node.bounds() else {
+        guard let node = node(), let bounds = node.bounds else {
             return
         }
         var inset: Double = 0

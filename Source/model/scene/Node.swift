@@ -319,7 +319,7 @@ open class Node: Drawable {
         Node.map.setObject(self, forKey: self.id as NSString)
     }
 
-    open func bounds() -> Rect? {
+    open var bounds: Rect? {
         return .none
     }
 

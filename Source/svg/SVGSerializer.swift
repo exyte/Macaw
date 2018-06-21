@@ -322,8 +322,8 @@ open class SVGSerializer {
         defs += "<clipPath id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(clip) + SVGGenericCloseTag + "</clipPath>"
     }
 
-    fileprivate func idToSVG(_ tag: [String]?) -> String {
-        guard let tag = tag, !tag.isEmpty, let id = tag.first else {
+    fileprivate func idToSVG(_ tag: [String]) -> String {
+        guard !tag.isEmpty, let id = tag.first else {
             return ""
         }
         return " id=\"\(id)\""

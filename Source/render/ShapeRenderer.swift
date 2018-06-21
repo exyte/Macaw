@@ -39,7 +39,7 @@ class ShapeRenderer: NodeRenderer {
             return
         }
 
-        setGeometry(shape.form, ctx: context)
+        RenderUtils.setGeometry(shape.form, ctx: context)
 
         var fillRule = FillRule.nonzero
         if let path = shape.form as? Path {
@@ -61,10 +61,10 @@ class ShapeRenderer: NodeRenderer {
             return .none
         }
 
-        setGeometry(shape.form, ctx: ctx)
+        RenderUtils.setGeometry(shape.form, ctx: ctx)
         var drawingMode: CGPathDrawingMode? = nil
         if let stroke = shape.stroke {
-            setStrokeAttributes(stroke, ctx: ctx)
+            RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
             if shape.fill != nil {
                 drawingMode = .fillStroke
             } else {
@@ -86,30 +86,6 @@ class ShapeRenderer: NodeRenderer {
         // Prepare for next figure hittesting - clear current context path
         ctx.beginPath()
         return .none
-    }
-
-    fileprivate func setGeometry(_ locus: Locus, ctx: CGContext) {
-        if let rect = locus as? Rect {
-            ctx.addRect(rect.toCG())
-        } else if let round = locus as? RoundRect {
-            let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            let path = MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
-                MRectCorner.allCorners, cornerRadii: corners).cgPath
-            ctx.addPath(path)
-        } else if let circle = locus as? Circle {
-            let cx = circle.cx
-            let cy = circle.cy
-            let r = circle.r
-            ctx.addEllipse(in: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
-        } else if let ellipse = locus as? Ellipse {
-            let cx = ellipse.cx
-            let cy = ellipse.cy
-            let rx = ellipse.rx
-            let ry = ellipse.ry
-            ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
-        } else {
-            ctx.addPath(locus.toCGPath())
-        }
     }
 
     fileprivate func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
@@ -158,7 +134,7 @@ class ShapeRenderer: NodeRenderer {
         if let path = path, shouldStrokePath {
             ctx!.addPath(path)
         }
-        setStrokeAttributes(stroke, ctx: ctx)
+        RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
 
         if stroke.fill is Gradient {
             gradientStroke(stroke, ctx: ctx, opacity: opacity)
@@ -170,17 +146,6 @@ class ShapeRenderer: NodeRenderer {
             ctx!.strokePath()
         } else {
             ctx!.drawPath(using: mode)
-        }
-    }
-
-    fileprivate func setStrokeAttributes(_ stroke: Stroke, ctx: CGContext?) {
-        ctx!.setLineWidth(CGFloat(stroke.width))
-        ctx!.setLineJoin(stroke.join.toCG())
-        ctx!.setLineCap(stroke.cap.toCG())
-        ctx!.setMiterLimit(CGFloat(stroke.miterLimit))
-        if !stroke.dashes.isEmpty {
-            ctx?.setLineDash(phase: CGFloat(stroke.offset),
-                             lengths: stroke.dashes.map { CGFloat($0) })
         }
     }
 

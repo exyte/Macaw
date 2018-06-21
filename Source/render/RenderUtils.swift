@@ -557,4 +557,39 @@ class RenderUtils {
     class func num2bool(_ double: Double) -> Bool {
         return double > 0.5 ? true : false
     }
+
+    internal class func setStrokeAttributes(_ stroke: Stroke, ctx: CGContext?) {
+        ctx!.setLineWidth(CGFloat(stroke.width))
+        ctx!.setLineJoin(stroke.join.toCG())
+        ctx!.setLineCap(stroke.cap.toCG())
+        ctx!.setMiterLimit(CGFloat(stroke.miterLimit))
+        if !stroke.dashes.isEmpty {
+            ctx?.setLineDash(phase: CGFloat(stroke.offset),
+                             lengths: stroke.dashes.map { CGFloat($0) })
+        }
+    }
+
+    internal class func setGeometry(_ locus: Locus, ctx: CGContext) {
+        if let rect = locus as? Rect {
+            ctx.addRect(rect.toCG())
+        } else if let round = locus as? RoundRect {
+            let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
+            let path = MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
+                MRectCorner.allCorners, cornerRadii: corners).cgPath
+            ctx.addPath(path)
+        } else if let circle = locus as? Circle {
+            let cx = circle.cx
+            let cy = circle.cy
+            let r = circle.r
+            ctx.addEllipse(in: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
+        } else if let ellipse = locus as? Ellipse {
+            let cx = ellipse.cx
+            let cy = ellipse.cy
+            let rx = ellipse.rx
+            let ry = ellipse.ry
+            ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
+        } else {
+            ctx.addPath(locus.toCGPath())
+        }
+    }
 }

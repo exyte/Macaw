@@ -30,6 +30,21 @@ class NodeBoundsTests: XCTestCase {
         }
     }
     
+    func validate(node: Node, referenceBounds: Rect) {
+        let passingThreshold = 0.2
+        
+        var testResult = false
+        if let bounds = node.bounds {
+            //print("\n<rect x=\"\(Double(round(100*bounds.x)/100))\" y=\"\(Double(round(100*bounds.y)/100))\" width=\"\(Double(round(100*bounds.w)/100))\" height=\"\(Double(round(100*bounds.h)/100))\" stroke=\"red\" stroke-width=\"1\" fill=\"none\"/>\n")
+            testResult = (Double(round(100*bounds.x)/100) - referenceBounds.x < passingThreshold)
+            testResult = testResult && (Double(round(100*bounds.y)/100) - referenceBounds.y < passingThreshold)
+            testResult = testResult && (Double(round(100*bounds.w)/100) - referenceBounds.w < passingThreshold)
+            testResult = testResult && (Double(round(100*bounds.h)/100) - referenceBounds.h < passingThreshold)
+        }
+        
+        XCTAssert(testResult)
+    }
+    
     // MARK: - Shapes
     
     func testSimpleShapeZeroBounds() {
@@ -207,6 +222,193 @@ class NodeBoundsTests: XCTestCase {
         
         let group = [leftShape, midShape, rightShape].group()
         checkBounds(rect1: group.bounds, rect2: targetRect)
+    }
+    
+    func testPathBounds1() {
+        var pathSegments = [PathSegment]()
+        
+        let segment0 = PathSegment(type: .M, data: [101.9,
+                                                    40.5])
+        pathSegments.append(segment0)
+        let segment1 = PathSegment(type: .c, data: [0,
+                                                    -1.8,
+                                                    1.5,
+                                                    -3.3,
+                                                    3.3,
+                                                    -3.3])
+        pathSegments.append(segment1)
+        let segment2 = PathSegment(type: .s, data: [3.3,
+                                                    1.5,
+                                                    3.3,
+                                                    3.3])
+        pathSegments.append(segment2)
+        let segment3 = PathSegment(type: .v, data: [27.4])
+        pathSegments.append(segment3)
+        let segment4 = PathSegment(type: .c, data: [0,
+                                                    1.8,
+                                                    -1.5,
+                                                    3.3,
+                                                    -3.3,
+                                                    3.3])
+        pathSegments.append(segment4)
+        let segment5 = PathSegment(type: .s, data: [-3.3,
+                                                    -1.5,
+                                                    -3.3,
+                                                    -3.3])
+        pathSegments.append(segment5)
+        let segment6 = PathSegment(type: .V, data: [40.5])
+        pathSegments.append(segment6)
+        let segment7 = PathSegment(type: .z, data: [])
+        pathSegments.append(segment7)
+        
+        let path = Path(segments: pathSegments)
+        
+        let shape = Shape(form: path)
+        
+        let targetRect = Rect(x: 101.9, y: 37.2, w: 6.6, h: 34.0)
+        validate(node: shape, referenceBounds: targetRect)
+    }
+    
+    func testPathBounds2() {
+        
+        var pathSegments = [PathSegment]()
+        
+        let segment0 = PathSegment(type: .M, data: [68,
+                                                    101.9])
+        pathSegments.append(segment0)
+        let segment1 = PathSegment(type: .c, data: [1.8,
+                                                    0,
+                                                    3.3,
+                                                    1.5,
+                                                    3.3,
+                                                    3.3])
+        pathSegments.append(segment1)
+        let segment2 = PathSegment(type: .s, data: [-1.5,
+                                                    3.3,
+                                                    -3.3,
+                                                    3.3])
+        pathSegments.append(segment2)
+        let segment3 = PathSegment(type: .H, data: [40.5])
+        pathSegments.append(segment3)
+        let segment4 = PathSegment(type: .c, data: [-1.8,
+                                                    0,
+                                                    -3.3,
+                                                    -1.5,
+                                                    -3.3,
+                                                    -3.3])
+        pathSegments.append(segment4)
+        let segment5 = PathSegment(type: .s, data: [1.5,
+                                                    -3.3,
+                                                    3.3,
+                                                    -3.3])
+        pathSegments.append(segment5)
+        let segment6 = PathSegment(type: .H, data: [68])
+        pathSegments.append(segment6)
+        let segment7 = PathSegment(type: .z, data: [])
+        pathSegments.append(segment7)
+        
+        let path = Path(segments: pathSegments)
+        
+        let shape = Shape(form: path)
+        let stroke = Stroke(fill: Color.black, width: 1.0, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
+        shape.stroke = stroke
+        
+        let targetRect = Rect(x: 37.2, y: 101.9, w: 34.1, h: 6.6)
+        validate(node: shape, referenceBounds: targetRect)
+    }
+    
+    func testPathBounds3() {
+        var pathSegments = [PathSegment]()
+        let segment0 = PathSegment(type: .M, data: [25,
+                                                    49.5])
+        pathSegments.append(segment0)
+        let segment1 = PathSegment(type: .C, data: [38.5309764,
+                                                    49.5,
+                                                    49.5,
+                                                    38.5309764,
+                                                    49.5,
+                                                    25])
+        pathSegments.append(segment1)
+        let segment2 = PathSegment(type: .C, data: [49.5,
+                                                    11.4690236,
+                                                    38.5309764,
+                                                    0.5,
+                                                    25,
+                                                    0.5])
+        pathSegments.append(segment2)
+        let segment3 = PathSegment(type: .C, data: [11.4690236,
+                                                    0.5,
+                                                    0.5,
+                                                    11.4690236,
+                                                    0.5,
+                                                    25])
+        pathSegments.append(segment3)
+        let segment4 = PathSegment(type: .C, data: [0.5,
+                                                    38.5309764,
+                                                    11.4690236,
+                                                    49.5,
+                                                    25,
+                                                    49.5])
+        pathSegments.append(segment4)
+        let segment5 = PathSegment(type: .z, data: [])
+        pathSegments.append(segment5)
+        let path = Path(segments: pathSegments)
+        let shape = Shape(form: path)
+        let stroke = Stroke(fill: Color.black, width: 1.0, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
+        shape.stroke = stroke
+        
+        let targetRect = Rect(x: 0.5, y: 0.5, w: 49, h: 49)
+        validate(node: shape, referenceBounds: targetRect)
+    }
+    
+    func testPathBounds4() {
+        var pathSegments = [PathSegment]()
+        let segment0 = PathSegment(type: .M, data: [10,
+                                                    80])
+        pathSegments.append(segment0)
+        let segment1 = PathSegment(type: .C, data: [40,
+                                                    10,
+                                                    65,
+                                                    10,
+                                                    95,
+                                                    80])
+        pathSegments.append(segment1)
+        let segment2 = PathSegment(type: .S, data: [150,
+                                                    150,
+                                                    180,
+                                                    80])
+        pathSegments.append(segment2)
+        
+        let path = Path(segments: pathSegments)
+        let shape = Shape(form: path)
+        
+        let targetRect = Rect(x: 10, y: 10, w: 170, h: 140)
+        validate(node: shape, referenceBounds: targetRect)
+    }
+    
+    func testPolyline() {
+        let polyline = Polyline(points: [270,
+                                         225,
+                                         300,
+                                         245,
+                                         320,
+                                         225,
+                                         340,
+                                         245,
+                                         280,
+                                         280,
+                                         390,
+                                         280,
+                                         420,
+                                         240,
+                                         280,
+                                         185])
+        let stroke = Stroke(fill: Color(val: 30464), width: 8, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
+        let shape = Shape(form: polyline)
+        shape.stroke = stroke
+        
+        let targetRect = Rect(x: 270, y: 185, w: 150, h: 95)
+        validate(node: shape, referenceBounds: targetRect)
     }
 }
 

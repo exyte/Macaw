@@ -226,6 +226,7 @@
 		585288F620AD96A2003E51D1 /* ContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585288F320AD96A2003E51D1 /* ContentLayout.swift */; };
 		5852891620B29D67003E51D1 /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
 		5852891720B29D67003E51D1 /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
+		5874CCB720DA8A860090DBD5 /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */; };
 		58944BDA20AC8A9A00657640 /* logo_base64.txt in Resources */ = {isa = PBXBuildFile; fileRef = 57B7A4E01EE70DA5009D78D7 /* logo_base64.txt */; };
 		58944BDB20AC8A9A00657640 /* clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B064C1F9738EF00787A35 /* clip.svg */; };
 		5B1A8C7620A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */; };
@@ -646,6 +647,7 @@
 		5835969A20A9CA140090400C /* CGMappings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMappings.swift; sourceTree = "<group>"; };
 		585288F320AD96A2003E51D1 /* ContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentLayout.swift; sourceTree = "<group>"; };
 		5852891520B29D67003E51D1 /* TransformedLocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformedLocus.swift; sourceTree = "<group>"; };
+		5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMatrix.swift; sourceTree = "<group>"; };
 		5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGNodeLayout.swift; sourceTree = "<group>"; };
 		5B1AE18420B6A669007EECCB /* text-align-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-align-01-b-manual.svg"; sourceTree = "<group>"; };
 		5B1AE18520B6A669007EECCB /* paths-data-06-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-06-t-manual.reference"; sourceTree = "<group>"; };
@@ -1142,6 +1144,7 @@
 				5B6E191820AC58F800454E7E /* Baseline.swift */,
 				5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */,
 				5B6E191F20AC58F900454E7E /* Color.swift */,
+				5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */,
 				5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */,
 				5B6E191B20AC58F800454E7E /* Drawable.swift */,
 				5B6E191C20AC58F800454E7E /* Effect.swift */,
@@ -2153,6 +2156,7 @@
 				57E5E16D1E3B393900D1CB28 /* ContentsAnimation.swift in Sources */,
 				5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */,
 				A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */,
+				5874CCB720DA8A860090DBD5 /* ColorMatrix.swift in Sources */,
 				5BFEF5CE20B80A83008DAC11 /* BlendEffect.swift in Sources */,
 				A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */,
 				57E5E1581E3B393900D1CB28 /* Easing.swift in Sources */,

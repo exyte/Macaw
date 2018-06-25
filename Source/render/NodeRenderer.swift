@@ -101,9 +101,8 @@ class NodeRenderer {
         }
 
         let (offset, otherEffects) = separateEffects(effect)
-        let effectColoringMode = otherEffects.contains { effect -> Bool in
-            effect is AlphaEffect
-            } ? ColoringMode.alphaOnly : coloringMode
+        let hasAlpha = otherEffects.contains { $0 is AlphaEffect }
+        let effectColoringMode = hasAlpha ? ColoringMode.alphaOnly : coloringMode
 
         // move to offset
         if let offset = offset {
@@ -199,7 +198,7 @@ class NodeRenderer {
     }
 
     fileprivate func applyColorMatrix(_ image: CIImage, colorMatrixEffect: ColorMatrixEffect) -> CIImage {
-        let matrix = colorMatrixEffect.matrix.map { CGFloat($0) }
+        let matrix = colorMatrixEffect.matrix.values.map { CGFloat($0) }
         let filter = CIFilter(name: "CIColorMatrix")!
         filter.setDefaults()
         filter.setValue(CIVector(x: matrix[0], y: matrix[1], z: matrix[2], w: matrix[3]), forKey: "inputRVector")

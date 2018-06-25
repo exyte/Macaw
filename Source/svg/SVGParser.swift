@@ -1051,18 +1051,18 @@ open class SVGParser {
                 }
             case "feColorMatrix":
                 if let type = element.allAttributes["type"]?.text {
+                    var matrix: ColorMatrix?
                     if type == "saturate" {
-                        resultingEffect = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
-                    }
-                    if type == "hueRotate" {
+                        matrix = ColorMatrix(saturate: getDoubleValue(element, attribute: "values")!)
+                    } else if type == "hueRotate" {
                         let degrees = getDoubleValue(element, attribute: "values")!
-                        resultingEffect = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
-                    }
-                    if type == "luminanceToAlpha" {
-                        resultingEffect = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
+                        matrix = ColorMatrix(hueRotate: degrees / 180 * Double.pi)
+                    } else if type == "luminanceToAlpha" {
+                        matrix = .luminanceToAlpha
                     } else { // "matrix"
-                        resultingEffect = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
+                        matrix = ColorMatrix(values: getMatrix(element, attribute: "values"))
                     }
+                    resultingEffect = ColorMatrixEffect(matrix: matrix!, input: currentEffect)
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {

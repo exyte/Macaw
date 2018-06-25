@@ -224,43 +224,14 @@ class NodeBoundsTests: XCTestCase {
     }
     
     func testPathBounds1() {
-        var pathSegments = [PathSegment]()
         
-        let segment0 = PathSegment(type: .M, data: [101.9,
-                                                    40.5])
-        pathSegments.append(segment0)
-        let segment1 = PathSegment(type: .c, data: [0,
-                                                    -1.8,
-                                                    1.5,
-                                                    -3.3,
-                                                    3.3,
-                                                    -3.3])
-        pathSegments.append(segment1)
-        let segment2 = PathSegment(type: .s, data: [3.3,
-                                                    1.5,
-                                                    3.3,
-                                                    3.3])
-        pathSegments.append(segment2)
-        let segment3 = PathSegment(type: .v, data: [27.4])
-        pathSegments.append(segment3)
-        let segment4 = PathSegment(type: .c, data: [0,
-                                                    1.8,
-                                                    -1.5,
-                                                    3.3,
-                                                    -3.3,
-                                                    3.3])
-        pathSegments.append(segment4)
-        let segment5 = PathSegment(type: .s, data: [-3.3,
-                                                    -1.5,
-                                                    -3.3,
-                                                    -3.3])
-        pathSegments.append(segment5)
-        let segment6 = PathSegment(type: .V, data: [40.5])
-        pathSegments.append(segment6)
-        let segment7 = PathSegment(type: .z, data: [])
-        pathSegments.append(segment7)
-        
-        let path = Path(segments: pathSegments)
+        let path = MoveTo(x: 101.9, y: 40.5)
+            .c(0, -1.8, 1.5, -3.3, 3.3, -3.3)
+            .s(3.3, 1.5, 3.3, 3.3)
+            .v(27.4)
+            .c(0, 1.8, -1.5, 3.3, -3.3, 3.3)
+            .s(-3.3, -1.5, -3.3, -3.3)
+            .V(40.5).Z().build()
         
         let shape = Shape(form: path)
         
@@ -270,43 +241,13 @@ class NodeBoundsTests: XCTestCase {
     
     func testPathBounds2() {
         
-        var pathSegments = [PathSegment]()
-        
-        let segment0 = PathSegment(type: .M, data: [68,
-                                                    101.9])
-        pathSegments.append(segment0)
-        let segment1 = PathSegment(type: .c, data: [1.8,
-                                                    0,
-                                                    3.3,
-                                                    1.5,
-                                                    3.3,
-                                                    3.3])
-        pathSegments.append(segment1)
-        let segment2 = PathSegment(type: .s, data: [-1.5,
-                                                    3.3,
-                                                    -3.3,
-                                                    3.3])
-        pathSegments.append(segment2)
-        let segment3 = PathSegment(type: .H, data: [40.5])
-        pathSegments.append(segment3)
-        let segment4 = PathSegment(type: .c, data: [-1.8,
-                                                    0,
-                                                    -3.3,
-                                                    -1.5,
-                                                    -3.3,
-                                                    -3.3])
-        pathSegments.append(segment4)
-        let segment5 = PathSegment(type: .s, data: [1.5,
-                                                    -3.3,
-                                                    3.3,
-                                                    -3.3])
-        pathSegments.append(segment5)
-        let segment6 = PathSegment(type: .H, data: [68])
-        pathSegments.append(segment6)
-        let segment7 = PathSegment(type: .z, data: [])
-        pathSegments.append(segment7)
-        
-        let path = Path(segments: pathSegments)
+        let path = MoveTo(x: 68, y: 101.9)
+            .c(1.8, 0, 3.3, 1.5, 3.3, 3.3)
+            .s(-1.5, 3.3, -3.3, 3.3)
+            .H(40.5)
+            .c(-1.8, 0, -3.3, -1.5, -3.3, -3.3)
+            .s(1.5, -3.3, 3.3, -3.3)
+            .H(68).Z().build()
         
         let shape = Shape(form: path)
         let stroke = Stroke(fill: Color.black, width: 1.0, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
@@ -317,41 +258,13 @@ class NodeBoundsTests: XCTestCase {
     }
     
     func testPathBounds3() {
-        var pathSegments = [PathSegment]()
-        let segment0 = PathSegment(type: .M, data: [25,
-                                                    49.5])
-        pathSegments.append(segment0)
-        let segment1 = PathSegment(type: .C, data: [38.5309764,
-                                                    49.5,
-                                                    49.5,
-                                                    38.5309764,
-                                                    49.5,
-                                                    25])
-        pathSegments.append(segment1)
-        let segment2 = PathSegment(type: .C, data: [49.5,
-                                                    11.4690236,
-                                                    38.5309764,
-                                                    0.5,
-                                                    25,
-                                                    0.5])
-        pathSegments.append(segment2)
-        let segment3 = PathSegment(type: .C, data: [11.4690236,
-                                                    0.5,
-                                                    0.5,
-                                                    11.4690236,
-                                                    0.5,
-                                                    25])
-        pathSegments.append(segment3)
-        let segment4 = PathSegment(type: .C, data: [0.5,
-                                                    38.5309764,
-                                                    11.4690236,
-                                                    49.5,
-                                                    25,
-                                                    49.5])
-        pathSegments.append(segment4)
-        let segment5 = PathSegment(type: .z, data: [])
-        pathSegments.append(segment5)
-        let path = Path(segments: pathSegments)
+        
+        let path = MoveTo(x: 25, y: 49.5)
+            .C(38.5309764, 49.5, 49.5, 38.5309764, 49.5, 25)
+            .C(49.5, 11.4690236, 38.5309764, 0.5, 25, 0.5)
+            .C(11.4690236, 0.5, 0.5, 11.4690236, 0.5, 25)
+            .C(0.5, 38.5309764, 11.4690236, 49.5, 25, 49.5).Z().build()
+        
         let shape = Shape(form: path)
         let stroke = Stroke(fill: Color.black, width: 1.0, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
         shape.stroke = stroke
@@ -361,24 +274,11 @@ class NodeBoundsTests: XCTestCase {
     }
     
     func testPathBounds4() {
-        var pathSegments = [PathSegment]()
-        let segment0 = PathSegment(type: .M, data: [10,
-                                                    80])
-        pathSegments.append(segment0)
-        let segment1 = PathSegment(type: .C, data: [40,
-                                                    10,
-                                                    65,
-                                                    10,
-                                                    95,
-                                                    80])
-        pathSegments.append(segment1)
-        let segment2 = PathSegment(type: .S, data: [150,
-                                                    150,
-                                                    180,
-                                                    80])
-        pathSegments.append(segment2)
         
-        let path = Path(segments: pathSegments)
+        let path = MoveTo(x: 10, y: 80)
+            .C(40, 10, 65, 10, 95, 80)
+            .S(150, 150, 180, 80).build()
+        
         let shape = Shape(form: path)
         
         let targetRect = Rect(x: 10, y: 10, w: 170, h: 140)

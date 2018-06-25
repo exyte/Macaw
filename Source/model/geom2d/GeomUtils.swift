@@ -37,7 +37,7 @@ open class GeomUtils {
     }
 
     open class func center(node: Node) -> Point {
-        guard let bounds = node.bounds() else {
+        guard let bounds = node.bounds else {
             return Point()
         }
 

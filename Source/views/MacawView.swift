@@ -617,7 +617,7 @@ private class LayoutHelper {
             }
             return canvas.layout(size: prevSize!).rect()
         } else {
-            return node.bounds()
+            return node.bounds
         }
     }
 

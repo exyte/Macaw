@@ -44,33 +44,34 @@ open class Shape: Node {
         self.fillVar.node = self
     }
 
-    override open func bounds() -> Rect? {
+    override open var bounds: Rect? {
         guard let ctx = createContext() else {
             return .none
         }
 
-        let path = RenderUtils.toCGPath(self.form)
+        var shouldStrokePath = false
 
-        ctx.addPath(path)
+        if fill is Gradient || stroke?.fill is Gradient {
+            shouldStrokePath = true
+        }
+
         if let stroke = stroke {
-            ctx.setLineWidth(CGFloat(stroke.width))
-            ctx.setLineCap(stroke.cap.toCG())
-            ctx.setLineJoin(stroke.join.toCG())
-            ctx.setMiterLimit(CGFloat(stroke.miterLimit))
-            if !stroke.dashes.isEmpty {
-                ctx.setLineDash(phase: CGFloat(stroke.offset),
-                                lengths: stroke.dashes.map { CGFloat($0) })
-            }
+            RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
+        }
 
+        RenderUtils.setGeometry(self.form, ctx: ctx)
+
+        let point = ctx.currentPointOfPath
+
+        if shouldStrokePath {
             ctx.replacePathWithStrokedPath()
         }
 
         var rect = ctx.boundingBoxOfPath
 
         if rect.height == 0,
-            rect.width == 0 {
+            rect.width == 0 && (rect.origin.x == CGFloat.infinity || rect.origin.y == CGFloat.infinity) {
 
-            let point = ctx.currentPointOfPath
             rect.origin = point
         }
 
@@ -83,7 +84,8 @@ open class Shape: Node {
 
         let smallSize = CGSize(width: 1.0, height: 1.0)
 
-        MGraphicsBeginImageContextWithOptions(smallSize, false, 0.0)
+        MGraphicsBeginImageContextWithOptions(smallSize, false, 1.0)
+
         return MGraphicsGetCurrentContext()
     }
 

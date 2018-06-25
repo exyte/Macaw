@@ -1,9 +1,9 @@
 open class GaussianBlur: Effect {
 
-    open let radius: Double
+    open let r: Double
 
-    public init(radius: Double = 0, input: Effect? = nil) {
-        self.radius = radius
+    public init(r: Double = 0, input: Effect? = nil) {
+        self.r = r
         super.init(input: input)
     }
 }

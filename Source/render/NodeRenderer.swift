@@ -168,7 +168,7 @@ class NodeRenderer {
         var inset: Double = 0
         for effect in effects {
             if let blur = effect as? GaussianBlur {
-                inset = min(blur.radius * 6 + 1, 150)
+                inset = min(blur.r * 6 + 1, 150)
             }
         }
 
@@ -192,7 +192,7 @@ class NodeRenderer {
     fileprivate func applyBlur(_ image: CIImage, blur: GaussianBlur) -> CIImage {
         let filter = CIFilter(name: "CIGaussianBlur")!
         filter.setDefaults()
-        filter.setValue(Int(blur.radius), forKey: kCIInputRadiusKey)
+        filter.setValue(Int(blur.r), forKey: kCIInputRadiusKey)
         filter.setValue(image, forKey: kCIInputImageKey)
         return filter.outputImage!
     }

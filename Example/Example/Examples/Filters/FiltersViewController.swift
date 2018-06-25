@@ -24,10 +24,10 @@ class FiltersViewController: UIViewController {
             with: ColorMatrix(values: [0.33, 0, 0, 0, 0.33,
                                        0.5, 0.5, 0, 0, 0,
                                        0.33, 0.33, 0.33, 0, 1,
-                                       1, 1, 1, 1, 0])).blur(radius: 4).blend()
+                                       1, 1, 1, 1, 0])).blur(r: 4).blend()
         
         let circle = Shape(form: Circle(cx: 30, cy: 70, r: 50), fill: Color.navy, place: Transform(m11: 1, m12: 0, m21: 0, m22: 1, dx: 50, dy: 50))
-        circle.effect = .dropShadow(dx: 10, dy: 10, radius: 5, color: .teal)
+        circle.effect = .dropShadow(dx: 10, dy: 10, r: 5, color: .teal)
         macawView.node = Group(contents: [yellowRect, rect, circle])
 
     }

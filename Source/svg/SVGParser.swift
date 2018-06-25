@@ -1047,7 +1047,7 @@ open class SVGParser {
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    resultingEffect = GaussianBlur(radius: radius, input: currentEffect)
+                    resultingEffect = GaussianBlur(r: radius, input: currentEffect)
                 }
             case "feColorMatrix":
                 if let type = element.allAttributes["type"]?.text {

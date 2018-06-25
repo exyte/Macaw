@@ -51,12 +51,9 @@ open class Shape: Node {
 
         var shouldStrokePath = false
 
-        if fill is Gradient || stroke?.fill is Gradient {
-            shouldStrokePath = true
-        }
-
         if let stroke = stroke {
             RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
+            shouldStrokePath = true
         }
 
         RenderUtils.setGeometry(self.form, ctx: ctx)

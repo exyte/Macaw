@@ -386,22 +386,7 @@ class NodeBoundsTests: XCTestCase {
     }
     
     func testPolyline() {
-        let polyline = Polyline(points: [270,
-                                         225,
-                                         300,
-                                         245,
-                                         320,
-                                         225,
-                                         340,
-                                         245,
-                                         280,
-                                         280,
-                                         390,
-                                         280,
-                                         420,
-                                         240,
-                                         280,
-                                         185])
+        let polyline = Polyline(points: [270, 225, 300, 245, 320, 225, 340, 245, 280, 280, 390, 280, 420, 240, 280, 185])
         let stroke = Stroke(fill: Color(val: 30464), width: 8, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
         let shape = Shape(form: polyline)
         shape.stroke = stroke

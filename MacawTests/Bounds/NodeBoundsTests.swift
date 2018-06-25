@@ -14,6 +14,9 @@ import XCTest
 class NodeBoundsTests: XCTestCase {
     var window: UIWindow!
     
+    //TO DO: need to test paths bounds: M 50 50 C 20 20, 40 20, 50 10 and M 50 50 c 20 20, 40 20, 50 10
+    //currently doesn't work because of http://www.openradar.me/6468254639 or #41355347 on https://bugreport.apple.com/
+    
     override func setUp() {
         super.setUp()
         

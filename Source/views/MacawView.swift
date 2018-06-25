@@ -73,7 +73,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     override open var intrinsicContentSize: CGSize {
-        if let bounds = node.bounds() {
+        if let bounds = node.bounds {
             return bounds.size().toCG()
         } else {
             return CGSize(width: MNoIntrinsicMetric(), height: MNoIntrinsicMetric())

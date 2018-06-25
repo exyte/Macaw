@@ -35,7 +35,6 @@ class NodeBoundsTests: XCTestCase {
         
         var testResult = false
         if let bounds = node.bounds {
-            //print("\n<rect x=\"\(Double(round(100*bounds.x)/100))\" y=\"\(Double(round(100*bounds.y)/100))\" width=\"\(Double(round(100*bounds.w)/100))\" height=\"\(Double(round(100*bounds.h)/100))\" stroke=\"red\" stroke-width=\"1\" fill=\"none\"/>\n")
             testResult = (Double(round(100*bounds.x)/100) - referenceBounds.x < passingThreshold)
             testResult = testResult && (Double(round(100*bounds.y)/100) - referenceBounds.y < passingThreshold)
             testResult = testResult && (Double(round(100*bounds.w)/100) - referenceBounds.w < passingThreshold)

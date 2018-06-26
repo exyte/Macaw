@@ -256,7 +256,7 @@ class NodeBoundsTests: XCTestCase {
         let stroke = Stroke(fill: Color.black, width: 1.0, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
         shape.stroke = stroke
         
-        let targetRect = Rect(x: 37.2, y: 101.9, w: 34.1, h: 6.6)
+        let targetRect = Rect(x: 36.7, y: 101.4, w: 35.1, h: 7.6)
         validate(node: shape, referenceBounds: targetRect)
     }
     
@@ -272,7 +272,7 @@ class NodeBoundsTests: XCTestCase {
         let stroke = Stroke(fill: Color.black, width: 1.0, cap: .butt, join: .miter, miterLimit: 4.0, dashes: [], offset: 0.0)
         shape.stroke = stroke
         
-        let targetRect = Rect(x: 0.5, y: 0.5, w: 49, h: 49)
+        let targetRect = Rect(x: 0.0, y: 0.0, w: 50, h: 50)
         validate(node: shape, referenceBounds: targetRect)
     }
     
@@ -294,7 +294,7 @@ class NodeBoundsTests: XCTestCase {
         let shape = Shape(form: polyline)
         shape.stroke = stroke
         
-        let targetRect = Rect(x: 270, y: 185, w: 150, h: 95)
+        let targetRect = Rect(x: 265.2, y: 181.3, w: 161.2, h: 102.7)
         validate(node: shape, referenceBounds: targetRect)
     }
 }

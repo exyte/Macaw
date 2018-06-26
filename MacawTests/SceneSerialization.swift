@@ -309,11 +309,22 @@ class LocusSerializer {
                       rx: parse(dictionary["rx"]),
                       ry: parse(dictionary["ry"]))
         }
+        factories["TransformedLocus"] = { dictionary in
+            TransformedLocus(locus: self.instance(dictionary: dictionary["locus"] as! [String:Any]),
+                             transform: Transform(string: dictionary["transform"] as? String))
+        }
     }
 
     func instance(dictionary: [String:Any]) -> Locus {
         let type = dictionary["type"] as! String
         return factories[type]!(dictionary)
+    }
+}
+
+extension TransformedLocus: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["type": "TransformedLocus", "locus": (locus as! Serializable).toDictionary(), "transform": transform.toString()]
     }
 }
 

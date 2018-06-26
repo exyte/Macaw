@@ -1386,9 +1386,10 @@ open class SVGParser {
     }
 
     fileprivate func getClipPath(_ attributes: [String: String], locus: Locus?) -> Locus? {
-        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath), let locus = locus {
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let userSpaceLocus = defClip[id] {
                 if !userSpaceLocus.userSpace {
+                    guard let locus = locus else { return .none }
                     let transform = transformBoundingBoxLocus(respectiveLocus: userSpaceLocus.locus, absoluteLocus: locus)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }

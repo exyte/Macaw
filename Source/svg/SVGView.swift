@@ -27,6 +27,10 @@ open class SVGView: MacawView {
         self.init(node: Group(), coder: aDecoder)
     }
 
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
     override func initializeView() {
         super.initializeView()
         self.contentLayout = ContentLayout.of(contentMode: contentMode)

@@ -3,6 +3,7 @@ open class AspectRatio {
     public static let none: AspectRatio = AspectRatio()
     public static let meet: AspectRatio = MeetAspectRatio()
     public static let slice: AspectRatio = SliceAspectRatio()
+    internal static let doNothing: AspectRatio = DoNothingAspectRatio()
 
     open func fit(size: Size, into sizeToFitIn: Size) -> Size {
         return Size(w: sizeToFitIn.w, h: sizeToFitIn.h)
@@ -16,6 +17,13 @@ open class AspectRatio {
         return fit(size: size, into: rectToFitIn.size())
     }
 
+}
+
+internal class DoNothingAspectRatio: AspectRatio {
+    
+    override func fit(size: Size, into sizeToFitIn: Size) -> Size {
+        return size
+    }
 }
 
 private class MeetAspectRatio: AspectRatio {

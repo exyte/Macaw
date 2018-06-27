@@ -24,6 +24,7 @@
             {
               "stroke" : {
                 "join" : "miter",
+                "miterLimit" : 20,
                 "cap" : "butt",
                 "fill" : {
                   "type" : "Color",
@@ -65,6 +66,7 @@
             {
               "stroke" : {
                 "join" : "miter",
+                "miterLimit" : 18.100000000000001,
                 "cap" : "butt",
                 "fill" : {
                   "type" : "Color",
@@ -106,6 +108,7 @@
             {
               "stroke" : {
                 "join" : "miter",
+                "miterLimit" : 17.899999999999999,
                 "cap" : "butt",
                 "fill" : {
                   "type" : "Color",
@@ -147,6 +150,7 @@
             {
               "stroke" : {
                 "join" : "miter",
+                "miterLimit" : 17,
                 "cap" : "butt",
                 "fill" : {
                   "type" : "Color",
@@ -229,6 +233,7 @@
             {
               "stroke" : {
                 "join" : "miter",
+                "miterLimit" : 1,
                 "cap" : "butt",
                 "fill" : {
                   "type" : "Color",

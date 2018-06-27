@@ -420,6 +420,12 @@ extension Stroke: Serializable {
         if let fillColor = fill as? Color {
             result["fill"] = fillColor.toDictionary()
         }
+        if miterLimit != 4 {
+            result["miterLimit"] = miterLimit
+        }
+        if offset != 0 {
+            result["offset"] = offset
+        }
         return result
     }
     
@@ -439,9 +445,25 @@ extension Stroke: Serializable {
             join = lineJoinForString(lineJoinString)
         }
         
+        var miterLimit: Double?
+        if let string = dictionary["miterLimit"] as? String {
+            miterLimit = Double(string)
+        }
+        
+        var offset: Double?
+        if let string = dictionary["offset"] as? String {
+            offset = Double(string)
+        }
+        
         let dashes = dictionary["dashes"] as? [Double] ?? []
         
-        self.init(fill: fill, width: parse(dictionary["width"]), cap: cap, join: join, dashes: dashes)
+        self.init(fill: fill,
+                  width: parse(dictionary["width"]),
+                  cap: cap,
+                  join: join,
+                  miterLimit: miterLimit != nil ? miterLimit! : 4,
+                  dashes: dashes,
+                  offset: offset != nil ? offset! : 0)
     }
 }
 

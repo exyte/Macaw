@@ -566,8 +566,13 @@ open class SVGParser {
     }
 
     fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
+        var opacity: Double = 1
+        if let fillOpacity = styleParts["fill-opacity"] {
+            opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+        }
+        
         guard var fillColor = styleParts["fill"] else {
-            return Color.black
+            return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
             return defFills[colorId]
@@ -576,10 +581,6 @@ open class SVGParser {
             fillColor = currentColor
         }
 
-        var opacity: Double = 1
-        if let fillOpacity = styleParts["fill-opacity"] {
-            opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
-        }
         return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
     }
 

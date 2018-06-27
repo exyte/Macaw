@@ -78,6 +78,7 @@
         {
           "stroke" : {
             "join" : "miter",
+            "miterLimit" : 1,
             "cap" : "butt",
             "fill" : {
               "type" : "Color",

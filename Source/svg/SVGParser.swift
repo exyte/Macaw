@@ -690,7 +690,7 @@ open class SVGParser {
     }
 
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
-        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = Double(strokeOffset) { // TODO use doubleFromString once it's merged
+        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = doubleFromString(strokeOffset) {
             return offset
         }
         return 0

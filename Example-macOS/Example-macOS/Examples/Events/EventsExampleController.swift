@@ -11,10 +11,9 @@ import Macaw
 class EventsExampleController: NSViewController {
   
   @IBOutlet weak var macawView: MacawView?
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
+  override func viewWillAppear() {
+    super.viewWillAppear()
     macawView?.node = loadScene()
   }
   

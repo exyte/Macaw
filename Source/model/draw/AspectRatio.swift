@@ -20,7 +20,7 @@ open class AspectRatio {
 }
 
 internal class DoNothingAspectRatio: AspectRatio {
-    
+
     override func fit(size: Size, into sizeToFitIn: Size) -> Size {
         return size
     }

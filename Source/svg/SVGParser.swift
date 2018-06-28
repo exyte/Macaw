@@ -124,7 +124,7 @@ open class SVGParser {
         if element.allAttributes["width"] == nil && element.allAttributes["height"] == nil && element.allAttributes["viewBox"] == nil {
             return .none
         }
-        
+
         let w = getDimensionValue(element, attribute: "width") ?? SVGLength(percent: 100)
         let h = getDimensionValue(element, attribute: "height") ?? SVGLength(percent: 100)
         let svgSize = SVGSize(width: w, height: h)
@@ -570,7 +570,7 @@ open class SVGParser {
         if let fillOpacity = styleParts["fill-opacity"] {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
-        
+
         guard var fillColor = styleParts["fill"] else {
             return Color.black.with(a: opacity)
         }
@@ -1394,7 +1394,9 @@ open class SVGParser {
         if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let userSpaceLocus = defClip[id] {
                 if !userSpaceLocus.userSpace {
-                    guard let locus = locus else { return .none }
+                    guard let locus = locus else {
+                        return .none
+                    }
                     let transform = transformBoundingBoxLocus(respectiveLocus: userSpaceLocus.locus, absoluteLocus: locus)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }

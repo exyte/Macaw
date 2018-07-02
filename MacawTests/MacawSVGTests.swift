@@ -210,7 +210,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testColorProp01() {
-        validateJSON("color-prop-01-b-manual")
+        validateJSONAndImage("color-prop-01-b-manual")
     }
     
     func testShapesEllipse01() {
@@ -534,7 +534,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testPathsData04() {
-        validateJSON("paths-data-04-t-manual")
+        validateJSONAndImage("paths-data-04-t-manual")
     }
     
     func testPaintingStroke04() {
@@ -571,5 +571,81 @@ class MacawSVGTests: XCTestCase {
     
     func testMaskingIntro01() {
         validateJSON("masking-intro-01-f-manual")
+    }
+    
+    func saveImage(image: UIImage, fileName: String) -> URL? {
+        guard let data = UIImageJPEGRepresentation(image, 0.6) else {
+            return .none
+        }
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+            return .none
+        }
+        do {
+            let path = directory.appendingPathComponent("\(fileName).jpg")!
+            try data.write(to: path)
+            return path
+        } catch {
+            print(error.localizedDescription)
+            return .none
+        }
+    }
+    
+    func imageForTest(_ test: String) -> UIImage {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(bundle: bundle, path: test)
+            var frame = node.bounds
+            if frame == nil, let group = node as? Group {
+                frame = Group(contents: group.contents).bounds
+            }
+            let view = MacawView(node: node, frame: frame!.toCG())
+            let renderer = RenderUtils.createNodeRenderer(node, view: view, animationCache: view.animationCache)
+            let image = renderer.renderToImage(bounds: frame!)
+            return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: UIImageOrientation.downMirrored)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+        XCTFail()
+        return UIImage()
+    }
+    
+    func testA() {
+        createImage("paths-data-04-t-manual")
+    }
+    
+    func createImage(_ test: String) {
+        if saveImage(image: imageForTest(test), fileName: test) == nil {
+            XCTFail()
+        }
+    }
+    
+    func validateImage(_ test: String) {
+        let image = imageForTest(test)
+        let tempPath = saveImage(image: image, fileName: "temp")
+        let nodeImage = UIImage(contentsOfFile: tempPath!.path)!
+        validateImage(nodeImage: nodeImage, referenceFile: test)
+    }
+    
+    func validateImage(nodeImage: UIImage, referenceFile: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        guard let path = bundle.path(forResource: referenceFile, ofType: "jpg") else {
+            XCTFail("No reference file \(referenceFile)")
+            return
+        }
+        
+        let referenceImage = UIImage(contentsOfFile: path)
+        let referenceContent = UIImagePNGRepresentation(referenceImage!)!
+        let nodeContent = UIImagePNGRepresentation(nodeImage)!
+        
+        if referenceContent != nodeContent {
+            let referencePath = saveImage(image: referenceImage!, fileName: referenceFile + "_reference")
+            let _ = saveImage(image: nodeImage, fileName: referenceFile + "_incorrect")
+            XCTFail("Not equal, see both pictures in \(String(describing: referencePath!.deletingLastPathComponent().path))")
+        }
+    }
+    
+    func validateJSONAndImage(_ test: String) {
+        validateJSON(test)
+        validateImage(test)
     }
 }

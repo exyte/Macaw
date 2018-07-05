@@ -31,7 +31,7 @@ class ShapeRenderer: NodeRenderer {
         observe(shape.strokeVar)
     }
 
-    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         guard let shape = shape else {
             return
         }
@@ -39,16 +39,19 @@ class ShapeRenderer: NodeRenderer {
             return
         }
 
-        setGeometry(shape.form, ctx: context)
+        RenderUtils.setGeometry(shape.form, ctx: context)
 
         var fillRule = FillRule.nonzero
         if let path = shape.form as? Path {
             fillRule = path.fillRule
         }
 
-        if !useAlphaOnly {
+        switch coloringMode {
+        case .rgb:
             drawPath(fill: shape.fill, stroke: shape.stroke, ctx: context, opacity: opacity, fillRule: fillRule)
-        } else {
+        case .greyscale:
+            drawPath(fill: shape.fill?.fillUsingGrayscaleNoAlpha(), stroke: shape.stroke?.strokeUsingGrayscaleNoAlpha(), ctx: context, opacity: opacity, fillRule: fillRule)
+        case .alphaOnly:
             drawPath(fill: shape.fill?.fillUsingAlphaOnly(), stroke: shape.stroke?.strokeUsingAlphaOnly(), ctx: context, opacity: opacity, fillRule: fillRule)
         }
     }
@@ -58,10 +61,10 @@ class ShapeRenderer: NodeRenderer {
             return .none
         }
 
-        setGeometry(shape.form, ctx: ctx)
+        RenderUtils.setGeometry(shape.form, ctx: ctx)
         var drawingMode: CGPathDrawingMode? = nil
         if let stroke = shape.stroke {
-            setStrokeAttributes(stroke, ctx: ctx)
+            RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
             if shape.fill != nil {
                 drawingMode = .fillStroke
             } else {
@@ -83,30 +86,6 @@ class ShapeRenderer: NodeRenderer {
         // Prepare for next figure hittesting - clear current context path
         ctx.beginPath()
         return .none
-    }
-
-    fileprivate func setGeometry(_ locus: Locus, ctx: CGContext) {
-        if let rect = locus as? Rect {
-            ctx.addRect(rect.toCG())
-        } else if let round = locus as? RoundRect {
-            let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            let path = MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
-                MRectCorner.allCorners, cornerRadii: corners).cgPath
-            ctx.addPath(path)
-        } else if let circle = locus as? Circle {
-            let cx = circle.cx
-            let cy = circle.cy
-            let r = circle.r
-            ctx.addEllipse(in: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
-        } else if let ellipse = locus as? Ellipse {
-            let cx = ellipse.cx
-            let cy = ellipse.cy
-            let rx = ellipse.rx
-            let ry = ellipse.ry
-            ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
-        } else {
-            ctx.addPath(locus.toCGPath())
-        }
     }
 
     fileprivate func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
@@ -157,7 +136,7 @@ class ShapeRenderer: NodeRenderer {
         if let path = path, shouldStrokePath {
             ctx!.addPath(path)
         }
-        setStrokeAttributes(stroke, ctx: ctx)
+        RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
 
         if stroke.fill is Gradient {
             gradientStroke(stroke, ctx: ctx, opacity: opacity)
@@ -169,17 +148,6 @@ class ShapeRenderer: NodeRenderer {
             ctx!.strokePath()
         } else {
             ctx!.drawPath(using: mode)
-        }
-    }
-
-    fileprivate func setStrokeAttributes(_ stroke: Stroke, ctx: CGContext?) {
-        ctx!.setLineWidth(CGFloat(stroke.width))
-        ctx!.setLineJoin(stroke.join.toCG())
-        ctx!.setLineCap(stroke.cap.toCG())
-        ctx!.setMiterLimit(CGFloat(stroke.miterLimit))
-        if !stroke.dashes.isEmpty {
-            ctx?.setLineDash(phase: CGFloat(stroke.offset),
-                             lengths: stroke.dashes.map { CGFloat($0) })
         }
     }
 
@@ -260,6 +228,9 @@ extension Stroke {
     func strokeUsingAlphaOnly() -> Stroke {
         return Stroke(fill: fill.fillUsingAlphaOnly(), width: width, cap: cap, join: join, dashes: dashes, offset: offset)
     }
+    func strokeUsingGrayscaleNoAlpha() -> Stroke {
+        return Stroke(fill: fill.fillUsingGrayscaleNoAlpha(), width: width, cap: cap, join: join, dashes: dashes, offset: offset)
+    }
 }
 
 extension Fill {
@@ -275,10 +246,28 @@ extension Fill {
         let linear = self as! LinearGradient
         return LinearGradient(x1: linear.x1, y1: linear.y1, x2: linear.x2, y2: linear.y2, userSpace: linear.userSpace, stops: newStops)
     }
+
+    func fillUsingGrayscaleNoAlpha() -> Fill {
+        if let color = self as? Color {
+            return color.toGrayscaleNoAlpha()
+        }
+        let gradient = self as! Gradient
+        let newStops = gradient.stops.map { Stop(offset: $0.offset, color: $0.color.toGrayscaleNoAlpha()) }
+        if let radial = self as? RadialGradient {
+            return RadialGradient(cx: radial.cx, cy: radial.cy, fx: radial.fx, fy: radial.fy, r: radial.r, userSpace: radial.userSpace, stops: newStops)
+        }
+        let linear = self as! LinearGradient
+        return LinearGradient(x1: linear.x1, y1: linear.y1, x2: linear.x2, y2: linear.y2, userSpace: linear.userSpace, stops: newStops)
+    }
 }
 
 extension Color {
     func colorUsingAlphaOnly() -> Color {
         return Color.black.with(a: Double(a()) / 255.0)
+    }
+
+    func toGrayscaleNoAlpha() -> Color {
+        let grey = Int(0.21 * Double(r()) + 0.72 * Double(g()) + 0.07 * Double(b()))
+        return Color.rgb(r: grey, g: grey, b: grey)
     }
 }

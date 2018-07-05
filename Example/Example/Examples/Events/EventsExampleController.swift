@@ -26,6 +26,7 @@ class EventsExampleController: UIViewController {
     }
     
     var selectedTool: PanelTool?
+    let stroke = Stroke(fill: Color.black, width: 1.0)
     
     private func loadScene() -> Node {
         return [
@@ -35,7 +36,7 @@ class EventsExampleController: UIViewController {
     }
     
     private func createPanel() -> Node {
-        let panel = Shape(form: Rect(x: 10.0, y: 10.0, w: 80.0, h: 120.0), fill: Color.white, stroke: Stroke(fill: Color.black, width: 1.0))
+        let panel = Shape(form: Rect(x: 10.0, y: 10.0, w: 80.0, h: 120.0), fill: Color.white, stroke: stroke)
 
         
         let panelGroup = [
@@ -69,16 +70,14 @@ class EventsExampleController: UIViewController {
                 return
             }
             
-            print("canvas pressed:\(loc.x) \(loc.y)")
-            
             startPoint = loc
             switch tool {
             case .ellipse:
-                currentFigure = Shape(form: Ellipse(cx: startPoint.x, cy: startPoint.y, rx: 0.0, ry: 0.0))
+                currentFigure = Shape(form: Ellipse(cx: startPoint.x, cy: startPoint.y, rx: 0.0, ry: 0.0), stroke: self.stroke)
                 break
                 
             case .rectangle:
-                currentFigure = Shape(form: Rect(x: startPoint.x, y: startPoint.y, w: 0.0, h: 0.0))
+                currentFigure = Shape(form: Rect(x: startPoint.x, y: startPoint.y, w: 0.0, h: 0.0), stroke: self.stroke)
                 break
             }
             
@@ -97,8 +96,6 @@ class EventsExampleController: UIViewController {
             guard let loc = event.points.first?.location else {
                 return
             }
-            
-            print("canvas moving \(loc.x) \(loc.y)")
             
             let width = loc.x - startPoint.x
             let height = loc.y - startPoint.y
@@ -129,21 +126,21 @@ class EventsExampleController: UIViewController {
     private func createTools() -> Node {
         let ellipseTool = Shape(form: Ellipse(cx: 50.0, cy: 50.0, rx: 25, ry: 15),
                                 fill: Color.white,
-                                stroke: Stroke(fill: Color.black, width: 1.0))
+                                stroke: stroke)
         let rectTool = Shape(form: Rect(x: 25.0, y: 75.0, w: 50.0, h: 30.0),
                                 fill: Color.white,
-                                stroke: Stroke(fill: Color.black, width: 1.0))
+                                stroke: stroke)
         
         ellipseTool.onTap { _ in
             self.selectedTool = .ellipse
             ellipseTool.stroke = Stroke(fill: Color.blue, width: 2.0)
-            rectTool.stroke    = Stroke(fill: Color.black, width: 1.0)
+            rectTool.stroke    = self.stroke
         }
         
         rectTool.onTap { _ in
             self.selectedTool = .rectangle
             rectTool.stroke    = Stroke(fill: Color.blue, width: 2.0)
-            ellipseTool.stroke = Stroke(fill: Color.black, width: 1.0)
+            ellipseTool.stroke = self.stroke
         }
 
         return [

@@ -31,6 +31,10 @@ open class Rect: Locus {
         return RoundRect(rect: self, rx: r, ry: r)
     }
 
+    open func center() -> Point {
+        return Point(x: x + w / 2, y: y + w / 2)
+    }
+
     open func contains(locus: Locus) -> Bool {
         return false
     }

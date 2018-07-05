@@ -37,7 +37,7 @@ class AnimationCache {
             // layer.borderWidth = 1.0
             // layer.borderColor = MColor.blue.cgColor
 
-            let calculatedBounds = customBounds ?? node.bounds()
+            let calculatedBounds = customBounds ?? node.bounds
             if let shapeBounds = calculatedBounds {
                 let cgRect = shapeBounds.toCG()
 

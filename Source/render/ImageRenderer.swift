@@ -37,7 +37,7 @@ class ImageRenderer: NodeRenderer {
         observe(image.hVar)
     }
 
-    override func doRender(in context: CGContext, force: Bool, opacity: Double, useAlphaOnly: Bool = false) {
+    override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         guard let image = image else {
             return
         }
@@ -50,8 +50,8 @@ class ImageRenderer: NodeRenderer {
             mImage = image.image()
         }
 
-        if let mImage = mImage {
-            let rect = getRect(mImage)
+        if let mImage = mImage,
+            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
             context.scaleBy(x: 1.0, y: -1.0)
             context.translateBy(x: 0.0, y: -1.0 * rect.height)
             context.setAlpha(CGFloat(opacity))
@@ -70,39 +70,13 @@ class ImageRenderer: NodeRenderer {
         let osImage = MImage(named: NSImage.Name(rawValue: image.src))
         #endif
 
-        if let mImage = osImage {
-            let rect = getRect(mImage)
+        if let mImage = osImage,
+            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
+
             if rect.contains(location) {
                 return node()
             }
         }
-        return nil
-    }
-
-    fileprivate func getRect(_ mImage: MImage) -> CGRect {
-        guard let image = image else {
-            return .zero
-        }
-
-        let imageSize = mImage.size
-        var w = CGFloat(image.w)
-        var h = CGFloat(image.h)
-        if (w == 0 || w == imageSize.width) && (h == 0 || h == imageSize.height) {
-            return CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
-        } else {
-            if w == 0 {
-                w = imageSize.width * h / imageSize.height
-            } else if h == 0 {
-                h = imageSize.height * w / imageSize.width
-            }
-
-            let newSize = image.aspectRatio.fit(
-                size: Size(w: Double(image.w), h: Double(image.h)),
-                into: Size(w: Double(imageSize.width), h: Double(imageSize.height))
-            )
-            let destX = image.xAlign.align(outer: w.doubleValue, inner: newSize.w)
-            let destY = image.yAlign.align(outer: h.doubleValue, inner: newSize.h)
-            return CGRect(x: destX, y: destY, width: newSize.w, height: newSize.h)
-        }
+        return .none
     }
 }

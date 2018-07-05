@@ -20,4 +20,12 @@ class SVGCanvas: Group {
         return size
     }
 
+    override var bounds: Rect? {
+        let size = layout.computeSize(parent: .zero)
+        if size.w == 0 || size.h == 0 {
+            return .none
+        }
+        return size.rect(at: .origin)
+    }
+
 }

@@ -93,6 +93,7 @@
         {
           "stroke" : {
             "join" : "miter",
+            "offset" : 5,
             "cap" : "butt",
             "fill" : {
               "type" : "Color",
@@ -129,6 +130,7 @@
         {
           "stroke" : {
             "join" : "miter",
+            "offset" : 5,
             "cap" : "butt",
             "fill" : {
               "type" : "Color",

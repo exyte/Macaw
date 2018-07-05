@@ -99,7 +99,7 @@
                                 <rect key="frame" x="162" y="622" width="50" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="FfM-TK-kDH"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="FfM-TK-kDH"/>
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Start">

@@ -34,7 +34,7 @@ open class SVGParser {
     }
 
     let availableStyleAttributes = ["stroke", "stroke-width", "stroke-opacity", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit",
-                                    "fill", "fill-rule", "fill-opacity", "clip-path",
+                                    "fill", "fill-rule", "fill-opacity", "clip-path", "mask",
                                     "opacity", "color", "stop-color", "stop-opacity",
                                     "font-family", "font-size", "font-weight", "text-anchor",
                                     "visibility"]
@@ -45,7 +45,7 @@ open class SVGParser {
     fileprivate var nodes = [Node]()
     fileprivate var defNodes = [String: XMLIndexer]()
     fileprivate var defFills = [String: Fill]()
-    fileprivate var defMasks = [String: Shape]()
+    fileprivate var defMasks = [String: UserSpaceNode]()
     fileprivate var defClip = [String: UserSpaceLocus]()
     fileprivate var defEffects = [String: Effect]()
 
@@ -120,7 +120,11 @@ open class SVGParser {
         }
     }
 
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout {
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
+        if element.allAttributes["width"] == nil && element.allAttributes["height"] == nil && element.allAttributes["viewBox"] == nil {
+            return .none
+        }
+
         let w = getDimensionValue(element, attribute: "width") ?? SVGLength(percent: 100)
         let h = getDimensionValue(element, attribute: "height") ?? SVGLength(percent: 100)
         let svgSize = SVGSize(width: w, height: h)
@@ -262,31 +266,31 @@ open class SVGParser {
                 if let rule = getFillRule(styleAttributes) {
                     path = Path(segments: path.segments, fillRule: rule)
                 }
-                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), tag: getTag(element))
+                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), mask: getMask(styleAttributes, locus: path), tag: getTag(element))
             }
         case "line":
             if let line = parseLine(node) {
-                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), tag: getTag(element))
+                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), mask: getMask(styleAttributes, locus: line), tag: getTag(element))
             }
         case "rect":
             if let rect = parseRect(node) {
-                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), tag: getTag(element))
+                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), mask: getMask(styleAttributes, locus: rect), tag: getTag(element))
             }
         case "circle":
             if let circle = parseCircle(node) {
-                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), tag: getTag(element))
+                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), mask: getMask(styleAttributes, locus: circle), tag: getTag(element))
             }
         case "ellipse":
             if let ellipse = parseEllipse(node) {
-                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), tag: getTag(element))
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), mask: getMask(styleAttributes, locus: ellipse), tag: getTag(element))
             }
         case "polygon":
             if let polygon = parsePolygon(node) {
-                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), tag: getTag(element))
+                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), mask: getMask(styleAttributes, locus: polygon), tag: getTag(element))
             }
         case "polyline":
             if let polyline = parsePolyline(node) {
-                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), tag: getTag(element))
+                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), mask: getMask(styleAttributes, locus: polyline), tag: getTag(element))
             }
         case "image":
             return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes, locus: nil))
@@ -385,30 +389,12 @@ open class SVGParser {
         }
         var groupNodes: [Node] = []
         let style = getStyleAttributes(groupStyle, element: element)
-        let position = getPosition(element)
-        var mask: TransformedLocus?
-        if let maskId = element.allAttributes["mask"]?.text
-            .replacingOccurrences(of: "url(#", with: "")
-            .replacingOccurrences(of: ")", with: "") {
-            let maskShape = defMasks[maskId]
-            mask = TransformedLocus(locus: maskShape!.form, transform: maskShape!.place)
-        }
         group.children.forEach { child in
             if let node = parseNode(child, groupStyle: style) {
                 groupNodes.append(node)
             }
         }
-        return Group(contents: groupNodes, place: position, clip: mask, tag: getTag(element))
-    }
-
-    fileprivate func getMask(mask: String) -> Locus? {
-        if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-            let fullRange = NSRange(location: 0, length: mask.count)
-            if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
-                return maskReferenceNode.form
-            }
-        }
-        return .none
+        return Group(contents: groupNodes, place: getPosition(element), tag: getTag(element))
     }
 
     fileprivate func getPosition(_ element: SWXMLHash.XMLElement) -> Transform {
@@ -502,7 +488,7 @@ open class SVGParser {
                     let dx = Double(values[4]), let dy = Double(values[5]) {
 
                     let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = GeomUtils.concat(t1: transform, t2: transformMatrix)
+                    finalTransform = transform.concat(with: transformMatrix)
                 }
             default:
                 break
@@ -627,8 +613,13 @@ open class SVGParser {
     }
 
     fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
+        var opacity: Double = 1
+        if let fillOpacity = styleParts["fill-opacity"] {
+            opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+        }
+
         guard var fillColor = styleParts["fill"] else {
-            return Color.black
+            return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
             return defFills[colorId]
@@ -637,10 +628,6 @@ open class SVGParser {
             fillColor = currentColor
         }
 
-        var opacity: Double = 1
-        if let fillOpacity = styleParts["fill-opacity"] {
-            opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
-        }
         return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
     }
 
@@ -751,7 +738,7 @@ open class SVGParser {
     }
 
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
-        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = Double(strokeOffset) { // TODO use doubleFromString once it's merged
+        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = doubleFromString(strokeOffset) {
             return offset
         }
         return 0
@@ -941,7 +928,7 @@ open class SVGParser {
             if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
+            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
         }
         // parse as regular text element
         var textString: NSString
@@ -965,7 +952,7 @@ open class SVGParser {
         }
         return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection,
                              withWhitespace: nextStringWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke,
-                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
+                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
     }
 
     fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
@@ -1033,38 +1020,6 @@ open class SVGParser {
         return .none
     }
 
-    fileprivate func parseUseNode(node: Node, fill: Fill?, stroke: Stroke?, mask: String) -> Node {
-        if let shape = node as? Shape {
-            if let color = fill {
-                shape.fill = color
-            }
-            if let line = stroke {
-                shape.stroke = line
-            }
-            if let maskIdenitifierMatcher = SVGParserRegexHelper.getMaskIdenitifierMatcher() {
-                let fullRange = NSRange(location: 0, length: mask.count)
-                if let match = maskIdenitifierMatcher.firstMatch(in: mask, options: .reportCompletion, range: fullRange), let maskReferenceNode = self.defMasks[(mask as NSString).substring(with: match.range(at: 1))] {
-                    shape.clip = maskReferenceNode.form
-                    shape.fill = .none
-                }
-            }
-            return shape
-        }
-        if let text = node as? Text {
-            if let color = fill {
-                text.fill = color
-            }
-            return text
-        }
-        if let group = node as? Group {
-            group.contents.forEach { node in
-                _ = parseUseNode(node: node, fill: fill, stroke: stroke, mask: mask)
-            }
-            return group
-        }
-        return node
-    }
-
     fileprivate func parseClip(_ clip: XMLIndexer) -> UserSpaceLocus? {
         var userSpace = true
         if let units = clip.element?.allAttributes["clipPathUnits"]?.text, units == "objectBoundingBox" {
@@ -1077,6 +1032,10 @@ open class SVGParser {
 
         if clip.children.count == 1 {
             let shape = parseNode(clip.children.first!) as! Shape
+            if shape.place != Transform.identity {
+                let locus = TransformedLocus(locus: shape.form, transform: shape.place)
+                return UserSpaceLocus(locus: locus, userSpace: userSpace)
+            }
             return UserSpaceLocus(locus: shape.form, userSpace: userSpace)
         }
         var path: Path? = .none
@@ -1092,13 +1051,40 @@ open class SVGParser {
         return UserSpaceLocus(locus: path!, userSpace: userSpace)
     }
 
+    fileprivate func parseMask(_ mask: XMLIndexer) -> UserSpaceNode? {
+        var userSpace = true
+        if let units = mask.element?.allAttributes["maskContentUnits"]?.text, units == "objectBoundingBox" {
+            userSpace = false
+        }
+
+        if mask.children.isEmpty {
+            return .none
+        }
+
+        if mask.children.count == 1 {
+            return UserSpaceNode(node: parseNode(mask.children.first!)!, userSpace: userSpace)
+        }
+
+        var nodes = [Node]()
+        mask.children.forEach { indexer in
+            let position = getPosition(indexer.element!)
+            if let useNode = parseUse(indexer, place: position) {
+                nodes.append(useNode)
+            } else if let contentNode = parseNode(indexer) {
+                nodes.append(contentNode)
+            }
+        }
+
+        return UserSpaceNode(node: Group(contents: nodes), userSpace: userSpace)
+    }
+
     fileprivate func parseEffect(_ filterNode: XMLIndexer) -> Effect? {
         let defaultSource = "SourceGraphic"
         var effects = [String: Effect]()
         for child in filterNode.children {
             guard let element = child.element else { continue }
 
-            let filterIn = element.allAttributes["in"]!.text
+            let filterIn = element.allAttributes["in"]?.text ?? defaultSource
             var currentEffect = effects[filterIn]
             if currentEffect == nil && filterIn == "SourceAlpha" {
                 currentEffect = AlphaEffect(input: nil)
@@ -1117,22 +1103,22 @@ open class SVGParser {
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    resultingEffect = GaussianBlur(radius: radius, input: currentEffect)
+                    resultingEffect = GaussianBlur(r: radius, input: currentEffect)
                 }
             case "feColorMatrix":
                 if let type = element.allAttributes["type"]?.text {
+                    var matrix: ColorMatrix?
                     if type == "saturate" {
-                        resultingEffect = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
-                    }
-                    if type == "hueRotate" {
+                        matrix = ColorMatrix(saturate: getDoubleValue(element, attribute: "values")!)
+                    } else if type == "hueRotate" {
                         let degrees = getDoubleValue(element, attribute: "values")!
-                        resultingEffect = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
-                    }
-                    if type == "luminanceToAlpha" {
-                        resultingEffect = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
+                        matrix = ColorMatrix(hueRotate: degrees / 180 * Double.pi)
+                    } else if type == "luminanceToAlpha" {
+                        matrix = .luminanceToAlpha
                     } else { // "matrix"
-                        resultingEffect = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
+                        matrix = ColorMatrix(values: getMatrix(element, attribute: "values"))
                     }
+                    resultingEffect = ColorMatrixEffect(matrix: matrix!, input: currentEffect)
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
@@ -1157,40 +1143,6 @@ open class SVGParser {
             return effects.first?.value
         }
         return nil
-    }
-
-    fileprivate func parseMask(_ mask: XMLIndexer) -> Shape? {
-        guard let element = mask.element else {
-            return .none
-        }
-        var node: Node?
-        mask.children.forEach { indexer in
-            let position = getPosition(indexer.element!)
-            if let useNode = parseUse(indexer, place: position) {
-                node = useNode
-            } else if let contentNode = parseNode(indexer) {
-                node = contentNode
-            }
-        }
-        guard let shape = node as? Shape else {
-            return .none
-        }
-        let maskShape: Shape
-        if let circle = shape.form as? Circle {
-            maskShape = Shape(form: circle.arc(shift: 0, extent: degreesToRadians(360)), tag: getTag(element))
-        } else {
-            maskShape = Shape(form: shape.form, place: node!.place, tag: getTag(element))
-        }
-        let maskStyleAttributes = getStyleAttributes([:], element: element)
-        maskShape.fill = getFillColor(maskStyleAttributes)
-
-        if let id = mask.element?.allAttributes["id"]?.text {
-            maskShape.place = node!.place
-            defMasks[id] = maskShape
-            return .none
-        }
-
-        return maskShape
     }
 
     fileprivate func parseLinearGradient(_ gradient: XMLIndexer, groupStyle: [String: String] = [:]) -> Fill? {
@@ -1476,18 +1428,52 @@ open class SVGParser {
         return false
     }
 
+    fileprivate func transformBoundingBoxLocus(respectiveLocus: Locus, absoluteLocus: Locus) -> Transform {
+        let absoluteBounds = absoluteLocus.bounds()
+        let respectiveBounds = respectiveLocus.bounds()
+        let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
+                             h: absoluteBounds.h * respectiveBounds.h)
+        let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
+        return Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
+    }
+
     fileprivate func getClipPath(_ attributes: [String: String], locus: Locus?) -> Locus? {
-        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath), let locus = locus {
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let userSpaceLocus = defClip[id] {
                 if !userSpaceLocus.userSpace {
-                    let boundingBox = locus.bounds()
-                    let transform = ContentLayout.of(contentMode: .scaleAspectFit).layout(size: Size(w: 1, h: 1), into: boundingBox.size()).move(dx: boundingBox.x / boundingBox.w, dy: boundingBox.y / boundingBox.h)
+                    guard let locus = locus else {
+                        return .none
+                    }
+                    let transform = transformBoundingBoxLocus(respectiveLocus: userSpaceLocus.locus, absoluteLocus: locus)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }
                 return userSpaceLocus.locus
             }
         }
         return .none
+    }
+
+    fileprivate func getMask(_ attributes: [String: String], locus: Locus?) -> Node? {
+        guard let maskName = attributes["mask"], let id = parseIdFromUrl(maskName), let userSpaceNode = defMasks[id], let locus = locus else {
+            return .none
+        }
+        if !userSpaceNode.userSpace {
+            if let group = userSpaceNode.node as? Group {
+                for node in group.contents {
+                    if let shape = node as? Shape {
+                        shape.place = transformBoundingBoxLocus(respectiveLocus: shape.form, absoluteLocus: locus)
+                    }
+                }
+                return group
+            }
+            if let shape = userSpaceNode.node as? Shape {
+                shape.place = transformBoundingBoxLocus(respectiveLocus: shape.form, absoluteLocus: locus)
+                return shape
+            } else {
+                fatalError("Mask: Unsupported node type")
+            }
+        }
+        return userSpaceNode.node
     }
 
     fileprivate func getTextAnchor(_ attributes: [String: String]) -> String? {
@@ -1778,6 +1764,16 @@ fileprivate class UserSpaceLocus {
 
     init(locus: Locus, userSpace: Bool) {
         self.locus = locus
+        self.userSpace = userSpace
+    }
+}
+
+fileprivate class UserSpaceNode {
+    let node: Node
+    let userSpace: Bool
+
+    init(node: Node, userSpace: Bool) {
+        self.node = node
         self.userSpace = userSpace
     }
 }

@@ -46,7 +46,7 @@ open class Image: Node {
 
     private var mImage: MImage?
 
-    public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(src: String, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.srcVar = Variable<String>(src)
         self.xAlignVar = Variable<Align>(xAlign)
         self.yAlignVar = Variable<Align>(yAlign)
@@ -58,6 +58,7 @@ open class Image: Node {
             opaque: opaque,
             opacity: opacity,
             clip: clip,
+            mask: mask,
             effect: effect,
             visible: visible,
             tag: tag
@@ -91,10 +92,7 @@ open class Image: Node {
         )
     }
 
-    override func bounds() -> Rect? {
-        if w != 0 && h != 0 {
-            return Rect(x: 0.0, y: 0.0, w: Double(w), h: Double(h))
-        }
+    override open var bounds: Rect? {
 
         mImage = image()
 
@@ -102,10 +100,11 @@ open class Image: Node {
             return .none
         }
 
-        return Rect(x: 0.0, y: 0.0,
-                    w: Double(mImage.size.width),
-                    h: Double(mImage.size.height))
+        guard let rect = BoundsUtils.getRect(of: self, mImage: mImage) else {
+            return .none
+        }
 
+        return rect.toMacaw()
     }
 
     internal enum ImageRepresentationType {

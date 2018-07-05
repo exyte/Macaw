@@ -87,8 +87,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
     }
 
     public func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        let origin = node!.place
-        let bounds = node!.bounds()!
+        let bounds = node!.bounds!
 
         let factory = { () -> (Double) -> Transform in
             return { t in
@@ -105,9 +104,9 @@ public extension AnimatableVariable where T: TransformInterpolation {
                     dy: y ?? bounds.h / 2.0
                 )
 
-                let t1 = GeomUtils.concat(t1: move, t2: rotation)
-                let t2 = GeomUtils.concat(t1: t1, t2: move.invert()!)
-                let result = GeomUtils.concat(t1: origin, t2: t2)
+                let t1 = move.concat(with: rotation)
+                let t2 = t1.concat(with: move.invert()!)
+                let result = t1.concat(with: t2)
 
                 return result
             }

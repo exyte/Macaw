@@ -9,7 +9,7 @@ class AnimationUtils {
         var transform = pos
         var parent = nodesMap.parents(node).first
         while parent != .none {
-            transform = GeomUtils.concat(t1: parent!.place, t2: transform)
+            transform = parent!.place.concat(with: transform)
             parent = nodesMap.parents(parent!).first
         }
 

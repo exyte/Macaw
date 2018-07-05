@@ -125,6 +125,9 @@ extension Node {
         if let clip = clip as? Serializable {
             result["clip"] = clip.toDictionary()
         }
+        if let mask = mask as? Serializable {
+            result["mask"] = mask.toDictionary()
+        }
         return result
     }
 }
@@ -306,11 +309,22 @@ class LocusSerializer {
                       rx: parse(dictionary["rx"]),
                       ry: parse(dictionary["ry"]))
         }
+        factories["TransformedLocus"] = { dictionary in
+            TransformedLocus(locus: self.instance(dictionary: dictionary["locus"] as! [String:Any]),
+                             transform: Transform(string: dictionary["transform"] as? String))
+        }
     }
 
     func instance(dictionary: [String:Any]) -> Locus {
         let type = dictionary["type"] as! String
         return factories[type]!(dictionary)
+    }
+}
+
+extension TransformedLocus: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["type": "TransformedLocus", "locus": (locus as! Serializable).toDictionary(), "transform": transform.toString()]
     }
 }
 
@@ -406,6 +420,12 @@ extension Stroke: Serializable {
         if let fillColor = fill as? Color {
             result["fill"] = fillColor.toDictionary()
         }
+        if miterLimit != 4 {
+            result["miterLimit"] = miterLimit
+        }
+        if offset != 0 {
+            result["offset"] = offset
+        }
         return result
     }
     
@@ -425,9 +445,25 @@ extension Stroke: Serializable {
             join = lineJoinForString(lineJoinString)
         }
         
+        var miterLimit: Double?
+        if let string = dictionary["miterLimit"] as? String {
+            miterLimit = Double(string)
+        }
+        
+        var offset: Double?
+        if let string = dictionary["offset"] as? String {
+            offset = Double(string)
+        }
+        
         let dashes = dictionary["dashes"] as? [Double] ?? []
         
-        self.init(fill: fill, width: parse(dictionary["width"]), cap: cap, join: join, dashes: dashes)
+        self.init(fill: fill,
+                  width: parse(dictionary["width"]),
+                  cap: cap,
+                  join: join,
+                  miterLimit: miterLimit != nil ? miterLimit! : 4,
+                  dashes: dashes,
+                  offset: offset != nil ? offset! : 0)
     }
 }
 

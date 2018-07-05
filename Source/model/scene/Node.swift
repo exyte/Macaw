@@ -26,6 +26,12 @@ open class Node: Drawable {
         set(val) { clipVar.value = val }
     }
 
+    open let maskVar: Variable<Node?>
+    open var mask: Node? {
+        get { return maskVar.value }
+        set(val) { maskVar.value = val }
+    }
+
     open let effectVar: Variable<Effect?>
     open var effect: Effect? {
         get { return effectVar.value }
@@ -294,11 +300,12 @@ open class Node: Drawable {
         return !pinchHandlers.isEmpty
     }
 
-    public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.placeVar = AnimatableVariable<Transform>(place)
         self.opaqueVar = Variable<Bool>(opaque)
         self.opacityVar = AnimatableVariable<Double>(opacity)
         self.clipVar = Variable<Locus?>(clip)
+        self.maskVar = Variable<Node?>(mask)
         self.effectVar = Variable<Effect?>(effect)
         self.id = NSUUID().uuidString
 
@@ -312,8 +319,8 @@ open class Node: Drawable {
         Node.map.setObject(self, forKey: self.id as NSString)
     }
 
-    internal func bounds() -> Rect? {
-        return Rect()
+    open var bounds: Rect? {
+        return .none
     }
 
 }

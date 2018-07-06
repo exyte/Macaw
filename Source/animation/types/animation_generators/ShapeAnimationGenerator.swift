@@ -78,6 +78,12 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
         if !animation.autoreverses {
             let currentShape = shapeAnimation.getVFunc()(t)
+            mutatingShape.place = currentShape.place
+            mutatingShape.opaque = currentShape.opaque
+            mutatingShape.opacity = currentShape.opacity
+            mutatingShape.clip = currentShape.clip
+            mutatingShape.mask = currentShape.mask
+            mutatingShape.effect = currentShape.effect
             mutatingShape.form = currentShape.form
             mutatingShape.stroke = currentShape.stroke
             mutatingShape.fill = currentShape.fill

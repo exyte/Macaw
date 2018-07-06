@@ -169,7 +169,7 @@ class ShapeRenderer: NodeRenderer {
 
     fileprivate func drawPattern(_ pattern: Pattern, ctx: CGContext?, opacity: Double) {
         let renderer = RenderUtils.createNodeRenderer(pattern.content, view: view, animationCache: animationCache)
-        let tileImage = renderer.renderToImage(bounds: pattern.bounds, inset: 0)!
+        let tileImage = renderer.renderToImage(bounds: pattern.bounds, inset: 0)
         ctx!.clip()
         ctx?.draw(tileImage.cgImage!, in: pattern.bounds.toCG(), byTiling: true)
     }

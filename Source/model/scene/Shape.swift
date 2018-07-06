@@ -1,3 +1,9 @@
+#if os(iOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
 open class Shape: Node {
 
     open let formVar: AnimatableVariable<Locus>
@@ -38,18 +44,49 @@ open class Shape: Node {
         self.fillVar.node = self
     }
 
-    override internal func bounds() -> Rect? {
-        var bounds = form.bounds()
-
-        if let shapeStroke = self.stroke {
-            let r = shapeStroke.width / 2.0
-            bounds = Rect(
-                x: bounds.x - r,
-                y: bounds.y - r,
-                w: bounds.w + r * 2.0,
-                h: bounds.h + r * 2.0)
+    override open var bounds: Rect? {
+        guard let ctx = createContext() else {
+            return .none
         }
 
-        return bounds
+        var shouldStrokePath = false
+
+        if let stroke = stroke {
+            RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
+            shouldStrokePath = true
+        }
+
+        RenderUtils.setGeometry(self.form, ctx: ctx)
+
+        let point = ctx.currentPointOfPath
+
+        if shouldStrokePath {
+            ctx.replacePathWithStrokedPath()
+        }
+
+        var rect = ctx.boundingBoxOfPath
+
+        if rect.height == 0,
+            rect.width == 0 && (rect.origin.x == CGFloat.infinity || rect.origin.y == CGFloat.infinity) {
+
+            rect.origin = point
+        }
+
+        endContext()
+
+        return rect.toMacaw()
+    }
+
+    fileprivate func createContext() -> CGContext? {
+
+        let smallSize = CGSize(width: 1.0, height: 1.0)
+
+        MGraphicsBeginImageContextWithOptions(smallSize, false, 1.0)
+
+        return MGraphicsGetCurrentContext()
+    }
+
+    fileprivate func endContext() {
+        MGraphicsEndImageContext()
     }
 }

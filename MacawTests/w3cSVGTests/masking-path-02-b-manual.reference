@@ -21,10 +21,6 @@
         {
           "contents" : [
             {
-              "fill" : {
-                "type" : "Color",
-                "val" : 16711816
-              },
               "form" : {
                 "x" : 10,
                 "w" : 430,
@@ -32,7 +28,22 @@
                 "y" : 10,
                 "h" : 80
               },
-              "node" : "Shape"
+              "node" : "Shape",
+              "fill" : {
+                "type" : "Color",
+                "val" : 16711816
+              },
+              "clip" : {
+                "type" : "TransformedLocus",
+                "locus" : {
+                  "x" : 0.25,
+                  "w" : 0.59999999999999998,
+                  "type" : "Rect",
+                  "y" : 0.5,
+                  "h" : 1
+                },
+                "transform" : "430, 0, 0, 80, 10, 10"
+              }
             },
             {
               "stroke" : {

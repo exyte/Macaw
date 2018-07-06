@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/exyte/Macaw.git'
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { 'Igor Zapletnev' => 'igor.zapletnev@gmail.com' }
+  s.author           = { 'Exyte' => 'info@exyte.com' }
   s.source           = { :git => 'https://github.com/exyte/Macaw.git', :tag => s.version.to_s }
   s.social_media_url = 'http://exyte.com'
 

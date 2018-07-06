@@ -19,12 +19,13 @@ class SVGCanvas: Group {
         layout.layout(node: self, in: size)
         return size
     }
-
-    override func bounds() -> Rect? {
-        if let view = nodesMap.getView(self) {
-            return layout(size: view.bounds.size.toMacaw()).rect()
+    
+    override var bounds: Rect? {
+        let size = layout.computeSize(parent: .zero)
+        if size.w == 0 || size.h == 0 {
+            return .none
         }
-        return super.bounds()
+        return size.rect(at: .origin)
     }
 
 }

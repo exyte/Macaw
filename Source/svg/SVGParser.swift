@@ -120,7 +120,11 @@ open class SVGParser {
         }
     }
 
-    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout {
+    fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) -> SVGNodeLayout? {
+        if element.allAttributes["width"] == nil && element.allAttributes["height"] == nil && element.allAttributes["viewBox"] == nil {
+            return .none
+        }
+
         let w = getDimensionValue(element, attribute: "width") ?? SVGLength(percent: 100)
         let h = getDimensionValue(element, attribute: "height") ?? SVGLength(percent: 100)
         let svgSize = SVGSize(width: w, height: h)
@@ -562,8 +566,13 @@ open class SVGParser {
     }
 
     fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
+        var opacity: Double = 1
+        if let fillOpacity = styleParts["fill-opacity"] {
+            opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+        }
+
         guard var fillColor = styleParts["fill"] else {
-            return Color.black
+            return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
             return defFills[colorId]
@@ -572,10 +581,6 @@ open class SVGParser {
             fillColor = currentColor
         }
 
-        var opacity: Double = 1
-        if let fillOpacity = styleParts["fill-opacity"] {
-            opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
-        }
         return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
     }
 
@@ -686,7 +691,7 @@ open class SVGParser {
     }
 
     fileprivate func getStrokeOffset(_ styleParts: [String: String]) -> Double {
-        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = Double(strokeOffset) { // TODO use doubleFromString once it's merged
+        if let strokeOffset = styleParts["stroke-dashoffset"], let offset = doubleFromString(strokeOffset) {
             return offset
         }
         return 0
@@ -876,7 +881,7 @@ open class SVGParser {
             if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
                 withWhitespace = true
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
+            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collection, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
         }
         // parse as regular text element
         var textString: NSString
@@ -900,7 +905,7 @@ open class SVGParser {
         }
         return collectTspans(fullString.substring(from: tagRange.location), collectedTspans: collection,
                              withWhitespace: nextStringWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke,
-                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds().w, h: bounds.h))
+                             opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
     }
 
     fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
@@ -980,6 +985,10 @@ open class SVGParser {
 
         if clip.children.count == 1 {
             let shape = parseNode(clip.children.first!) as! Shape
+            if shape.place != Transform.identity {
+                let locus = TransformedLocus(locus: shape.form, transform: shape.place)
+                return UserSpaceLocus(locus: locus, userSpace: userSpace)
+            }
             return UserSpaceLocus(locus: shape.form, userSpace: userSpace)
         }
         var path: Path? = .none
@@ -1047,22 +1056,22 @@ open class SVGParser {
                 }
             case "feGaussianBlur":
                 if let radius = getDoubleValue(element, attribute: "stdDeviation") {
-                    resultingEffect = GaussianBlur(radius: radius, input: currentEffect)
+                    resultingEffect = GaussianBlur(r: radius, input: currentEffect)
                 }
             case "feColorMatrix":
                 if let type = element.allAttributes["type"]?.text {
+                    var matrix: ColorMatrix?
                     if type == "saturate" {
-                        resultingEffect = ColorMatrixEffect(saturate: getDoubleValue(element, attribute: "values")!, input: currentEffect)
-                    }
-                    if type == "hueRotate" {
+                        matrix = ColorMatrix(saturate: getDoubleValue(element, attribute: "values")!)
+                    } else if type == "hueRotate" {
                         let degrees = getDoubleValue(element, attribute: "values")!
-                        resultingEffect = ColorMatrixEffect(hueRotate: degrees / 180 * Double.pi, input: currentEffect)
-                    }
-                    if type == "luminanceToAlpha" {
-                        resultingEffect = ColorMatrixEffect.luminanceToAlpha(input: currentEffect)
+                        matrix = ColorMatrix(hueRotate: degrees / 180 * Double.pi)
+                    } else if type == "luminanceToAlpha" {
+                        matrix = .luminanceToAlpha
                     } else { // "matrix"
-                        resultingEffect = ColorMatrixEffect(matrix: getMatrix(element, attribute: "values"), input: currentEffect)
+                        matrix = ColorMatrix(values: getMatrix(element, attribute: "values"))
                     }
+                    resultingEffect = ColorMatrixEffect(matrix: matrix!, input: currentEffect)
                 }
             case "feBlend":
                 if let filterIn2 = element.allAttributes["in2"]?.text {
@@ -1382,9 +1391,12 @@ open class SVGParser {
     }
 
     fileprivate func getClipPath(_ attributes: [String: String], locus: Locus?) -> Locus? {
-        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath), let locus = locus {
+        if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let userSpaceLocus = defClip[id] {
                 if !userSpaceLocus.userSpace {
+                    guard let locus = locus else {
+                        return .none
+                    }
                     let transform = transformBoundingBoxLocus(respectiveLocus: userSpaceLocus.locus, absoluteLocus: locus)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }

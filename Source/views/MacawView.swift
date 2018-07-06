@@ -30,6 +30,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             }
 
             self.setNeedsDisplay()
+            invalidateIntrinsicContentSize()
         }
     }
 
@@ -37,6 +38,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         didSet {
             layoutHelper.layoutChanged()
             setNeedsDisplay()
+            invalidateIntrinsicContentSize()
         }
     }
 
@@ -68,6 +70,14 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         animationProducer.addStoredAnimations(node)
+    }
+
+    override open var intrinsicContentSize: CGSize {
+        if let bounds = node.bounds {
+            return bounds.size().toCG()
+        } else {
+            return CGSize(width: MNoIntrinsicMetric(), height: MNoIntrinsicMetric())
+        }
     }
 
     private let layoutHelper = LayoutHelper()
@@ -582,7 +592,16 @@ private class LayoutHelper {
 
     public func getTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
         setSize(size: size)
-        if let rect = node.bounds() {
+        var rect = node.bounds
+        if let canvas = node as? SVGCanvas {
+            if let view = nodesMap.getView(canvas) {
+                rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
+            } else {
+                rect = Group(contents: canvas.contents).bounds
+            }
+        }
+        
+        if let rect = rect {
             setRect(rect: rect)
             if let transform = prevTransform {
                 return transform
@@ -607,7 +626,7 @@ private class LayoutHelper {
             }
             return canvas.layout(size: prevSize!).rect()
         } else {
-            return node.bounds()
+            return node.bounds
         }
     }
 

@@ -29,23 +29,23 @@ open class ContentLayout {
         case .scaleAspectFill:
             return of(scaling: .slice)
         case .redraw, .center:
-            return of()
+            return of(scaling: .doNothing)
         case .top:
-            return of(yAlign: .min)
+            return of(scaling: .doNothing, yAlign: .min)
         case .bottom:
-            return of(yAlign: .max)
+            return of(scaling: .doNothing, yAlign: .max)
         case .left:
-            return of(xAlign: .min)
+            return of(scaling: .doNothing, xAlign: .min)
         case .right:
-            return of(xAlign: .max)
+            return of(scaling: .doNothing, xAlign: .max)
         case .topLeft:
-            return of(xAlign: .min, yAlign: .min)
+            return of(scaling: .doNothing, xAlign: .min, yAlign: .min)
         case .topRight:
-            return of(xAlign: .max, yAlign: .min)
+            return of(scaling: .doNothing, xAlign: .max, yAlign: .min)
         case .bottomLeft:
-            return of(xAlign: .min, yAlign: .max)
+            return of(scaling: .doNothing, xAlign: .min, yAlign: .max)
         case .bottomRight:
-            return of(xAlign: .max, yAlign: .max)
+            return of(scaling: .doNothing, xAlign: .max, yAlign: .max)
         }
     }
 

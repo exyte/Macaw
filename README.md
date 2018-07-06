@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/cocoapods/l/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![Platform](https://img.shields.io/cocoapods/p/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 
-<img src="https://github.com/exyte/Macaw/blob/master/logo.png" width="400">
+<img src="https://raw.githubusercontent.com/exyte/Macaw/master/logo.png" width="400">
 
 ## What is Macaw?
 
@@ -80,13 +80,13 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 To install it, simply add the following line to your Podfile:
 ```ruby
-pod "Macaw", "0.9.1"
+pod "Macaw", "0.9.2"
 ```
 
 ## [Carthage](http://github.com/Carthage/Carthage)
 
 ```ogdl
-github "Exyte/Macaw" ~> 0.9.1
+github "Exyte/Macaw" ~> 0.9.2
 ```
 
 ## Building from sources

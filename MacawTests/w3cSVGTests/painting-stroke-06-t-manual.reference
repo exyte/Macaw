@@ -201,6 +201,7 @@
             {
               "stroke" : {
                 "join" : "miter",
+                "offset" : 2,
                 "cap" : "butt",
                 "fill" : {
                   "type" : "Color",

@@ -89,7 +89,7 @@ class NodeRenderer {
         applyClip(in: context)
 
         // draw masked image
-        if let mask = node.mask, let bounds = mask.bounds() {
+        if let mask = node.mask, let bounds = mask.bounds {
             context.draw(getMaskedImage(bounds: bounds), in: bounds.toCG())
             return
         }
@@ -101,9 +101,8 @@ class NodeRenderer {
         }
 
         let (offset, otherEffects) = separateEffects(effect)
-        let effectColoringMode = otherEffects.contains { effect -> Bool in
-            effect is AlphaEffect
-            } ? ColoringMode.alphaOnly : coloringMode
+        let hasAlpha = otherEffects.contains { $0 is AlphaEffect }
+        let effectColoringMode = hasAlpha ? ColoringMode.alphaOnly : coloringMode
 
         // move to offset
         if let offset = offset {
@@ -163,13 +162,13 @@ class NodeRenderer {
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let node = node(), let bounds = node.bounds() else {
+        guard let node = node(), let bounds = node.bounds else {
             return
         }
         var inset: Double = 0
         for effect in effects {
             if let blur = effect as? GaussianBlur {
-                inset = min(blur.radius * 6 + 1, 150)
+                inset = min(blur.r * 6 + 1, 150)
             }
         }
 
@@ -193,13 +192,13 @@ class NodeRenderer {
     fileprivate func applyBlur(_ image: CIImage, blur: GaussianBlur) -> CIImage {
         let filter = CIFilter(name: "CIGaussianBlur")!
         filter.setDefaults()
-        filter.setValue(Int(blur.radius), forKey: kCIInputRadiusKey)
+        filter.setValue(Int(blur.r), forKey: kCIInputRadiusKey)
         filter.setValue(image, forKey: kCIInputImageKey)
         return filter.outputImage!
     }
 
     fileprivate func applyColorMatrix(_ image: CIImage, colorMatrixEffect: ColorMatrixEffect) -> CIImage {
-        let matrix = colorMatrixEffect.matrix.map { CGFloat($0) }
+        let matrix = colorMatrixEffect.matrix.values.map { CGFloat($0) }
         let filter = CIFilter(name: "CIColorMatrix")!
         filter.setDefaults()
         filter.setValue(CIVector(x: matrix[0], y: matrix[1], z: matrix[2], w: matrix[3]), forKey: "inputRVector")

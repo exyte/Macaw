@@ -9,12 +9,7 @@ class AnimationUtils {
         var transform = pos
         var parent = nodesMap.parents(node).first
         while parent != .none {
-            var parentPlace = parent!.place
-            if let canvas = parent as? SVGCanvas, let macawView = view {
-                let viewSize = macawView.bounds.size.toMacaw()
-                parentPlace = macawView.contentLayout.layout(size: canvas.layout.svgSize.toPixels(total: viewSize), into: viewSize)
-            }
-            transform = parentPlace.concat(with: transform)
+            transform = parent!.place.concat(with: transform)
             parent = nodesMap.parents(parent!).first
         }
 

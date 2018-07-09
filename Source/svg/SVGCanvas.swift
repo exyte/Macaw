@@ -19,7 +19,7 @@ class SVGCanvas: Group {
         layout.layout(node: self, in: size)
         return size
     }
-    
+
     override var bounds: Rect? {
         let size = layout.computeSize(parent: .zero)
         if size.w == 0 || size.h == 0 {

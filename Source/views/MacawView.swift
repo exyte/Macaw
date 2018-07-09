@@ -600,7 +600,7 @@ private class LayoutHelper {
                 rect = Group(contents: canvas.contents).bounds
             }
         }
-        
+
         if let rect = rect {
             setRect(rect: rect)
             if let transform = prevTransform {

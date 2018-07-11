@@ -364,23 +364,24 @@ open class SVGParser {
             contentUserSpace = false
         }
 
+        var contentNode: Node?
         if pattern.children.isEmpty {
             if let parentPattern = parentPattern {
-                return Pattern(content: parentPattern.content, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+                contentNode = parentPattern.content
             }
             return .none
-        }
-
-        if pattern.children.count == 1 {
+        } else if pattern.children.count == 1 {
             let shape = parseNode(pattern.children.first!) as! Shape
-            return Pattern(content: shape, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+            contentNode = shape
+        } else {
+            var shapes = [Shape]()
+            pattern.children.forEach { indexer in
+                shapes.append(parseNode(indexer) as! Shape)
+            }
+            contentNode = Group(contents: shapes)
         }
 
-        var shapes = [Shape]()
-        pattern.children.forEach { indexer in
-            shapes.append(parseNode(indexer) as! Shape)
-        }
-        return Pattern(content: Group(contents: shapes), bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+        return Pattern(content: contentNode!, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
@@ -1428,15 +1429,6 @@ open class SVGParser {
         return false
     }
 
-    fileprivate func transformBoundingBoxLocus(respectiveLocus: Locus, absoluteLocus: Locus) -> Transform {
-        let absoluteBounds = absoluteLocus.bounds()
-        let respectiveBounds = respectiveLocus.bounds()
-        let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
-                             h: absoluteBounds.h * respectiveBounds.h)
-        let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
-        return Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
-    }
-
     fileprivate func getClipPath(_ attributes: [String: String], locus: Locus?) -> Locus? {
         if let clipPath = attributes["clip-path"], let id = parseIdFromUrl(clipPath) {
             if let userSpaceLocus = defClip[id] {
@@ -1444,7 +1436,7 @@ open class SVGParser {
                     guard let locus = locus else {
                         return .none
                     }
-                    let transform = transformBoundingBoxLocus(respectiveLocus: userSpaceLocus.locus, absoluteLocus: locus)
+                    let transform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: userSpaceLocus.locus, absoluteLocus: locus)
                     return TransformedLocus(locus: userSpaceLocus.locus, transform: transform)
                 }
                 return userSpaceLocus.locus
@@ -1461,13 +1453,13 @@ open class SVGParser {
             if let group = userSpaceNode.node as? Group {
                 for node in group.contents {
                     if let shape = node as? Shape {
-                        shape.place = transformBoundingBoxLocus(respectiveLocus: shape.form, absoluteLocus: locus)
+                        shape.place = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: shape.form, absoluteLocus: locus)
                     }
                 }
                 return group
             }
             if let shape = userSpaceNode.node as? Shape {
-                shape.place = transformBoundingBoxLocus(respectiveLocus: shape.form, absoluteLocus: locus)
+                shape.place = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: shape.form, absoluteLocus: locus)
                 return shape
             } else {
                 fatalError("Mask: Unsupported node type")

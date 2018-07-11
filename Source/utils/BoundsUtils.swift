@@ -41,4 +41,13 @@ final internal class BoundsUtils {
             return CGRect(x: destX, y: destY, width: newSize.w, height: newSize.h)
         }
     }
+
+    class func transformForLocusInRespectiveCoords(respectiveLocus: Locus, absoluteLocus: Locus) -> Transform {
+        let absoluteBounds = absoluteLocus.bounds()
+        let respectiveBounds = respectiveLocus.bounds()
+        let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
+                             h: absoluteBounds.h * respectiveBounds.h)
+        let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
+        return Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
+    }
 }

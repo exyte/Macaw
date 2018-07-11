@@ -166,7 +166,11 @@ class MacawSVGTests: XCTestCase {
                 let jsonData = try JSONSerialization.data(withJSONObject: node.toDictionary(), options: .prettyPrinted)
                 let nodeContent = String(data: jsonData, encoding: String.Encoding.utf8)
                 
-                XCTAssertEqual(nodeContent, referenceContent)
+                if nodeContent != referenceContent {
+                    let referencePath = writeToFile(referenceContent, fileName: referenceFile + "_reference.txt")
+                    let _ = writeToFile(nodeContent!, fileName: referenceFile + "_incorrect.txt")
+                    XCTFail("Not equal, see both files in \(String(describing: referencePath!.deletingLastPathComponent().path))")
+                }
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -199,6 +203,21 @@ class MacawSVGTests: XCTestCase {
         } catch {
             XCTFail(error.localizedDescription)
         }
+    }
+    
+    func writeToFile(_ data: String, fileName: String) -> URL? {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+            return .none
+        }
+        do {
+            let path = directory.appendingPathComponent("\(fileName)")!
+            try data.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+            return path
+        } catch {
+            print(error.localizedDescription)
+            return .none
+        }
+        
     }
     
     func testTextAlign01() {

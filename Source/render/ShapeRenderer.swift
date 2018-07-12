@@ -171,22 +171,10 @@ class ShapeRenderer: NodeRenderer {
         guard let shape = shape else {
             return
         }
-        let node = pattern.content
-        if !pattern.contentUserSpace {
-            if let patternShape = node as? Shape {
-                let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: patternShape.form, absoluteLocus: shape.form)
-                patternShape.place = patternShape.place.concat(with: tranform)
-            }
-            if let patternGroup = node as? Group {
-                for groupNode in patternGroup.contents {
-                    if let patternShape = groupNode as? Shape {
-                        let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: patternShape.form, absoluteLocus: shape.form)
-                        patternShape.place = patternShape.place.concat(with: tranform)
-                    }
-                }
-            }
+        if !pattern.userSpace {
+            BoundsUtils.applyTransformToNodeInRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form)
         }
-        let renderer = RenderUtils.createNodeRenderer(node, view: view, animationCache: animationCache)
+        let renderer = RenderUtils.createNodeRenderer(pattern.content, view: view, animationCache: animationCache)
 
         var patternBounds = pattern.bounds
         if !pattern.userSpace {

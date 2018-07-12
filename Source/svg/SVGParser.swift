@@ -266,36 +266,36 @@ open class SVGParser {
                 if let rule = getFillRule(styleAttributes) {
                     path = Path(segments: path.segments, fillRule: rule)
                 }
-                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), mask: getMask(styleAttributes, locus: path), tag: getTag(element))
+                return Shape(form: path, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: path), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: path), mask: getMask(styleAttributes, locus: path), tag: getTag(element))
             }
         case "line":
             if let line = parseLine(node) {
-                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), mask: getMask(styleAttributes, locus: line), tag: getTag(element))
+                return Shape(form: line, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: line), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: line), mask: getMask(styleAttributes, locus: line), tag: getTag(element))
             }
         case "rect":
             if let rect = parseRect(node) {
-                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), mask: getMask(styleAttributes, locus: rect), tag: getTag(element))
+                return Shape(form: rect, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: rect), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: rect), mask: getMask(styleAttributes, locus: rect), tag: getTag(element))
             }
         case "circle":
             if let circle = parseCircle(node) {
-                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), mask: getMask(styleAttributes, locus: circle), tag: getTag(element))
+                return Shape(form: circle, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: circle), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: circle), mask: getMask(styleAttributes, locus: circle), tag: getTag(element))
             }
         case "ellipse":
             if let ellipse = parseEllipse(node) {
-                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), mask: getMask(styleAttributes, locus: ellipse), tag: getTag(element))
+                return Shape(form: ellipse, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: ellipse), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: ellipse), mask: getMask(styleAttributes, locus: ellipse), tag: getTag(element))
             }
         case "polygon":
             if let polygon = parsePolygon(node) {
-                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), mask: getMask(styleAttributes, locus: polygon), tag: getTag(element))
+                return Shape(form: polygon, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: polygon), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polygon), mask: getMask(styleAttributes, locus: polygon), tag: getTag(element))
             }
         case "polyline":
             if let polyline = parsePolyline(node) {
-                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), mask: getMask(styleAttributes, locus: polyline), tag: getTag(element))
+                return Shape(form: polyline, fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: polyline), stroke: getStroke(styleAttributes, groupStyle: styleAttributes), place: position, opacity: getOpacity(styleAttributes), clip: getClipPath(styleAttributes, locus: polyline), mask: getMask(styleAttributes, locus: polyline), tag: getTag(element))
             }
         case "image":
             return parseImage(node, opacity: getOpacity(styleAttributes), pos: position, clip: getClipPath(styleAttributes, locus: nil))
         case "text":
-            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: styleAttributes),
+            return parseText(node, textAnchor: getTextAnchor(styleAttributes), fill: getFillColor(styleAttributes, groupStyle: styleAttributes, locus: nil),
                              stroke: getStroke(styleAttributes, groupStyle: styleAttributes), opacity: getOpacity(styleAttributes), fontName: getFontName(styleAttributes), fontSize: getFontSize(styleAttributes), fontWeight: getFontWeight(styleAttributes), pos: position)
         case "use":
             return parseUse(node, groupStyle: styleAttributes, place: position)
@@ -343,10 +343,10 @@ open class SVGParser {
             return .none
         }
 
-        var parentPattern: Pattern?
+        var parentPattern: UserSpacePattern?
         if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: ""), link.hasPrefix("#") {
             let id = link.replacingOccurrences(of: "#", with: "")
-            parentPattern = defFills[id] as? Pattern
+            parentPattern = defFills[id] as? UserSpacePattern
         }
 
         let x = getDoubleValue(element, attribute: "x") ?? parentPattern?.bounds.x ?? 0
@@ -381,7 +381,7 @@ open class SVGParser {
             contentNode = Group(contents: shapes)
         }
 
-        return Pattern(content: contentNode!, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+        return UserSpacePattern(content: contentNode!, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, groupStyle: [String: String] = [:]) -> Group? {
@@ -613,7 +613,7 @@ open class SVGParser {
         return createColorFromHex(colorString, opacity: opacity)
     }
 
-    fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
+    fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:], locus: Locus?) -> Fill? {
         var opacity: Double = 1
         if let fillOpacity = styleParts["fill-opacity"] {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
@@ -623,13 +623,29 @@ open class SVGParser {
             return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
-            return defFills[colorId]
+            let fill = defFills[colorId]
+            if let pattern = fill as? UserSpacePattern {
+                return getPatternFill(pattern: pattern, locus: locus)
+            }
+            return fill
         }
         if fillColor == "currentColor", let currentColor = groupStyle["color"] {
             fillColor = currentColor
         }
 
         return createColor(fillColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)
+    }
+    
+    fileprivate func getPatternFill(pattern: UserSpacePattern, locus: Locus?) -> Pattern {
+        if pattern.userSpace == false && pattern.contentUserSpace == true {
+            let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: pattern.bounds, absoluteLocus: locus!)
+            return Pattern(content: pattern.content, bounds: pattern.bounds.applying(tranform), userSpace: true)
+        }
+        if pattern.userSpace == true && pattern.contentUserSpace == false {
+            BoundsUtils.applyTransformToNodeInRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: locus!)
+            return Pattern(content: pattern.content, bounds: pattern.bounds, userSpace: pattern.userSpace)
+        }
+        return Pattern(content: pattern.content, bounds: pattern.bounds, userSpace: true)
     }
 
     fileprivate func getStroke(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Stroke? {
@@ -969,7 +985,7 @@ open class SVGParser {
         let attributes = getStyleAttributes([:], element: element)
 
         return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                    fill: ((attributes["fill"] != nil) ? getFillColor(attributes)! : fill) ?? Color.black, stroke: stroke ?? getStroke(attributes),
+                    fill: ((attributes["fill"] != nil) ? getFillColor(attributes, locus: nil)! : fill) ?? Color.black, stroke: stroke ?? getStroke(attributes),
                     align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
@@ -1767,5 +1783,20 @@ fileprivate class UserSpaceNode {
     init(node: Node, userSpace: Bool) {
         self.node = node
         self.userSpace = userSpace
+    }
+}
+
+fileprivate class UserSpacePattern: Fill {
+    
+    open let content: Node
+    open let bounds: Rect
+    open let userSpace: Bool
+    open let contentUserSpace: Bool
+    
+    init(content: Node, bounds: Rect, userSpace: Bool = false, contentUserSpace: Bool = true) {
+        self.content = content
+        self.bounds = bounds
+        self.userSpace = userSpace
+        self.contentUserSpace = contentUserSpace
     }
 }

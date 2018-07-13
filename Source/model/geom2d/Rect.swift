@@ -32,7 +32,7 @@ open class Rect: Locus {
     }
 
     open func center() -> Point {
-        return Point(x: x + w / 2, y: y + w / 2)
+        return Point(x: x + w / 2, y: y + h / 2)
     }
 
     open func contains(locus: Locus) -> Bool {

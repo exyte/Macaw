@@ -597,7 +597,7 @@ private class LayoutHelper {
             if let view = nodesMap.getView(canvas) {
                 rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
             } else {
-                rect = Group(contents: canvas.contents).bounds
+                rect = BoundsUtils.getNodesBounds(canvas.contents)
             }
         }
 

@@ -65,17 +65,7 @@ open class Group: Node {
     }
 
     override open var bounds: Rect? {
-        var union: Rect?
-
-        contents.forEach { node in
-            guard let nodeBounds = node.bounds?.applying(node.place) else {
-                return
-            }
-
-            union = union?.union(rect: nodeBounds) ?? nodeBounds
-        }
-
-        return union
+        return BoundsUtils.getNodesBounds(contents)
     }
 
     override func shouldCheckForPressed() -> Bool {

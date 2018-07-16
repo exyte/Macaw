@@ -190,20 +190,33 @@ open class SVGParser {
 
     fileprivate func parseStyle(_ styleNode: XMLIndexer) {
         if let rawStyle = styleNode.element?.text {
-            var styleAttributes: [String: String] = [:]
-            let parts = rawStyle.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "{")
-            if parts.count == 2 {
-                let className = String(parts[0].dropFirst())
-                if !className.isEmpty {
-                    let style = String(parts[1].dropLast())
-                    let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
-                    styleParts.forEach { styleAttribute in
-                        let currentStyle = styleAttribute.components(separatedBy: ":")
-                        if currentStyle.count == 2 {
-                            styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+
+            let parts = rawStyle.components(separatedBy: .whitespacesAndNewlines).joined().split(separator: "{")
+
+            var separatedParts = [String.SubSequence]()
+
+            parts.forEach { substring in
+                separatedParts.append(contentsOf: substring.split(separator: "}"))
+            }
+
+            if separatedParts.count % 2 == 0 {
+
+                let classNames = stride(from: 0, to: separatedParts.count, by: 2).map { String(separatedParts[$0].dropFirst()) }
+                let styles = stride(from: 1, to: separatedParts.count, by: 2).map { separatedParts[$0] }
+
+                for (index, className) in classNames.enumerated() {
+                    var styleAttributes: [String: String] = [:]
+                    if !className.isEmpty {
+                        let style = String(styles[index].dropLast())
+                        let styleParts = style.components(separatedBy: ";")
+                        styleParts.forEach { styleAttribute in
+                            let currentStyle = styleAttribute.components(separatedBy: ":")
+                            if currentStyle.count == 2 {
+                                styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+                            }
                         }
+                        styleTable[className] = styleAttributes
                     }
-                    styleTable[className] = styleAttributes
                 }
             }
         }
@@ -1002,6 +1015,10 @@ open class SVGParser {
             }
         }
         return UserSpaceLocus(locus: path!, userSpace: userSpace)
+    }
+
+    fileprivate func parseCSS() {
+
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) -> UserSpaceNode? {

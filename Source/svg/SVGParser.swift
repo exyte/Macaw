@@ -516,10 +516,18 @@ open class SVGParser {
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
 
-        if let className = element.allAttributes["class"]?.text, let styleAttributesFromTable = styleTable[className] {
-            for (att, val) in styleAttributesFromTable {
-                if styleAttributes.index(forKey: att) == nil {
-                    styleAttributes.updateValue(val, forKey: att)
+        if let classNamesString = element.allAttributes["class"]?.text {
+            let classNames = classNamesString.split(separator: " ")
+            
+            classNames.forEach { className in
+                let classString = String(className)
+                
+                if let styleAttributesFromTable = styleTable[classString] {
+                    for (att, val) in styleAttributesFromTable {
+                        if styleAttributes.index(forKey: att) == nil {
+                            styleAttributes.updateValue(val, forKey: att)
+                        }
+                    }
                 }
             }
         }

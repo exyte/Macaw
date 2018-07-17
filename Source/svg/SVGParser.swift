@@ -1025,10 +1025,6 @@ open class SVGParser {
         return UserSpaceLocus(locus: path!, userSpace: userSpace)
     }
 
-    fileprivate func parseCSS() {
-
-    }
-
     fileprivate func parseMask(_ mask: XMLIndexer) -> UserSpaceNode? {
         var userSpace = true
         if let units = mask.element?.allAttributes["maskContentUnits"]?.text, units == "objectBoundingBox" {

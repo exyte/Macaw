@@ -41,4 +41,15 @@ final internal class BoundsUtils {
             return CGRect(x: destX, y: destY, width: newSize.w, height: newSize.h)
         }
     }
+
+    class func getNodesBounds(_ nodes: [Node]) -> Rect? {
+        var union: Rect?
+        nodes.forEach { node in
+            guard let nodeBounds = node.bounds?.applying(node.place) else {
+                return
+            }
+            union = union?.union(rect: nodeBounds) ?? nodeBounds
+        }
+        return union
+    }
 }

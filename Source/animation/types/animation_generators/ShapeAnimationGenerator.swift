@@ -37,7 +37,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
     // Creating proper animation
     let generatedAnim = generateShapeAnimation(
-        from: fromShape,
+        from: mutatingShape,
         to: toShape,
         duration: duration,
         renderTransform: layer.renderTransform!)
@@ -78,6 +78,12 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
 
         if !animation.autoreverses {
             let currentShape = shapeAnimation.getVFunc()(t)
+            mutatingShape.place = currentShape.place
+            mutatingShape.opaque = currentShape.opaque
+            mutatingShape.opacity = currentShape.opacity
+            mutatingShape.clip = currentShape.clip
+            mutatingShape.mask = currentShape.mask
+            mutatingShape.effect = currentShape.effect
             mutatingShape.form = currentShape.form
             mutatingShape.stroke = currentShape.stroke
             mutatingShape.fill = currentShape.fill
@@ -136,6 +142,15 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
     pathAnimation.duration = duration
 
     group.animations = [pathAnimation]
+
+    // Transform
+    let scaleAnimation = CABasicAnimation(keyPath: "transform")
+    scaleAnimation.duration = duration
+    let view = nodesMap.getView(from)
+    scaleAnimation.fromValue = CATransform3DMakeAffineTransform(AnimationUtils.absolutePosition(from, view: view).toCG())
+    scaleAnimation.toValue = CATransform3DMakeAffineTransform(AnimationUtils.absolutePosition(to, view: view).toCG())
+
+    group.animations?.append(scaleAnimation)
 
     // Fill
     let fromFillColor = from.fill as? Color ?? Color.clear

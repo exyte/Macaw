@@ -840,7 +840,7 @@ open class SVGParser {
             return .none
         }
         if text.children.isEmpty {
-            return parseSimpleText(element, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight)
+            return parseSimpleText(element, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, pos: pos)
         } else {
             guard let matcher = SVGParserRegexHelper.getTextElementMatcher() else {
                 return .none

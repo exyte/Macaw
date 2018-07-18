@@ -62,4 +62,15 @@ final internal class BoundsUtils {
             }
         }
     }
+
+    class func getNodesBounds(_ nodes: [Node]) -> Rect? {
+        var union: Rect?
+        nodes.forEach { node in
+            guard let nodeBounds = node.bounds?.applying(node.place) else {
+                return
+            }
+            union = union?.union(rect: nodeBounds) ?? nodeBounds
+        }
+        return union
+    }
 }

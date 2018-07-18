@@ -592,12 +592,21 @@ private class LayoutHelper {
 
     public func getTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
         setSize(size: size)
-        if let rect = getNodeBounds(node: node) {
+        var rect = node.bounds
+        if let canvas = node as? SVGCanvas {
+            if let view = nodesMap.getView(canvas) {
+                rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
+            } else {
+                rect = BoundsUtils.getNodesBounds(canvas.contents)
+            }
+        }
+
+        if let rect = rect {
             setRect(rect: rect)
             if let transform = prevTransform {
                 return transform
             }
-            return setTransform(transform: layout.layout(rect: prevRect!, into: size).toCG())
+            return setTransform(transform: layout.layout(rect: prevRect!, into: size).move(dx: rect.x, dy: rect.y).toCG())
         }
         return CGAffineTransform.identity
     }

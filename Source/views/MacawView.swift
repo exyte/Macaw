@@ -119,6 +119,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         if let cache = self.animationCache {
             self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
         }
+        backgroundColor = .white
     }
 
     public convenience init(node: Node, frame: CGRect) {
@@ -129,6 +130,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         if let cache = self.animationCache {
             self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
         }
+        backgroundColor = .white
     }
 
     public override init(frame: CGRect) {

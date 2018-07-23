@@ -9,7 +9,17 @@ class AnimationUtils {
         var transform = pos
         var parent = nodesMap.parents(node).first
         while parent != .none {
-            transform = parent!.place.concat(with: transform)
+            
+            if let canvas = parent as? SVGCanvas {
+                if let view = nodesMap.getView(canvas) {
+                    let rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
+                    let canvasTransform = view.contentLayout.layout(rect: rect, into: view.bounds.size.toMacaw()).move(dx: rect.x, dy: rect.y)
+                    transform = canvasTransform.concat(with: transform)
+                }
+            } else {
+                transform = parent!.place.concat(with: transform)
+            }
+            
             parent = nodesMap.parents(parent!).first
         }
 

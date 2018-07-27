@@ -26,7 +26,7 @@ open class GeomUtils {
 
         let t1 = move.concat(with: rotation)
         let t2 = t1.concat(with: move.invert()!)
-        let result = t1.concat(with: t2)
+        let result = place.concat(with: t2)
 
         return result
     }

@@ -608,7 +608,7 @@ private class LayoutHelper {
             if let transform = prevTransform {
                 return transform
             }
-            return setTransform(transform: layout.layout(rect: prevRect!, into: size).move(dx: rect.x, dy: rect.y).toCG())
+            return setTransform(transform: layout.layout(rect: prevRect!, into: size).toCG())
         }
         return CGAffineTransform.identity
     }

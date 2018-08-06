@@ -17,7 +17,7 @@ enum ColoringMode {
 
 class NodeRenderer {
 
-    let view: MView?
+    weak var view: MView?
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()

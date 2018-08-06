@@ -21,7 +21,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anima
                                                     offset: animation.pausedProgress,
                                                     fps: opacityAnimation.logicalFps)
     generatedAnimation.repeatCount = Float(animation.repeatCount)
-    generatedAnimation.timingFunction = caTimingFunction(animation.easing)
+    generatedAnimation.timingFunction = animation.easing.caTimingFunction()
 
     generatedAnimation.completion = { finished in
 

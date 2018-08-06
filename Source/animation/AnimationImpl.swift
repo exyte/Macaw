@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum AnimationError: Error {
+    case unsupportedAnimation(String)
+}
+
 enum AnimationType {
     case unknown
     case contents
@@ -38,6 +42,7 @@ class BasicAnimation: Animation {
     var autoreverses = false
     var onProgressUpdate: ((Double) -> Void)?
     var easing = Easing.ease
+    var spring: Easing?
     var completion: (() -> Void)?
 
     override init() {
@@ -56,7 +61,12 @@ class BasicAnimation: Animation {
     }
 
     override open func easing(_ easing: Easing) -> Animation {
-        self.easing = easing
+        switch easing {
+        case .spring:
+            spring = easing
+        default:
+            self.easing = easing
+        }
         return self
     }
 

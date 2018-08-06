@@ -88,11 +88,19 @@ class AnimationProducer {
         case .unknown:
             return
         case .affineTransformation:
-            addTransformAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
-                if let next = animation.next {
-                    self.addAnimation(next)
-                }
-            })
+            do {
+                try addTransformAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
+                    if let next = animation.next {
+                        self.addAnimation(next)
+                    }
+                })
+            }
+            catch AnimationError.unsupportedAnimation(let errorMessage) {
+                print(errorMessage)
+            }
+            catch {
+                print(error.localizedDescription)
+            }
 
         case .opacity:
             addOpacityAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {

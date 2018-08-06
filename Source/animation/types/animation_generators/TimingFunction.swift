@@ -10,7 +10,7 @@ func caTimingFunction(_ easing: Easing) -> CAMediaTimingFunction {
     switch easing {
     case .ease:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
-    case .linear:
+    case .linear, .spring:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     case .easeIn:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
@@ -27,7 +27,7 @@ func progressForTimingFunction(_ easing: Easing, progress: Double) -> Double {
     switch easing {
     case .ease:
         return t
-    case .linear:
+    case .linear, .spring:
         return t
     case .easeIn:
         return t * t

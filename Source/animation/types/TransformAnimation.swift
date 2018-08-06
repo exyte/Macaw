@@ -2,6 +2,8 @@ import Foundation
 
 internal class TransformAnimation: AnimationImpl<Transform> {
 
+    var trajectory: CGPath?
+    
     convenience init(animatedNode: Node, startValue: Transform, finalValue: Transform, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 
         let interpolationFunc = { (t: Double) -> Transform in
@@ -26,6 +28,17 @@ internal class TransformAnimation: AnimationImpl<Transform> {
         type = .affineTransformation
         nodeId = animatedNode.id
 
+        if autostart {
+            self.play()
+        }
+    }
+    
+    init(animatedNode: Node, factory: @escaping (() -> ((Double) -> Transform)), trajectory: CGPath, animationDuration: Double = 1.0, delay: Double = 0.0, autostart: Bool = false) {
+        super.init(observableValue: animatedNode.placeVar, factory: factory, animationDuration: animationDuration, delay: delay)
+        type = .affineTransformation
+        nodeId = animatedNode.id
+        self.trajectory = trajectory
+        
         if autostart {
             self.play()
         }
@@ -67,6 +80,11 @@ public extension AnimatableVariable where T: TransformInterpolation {
 
     public func animate(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) {
         let animation = self.animation(angle: angle, x: x, y: y, during: during, delay: delay)
+        animation.play()
+    }
+    
+    public func animate(trajectory: CGPath, during: Double = 1.0, delay: Double = 0.0) {
+        let animation = self.animation(trajectory: trajectory, during: during, delay: delay)
         animation.play()
     }
 
@@ -113,6 +131,14 @@ public extension AnimatableVariable where T: TransformInterpolation {
         }
 
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
+    }
+    
+    public func animation(trajectory: CGPath, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+        
+        let factory = { () -> (Double) -> Transform in
+            return { (t: Double) in return Transform.identity }
+        }
+        return TransformAnimation(animatedNode: self.node!, factory: factory, trajectory: trajectory, animationDuration: during, delay: delay)
     }
 
 }

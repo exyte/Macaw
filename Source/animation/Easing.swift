@@ -12,4 +12,5 @@ public enum Easing {
     case easeIn
     case easeOut
     case easeInOut
+    case spring(mass: CGFloat, stiffness: CGFloat, damping: CGFloat, initialVelocity: CGFloat)
 }

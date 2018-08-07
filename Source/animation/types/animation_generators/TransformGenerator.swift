@@ -6,7 +6,7 @@ import UIKit
 import AppKit
 #endif
 
-func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) throws {
+func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
     guard let transformAnimation = animation as? TransformAnimation else {
         return
     }
@@ -16,7 +16,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     }
     
     if transformAnimation.spring != nil && transformAnimation.trajectory != nil {
-        throw AnimationError.unsupportedAnimation("Custom trajectory animation can't have spring effect")
+        fatalError("Custom trajectory animation can't have spring effect")
     }
 
     // Creating proper animation
@@ -32,7 +32,7 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     }
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
+    generatedAnim.timingFunction = animation.easing.caTimingFunction()
     generatedAnim.autoreverses = animation.autoreverses
 
     generatedAnim.completion = { finished in
@@ -92,17 +92,12 @@ func transformAnimationByFunc(_ animation: TransformAnimation, duration: Double,
     var transformAnimation = CABasicAnimation(keyPath: "transform")
     
     if let spring = animation.spring {
-        switch spring {
-        case let .spring(mass, stiffness, damping, initialVelocity):
-            let springAnimation = CASpringAnimation(keyPath: "transform")
-            springAnimation.mass = mass
-            springAnimation.stiffness = stiffness
-            springAnimation.damping = damping
-            springAnimation.initialVelocity = initialVelocity
-            transformAnimation = springAnimation
-        default:
-            break
-        }
+        let springAnimation = CASpringAnimation(keyPath: "transform")
+        springAnimation.mass = CGFloat(spring.mass)
+        springAnimation.stiffness = CGFloat(spring.stiffness)
+        springAnimation.damping = CGFloat(spring.damping)
+        springAnimation.initialVelocity = CGFloat(spring.initialVelocity)
+        transformAnimation = springAnimation
     }
     
     transformAnimation.duration = duration
@@ -118,7 +113,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, duration: Double,
         pathAnimation.calculationMode = kCAAnimationPaced
         pathAnimation.fillMode = kCAFillModeForwards
         pathAnimation.isRemovedOnCompletion = false
-        pathAnimation.path = trajectory
+        pathAnimation.path = trajectory.toCGPath()
         
         group.animations?.append(pathAnimation)
     }

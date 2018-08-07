@@ -88,20 +88,11 @@ class AnimationProducer {
         case .unknown:
             return
         case .affineTransformation:
-            do {
-                try addTransformAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
-                    if let next = animation.next {
-                        self.addAnimation(next)
-                    }
-                })
-            }
-            catch AnimationError.unsupportedAnimation(let errorMessage) {
-                print(errorMessage)
-            }
-            catch {
-                print(error.localizedDescription)
-            }
-
+            addTransformAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
+                if let next = animation.next {
+                    self.addAnimation(next)
+                }
+            })
         case .opacity:
             addOpacityAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
                 if let next = animation.next {
@@ -387,7 +378,7 @@ class AnimationProducer {
                 continue
             }
 
-            let t = progressForTimingFunction(animation.easing, progress: progress)
+            let t = animation.easing.progressForTimingFunction(progress: progress)
             group.contents = animation.getVFunc()(t)
             animation.onProgressUpdate?(progress)
 

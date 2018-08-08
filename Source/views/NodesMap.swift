@@ -29,7 +29,7 @@ class NodesMap {
     func remove(_ node: Node) {
         map.removeObject(forKey: node)
         parentsMap.removeValue(forKey: node)
-        
+
         if let group = node as? Group {
             group.contents.forEach { child in
                 self.remove(child)

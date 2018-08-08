@@ -41,9 +41,7 @@ open class Group: Node {
     }
 
     deinit {
-        contentsVar.value.forEach { subNode in
-            nodesMap.remove(subNode)
-        }
+        nodesMap.remove(self)
     }
 
     // Searching

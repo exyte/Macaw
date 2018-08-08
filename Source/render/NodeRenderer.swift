@@ -43,6 +43,10 @@ class NodeRenderer {
         addObservers()
     }
 
+    deinit {
+        disposables.dispose()
+    }
+
     func doAddObservers() {
         guard let node = node() else {
             return

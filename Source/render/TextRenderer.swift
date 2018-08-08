@@ -14,6 +14,10 @@ class TextRenderer: NodeRenderer {
         super.init(node: text, view: view, animationCache: animationCache)
     }
 
+    deinit {
+        dispose()
+    }
+
     override func node() -> Node? {
         return text
     }

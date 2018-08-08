@@ -19,7 +19,7 @@ class AnimationCache {
         }
     }
 
-    let sceneLayer: CALayer
+    weak var sceneLayer: CALayer?
     var layerCache = [Node: CachedLayer]()
 
     required init(sceneLayer: CALayer) {
@@ -74,10 +74,10 @@ class AnimationCache {
             layer.contentsScale = calculateAnimationScale(animation: animation)
 
             layer.setNeedsDisplay()
-            sceneLayer.addSublayer(layer)
+            sceneLayer?.addSublayer(layer)
 
             layerCache[node] = CachedLayer(layer: layer, animation: animation)
-            sceneLayer.setNeedsDisplay()
+            sceneLayer?.setNeedsDisplay()
 
             return layer
         }
@@ -138,7 +138,7 @@ class AnimationCache {
 
         let layer = cachedLayer.layer
         layerCache.removeValue(forKey: node)
-        sceneLayer.setNeedsDisplay()
+        sceneLayer?.setNeedsDisplay()
         layer.removeFromSuperlayer()
     }
 

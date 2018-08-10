@@ -36,7 +36,7 @@ open class Variable<T> {
     @discardableResult open func onChange(_ f: @escaping ((T) -> Void)) -> Disposable {
         let handler = ChangeHandler<T>(f)
         handlers.append(handler)
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.handlers.index(of: handler) else {
                 return
             }

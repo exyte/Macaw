@@ -18,6 +18,10 @@ class GroupRenderer: NodeRenderer {
         updateRenderers()
     }
 
+    deinit {
+        dispose()
+    }
+
     override func doAddObservers() {
         super.doAddObservers()
 
@@ -53,7 +57,7 @@ class GroupRenderer: NodeRenderer {
     override func dispose() {
         super.dispose()
         renderers.forEach { renderer in renderer.dispose() }
-        renderers = []
+        renderers.removeAll()
     }
 
     private func updateRenderers() {

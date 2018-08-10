@@ -15,6 +15,10 @@ class ShapeRenderer: NodeRenderer {
         super.init(node: shape, view: view, animationCache: animationCache)
     }
 
+    deinit {
+        dispose()
+    }
+
     override func node() -> Node? {
         return shape
     }

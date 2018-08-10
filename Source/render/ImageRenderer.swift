@@ -18,6 +18,10 @@ class ImageRenderer: NodeRenderer {
         super.init(node: image, view: view, animationCache: animationCache)
     }
 
+    deinit {
+        dispose()
+    }
+
     override func node() -> Node? {
         return image
     }

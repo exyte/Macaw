@@ -4,6 +4,11 @@ open class Group: Node {
     open var contents: [Node] {
         get { return contentsVar.value }
         set(val) {
+
+            contentsVar.value.forEach { subNode in
+                nodesMap.remove(subNode)
+            }
+
             contentsVar.value = val
 
             if let view = nodesMap.getView(self) {
@@ -33,6 +38,10 @@ open class Group: Node {
 
         self.contents = contents
         self.contentsVar.node = self
+    }
+
+    deinit {
+        nodesMap.remove(self)
     }
 
     // Searching

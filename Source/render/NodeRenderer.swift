@@ -28,7 +28,7 @@ class NodeRenderer {
         self.view = view
         self.animationCache = animationCache
 
-        onNodeChange = {
+        onNodeChange = { [unowned node, weak view] in
             guard let isAnimating = animationCache?.isAnimating(node) else {
                 return
             }
@@ -41,6 +41,10 @@ class NodeRenderer {
         }
 
         addObservers()
+    }
+
+    deinit {
+        disposables.dispose()
     }
 
     func doAddObservers() {

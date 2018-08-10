@@ -85,7 +85,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchPressedHandlers.append(handler)
 
-        return Disposable { [weak self]  in
+        return Disposable { [weak self, unowned handler]  in
             guard let index = self?.touchPressedHandlers.index(of: handler) else {
                 return
             }
@@ -98,7 +98,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchMovedHandlers.append(handler)
 
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.touchMovedHandlers.index(of: handler) else {
                 return
             }
@@ -111,7 +111,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchReleasedHandlers.append(handler)
 
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.touchReleasedHandlers.index(of: handler) else {
                 return
             }
@@ -128,7 +128,7 @@ open class Node: Drawable {
             tapHandlers[tapCount] = [handler]
         }
 
-        return Disposable { [weak self]  in
+        return Disposable { [weak self, unowned handler]  in
             guard let index = self?.tapHandlers[tapCount]?.index(of: handler) else {
                 return
             }
@@ -141,7 +141,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<TapEvent>(f)
         longTapHandlers.append(handler)
 
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.longTapHandlers.index(of: handler) else {
                 return
             }
@@ -154,7 +154,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<PanEvent>(f)
         panHandlers.append(handler)
 
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.panHandlers.index(of: handler) else {
                 return
             }
@@ -167,7 +167,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<RotateEvent>(f)
         rotateHandlers.append(handler)
 
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.rotateHandlers.index(of: handler) else {
                 return
             }
@@ -180,7 +180,7 @@ open class Node: Drawable {
         let handler = ChangeHandler<PinchEvent>(f)
         pinchHandlers.append(handler)
 
-        return Disposable { [weak self] in
+        return Disposable { [weak self, unowned handler] in
             guard let index = self?.pinchHandlers.index(of: handler) else {
                 return
             }

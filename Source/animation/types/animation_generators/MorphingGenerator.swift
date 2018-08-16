@@ -35,7 +35,6 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     guard let layer = animationCache?.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false) else {
         return
     }
-
     // Creating proper animation
     let generatedAnim = pathAnimation(
         from: fromLocus,
@@ -75,7 +74,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         animation.progress = t
         animation.onProgressUpdate?(t)
     }
-
+    
     layer.path = fromLocus.toCGPath()
 
     // Stroke
@@ -90,9 +89,6 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         layer.lineCap = RenderUtils.mapLineCapToString(stroke.cap)
         layer.lineJoin = RenderUtils.mapLineJoinToString(stroke.join)
         layer.lineDashPattern = stroke.dashes.map { NSNumber(value: $0) }
-    } else {
-        layer.strokeColor = MColor.black.cgColor
-        layer.lineWidth = 1.0
     }
 
     // Fill

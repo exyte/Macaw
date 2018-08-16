@@ -6,21 +6,25 @@
 //
 //
 
+#if os(iOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
 open class Easing {
-    
+
     public static let ease: Easing = Ease()
     public static let linear: Easing = Easing()
     public static let easeIn: Easing = EaseIn()
     public static let easeOut: Easing = EaseOut()
     public static let easeInOut: Easing = EaseInOut()
-    public static func spring(mass: Double = 1.0, stiffness: Double = 100.0, damping: Double = 10.0, initialVelocity: Double = 0.0) -> Spring {
-        return Spring(mass: mass, stiffness: stiffness, damping: damping, initialVelocity: initialVelocity)
-    }
-    
+    public static let elasticInOut: Easing = ElasticInOut()
+
     open func caTimingFunction() -> CAMediaTimingFunction {
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     }
-    
+
     open func progressForTimingFunction(progress: Double) -> Double {
         return progress
     }
@@ -63,15 +67,25 @@ private class EaseInOut: Easing {
     }
 }
 
-public class Spring: Easing {
-    let mass: Double
-    let stiffness: Double
-    let damping: Double
-    let initialVelocity: Double
-    init(mass: Double = 1.0, stiffness: Double = 100.0, damping: Double = 10.0, initialVelocity: Double = 0.0) {
-        self.mass = mass
-        self.stiffness = stiffness
-        self.damping = damping
-        self.initialVelocity = initialVelocity
+private class ElasticInOut: Easing {
+    override open func progressForTimingFunction(progress: Double) -> Double {
+        if progress == 0 {
+            return 0
+        }
+        var t = progress / 0.5
+        if t == 2 {
+            return 1
+        }
+        let p = 0.3 * 1.5
+        let s = p / 4
+
+        if t < 1 {
+            t -= 1
+            let postFix = pow(2, 10 * t)
+            return (-0.5 * (postFix * sin((t - s) * (2 * .pi) / p)))
+        }
+        t -= 1
+        let postFix = pow(2, -10 * t)
+        return (postFix * sin((t - s) * (2 * .pi) / p ) * 0.5 + 1)
     }
 }

@@ -38,7 +38,7 @@ public class Animation {
     public func cycle() -> Animation {
         return self
     }
-    
+
     open func chain(_ animation: Animation) -> Animation {
         return self
     }

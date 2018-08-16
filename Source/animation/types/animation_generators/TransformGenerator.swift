@@ -14,14 +14,14 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     guard let nodeId = animation.nodeId, let node = Node.nodeBy(id: nodeId) else {
         return
     }
-    
-    if transformAnimation.spring != nil && transformAnimation.trajectory != nil {
-        fatalError("Custom trajectory animation can't have spring effect")
+
+    if transformAnimation.easing === Easing.elasticInOut {
+        fatalError("Transform animation can't have elastic easing, try using contentVar animation instead")
     }
 
     // Creating proper animation
     var generatedAnimation: CAAnimation?
-    
+
     generatedAnimation = transformAnimationByFunc(transformAnimation,
                                                   duration: animation.getDuration(),
                                                   offset: animation.pausedProgress,
@@ -85,38 +85,28 @@ func transformAnimationByFunc(_ animation: TransformAnimation, duration: Double,
     group.duration = duration
     group.fillMode = kCAFillModeForwards
     group.isRemovedOnCompletion = false
-    
+
     let fromTransform = animation.getVFunc()(0.0).toCG()
     let toTransform = animation.getVFunc()(animation.autoreverses ? 0.5 : 1.0).toCG()
-    
-    var transformAnimation = CABasicAnimation(keyPath: "transform")
-    
-    if let spring = animation.spring {
-        let springAnimation = CASpringAnimation(keyPath: "transform")
-        springAnimation.mass = CGFloat(spring.mass)
-        springAnimation.stiffness = CGFloat(spring.stiffness)
-        springAnimation.damping = CGFloat(spring.damping)
-        springAnimation.initialVelocity = CGFloat(spring.initialVelocity)
-        transformAnimation = springAnimation
-    }
-    
+
+    let transformAnimation = CABasicAnimation(keyPath: "transform")
     transformAnimation.duration = duration
     transformAnimation.fromValue = NSValue(caTransform3D: CATransform3DMakeAffineTransform(fromTransform))
     transformAnimation.toValue = NSValue(caTransform3D: CATransform3DMakeAffineTransform(toTransform))
     transformAnimation.fillMode = kCAFillModeForwards
     transformAnimation.isRemovedOnCompletion = false
-    
+
     group.animations = [transformAnimation]
-    
+
     if let trajectory = animation.trajectory {
         let pathAnimation = CAKeyframeAnimation(keyPath: "position")
         pathAnimation.calculationMode = kCAAnimationPaced
         pathAnimation.fillMode = kCAFillModeForwards
         pathAnimation.isRemovedOnCompletion = false
         pathAnimation.path = trajectory.toCGPath()
-        
+
         group.animations?.append(pathAnimation)
     }
-    
+
     return group
 }

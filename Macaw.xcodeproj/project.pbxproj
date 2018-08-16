@@ -32,7 +32,6 @@
 		57614B0A1F83D15600875933 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */; };
 		57614B0B1F83D15600875933 /* PathSegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12F1E3B393900D1CB28 /* PathSegmentType.swift */; };
 		57614B0C1F83D15600875933 /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E21E3B393900D1CB28 /* AnimatableVariable.swift */; };
-		57614B0D1F83D15600875933 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */; };
 		57614B0E1F83D15600875933 /* AnimationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F71E3B393900D1CB28 /* AnimationCache.swift */; };
 		57614B0F1F83D15600875933 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1361E3B393900D1CB28 /* Transform.swift */; };
 		57614B101F83D15600875933 /* Graphics_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */; };
@@ -157,7 +156,6 @@
 		57E5E1661E3B393900D1CB28 /* TransformHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FA1E3B393900D1CB28 /* TransformHashable.swift */; };
 		57E5E1671E3B393900D1CB28 /* MorphingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FB1E3B393900D1CB28 /* MorphingGenerator.swift */; };
 		57E5E1681E3B393900D1CB28 /* OpacityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */; };
-		57E5E1691E3B393900D1CB28 /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */; };
 		57E5E16A1E3B393900D1CB28 /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */; };
 		57E5E16B1E3B393900D1CB28 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FF1E3B393900D1CB28 /* AnimationSequence.swift */; };
 		57E5E16C1E3B393900D1CB28 /* CombineAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1001E3B393900D1CB28 /* CombineAnimation.swift */; };
@@ -579,7 +577,6 @@
 		57E5E0FA1E3B393900D1CB28 /* TransformHashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformHashable.swift; sourceTree = "<group>"; };
 		57E5E0FB1E3B393900D1CB28 /* MorphingGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorphingGenerator.swift; sourceTree = "<group>"; };
 		57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpacityGenerator.swift; sourceTree = "<group>"; };
-		57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingFunction.swift; sourceTree = "<group>"; };
 		57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformGenerator.swift; sourceTree = "<group>"; };
 		57E5E0FF1E3B393900D1CB28 /* AnimationSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSequence.swift; sourceTree = "<group>"; };
 		57E5E1001E3B393900D1CB28 /* CombineAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimation.swift; sourceTree = "<group>"; };
@@ -1087,7 +1084,6 @@
 				57E5E0FB1E3B393900D1CB28 /* MorphingGenerator.swift */,
 				57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */,
 				57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */,
-				57E5E0FD1E3B393900D1CB28 /* TimingFunction.swift */,
 				57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */,
 			);
 			path = animation_generators;
@@ -1963,7 +1959,6 @@
 				57614B0B1F83D15600875933 /* PathSegmentType.swift in Sources */,
 				57614B0C1F83D15600875933 /* AnimatableVariable.swift in Sources */,
 				5B6E193C20AC58F900454E7E /* Effect.swift in Sources */,
-				57614B0D1F83D15600875933 /* TimingFunction.swift in Sources */,
 				57614B0E1F83D15600875933 /* AnimationCache.swift in Sources */,
 				57614B0F1F83D15600875933 /* Transform.swift in Sources */,
 				57614B101F83D15600875933 /* Graphics_macOS.swift in Sources */,
@@ -2096,7 +2091,6 @@
 				57E5E15B1E3B393900D1CB28 /* DoubleInterpolation.swift in Sources */,
 				57E5E1961E3B393900D1CB28 /* PathSegmentType.swift in Sources */,
 				57E5E1531E3B393900D1CB28 /* AnimatableVariable.swift in Sources */,
-				57E5E1691E3B393900D1CB28 /* TimingFunction.swift in Sources */,
 				5B6E193B20AC58F900454E7E /* Effect.swift in Sources */,
 				57E5E1631E3B393900D1CB28 /* AnimationCache.swift in Sources */,
 				57E5E19D1E3B393900D1CB28 /* Transform.swift in Sources */,

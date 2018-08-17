@@ -12,19 +12,30 @@ import SWXMLHash
 open class SVGParser {
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
-    /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(bundle: Bundle, path: String, ofType: String = "svg") throws -> Node {
-        guard let fullPath = bundle.path(forResource: path, ofType: ofType) else {
-            throw SVGParserError.noSuchFile(path: "\(path).\(ofType)")
+    ///
+    /// - Parameters:
+    ///   - bundle: Bundle resource
+    ///   - resource: Resource filename
+    ///   - type: Type of resource file. The default is "svg"
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    open class func parse(fromBundle bundle: Bundle, forResource resource: String, ofType type: String = "svg") throws -> Node {
+        guard let fullPath = bundle.path(forResource: resource, ofType: type) else {
+            throw SVGParserError.noSuchFile(path: "\(resource).\(type)")
         }
         let text = try String(contentsOfFile: fullPath, encoding: String.Encoding.utf8)
         return try SVGParser.parse(text: text)
     }
 
     /// Parse an SVG file identified by the specified name and file extension.
-    /// - returns: Root node of the corresponding Macaw scene.
-    open class func parse(path: String, ofType: String = "svg") throws -> Node {
-        return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
+    ///
+    /// - Parameters:
+    ///   - resource: Resource filename
+    ///   - type: Type of resource file. The default is "svg"
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    open class func parse(resource: String, ofType type: String = "svg") throws -> Node {
+      return try SVGParser.parse(fromBundle: Bundle.main, forResource: resource, ofType: type)
     }
 
     /// Parse the specified content of an SVG file.

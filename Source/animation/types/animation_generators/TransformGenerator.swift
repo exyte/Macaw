@@ -15,11 +15,14 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
         return
     }
 
+    if transformAnimation.easing === Easing.elasticInOut {
+        fatalError("Transform animation can't have elastic easing, try using contentVar animation instead")
+    }
+
     // Creating proper animation
     var generatedAnimation: CAAnimation?
 
-    generatedAnimation = transformAnimationByFunc(node,
-                                                  valueFunc: transformAnimation.getVFunc(),
+    generatedAnimation = transformAnimationByFunc(transformAnimation,
                                                   duration: animation.getDuration(),
                                                   offset: animation.pausedProgress,
                                                   fps: transformAnimation.logicalFps)
@@ -29,7 +32,8 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     }
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
+    generatedAnim.timingFunction = animation.easing.caTimingFunction()
+    generatedAnim.autoreverses = animation.autoreverses
 
     generatedAnim.completion = { finished in
 
@@ -75,50 +79,34 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     }
 }
 
-func transfomToCG(_ transform: Transform) -> CGAffineTransform {
-    return CGAffineTransform(
-        a: CGFloat(transform.m11),
-        b: CGFloat(transform.m12),
-        c: CGFloat(transform.m21),
-        d: CGFloat(transform.m22),
-        tx: CGFloat(transform.dx),
-        ty: CGFloat(transform.dy))
-}
+func transformAnimationByFunc(_ animation: TransformAnimation, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
-func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
+    let group = CAAnimationGroup()
+    group.duration = duration
+    group.fillMode = kCAFillModeForwards
+    group.isRemovedOnCompletion = false
 
-    var transformValues = [CATransform3D]()
-    var timeValues = [Double]()
+    let fromTransform = animation.getVFunc()(0.0).toCG()
+    let toTransform = animation.getVFunc()(animation.autoreverses ? 0.5 : 1.0).toCG()
 
-    let step = 1.0 / (duration * Double(fps))
-    var dt = 0.0
-    var tValue = Array(stride(from: 0.0, to: 1.0, by: step))
-    tValue.append(1.0)
-    for t in tValue {
-
-        dt = t
-        if 1.0 - dt < step {
-            dt = 1.0
-        }
-
-        timeValues.append(dt)
-
-        let view = nodesMap.getView(node)
-        let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(offset + dt), view: view)
-        let cgValue = CATransform3DMakeAffineTransform(value.toCG())
-        transformValues.append(cgValue)
-    }
-
-    let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
+    let transformAnimation = CABasicAnimation(keyPath: "transform")
     transformAnimation.duration = duration
-    transformAnimation.values = transformValues
-    transformAnimation.keyTimes = timeValues as [NSNumber]?
+    transformAnimation.fromValue = NSValue(caTransform3D: CATransform3DMakeAffineTransform(fromTransform))
+    transformAnimation.toValue = NSValue(caTransform3D: CATransform3DMakeAffineTransform(toTransform))
     transformAnimation.fillMode = kCAFillModeForwards
     transformAnimation.isRemovedOnCompletion = false
 
-    return transformAnimation
-}
+    group.animations = [transformAnimation]
 
-func fixedAngle(_ angle: CGFloat) -> CGFloat {
-    return angle > -0.0000000000000000000000001 ? angle : CGFloat(2.0 * Double.pi) + angle
+    if let trajectory = animation.trajectory {
+        let pathAnimation = CAKeyframeAnimation(keyPath: "position")
+        pathAnimation.calculationMode = kCAAnimationPaced
+        pathAnimation.fillMode = kCAFillModeForwards
+        pathAnimation.isRemovedOnCompletion = false
+        pathAnimation.path = trajectory.toCGPath()
+
+        group.animations?.append(pathAnimation)
+    }
+
+    return group
 }

@@ -39,6 +39,10 @@ public class Animation {
         return self
     }
 
+    open func chain(_ animation: Animation) -> Animation {
+        return self
+    }
+
     public func reverse() -> Animation {
         return self
     }

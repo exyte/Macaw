@@ -55,6 +55,10 @@ class BasicAnimation: Animation {
         return self
     }
 
+    override open func chain(_ animation: Animation) -> Animation {
+        return AnimationSequence(animations: [self, animation as! BasicAnimation])
+    }
+
     override open func easing(_ easing: Easing) -> Animation {
         self.easing = easing
         return self

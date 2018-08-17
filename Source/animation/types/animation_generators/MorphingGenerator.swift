@@ -43,7 +43,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         renderTransform: layer.renderTransform!)
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
+    generatedAnim.timingFunction = animation.easing.caTimingFunction()
     generatedAnim.autoreverses = animation.autoreverses
 
     generatedAnim.completion = { finished in

@@ -62,7 +62,7 @@ open class SVGSerializer {
 
     fileprivate func arcToSVG(_ arc: Arc) -> String {
         if arc.shift == 0.0 && abs(arc.extent - .pi * 2.0) < SVGEpsilon {
-            return tag(SVGEllipseOpenTag, ["cx": arc.ellipse.cx.toString(), "cy": arc.ellipse.cy.toString(), "rx": arc.ellipse.rx.toString(), "ry": arc.ellipse.ry.toString()])
+            return tag(SVGEllipseOpenTag, ["cx": arc.ellipse.cx.serialize(), "cy": arc.ellipse.cy.serialize(), "rx": arc.ellipse.rx.serialize(), "ry": arc.ellipse.ry.serialize()])
         } else {
             let rx = arc.ellipse.rx
             let ry = arc.ellipse.ry
@@ -101,29 +101,29 @@ open class SVGSerializer {
     fileprivate func pathToSVG(_ path: Path) -> String {
         var d = ""
         for segment in path.segments {
-            d += "\(segment.type) \(segment.data.compactMap { $0.toString() }.joined(separator: " "))"
+            d += "\(segment.type) \(segment.data.compactMap { $0.serialize() }.joined(separator: " "))"
         }
         return tag(SVGPathOpenTag, ["d": d])
     }
 
     fileprivate func lineToSVG(_ line: Line) -> String {
-        return tag(SVGLineOpenTag, ["x1": line.x1.toString(), "y1": line.y1.toString(), "x2": line.x2.toString(), "y2": line.y2.toString()])
+        return tag(SVGLineOpenTag, ["x1": line.x1.serialize(), "y1": line.y1.serialize(), "x2": line.x2.serialize(), "y2": line.y2.serialize()])
     }
 
     fileprivate func ellipseToSVG(_ ellipse: Ellipse) -> String {
-        return tag(SVGEllipseOpenTag, ["cx": ellipse.cx.toString(), "cy": ellipse.cy.toString(), "rx": ellipse.rx.toString(), "ry": ellipse.ry.toString()])
+        return tag(SVGEllipseOpenTag, ["cx": ellipse.cx.serialize(), "cy": ellipse.cy.serialize(), "rx": ellipse.rx.serialize(), "ry": ellipse.ry.serialize()])
     }
 
     fileprivate func circleToSVG(_ circle: Circle) -> String {
-        return tag(SVGCircleOpenTag, ["cx": circle.cx.toString(), "cy": circle.cy.toString(), "r": circle.r.toString()])
+        return tag(SVGCircleOpenTag, ["cx": circle.cx.serialize(), "cy": circle.cy.serialize(), "r": circle.r.serialize()])
     }
 
     fileprivate func roundRectToSVG(_ roundRect: RoundRect) -> String {
-        return tag(SVGRectOpenTag, ["x": roundRect.rect.x.toString(), "y": roundRect.rect.y.toString(), "width": roundRect.rect.w.toString(), "height": roundRect.rect.h.toString(), "rx": roundRect.rx.toString(), "ry": roundRect.ry.toString()])
+        return tag(SVGRectOpenTag, ["x": roundRect.rect.x.serialize(), "y": roundRect.rect.y.serialize(), "width": roundRect.rect.w.serialize(), "height": roundRect.rect.h.serialize(), "rx": roundRect.rx.serialize(), "ry": roundRect.ry.serialize()])
     }
 
     fileprivate func rectToSVG(_ rect: Rect) -> String {
-        return tag(SVGRectOpenTag, ["x": rect.x.toString(), "y": rect.y.toString(), "width": rect.w.toString(), "height": rect.h.toString()])
+        return tag(SVGRectOpenTag, ["x": rect.x.serialize(), "y": rect.y.serialize(), "width": rect.w.serialize(), "height": rect.h.serialize()])
     }
 
     fileprivate func imageToSVG(_ image: Image) -> String {
@@ -261,9 +261,9 @@ open class SVGSerializer {
             if ([place.dx, place.dy] == [0.0, 0.0]) {
                 return ""
             }
-            return " transform=\"translate(\(place.dx.toString()),\(place.dy.toString()))\" "
+            return " transform=\"translate(\(place.dx.serialize()),\(place.dy.serialize()))\" "
         }
-        let matrixArgs = [place.m11, place.m12, place.m21, place.m22, place.dx, place.dy].map { $0.toString() }.joined(separator: ",")
+        let matrixArgs = [place.m11, place.m12, place.m21, place.m22, place.dx, place.dy].map { $0.serialize() }.joined(separator: ",")
         return " transform=\"matrix(\(matrixArgs))\" "
     }
 
@@ -403,7 +403,7 @@ open class SVGSerializer {
 }
 
 extension Double {
-    func toString() -> String {
+    func serialize() -> String {
         return abs(self.remainder(dividingBy: 1)) > 0.00001 ? String(self) : String(Int(self.rounded()))
     }
 }

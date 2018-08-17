@@ -16,13 +16,11 @@ open class SVGSerializer {
     fileprivate let width: Int?
     fileprivate let height: Int?
     fileprivate let id: String?
-    fileprivate let indent: Int
 
     fileprivate init(width: Int?, height: Int?, id: String?) {
         self.width = width
         self.height = height
         self.id = id
-        self.indent = 0
     }
 
     // header and footer
@@ -50,23 +48,11 @@ open class SVGSerializer {
     fileprivate let SVGGenericCloseTag = "/>"
 
     fileprivate let SVGUndefinedTag = "<UNDEFINED "
-    fileprivate let indentPrefixSymbol = " "
     fileprivate let SVGClipPathName = "clipPath"
+    fileprivate let SVGMaskName = "mask"
 
     fileprivate let SVGEpsilon: Double = 0.00001
     fileprivate let SVGDefaultOpacityValueAsAlpha = 1 * 255
-
-    fileprivate func indentTextWithOffset(_ text: String, _ offset: Int) -> String {
-        if self.indent != 0 {
-            let prefix = String(repeating: indentPrefixSymbol, count: self.indent)
-            return "\n\(String(repeating: prefix, count: offset))\(text)"
-        }
-        return text
-    }
-
-    fileprivate func att(_ a: Double) -> String {
-        return String(Int(a))
-    }
 
     fileprivate func tag(_ tag: String, _ args: [String: String]=[:], close: Bool = false) -> String {
         let attrs = args.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
@@ -76,7 +62,7 @@ open class SVGSerializer {
 
     fileprivate func arcToSVG(_ arc: Arc) -> String {
         if arc.shift == 0.0 && abs(arc.extent - .pi * 2.0) < SVGEpsilon {
-            return tag(SVGEllipseOpenTag, ["cx": att(arc.ellipse.cx), "cy": att(arc.ellipse.cy), "rx": att(arc.ellipse.rx), "ry": att(arc.ellipse.ry)])
+            return tag(SVGEllipseOpenTag, ["cx": arc.ellipse.cx.serialize(), "cy": arc.ellipse.cy.serialize(), "rx": arc.ellipse.rx.serialize(), "ry": arc.ellipse.ry.serialize()])
         } else {
             let rx = arc.ellipse.rx
             let ry = arc.ellipse.ry
@@ -115,36 +101,36 @@ open class SVGSerializer {
     fileprivate func pathToSVG(_ path: Path) -> String {
         var d = ""
         for segment in path.segments {
-            d += "\(segment.type) \(segment.data.compactMap { String(Int($0)) }.joined(separator: " "))"
+            d += "\(segment.type) \(segment.data.compactMap { $0.serialize() }.joined(separator: " "))"
         }
         return tag(SVGPathOpenTag, ["d": d])
     }
 
     fileprivate func lineToSVG(_ line: Line) -> String {
-        return tag(SVGLineOpenTag, ["x1": String(Int(line.x1)), "y1": att(line.y1), "x2": att(line.x2), "y2": att(line.y2)])
+        return tag(SVGLineOpenTag, ["x1": line.x1.serialize(), "y1": line.y1.serialize(), "x2": line.x2.serialize(), "y2": line.y2.serialize()])
     }
 
     fileprivate func ellipseToSVG(_ ellipse: Ellipse) -> String {
-        return tag(SVGEllipseOpenTag, ["cx": att(ellipse.cx), "cy": att(ellipse.cy), "rx": att(ellipse.rx), "ry": att(ellipse.ry)])
+        return tag(SVGEllipseOpenTag, ["cx": ellipse.cx.serialize(), "cy": ellipse.cy.serialize(), "rx": ellipse.rx.serialize(), "ry": ellipse.ry.serialize()])
     }
 
     fileprivate func circleToSVG(_ circle: Circle) -> String {
-        return tag(SVGCircleOpenTag, ["cx": att(circle.cx), "cy": att(circle.cy), "r": att(circle.r)])
+        return tag(SVGCircleOpenTag, ["cx": circle.cx.serialize(), "cy": circle.cy.serialize(), "r": circle.r.serialize()])
     }
 
     fileprivate func roundRectToSVG(_ roundRect: RoundRect) -> String {
-        return tag(SVGRectOpenTag, ["x": att(roundRect.rect.x), "y": att(roundRect.rect.y), "width": att(roundRect.rect.w), "height": att(roundRect.rect.h), "rx": att(roundRect.rx), "ry": att(roundRect.ry)])
+        return tag(SVGRectOpenTag, ["x": roundRect.rect.x.serialize(), "y": roundRect.rect.y.serialize(), "width": roundRect.rect.w.serialize(), "height": roundRect.rect.h.serialize(), "rx": roundRect.rx.serialize(), "ry": roundRect.ry.serialize()])
     }
 
     fileprivate func rectToSVG(_ rect: Rect) -> String {
-        return tag(SVGRectOpenTag, ["x": att(rect.x), "y": att(rect.y), "width": att(rect.w), "height": att(rect.h)])
+        return tag(SVGRectOpenTag, ["x": rect.x.serialize(), "y": rect.y.serialize(), "width": rect.w.serialize(), "height": rect.h.serialize()])
     }
 
     fileprivate func imageToSVG(_ image: Image) -> String {
         var result = tag(SVGImageOpenTag, close: false)
         result += idToSVG(image.tag)
         result += clipToSVG(image.clip)
-        result += transformToSVG(image)
+        result += transformToSVG(image.place)
         if image.src.contains("memory://") {
             if let data = image.base64encoded(type: Image.ImageRepresentationType.PNG) {
                 result += " xlink:href=\"data:image/png;base64,\(data)\""
@@ -192,7 +178,7 @@ open class SVGSerializer {
         result += clipToSVG(text.clip)
         result += fillToSVG(text.fillVar.value)
         result += strokeToSVG(text.strokeVar.value)
-        result += transformToSVG(text)
+        result += transformToSVG(text.place)
         result += SVGGenericEndTag
         result += text.text
         result += "</text>"
@@ -270,14 +256,14 @@ open class SVGSerializer {
         return false
     }
 
-    fileprivate func transformToSVG(_ shape: Node) -> String {
-        if [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22] == [1.0, 0.0, 0.0, 1.0] {
-            if ([shape.place.dx, shape.place.dy] == [0.0, 0.0]) {
+    fileprivate func transformToSVG(_ place: Transform) -> String {
+        if [place.m11, place.m12, place.m21, place.m22] == [1.0, 0.0, 0.0, 1.0] {
+            if ([place.dx, place.dy] == [0.0, 0.0]) {
                 return ""
             }
-            return " transform=\"translate(\(Int(shape.place.dx)),\(Int(shape.place.dy)))\" "
+            return " transform=\"translate(\(place.dx.serialize()),\(place.dy.serialize()))\" "
         }
-        let matrixArgs = [shape.place.m11, shape.place.m12, shape.place.m21, shape.place.m22, shape.place.dx, shape.place.dy].map { String($0) }.joined(separator: ",")
+        let matrixArgs = [place.m11, place.m12, place.m21, place.m22, place.dx, place.dy].map { $0.serialize() }.joined(separator: ",")
         return " transform=\"matrix(\(matrixArgs))\" "
     }
 
@@ -301,6 +287,8 @@ open class SVGSerializer {
             return roundRectToSVG(roundRect)
         case let rect as Rect:
             return rectToSVG(rect)
+        case let transformedLocus as TransformedLocus:
+            return locusToSVG(transformedLocus.locus) + transformToSVG(transformedLocus.transform)
         default:
             return "\(SVGUndefinedTag) locus:\(locus)"
         }
@@ -319,7 +307,14 @@ open class SVGSerializer {
 
     fileprivate func addClipToDefs(_ clip: Locus) {
         clipPathCount += 1
-        defs += "<clipPath id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(clip) + SVGGenericCloseTag + "</clipPath>"
+        defs += "<\(SVGClipPathName) id=\"\(SVGClipPathName)\(clipPathCount)\">" + locusToSVG(clip) + SVGGenericCloseTag + "</\(SVGClipPathName)>"
+    }
+
+    fileprivate var maskCount: Int = 0
+
+    fileprivate func addMaskToDefs(_ mask: Node) {
+        maskCount += 1
+        defs += "<\(SVGMaskName) id=\"\(SVGMaskName)\(maskCount)\">" + serialize(node: mask) + SVGGenericCloseTag + "</\(SVGMaskName)>"
     }
 
     fileprivate func idToSVG(_ tag: [String]) -> String {
@@ -337,32 +332,41 @@ open class SVGSerializer {
         return " clip-path=\"url(#\(SVGClipPathName)\(clipPathCount))\" "
     }
 
+    fileprivate func maskToSVG(_ mask: Node?) -> String {
+        guard let mask = mask else {
+            return ""
+        }
+        addMaskToDefs(mask)
+        return " mask=\"url(#\(SVGMaskName)\(maskCount))\" "
+    }
+
     fileprivate func macawShapeToSvgShape (macawShape: Shape) -> String {
         let locus = macawShape.formVar.value
         var result = locusToSVG(locus)
         result += idToSVG(macawShape.tag)
         result += clipToSVG(macawShape.clip)
+        result += maskToSVG(macawShape.mask)
         result += fillToSVG(macawShape.fillVar.value)
         result += strokeToSVG(macawShape.strokeVar.value)
-        result += transformToSVG(macawShape)
+        result += transformToSVG(macawShape.place)
         result += SVGGenericCloseTag
         return result
     }
 
-    fileprivate func serialize(node: Node, offset: Int) -> String {
+    fileprivate func serialize(node: Node) -> String {
         if let shape = node as? Shape {
-            return indentTextWithOffset(macawShapeToSvgShape(macawShape: shape), offset)
+            return macawShapeToSvgShape(macawShape: shape)
         }
         if let group = node as? Group {
-            var result = indentTextWithOffset(SVGGroupOpenTag, offset)
+            var result = SVGGroupOpenTag
             result += idToSVG(group.tag)
             result += clipToSVG(group.clip)
-            result += transformToSVG(group)
+            result += transformToSVG(group.place)
             result += SVGGenericEndTag
             for child in group.contentsVar.value {
-                result += serialize(node: child, offset: offset + 1)
+                result += serialize(node: child)
             }
-            result += indentTextWithOffset(SVGGroupCloseTag, offset)
+            result += SVGGroupCloseTag
             return result
         }
         if let image = node as? Image {
@@ -374,7 +378,7 @@ open class SVGSerializer {
         return "SVGUndefinedTag \(node)"
     }
 
-    fileprivate func serialize(node: Node) -> String {
+    fileprivate func serializeRootNode(node: Node) -> String {
         var optionalSection = ""
         if let w = width {
             optionalSection += "width=\"\(w)\""
@@ -386,14 +390,20 @@ open class SVGSerializer {
             optionalSection += " id=\"\(i)\""
         }
         var result = [SVGDefaultHeader, optionalSection, SVGGenericEndTag].joined(separator: " ")
-        let body = serialize(node: node, offset: 1)
+        let body = serialize(node: node)
         result += getDefs() + body
-        result += indentTextWithOffset(SVGFooter, 0)
+        result += SVGFooter
         return result
     }
 
     open class func serialize(node: Node, width: Int? = nil, height: Int? = nil, id: String? = nil) -> String {
-        return SVGSerializer(width: width, height: height, id: id).serialize(node: node)
+        return SVGSerializer(width: width, height: height, id: id).serializeRootNode(node: node)
     }
 
+}
+
+extension Double {
+    func serialize() -> String {
+        return abs(self.remainder(dividingBy: 1)) > 0.00001 ? String(self) : String(Int(self.rounded()))
+    }
 }

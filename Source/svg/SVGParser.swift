@@ -15,29 +15,62 @@ open class SVGParser {
     ///
     /// - Parameters:
     ///   - bundle: Bundle resource
-    ///   - resource: Resource filename
-    ///   - type: Type of resource file. The default is "svg"
+    ///   - path: Resource filename
+    ///   - ofType: Type of resource file. The default is "svg"
     /// - Returns: Root node of the corresponding Macaw scene.
     /// - Throws: An SVGParserError of no such file
-    open class func parse(fromBundle bundle: Bundle, forResource resource: String, ofType type: String = "svg") throws -> Node {
-        guard let fullPath = bundle.path(forResource: resource, ofType: type) else {
-            throw SVGParserError.noSuchFile(path: "\(resource).\(type)")
+    @available(*, deprecated)
+    open class func parse(bundle: Bundle, path: String, ofType: String = "svg") throws -> Node {
+        guard let fullPath = bundle.path(forResource: path, ofType: ofType) else {
+            throw SVGParserError.noSuchFile(path: "\(path).\(ofType)")
         }
-        let text = try String(contentsOfFile: fullPath, encoding: String.Encoding.utf8)
+        let text = try String(contentsOfFile: fullPath, encoding: .utf8)
         return try SVGParser.parse(text: text)
     }
 
     /// Parse an SVG file identified by the specified name and file extension.
     ///
     /// - Parameters:
-    ///   - resource: Resource filename
-    ///   - type: Type of resource file. The default is "svg"
+    ///   - path: Resource filename
+    ///   - ofType: Type of resource file. The default is "svg"
     /// - Returns: Root node of the corresponding Macaw scene.
     /// - Throws: An SVGParserError of no such file
-    open class func parse(resource: String, ofType type: String = "svg") throws -> Node {
-      return try SVGParser.parse(fromBundle: Bundle.main, forResource: resource, ofType: type)
+    @available(*, deprecated)
+    open class func parse(path: String, ofType: String = "svg") throws -> Node {
+        return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
     }
 
+    /// Parse an SVG file
+    ///
+    /// - Parameters:
+    ///   - resource: Resource file name
+    ///   - type: Type of resource file. The default is `svg`
+    ///   - directory: Directory of given resource
+    ///   - bundle: Bundle of given resource
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    open class func parse(resource: String,
+                          ofType type: String = "svg",
+                          inDirectory directory: String? = nil,
+                          fromBundle bundle: Bundle = Bundle.main) throws -> Node {
+        guard let fullpath = bundle.path(forResource: resource, ofType: type, inDirectory: directory) else {
+            throw SVGParserError.noSuchFile(path: "\(resource).\(type)")
+        }
+        return try SVGParser.parse(fullPath: fullpath)
+    }
+    
+    /// Parse an SVG file identified by full file path
+    ///
+    /// - Parameter fullPath: Full path
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    open class func parse(fullPath: String) throws -> Node {
+        guard let text = try? String(contentsOfFile: fullPath, encoding: .utf8) else {
+            throw SVGParserError.noSuchFile(path: fullPath)
+        }
+        return try SVGParser.parse(text: text)
+    }
+    
     /// Parse the specified content of an SVG file.
     /// - returns: Root node of the corresponding Macaw scene.
     open class func parse(text: String) throws -> Node {

@@ -61,19 +61,22 @@ class RenderUtils {
     class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
 
         var fontName = ""
-        let fontPriorities = name.split(separator: ",").map { String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")).lowercased() }
+        let fontPriorities = name.split(separator: ",").map { String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")) }
+
         for font in fontPriorities {
-            if availableFonts.contains(font) {
+            let lowercasedFont = font.lowercased()
+
+            if availableFonts.contains(lowercasedFont) {
                 fontName = font
             }
 
-            if font == "serif" {
+            if lowercasedFont == "serif" {
                 fontName = "Georgia"
             }
-            if font == "sans-serif" {
+            if lowercasedFont == "sans-serif" {
                 fontName = "Arial"
             }
-            if font == "monospace" {
+            if lowercasedFont == "monospace" {
                 fontName = "Courier"
             }
         }

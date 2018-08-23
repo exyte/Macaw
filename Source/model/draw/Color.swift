@@ -1,4 +1,4 @@
-open class Color: Fill, Equatable {
+open class Color: Fill {
 
     open let val: Int
 
@@ -60,7 +60,7 @@ open class Color: Fill, Equatable {
         return rgbt( r: r, g: g, b: b, t: 0 )
     }
 
-    public static func == (lhs: Color, rhs: Color) -> Bool {
-        return lhs.val == rhs.val
+    override func equals<T>(other: T) -> Bool where T: Color {
+        return val == other.val
     }
 }

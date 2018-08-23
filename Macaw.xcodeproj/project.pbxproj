@@ -480,6 +480,8 @@
 		5BFEF5D120B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */; };
 		5BFEF5D620BC1C1F008DAC11 /* paths-data-18-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */; };
 		5BFEF5D720BC1C1F008DAC11 /* paths-data-18-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */; };
+		6A616BFA2129560A006A07FA /* MacawTests.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6A616BF92129560A006A07FA /* MacawTests.bundle */; };
+		6A616BFC212964E8006A07FA /* SVGParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A616BFB212964E8006A07FA /* SVGParserTest.swift */; };
 		A718CD441F45C28200966E06 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
@@ -877,6 +879,8 @@
 		5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMatrixEffect.swift; sourceTree = "<group>"; };
 		5BFEF5D420BC1C1E008DAC11 /* paths-data-18-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-18-f-manual.svg"; sourceTree = "<group>"; };
 		5BFEF5D520BC1C1F008DAC11 /* paths-data-18-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-18-f-manual.reference"; sourceTree = "<group>"; };
+		6A616BF92129560A006A07FA /* MacawTests.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MacawTests.bundle; sourceTree = "<group>"; };
+		6A616BFB212964E8006A07FA /* SVGParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGParserTest.swift; sourceTree = "<group>"; };
 		A718CD431F45C28200966E06 /* Common_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common_iOS.swift; path = Source/platform/iOS/Common_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD451F45C28700966E06 /* Graphics_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graphics_iOS.swift; path = Source/platform/iOS/Graphics_iOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD461F45C28700966E06 /* MView_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_iOS.swift; path = Source/platform/iOS/MView_iOS.swift; sourceTree = SOURCE_ROOT; };
@@ -1289,6 +1293,7 @@
 		57FCD27A1D76EA4600CC0FB6 /* MacawTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A616BF92129560A006A07FA /* MacawTests.bundle */,
 				A7E675541EC4211E00BD9ECB /* Bounds */,
 				5713C4F11E5AD35900BBA4D9 /* Animation */,
 				57CAB1241D7832E000FD8E47 /* svg */,
@@ -1298,6 +1303,7 @@
 				C4820B191F458D64008CE0FF /* MacawSVGTests.swift */,
 				5BAE2057208F24DE006BF277 /* SceneSerialization.swift */,
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
+				6A616BFB212964E8006A07FA /* SVGParserTest.swift */,
 			);
 			path = MacawTests;
 			sourceTree = "<group>";
@@ -1788,6 +1794,7 @@
 				5B1AE27420B6A669007EECCB /* color-prop-02-f-manual.svg in Resources */,
 				5B1AE25120B6A669007EECCB /* coords-trans-05-t-manual.reference in Resources */,
 				5B1AE29120B6A669007EECCB /* coords-transformattr-01-f-manual.svg in Resources */,
+				6A616BFA2129560A006A07FA /* MacawTests.bundle in Resources */,
 				5B1AE2D320B6A669007EECCB /* shapes-rect-04-f-manual.reference in Resources */,
 				5B1AE23C20B6A669007EECCB /* paths-data-15-t-manual.svg in Resources */,
 				5BAE2039208E163D006BF277 /* polygon.reference in Resources */,
@@ -2222,6 +2229,7 @@
 				5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */,
 				57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */,
 				A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */,
+				6A616BFC212964E8006A07FA /* SVGParserTest.swift in Sources */,
 				57E0EB2E1EB34CDD00638039 /* AnimationUtilsTests.swift in Sources */,
 				5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */,
 				57CAB1231D782DFC00FD8E47 /* TestUtils.swift in Sources */,

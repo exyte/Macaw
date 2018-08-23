@@ -30,23 +30,24 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    func validate(_ test: String) {
+    func validate(_ testResource: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let node = try SVGParser.parse(bundle: bundle, path: test)
-            validate(node: node, referenceFile: test)
+            let node = try SVGParser.parse(bundle: bundle, path: testResource)
+            validate(node: node, referenceFile: testResource)
+            let node2 = try SVGParser.parse(resource: testResource, fromBundle: bundle)
+            validate(node: node2, referenceFile: testResource)
         } catch {
             print(error)
             XCTFail()
         }
     }
     
-    
-    func create(_ test: String) {
+    func create(_ testResource: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
-            let node = try SVGParser.parse(bundle: bundle, path: test)
+            let path = bundle.path(forResource: testResource, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
+            let node = try SVGParser.parse(bundle: bundle, path: testResource)
             let result = SVGSerializer.serialize(node: node)
             try result.write(to: URL(fileURLWithPath: path!), atomically: true, encoding: String.Encoding.utf8)
         } catch {
@@ -175,21 +176,23 @@ class MacawSVGTests: XCTestCase {
         }
     }
     
-    func validateJSON(_ test: String) {
+    func validateJSON(_ testResource: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let node = try SVGParser.parse(bundle: bundle, path: test)
-            validateJSON(node: node, referenceFile: test)
+            let node = try SVGParser.parse(bundle: bundle, path: testResource)
+            validateJSON(node: node, referenceFile: testResource)
+            let node2 = try SVGParser.parse(resource: testResource, fromBundle: bundle)
+            validateJSON(node: node2, referenceFile: testResource)
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
     
-    func createJSON(_ test: String) {
+    func createJSON(_ testResource: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let path = bundle.path(forResource: test, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
-            let node = try SVGParser.parse(bundle: bundle, path: test)
+            let path = bundle.path(forResource: testResource, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
+            let node = try SVGParser.parse(bundle: bundle, path: testResource)
             guard let serializableNode = node as? Serializable else {
                 XCTFail()
                 return

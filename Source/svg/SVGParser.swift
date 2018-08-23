@@ -12,21 +12,65 @@ import SWXMLHash
 open class SVGParser {
 
     /// Parse an SVG file identified by the specified bundle, name and file extension.
-    /// - returns: Root node of the corresponding Macaw scene.
+    ///
+    /// - Parameters:
+    ///   - bundle: Bundle resource
+    ///   - path: Resource filename
+    ///   - ofType: Type of resource file. The default is "svg"
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    @available(*, deprecated)
     open class func parse(bundle: Bundle, path: String, ofType: String = "svg") throws -> Node {
         guard let fullPath = bundle.path(forResource: path, ofType: ofType) else {
             throw SVGParserError.noSuchFile(path: "\(path).\(ofType)")
         }
-        let text = try String(contentsOfFile: fullPath, encoding: String.Encoding.utf8)
+        let text = try String(contentsOfFile: fullPath, encoding: .utf8)
         return try SVGParser.parse(text: text)
     }
 
     /// Parse an SVG file identified by the specified name and file extension.
-    /// - returns: Root node of the corresponding Macaw scene.
+    ///
+    /// - Parameters:
+    ///   - path: Resource filename
+    ///   - ofType: Type of resource file. The default is "svg"
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    @available(*, deprecated)
     open class func parse(path: String, ofType: String = "svg") throws -> Node {
         return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
     }
 
+    /// Parse an SVG file
+    ///
+    /// - Parameters:
+    ///   - resource: Resource file name
+    ///   - type: Type of resource file. The default is `svg`
+    ///   - directory: Directory of given resource
+    ///   - bundle: Bundle of given resource
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    open class func parse(resource: String,
+                          ofType type: String = "svg",
+                          inDirectory directory: String? = nil,
+                          fromBundle bundle: Bundle = Bundle.main) throws -> Node {
+        guard let fullpath = bundle.path(forResource: resource, ofType: type, inDirectory: directory) else {
+            throw SVGParserError.noSuchFile(path: "\(resource).\(type)")
+        }
+        return try SVGParser.parse(fullPath: fullpath)
+    }
+    
+    /// Parse an SVG file identified by full file path
+    ///
+    /// - Parameter fullPath: Full path
+    /// - Returns: Root node of the corresponding Macaw scene.
+    /// - Throws: An SVGParserError of no such file
+    open class func parse(fullPath: String) throws -> Node {
+        guard let text = try? String(contentsOfFile: fullPath, encoding: .utf8) else {
+            throw SVGParserError.noSuchFile(path: fullPath)
+        }
+        return try SVGParser.parse(text: text)
+    }
+    
     /// Parse the specified content of an SVG file.
     /// - returns: Root node of the corresponding Macaw scene.
     open class func parse(text: String) throws -> Node {
@@ -190,20 +234,33 @@ open class SVGParser {
 
     fileprivate func parseStyle(_ styleNode: XMLIndexer) {
         if let rawStyle = styleNode.element?.text {
-            var styleAttributes: [String: String] = [:]
-            let parts = rawStyle.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "{")
-            if parts.count == 2 {
-                let className = String(parts[0].dropFirst())
-                if !className.isEmpty {
-                    let style = String(parts[1].dropLast())
-                    let styleParts = style.replacingOccurrences(of: " ", with: "").components(separatedBy: ";")
-                    styleParts.forEach { styleAttribute in
-                        let currentStyle = styleAttribute.components(separatedBy: ":")
-                        if currentStyle.count == 2 {
-                            styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+
+            let parts = rawStyle.components(separatedBy: .whitespacesAndNewlines).joined().split(separator: "{")
+
+            var separatedParts = [String.SubSequence]()
+
+            parts.forEach { substring in
+                separatedParts.append(contentsOf: substring.split(separator: "}"))
+            }
+
+            if separatedParts.count % 2 == 0 {
+
+                let classNames = stride(from: 0, to: separatedParts.count, by: 2).map { String(separatedParts[$0].dropFirst()) }
+                let styles = stride(from: 1, to: separatedParts.count, by: 2).map { separatedParts[$0] }
+
+                for (index, className) in classNames.enumerated() {
+                    var styleAttributes: [String: String] = [:]
+                    if !className.isEmpty {
+                        let style = String(styles[index].dropLast())
+                        let styleParts = style.components(separatedBy: ";")
+                        styleParts.forEach { styleAttribute in
+                            let currentStyle = styleAttribute.components(separatedBy: ":")
+                            if currentStyle.count == 2 {
+                                styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+                            }
                         }
+                        styleTable[className] = styleAttributes
                     }
-                    styleTable[className] = styleAttributes
                 }
             }
         }
@@ -503,10 +560,18 @@ open class SVGParser {
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
 
-        if let className = element.allAttributes["class"]?.text, let styleAttributesFromTable = styleTable[className] {
-            for (att, val) in styleAttributesFromTable {
-                if styleAttributes.index(forKey: att) == nil {
-                    styleAttributes.updateValue(val, forKey: att)
+        if let classNamesString = element.allAttributes["class"]?.text {
+            let classNames = classNamesString.split(separator: " ")
+
+            classNames.forEach { className in
+                let classString = String(className)
+
+                if let styleAttributesFromTable = styleTable[classString] {
+                    for (att, val) in styleAttributesFromTable {
+                        if styleAttributes.index(forKey: att) == nil {
+                            styleAttributes.updateValue(val, forKey: att)
+                        }
+                    }
                 }
             }
         }

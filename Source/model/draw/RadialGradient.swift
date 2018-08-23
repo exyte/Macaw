@@ -17,4 +17,8 @@ open class RadialGradient: Gradient {
             stops: stops
         )
     }
+
+    override func equals<T>(other: T) -> Bool where T: RadialGradient {
+        return super.equals(other: other) && cx == other.cx && cy == other.cy && fx == other.fx && fy == other.fy && r == other.r
+    }
 }

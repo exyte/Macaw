@@ -10,7 +10,7 @@ open class SVGView: MacawView {
 
     @IBInspectable open var fileName: String? {
         didSet {
-            node = (try? SVGParser.parse(path: fileName ?? "")) ?? Group()
+            node = (try? SVGParser.parse(resource: fileName ?? "")) ?? Group()
         }
     }
 

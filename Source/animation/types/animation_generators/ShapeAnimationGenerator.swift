@@ -14,22 +14,12 @@ import UIKit
 import AppKit
 #endif
 
-class NodeHolder {
-    static var node: Shape?
-}
-
 func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
     guard let shapeAnimation = animation as? ShapeAnimation else {
         return
     }
 
-    guard let nodeId = animation.nodeId else {
-        return
-    }
-    if NodeHolder.node == nil {
-        NodeHolder.node = Node.nodeBy(id: nodeId) as? Shape
-    }
-    guard let shape = NodeHolder.node else {
+    guard let nodeId = animation.nodeId, let shape = Node.nodeBy(id: nodeId) as? Shape else {
         return
     }
 

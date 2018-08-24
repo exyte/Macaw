@@ -3,10 +3,6 @@ open class Fill: Equatable {
     public init() {
     }
 
-    public static func == (lhs: Fill, rhs: Fill) -> Bool {
-        fatalError("Equatable can't be realised for  Fill")
-    }
-
     func equals<T>(other: T) -> Bool where T: Fill {
         fatalError("Equals can't be realised for  Fill")
     }

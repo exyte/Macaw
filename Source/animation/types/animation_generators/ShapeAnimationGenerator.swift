@@ -23,13 +23,13 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         return
     }
 
-    let mutatingShape = SceneUtils.shapeCopy(from: shape)
-    nodesMap.replace(node: shape, to: mutatingShape)
-    animationCache?.replace(original: shape, replacement: mutatingShape)
-
     let fromShape = shapeAnimation.getVFunc()(0.0)
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
+
+    let mutatingShape = SceneUtils.shapeCopy(from: fromShape)
+    nodesMap.replace(node: shape, to: mutatingShape)
+    animationCache?.replace(original: shape, replacement: mutatingShape)
 
     guard let layer = animationCache?.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false) else {
         return

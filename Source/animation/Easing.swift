@@ -14,7 +14,7 @@ import AppKit
 
 open class Easing {
 
-    public static let ease: Easing = Ease()
+    public static let ease: Easing = Easing()
     public static let linear: Easing = Easing()
     public static let easeIn: Easing = EaseIn()
     public static let easeOut: Easing = EaseOut()
@@ -24,44 +24,25 @@ open class Easing {
         return ElasticInOut(elasticity: elasticity)
     }
 
-    open func caTimingFunction() -> CAMediaTimingFunction {
-        return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-    }
-
-    open func progressForTimingFunction(progress: Double) -> Double {
-        return progress
-    }
-}
-
-private class Ease: Easing {
-    override open func caTimingFunction() -> CAMediaTimingFunction {
-        return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+    open func progressFor(time: Double) -> Double {
+        return time
     }
 }
 
 private class EaseIn: Easing {
-    override open func caTimingFunction() -> CAMediaTimingFunction {
-        return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-    }
-    override open func progressForTimingFunction(progress t: Double) -> Double {
+    override open func progressFor(time t: Double) -> Double {
         return t * t
     }
 }
 
 private class EaseOut: Easing {
-    override open func caTimingFunction() -> CAMediaTimingFunction {
-        return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-    }
-    override open func progressForTimingFunction(progress t: Double) -> Double {
+    override open func progressFor(time t: Double) -> Double {
         return -(t * (t - 2))
     }
 }
 
 private class EaseInOut: Easing {
-    override open func caTimingFunction() -> CAMediaTimingFunction {
-        return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-    }
-    override open func progressForTimingFunction(progress t: Double) -> Double {
+    override open func progressFor(time t: Double) -> Double {
         if t < 0.5 {
             return 2.0 * t * t
         } else {
@@ -77,11 +58,11 @@ public class ElasticInOut: Easing {
         self.elasticity = elasticity
     }
 
-    override open func progressForTimingFunction(progress: Double) -> Double {
-        if progress == 0 {
+    override open func progressFor(time: Double) -> Double {
+        if time == 0 {
             return 0
         }
-        var t = progress / 0.5
+        var t = time / 0.5
         if t == 2 {
             return 1
         }

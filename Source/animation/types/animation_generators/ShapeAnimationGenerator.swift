@@ -43,7 +43,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         renderTransform: layer.renderTransform!)
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = animation.easing.caTimingFunction()
+    generatedAnim.timingFunction = caTimingFunction(animation.easing)
     generatedAnim.autoreverses = animation.autoreverses
 
     generatedAnim.completion = { finished in

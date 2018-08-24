@@ -14,7 +14,7 @@ class EasingView: MacawView {
         let fromStroke = Stroke(fill: Color.black, width: 3)
         let toStroke = Stroke(fill: Color.black, width: 1, dashes: [3, 3])
         
-        let all = [Easing.ease, Easing.linear, Easing.easeIn, Easing.easeOut, Easing.easeInOut]
+        let all = [Easing.ease, Easing.linear, Easing.easeIn, Easing.easeOut, Easing.easeInOut, Easing.elasticInOut]
         
         for (i, easing) in all.enumerated() {
             let y = Double(150 + i * 75)

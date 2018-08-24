@@ -87,7 +87,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, node: Node, durat
 
     if let trajectory = animation.trajectory {
         let pathAnimation = CAKeyframeAnimation(keyPath: "position")
-        pathAnimation.timingFunction = animation.easing.caTimingFunction()
+        pathAnimation.timingFunction = caTimingFunction(animation.easing)
         pathAnimation.duration = duration / 2
         pathAnimation.autoreverses = animation.autoreverses
         let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(0), view: view)
@@ -104,7 +104,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, node: Node, durat
     var tValue = Array(stride(from: 0.0, to: 1.0, by: step))
     tValue.append(1.0)
     for t in tValue {
-        let progress = animation.easing.progressForTimingFunction(progress: t)
+        let progress = animation.easing.progressFor(time: t)
         let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(offset + progress), view: view)
         let cgValue = CATransform3DMakeAffineTransform(value.toCG())
         transformValues.append(cgValue)

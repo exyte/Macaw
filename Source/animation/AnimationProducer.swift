@@ -307,7 +307,7 @@ class AnimationProducer {
 
         var unionBounds = contentsAnimation.getVFunc()(0.0).group().bounds
         stride(from: 0.0, to: 1.0, by: 0.02).forEach { progress in
-            let t = animation.easing.progressForTimingFunction(progress: progress)
+            let t = animation.easing.progressFor(time: progress)
             unionBounds = unionBounds?.union(rect: contentsAnimation.getVFunc()(t).group().bounds!)
         }
 
@@ -378,7 +378,7 @@ class AnimationProducer {
                 continue
             }
 
-            let t = animation.easing.progressForTimingFunction(progress: progress)
+            let t = animation.easing.progressFor(time: progress)
             group.contents = animation.getVFunc()(t)
             animation.onProgressUpdate?(progress)
 

@@ -14,11 +14,11 @@ class EasingView: MacawView {
         let fromStroke = Stroke(fill: Color.black, width: 3)
         let toStroke = Stroke(fill: Color.black, width: 1, dashes: [3, 3])
         
-        let all = [Easing.ease, Easing.linear, Easing.easeIn, Easing.easeOut, Easing.easeInOut]
+        let all = [Easing.ease, Easing.linear, Easing.easeIn, Easing.easeOut, Easing.easeInOut, Easing.elasticInOut]
         
         for (i, easing) in all.enumerated() {
             let y = Double(150 + i * 75)
-            let title = EasingView.title(easing: easing)
+            let title = String(describing: type(of: easing))
             let titleText = Text(text: title, align: .mid, place: .move(dx: centerX, dy: y - 45))
 
             let fromCircle = Circle(cx: centerX - 100, cy: y, r: 25).stroke(with: fromStroke)
@@ -33,15 +33,5 @@ class EasingView: MacawView {
         
         animation = animations.combine().cycle()
         super.init(node: circlesNodes.group(), coder: aDecoder)
-    }
-    
-    fileprivate static func title(easing: Easing) -> String {
-        switch easing {
-        case .ease: return "Ease"
-        case .linear: return "Linear"
-        case .easeIn: return "Ease In"
-        case .easeOut: return "Ease Out"
-        case .easeInOut: return "Ease InOut"
-        }
     }
 }

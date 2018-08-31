@@ -93,7 +93,6 @@ class AnimationProducer {
                     self.addAnimation(next)
                 }
             })
-
         case .opacity:
             addOpacityAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
                 if let next = animation.next {
@@ -306,10 +305,10 @@ class AnimationProducer {
 
         let startDate = Date(timeInterval: contentsAnimation.delay, since: Date())
 
-        var unionBounds: Rect? = .none
-        if let startBounds = contentsAnimation.getVFunc()(0.0).group().bounds,
-            let endBounds = contentsAnimation.getVFunc()(1.0).group().bounds {
-            unionBounds = startBounds.union(rect: endBounds)
+        var unionBounds = contentsAnimation.getVFunc()(0.0).group().bounds
+        stride(from: 0.0, to: 1.0, by: 0.02).forEach { progress in
+            let t = animation.easing.progressFor(time: progress)
+            unionBounds = unionBounds?.union(rect: contentsAnimation.getVFunc()(t).group().bounds!)
         }
 
         guard let layer = cache?.layerForNode(node, animation: contentsAnimation, customBounds: unionBounds) else {
@@ -379,7 +378,7 @@ class AnimationProducer {
                 continue
             }
 
-            let t = progressForTimingFunction(animation.easing, progress: progress)
+            let t = animation.easing.progressFor(time: progress)
             group.contents = animation.getVFunc()(t)
             animation.onProgressUpdate?(progress)
 

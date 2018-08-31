@@ -15,11 +15,17 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
         return
     }
 
+    if transformAnimation.trajectory != nil && transformAnimation.easing === Easing.elasticInOut {
+        fatalError("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
+    }
+
+    node.placeVar.value = transformAnimation.getVFunc()(0.0)
+
     // Creating proper animation
     var generatedAnimation: CAAnimation?
 
-    generatedAnimation = transformAnimationByFunc(node,
-                                                  valueFunc: transformAnimation.getVFunc(),
+    generatedAnimation = transformAnimationByFunc(transformAnimation,
+                                                  node: node,
                                                   duration: animation.getDuration(),
                                                   offset: animation.pausedProgress,
                                                   fps: transformAnimation.logicalFps)
@@ -29,7 +35,6 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     }
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
 
     generatedAnim.completion = { finished in
 
@@ -75,36 +80,32 @@ func addTransformAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, ani
     }
 }
 
-func transfomToCG(_ transform: Transform) -> CGAffineTransform {
-    return CGAffineTransform(
-        a: CGFloat(transform.m11),
-        b: CGFloat(transform.m12),
-        c: CGFloat(transform.m21),
-        d: CGFloat(transform.m22),
-        tx: CGFloat(transform.dx),
-        ty: CGFloat(transform.dy))
-}
+func transformAnimationByFunc(_ animation: TransformAnimation, node: Node, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
-func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
+    let valueFunc = animation.getVFunc()
+    let view = nodesMap.getView(node)
+
+    if let trajectory = animation.trajectory {
+        let pathAnimation = CAKeyframeAnimation(keyPath: "position")
+        pathAnimation.timingFunction = caTimingFunction(animation.easing)
+        pathAnimation.duration = duration / 2
+        pathAnimation.autoreverses = animation.autoreverses
+        let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(0), view: view)
+        pathAnimation.values = [NSValue(caTransform3D: CATransform3DMakeAffineTransform(value.toCG()))]
+        pathAnimation.fillMode = kCAFillModeForwards
+        pathAnimation.isRemovedOnCompletion = false
+        pathAnimation.path = trajectory.toCGPath()
+
+        return pathAnimation
+    }
 
     var transformValues = [CATransform3D]()
-    var timeValues = [Double]()
-
     let step = 1.0 / (duration * Double(fps))
-    var dt = 0.0
     var tValue = Array(stride(from: 0.0, to: 1.0, by: step))
     tValue.append(1.0)
     for t in tValue {
-
-        dt = t
-        if 1.0 - dt < step {
-            dt = 1.0
-        }
-
-        timeValues.append(dt)
-
-        let view = nodesMap.getView(node)
-        let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(offset + dt), view: view)
+        let progress = animation.easing.progressFor(time: t)
+        let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(offset + progress), view: view)
         let cgValue = CATransform3DMakeAffineTransform(value.toCG())
         transformValues.append(cgValue)
     }
@@ -112,13 +113,8 @@ func transformAnimationByFunc(_ node: Node, valueFunc: (Double) -> Transform, du
     let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
     transformAnimation.duration = duration
     transformAnimation.values = transformValues
-    transformAnimation.keyTimes = timeValues as [NSNumber]?
     transformAnimation.fillMode = kCAFillModeForwards
     transformAnimation.isRemovedOnCompletion = false
 
     return transformAnimation
-}
-
-func fixedAngle(_ angle: CGFloat) -> CGFloat {
-    return angle > -0.0000000000000000000000001 ? angle : CGFloat(2.0 * Double.pi) + angle
 }

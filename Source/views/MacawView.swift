@@ -296,7 +296,9 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
             var points = [TouchPoint]()
             for initialTouch in initialTouches {
-                let currentIndex = touches.index(of: initialTouch)!
+                guard let currentIndex = touches.index(of: initialTouch) else {
+                    continue
+                }
                 let currentTouch = touches[currentIndex]
                 let location = CGPoint(x: currentTouch.x, y: currentTouch.y)
                 let inverted = currentNode.place.invert()!

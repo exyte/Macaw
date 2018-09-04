@@ -40,7 +40,7 @@ class CAAnimationDelegateImpl: NSObject, CAAnimationDelegate {
         if animating != nil {
             animationDuration = theAnimation.duration
             startTime = Date()
-            RunLoop.current.add(animatingTimer, forMode: RunLoopMode.defaultRunLoopMode)
+            RunLoop.current.add(animatingTimer, forMode: RunLoop.Mode.default)
         }
     }
 

@@ -11,22 +11,22 @@ class RenderUtils {
     class func mapLineJoinToString(_ join: LineJoin?) -> String {
         switch join {
         case LineJoin.round?:
-            return kCALineJoinRound
+            return convertFromCAShapeLayerLineJoin(CAShapeLayerLineJoin.round)
         case LineJoin.bevel?:
-            return kCALineJoinBevel
+            return convertFromCAShapeLayerLineJoin(CAShapeLayerLineJoin.bevel)
         default:
-            return kCALineJoinMiter
+            return convertFromCAShapeLayerLineJoin(CAShapeLayerLineJoin.miter)
         }
     }
 
     class func mapLineCapToString(_ cap: LineCap?) -> String {
         switch cap {
         case LineCap.round?:
-            return kCALineCapRound
+            return convertFromCAShapeLayerLineCap(CAShapeLayerLineCap.round)
         case LineCap.square?:
-            return kCALineCapSquare
+            return convertFromCAShapeLayerLineCap(CAShapeLayerLineCap.square)
         default:
-            return kCALineCapButt
+            return convertFromCAShapeLayerLineCap(CAShapeLayerLineCap.butt)
         }
     }
 
@@ -595,4 +595,14 @@ class RenderUtils {
             ctx.addPath(locus.toCGPath())
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromCAShapeLayerLineJoin(_ input: CAShapeLayerLineJoin) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromCAShapeLayerLineCap(_ input: CAShapeLayerLineCap) -> String {
+	return input.rawValue
 }

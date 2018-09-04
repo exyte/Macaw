@@ -1,9 +1,9 @@
 open class Ellipse: Locus {
 
-    open let cx: Double
-    open let cy: Double
-    open let rx: Double
-    open let ry: Double
+    public let cx: Double
+    public let cy: Double
+    public let rx: Double
+    public let ry: Double
 
     public init(cx: Double = 0, cy: Double = 0, rx: Double = 0, ry: Double = 0) {
         self.cx = cx

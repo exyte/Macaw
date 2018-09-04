@@ -260,7 +260,7 @@ class EmptyAnimation: BasicAnimation {
 
 open class AnimationDescription <T> {
 
-    open let valueFunc: (Double) -> T
+    public let valueFunc: (Double) -> T
     open var duration = 0.0
     open var delay = 0.0
 

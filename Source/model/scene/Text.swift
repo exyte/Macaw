@@ -6,37 +6,37 @@ import AppKit
 
 open class Text: Node {
 
-    open let textVar: Variable<String>
+    public let textVar: Variable<String>
     open var text: String {
         get { return textVar.value }
         set(val) { textVar.value = val }
     }
 
-    open let fontVar: Variable<Font?>
+    public let fontVar: Variable<Font?>
     open var font: Font? {
         get { return fontVar.value }
         set(val) { fontVar.value = val }
     }
 
-    open let fillVar: Variable<Fill>
+    public let fillVar: Variable<Fill>
     open var fill: Fill {
         get { return fillVar.value }
         set(val) { fillVar.value = val }
     }
 
-    open let strokeVar: Variable<Stroke?>
+    public let strokeVar: Variable<Stroke?>
     open var stroke: Stroke? {
         get { return strokeVar.value }
         set(val) { strokeVar.value = val }
     }
 
-    open let alignVar: Variable<Align>
+    public let alignVar: Variable<Align>
     open var align: Align {
         get { return alignVar.value }
         set(val) { alignVar.value = val }
     }
 
-    open let baselineVar: Variable<Baseline>
+    public let baselineVar: Variable<Baseline>
     open var baseline: Baseline {
         get { return baselineVar.value }
         set(val) { baselineVar.value = val }
@@ -73,8 +73,8 @@ open class Text: Node {
         } else {
             font = MFont.systemFont(ofSize: MFont.mSystemFontSize)
         }
-        var stringAttributes: [NSAttributedStringKey: AnyObject] = [:]
-        stringAttributes[NSAttributedStringKey.font] = font
+        var stringAttributes: [NSAttributedString.Key: AnyObject] = [:]
+        stringAttributes[NSAttributedString.Key.font] = font
         let size = (text as NSString).size(withAttributes: stringAttributes)
         return Rect(
             x: calculateAlignmentOffset(font: font),
@@ -116,7 +116,7 @@ open class Text: Node {
 
     fileprivate func calculateAlignmentOffset(font: MFont) -> Double {
         let textAttributes = [
-            NSAttributedStringKey.font: font
+            NSAttributedString.Key.font: font
         ]
         let textSize = NSString(string: text).size(withAttributes: textAttributes)
         return -align.align(size: textSize.width.doubleValue)

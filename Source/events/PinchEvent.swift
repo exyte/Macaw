@@ -1,6 +1,6 @@
 open class PinchEvent: Event {
 
-    open let scale: Double
+    public let scale: Double
 
     init(node: Node, scale: Double) {
         self.scale = scale

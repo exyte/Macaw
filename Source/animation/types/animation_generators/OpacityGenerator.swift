@@ -90,7 +90,7 @@ func opacityAnimationByFunc(_ valueFunc: (Double) -> Double, duration: Double, o
     }
 
     let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
-    opacityAnimation.fillMode = kCAFillModeForwards
+    opacityAnimation.fillMode = CAMediaTimingFillMode.forwards
     opacityAnimation.isRemovedOnCompletion = false
 
     opacityAnimation.duration = duration

@@ -14,13 +14,13 @@ import AppKit
 
 open class ContentLayout {
 
-    open static let none = ContentLayout()
+    public static let none = ContentLayout()
 
-    open static func of(scaling: AspectRatio = .meet, xAlign: Align = .mid, yAlign: Align = .mid) -> ContentLayout {
+    public static func of(scaling: AspectRatio = .meet, xAlign: Align = .mid, yAlign: Align = .mid) -> ContentLayout {
         return ScalingContentLayout(scaling: scaling, xAlign: xAlign, yAlign: yAlign)
     }
 
-    open static func of(contentMode: MViewContentMode) -> ContentLayout {
+    public static func of(contentMode: MViewContentMode) -> ContentLayout {
         switch contentMode {
         case .scaleToFill:
             return of(scaling: .none)

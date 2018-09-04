@@ -1,24 +1,24 @@
 open class Color: Fill {
 
-    open let val: Int
+    public let val: Int
 
-    open static let white: Color = Color( val: 0xFFFFFF )
-    open static let silver: Color = Color( val: 0xC0C0C0 )
-    open static let gray: Color = Color( val: 0x808080 )
-    open static let black: Color = Color( val: 0 )
-    open static let red: Color = Color( val: 0xFF0000 )
-    open static let maroon: Color = Color( val: 0x800000 )
-    open static let yellow: Color = Color( val: 0xFFFF00 )
-    open static let olive: Color = Color( val: 0x808000 )
-    open static let lime: Color = Color( val: 0x00FF00 )
-    open static let green: Color = Color( val: 0x008000 )
-    open static let aqua: Color = Color( val: 0x00FFFF )
-    open static let teal: Color = Color( val: 0x008080 )
-    open static let blue: Color = Color( val: 0x0000FF )
-    open static let navy: Color = Color( val: 0x000080 )
-    open static let fuchsia: Color = Color( val: 0xFF00FF )
-    open static let purple: Color = Color( val: 0x800080 )
-    open static let clear: Color = Color.rgba(r: 0, g: 0, b: 0, a: 0)
+    public static let white: Color = Color( val: 0xFFFFFF )
+    public static let silver: Color = Color( val: 0xC0C0C0 )
+    public static let gray: Color = Color( val: 0x808080 )
+    public static let black: Color = Color( val: 0 )
+    public static let red: Color = Color( val: 0xFF0000 )
+    public static let maroon: Color = Color( val: 0x800000 )
+    public static let yellow: Color = Color( val: 0xFFFF00 )
+    public static let olive: Color = Color( val: 0x808000 )
+    public static let lime: Color = Color( val: 0x00FF00 )
+    public static let green: Color = Color( val: 0x008000 )
+    public static let aqua: Color = Color( val: 0x00FFFF )
+    public static let teal: Color = Color( val: 0x008080 )
+    public static let blue: Color = Color( val: 0x0000FF )
+    public static let navy: Color = Color( val: 0x000080 )
+    public static let fuchsia: Color = Color( val: 0xFF00FF )
+    public static let purple: Color = Color( val: 0x800080 )
+    public static let clear: Color = Color.rgba(r: 0, g: 0, b: 0, a: 0)
 
     public init(val: Int = 0) {
         self.val = val

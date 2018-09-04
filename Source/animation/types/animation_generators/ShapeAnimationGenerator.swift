@@ -104,8 +104,8 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         }
 
         layer.lineWidth = CGFloat(stroke.width)
-        layer.lineCap = RenderUtils.mapLineCapToString(stroke.cap)
-        layer.lineJoin = RenderUtils.mapLineJoinToString(stroke.join)
+        layer.lineCap = convertToCAShapeLayerLineCap(RenderUtils.mapLineCapToString(stroke.cap))
+        layer.lineJoin = convertToCAShapeLayerLineJoin(RenderUtils.mapLineJoinToString(stroke.join))
         layer.lineDashPattern = stroke.dashes.map { NSNumber(value: $0) }
     } else if shape.fill == nil {
         layer.strokeColor = MColor.black.cgColor
@@ -204,8 +204,18 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
 
     // Group
     group.duration = duration
-    group.fillMode = kCAFillModeForwards
+    group.fillMode = CAMediaTimingFillMode.forwards
     group.isRemovedOnCompletion = false
 
     return group
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAShapeLayerLineCap(_ input: String) -> CAShapeLayerLineCap {
+	return CAShapeLayerLineCap(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAShapeLayerLineJoin(_ input: String) -> CAShapeLayerLineJoin {
+	return CAShapeLayerLineJoin(rawValue: input)
 }

@@ -32,11 +32,11 @@ func MGraphicsEndImageContext() {
 }
 
 func MImagePNGRepresentation(_ image: MImage) -> Data? {
-    return UIImagePNGRepresentation(image)
+    return image.pngData()
 }
 
 func MImageJPEGRepresentation(_ image: MImage, _ quality: CGFloat = 0.8) -> Data? {
-    return UIImageJPEGRepresentation(image, quality)
+    return image.jpegData(compressionQuality: quality)
 }
 
 func MMainScreen() -> MScreen? {
@@ -48,7 +48,7 @@ func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ sca
 }
 
 func MNoIntrinsicMetric() -> CGFloat {
-    return UIViewNoIntrinsicMetric
+    return UIView.noIntrinsicMetric
 }
 
 #endif

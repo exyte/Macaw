@@ -1,6 +1,6 @@
 open class SVGConstants {
 
-    open static let valueToColor = [
+    public static let valueToColor = [
         0x000000: "black",
         0x000080: "navy",
         0x00008b: "darkblue",
@@ -142,7 +142,7 @@ open class SVGConstants {
         0xf0f8ff: "aliceblue"
     ]
 
-    open static let colorList = [
+    public static let colorList = [
         "aliceblue": 0xf0f8ff,
         "antiquewhite": 0xfaebd7,
         "aqua": 0x00ffff,
@@ -293,11 +293,11 @@ open class SVGConstants {
         "yellowgreen": 0x9acd32
     ]
 
-    open static func valueToColor(_ color: Int) -> String? {
+    public static func valueToColor(_ color: Int) -> String? {
         return SVGConstants.colorList.filter { _, v -> Bool in v == color }.map { k, _ -> String in k }.first
     }
 
-    open static let defaultStrokeLineCap = LineCap.butt
-    open static let defaultStrokeLineJoin = LineJoin.miter
+    public static let defaultStrokeLineCap = LineCap.butt
+    public static let defaultStrokeLineJoin = LineJoin.miter
 
 }

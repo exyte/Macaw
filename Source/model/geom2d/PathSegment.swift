@@ -2,8 +2,8 @@ import Foundation
 
 open class PathSegment {
 
-    open let type: PathSegmentType
-    open let data: [Double]
+    public let type: PathSegmentType
+    public let data: [Double]
 
     public init(type: PathSegmentType = .M, data: [Double] = []) {
         self.type = type

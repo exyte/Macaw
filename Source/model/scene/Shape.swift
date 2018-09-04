@@ -6,19 +6,19 @@ import AppKit
 
 open class Shape: Node {
 
-    open let formVar: AnimatableVariable<Locus>
+    public let formVar: AnimatableVariable<Locus>
     open var form: Locus {
         get { return formVar.value }
         set(val) { formVar.value = val }
     }
 
-    open let fillVar: AnimatableVariable<Fill?>
+    public let fillVar: AnimatableVariable<Fill?>
     open var fill: Fill? {
         get { return fillVar.value }
         set(val) { fillVar.value = val }
     }
 
-    open let strokeVar: AnimatableVariable<Stroke?>
+    public let strokeVar: AnimatableVariable<Stroke?>
     open var stroke: Stroke? {
         get { return strokeVar.value }
         set(val) { strokeVar.value = val }

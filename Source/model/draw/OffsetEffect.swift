@@ -1,7 +1,7 @@
 open class OffsetEffect: Effect {
 
-    open let dx: Double
-    open let dy: Double
+    public let dx: Double
+    public let dy: Double
 
     public init(dx: Double = 0, dy: Double = 0, input: Effect? = nil) {
         self.dx = dx

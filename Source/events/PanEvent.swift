@@ -1,8 +1,8 @@
 open class PanEvent: Event {
 
-    open let dx: Double
-    open let dy: Double
-    open let count: Int
+    public let dx: Double
+    public let dy: Double
+    public let count: Int
 
     init(node: Node, dx: Double, dy: Double, count: Int) {
         self.dx = dx

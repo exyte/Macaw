@@ -1,9 +1,9 @@
 open class Size {
 
-    open let w: Double
-    open let h: Double
+    public let w: Double
+    public let h: Double
 
-    open static let zero: Size = Size(w: 0, h: 0)
+    public static let zero: Size = Size(w: 0, h: 0)
 
     public init(w: Double = 0, h: Double = 0) {
         self.w = w

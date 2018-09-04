@@ -4,8 +4,8 @@ public enum FillRule {
 
 open class Path: Locus {
 
-    open let segments: [PathSegment]
-    open let fillRule: FillRule
+    public let segments: [PathSegment]
+    public let fillRule: FillRule
 
     public init(segments: [PathSegment] = [], fillRule: FillRule = .nonzero) {
         self.segments = segments

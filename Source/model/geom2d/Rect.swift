@@ -1,9 +1,9 @@
 open class Rect: Locus {
 
-    open let x: Double
-    open let y: Double
-    open let w: Double
-    open let h: Double
+    public let x: Double
+    public let y: Double
+    public let w: Double
+    public let h: Double
 
     public init(x: Double = 0, y: Double = 0, w: Double = 0, h: Double = 0) {
         self.x = x

@@ -2,37 +2,37 @@ import Foundation
 
 open class Node: Drawable {
 
-    open let placeVar: AnimatableVariable<Transform>
+    public let placeVar: AnimatableVariable<Transform>
     open var place: Transform {
         get { return placeVar.value }
         set(val) { placeVar.value = val }
     }
 
-    open let opaqueVar: Variable<Bool>
+    public let opaqueVar: Variable<Bool>
     open var opaque: Bool {
         get { return opaqueVar.value }
         set(val) { opaqueVar.value = val }
     }
 
-    open let opacityVar: AnimatableVariable<Double>
+    public let opacityVar: AnimatableVariable<Double>
     open var opacity: Double {
         get { return opacityVar.value }
         set(val) { opacityVar.value = val }
     }
 
-    open let clipVar: Variable<Locus?>
+    public let clipVar: Variable<Locus?>
     open var clip: Locus? {
         get { return clipVar.value }
         set(val) { clipVar.value = val }
     }
 
-    open let maskVar: Variable<Node?>
+    public let maskVar: Variable<Node?>
     open var mask: Node? {
         get { return maskVar.value }
         set(val) { maskVar.value = val }
     }
 
-    open let effectVar: Variable<Effect?>
+    public let effectVar: Variable<Effect?>
     open var effect: Effect? {
         get { return effectVar.value }
         set(val) { effectVar.value = val }
@@ -48,7 +48,7 @@ open class Node: Drawable {
     // MARK: - ID map
     private static let map = NSMapTable<NSString, Node>(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
 
-    open static func nodeBy(id: String) -> Node? {
+    public static func nodeBy(id: String) -> Node? {
         return Node.map.object(forKey: id as NSString)
     }
 

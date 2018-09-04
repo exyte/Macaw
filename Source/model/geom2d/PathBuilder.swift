@@ -1,7 +1,7 @@
 open class PathBuilder {
 
-    open let segment: PathSegment
-    open let rest: PathBuilder?
+    public let segment: PathSegment
+    public let rest: PathBuilder?
 
     public init(segment: PathSegment, rest: PathBuilder? = nil) {
         self.segment = segment

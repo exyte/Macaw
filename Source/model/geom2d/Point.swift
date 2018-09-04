@@ -1,9 +1,9 @@
 open class Point: Locus {
 
-    open let x: Double
-    open let y: Double
+    public let x: Double
+    public let y: Double
 
-    open static let origin: Point = Point( x: 0, y: 0 )
+    public static let origin: Point = Point( x: 0, y: 0 )
 
     public init(x: Double = 0, y: Double = 0) {
         self.x = x

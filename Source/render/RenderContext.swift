@@ -6,7 +6,7 @@ import UIKit
 
 class RenderContext {
     weak var view: MView?
-    weak var cgContext: CGContext?
+    var cgContext: CGContext?
 
     init(view: MView?) {
         self.view = view

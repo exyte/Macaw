@@ -1,56 +1,40 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
         {
           "contents" : [
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "Basic paint: fill properties.",
-              "place" : "1, 0, 0, 1, 30, 42",
               "font" : {
                 "name" : "Arial",
                 "size" : 36,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 30, 42",
+              "text" : "Basic paint: fill properties."
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "fill=\"currentColor\"",
-              "place" : "1, 0, 0, 1, 100, 80",
               "font" : {
                 "name" : "Arial",
                 "size" : 36,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 100, 80",
+              "text" : "fill=\"currentColor\""
             },
             {
               "fill" : {
@@ -58,23 +42,23 @@
                 "val" : 32768
               },
               "form" : {
-                "x" : 75,
-                "w" : 100,
+                "h" : 140,
                 "type" : "Rect",
-                "y" : 110,
-                "h" : 140
+                "w" : 100,
+                "x" : 75,
+                "y" : 110
               },
               "node" : "Shape",
               "stroke" : {
-                "join" : "miter",
                 "cap" : "butt",
+                "dashes" : [
+
+                ],
                 "fill" : {
                   "type" : "Color",
                   "val" : 0
                 },
-                "dashes" : [
-
-                ],
+                "join" : "miter",
                 "width" : 1
               }
             },
@@ -84,57 +68,57 @@
                 "val" : 255
               },
               "form" : {
-                "x" : 275,
-                "w" : 100,
+                "h" : 140,
                 "type" : "Rect",
-                "y" : 110,
-                "h" : 140
+                "w" : 100,
+                "x" : 275,
+                "y" : 110
               },
               "node" : "Shape",
               "stroke" : {
-                "join" : "miter",
                 "cap" : "butt",
+                "dashes" : [
+
+                ],
                 "fill" : {
                   "type" : "Color",
                   "val" : 0
                 },
-                "dashes" : [
-
-                ],
+                "join" : "miter",
                 "width" : 1
               }
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "green",
-              "place" : "1, 0, 0, 1, 80, 280",
               "font" : {
                 "name" : "Arial",
                 "size" : 36,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 80, 280",
+              "text" : "green"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "blue",
-              "place" : "1, 0, 0, 1, 290, 280",
               "font" : {
                 "name" : "Arial",
                 "size" : 36,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 290, 280",
+              "text" : "blue"
             }
           ],
           "node" : "Group"
@@ -145,46 +129,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.5 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.5 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

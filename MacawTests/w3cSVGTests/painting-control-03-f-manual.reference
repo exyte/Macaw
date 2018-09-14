@@ -1,20 +1,4 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
@@ -24,50 +8,50 @@
             "val" : 16711680
           },
           "form" : {
-            "type" : "Path",
             "segments" : [
               {
-                "type" : "M",
                 "data" : [
                   20,
                   100
-                ]
+                ],
+                "type" : "M"
               },
               {
-                "type" : "L",
                 "data" : [
                   50,
                   150
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "L",
                 "data" : [
                   100,
                   200
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "L",
                 "data" : [
                   175,
                   175
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "L",
                 "data" : [
                   150,
                   150
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "z",
                 "data" : [
 
-                ]
+                ],
+                "type" : "z"
               }
-            ]
+            ],
+            "type" : "Path"
           },
           "node" : "Shape"
         },
@@ -77,56 +61,56 @@
             "val" : 0
           },
           "form" : {
-            "type" : "Path",
             "segments" : [
               {
-                "type" : "M",
                 "data" : [
                   20,
                   100
-                ]
+                ],
+                "type" : "M"
               },
               {
-                "type" : "L",
                 "data" : [
                   50,
                   150
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "L",
                 "data" : [
                   100,
                   200
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "L",
                 "data" : [
                   175,
                   175
-                ]
+                ],
+                "type" : "L"
               },
               {
-                "type" : "L",
                 "data" : [
                   150,
                   150
-                ]
+                ],
+                "type" : "L"
               }
-            ]
+            ],
+            "type" : "Path"
           },
           "node" : "Shape",
           "stroke" : {
-            "join" : "miter",
             "cap" : "butt",
+            "dashes" : [
+
+            ],
             "fill" : {
               "type" : "Color",
               "val" : 0
             },
-            "dashes" : [
-
-            ],
+            "join" : "miter",
             "width" : 1
           }
         },
@@ -136,7 +120,6 @@
             "val" : 16711680
           },
           "form" : {
-            "type" : "Polyline",
             "points" : [
               200,
               100,
@@ -148,7 +131,8 @@
               175,
               350,
               150
-            ]
+            ],
+            "type" : "Polyline"
           },
           "node" : "Shape"
         },
@@ -158,7 +142,6 @@
             "val" : 0
           },
           "form" : {
-            "type" : "Polyline",
             "points" : [
               200,
               100,
@@ -172,19 +155,20 @@
               150,
               200,
               100
-            ]
+            ],
+            "type" : "Polyline"
           },
           "node" : "Shape",
           "stroke" : {
-            "join" : "miter",
             "cap" : "butt",
+            "dashes" : [
+
+            ],
             "fill" : {
               "type" : "Color",
               "val" : 0
             },
-            "dashes" : [
-
-            ],
+            "join" : "miter",
             "width" : 1
           }
         }
@@ -194,46 +178,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.5 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.5 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

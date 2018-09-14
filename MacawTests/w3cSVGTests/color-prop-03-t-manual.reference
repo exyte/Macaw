@@ -1,20 +1,4 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
@@ -26,10 +10,10 @@
                 "val" : 16711680
               },
               "form" : {
+                "cx" : 75,
                 "cy" : 40,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 75
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -39,10 +23,10 @@
                 "val" : 16711680
               },
               "form" : {
+                "cx" : 115,
                 "cy" : 40,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 115
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -52,10 +36,10 @@
                 "val" : 16711680
               },
               "form" : {
+                "cx" : 75,
                 "cy" : 80,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 75
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -65,10 +49,10 @@
                 "val" : 16711680
               },
               "form" : {
+                "cx" : 115,
                 "cy" : 80,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 115
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -78,7 +62,6 @@
                 "val" : 16711680
               },
               "form" : {
-                "type" : "Polygon",
                 "points" : [
                   95,
                   40,
@@ -88,7 +71,8 @@
                   80,
                   75,
                   60
-                ]
+                ],
+                "type" : "Polygon"
               },
               "node" : "Shape"
             }
@@ -103,10 +87,10 @@
                 "val" : 65280
               },
               "form" : {
+                "cx" : 200,
                 "cy" : 40,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 200
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -116,10 +100,10 @@
                 "val" : 65280
               },
               "form" : {
+                "cx" : 240,
                 "cy" : 40,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 240
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -129,10 +113,10 @@
                 "val" : 65280
               },
               "form" : {
+                "cx" : 200,
                 "cy" : 80,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 200
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -142,10 +126,10 @@
                 "val" : 65280
               },
               "form" : {
+                "cx" : 240,
                 "cy" : 80,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 240
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -155,7 +139,6 @@
                 "val" : 65280
               },
               "form" : {
-                "type" : "Polygon",
                 "points" : [
                   220,
                   40,
@@ -165,7 +148,8 @@
                   80,
                   200,
                   60
-                ]
+                ],
+                "type" : "Polygon"
               },
               "node" : "Shape"
             }
@@ -180,10 +164,10 @@
                 "val" : 255
               },
               "form" : {
+                "cx" : 325,
                 "cy" : 40,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 325
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -193,10 +177,10 @@
                 "val" : 255
               },
               "form" : {
+                "cx" : 365,
                 "cy" : 40,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 365
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -206,10 +190,10 @@
                 "val" : 255
               },
               "form" : {
+                "cx" : 325,
                 "cy" : 80,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 325
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -219,10 +203,10 @@
                 "val" : 255
               },
               "form" : {
+                "cx" : 365,
                 "cy" : 80,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 365
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -232,7 +216,6 @@
                 "val" : 255
               },
               "form" : {
-                "type" : "Polygon",
                 "points" : [
                   345,
                   40,
@@ -242,7 +225,8 @@
                   80,
                   325,
                   60
-                ]
+                ],
+                "type" : "Polygon"
               },
               "node" : "Shape"
             }
@@ -257,10 +241,10 @@
                 "val" : 11141137
               },
               "form" : {
+                "cx" : 75,
                 "cy" : 135,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 75
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -270,10 +254,10 @@
                 "val" : 11141137
               },
               "form" : {
+                "cx" : 115,
                 "cy" : 135,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 115
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -283,10 +267,10 @@
                 "val" : 11141137
               },
               "form" : {
+                "cx" : 75,
                 "cy" : 175,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 75
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -296,10 +280,10 @@
                 "val" : 11206674
               },
               "form" : {
+                "cx" : 115,
                 "cy" : 175,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 115
+                "type" : "Circle"
               },
               "node" : "Shape"
             }
@@ -314,10 +298,10 @@
                 "val" : 3390259
               },
               "form" : {
+                "cx" : 200,
                 "cy" : 135,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 200
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -327,10 +311,10 @@
                 "val" : 3390259
               },
               "form" : {
+                "cx" : 240,
                 "cy" : 135,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 240
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -340,10 +324,10 @@
                 "val" : 3390259
               },
               "form" : {
+                "cx" : 200,
                 "cy" : 175,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 200
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -353,10 +337,10 @@
                 "val" : 3390259
               },
               "form" : {
+                "cx" : 240,
                 "cy" : 175,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 240
+                "type" : "Circle"
               },
               "node" : "Shape"
             }
@@ -371,10 +355,10 @@
                 "val" : 5601262
               },
               "form" : {
+                "cx" : 325,
                 "cy" : 135,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 325
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -384,10 +368,10 @@
                 "val" : 5601262
               },
               "form" : {
+                "cx" : 365,
                 "cy" : 135,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 365
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -397,10 +381,10 @@
                 "val" : 5601262
               },
               "form" : {
+                "cx" : 325,
                 "cy" : 175,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 325
+                "type" : "Circle"
               },
               "node" : "Shape"
             },
@@ -410,10 +394,10 @@
                 "val" : 5601262
               },
               "form" : {
+                "cx" : 365,
                 "cy" : 175,
-                "type" : "Circle",
                 "r" : 20,
-                "cx" : 365
+                "type" : "Circle"
               },
               "node" : "Shape"
             }
@@ -426,46 +410,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.9 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.9 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

@@ -599,10 +599,10 @@ class RenderUtils {
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromCAShapeLayerLineJoin(_ input: CAShapeLayerLineJoin) -> String {
-	return input.rawValue
+    return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromCAShapeLayerLineCap(_ input: CAShapeLayerLineCap) -> String {
-	return input.rawValue
+    return input.rawValue
 }

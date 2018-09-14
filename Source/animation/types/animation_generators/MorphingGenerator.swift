@@ -74,7 +74,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         animation.progress = t
         animation.onProgressUpdate?(t)
     }
-    
+
     layer.path = fromLocus.toCGPath()
 
     // Stroke
@@ -123,10 +123,10 @@ fileprivate func pathAnimation(from: Locus, to: Locus, duration: Double, renderT
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToCAShapeLayerLineCap(_ input: String) -> CAShapeLayerLineCap {
-	return CAShapeLayerLineCap(rawValue: input)
+    return CAShapeLayerLineCap(rawValue: input)
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToCAShapeLayerLineJoin(_ input: String) -> CAShapeLayerLineJoin {
-	return CAShapeLayerLineJoin(rawValue: input)
+    return CAShapeLayerLineJoin(rawValue: input)
 }

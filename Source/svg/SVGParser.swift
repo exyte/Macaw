@@ -58,7 +58,7 @@ open class SVGParser {
         }
         return try SVGParser.parse(fullPath: fullpath)
     }
-    
+
     /// Parse an SVG file identified by full file path
     ///
     /// - Parameter fullPath: Full path
@@ -70,7 +70,7 @@ open class SVGParser {
         }
         return try SVGParser.parse(text: text)
     }
-    
+
     /// Parse the specified content of an SVG file.
     /// - returns: Root node of the corresponding Macaw scene.
     open class func parse(text: String) throws -> Node {

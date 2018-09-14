@@ -1,20 +1,4 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
@@ -28,33 +12,33 @@
                     "val" : 32768
                   },
                   "form" : {
+                    "cx" : 130,
                     "cy" : 80,
-                    "type" : "Circle",
                     "r" : 60,
-                    "cx" : 130
+                    "type" : "Circle"
                   },
                   "node" : "Shape"
                 },
                 {
+                  "form" : {
+                    "cx" : 350,
+                    "cy" : 80,
+                    "r" : 60,
+                    "type" : "Circle"
+                  },
+                  "node" : "Shape",
                   "stroke" : {
-                    "join" : "miter",
                     "cap" : "butt",
+                    "dashes" : [
+
+                    ],
                     "fill" : {
                       "type" : "Color",
                       "val" : 32768
                     },
-                    "dashes" : [
-
-                    ],
+                    "join" : "miter",
                     "width" : 4
-                  },
-                  "form" : {
-                    "cy" : 80,
-                    "type" : "Circle",
-                    "r" : 60,
-                    "cx" : 350
-                  },
-                  "node" : "Shape"
+                  }
                 }
               ],
               "node" : "Group"
@@ -68,11 +52,11 @@
               "contents" : [
                 {
                   "form" : {
-                    "x" : 60,
-                    "w" : 360,
+                    "h" : 80,
                     "type" : "Rect",
-                    "y" : 215,
-                    "h" : 80
+                    "w" : 360,
+                    "x" : 60,
+                    "y" : 215
                   },
                   "node" : "Shape"
                 }
@@ -85,52 +69,52 @@
         {
           "contents" : [
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
+              "font" : {
+                "name" : "SVGFreeSansASCII,sans-serif",
+                "size" : 30,
+                "weight" : "normal"
+              },
               "node" : "Text",
-              "align" : "min",
-              "text" : "fill",
               "place" : "1, 0, 0, 1, 120, 170",
-              "font" : {
-                "name" : "SVGFreeSansASCII,sans-serif",
-                "size" : 30,
-                "weight" : "normal"
-              }
+              "text" : "fill"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
+              "font" : {
+                "name" : "SVGFreeSansASCII,sans-serif",
+                "size" : 30,
+                "weight" : "normal"
+              },
               "node" : "Text",
-              "align" : "min",
-              "text" : "stroke",
               "place" : "1, 0, 0, 1, 310, 170",
-              "font" : {
-                "name" : "SVGFreeSansASCII,sans-serif",
-                "size" : 30,
-                "weight" : "normal"
-              }
+              "text" : "stroke"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "stop-color",
-              "place" : "1, 0, 0, 1, 180, 205",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 30,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 180, 205",
+              "text" : "stop-color"
             }
           ],
           "node" : "Group"
@@ -141,46 +125,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.8 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.8 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

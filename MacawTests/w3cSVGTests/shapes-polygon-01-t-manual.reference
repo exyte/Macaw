@@ -1,38 +1,9 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
         {
-          "stroke" : {
-            "join" : "miter",
-            "cap" : "butt",
-            "fill" : {
-              "type" : "Color",
-              "val" : 0
-            },
-            "dashes" : [
-
-            ],
-            "width" : 1
-          },
           "form" : {
-            "type" : "Polygon",
             "points" : [
               59,
               45,
@@ -48,9 +19,22 @@
               107,
               19,
               65
-            ]
+            ],
+            "type" : "Polygon"
           },
-          "node" : "Shape"
+          "node" : "Shape",
+          "stroke" : {
+            "cap" : "butt",
+            "dashes" : [
+
+            ],
+            "fill" : {
+              "type" : "Color",
+              "val" : 0
+            },
+            "join" : "miter",
+            "width" : 1
+          }
         },
         {
           "fill" : {
@@ -58,7 +42,6 @@
             "val" : 255
           },
           "form" : {
-            "type" : "Polygon",
             "points" : [
               179,
               45,
@@ -76,7 +59,8 @@
               65,
               179,
               45
-            ]
+            ],
+            "type" : "Polygon"
           },
           "node" : "Shape"
         },
@@ -86,7 +70,6 @@
             "val" : 255
           },
           "form" : {
-            "type" : "Polygon",
             "points" : [
               350,
               45,
@@ -106,37 +89,25 @@
               70,
               350,
               45
-            ]
+            ],
+            "type" : "Polygon"
           },
           "node" : "Shape",
           "stroke" : {
-            "join" : "miter",
             "cap" : "butt",
+            "dashes" : [
+
+            ],
             "fill" : {
               "type" : "Color",
               "val" : 0
             },
-            "dashes" : [
-
-            ],
+            "join" : "miter",
             "width" : 6
           }
         },
         {
-          "stroke" : {
-            "join" : "miter",
-            "cap" : "butt",
-            "fill" : {
-              "type" : "Color",
-              "val" : 255
-            },
-            "dashes" : [
-
-            ],
-            "width" : 8
-          },
           "form" : {
-            "type" : "Polygon",
             "points" : [
               59,
               185,
@@ -154,9 +125,22 @@
               205,
               59,
               185
-            ]
+            ],
+            "type" : "Polygon"
           },
-          "node" : "Shape"
+          "node" : "Shape",
+          "stroke" : {
+            "cap" : "butt",
+            "dashes" : [
+
+            ],
+            "fill" : {
+              "type" : "Color",
+              "val" : 255
+            },
+            "join" : "miter",
+            "width" : 8
+          }
         },
         {
           "fill" : {
@@ -164,7 +148,6 @@
             "val" : 65280
           },
           "form" : {
-            "type" : "Polygon",
             "points" : [
               179,
               185,
@@ -180,37 +163,25 @@
               247,
               139,
               205
-            ]
+            ],
+            "type" : "Polygon"
           },
           "node" : "Shape",
           "stroke" : {
-            "join" : "miter",
             "cap" : "butt",
+            "dashes" : [
+
+            ],
             "fill" : {
               "type" : "Color",
               "val" : 255
             },
-            "dashes" : [
-
-            ],
+            "join" : "miter",
             "width" : 8
           }
         },
         {
-          "stroke" : {
-            "join" : "miter",
-            "cap" : "butt",
-            "fill" : {
-              "type" : "Color",
-              "val" : 65280
-            },
-            "dashes" : [
-
-            ],
-            "width" : 8
-          },
           "form" : {
-            "type" : "Polygon",
             "points" : [
               270,
               225,
@@ -228,9 +199,22 @@
               240,
               280,
               185
-            ]
+            ],
+            "type" : "Polygon"
           },
-          "node" : "Shape"
+          "node" : "Shape",
+          "stroke" : {
+            "cap" : "butt",
+            "dashes" : [
+
+            ],
+            "fill" : {
+              "type" : "Color",
+              "val" : 65280
+            },
+            "join" : "miter",
+            "width" : 8
+          }
         }
       ],
       "node" : "Group"
@@ -238,46 +222,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.7 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.7 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

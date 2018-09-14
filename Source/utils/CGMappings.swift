@@ -119,9 +119,9 @@ public extension Locus {
 }
 
 public extension CGAffineTransform {
-    
+
     public func toMacaw() -> Transform {
-        
+
         return Transform(m11: Double(a), m12: Double(b), m21: Double(c), m22: Double(d), dx: Double(tx), dy: Double(ty))
     }
 }

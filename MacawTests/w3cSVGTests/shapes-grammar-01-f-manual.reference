@@ -1,25 +1,8 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
         {
-          "place" : "1, 0, 0, 1, 0, 400",
           "contents" : [
             {
               "contents" : [
@@ -29,7 +12,6 @@
                     "val" : 3381606
                   },
                   "form" : {
-                    "type" : "Polyline",
                     "points" : [
                       270,
                       -225,
@@ -47,19 +29,20 @@
                       -240,
                       280,
                       -185
-                    ]
+                    ],
+                    "type" : "Polyline"
                   },
                   "node" : "Shape",
                   "stroke" : {
-                    "join" : "miter",
                     "cap" : "butt",
+                    "dashes" : [
+
+                    ],
                     "fill" : {
                       "type" : "Color",
                       "val" : 30464
                     },
-                    "dashes" : [
-
-                    ],
+                    "join" : "miter",
                     "width" : 8
                   }
                 },
@@ -69,7 +52,6 @@
                     "val" : 5635993
                   },
                   "form" : {
-                    "type" : "Polygon",
                     "points" : [
                       179,
                       -185,
@@ -85,19 +67,20 @@
                       -247,
                       139,
                       -205
-                    ]
+                    ],
+                    "type" : "Polygon"
                   },
                   "node" : "Shape",
                   "stroke" : {
-                    "join" : "miter",
                     "cap" : "butt",
+                    "dashes" : [
+
+                    ],
                     "fill" : {
                       "type" : "Color",
                       "val" : 30464
                     },
-                    "dashes" : [
-
-                    ],
+                    "join" : "miter",
                     "width" : 8
                   }
                 }
@@ -107,20 +90,7 @@
             {
               "contents" : [
                 {
-                  "stroke" : {
-                    "join" : "miter",
-                    "cap" : "butt",
-                    "fill" : {
-                      "type" : "Color",
-                      "val" : 3394662
-                    },
-                    "dashes" : [
-
-                    ],
-                    "width" : 3
-                  },
                   "form" : {
-                    "type" : "Polyline",
                     "points" : [
                       270,
                       -225,
@@ -138,25 +108,25 @@
                       -240,
                       280,
                       -185
-                    ]
+                    ],
+                    "type" : "Polyline"
                   },
-                  "node" : "Shape"
-                },
-                {
+                  "node" : "Shape",
                   "stroke" : {
-                    "join" : "miter",
                     "cap" : "butt",
+                    "dashes" : [
+
+                    ],
                     "fill" : {
                       "type" : "Color",
                       "val" : 3394662
                     },
-                    "dashes" : [
-
-                    ],
+                    "join" : "miter",
                     "width" : 3
-                  },
+                  }
+                },
+                {
                   "form" : {
-                    "type" : "Polygon",
                     "points" : [
                       179,
                       -185,
@@ -172,15 +142,29 @@
                       -247,
                       139,
                       -205
-                    ]
+                    ],
+                    "type" : "Polygon"
                   },
-                  "node" : "Shape"
+                  "node" : "Shape",
+                  "stroke" : {
+                    "cap" : "butt",
+                    "dashes" : [
+
+                    ],
+                    "fill" : {
+                      "type" : "Color",
+                      "val" : 3394662
+                    },
+                    "join" : "miter",
+                    "width" : 3
+                  }
                 }
               ],
               "node" : "Group"
             }
           ],
-          "node" : "Group"
+          "node" : "Group",
+          "place" : "1, 0, 0, 1, 0, 400"
         }
       ],
       "node" : "Group"
@@ -188,46 +172,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.2 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.2 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

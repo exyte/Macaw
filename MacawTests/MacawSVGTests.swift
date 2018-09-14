@@ -12,7 +12,8 @@ class MacawSVGTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
+    //            String    "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><rect  height=\"90\" x=\"10\" y=\"10\" width=\"90\" /></clipPath><clipPath id=\"clipPath2\"><rect  height=\"190\" x=\"110\" y=\"110\" width=\"190\" /></clipPath></defs><g><circle  r=\"20\" cy=\"20\" cx=\"20\"  clip-path=\"url(#clipPath1)\"  fill=\"red\"/><circle  r=\"20\" cy=\"120\" cx=\"120\"  clip-path=\"url(#clipPath2)\"  fill=\"green\"/></g></svg>"
+    //            String    "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><defs><clipPath id=\"clipPath1\"><rect  height=\"90\" width=\"90\" x=\"10\" y=\"10\" /></clipPath><clipPath id=\"clipPath2\"><rect  height=\"190\" width=\"190\" x=\"110\" y=\"110\" /></clipPath></defs><g><circle  cx=\"20\" cy=\"20\" r=\"20\"  clip-path=\"url(#clipPath1)\"  fill=\"red\"/><circle  cx=\"120\" cy=\"120\" r=\"20\"  clip-path=\"url(#clipPath2)\"  fill=\"green\"/></g></svg>"
     func validate(node: Node, referenceFile: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         
@@ -33,23 +34,31 @@ class MacawSVGTests: XCTestCase {
     func validate(_ testResource: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let node = try SVGParser.parse(bundle: bundle, path: testResource)
+            let node = try SVGParser.parse(resource: testResource, fromBundle: bundle)
             validate(node: node, referenceFile: testResource)
-            let node2 = try SVGParser.parse(resource: testResource, fromBundle: bundle)
-            validate(node: node2, referenceFile: testResource)
         } catch {
             print(error)
             XCTFail()
         }
     }
-    
-    func create(_ testResource: String) {
+
+    func createWithPath(_ testResourcePath: String) {
+        do {
+            let node = try SVGParser.parse(fullPath: testResourcePath)
+            let result = SVGSerializer.serialize(node: node)
+            let path = testResourcePath.replacingOccurrences(of: ".svg", with: ".reference")
+            try result.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func createReference(node: Node, name: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let path = bundle.path(forResource: testResource, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
-            let node = try SVGParser.parse(bundle: bundle, path: testResource)
             let result = SVGSerializer.serialize(node: node)
-            try result.write(to: URL(fileURLWithPath: path!), atomically: true, encoding: String.Encoding.utf8)
+            let path = bundle.bundlePath + "/" + name + ".reference"
+            try result.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
         } catch {
             print(error)
             XCTFail()
@@ -74,15 +83,16 @@ class MacawSVGTests: XCTestCase {
         let circle2 = Circle(cx: 120, cy: 120, r: 20).fill(with: Color.green)
         circle2.clip = path2
         let node = Group(contents:[circle1, circle2])
-        
+
+        //createReference(node: node, name: "clipManual")
         validate(node: node, referenceFile: "clipManual")
     }
 
     func testSVGClearColor() {
-        let clearColorReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><ellipse  cy=\"20\" ry=\"20\" rx=\"20\" cx=\"20\"  fill=\"#000000\" fill-opacity=\"0.0\" stroke=\"#000000\" stroke-opacity=\"0.0\" stroke-width=\"1.0\"/></svg>"
         let node = Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 0, extent: 6.28318500518799).fill(with: Color.clear)
         node.stroke = Stroke(fill: Color.clear)
-        XCTAssertEqual(SVGSerializer.serialize(node: node), clearColorReferenceContent)
+
+        validate(node: node, referenceFile: "clearColor")
     }
 
     func testSVGArcsGroup() {
@@ -90,8 +100,8 @@ class MacawSVGTests: XCTestCase {
         let g2 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 1.570796251297, extent: 1.57079637050629).stroke(fill: Color.green)], place: Transform(dx:10, dy: 140))
         let g3 = Group(contents:[Ellipse(cx: 20, cy: 20, rx: 20, ry:20).arc(shift: 3.14159250259399, extent: 2.67794513702393).stroke(fill: Color.green)], place: Transform(dx:110, dy: 140) )
         let group = Group(contents:[g1, g2, g3])
-        
-        validate(node: group, referenceFile: "arcsgroup")
+
+        validate(node: group, referenceFile: "arcsGroup")
     }
     
     func testSVGImage() {
@@ -159,13 +169,11 @@ class MacawSVGTests: XCTestCase {
     
     func validateJSON(node: Node, referenceFile: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
-        
         do {
-            if let path = bundle.path(forResource: referenceFile, ofType: "reference"), let node = node as? Serializable {
+            if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
                 let referenceContent = try String(contentsOfFile: path)
                 
-                let jsonData = try JSONSerialization.data(withJSONObject: node.toDictionary(), options: .prettyPrinted)
-                let nodeContent = String(data: jsonData, encoding: String.Encoding.utf8)
+                let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
                 
                 XCTAssertEqual(nodeContent, referenceContent)
             } else {
@@ -179,28 +187,37 @@ class MacawSVGTests: XCTestCase {
     func validateJSON(_ testResource: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
-            let node = try SVGParser.parse(bundle: bundle, path: testResource)
+            let node = try SVGParser.parse(resource: testResource, fromBundle: bundle)
             validateJSON(node: node, referenceFile: testResource)
-            let node2 = try SVGParser.parse(resource: testResource, fromBundle: bundle)
-            validateJSON(node: node2, referenceFile: testResource)
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
-    
-    func createJSON(_ testResource: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
+
+    func createJSON(_ testResourcePath: String) {
         do {
-            let path = bundle.path(forResource: testResource, ofType: "svg")?.replacingOccurrences(of: ".svg", with: ".reference")
-            let node = try SVGParser.parse(bundle: bundle, path: testResource)
-            guard let serializableNode = node as? Serializable else {
-                XCTFail()
-                return
-            }
-            let jsonData = try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
-            try jsonData.write(to: URL(fileURLWithPath: path!))
+            let node = try SVGParser.parse(fullPath: testResourcePath)
+            let path = testResourcePath.replacingOccurrences(of: ".svg", with: ".reference")
+            try getJSONData(node: node).write(to: URL(fileURLWithPath: path))
         } catch {
             XCTFail(error.localizedDescription)
+        }
+    }
+
+    func getJSONData(node: Node) -> Data {
+        guard let serializableNode = node as? Serializable else {
+            XCTFail()
+            return Data()
+        }
+        do {
+            if #available(iOS 11.0, *) {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
+            } else {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+            return Data()
         }
     }
     

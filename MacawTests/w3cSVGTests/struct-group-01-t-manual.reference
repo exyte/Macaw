@@ -1,20 +1,4 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
@@ -26,11 +10,11 @@
                 "val" : 255
               },
               "form" : {
-                "x" : 0,
-                "w" : 240,
+                "h" : 180,
                 "type" : "Rect",
-                "y" : 0,
-                "h" : 180
+                "w" : 240,
+                "x" : 0,
+                "y" : 0
               },
               "node" : "Shape"
             },
@@ -40,11 +24,11 @@
                 "val" : 32768
               },
               "form" : {
-                "x" : 60,
-                "w" : 120,
+                "h" : 90,
                 "type" : "Rect",
-                "y" : 45,
-                "h" : 90
+                "w" : 120,
+                "x" : 60,
+                "y" : 45
               },
               "node" : "Shape"
             },
@@ -54,11 +38,11 @@
                 "val" : 255
               },
               "form" : {
-                "x" : 240,
-                "w" : 240,
+                "h" : 180,
                 "type" : "Rect",
-                "y" : 180,
-                "h" : 180
+                "w" : 240,
+                "x" : 240,
+                "y" : 180
               },
               "node" : "Shape"
             }
@@ -73,11 +57,11 @@
                 "val" : 0
               },
               "form" : {
-                "x" : 240,
-                "w" : 240,
+                "h" : 180,
                 "type" : "Rect",
-                "y" : 0,
-                "h" : 180
+                "w" : 240,
+                "x" : 240,
+                "y" : 0
               },
               "node" : "Shape"
             }
@@ -87,7 +71,6 @@
         {
           "contents" : [
             {
-              "place" : ".939693, -.34202, .34202, .939693, 0, 0",
               "contents" : [
                 {
                   "fill" : {
@@ -95,11 +78,11 @@
                     "val" : 16776960
                   },
                   "form" : {
-                    "x" : 0,
-                    "w" : 40,
+                    "h" : 40,
                     "type" : "Rect",
-                    "y" : 224,
-                    "h" : 40
+                    "w" : 40,
+                    "x" : 0,
+                    "y" : 224
                   },
                   "node" : "Shape"
                 },
@@ -109,16 +92,17 @@
                     "val" : 16776960
                   },
                   "form" : {
-                    "x" : 0,
-                    "w" : 40,
+                    "h" : 40,
                     "type" : "Rect",
-                    "y" : 280,
-                    "h" : 40
+                    "w" : 40,
+                    "x" : 0,
+                    "y" : 280
                   },
                   "node" : "Shape"
                 }
               ],
-              "node" : "Group"
+              "node" : "Group",
+              "place" : ".939693, -.34202, .34202, .939693, 0, 0"
             }
           ],
           "node" : "Group"
@@ -129,46 +113,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.5 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.5 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

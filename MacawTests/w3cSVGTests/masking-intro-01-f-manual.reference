@@ -1,230 +1,214 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
         {
           "contents" : [
             {
+              "align" : "mid",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "mid",
-              "text" : "Testing stroke inclusion for 'clip-path' and 'mask'",
-              "place" : "1, 0, 0, 1, 240, 35",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 18,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 240, 35",
+              "text" : "Testing stroke inclusion for 'clip-path' and 'mask'"
             },
             {
-              "form" : {
-                "x" : 150,
-                "w" : 200,
-                "type" : "Rect",
-                "y" : 0,
-                "h" : 200
+              "clip" : {
+                "locus" : {
+                  "segments" : [
+                    {
+                      "data" : [
+                        0.29999999999999999,
+                        0.5
+                      ],
+                      "type" : "M"
+                    },
+                    {
+                      "data" : [
+                        -0.20000000000000001,
+                        0
+                      ],
+                      "type" : "m"
+                    },
+                    {
+                      "data" : [
+                        0.20000000000000001,
+                        0.20000000000000001,
+                        0,
+                        1,
+                        0,
+                        0.40000000000000002,
+                        0
+                      ],
+                      "type" : "a"
+                    },
+                    {
+                      "data" : [
+                        0.20000000000000001,
+                        0.20000000000000001,
+                        0,
+                        1,
+                        0,
+                        -0.40000000000000002,
+                        0
+                      ],
+                      "type" : "a"
+                    },
+                    {
+                      "data" : [
+                        0.69999999999999996,
+                        0.5
+                      ],
+                      "type" : "M"
+                    },
+                    {
+                      "data" : [
+                        -0.20000000000000001,
+                        0
+                      ],
+                      "type" : "m"
+                    },
+                    {
+                      "data" : [
+                        0.20000000000000001,
+                        0.20000000000000001,
+                        0,
+                        1,
+                        0,
+                        0.40000000000000002,
+                        0
+                      ],
+                      "type" : "a"
+                    },
+                    {
+                      "data" : [
+                        0.20000000000000001,
+                        0.20000000000000001,
+                        0,
+                        1,
+                        0,
+                        -0.40000000000000002,
+                        0
+                      ],
+                      "type" : "a"
+                    }
+                  ],
+                  "type" : "Path"
+                },
+                "transform" : "200, 0, 0, 200, 150, 0",
+                "type" : "TransformedLocus"
               },
-              "node" : "Shape",
               "fill" : {
                 "type" : "Color",
                 "val" : 139
               },
-              "clip" : {
-                "type" : "TransformedLocus",
-                "locus" : {
-                  "type" : "Path",
-                  "segments" : [
-                    {
-                      "type" : "M",
-                      "data" : [
-                        0.29999999999999999,
-                        0.5
-                      ]
-                    },
-                    {
-                      "type" : "m",
-                      "data" : [
-                        -0.20000000000000001,
-                        0
-                      ]
-                    },
-                    {
-                      "type" : "a",
-                      "data" : [
-                        0.20000000000000001,
-                        0.20000000000000001,
-                        0,
-                        1,
-                        0,
-                        0.40000000000000002,
-                        0
-                      ]
-                    },
-                    {
-                      "type" : "a",
-                      "data" : [
-                        0.20000000000000001,
-                        0.20000000000000001,
-                        0,
-                        1,
-                        0,
-                        -0.40000000000000002,
-                        0
-                      ]
-                    },
-                    {
-                      "type" : "M",
-                      "data" : [
-                        0.69999999999999996,
-                        0.5
-                      ]
-                    },
-                    {
-                      "type" : "m",
-                      "data" : [
-                        -0.20000000000000001,
-                        0
-                      ]
-                    },
-                    {
-                      "type" : "a",
-                      "data" : [
-                        0.20000000000000001,
-                        0.20000000000000001,
-                        0,
-                        1,
-                        0,
-                        0.40000000000000002,
-                        0
-                      ]
-                    },
-                    {
-                      "type" : "a",
-                      "data" : [
-                        0.20000000000000001,
-                        0.20000000000000001,
-                        0,
-                        1,
-                        0,
-                        -0.40000000000000002,
-                        0
-                      ]
-                    }
-                  ]
-                },
-                "transform" : "200, 0, 0, 200, 150, 0"
-              }
+              "form" : {
+                "h" : 200,
+                "type" : "Rect",
+                "w" : 200,
+                "x" : 150,
+                "y" : 0
+              },
+              "node" : "Shape"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "With a 'clip-path':",
-              "place" : "1, 0, 0, 1, 50, 110",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 18,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 50, 110",
+              "text" : "With a 'clip-path':"
             },
             {
-              "form" : {
-                "x" : 150,
-                "w" : 200,
-                "type" : "Rect",
-                "y" : 150,
-                "h" : 200
+              "fill" : {
+                "type" : "Color",
+                "val" : 139
               },
-              "node" : "Shape",
+              "form" : {
+                "h" : 200,
+                "type" : "Rect",
+                "w" : 200,
+                "x" : 150,
+                "y" : 150
+              },
               "mask" : {
                 "contents" : [
                   {
-                    "place" : "200, 0, 0, 200, 150, 150",
-                    "form" : {
-                      "cy" : 0.5,
-                      "type" : "Circle",
-                      "r" : 0.20000000000000001,
-                      "cx" : 0.29999999999999999
-                    },
-                    "node" : "Shape",
                     "fill" : {
                       "type" : "Color",
                       "val" : 255
                     },
+                    "form" : {
+                      "cx" : 0.29999999999999999,
+                      "cy" : 0.5,
+                      "r" : 0.20000000000000001,
+                      "type" : "Circle"
+                    },
+                    "node" : "Shape",
+                    "place" : "200, 0, 0, 200, 150, 150",
                     "stroke" : {
-                      "join" : "miter",
                       "cap" : "butt",
+                      "dashes" : [
+
+                      ],
                       "fill" : {
                         "type" : "Color",
                         "val" : 16711680
                       },
-                      "dashes" : [
-
-                      ],
+                      "join" : "miter",
                       "width" : 0.14999999999999999
                     }
                   },
                   {
-                    "place" : "200, 0, 0, 200, 150, 150",
-                    "form" : {
-                      "cy" : 0.5,
-                      "type" : "Circle",
-                      "r" : 0.20000000000000001,
-                      "cx" : 0.69999999999999996
-                    },
-                    "node" : "Shape",
                     "fill" : {
                       "type" : "Color",
                       "val" : 255
-                    }
+                    },
+                    "form" : {
+                      "cx" : 0.69999999999999996,
+                      "cy" : 0.5,
+                      "r" : 0.20000000000000001,
+                      "type" : "Circle"
+                    },
+                    "node" : "Shape",
+                    "place" : "200, 0, 0, 200, 150, 150"
                   }
                 ],
                 "node" : "Group"
               },
-              "fill" : {
-                "type" : "Color",
-                "val" : 139
-              }
+              "node" : "Shape"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "With a 'mask':",
-              "place" : "1, 0, 0, 1, 50, 260",
               "font" : {
                 "name" : "SVGFreeSansASCII,sans-serif",
                 "size" : 18,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 50, 260",
+              "text" : "With a 'mask':"
             }
           ],
           "node" : "Group"
@@ -235,46 +219,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.6 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.6 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

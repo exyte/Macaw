@@ -55,7 +55,9 @@ open class SVGSerializer {
     fileprivate let SVGDefaultOpacityValueAsAlpha = 1 * 255
 
     fileprivate func tag(_ tag: String, _ args: [String: String]=[:], close: Bool = false) -> String {
-        let attrs = args.map { "\($0)=\"\($1)\"" }.joined(separator: " ")
+        let attrs = args.sorted(by: { a1, a2 -> Bool in
+            return a1.key < a2.key
+        }).map { "\($0)=\"\($1)\"" }.joined(separator: " ")
         let closeTag = close ? " />" : ""
         return "\(tag) \(attrs) \(closeTag)"
     }
@@ -404,6 +406,9 @@ open class SVGSerializer {
 
 extension Double {
     func serialize() -> String {
-        return abs(self.remainder(dividingBy: 1)) > 0.00001 ? String(self) : String(Int(self.rounded()))
+        let formatter = NumberFormatter()
+        formatter.minimumIntegerDigits = 1
+        formatter.maximumFractionDigits = 15
+        return abs(self.remainder(dividingBy: 1)) > 0.00001 ? formatter.string(from: NSNumber(value: self))! : String(Int(self.rounded()))
     }
 }

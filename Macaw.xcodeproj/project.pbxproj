@@ -404,6 +404,8 @@
 		5B1AE2DD20B6A669007EECCB /* coords-transformattr-05-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE22F20B6A669007EECCB /* coords-transformattr-05-f-manual.reference */; };
 		5B1AE2DE20B6A669007EECCB /* painting-control-03-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE23020B6A669007EECCB /* painting-control-03-f-manual.svg */; };
 		5B1AE2DF20B6A669007EECCB /* coords-trans-07-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE23120B6A669007EECCB /* coords-trans-07-t-manual.reference */; };
+		5B270B5B214BBC14001AD741 /* arcsGroup.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B270B5A214BBC14001AD741 /* arcsGroup.reference */; };
+		5B270B5D214BBC27001AD741 /* clearColor.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B270B5C214BBC27001AD741 /* clearColor.reference */; };
 		5B37139720BE95D7004BB6EE /* pservers-grad-07-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B37139120BE95D6004BB6EE /* pservers-grad-07-b-manual.reference */; };
 		5B37139820BE95D7004BB6EE /* pservers-grad-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B37139220BE95D6004BB6EE /* pservers-grad-01-b-manual.svg */; };
 		5B37139920BE95D7004BB6EE /* pservers-grad-02-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B37139320BE95D6004BB6EE /* pservers-grad-02-b-manual.reference */; };
@@ -466,7 +468,6 @@
 		5BAE2042208E163D006BF277 /* group.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE202C208E1638006BF277 /* group.reference */; };
 		5BAE2043208E163D006BF277 /* textBasicTransform.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE202D208E1638006BF277 /* textBasicTransform.reference */; };
 		5BAE2044208E163D006BF277 /* style.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE202E208E1639006BF277 /* style.reference */; };
-		5BAE2045208E163D006BF277 /* arcsgroup.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE202F208E163A006BF277 /* arcsgroup.reference */; };
 		5BAE2047208E163D006BF277 /* viewBox.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2031208E163B006BF277 /* viewBox.reference */; };
 		5BAE2048208E163D006BF277 /* line.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2032208E163B006BF277 /* line.reference */; };
 		5BAE204A208E163D006BF277 /* roundRect.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE2034208E163B006BF277 /* roundRect.reference */; };
@@ -825,6 +826,8 @@
 		5B1AE22F20B6A669007EECCB /* coords-transformattr-05-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-05-f-manual.reference"; sourceTree = "<group>"; };
 		5B1AE23020B6A669007EECCB /* painting-control-03-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-03-f-manual.svg"; sourceTree = "<group>"; };
 		5B1AE23120B6A669007EECCB /* coords-trans-07-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-07-t-manual.reference"; sourceTree = "<group>"; };
+		5B270B5A214BBC14001AD741 /* arcsGroup.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcsGroup.reference; sourceTree = "<group>"; };
+		5B270B5C214BBC27001AD741 /* clearColor.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clearColor.reference; sourceTree = "<group>"; };
 		5B37139120BE95D6004BB6EE /* pservers-grad-07-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-07-b-manual.reference"; sourceTree = "<group>"; };
 		5B37139220BE95D6004BB6EE /* pservers-grad-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-01-b-manual.svg"; sourceTree = "<group>"; };
 		5B37139320BE95D6004BB6EE /* pservers-grad-02-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-02-b-manual.reference"; sourceTree = "<group>"; };
@@ -868,7 +871,6 @@
 		5BAE202C208E1638006BF277 /* group.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = group.reference; sourceTree = "<group>"; };
 		5BAE202D208E1638006BF277 /* textBasicTransform.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textBasicTransform.reference; sourceTree = "<group>"; };
 		5BAE202E208E1639006BF277 /* style.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = style.reference; sourceTree = "<group>"; };
-		5BAE202F208E163A006BF277 /* arcsgroup.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcsgroup.reference; sourceTree = "<group>"; };
 		5BAE2031208E163B006BF277 /* viewBox.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = viewBox.reference; sourceTree = "<group>"; };
 		5BAE2032208E163B006BF277 /* line.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = line.reference; sourceTree = "<group>"; };
 		5BAE2034208E163B006BF277 /* roundRect.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = roundRect.reference; sourceTree = "<group>"; };
@@ -976,9 +978,10 @@
 		57CAB1241D7832E000FD8E47 /* svg */ = {
 			isa = PBXGroup;
 			children = (
-				5BAE202F208E163A006BF277 /* arcsgroup.reference */,
+				5B270B5A214BBC14001AD741 /* arcsGroup.reference */,
 				5BAE2028208E1637006BF277 /* circle.reference */,
 				57CAB1251D7832E000FD8E47 /* circle.svg */,
+				5B270B5C214BBC27001AD741 /* clearColor.reference */,
 				5BAE2035208E163C006BF277 /* clip.reference */,
 				C43B064C1F9738EF00787A35 /* clip.svg */,
 				5BAE2027208E1637006BF277 /* clipManual.reference */,
@@ -1719,6 +1722,7 @@
 				5B1AE2C220B6A669007EECCB /* coords-trans-05-t-manual.svg in Resources */,
 				5B1AE29D20B6A669007EECCB /* types-basic-01-f-manual.reference in Resources */,
 				5B1AE25820B6A669007EECCB /* paths-data-08-t-manual.reference in Resources */,
+				5B270B5B214BBC14001AD741 /* arcsGroup.reference in Resources */,
 				5B37139720BE95D7004BB6EE /* pservers-grad-07-b-manual.reference in Resources */,
 				5B1AE24A20B6A669007EECCB /* struct-frag-02-t-manual.reference in Resources */,
 				5B1AE2DF20B6A669007EECCB /* coords-trans-07-t-manual.reference in Resources */,
@@ -1824,7 +1828,6 @@
 				5B1AE27520B6A669007EECCB /* struct-frag-04-t-manual.reference in Resources */,
 				5B1AE28720B6A669007EECCB /* render-elems-03-t-manual.svg in Resources */,
 				5B1AE2AD20B6A669007EECCB /* painting-stroke-05-t-manual.reference in Resources */,
-				5BAE2045208E163D006BF277 /* arcsgroup.reference in Resources */,
 				5B1AE25920B6A669007EECCB /* coords-trans-01-b-manual.svg in Resources */,
 				5B1AE28C20B6A669007EECCB /* shapes-polygon-01-t-manual.svg in Resources */,
 				5BFEF5D720BC1C1F008DAC11 /* paths-data-18-f-manual.reference in Resources */,
@@ -1869,6 +1872,7 @@
 				5B1AE2DE20B6A669007EECCB /* painting-control-03-f-manual.svg in Resources */,
 				5B1AE25520B6A669007EECCB /* paths-data-15-t-manual.reference in Resources */,
 				5B1AE24D20B6A669007EECCB /* paths-data-13-t-manual.svg in Resources */,
+				5B270B5D214BBC27001AD741 /* clearColor.reference in Resources */,
 				57CAB1311D7832E000FD8E47 /* line.svg in Resources */,
 				57B7A4DF1EE70D17009D78D7 /* logo.png in Resources */,
 				5B1AE24F20B6A669007EECCB /* painting-stroke-02-t-manual.reference in Resources */,

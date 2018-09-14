@@ -1,218 +1,202 @@
 {
-  "layout" : {
-    "yAligningMode" : "mid",
-    "scalingMode" : "meet",
-    "svgSize" : {
-      "height" : "100.0%",
-      "width" : "100.0%"
-    },
-    "xAligningMode" : "mid",
-    "viewBox" : {
-      "x" : 0,
-      "w" : 480,
-      "type" : "Rect",
-      "y" : 0,
-      "h" : 360
-    }
-  },
   "contents" : [
     {
       "contents" : [
         {
           "contents" : [
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "100",
-              "place" : "1, 0, 0, 1, 360, 50",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "100"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 50",
+              "text" : "100"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "200",
-              "place" : "1, 0, 0, 1, 360, 85",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "200"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 85",
+              "text" : "200"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "300",
-              "place" : "1, 0, 0, 1, 360, 120",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "300"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 120",
+              "text" : "300"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "400",
-              "place" : "1, 0, 0, 1, 360, 155",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "400"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 155",
+              "text" : "400"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "500",
-              "place" : "1, 0, 0, 1, 360, 190",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "500"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 190",
+              "text" : "500"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 32768
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "600",
-              "place" : "1, 0, 0, 1, 360, 225",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "600"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 225",
+              "text" : "600"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 32768
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "700",
-              "place" : "1, 0, 0, 1, 360, 260",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "700"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 260",
+              "text" : "700"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 32768
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "800",
-              "place" : "1, 0, 0, 1, 360, 295",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "800"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 295",
+              "text" : "800"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 32768
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "900",
-              "place" : "1, 0, 0, 1, 360, 330",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "900"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 360, 330",
+              "text" : "900"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "This is bold",
-              "place" : "1, 0, 0, 1, 60, 80",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "bold"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 60, 80",
+              "text" : "This is bold"
             },
             {
+              "align" : "min",
               "baseline" : "bottom",
               "fill" : {
                 "type" : "Color",
                 "val" : 0
               },
-              "node" : "Text",
-              "align" : "min",
-              "text" : "This is normal",
-              "place" : "1, 0, 0, 1, 60, 130",
               "font" : {
                 "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                 "size" : 30,
                 "weight" : "normal"
-              }
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 60, 130",
+              "text" : "This is normal"
             },
             {
               "contents" : [
                 {
+                  "align" : "min",
                   "baseline" : "bottom",
                   "fill" : {
                     "type" : "Color",
                     "val" : 255
                   },
-                  "node" : "Text",
-                  "align" : "min",
-                  "text" : "Blue is bolder",
-                  "place" : "1, 0, 0, 1, 60, 180",
                   "font" : {
                     "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                     "size" : 30,
                     "weight" : "bolder"
-                  }
+                  },
+                  "node" : "Text",
+                  "place" : "1, 0, 0, 1, 60, 180",
+                  "text" : "Blue is bolder"
                 }
               ],
               "node" : "Group"
@@ -220,20 +204,20 @@
             {
               "contents" : [
                 {
+                  "align" : "min",
                   "baseline" : "bottom",
                   "fill" : {
                     "type" : "Color",
                     "val" : 255
                   },
-                  "node" : "Text",
-                  "align" : "min",
-                  "text" : "Blue is lighter",
-                  "place" : "1, 0, 0, 1, 60, 230",
                   "font" : {
                     "name" : "Georgia,'Times New Roman',Times,'MS Mincho',serif",
                     "size" : 30,
                     "weight" : "lighter"
-                  }
+                  },
+                  "node" : "Text",
+                  "place" : "1, 0, 0, 1, 60, 230",
+                  "text" : "Blue is lighter"
                 }
               ],
               "node" : "Group"
@@ -247,46 +231,62 @@
     {
       "contents" : [
         {
+          "align" : "min",
           "baseline" : "bottom",
           "fill" : {
             "type" : "Color",
             "val" : 0
           },
-          "node" : "Text",
-          "align" : "min",
-          "text" : "$Revision: 1.5 $",
-          "place" : "1, 0, 0, 1, 10, 340",
           "font" : {
             "name" : "SVGFreeSansASCII,sans-serif",
             "size" : 32,
             "weight" : "normal"
-          }
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.5 $"
         }
       ],
       "node" : "Group"
     },
     {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
       "stroke" : {
-        "join" : "miter",
         "cap" : "butt",
+        "dashes" : [
+
+        ],
         "fill" : {
           "type" : "Color",
           "val" : 0
         },
-        "dashes" : [
-
-        ],
+        "join" : "miter",
         "width" : 1
-      },
-      "form" : {
-        "x" : 1,
-        "w" : 478,
-        "type" : "Rect",
-        "y" : 1,
-        "h" : 358
-      },
-      "node" : "Shape"
+      }
     }
   ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
   "node" : "Canvas"
 }

@@ -22,4 +22,3 @@ func caTimingFunction(_ easing: Easing) -> CAMediaTimingFunction {
     }
     return CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
 }
-

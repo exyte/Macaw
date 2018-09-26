@@ -23,7 +23,7 @@ open class Group: Node {
         }
     }
 
-    public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, nodeId: String? = nil, tag: [String] = []) {
         self.contentsVar = AnimatableVariable<[Node]>(contents)
         super.init(
             place: place,
@@ -33,6 +33,7 @@ open class Group: Node {
             mask: mask,
             effect: effect,
             visible: visible,
+            nodeId: nodeId,
             tag: tag
         )
 
@@ -151,7 +152,7 @@ open class Group: Node {
 }
 
 public extension Array where Element: Node {
-    public func group( place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) -> Group {
-        return Group(contents: self, place: place, opaque: opaque, opacity: opacity, clip: clip, effect: effect, visible: visible, tag: tag)
+    public func group( place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, nodeId: String? = nil, tag: [String] = []) -> Group {
+        return Group(contents: self, place: place, opaque: opaque, opacity: opacity, clip: clip, effect: effect, visible: visible, nodeId: nodeId, tag: tag)
     }
 }

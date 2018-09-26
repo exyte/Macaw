@@ -38,6 +38,12 @@ open class Node: Drawable {
         set(val) { effectVar.value = val }
     }
 
+    public let nodeIdVar: Variable<String?>
+    open var nodeId: String? {
+        get { return nodeIdVar.value }
+        set(val) { nodeIdVar.value = val }
+    }
+
     internal var id: String {
         didSet {
             Node.map.removeObject(forKey: id as NSString)
@@ -300,7 +306,7 @@ open class Node: Drawable {
         return !pinchHandlers.isEmpty
     }
 
-    public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, nodeId: String? = nil, tag: [String] = []) {
         self.placeVar = AnimatableVariable<Transform>(place)
         self.opaqueVar = Variable<Bool>(opaque)
         self.opacityVar = AnimatableVariable<Double>(opacity)
@@ -308,6 +314,7 @@ open class Node: Drawable {
         self.maskVar = Variable<Node?>(mask)
         self.effectVar = Variable<Effect?>(effect)
         self.id = NSUUID().uuidString
+        self.nodeIdVar = Variable<String?>(nodeId)
 
         super.init(
             visible: visible,

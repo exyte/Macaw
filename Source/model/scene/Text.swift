@@ -42,7 +42,7 @@ open class Text: Node {
         set(val) { baselineVar.value = val }
     }
 
-    public init(text: String, font: Font? = nil, fill: Fill = Color.black, stroke: Stroke? = nil, align: Align = .min, baseline: Baseline = .top, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(text: String, font: Font? = nil, fill: Fill = Color.black, stroke: Stroke? = nil, align: Align = .min, baseline: Baseline = .top, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, nodeId: String? = nil, tag: [String] = []) {
         self.textVar = Variable<String>(text)
         self.fontVar = Variable<Font?>(font)
         self.fillVar = Variable<Fill>(fill)
@@ -57,6 +57,7 @@ open class Text: Node {
             mask: mask,
             effect: effect,
             visible: visible,
+            nodeId: nodeId,
             tag: tag
         )
     }

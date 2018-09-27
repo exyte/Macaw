@@ -207,7 +207,7 @@ open class SVGParser {
     }
 
     fileprivate func parseNode(_ node: XMLIndexer, groupStyle: [String: String] = [:]) -> Node? {
-        var result: Node? = nil
+        var result: Node?
         if let element = node.element {
             switch element.name {
             case "g":

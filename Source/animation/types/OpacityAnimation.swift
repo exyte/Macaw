@@ -3,7 +3,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
     convenience init(animatedNode: Node, startValue: Double, finalValue: Double, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 
         let interpolationFunc = { (t: Double) -> Double in
-            return startValue.interpolate(finalValue, progress: t)
+            startValue.interpolate(finalValue, progress: t)
         }
 
         self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
@@ -33,7 +33,7 @@ internal class OpacityAnimation: AnimationImpl<Double> {
         let factory = { () -> (Double) -> Double in
             let original = self.timeFactory()
             return { (t: Double) -> Double in
-                return original(1.0 - t)
+                original(1.0 - t)
             }
         }
 
@@ -67,8 +67,7 @@ public extension AnimatableVariable where T: DoubleInterpolation {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
         let origin = node!.opacity
-        let factory = { () -> (Double) -> Double in
-            return { (t: Double) in return origin.interpolate(to, progress: t) }
+        let factory = { () -> (Double) -> Double in { (t: Double) in origin.interpolate(to, progress: t) }
         }
         return OpacityAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
     }

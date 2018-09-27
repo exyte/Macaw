@@ -25,7 +25,7 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
         let factory = { () -> (Double) -> [Node] in
             let original = self.timeFactory()
             return { (t: Double) -> [Node] in
-                return original(1.0 - t)
+                original(1.0 - t)
             }
         }
 

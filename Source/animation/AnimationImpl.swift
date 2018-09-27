@@ -163,7 +163,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
         self.variable = observableValue
         self.initialValue = observableValue.value
         self.duration = animationDuration
-        self.timeFactory = { return valueFunc }
+        self.timeFactory = { valueFunc }
         self.vFunc = .none
         self.logicalFps = fps
 
@@ -186,7 +186,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
     convenience init(observableValue: AnimatableVariable<T>, startValue: T, finalValue: T, animationDuration: Double) {
         let interpolationFunc = { (t: Double) -> T in
-            return startValue.interpolate(finalValue, progress: t)
+            startValue.interpolate(finalValue, progress: t)
         }
 
         self.init(observableValue: observableValue, valueFunc: interpolationFunc, animationDuration: animationDuration)
@@ -222,7 +222,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
         }
 
         var timeFunc = { (t: Double) -> Double in
-            return t
+            t
         }
 
         if autoreverses {
@@ -238,7 +238,7 @@ internal class AnimationImpl<T: Interpolable>: BasicAnimation {
 
         let timeFactory = self.timeFactory()
         vFunc = { (t: Double) -> T in
-            return timeFactory(timeFunc(t))
+            timeFactory(timeFunc(t))
         }
 
         return vFunc!

@@ -56,7 +56,7 @@ open class SVGSerializer {
 
     fileprivate func tag(_ tag: String, _ args: [String: String]=[:], close: Bool = false) -> String {
         let attrs = args.sorted(by: { a1, a2 -> Bool in
-            return a1.key < a2.key
+            a1.key < a2.key
         }).map { "\($0)=\"\($1)\"" }.joined(separator: " ")
         let closeTag = close ? " />" : ""
         return "\(tag) \(attrs) \(closeTag)"

@@ -58,7 +58,7 @@ open class ColorMatrix {
                   0.143, 0.140, -0.283,
                   -0.787, 0.715, 0.072]
         let a = { i in
-            return m1[i] + c * m2[i] + s * m3[i]
+            m1[i] + c * m2[i] + s * m3[i]
         }
         self.init(values: [a(0), a(1), a(2), 0, 0,
                            a(3), a(4), a(5), 0, 0,

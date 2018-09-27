@@ -66,7 +66,7 @@ class ShapeRenderer: NodeRenderer {
         }
 
         RenderUtils.setGeometry(shape.form, ctx: ctx)
-        var drawingMode: CGPathDrawingMode? = nil
+        var drawingMode: CGPathDrawingMode?
         if let stroke = shape.stroke {
             RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
             if shape.fill != nil {

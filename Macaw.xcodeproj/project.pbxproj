@@ -11,6 +11,14 @@
 		3002331D20CC0BDD00EFD92D /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */; };
 		3081E77D20DB58B100640F96 /* DescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081E77C20DB58B100640F96 /* DescriptionExtensions.swift */; };
 		3081E77E20DB58B100640F96 /* DescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081E77C20DB58B100640F96 /* DescriptionExtensions.swift */; };
+		30FF4962215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4961215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift */; };
+		30FF4964215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4963215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift */; };
+		30FF4966215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4965215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift */; };
+		30FF4969215CED8100FF653C /* MCAShapeLayerLineJoin_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4967215CECA400FF653C /* MCAShapeLayerLineJoin_iOS.swift */; };
+		30FF496B215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496A215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift */; };
+		30FF496D215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */; };
+		30FF496F215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */; };
+		30FF4971215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -534,6 +542,15 @@
 /* Begin PBXFileReference section */
 		3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundsUtils.swift; sourceTree = "<group>"; };
 		3081E77C20DB58B100640F96 /* DescriptionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionExtensions.swift; sourceTree = "<group>"; };
+		30FF495F215CDD5700FF653C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		30FF4961215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFillMode_iOS.swift; sourceTree = "<group>"; };
+		30FF4963215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFillMode_macOS.swift; sourceTree = "<group>"; };
+		30FF4965215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAShapeLayerLineJoin_macOS.swift; sourceTree = "<group>"; };
+		30FF4967215CECA400FF653C /* MCAShapeLayerLineJoin_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAShapeLayerLineJoin_iOS.swift; sourceTree = "<group>"; };
+		30FF496A215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAShapeLayerLineCap_iOS.swift; sourceTree = "<group>"; };
+		30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAShapeLayerLineCap_macOS.swift; sourceTree = "<group>"; };
+		30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFunctionName_iOS.swift; sourceTree = "<group>"; };
+		30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFunctionName_macOS.swift; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -927,6 +944,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30FF495E215CDD5700FF653C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				30FF495F215CDD5700FF653C /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5713C4F11E5AD35900BBA4D9 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1268,6 +1293,7 @@
 				57FCD26E1D76EA4600CC0FB6 /* Macaw */,
 				57FCD27A1D76EA4600CC0FB6 /* MacawTests */,
 				57FCD26D1D76EA4600CC0FB6 /* Products */,
+				30FF495E215CDD5700FF653C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1531,6 +1557,10 @@
 				A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */,
 				A718CD4C1F45C28F00966E06 /* MView_macOS.swift */,
 				A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */,
+				30FF4963215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift */,
+				30FF4965215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift */,
+				30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */,
+				30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */,
 			);
 			name = macOS;
 			sourceTree = "<group>";
@@ -1542,6 +1572,10 @@
 				A718CD451F45C28700966E06 /* Graphics_iOS.swift */,
 				A718CD461F45C28700966E06 /* MView_iOS.swift */,
 				57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */,
+				30FF4961215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift */,
+				30FF4967215CECA400FF653C /* MCAShapeLayerLineJoin_iOS.swift */,
+				30FF496A215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift */,
+				30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -1985,6 +2019,7 @@
 				57614B181F83D15600875933 /* SVGView.swift in Sources */,
 				57614B191F83D15600875933 /* Arc.swift in Sources */,
 				57614B1A1F83D15600875933 /* MacawView.swift in Sources */,
+				30FF4964215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				5B7D7ED421300D4A00B5ED00 /* TimingFunction.swift in Sources */,
 				5B6E193420AC58F900454E7E /* Baseline.swift in Sources */,
 				57614B1B1F83D15600875933 /* Image.swift in Sources */,
@@ -1998,6 +2033,7 @@
 				5852891720B29D67003E51D1 /* TransformedLocus.swift in Sources */,
 				57614B221F83D15600875933 /* ImageRenderer.swift in Sources */,
 				57614B231F83D15600875933 /* PathFunctions.swift in Sources */,
+				30FF4966215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				57614B241F83D15600875933 /* SVGSerializer.swift in Sources */,
 				57614B251F83D15600875933 /* MorphingAnimation.swift in Sources */,
 				5B6E192420AC58F900454E7E /* OffsetEffect.swift in Sources */,
@@ -2036,6 +2072,7 @@
 				57614B471F83D15600875933 /* TouchEvent.swift in Sources */,
 				57614B481F83D15600875933 /* MBezierPath+Extension_macOS.swift in Sources */,
 				5BFEF5CF20B80A83008DAC11 /* BlendEffect.swift in Sources */,
+				30FF496D215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift in Sources */,
 				57614B491F83D15600875933 /* MView_macOS.swift in Sources */,
 				5B6E192E20AC58F900454E7E /* Font.swift in Sources */,
 				5BFEF5D120B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */,
@@ -2068,6 +2105,7 @@
 				57614B631F83D15600875933 /* Insets.swift in Sources */,
 				3081E77E20DB58B100640F96 /* DescriptionExtensions.swift in Sources */,
 				57614B641F83D15600875933 /* Rect.swift in Sources */,
+				30FF4971215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift in Sources */,
 				57614B651F83D15600875933 /* PathBuilder.swift in Sources */,
 				57614B661F83D15600875933 /* PinchEvent.swift in Sources */,
 				57614B671F83D15600875933 /* ContentsInterpolation.swift in Sources */,
@@ -2140,6 +2178,7 @@
 				57E5E15F1E3B393900D1CB28 /* TransformInterpolation.swift in Sources */,
 				57A27BD31E44C5570057BD3A /* ShapeAnimationGenerator.swift in Sources */,
 				57E5E1571E3B393900D1CB28 /* AnimationUtils.swift in Sources */,
+				30FF496F215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				57E5E1981E3B393900D1CB28 /* Polygon.swift in Sources */,
 				57E5E1701E3B393900D1CB28 /* TransformAnimation.swift in Sources */,
 				57E5E16C1E3B393900D1CB28 /* CombineAnimation.swift in Sources */,
@@ -2162,6 +2201,7 @@
 				57E5E1A21E3B393900D1CB28 /* Text.swift in Sources */,
 				57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */,
 				57E5E1A61E3B393900D1CB28 /* RenderContext.swift in Sources */,
+				30FF4969215CED8100FF653C /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
 				57E5E19C1E3B393900D1CB28 /* Size.swift in Sources */,
 				57E5E1991E3B393900D1CB28 /* Polyline.swift in Sources */,
 				5B6E193120AC58F900454E7E /* LineJoin.swift in Sources */,
@@ -2211,8 +2251,10 @@
 				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,
 				5B6E192920AC58F900454E7E /* Align.swift in Sources */,
 				57E5E1B11E3B393900D1CB28 /* NSTimer+Closure.swift in Sources */,
+				30FF4962215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift in Sources */,
 				5B6E193520AC58F900454E7E /* Stop.swift in Sources */,
 				572CEFC71E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift in Sources */,
+				30FF496B215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift in Sources */,
 				57E5E16B1E3B393900D1CB28 /* AnimationSequence.swift in Sources */,
 				5B1A8C7620A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */,
 				57E5E1671E3B393900D1CB28 /* MorphingGenerator.swift in Sources */,

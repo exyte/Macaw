@@ -49,7 +49,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
         let factory = { () -> (Double) -> Shape in
             let original = self.timeFactory()
             return { (t: Double) -> Shape in
-                return original(1.0 - t)
+                original(1.0 - t)
             }
         }
 

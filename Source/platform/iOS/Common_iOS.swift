@@ -30,6 +30,10 @@ public typealias MRotationGestureRecognizer = UIRotationGestureRecognizer
 public typealias MScreen = UIScreen
 public typealias MViewContentMode = UIView.ContentMode
 
+func MDefaultRunLoopMode() -> RunLoop.Mode {
+    return RunLoop.Mode.default
+}
+
 extension MTapGestureRecognizer {
     func mNumberOfTouches() -> Int {
         return numberOfTouches

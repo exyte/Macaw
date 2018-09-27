@@ -8,28 +8,6 @@ import AppKit
 
 class RenderUtils {
 
-    class func mapLineJoinToString(_ join: LineJoin?) -> String {
-        switch join {
-        case LineJoin.round?:
-            return convertFromCAShapeLayerLineJoin(CAShapeLayerLineJoin.round)
-        case LineJoin.bevel?:
-            return convertFromCAShapeLayerLineJoin(CAShapeLayerLineJoin.bevel)
-        default:
-            return convertFromCAShapeLayerLineJoin(CAShapeLayerLineJoin.miter)
-        }
-    }
-
-    class func mapLineCapToString(_ cap: LineCap?) -> String {
-        switch cap {
-        case LineCap.round?:
-            return convertFromCAShapeLayerLineCap(CAShapeLayerLineCap.round)
-        case LineCap.square?:
-            return convertFromCAShapeLayerLineCap(CAShapeLayerLineCap.square)
-        default:
-            return convertFromCAShapeLayerLineCap(CAShapeLayerLineCap.butt)
-        }
-    }
-
     class func mapDash(_ dashes: [Double]) -> UnsafeMutablePointer<CGFloat> {
         let p = UnsafeMutablePointer<CGFloat>.allocate(capacity: dashes.count * MemoryLayout<CGFloat>.size)
         for (index, item) in dashes.enumerated() {
@@ -595,14 +573,4 @@ class RenderUtils {
             ctx.addPath(locus.toCGPath())
         }
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromCAShapeLayerLineJoin(_ input: CAShapeLayerLineJoin) -> String {
-    return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromCAShapeLayerLineCap(_ input: CAShapeLayerLineCap) -> String {
-    return input.rawValue
 }

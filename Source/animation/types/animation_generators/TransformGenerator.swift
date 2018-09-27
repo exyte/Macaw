@@ -92,7 +92,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, node: Node, durat
         pathAnimation.autoreverses = animation.autoreverses
         let value = AnimationUtils.absoluteTransform(node, pos: valueFunc(0), view: view)
         pathAnimation.values = [NSValue(caTransform3D: CATransform3DMakeAffineTransform(value.toCG()))]
-        pathAnimation.fillMode = CAMediaTimingFillMode.forwards
+        pathAnimation.fillMode = MCAMediaTimingFillMode.forwards
         pathAnimation.isRemovedOnCompletion = false
         pathAnimation.path = trajectory.toCGPath()
 
@@ -113,7 +113,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, node: Node, durat
     let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
     transformAnimation.duration = duration
     transformAnimation.values = transformValues
-    transformAnimation.fillMode = CAMediaTimingFillMode.forwards
+    transformAnimation.fillMode = MCAMediaTimingFillMode.forwards
     transformAnimation.isRemovedOnCompletion = false
 
     return transformAnimation

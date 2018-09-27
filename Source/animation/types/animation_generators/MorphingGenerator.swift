@@ -86,8 +86,8 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         }
 
         layer.lineWidth = CGFloat(stroke.width)
-        layer.lineCap = convertToCAShapeLayerLineCap(RenderUtils.mapLineCapToString(stroke.cap))
-        layer.lineJoin = convertToCAShapeLayerLineJoin(RenderUtils.mapLineJoinToString(stroke.join))
+        layer.lineCap = MCAShapeLayerLineCap.mapToGraphics(model: stroke.cap)
+        layer.lineJoin = MCAShapeLayerLineJoin.mapToGraphics(model: stroke.join)
         layer.lineDashPattern = stroke.dashes.map { NSNumber(value: $0) }
     }
 
@@ -115,18 +115,8 @@ fileprivate func pathAnimation(from: Locus, to: Locus, duration: Double, renderT
     animation.fromValue = fromPath
     animation.toValue = toPath
     animation.duration = duration
-    animation.fillMode = CAMediaTimingFillMode.forwards
+    animation.fillMode = MCAMediaTimingFillMode.forwards
     animation.isRemovedOnCompletion = false
 
     return animation
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToCAShapeLayerLineCap(_ input: String) -> CAShapeLayerLineCap {
-    return CAShapeLayerLineCap(rawValue: input)
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToCAShapeLayerLineJoin(_ input: String) -> CAShapeLayerLineJoin {
-    return CAShapeLayerLineJoin(rawValue: input)
 }

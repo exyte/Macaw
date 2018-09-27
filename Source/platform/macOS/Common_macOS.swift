@@ -29,6 +29,10 @@ public typealias MPinchGestureRecognizer = NSMagnificationGestureRecognizer
 public typealias MRotationGestureRecognizer = NSRotationGestureRecognizer
 public typealias MScreen = NSScreen
 
+func MDefaultRunLoopMode() -> RunLoop.Mode {
+    return RunLoop.Mode.defaultRunLoopMode
+}
+
 extension MGestureRecognizer {
     var cancelsTouchesInView: Bool {
         get {

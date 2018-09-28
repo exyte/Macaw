@@ -9,12 +9,12 @@ class EasingView: MacawView {
     let centerX = 250.0
     
     let fromStroke = Stroke(fill: Color.black, width: 3)
-    let all = [Easing.ease, Easing.linear, Easing.easeIn, Easing.easeOut, Easing.easeInOut, Easing.elasticInOut]
+    let all = [Easing.ease, Easing.easeIn, Easing.easeOut, Easing.easeInOut, Easing.elasticInOut]
+    let titles = ["Easing", "Easy In", "Easy Out", "Easy In Out", "Elastic In Out"]
     
-    for (i, easing) in all.enumerated() {
-      let y = Double(60 + i * 75)
-      let title = EasingView.title(easing: easing)
-      let titleText = Text(text: title, align: .mid, place: .move(dx: centerX, dy: y - 45))
+    for (index, easing) in all.enumerated() {
+      let y = Double(80 + index * 80)
+      let titleText = Text(text: titles[index], align: .mid, place: .move(dx: centerX, dy: y - 45))
       
       let fromCircle = Circle(cx: centerX - 100, cy: y, r: 20).stroke(with: fromStroke)
       let toPlace = fromCircle.place.move(dx: 200, dy: 0)
@@ -28,23 +28,5 @@ class EasingView: MacawView {
     
     animation = mAnimations.combine().cycle()
     super.init(node: circlesNodes.group(), coder: aDecoder)
-  }
-  
-  private static func title(easing: Easing) -> String {
-
-    return "test"
-//
-//    switch easing {
-//
-//    case let _ = easing as? :
-//        return "Ease"
-//    case .linear: return "Linear"
-//    case .easeIn: return "Ease In"
-//    case .easeOut: return "Ease Out"
-//    case .easeInOut: return "Ease InOut"
-//
-//    default:
-//        return ""
-//    }
   }
 }

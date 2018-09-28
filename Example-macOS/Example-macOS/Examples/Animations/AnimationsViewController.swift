@@ -23,17 +23,15 @@ class AnimationsViewController: NSViewController {
     
     let attributes: [NSAttributedStringKey: Any] = [.foregroundColor: NSColor.blue.withAlphaComponent(0.5)]
     actionButton.attributedTitle = NSMutableAttributedString(string: actionButton.title, attributes: attributes)
-    
   }
   
   override func viewDidDisappear() {
     super.viewDidDisappear()
-    
-    self.actionButton?.isEnabled = true
+    self.actionButton?.isHidden = false
   }
   
   @IBAction func startAnimationsAction(_ sender: Any) {
+    actionButton?.isHidden = true
     animationsView?.startAnimation()
-    actionButton?.isEnabled = false
   }
 }

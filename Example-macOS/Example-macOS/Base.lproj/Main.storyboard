@@ -182,14 +182,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                             </customView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bPP-dr-CnF">
-                                <rect key="frame" x="260" y="39" width="80" height="19"/>
+                                <rect key="frame" x="254" y="33" width="92" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="3MY-fR-U9d"/>
-                                    <constraint firstAttribute="width" constant="80" id="Te3-mr-Bce"/>
+                                    <constraint firstAttribute="height" constant="44" id="3MY-fR-U9d"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="bOo-JQ-Hsc"/>
                                 </constraints>
-                                <buttonCell key="cell" type="roundRect" title="Start" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wkK-UK-u12">
+                                <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wkK-UK-u12">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="startAnimationsAction:" target="mWu-e3-ocB" id="8K1-bW-xw9"/>

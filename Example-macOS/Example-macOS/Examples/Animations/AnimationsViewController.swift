@@ -13,23 +13,25 @@ class AnimationsViewController: NSViewController {
   @IBOutlet weak var animationsView: AnimationsView!
   @IBOutlet weak var actionButton: NSButton!
   
-  override func viewDidAppear() {
-    super.viewDidAppear()
+  override func viewWillAppear() {
+    super.viewWillAppear()
     
     animationsView?.onComplete = {
       self.actionButton?.isEnabled = true
     }
     animationsView?.prepareAnimation()
+    
+    let attributes: [NSAttributedStringKey: Any] = [.foregroundColor: NSColor.blue.withAlphaComponent(0.5)]
+    actionButton.attributedTitle = NSMutableAttributedString(string: actionButton.title, attributes: attributes)
   }
   
   override func viewDidDisappear() {
     super.viewDidDisappear()
-    
-    self.actionButton?.isEnabled = true
+    self.actionButton?.isHidden = false
   }
   
   @IBAction func startAnimationsAction(_ sender: Any) {
+    actionButton?.isHidden = true
     animationsView?.startAnimation()
-    actionButton?.isEnabled = false
   }
 }

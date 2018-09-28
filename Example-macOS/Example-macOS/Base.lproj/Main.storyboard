@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -89,13 +89,16 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Macaw-Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Macaw-Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="600" height="500"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="600" height="500"/>
                         <value key="maxSize" type="size" width="600" height="500"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="QJx-gg-luM"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="hdB-7F-R9Q" kind="relationship" relationship="window.shadowedContentViewController" id="2sy-Hm-TOK"/>
@@ -122,9 +125,12 @@
                         <rect key="frame" x="-57" y="5" width="615" height="95"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="message"/>
-                        <tabViewItems/>
+                        <connections>
+                            <outlet property="delegate" destination="hdB-7F-R9Q" id="bB4-pu-ywh"/>
+                        </connections>
                     </tabView>
                     <connections>
+                        <outlet property="tabView" destination="2WP-RT-S1E" id="BhF-3j-ymk"/>
                         <segue destination="GQJ-Hp-Pf9" kind="relationship" relationship="tabItems" id="NpD-f5-aHg"/>
                         <segue destination="jao-64-FWC" kind="relationship" relationship="tabItems" id="2YP-Vc-nYb"/>
                         <segue destination="mWu-e3-ocB" kind="relationship" relationship="tabItems" id="Elo-Zo-5ec"/>
@@ -141,7 +147,7 @@
         <!--Shapes-->
         <scene sceneID="X9O-0j-kca">
             <objects>
-                <viewController title="Shapes" id="GQJ-Hp-Pf9" sceneMemberID="viewController">
+                <viewController title="Shapes" id="GQJ-Hp-Pf9" customClass="ExampleViewController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="To1-Fe-AtI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -176,14 +182,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                             </customView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bPP-dr-CnF">
-                                <rect key="frame" x="260" y="39" width="80" height="19"/>
+                                <rect key="frame" x="254" y="33" width="92" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="3MY-fR-U9d"/>
-                                    <constraint firstAttribute="width" constant="80" id="Te3-mr-Bce"/>
+                                    <constraint firstAttribute="height" constant="44" id="3MY-fR-U9d"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="bOo-JQ-Hsc"/>
                                 </constraints>
-                                <buttonCell key="cell" type="roundRect" title="Start" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wkK-UK-u12">
+                                <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wkK-UK-u12">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="startAnimationsAction:" target="mWu-e3-ocB" id="8K1-bW-xw9"/>
@@ -235,10 +241,10 @@
             </objects>
             <point key="canvasLocation" x="57" y="1631"/>
         </scene>
-        <!--Tranform-->
+        <!--Transform-->
         <scene sceneID="BDK-cT-fde">
             <objects>
-                <viewController title="Tranform" id="jao-64-FWC" sceneMemberID="viewController">
+                <viewController title="Transform" id="jao-64-FWC" sceneMemberID="viewController">
                     <view key="view" id="LOa-Et-9Z8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -259,10 +265,10 @@
             </objects>
             <point key="canvasLocation" x="-701" y="1037"/>
         </scene>
-        <!--Morhing-->
+        <!--Morphing-->
         <scene sceneID="Plb-hR-bEv">
             <objects>
-                <viewController title="Morhing" id="Rn8-Li-WZ2" sceneMemberID="viewController">
+                <viewController title="Morphing" id="Rn8-Li-WZ2" customClass="ExampleViewController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ZyY-lN-6hI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		970AB811D179560D74930D39 /* Pods_Example_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */; };
+		A715CA7D215E472800EE7651 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715CA7C215E472800EE7651 /* ExampleViewController.swift */; };
 		A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72862CA1F4308A50033893D /* AnimationsViewController.swift */; };
 		A72862CE1F430DF00033893D /* EasingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72862CC1F430DF00033893D /* EasingViewController.swift */; };
 		A753C9E81F3DB18A006615A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A753C9E71F3DB18A006615A4 /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A715CA7C215E472800EE7651 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		A72862CA1F4308A50033893D /* AnimationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimationsViewController.swift; path = Examples/Animations/AnimationsViewController.swift; sourceTree = "<group>"; };
 		A72862CC1F430DF00033893D /* EasingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasingViewController.swift; path = Examples/Easing/EasingViewController.swift; sourceTree = "<group>"; };
 		A753C9E41F3DB18A006615A4 /* Example-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 		A759399F1F41C51A000CE329 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				A715CA7C215E472800EE7651 /* ExampleViewController.swift */,
 				A75939A01F41C544000CE329 /* Shapes */,
 				A75939A61F41C58D000CE329 /* Transform */,
 				A768EADA1F42CBF600F22A17 /* Animations */,
@@ -302,6 +305,7 @@
 				A753C9EA1F3DB18A006615A4 /* ViewController.swift in Sources */,
 				A75939A21F41C54E000CE329 /* ShapesExampleView.swift in Sources */,
 				A753C9E81F3DB18A006615A4 /* AppDelegate.swift in Sources */,
+				A715CA7D215E472800EE7651 /* ExampleViewController.swift in Sources */,
 				A768EAD81F42C98E00F22A17 /* EventsExampleController.swift in Sources */,
 				A72862CE1F430DF00033893D /* EasingViewController.swift in Sources */,
 				A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */,
@@ -438,6 +442,7 @@
 			baseConfigurationReference = B752613023F25BBB88A17503 /* Pods-Example-macOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Example-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -452,6 +457,7 @@
 			baseConfigurationReference = BEA3A0212E620A41C8362253 /* Pods-Example-macOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Example-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

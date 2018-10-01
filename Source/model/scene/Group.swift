@@ -40,10 +40,6 @@ open class Group: Node {
         self.contentsVar.node = self
     }
 
-    deinit {
-        nodesMap.remove(self)
-    }
-
     // Searching
 
     override public func nodeBy(tag: String) -> Node? {

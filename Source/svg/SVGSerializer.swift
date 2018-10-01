@@ -260,7 +260,7 @@ open class SVGSerializer {
 
     fileprivate func transformToSVG(_ place: Transform) -> String {
         if [place.m11, place.m12, place.m21, place.m22] == [1.0, 0.0, 0.0, 1.0] {
-            if ([place.dx, place.dy] == [0.0, 0.0]) {
+            if [place.dx, place.dy] == [0.0, 0.0] {
                 return ""
             }
             return " transform=\"translate(\(place.dx.serialize()),\(place.dy.serialize()))\" "

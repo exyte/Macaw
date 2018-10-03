@@ -74,75 +74,60 @@ open class Group: Node {
     }
 
     override func shouldCheckForPressed() -> Bool {
-        var shouldCheck = super.shouldCheckForPressed()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForPressed()
+        if super.shouldCheckForPressed() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForPressed() }
     }
 
     override func shouldCheckForMoved() -> Bool {
-        var shouldCheck = super.shouldCheckForMoved()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForMoved()
+        if super.shouldCheckForMoved() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForMoved() }
     }
 
     override func shouldCheckForReleased() -> Bool {
-        var shouldCheck = super.shouldCheckForReleased()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForReleased()
+        if super.shouldCheckForReleased() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForReleased() }
     }
 
     override func shouldCheckForTap() -> Bool {
-        var shouldCheck = super.shouldCheckForTap()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForTap()
+        if super.shouldCheckForTap() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForTap() }
     }
 
     override func shouldCheckForLongTap() -> Bool {
-        var shouldCheck = super.shouldCheckForLongTap()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForLongTap()
+        if super.shouldCheckForLongTap() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForLongTap() }
     }
 
     override func shouldCheckForPan() -> Bool {
-        var shouldCheck = super.shouldCheckForPan()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForPan()
+        if super.shouldCheckForPan() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForPan() }
     }
 
     override func shouldCheckForPinch() -> Bool {
-        var shouldCheck = super.shouldCheckForPinch()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForPinch()
+        if super.shouldCheckForPinch() {
+            return true
         }
 
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForPinch() }
     }
 
     override func shouldCheckForRotate() -> Bool {
-        var shouldCheck = super.shouldCheckForRotate()
-        contents.forEach { node in
-            shouldCheck = shouldCheck || node.shouldCheckForRotate()
+        if super.shouldCheckForRotate() {
+            return true
         }
-
-        return shouldCheck
+        return contents.contains { $0.shouldCheckForRotate() }
     }
 }
 

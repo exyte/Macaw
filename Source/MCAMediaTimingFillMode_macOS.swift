@@ -12,10 +12,10 @@ import Foundation
 import AppKit
 
 public struct MCAMediaTimingFillMode {
-    public static let forwards = kCAFillModeForwards
-    public static let backwards = kCAFillModeBackwards
-    public static let both = kCAFillModeBoth
-    public static let removed = kCAFillModeRemoved
+    public static let forwards = CAMediaTimingFillMode.forwards
+    public static let backwards = CAMediaTimingFillMode.backwards
+    public static let both = CAMediaTimingFillMode.both
+    public static let removed = CAMediaTimingFillMode.removed
 }
 
 #endif

@@ -14,11 +14,11 @@ import Foundation
 import AppKit
 
 public struct MCAMediaTimingFunctionName {
-    static let linear = kCAMediaTimingFunctionDefault
-    static let easeIn = kCAMediaTimingFunctionEaseIn
-    static let easeOut = kCAMediaTimingFunctionEaseOut
-    static let easeInEaseOut = kCAMediaTimingFunctionEaseInEaseOut
-    static let `default` = kCAMediaTimingFunctionDefault
+    static let linear = CAMediaTimingFunctionName.default
+    static let easeIn = CAMediaTimingFunctionName.easeIn
+    static let easeOut = CAMediaTimingFunctionName.easeOut
+    static let easeInEaseOut = CAMediaTimingFunctionName.easeInEaseOut
+    static let `default` = CAMediaTimingFunctionName.default
 }
 
 #endif

@@ -159,7 +159,7 @@ open class Image: Node {
         #if os(iOS)
         return MImage(named: src)
         #elseif os(OSX)
-        return MImage(named: NSImage.Name(rawValue: src))
+        return MImage(named: src)
         #endif
     }
 }

@@ -12,11 +12,11 @@ import Foundation
 import AppKit
 
 public struct MCAShapeLayerLineCap {
-    static let butt = kCALineCapButt
-    static let round = kCALineCapRound
-    static let square = kCALineCapSquare
+    static let butt = CAShapeLayerLineCap.butt
+    static let round = CAShapeLayerLineCap.round
+    static let square = CAShapeLayerLineCap.square
 
-    static func mapToGraphics(model: LineCap) -> String {
+    static func mapToGraphics(model: LineCap) -> CAShapeLayerLineCap {
         switch model {
         case .butt:
             return MCAShapeLayerLineCap.butt

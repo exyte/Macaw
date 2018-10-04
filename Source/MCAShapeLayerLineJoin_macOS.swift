@@ -12,11 +12,11 @@ import Foundation
 import AppKit
 
 public struct MCAShapeLayerLineJoin {
-    public static let miter = kCALineJoinMiter
-    public static let round = kCALineJoinRound
-    public static let bevel = kCALineJoinBevel
+    public static let miter = CAShapeLayerLineJoin.miter
+    public static let round = CAShapeLayerLineJoin.round
+    public static let bevel = CAShapeLayerLineJoin.bevel
 
-    static func mapToGraphics(model: LineJoin) -> String {
+    static func mapToGraphics(model: LineJoin) -> CAShapeLayerLineJoin {
         switch model {
         case .miter:
             return MCAShapeLayerLineJoin.miter

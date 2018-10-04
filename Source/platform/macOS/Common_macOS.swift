@@ -30,7 +30,7 @@ public typealias MRotationGestureRecognizer = NSRotationGestureRecognizer
 public typealias MScreen = NSScreen
 
 func MDefaultRunLoopMode() -> RunLoop.Mode {
-    return RunLoop.Mode.defaultRunLoopMode
+    return RunLoop.Mode.default
 }
 
 extension MGestureRecognizer {
@@ -125,7 +125,7 @@ extension NSTouch {
 
 extension NSString {
     @nonobjc
-    func size(attributes attrs: [NSAttributedStringKey: Any]? = nil) -> NSSize {
+    func size(attributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSSize {
         return size(withAttributes: attrs)
     }
 }

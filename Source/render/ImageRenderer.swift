@@ -71,7 +71,7 @@ class ImageRenderer: NodeRenderer {
         #if os(iOS)
         let osImage = MImage(named: image.src)
         #elseif os(OSX)
-        let osImage = MImage(named: NSImage.Name(rawValue: image.src))
+        let osImage = MImage(named: image.src)
         #endif
 
         if let mImage = osImage,

@@ -55,9 +55,8 @@ open class SVGSerializer {
     fileprivate let SVGDefaultOpacityValueAsAlpha = 1 * 255
 
     fileprivate func tag(_ tag: String, _ args: [String: String]=[:], close: Bool = false) -> String {
-        let attrs = args.sorted(by: { a1, a2 -> Bool in
-            a1.key < a2.key
-        }).map { "\($0)=\"\($1)\"" }.joined(separator: " ")
+        let attrs = args.sorted { a1, a2 -> Bool in a1.key < a2.key }
+            .map { "\($0)=\"\($1)\"" }.joined(separator: " ")
         let closeTag = close ? " />" : ""
         return "\(tag) \(attrs) \(closeTag)"
     }

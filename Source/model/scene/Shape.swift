@@ -72,6 +72,11 @@ open class Shape: Node {
             rect.origin = point
         }
 
+        // TO DO: Remove after fixing bug with boundingBoxOfPath - https://openradar.appspot.com/6468254639
+        if rect.width.isInfinite || rect.height.isInfinite {
+            rect.size = CGSize.zero
+        }
+
         endContext()
 
         return rect.toMacaw()

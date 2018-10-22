@@ -63,6 +63,8 @@ open class Image: Node {
             visible: visible,
             tag: tag
         )
+
+        srcVar.onChange { _ in self.mImage = nil }
     }
 
     public init(image: MImage, xAlign: Align = .min, yAlign: Align = .min, aspectRatio: AspectRatio = .none, w: Int = 0, h: Int = 0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
@@ -90,6 +92,8 @@ open class Image: Node {
             visible: visible,
             tag: tag
         )
+
+        srcVar.onChange { _ in self.mImage = nil }
     }
 
     override open var bounds: Rect? {
@@ -155,11 +159,6 @@ open class Image: Node {
             }
         }
 
-        // General case
-        #if os(iOS)
         return MImage(named: src)
-        #elseif os(OSX)
-        return MImage(named: src)
-        #endif
     }
 }

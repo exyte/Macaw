@@ -273,7 +273,14 @@ open class SVGParser {
     }
 
     private func parseDefinition(_ child: XMLIndexer) throws {
-        guard let id = child.element?.allAttributes["id"]?.text, let element = child.element else {
+        guard let element = child.element else {
+            return
+        }
+        if element.name == "style" {
+            parseStyle(child)
+            return
+        }
+        guard let id = element.allAttributes["id"]?.text else {
             return
         }
 

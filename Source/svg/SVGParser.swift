@@ -236,7 +236,6 @@ open class SVGParser {
 
     fileprivate func parseStyle(_ styleNode: XMLIndexer) {
         if let rawStyle = styleNode.element?.text {
-
             let parts = rawStyle.components(separatedBy: .whitespacesAndNewlines).joined().split(separator: "{")
 
             var separatedParts = [String.SubSequence]()
@@ -247,21 +246,24 @@ open class SVGParser {
 
             if separatedParts.count % 2 == 0 {
 
-                let classNames = stride(from: 0, to: separatedParts.count, by: 2).map { String(separatedParts[$0].dropFirst()) }
+                let headers = stride(from: 0, to: separatedParts.count, by: 2).map { String(separatedParts[$0]) }
                 let styles = stride(from: 1, to: separatedParts.count, by: 2).map { separatedParts[$0] }
 
-                for (index, className) in classNames.enumerated() {
-                    var styleAttributes: [String: String] = [:]
-                    if !className.isEmpty {
-                        let style = String(styles[index].dropLast())
-                        let styleParts = style.components(separatedBy: ";")
-                        styleParts.forEach { styleAttribute in
-                            let currentStyle = styleAttribute.components(separatedBy: ":")
-                            if currentStyle.count == 2 {
-                                styleAttributes.updateValue(currentStyle[1], forKey: currentStyle[0])
+                for (index, header) in headers.enumerated() {
+                    for headerPart in header.split(separator: ",") {
+                        if headerPart.count > 1 {
+                            let className = String(headerPart.dropFirst())
+                            var classStyles = styleTable[className] != nil ? styleTable[className]! : [String:String]()
+                            let style = String(styles[index].dropLast())
+                            let styleParts = style.components(separatedBy: ";")
+                            styleParts.forEach { styleAttribute in
+                                let currentStyle = styleAttribute.components(separatedBy: ":")
+                                if currentStyle.count == 2 {
+                                    classStyles[currentStyle[0]] = currentStyle[1]
+                                }
                             }
+                            styleTable[className] = classStyles
                         }
-                        styleTable[className] = styleAttributes
                     }
                 }
             }

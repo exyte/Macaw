@@ -1331,7 +1331,7 @@ open class SVGParser {
         if let stopOpacity = getStyleAttributes([:], element: element)["stop-opacity"], let doubleValue = Double(stopOpacity) {
             opacity = doubleValue
         }
-        var color = Color.black
+        var color = Color.black.with(a: opacity)
         if var stopColor = getStyleAttributes([:], element: element)["stop-color"] {
             if stopColor == "currentColor", let currentColor = groupStyle["color"] {
                 stopColor = currentColor

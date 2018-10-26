@@ -112,7 +112,9 @@ open class SVGParser {
     }
 
     fileprivate func parse() throws -> Group {
-        let parsedXml = SWXMLHash.parse(xmlString)
+        let parsedXml = SWXMLHash.config { config in
+            config.shouldProcessNamespaces = true
+        }.parse(xmlString)
 
         var layout: NodeLayout?
         for child in parsedXml.children {

@@ -93,6 +93,8 @@ open class SVGParser {
     fileprivate var defClip = [String: UserSpaceLocus]()
     fileprivate var defEffects = [String: Effect]()
 
+    fileprivate var styles = CSSParser()
+    
     fileprivate enum PathCommandType {
         case moveTo
         case lineTo
@@ -234,41 +236,9 @@ open class SVGParser {
         return result
     }
 
-    fileprivate var styleTable: [String: [String: String]] = [:]
-
     fileprivate func parseStyle(_ styleNode: XMLIndexer) {
         if let rawStyle = styleNode.element?.text {
-            let parts = rawStyle.components(separatedBy: .whitespacesAndNewlines).joined().split(separator: "{")
-
-            var separatedParts = [String.SubSequence]()
-
-            parts.forEach { substring in
-                separatedParts.append(contentsOf: substring.split(separator: "}"))
-            }
-
-            if separatedParts.count % 2 == 0 {
-
-                let headers = stride(from: 0, to: separatedParts.count, by: 2).map { String(separatedParts[$0]) }
-                let styles = stride(from: 1, to: separatedParts.count, by: 2).map { separatedParts[$0] }
-
-                for (index, header) in headers.enumerated() {
-                    for headerPart in header.split(separator: ",") {
-                        if headerPart.count > 1 {
-                            let className = String(headerPart.dropFirst())
-                            var classStyles = styleTable[className] != nil ? styleTable[className]! : [String:String]()
-                            let style = String(styles[index].dropLast())
-                            let styleParts = style.components(separatedBy: ";")
-                            styleParts.forEach { styleAttribute in
-                                let currentStyle = styleAttribute.components(separatedBy: ":")
-                                if currentStyle.count == 2 {
-                                    classStyles[currentStyle[0]] = currentStyle[1]
-                                }
-                            }
-                            styleTable[className] = classStyles
-                        }
-                    }
-                }
-            }
+            styles.parse(content: rawStyle)
         }
     }
 
@@ -582,19 +552,9 @@ open class SVGParser {
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String], element: SWXMLHash.XMLElement) -> [String: String] {
         var styleAttributes: [String: String] = groupAttributes
 
-        if let classNamesString = element.allAttributes["class"]?.text {
-            let classNames = classNamesString.split(separator: " ")
-
-            classNames.forEach { className in
-                let classString = String(className)
-
-                if let styleAttributesFromTable = styleTable[classString] {
-                    for (att, val) in styleAttributesFromTable {
-                        if styleAttributes.index(forKey: att) == nil {
-                            styleAttributes.updateValue(val, forKey: att)
-                        }
-                    }
-                }
+        for (att, val) in styles.getStyles(element: element) {
+            if styleAttributes.index(forKey: att) == nil {
+                styleAttributes.updateValue(val, forKey: att)
             }
         }
 

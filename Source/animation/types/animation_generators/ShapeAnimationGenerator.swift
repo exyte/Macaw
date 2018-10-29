@@ -202,9 +202,9 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
 
         group.animations?.append(dashPatternAnimation)
     }
-    
+
     // Dash offset
-    if fromStroke.offset != toStroke.offset{
+    if fromStroke.offset != toStroke.offset {
         let dashOffsetAnimation = CABasicAnimation(keyPath: "lineDashPhase")
         dashOffsetAnimation.fromValue = fromStroke.offset
         dashOffsetAnimation.toValue = toStroke.offset

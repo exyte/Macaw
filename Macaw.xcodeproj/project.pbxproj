@@ -226,7 +226,8 @@
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
-		5815D57F2186DC7900BD08F9 /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5815D57E2186DC7900BD08F9 /* CSSParser.swift */; };
+		5815D59D2186E89A00BD08F9 /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5815D59C2186E89A00BD08F9 /* CSSParser.swift */; };
+		5815D59E2186E89A00BD08F9 /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5815D59C2186E89A00BD08F9 /* CSSParser.swift */; };
 		5835969B20A9CA150090400C /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
 		5835969C20A9CA150090400C /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
 		585288F420AD96A2003E51D1 /* ContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585288F320AD96A2003E51D1 /* ContentLayout.swift */; };
@@ -665,7 +666,7 @@
 		57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacawTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawTests.swift; sourceTree = "<group>"; };
 		57FCD27D1D76EA4600CC0FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5815D57E2186DC7900BD08F9 /* CSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSParser.swift; sourceTree = "<group>"; };
+		5815D59C2186E89A00BD08F9 /* CSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSParser.swift; sourceTree = "<group>"; };
 		5835969A20A9CA140090400C /* CGMappings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMappings.swift; sourceTree = "<group>"; };
 		585288F320AD96A2003E51D1 /* ContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentLayout.swift; sourceTree = "<group>"; };
 		5852891520B29D67003E51D1 /* TransformedLocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformedLocus.swift; sourceTree = "<group>"; };
@@ -1256,7 +1257,7 @@
 		57E5E1451E3B393900D1CB28 /* svg */ = {
 			isa = PBXGroup;
 			children = (
-				5815D57E2186DC7900BD08F9 /* CSSParser.swift */,
+				5815D59C2186E89A00BD08F9 /* CSSParser.swift */,
 				5BAE201E208E1211006BF277 /* SVGCanvas.swift */,
 				57E5E1461E3B393900D1CB28 /* SVGConstants.swift */,
 				5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */,
@@ -2069,6 +2070,7 @@
 				57614BDB1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
 				57614B411F83D15600875933 /* Text.swift in Sources */,
 				57614B421F83D15600875933 /* MDisplayLink_iOS.swift in Sources */,
+				5815D59E2186E89A00BD08F9 /* CSSParser.swift in Sources */,
 				57614B431F83D15600875933 /* RenderContext.swift in Sources */,
 				57614B441F83D15600875933 /* Size.swift in Sources */,
 				5B6E193220AC58F900454E7E /* LineJoin.swift in Sources */,
@@ -2208,7 +2210,7 @@
 				57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */,
 				57E5E1A61E3B393900D1CB28 /* RenderContext.swift in Sources */,
 				30FF4969215CED8100FF653C /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
-				5815D57F2186DC7900BD08F9 /* CSSParser.swift in Sources */,
+				5815D59D2186E89A00BD08F9 /* CSSParser.swift in Sources */,
 				57E5E19C1E3B393900D1CB28 /* Size.swift in Sources */,
 				57E5E1991E3B393900D1CB28 /* Polyline.swift in Sources */,
 				5B6E193120AC58F900454E7E /* LineJoin.swift in Sources */,

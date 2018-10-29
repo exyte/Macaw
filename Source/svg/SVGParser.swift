@@ -1245,7 +1245,7 @@ open class SVGParser {
         var cy = getDoubleValueFromPercentage(element, attribute: "cy") ?? parentRadialGradient?.cy ?? 0.5
         var fx = getDoubleValueFromPercentage(element, attribute: "fx") ?? parentRadialGradient?.fx ?? cx
         var fy = getDoubleValueFromPercentage(element, attribute: "fy") ?? parentRadialGradient?.fy ?? cy
-        let r = getDoubleValueFromPercentage(element, attribute: "r") ?? parentRadialGradient?.r ?? 0.5
+        var r = getDoubleValueFromPercentage(element, attribute: "r") ?? parentRadialGradient?.r ?? 0.5
 
         var userSpace = false
         if let gradientUnits = element.allAttributes["gradientUnits"]?.text, gradientUnits == "userSpaceOnUse" {
@@ -1261,6 +1261,14 @@ open class SVGParser {
             let point1 = CGPoint(x: cx, y: cy).applying(cgTransform)
             cx = point1.x.doubleValue
             cy = point1.y.doubleValue
+
+            let xScale = abs(transform.m11)
+            let yScale = abs(transform.m22)
+            if (xScale == yScale) {
+                r = r * xScale
+            } else {
+                print("SVG parsing error. No oval radial gradients supported")
+            }
 
             let point2 = CGPoint(x: fx, y: fy).applying(cgTransform)
             fx = point2.x.doubleValue

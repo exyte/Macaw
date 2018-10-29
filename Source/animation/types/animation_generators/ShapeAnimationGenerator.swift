@@ -107,6 +107,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
         layer.lineCap = MCAShapeLayerLineCap.mapToGraphics(model: stroke.cap)
         layer.lineJoin = MCAShapeLayerLineJoin.mapToGraphics(model: stroke.join)
         layer.lineDashPattern = stroke.dashes.map { NSNumber(value: $0) }
+        layer.lineDashPhase = CGFloat(stroke.offset)
     } else if shape.fill == nil {
         layer.strokeColor = MColor.black.cgColor
         layer.lineWidth = 1.0
@@ -200,6 +201,16 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, duration: Double
         dashPatternAnimation.duration = duration
 
         group.animations?.append(dashPatternAnimation)
+    }
+    
+    // Dash offset
+    if fromStroke.offset != toStroke.offset{
+        let dashOffsetAnimation = CABasicAnimation(keyPath: "lineDashPhase")
+        dashOffsetAnimation.fromValue = fromStroke.offset
+        dashOffsetAnimation.toValue = toStroke.offset
+        dashOffsetAnimation.duration = duration
+
+        group.animations?.append(dashOffsetAnimation)
     }
 
     // Group

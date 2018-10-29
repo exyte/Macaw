@@ -145,13 +145,25 @@ open class SVGParser {
 
     fileprivate func prepareSvg(_ node: XMLIndexer) throws {
         if let element = node.element {
-            if element.name == "defs" {
-                try parseDefinitions(node)
-            } else if element.name == "style" {
+            if element.name == "style" {
                 parseStyle(node)
-            } else if element.name == "g" {
+            } else if (element.name == "defs" || element.name == "g") {
                 try node.children.forEach { child in
                     try prepareSvg(child)
+                }
+            }
+            if let id = element.allAttributes["id"]?.text {
+                switch element.name {
+                case "linearGradient", "radialGradient", "fill":
+                    defFills[id] = parseFill(node)
+                case "mask":
+                    defMasks[id] = try parseMask(node)
+                case "filter":
+                    defEffects[id] = try parseEffect(node)
+                case "clip":
+                    defClip[id] = try parseClip(node)
+                default:
+                    defNodes[id] = node
                 }
             }
         }
@@ -223,10 +235,6 @@ open class SVGParser {
             switch element.name {
             case "g":
                 result = try parseGroup(node, style: style)
-            case "clipPath":
-                if let id = element.allAttributes["id"]?.text, let clip = try parseClip(node) {
-                    self.defClip[id] = clip
-                }
             case "style", "defs":
                 // do nothing - it was parsed on first iteration
                 return .none
@@ -247,36 +255,6 @@ open class SVGParser {
         }
     }
 
-    fileprivate func parseDefinitions(_ defs: XMLIndexer, groupStyle: [String: String] = [:]) throws {
-        try defs.children.forEach(parseDefinition(_:))
-    }
-
-    private func parseDefinition(_ child: XMLIndexer) throws {
-        guard let element = child.element else {
-            return
-        }
-        if element.name == "style" {
-            parseStyle(child)
-            return
-        }
-        guard let id = element.allAttributes["id"]?.text else {
-            return
-        }
-
-        if element.name == "fill", let fill = parseFill(child) {
-            defFills[id] = fill
-        } else if element.name == "mask", let mask = try parseMask(child) {
-            defMasks[id] = mask
-        } else if element.name == "filter", let effect = try parseEffect(child) {
-            defEffects[id] = effect
-        } else if element.name == "clip", let clip = try parseClip(child) {
-            defClip[id] = clip
-        } else if let _ = try parseNode(child) {
-            // TODO we don't really need to parse node
-            defNodes[id] = child
-        }
-    }
-
     fileprivate func parseElement(_ node: XMLIndexer, style: [String: String]) throws -> Node? {
         if style["visibility"] == "hidden" {
             return .none
@@ -284,7 +262,6 @@ open class SVGParser {
         guard let element = node.element else {
             return .none
         }
-        let id = node.element?.allAttributes["id"]?.text
         let position = getPosition(element)
         switch element.name {
         case "path":
@@ -334,18 +311,6 @@ open class SVGParser {
                              stroke: getStroke(style, groupStyle: style), opacity: getOpacity(style), fontName: getFontName(style), fontSize: getFontSize(style), fontWeight: getFontWeight(style), pos: position)
         case "use":
             return try parseUse(node, groupStyle: style, place: position)
-        case "linearGradient", "radialGradient", "fill":
-            if let fill = parseFill(node), let id = id {
-                defFills[id] = fill
-            }
-        case "filter":
-            if let effect = try parseEffect(node), let id = id {
-                defEffects[id] = effect
-            }
-        case "mask":
-            if let mask = try parseMask(node), let id = id {
-                defMasks[id] = mask
-            }
         case "title":
             break
         default:

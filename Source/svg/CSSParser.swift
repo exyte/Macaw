@@ -25,38 +25,36 @@ class CSSParser {
 
     func parse(content: String) {
         let parts = content.components(separatedBy: .whitespacesAndNewlines).joined().split(separator: "{")
-        
+
         var separatedParts = [String.SubSequence]()
-        
+
         parts.forEach { substring in
             separatedParts.append(contentsOf: substring.split(separator: "}"))
         }
-        
+
         if separatedParts.count % 2 == 0 {
-            
+
             let headers = stride(from: 0, to: separatedParts.count, by: 2).map { String(separatedParts[$0]) }
             let bodies = stride(from: 1, to: separatedParts.count, by: 2).map { separatedParts[$0] }
-            
+
             for (index, header) in headers.enumerated() {
-                for headerPart in header.split(separator: ",") {
-                    if headerPart.count > 1 {
-                        let selector = parseSelector(text: String(headerPart))
-                        var currentStyles = getStyles(selector: selector)
-                        if (currentStyles == nil) {
-                            currentStyles = [String:String]()
-                        }
-                        let style = String(bodies[index])
-                        let styleParts = style.components(separatedBy: ";")
-                        styleParts.forEach { styleAttribute in
-                            if !styleAttribute.isEmpty {
-                                let currentStyle = styleAttribute.components(separatedBy: ":")
-                                if currentStyle.count == 2 {
-                                    currentStyles![currentStyle[0]] = currentStyle[1]
-                                }
+                for headerPart in header.split(separator: ",") where headerPart.count > 1 {
+                    let selector = parseSelector(text: String(headerPart))
+                    var currentStyles = getStyles(selector: selector)
+                    if currentStyles == nil {
+                        currentStyles = [String: String]()
+                    }
+                    let style = String(bodies[index])
+                    let styleParts = style.components(separatedBy: ";")
+                    styleParts.forEach { styleAttribute in
+                        if !styleAttribute.isEmpty {
+                            let currentStyle = styleAttribute.components(separatedBy: ":")
+                            if currentStyle.count == 2 {
+                                currentStyles![currentStyle[0]] = currentStyle[1]
                             }
                         }
-                        setStyles(selector: selector, styles: currentStyles!)
                     }
+                    setStyles(selector: selector, styles: currentStyles!)
                 }
             }
         }
@@ -84,10 +82,10 @@ class CSSParser {
 
         if let classNamesString = element.allAttributes["class"]?.text {
             let classNames = classNamesString.split(separator: " ")
-            
+
             classNames.forEach { className in
                 let classString = String(className)
-                
+
                 if let styleAttributesFromTable = stylesByClass[classString] {
                     for (att, val) in styleAttributesFromTable {
                         if styleAttributes.index(forKey: att) == nil {
@@ -97,7 +95,7 @@ class CSSParser {
                 }
             }
         }
-        
+
         if let idString = element.allAttributes["id"]?.text {
             if let styleAttributesFromTable = stylesById[idString] {
                 for (att, val) in styleAttributesFromTable {
@@ -107,11 +105,11 @@ class CSSParser {
                 }
             }
         }
-        
+
         return styleAttributes
     }
 
-    fileprivate func getStyles(selector: Selector) -> [String:String]? {
+    fileprivate func getStyles(selector: Selector) -> [String: String]? {
         switch selector {
         case .byId(let id):
             return stylesById[id]
@@ -122,7 +120,7 @@ class CSSParser {
         }
     }
 
-    fileprivate func setStyles(selector: Selector, styles: [String:String]) {
+    fileprivate func setStyles(selector: Selector, styles: [String: String]) {
         switch selector {
         case .byId(let id):
             stylesById[id] = styles

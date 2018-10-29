@@ -94,7 +94,7 @@ open class SVGParser {
     fileprivate var defEffects = [String: Effect]()
 
     fileprivate var styles = CSSParser()
-    
+
     fileprivate enum PathCommandType {
         case moveTo
         case lineTo
@@ -114,9 +114,10 @@ open class SVGParser {
     }
 
     fileprivate func parse() throws -> Group {
-        let parsedXml = SWXMLHash.config { config in
+        let config = SWXMLHash.config { config in
             config.shouldProcessNamespaces = true
-        }.parse(xmlString)
+        }
+        let parsedXml = config.parse(xmlString)
 
         var layout: NodeLayout?
         for child in parsedXml.children {

@@ -1010,6 +1010,7 @@ open class SVGParser {
 
     fileprivate func parseMask(_ mask: XMLIndexer) throws -> UserSpaceNode? {
         var userSpace = true
+        let styles = getStyleAttributes([:], element: mask.element!)
         if let units = mask.element?.allAttributes["maskContentUnits"]?.text, units == "objectBoundingBox" {
             userSpace = false
         }
@@ -1019,16 +1020,16 @@ open class SVGParser {
         }
 
         if mask.children.count == 1 {
-            let node = try parseNode(mask.children.first!)!
+            let node = try parseNode(mask.children.first!, groupStyle: styles)!
             return UserSpaceNode(node: node, userSpace: userSpace)
         }
 
         var nodes = [Node]()
         try mask.children.forEach { indexer in
             let position = getPosition(indexer.element!)
-            if let useNode = try parseUse(indexer, place: position) {
+            if let useNode = try parseUse(indexer, groupStyle: styles, place: position) {
                 nodes.append(useNode)
-            } else if let contentNode = try parseNode(indexer) {
+            } else if let contentNode = try parseNode(indexer, groupStyle: styles) {
                 nodes.append(contentNode)
             }
         }

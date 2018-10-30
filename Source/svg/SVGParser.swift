@@ -147,7 +147,7 @@ open class SVGParser {
         if let element = node.element {
             if element.name == "style" {
                 parseStyle(node)
-            } else if (element.name == "defs" || element.name == "g") {
+            } else if element.name == "defs" || element.name == "g" {
                 try node.children.forEach { child in
                     try prepareSvg(child)
                 }
@@ -160,7 +160,7 @@ open class SVGParser {
                     defMasks[id] = try parseMask(node)
                 case "filter":
                     defEffects[id] = try parseEffect(node)
-                case "clip":
+                case "clip", "clipPath":
                     defClip[id] = try parseClip(node)
                 default:
                     defNodes[id] = node
@@ -311,7 +311,8 @@ open class SVGParser {
                              stroke: getStroke(style, groupStyle: style), opacity: getOpacity(style), fontName: getFontName(style), fontSize: getFontSize(style), fontWeight: getFontWeight(style), pos: position)
         case "use":
             return try parseUse(node, groupStyle: style, place: position)
-        case "title":
+        case "title", "desc", "mask", "clip", "filter",
+             "linearGradient", "radialGradient", "fill":
             break
         default:
             print("SVG parsing error. Shape \(element.name) not supported")
@@ -953,6 +954,8 @@ open class SVGParser {
         return Transform.move(dx: xPos, dy: yPos)
     }
 
+    private var usedReferenced = [String: String]()
+
     fileprivate func parseUse(_ use: XMLIndexer, groupStyle: [String: String] = [:], place: Transform = .identity) throws -> Node? {
         guard let element = use.element, let link = element.allAttributes["xlink:href"]?.text else {
             return .none
@@ -962,9 +965,13 @@ open class SVGParser {
             id = id.replacingOccurrences(of: "#", with: "")
         }
         if let referenceNode = self.defNodes[id] {
-            if let node = try parseNode(referenceNode, groupStyle: groupStyle) {
-                node.place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
-                return node
+            if usedReferenced[id] == nil {
+                usedReferenced[id] = id
+                if let node = try parseNode(referenceNode, groupStyle: groupStyle) {
+                    node.place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
+                    return node
+                }
+                usedReferenced.removeValue(forKey: id)
             }
         }
         return .none
@@ -1213,8 +1220,8 @@ open class SVGParser {
 
             let xScale = abs(transform.m11)
             let yScale = abs(transform.m22)
-            if (xScale == yScale) {
-                r = r * xScale
+            if xScale == yScale {
+                r *= xScale
             } else {
                 print("SVG parsing error. No oval radial gradients supported")
             }

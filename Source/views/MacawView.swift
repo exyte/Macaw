@@ -588,7 +588,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 }
 
-private class LayoutHelper {
+class LayoutHelper {
 
     private var prevSize: Size?
     private var prevRect: Rect?
@@ -611,6 +611,16 @@ private class LayoutHelper {
                 return transform
             }
             return setTransform(transform: layout.layout(rect: prevRect!, into: size).toCG())
+        }
+        return CGAffineTransform.identity
+    }
+
+    public class func calcTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
+        if let canvas = node as? SVGCanvas {
+            return layout.layout(size: canvas.layout(size: size), into: size).toCG()
+        }
+        if let rect = node.bounds {
+            return layout.layout(rect: rect, into: size).toCG()
         }
         return CGAffineTransform.identity
     }

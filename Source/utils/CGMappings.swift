@@ -121,7 +121,27 @@ public extension Locus {
 public extension CGAffineTransform {
 
     public func toMacaw() -> Transform {
-
         return Transform(m11: Double(a), m12: Double(b), m21: Double(c), m22: Double(d), dx: Double(tx), dy: Double(ty))
     }
+}
+
+public extension Node {
+
+    public func toNativeImage(size: Size, layout: ContentLayout = .of()) -> UIImage {
+        let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
+        let rect = size.rect()
+
+        MGraphicsBeginImageContextWithOptions(size.toCG(), false, 1)
+        let ctx = MGraphicsGetCurrentContext()!
+        ctx.clear(rect.toCG())
+
+        let transform = LayoutHelper.calcTransform(self, layout, size)
+        ctx.concatenate(transform)
+        renderer.render(in: ctx, force: false, opacity: self.opacity)
+
+        let img = MGraphicsGetImageFromCurrentImageContext()
+        MGraphicsEndImageContext()
+        return img!
+    }
+
 }

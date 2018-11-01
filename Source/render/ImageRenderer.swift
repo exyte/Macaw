@@ -77,4 +77,12 @@ class ImageRenderer: NodeRenderer {
         }
         return .none
     }
+
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
+
+        if let node = replacementNode as? Image {
+            image = node
+        }
+    }
 }

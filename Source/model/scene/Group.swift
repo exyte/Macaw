@@ -4,22 +4,7 @@ open class Group: Node {
     open var contents: [Node] {
         get { return contentsVar.value }
         set(val) {
-
-            contentsVar.value.forEach { subNode in
-                nodesMap.remove(subNode)
-            }
-
             contentsVar.value = val
-
-            if let view = nodesMap.getView(self) {
-                val.forEach { subNode in
-                    nodesMap.add(subNode, view: view)
-                }
-            }
-
-            val.forEach { subNode in
-                nodesMap.add(subNode, parent: self)
-            }
         }
     }
 
@@ -38,35 +23,6 @@ open class Group: Node {
 
         self.contents = contents
         self.contentsVar.node = self
-    }
-
-    // Searching
-
-    override public func nodeBy(tag: String) -> Node? {
-        if let node = super.nodeBy(tag: tag) {
-            return node
-        }
-
-        for child in contents {
-            if let node = child.nodeBy(tag: tag) {
-                return node
-            }
-        }
-
-        return .none
-    }
-
-    override public func nodesBy(tag: String) -> [Node] {
-        var result = [Node]()
-        contents.forEach { child in
-            result.append(contentsOf: child.nodesBy(tag: tag))
-        }
-
-        if let node = super.nodeBy(tag: tag) {
-            result.append(node)
-        }
-
-        return result
     }
 
     override open var bounds: Rect? {

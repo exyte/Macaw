@@ -217,6 +217,14 @@ class ShapeRenderer: NodeRenderer {
         ctx!.restoreGState()
     }
 
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
+
+        if let node = replacementNode as? Shape {
+            shape = node
+        }
+    }
+
 }
 
 extension Stroke {

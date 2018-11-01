@@ -33,7 +33,6 @@
 		57614B031F83D15600875933 /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
 		57614B041F83D15600875933 /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1471E3B393900D1CB28 /* SVGParser.swift */; };
 		57614B051F83D15600875933 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC61E2CED4B008C7C83 /* SWXMLHash.swift */; };
-		57614B061F83D15600875933 /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1511E3B393900D1CB28 /* NodesMap.swift */; };
 		57614B071F83D15600875933 /* RenderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1421E3B393900D1CB28 /* RenderUtils.swift */; };
 		57614B081F83D15600875933 /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F11E3B393900D1CB28 /* FuncBounds.swift */; };
 		57614B091F83D15600875933 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
@@ -219,7 +218,6 @@
 		57E5E1B01E3B393900D1CB28 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */; };
 		57E5E1B11E3B393900D1CB28 /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14E1E3B393900D1CB28 /* NSTimer+Closure.swift */; };
 		57E5E1B21E3B393900D1CB28 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1501E3B393900D1CB28 /* MacawView.swift */; };
-		57E5E1B31E3B393900D1CB28 /* NodesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1511E3B393900D1CB28 /* NodesMap.swift */; };
 		57E5E1B41E3B393900D1CB28 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
 		57F108741F502A3600DC365B /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108731F502A3600DC365B /* Touchable.swift */; };
 		57F1087A1F53C92000DC365B /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108791F53C92000DC365B /* MDisplayLink.swift */; };
@@ -657,7 +655,6 @@
 		57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Double.swift"; sourceTree = "<group>"; };
 		57E5E14E1E3B393900D1CB28 /* NSTimer+Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimer+Closure.swift"; sourceTree = "<group>"; };
 		57E5E1501E3B393900D1CB28 /* MacawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawView.swift; sourceTree = "<group>"; };
-		57E5E1511E3B393900D1CB28 /* NodesMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesMap.swift; sourceTree = "<group>"; };
 		57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeLayer.swift; sourceTree = "<group>"; };
 		57F108731F502A3600DC365B /* Touchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touchable.swift; sourceTree = "<group>"; };
 		57F108791F53C92000DC365B /* MDisplayLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MDisplayLink.swift; path = Source/platform/MDisplayLink.swift; sourceTree = SOURCE_ROOT; };
@@ -1285,7 +1282,6 @@
 			children = (
 				57F108731F502A3600DC365B /* Touchable.swift */,
 				57E5E1501E3B393900D1CB28 /* MacawView.swift */,
-				57E5E1511E3B393900D1CB28 /* NodesMap.swift */,
 				57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */,
 			);
 			path = views;
@@ -2007,7 +2003,6 @@
 				5B6E194020AC58F900454E7E /* Stroke.swift in Sources */,
 				57614B041F83D15600875933 /* SVGParser.swift in Sources */,
 				57614B051F83D15600875933 /* SWXMLHash.swift in Sources */,
-				57614B061F83D15600875933 /* NodesMap.swift in Sources */,
 				57614B071F83D15600875933 /* RenderUtils.swift in Sources */,
 				57614B081F83D15600875933 /* FuncBounds.swift in Sources */,
 				57614B091F83D15600875933 /* MView_iOS.swift in Sources */,
@@ -2146,7 +2141,6 @@
 				57E5E1AB1E3B393900D1CB28 /* SVGParser.swift in Sources */,
 				5B6E193F20AC58F900454E7E /* Stroke.swift in Sources */,
 				572CEFC81E2CED4B008C7C83 /* SWXMLHash.swift in Sources */,
-				57E5E1B31E3B393900D1CB28 /* NodesMap.swift in Sources */,
 				57E5E1A71E3B393900D1CB28 /* RenderUtils.swift in Sources */,
 				57E5E1601E3B393900D1CB28 /* FuncBounds.swift in Sources */,
 				A718CD481F45C28700966E06 /* MView_iOS.swift in Sources */,

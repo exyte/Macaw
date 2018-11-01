@@ -19,11 +19,10 @@ class RenderUtils {
     class func createNodeRenderer(
         _ node: Node,
         view: MView?,
-        animationCache: AnimationCache?,
-        interval: RenderingInterval? = .none
+        animationCache: AnimationCache?
         ) -> NodeRenderer {
         if let group = node as? Group {
-            return GroupRenderer(group: group, view: view, animationCache: animationCache, interval: interval)
+            return GroupRenderer(group: group, view: view, animationCache: animationCache)
         } else if let shape = node as? Shape {
             return ShapeRenderer(shape: shape, view: view, animationCache: animationCache)
         } else if let text = node as? Text {

@@ -161,4 +161,12 @@ class TextRenderer: NodeRenderer {
         }
         return MColor.black
     }
+
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
+
+        if let node = replacementNode as? Text {
+            text = node
+        }
+    }
 }

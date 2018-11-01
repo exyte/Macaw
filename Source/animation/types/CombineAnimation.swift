@@ -10,7 +10,7 @@ internal class CombineAnimation: BasicAnimation {
         super.init()
 
         self.type = .combine
-        self.nodeId = nodeId ?? animations.first?.nodeId
+        self.node = node ?? animations.first?.node
         self.delay = delay
     }
 
@@ -84,6 +84,6 @@ public extension Sequence where Iterator.Element: Animation {
         self.forEach { animation in
             toCombine.append(animation as! BasicAnimation)
         }
-        return CombineAnimation(animations: toCombine, delay: delay, node: node)
+        return CombineAnimation(animations: toCombine, delay: delay, node: node ?? toCombine.first?.node)
     }
 }

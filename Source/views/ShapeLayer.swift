@@ -8,7 +8,6 @@ import AppKit
 
 class ShapeLayer: CAShapeLayer {
     weak var node: Node?
-    var renderingInterval: RenderingInterval?
     var renderTransform: CGAffineTransform?
     weak var animationCache: AnimationCache?
     var shouldRenderContent = true
@@ -35,7 +34,7 @@ class ShapeLayer: CAShapeLayer {
             ctx.concatenate(renderTransform)
         }
 
-        let renderer = RenderUtils.createNodeRenderer(node, view: renderContext.view, animationCache: animationCache, interval: renderingInterval)
+        let renderer = RenderUtils.createNodeRenderer(node, view: renderContext.view, animationCache: animationCache)
         renderer.directRender(in: ctx, force: isForceRenderingEnabled)
         renderer.dispose()
     }

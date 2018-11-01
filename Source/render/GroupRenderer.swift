@@ -7,13 +7,10 @@ import UIKit
 class GroupRenderer: NodeRenderer {
 
     weak var group: Group?
+    var renderers: [NodeRenderer] = []
 
-    fileprivate var renderers: [NodeRenderer] = []
-    let renderingInterval: RenderingInterval?
-
-    init(group: Group, view: MView?, animationCache: AnimationCache?, interval: RenderingInterval? = .none) {
+    init(group: Group, view: MView?, animationCache: AnimationCache?) {
         self.group = group
-        self.renderingInterval = interval
         super.init(node: group, view: view, animationCache: animationCache)
         updateRenderers()
     }
@@ -54,6 +51,16 @@ class GroupRenderer: NodeRenderer {
         return nil
     }
 
+    override func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
+        for renderer in renderers.reversed() {
+            if var nodes = renderer.findAllNodesAt(location: location, ctx: ctx), let node = node() {
+                nodes.append(node)
+                return nodes
+            }
+        }
+        return nil
+    }
+
     override func dispose() {
         super.dispose()
         renderers.forEach { renderer in renderer.dispose() }
@@ -65,19 +72,19 @@ class GroupRenderer: NodeRenderer {
         renderers.removeAll()
 
         if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
-            guard let interval = renderingInterval else {
-                return RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
-            }
-
-            let index = AnimationUtils.absoluteIndex(child, useCache: true)
-            if index > interval.from && index < interval.to {
-                return RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache, interval: interval)
-            }
-
-            return .none
-
+            let childRenderer = RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
+            childRenderer.parentRenderer = self
+            return childRenderer
         }) {
             renderers = updatedRenderers
+        }
+    }
+
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
+
+        if let node = replacementNode as? Group {
+            group = node
         }
     }
 }

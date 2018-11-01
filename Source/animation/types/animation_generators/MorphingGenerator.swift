@@ -19,20 +19,19 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
         return
     }
 
-    guard let nodeId = animation.nodeId, let shape = Node.nodeBy(id: nodeId) as? Shape else {
+    guard let shape = animation.node as? Shape, let renderer = animation.nodeRenderer else {
         return
     }
 
     let mutatingShape = SceneUtils.shapeCopy(from: shape)
-    nodesMap.replace(node: shape, to: mutatingShape)
-    animationCache?.replace(original: shape, replacement: mutatingShape)
-    animation.nodeId = mutatingShape.id
+    renderer.replaceNode(with: mutatingShape)
+    animation.node = mutatingShape
 
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    guard let layer = animationCache?.layerForNode(mutatingShape, animation: animation, shouldRenderContent: false) else {
+    guard let layer = animationCache?.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false) else {
         return
     }
     // Creating proper animation
@@ -56,7 +55,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
             mutatingShape.form = morphingAnimation.getVFunc()(1.0)
         }
 
-        animationCache?.freeLayer(mutatingShape)
+        animationCache?.freeLayer(renderer)
 
         if  !animation.cycled &&
             !animation.manualStop {

@@ -127,7 +127,7 @@ public extension CGAffineTransform {
 
 public extension Node {
 
-    public func toNativeImage(size: Size, layout: ContentLayout = .of()) -> UIImage {
+    public func toNativeImage(size: Size, layout: ContentLayout = .of()) -> MImage {
         let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
         let rect = size.rect()
 

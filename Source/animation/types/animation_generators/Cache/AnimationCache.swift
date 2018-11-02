@@ -32,7 +32,7 @@ class AnimationCache {
             return ShapeLayer()
         }
 
-        if let cachedLayer = layerCache[renderer]  {
+        if let cachedLayer = layerCache[renderer] {
             cachedLayer.linksCounter += 1
             return cachedLayer.layer
         }
@@ -148,7 +148,7 @@ class AnimationCache {
 
     func isAnimating(_ node: Node) -> Bool {
 
-        let renderer = layerCache.keys.filter{ $0.node() === node }.first
+        let renderer = layerCache.keys.filter { $0.node() === node }.first
         if let renderer = renderer, let _ = layerCache[renderer] {
             return true
         }

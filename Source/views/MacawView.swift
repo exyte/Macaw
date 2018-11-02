@@ -196,13 +196,16 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
 
-    private func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) {
+    private func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) -> Int {
         nodeRenderer?.zPosition = currentIndex
         if let groupRenderer = nodeRenderer as? GroupRenderer {
-            for (i, child) in groupRenderer.renderers.enumerated() {
-                calculateZPosition(child, currentIndex: currentIndex + i + 1)
+            var i = currentIndex + 1
+            for child in groupRenderer.renderers {
+                i = calculateZPosition(child, currentIndex: i)
             }
+            return i
         }
+        return currentIndex + 1
     }
 
     public final func findNodeAt(location: CGPoint) -> Node? {

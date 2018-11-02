@@ -10,7 +10,7 @@ enum ColoringMode {
     case rgb, greyscale, alphaOnly
 }
 
-class NodeRenderer{
+class NodeRenderer {
 
     weak var view: MView?
     weak var parentRenderer: NodeRenderer?
@@ -72,7 +72,7 @@ class NodeRenderer{
 
     open func dispose() {
         removeObservers()
-        node()?.animationObservers = node()?.animationObservers.filter{ !($0 as? NodeRenderer === self) } ?? []
+        node()?.animationObservers = node()?.animationObservers.filter { !($0 as? NodeRenderer === self) } ?? []
     }
 
     open func node() -> Node? {

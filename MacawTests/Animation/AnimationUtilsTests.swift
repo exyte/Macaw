@@ -13,27 +13,38 @@ class AnimationUtilsTests: XCTestCase {
     
     func testIndex() {
         let rootGroup = Group()
-        let a = Node()
+        let a = Shape(form: Locus())
         rootGroup.contents.append(a)
         
-        let aGroup = Group()
-        let b = Node()
-        let c = Node()
-        aGroup.contents.append(b)
-        aGroup.contents.append(c)
-        rootGroup.contents.append(aGroup)
+        let bGroup = Group()
+        let c = Shape(form: Locus())
+        let d = Shape(form: Locus())
+        bGroup.contents.append(c)
+        bGroup.contents.append(d)
+        rootGroup.contents.append(bGroup)
         
-        let d = Node()
-        let e = Node()
-        rootGroup.contents.append(d)
+        let e = Shape(form: Locus())
+        let f = Shape(form: Locus())
         rootGroup.contents.append(e)
+        rootGroup.contents.append(f)
+
+        let view = MacawView()
+        view.node = rootGroup
+        view.draw(CGRect(x: 0, y: 0, width: 100, height: 100))
+        let rootRenderer = view.renderer as? GroupRenderer
+        let aRenderer = rootRenderer?.renderers[0]
+        let bRenderer = rootRenderer?.renderers[1] as? GroupRenderer
+        let cRenderer = bRenderer?.renderers[0]
+        let dRenderer = bRenderer?.renderers[1]
+        let eRenderer = rootRenderer?.renderers[2]
+        let fRenderer = rootRenderer?.renderers[3]
         
-        XCTAssert(AnimationUtils.absoluteIndex(rootGroup) == 0)
-        XCTAssert(AnimationUtils.absoluteIndex(a) == 1)
-        XCTAssert(AnimationUtils.absoluteIndex(aGroup) == 2)
-        XCTAssert(AnimationUtils.absoluteIndex(b) == 3)
-        XCTAssert(AnimationUtils.absoluteIndex(c) == 4 )
-        XCTAssert(AnimationUtils.absoluteIndex(d) == 5 )
-        XCTAssert(AnimationUtils.absoluteIndex(e) == 6 )
+        XCTAssert(rootRenderer?.zPosition == 0)
+        XCTAssert(aRenderer?.zPosition == 1)
+        XCTAssert(bRenderer?.zPosition == 2)
+        XCTAssert(cRenderer?.zPosition == 3)
+        XCTAssert(dRenderer?.zPosition == 4 )
+        XCTAssert(eRenderer?.zPosition == 5 )
+        XCTAssert(fRenderer?.zPosition == 6 )
     }
 }

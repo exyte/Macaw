@@ -11,3 +11,5 @@ script:
 
 notifications:
     slack: exyte:kdo9FNtTOFMuMqAyyvZPDAD7
+        on_success: change
+        on_failure: always

@@ -38,6 +38,20 @@ open class Node: Drawable {
         set(val) { effectVar.value = val }
     }
 
+    // MARK: - Searching
+    public func nodeBy(tag: String) -> Node? {
+        if self.tag.contains(tag) {
+            return self
+        }
+
+        return .none
+    }
+
+    public func nodesBy(tag: String) -> [Node] {
+        return [nodeBy(tag: tag)].compactMap { $0 }
+    }
+
+    // MARK: - Events
     internal var animationObservers = [AnimationObserver]()
 
     var touchPressedHandlers = [ChangeHandler<TouchEvent>]()

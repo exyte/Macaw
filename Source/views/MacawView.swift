@@ -196,7 +196,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
 
-    private func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) -> Int {
+    @discardableResult private func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) -> Int {
         nodeRenderer?.zPosition = currentIndex
         if let groupRenderer = nodeRenderer as? GroupRenderer {
             var i = currentIndex + 1

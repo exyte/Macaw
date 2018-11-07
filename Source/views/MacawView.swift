@@ -408,10 +408,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     func findTappedNodes(location: CGPoint) -> [Node]? {
         MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
         if let ctx = MGraphicsGetCurrentContext() {
-            guard let foundNodes = doFindAllNodes(location: location, ctx: ctx) else {
-                return nil
-            }
-            return foundNodes
+            return doFindAllNodes(location: location, ctx: ctx)
         }
         MGraphicsEndImageContext()
         return nil

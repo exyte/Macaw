@@ -12,19 +12,21 @@ import XCTest
 class AnimationUtilsTests: XCTestCase {
     
     func testIndex() {
+        let shape = Circle(cx: 0, cy: 0, r: 10)
+        
         let rootGroup = Group()
-        let a = Shape(form: Locus())
+        let a = Shape(form: shape)
         rootGroup.contents.append(a)
         
         let bGroup = Group()
-        let c = Shape(form: Locus())
-        let d = Shape(form: Locus())
+        let c = Shape(form: shape)
+        let d = Shape(form: shape)
         bGroup.contents.append(c)
         bGroup.contents.append(d)
         rootGroup.contents.append(bGroup)
         
-        let e = Shape(form: Locus())
-        let f = Shape(form: Locus())
+        let e = Shape(form: shape)
+        let f = Shape(form: shape)
         rootGroup.contents.append(e)
         rootGroup.contents.append(f)
 

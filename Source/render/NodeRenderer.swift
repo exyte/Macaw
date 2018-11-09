@@ -12,7 +12,7 @@ enum ColoringMode {
 
 class NodeRenderer {
 
-    weak var view: MView?
+    weak var view: MacawView?
     weak var parentRenderer: NodeRenderer?
     internal var zPosition: Int = 0
 
@@ -21,7 +21,7 @@ class NodeRenderer {
     fileprivate var active = false
     weak var animationCache: AnimationCache?
 
-    init(node: Node, view: MView?, animationCache: AnimationCache?) {
+    init(node: Node, view: MacawView?, animationCache: AnimationCache?) {
         self.view = view
         self.animationCache = animationCache
 
@@ -306,7 +306,7 @@ class NodeRenderer {
             group.contents = contents
         }
 
-        if let hostingView = view as? MacawView, hostingView.node == node {
+        if let hostingView = view, hostingView.node == node {
             hostingView.node = replacementNode
         }
     }

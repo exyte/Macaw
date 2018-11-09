@@ -9,7 +9,7 @@ import AppKit
 class TextRenderer: NodeRenderer {
     weak var text: Text?
 
-    init(text: Text, view: MView?, animationCache: AnimationCache?) {
+    init(text: Text, view: MacawView?, animationCache: AnimationCache?) {
         self.text = text
         super.init(node: text, view: view, animationCache: animationCache)
     }

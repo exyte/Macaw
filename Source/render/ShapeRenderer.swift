@@ -10,7 +10,7 @@ class ShapeRenderer: NodeRenderer {
 
     weak var shape: Shape?
 
-    init(shape: Shape, view: MView?, animationCache: AnimationCache?) {
+    init(shape: Shape, view: MacawView?, animationCache: AnimationCache?) {
         self.shape = shape
         super.init(node: shape, view: view, animationCache: animationCache)
     }

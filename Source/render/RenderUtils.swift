@@ -18,7 +18,7 @@ class RenderUtils {
 
     class func createNodeRenderer(
         _ node: Node,
-        view: MView?,
+        view: MacawView?,
         animationCache: AnimationCache?
         ) -> NodeRenderer {
         if let group = node as? Group {

@@ -86,7 +86,7 @@ class AnimationProducer {
             break
         }
 
-        guard let macawView = animation.nodeRenderer?.view as? MacawView else {
+        guard let macawView = animation.nodeRenderer?.view else {
             storedAnimations[node] = animation
             return
         }

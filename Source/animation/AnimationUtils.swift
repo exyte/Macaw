@@ -11,7 +11,7 @@ class AnimationUtils {
         while parentRenderer != nil {
 
             if let canvas = parentRenderer?.node() as? SVGCanvas,
-                let view = parentRenderer?.view as? MacawView {
+                let view = parentRenderer?.view {
                 let rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
                 let canvasTransform = view.contentLayout.layout(rect: rect, into: view.bounds.size.toMacaw()).move(dx: rect.x, dy: rect.y)
                 transform = canvasTransform.concat(with: transform)

@@ -9,7 +9,7 @@ class GroupRenderer: NodeRenderer {
     weak var group: Group?
     var renderers: [NodeRenderer] = []
 
-    init(group: Group, view: MView?, animationCache: AnimationCache?) {
+    init(group: Group, view: MacawView?, animationCache: AnimationCache?) {
         self.group = group
         super.init(node: group, view: view, animationCache: animationCache)
         updateRenderers()

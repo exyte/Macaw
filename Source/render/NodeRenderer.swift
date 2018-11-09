@@ -255,7 +255,7 @@ class NodeRenderer {
         return nil
     }
 
-    public final func findAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
+    public final func findAllNodesAt(location: CGPoint, ctx: CGContext) -> [NodeTouch]? {
         guard let node = node() else {
             return .none
         }
@@ -282,11 +282,11 @@ class NodeRenderer {
         return nil
     }
 
-    public func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
+    public func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [NodeTouch]? {
         if let node = doFindNodeAt(location: location, ctx: ctx) {
-            return [node]
+            return [(node, location)]
         }
-        return nil
+        return .none
     }
 
     func replaceNode(with replacementNode: Node) {

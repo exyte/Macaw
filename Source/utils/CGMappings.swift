@@ -85,6 +85,14 @@ public extension CGRect {
 
 }
 
+public extension Size {
+
+    public func toCG() -> CGSize {
+        return CGSize(width: self.w, height: self.h)
+    }
+
+}
+
 public extension CGSize {
 
     public func toMacaw() -> Size {
@@ -102,10 +110,10 @@ public extension Point {
 
 }
 
-public extension Size {
+public extension CGPoint {
 
-    public func toCG() -> CGSize {
-        return CGSize(width: self.w, height: self.h)
+    public func toMacaw() -> Point {
+        return Point(x: Double(x), y: Double(y))
     }
 
 }

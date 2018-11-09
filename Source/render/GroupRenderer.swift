@@ -51,14 +51,14 @@ class GroupRenderer: NodeRenderer {
         return nil
     }
 
-    override func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
+    override func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [NodeTouch]? {
         for renderer in renderers.reversed() {
             if var nodes = renderer.findAllNodesAt(location: location, ctx: ctx), let node = node() {
-                nodes.append(node)
+                nodes.append((node, location))
                 return nodes
             }
         }
-        return nil
+        return .none
     }
 
     override func dispose() {

@@ -4,22 +4,7 @@ open class Group: Node {
     open var contents: [Node] {
         get { return contentsVar.value }
         set(val) {
-
-            contentsVar.value.forEach { subNode in
-                nodesMap.remove(subNode)
-            }
-
             contentsVar.value = val
-
-            if let view = nodesMap.getView(self) {
-                val.forEach { subNode in
-                    nodesMap.add(subNode, view: view)
-                }
-            }
-
-            val.forEach { subNode in
-                nodesMap.add(subNode, parent: self)
-            }
         }
     }
 

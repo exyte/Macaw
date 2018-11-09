@@ -6,25 +6,22 @@ import UIKit
 import AppKit
 #endif
 
-struct RenderingInterval {
-    let from: Int
-    let to: Int
-}
-
 enum ColoringMode {
     case rgb, greyscale, alphaOnly
 }
 
 class NodeRenderer {
 
-    weak var view: MView?
+    weak var view: MacawView?
+    weak var parentRenderer: NodeRenderer?
+    internal var zPosition: Int = 0
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
     weak var animationCache: AnimationCache?
 
-    init(node: Node, view: MView?, animationCache: AnimationCache?) {
+    init(node: Node, view: MacawView?, animationCache: AnimationCache?) {
         self.view = view
         self.animationCache = animationCache
 
@@ -57,6 +54,8 @@ class NodeRenderer {
         observe(node.opacityVar)
         observe(node.clipVar)
         observe(node.effectVar)
+
+        node.animationObservers.append(self)
     }
 
     func observe<E>(_ v: Variable<E>) {
@@ -73,6 +72,7 @@ class NodeRenderer {
 
     open func dispose() {
         removeObservers()
+        node()?.animationObservers = node()?.animationObservers.filter { !($0 as? NodeRenderer === self) } ?? []
     }
 
     open func node() -> Node? {
@@ -255,8 +255,60 @@ class NodeRenderer {
         return nil
     }
 
+    public final func findAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
+        guard let node = node() else {
+            return .none
+        }
+
+        if node.opaque {
+            let place = node.place
+            if let inverted = place.invert() {
+                ctx.saveGState()
+                defer {
+                    ctx.restoreGState()
+                }
+
+                ctx.concatenate(place.toCG())
+                applyClip(in: ctx)
+                let loc = location.applying(inverted.toCG())
+                let result = doFindAllNodesAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
+                return result
+            }
+        }
+        return nil
+    }
+
     public func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
         return nil
+    }
+
+    public func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
+        if let node = doFindNodeAt(location: location, ctx: ctx) {
+            return [node]
+        }
+        return nil
+    }
+
+    func replaceNode(with replacementNode: Node) {
+        guard let node = node() else {
+            return
+        }
+
+        if let groupRenderer = parentRenderer as? GroupRenderer, let group = groupRenderer.node() as? Group {
+            var contents = group.contents
+            var indexToInsert = 0
+            if let index = contents.index(of: node) {
+                contents.remove(at: index)
+                indexToInsert = index
+            }
+
+            contents.insert(replacementNode, at: indexToInsert)
+            group.contents = contents
+        }
+
+        if let hostingView = view, hostingView.node == node {
+            hostingView.node = replacementNode
+        }
     }
 
     private func applyClip(in context: CGContext) {
@@ -323,4 +375,15 @@ class NodeRenderer {
             disposables.dispose()
         }
     }
+}
+
+protocol AnimationObserver {
+    func processAnimation(_ animation: BasicAnimation)
+}
+
+extension NodeRenderer: AnimationObserver {
+    func processAnimation(_ animation: BasicAnimation) {
+        animation.nodeRenderer = self
+    }
+
 }

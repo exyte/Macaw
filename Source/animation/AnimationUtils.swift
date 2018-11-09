@@ -1,96 +1,50 @@
 import Foundation
 
 class AnimationUtils {
-    class func absolutePosition(_ node: Node, view: MacawView? = nil) -> Transform {
-        return AnimationUtils.absoluteTransform(node, pos: node.place, view: view)
+    class func absolutePosition(_ nodeRenderer: NodeRenderer?) -> Transform {
+        return AnimationUtils.absoluteTransform(nodeRenderer, pos: nodeRenderer?.node()?.place ?? .identity)
     }
 
-    class func absoluteTransform(_ node: Node, pos: Transform, view: MacawView? = nil) -> Transform {
+    class func absoluteTransform(_ nodeRenderer: NodeRenderer?, pos: Transform) -> Transform {
         var transform = pos
-        var parent = nodesMap.parents(node).first
-        while parent != .none {
+        var parentRenderer = nodeRenderer?.parentRenderer
+        while parentRenderer != nil {
 
-            if let canvas = parent as? SVGCanvas,
-                let view = nodesMap.getView(canvas) {
+            if let canvas = parentRenderer?.node() as? SVGCanvas,
+                let view = parentRenderer?.view {
                 let rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
                 let canvasTransform = view.contentLayout.layout(rect: rect, into: view.bounds.size.toMacaw()).move(dx: rect.x, dy: rect.y)
                 transform = canvasTransform.concat(with: transform)
-            } else {
-                transform = parent!.place.concat(with: transform)
+            } else if let node = parentRenderer?.node() {
+                transform = node.place.concat(with: transform)
             }
 
-            parent = nodesMap.parents(parent!).first
+            parentRenderer = parentRenderer?.parentRenderer
         }
 
         return transform
     }
 
-    class func absoluteClip(node: Node) -> Locus? {
-
-        if let _ = node.clip {
-            return node.clip
+    class func absoluteClip(_ nodeRenderer: NodeRenderer?) -> Locus? {
+        // shouldn't this be a superposition of all parents' clips?
+        let node = nodeRenderer?.node()
+        if let _ = node?.clip {
+            return node?.clip
         }
 
-        var parent = nodesMap.parents(node).first
-        while parent != .none {
-            if let _ = parent?.clip {
-                return parent?.clip
+        var parentRenderer = nodeRenderer?.parentRenderer
+        while parentRenderer != nil {
+            if let _ = parentRenderer?.node()?.clip {
+                return parentRenderer?.node()?.clip
             }
 
-            parent = nodesMap.parents(parent!).first
+            parentRenderer = parentRenderer?.parentRenderer
         }
 
         return .none
     }
 
     private static var indexCache = [Node: Int]()
-
-    class func absoluteIndex(_ node: Node, useCache: Bool = false) -> Int {
-        if useCache {
-            if let cachedIndex = indexCache[node] {
-                return cachedIndex
-            }
-        } else {
-            indexCache.removeAll()
-        }
-
-        func childrenTotalCount(_ node: Node) -> Int {
-            guard let group = node as? Group else {
-                return 1
-            }
-
-            var count = 1
-            for child in group.contents {
-                count += childrenTotalCount(child)
-            }
-
-            return count
-        }
-
-        var zIndex = 0
-        var parent = nodesMap.parents(node).first
-        var currentNode = node
-        while parent != .none {
-            if let group = parent as? Group {
-                let localIndex = group.contents.index(of: currentNode) ?? group.contents.count
-
-                for i in 0..<localIndex {
-                    zIndex += childrenTotalCount(group.contents[i])
-                }
-            }
-
-            zIndex += 1
-
-            currentNode = parent!
-            parent = nodesMap.parents(parent!).first
-        }
-
-        if useCache {
-            indexCache[node] = zIndex
-        }
-
-        return zIndex
-    }
 
     class func animatedNodes(root: Node, animationCache: AnimationCache) -> [Node] {
         if animationCache.isAnimating(root) {

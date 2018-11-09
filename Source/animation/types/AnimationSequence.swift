@@ -10,7 +10,7 @@ internal class AnimationSequence: BasicAnimation {
         super.init()
 
         self.type = .sequence
-        self.nodeId = animations.first?.nodeId
+        self.node = animations.first?.node
         self.delay = delay
     }
 

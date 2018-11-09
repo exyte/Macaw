@@ -20,71 +20,75 @@ class AnimationCache {
     }
 
     weak var sceneLayer: CALayer?
-    var layerCache = [Node: CachedLayer]()
+    var layerCache = [NodeRenderer: CachedLayer]()
 
     required init(sceneLayer: CALayer) {
         self.sceneLayer = sceneLayer
     }
 
-    func layerForNode(_ node: Node, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
-        guard let cachedLayer = layerCache[node] else {
-            let layer = ShapeLayer()
-            layer.shouldRenderContent = shouldRenderContent
-            layer.animationCache = self
+    func layerForNodeRenderer(_ renderer: NodeRenderer, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
 
-            // Use to debug animation layers
-            // layer.backgroundColor = MColor.green.cgColor
-            // layer.borderWidth = 1.0
-            // layer.borderColor = MColor.blue.cgColor
-
-            let calculatedBounds = customBounds ?? node.bounds
-            if let shapeBounds = calculatedBounds {
-                let cgRect = shapeBounds.toCG()
-
-                let origFrame = CGRect(x: 0.0, y: 0.0,
-                                       width: round(cgRect.width),
-                                       height: round(cgRect.height))
-
-                layer.bounds = origFrame
-                layer.anchorPoint = CGPoint(
-                    x: -1.0 * cgRect.origin.x / cgRect.width,
-                    y: -1.0 * cgRect.origin.y / cgRect.height
-                )
-                layer.zPosition = CGFloat(AnimationUtils.absoluteIndex(node))
-
-                layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
-
-                let nodeTransform = AnimationUtils.absolutePosition(node).toCG()
-                layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
-
-                // Clip
-                if let clip = AnimationUtils.absoluteClip(node: node) {
-                    let maskLayer = CAShapeLayer()
-                    let origPath = clip.toCGPath()
-                    var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
-                    let clipPath = origPath.mutableCopy(using: &offsetTransform)
-                    maskLayer.path = clipPath
-                    layer.mask = maskLayer
-                }
-            }
-
-            layer.opacity = Float(node.opacity)
-            layer.node = node
-
-            layer.contentsScale = calculateAnimationScale(animation: animation)
-
-            layer.setNeedsDisplay()
-            sceneLayer?.addSublayer(layer)
-
-            layerCache[node] = CachedLayer(layer: layer, animation: animation)
-            sceneLayer?.setNeedsDisplay()
-
-            return layer
+        guard let node = renderer.node() else {
+            return ShapeLayer()
         }
 
-        cachedLayer.linksCounter += 1
+        if let cachedLayer = layerCache[renderer] {
+            cachedLayer.linksCounter += 1
+            return cachedLayer.layer
+        }
 
-        return cachedLayer.layer
+        let layer = ShapeLayer()
+        layer.shouldRenderContent = shouldRenderContent
+        layer.animationCache = self
+
+        // Use to debug animation layers
+        // layer.backgroundColor = MColor.green.cgColor
+        // layer.borderWidth = 1.0
+        // layer.borderColor = MColor.blue.cgColor
+
+        let calculatedBounds = customBounds ?? node.bounds
+        if let shapeBounds = calculatedBounds {
+            let cgRect = shapeBounds.toCG()
+
+            let origFrame = CGRect(x: 0.0, y: 0.0,
+                                   width: round(cgRect.width),
+                                   height: round(cgRect.height))
+
+            layer.bounds = origFrame
+            layer.anchorPoint = CGPoint(
+                x: -1.0 * cgRect.origin.x / cgRect.width,
+                y: -1.0 * cgRect.origin.y / cgRect.height
+            )
+            layer.zPosition = CGFloat(renderer.zPosition)
+
+            layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+
+            let nodeTransform = AnimationUtils.absolutePosition(renderer).toCG()
+            layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
+
+            // Clip
+            if let clip = AnimationUtils.absoluteClip(renderer) {
+                let maskLayer = CAShapeLayer()
+                let origPath = clip.toCGPath()
+                var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
+                let clipPath = origPath.mutableCopy(using: &offsetTransform)
+                maskLayer.path = clipPath
+                layer.mask = maskLayer
+            }
+        }
+
+        layer.opacity = Float(node.opacity)
+        layer.node = node
+
+        layer.contentsScale = calculateAnimationScale(animation: animation)
+
+        layer.setNeedsDisplay()
+        sceneLayer?.addSublayer(layer)
+
+        layerCache[renderer] = CachedLayer(layer: layer, animation: animation)
+        sceneLayer?.setNeedsDisplay()
+
+        return layer
     }
 
     private func calculateAnimationScale(animation: Animation) -> CGFloat {
@@ -125,8 +129,8 @@ class AnimationCache {
         return defaultScale * CGFloat(sqrt(maxArea))
     }
 
-    func freeLayer(_ node: Node) {
-        guard let cachedLayer = layerCache[node] else {
+    func freeLayer(_ renderer: NodeRenderer) {
+        guard let cachedLayer = layerCache[renderer] else {
             return
         }
 
@@ -137,14 +141,15 @@ class AnimationCache {
         }
 
         let layer = cachedLayer.layer
-        layerCache.removeValue(forKey: node)
+        layerCache.removeValue(forKey: renderer)
         sceneLayer?.setNeedsDisplay()
         layer.removeFromSuperlayer()
     }
 
     func isAnimating(_ node: Node) -> Bool {
 
-        if let _ = layerCache[node] {
+        let renderer = layerCache.keys.filter { $0.node() === node }.first
+        if let renderer = renderer, let _ = layerCache[renderer] {
             return true
         }
 
@@ -183,7 +188,7 @@ class AnimationCache {
         return layerCache.map { $0.1.animation }
     }
 
-    func replace(original: Node, replacement: Node) {
+    func replace(original: NodeRenderer, replacement: NodeRenderer) {
         guard let layer = layerCache[original] else {
             return
         }

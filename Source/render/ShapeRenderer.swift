@@ -10,7 +10,7 @@ class ShapeRenderer: NodeRenderer {
 
     weak var shape: Shape?
 
-    init(shape: Shape, view: MView?, animationCache: AnimationCache?) {
+    init(shape: Shape, view: MacawView?, animationCache: AnimationCache?) {
         self.shape = shape
         super.init(node: shape, view: view, animationCache: animationCache)
     }
@@ -215,6 +215,14 @@ class ShapeRenderer: NodeRenderer {
             ctx!.drawRadialGradient(cgGradient!, startCenter: innerCenter, startRadius: 0, endCenter: outerCenter, endRadius: radius, options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
         }
         ctx!.restoreGState()
+    }
+
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
+
+        if let node = replacementNode as? Shape {
+            shape = node
+        }
     }
 
 }

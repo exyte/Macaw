@@ -93,12 +93,13 @@
 		574EC4271CB7DE7F0063F317 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				5BAE3CAF20C54DA5006BEF51 /* Filters */,
-				57AF398A1E67E86400F0BFE2 /* Events */,
-				5747F9BB1E38B660004E338F /* Morphing */,
+				574EC4331CB7DE7F0063F317 /* Shapes */,
 				6699B7CE1DFFE8B90072585E /* Transform */,
 				574EC4421CBB607E0063F317 /* Animations */,
-				574EC4331CB7DE7F0063F317 /* Shapes */,
+				5B08CF00218832A700D37662 /* Easing */,
+				5747F9BB1E38B660004E338F /* Morphing */,
+				57AF398A1E67E86400F0BFE2 /* Events */,
+				5BAE3CAF20C54DA5006BEF51 /* Filters */,
 				574EC4401CB7E2440063F317 /* MenuViewController.swift */,
 			);
 			path = Examples;
@@ -117,8 +118,6 @@
 			children = (
 				574EC4431CBB60AF0063F317 /* AnimationsExampleController.swift */,
 				575129B51CBD14AF00BD3C2E /* AnimationsView.swift */,
-				B04416F91E041A420016BC50 /* EasingView.swift */,
-				B04416FB1E04282A0016BC50 /* EasingExampleController.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -129,6 +128,15 @@
 				57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		5B08CF00218832A700D37662 /* Easing */ = {
+			isa = PBXGroup;
+			children = (
+				B04416FB1E04282A0016BC50 /* EasingExampleController.swift */,
+				B04416F91E041A420016BC50 /* EasingView.swift */,
+			);
+			path = Easing;
 			sourceTree = "<group>";
 		};
 		5BAE3CAF20C54DA5006BEF51 /* Filters */ = {

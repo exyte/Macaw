@@ -13,7 +13,7 @@ class ImageRenderer: NodeRenderer {
 
     var renderedPaths: [CGPath] = [CGPath]()
 
-    init(image: Image, view: MView?, animationCache: AnimationCache?) {
+    init(image: Image, view: MacawView?, animationCache: AnimationCache?) {
         self.image = image
         super.init(node: image, view: view, animationCache: animationCache)
     }
@@ -76,5 +76,13 @@ class ImageRenderer: NodeRenderer {
             }
         }
         return .none
+    }
+
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
+
+        if let node = replacementNode as? Image {
+            image = node
+        }
     }
 }

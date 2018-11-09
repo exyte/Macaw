@@ -38,20 +38,6 @@ open class Node: Drawable {
         set(val) { effectVar.value = val }
     }
 
-    internal var id: String {
-        didSet {
-            Node.map.removeObject(forKey: id as NSString)
-            Node.map.setObject(self, forKey: id as NSString)
-        }
-    }
-
-    // MARK: - ID map
-    private static let map = NSMapTable<NSString, Node>(keyOptions: NSMapTableStrongMemory, valueOptions: NSMapTableWeakMemory)
-
-    public static func nodeBy(id: String) -> Node? {
-        return Node.map.object(forKey: id as NSString)
-    }
-
     // MARK: - Searching
     public func nodeBy(tag: String) -> Node? {
         if self.tag.contains(tag) {
@@ -66,6 +52,7 @@ open class Node: Drawable {
     }
 
     // MARK: - Events
+    internal var animationObservers = [AnimationObserver]()
 
     var touchPressedHandlers = [ChangeHandler<TouchEvent>]()
     var touchMovedHandlers = [ChangeHandler<TouchEvent>]()
@@ -94,7 +81,7 @@ open class Node: Drawable {
         }
     }
 
-    @discardableResult public func onTouchMoved   (_ f: @escaping (TouchEvent) -> Void) -> Disposable {
+    @discardableResult public func onTouchMoved(_ f: @escaping (TouchEvent) -> Void) -> Disposable {
         let handler = ChangeHandler<TouchEvent>(f)
         touchMovedHandlers.append(handler)
 
@@ -307,7 +294,6 @@ open class Node: Drawable {
         self.clipVar = Variable<Locus?>(clip)
         self.maskVar = Variable<Node?>(mask)
         self.effectVar = Variable<Effect?>(effect)
-        self.id = NSUUID().uuidString
 
         super.init(
             visible: visible,
@@ -315,8 +301,6 @@ open class Node: Drawable {
         )
         self.placeVar.node = self
         self.opacityVar.node = self
-
-        Node.map.setObject(self, forKey: self.id as NSString)
     }
 
     open var bounds: Rect? {

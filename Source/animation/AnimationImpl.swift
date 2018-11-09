@@ -22,7 +22,8 @@ enum AnimationType {
 
 class BasicAnimation: Animation {
 
-    var nodeId: String?
+    weak var node: Node?
+    weak var nodeRenderer: NodeRenderer?
     var type = AnimationType.unknown
     let ID: String
     var next: BasicAnimation?

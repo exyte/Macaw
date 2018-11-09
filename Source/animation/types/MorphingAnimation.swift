@@ -12,7 +12,7 @@ class MorphingAnimation: AnimationImpl<Locus> {
     init(animatedNode: Shape, valueFunc: @escaping (Double) -> Locus, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.formVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .morphing
-        nodeId = animatedNode.id
+        node = animatedNode
 
         if autostart {
             self.play()
@@ -22,7 +22,7 @@ class MorphingAnimation: AnimationImpl<Locus> {
     init(animatedNode: Shape, factory: @escaping (() -> ((Double) -> Locus)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.formVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .morphing
-        nodeId = animatedNode.id
+        node = animatedNode
 
         if autostart {
             self.play()

@@ -16,7 +16,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
     init(animatedNode: Node, valueFunc: @escaping (Double) -> Transform, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.placeVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .affineTransformation
-        nodeId = animatedNode.id
+        node = animatedNode
 
         if autostart {
             self.play()
@@ -26,7 +26,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
     init(animatedNode: Node, factory: @escaping (() -> ((Double) -> Transform)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
         super.init(observableValue: animatedNode.placeVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .affineTransformation
-        nodeId = animatedNode.id
+        node = animatedNode
 
         if autostart {
             self.play()
@@ -36,7 +36,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
     init(animatedNode: Node, factory: @escaping (() -> ((Double) -> Transform)), along path: Path, animationDuration: Double = 1.0, delay: Double = 0.0, autostart: Bool = false) {
         super.init(observableValue: animatedNode.placeVar, factory: factory, animationDuration: animationDuration, delay: delay)
         type = .affineTransformation
-        nodeId = animatedNode.id
+        node = animatedNode
         self.trajectory = path
 
         if autostart {
@@ -53,7 +53,6 @@ internal class TransformAnimation: AnimationImpl<Transform> {
             }
         }
 
-        let node = Node.nodeBy(id: nodeId!)
         let reversedAnimation = TransformAnimation(animatedNode: node!,
                                                    factory: factory, animationDuration: duration, fps: logicalFps)
         reversedAnimation.progress = progress

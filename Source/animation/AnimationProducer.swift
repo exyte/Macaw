@@ -10,7 +10,7 @@ let animationProducer = AnimationProducer()
 
 class AnimationProducer {
 
-    var storedAnimations = [Node: BasicAnimation]()
+    var storedAnimations = [Node: BasicAnimation]() // is used to make sure node is in view hierarchy before actually creating the animation
     var delayedAnimations = [BasicAnimation: Timer]()
     var displayLink: MDisplayLinkProtocol?
 
@@ -66,11 +66,27 @@ class AnimationProducer {
         }
 
         // General case
-        guard let nodeId = animation.nodeId, let node = Node.nodeBy(id: nodeId) else {
+        guard let node = animation.node else {
             return
         }
+        for observer in node.animationObservers {
+            observer.processAnimation(animation)
+        }
 
-        guard let macawView = nodesMap.getView(node) else {
+        switch animation.type {
+        case .unknown:
+            return
+        case .empty:
+            executeCompletion(animation)
+        case .sequence:
+            addAnimationSequence(animation)
+        case .combine:
+            addCombineAnimation(animation)
+        default:
+            break
+        }
+
+        guard let macawView = animation.nodeRenderer?.view else {
             storedAnimations[node] = animation
             return
         }
@@ -85,8 +101,6 @@ class AnimationProducer {
 
         // swiftlint:disable superfluous_disable_command switch_case_alignment
         switch animation.type {
-        case .unknown:
-            return
         case .affineTransformation:
             addTransformAnimation(animation, sceneLayer: layer, animationCache: cache, completion: {
                 if let next = animation.next {
@@ -99,10 +113,6 @@ class AnimationProducer {
                     self.addAnimation(next)
                 }
             })
-        case .sequence:
-            addAnimationSequence(animation)
-        case .combine:
-            addCombineAnimation(animation)
         case .contents:
             addContentsAnimation(animation, cache: cache) {
                 if let next = animation.next {
@@ -121,8 +131,8 @@ class AnimationProducer {
                     self.addAnimation(next)
                 }
             }
-        case .empty:
-            executeCompletion(animation)
+        default:
+            break
         }
         // swiftlint:enable superfluous_disable_command switch_case_alignment
     }
@@ -282,10 +292,6 @@ class AnimationProducer {
             return
         }
 
-        guard let nodeId = animation.nodeId, let node = Node.nodeBy(id: nodeId) else {
-            return
-        }
-
         if animation.autoreverses {
             animation.autoreverses = false
             addAnimation([animation, animation.reverse()].sequence() as! BasicAnimation)
@@ -311,7 +317,7 @@ class AnimationProducer {
             unionBounds = unionBounds?.union(rect: contentsAnimation.getVFunc()(t).group().bounds!)
         }
 
-        guard let layer = cache?.layerForNode(node, animation: contentsAnimation, customBounds: unionBounds) else {
+        guard let renderer = animation.nodeRenderer, let layer = cache?.layerForNodeRenderer(renderer, animation: contentsAnimation, customBounds: unionBounds) else {
             return
         }
 
@@ -348,7 +354,7 @@ class AnimationProducer {
         for (index, animationDesc) in contentsAnimations.reversed().enumerated() {
 
             let animation = animationDesc.animation
-            guard let nodeId = animation.nodeId, let group = Node.nodeBy(id: nodeId) as? Group else {
+            guard let group = animation.node as? Group, let renderer = animation.nodeRenderer else {
                 continue
             }
 
@@ -373,7 +379,7 @@ class AnimationProducer {
                 }
 
                 contentsAnimations.remove(at: count - 1 - index)
-                animationDesc.cache?.freeLayer(group)
+                animationDesc.cache?.freeLayer(renderer)
                 animationDesc.completion?()
                 continue
             }
@@ -386,7 +392,7 @@ class AnimationProducer {
             if animation.manualStop || animation.paused {
                 defer {
                     contentsAnimations.remove(at: count - 1 - index)
-                    animationDesc.cache?.freeLayer(group)
+                    animationDesc.cache?.freeLayer(renderer)
                 }
 
                 if animation.manualStop {

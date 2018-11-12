@@ -6,16 +6,28 @@
 //
 //
 
-typealias NodeTouch = (Node, CGPoint)
-
 public enum Relativity {
     case parent
     case scene
 }
 
+class NodePath {
+    let node: Node
+    let location: CGPoint
+    var parent: NodePath?
+
+    init(node: Node, location: CGPoint, parent: NodePath? = nil) {
+        self.node = node
+        self.location = location
+        self.parent = parent
+    }
+}
+
 public struct TouchPoint {
     public let id: Int
-    @available(*, deprecated) public let location: Point // absolute location
+    @available(*, deprecated) public var location: Point // absolute location
+        { get { return absoluteLocation } }
+
     private let absoluteLocation: Point
     private let relativeLocation: Point // location inside the node
 
@@ -23,7 +35,6 @@ public struct TouchPoint {
         self.id = id
         self.absoluteLocation = location
         self.relativeLocation = relativeLocation
-        self.location = location
     }
 
     public func location(in relativity: Relativity = .parent) -> Point {

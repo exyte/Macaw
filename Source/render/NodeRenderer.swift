@@ -255,7 +255,7 @@ class NodeRenderer {
         return nil
     }
 
-    public final func findAllNodesAt(location: CGPoint, ctx: CGContext) -> [NodeTouch]? {
+    public final func findAllNodesAt(location: CGPoint, ctx: CGContext) -> NodePath? {
         guard let node = node() else {
             return .none
         }
@@ -271,8 +271,7 @@ class NodeRenderer {
                 ctx.concatenate(place.toCG())
                 applyClip(in: ctx)
                 let loc = location.applying(inverted.toCG())
-                let result = doFindAllNodesAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
-                return result
+                return doFindAllNodesAt(location: loc, ctx: ctx)
             }
         }
         return nil
@@ -282,9 +281,9 @@ class NodeRenderer {
         return nil
     }
 
-    public func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [NodeTouch]? {
+    public func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> NodePath? {
         if let node = doFindNodeAt(location: location, ctx: ctx) {
-            return [(node, location)]
+            return NodePath(node: node, location: location)
         }
         return .none
     }

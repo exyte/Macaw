@@ -60,7 +60,7 @@ class ShapeRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
         guard let shape = shape else {
             return .none
         }
@@ -80,10 +80,10 @@ class ShapeRenderer: NodeRenderer {
 
         var contains = false
         if let mode = drawingMode {
-            contains = ctx.pathContains(CGPoint(x: location.x, y: location.y), mode: mode)
+            contains = ctx.pathContains(path.location, mode: mode)
 
             if contains {
-                return node()
+                return path
             }
         }
 

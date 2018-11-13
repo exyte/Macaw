@@ -14,7 +14,7 @@ public enum Relativity {
 class NodePath {
     let node: Node
     let location: CGPoint
-    var parent: NodePath?
+    let parent: NodePath?
 
     init(node: Node, location: CGPoint, parent: NodePath? = nil) {
         self.node = node

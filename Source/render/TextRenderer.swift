@@ -62,13 +62,13 @@ class TextRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        guard let contains = node()?.bounds?.toCG().contains(location) else {
+    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
+        guard let node = node(), let contains = node.bounds?.toCG().contains(path.location) else {
             return .none
         }
 
         if contains {
-            return node()
+            return path
         }
 
         return .none

@@ -216,7 +216,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     private func doFindNode(location: CGPoint, ctx: CGContext) -> NodePath? {
-        guard let renderer = renderer, let ctx = context.cgContext else {
+        guard let renderer = renderer else {
             return .none
         }
         ctx.saveGState()
@@ -226,13 +226,13 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         let transform = layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw())
         ctx.concatenate(transform)
         let loc = location.applying(transform.inverted())
-        return renderer.findNodeAt(parentNodePath: NodePath(node: node, location: loc), ctx: ctx)
+        return renderer.findNodeAt(parentNodePath: NodePath(node: Node(), location: loc), ctx: ctx)
     }
 
     private func doFindNode(location: CGPoint) -> NodePath? {
         MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
         if let ctx = MGraphicsGetCurrentContext() {
-            return renderer?.findNodeAt(parentNodePath: NodePath(node: node, location: location), ctx: ctx)
+            return doFindNode(location: location, ctx: ctx)
         }
         MGraphicsEndImageContext()
         return .none

@@ -42,23 +42,13 @@ class GroupRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
         for renderer in renderers.reversed() {
-            if let node = renderer.findNodeAt(location: location, ctx: ctx) {
-                return node
+            if let result = renderer.findNodeAt(parentNodePath: path, ctx: ctx) {
+                return result
             }
         }
-        return nil
-    }
-
-    override func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
-        for renderer in renderers.reversed() {
-            if var nodes = renderer.findAllNodesAt(location: location, ctx: ctx), let node = node() {
-                nodes.append(node)
-                return nodes
-            }
-        }
-        return nil
+        return .none
     }
 
     override func dispose() {

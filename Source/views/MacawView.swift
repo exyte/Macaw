@@ -77,7 +77,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     private let layoutHelper = LayoutHelper()
 
-    var touchesMap = [MTouchEvent: [Node]]()
+    var touchesMap = [MTouchEvent: [NodePath]]()
     var touchesOfNode = [Node: [MTouchEvent]]()
     var recognizersMap = [MGestureRecognizer: [Node]]()
 
@@ -212,10 +212,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         guard let ctx = context.cgContext else {
             return .none
         }
-        return doFindNode(location: location, ctx: ctx)
+        return doFindNode(location: location, ctx: ctx)?.node
     }
 
-    private func doFindNode(location: CGPoint, ctx: CGContext) -> Node? {
+    private func doFindNode(location: CGPoint, ctx: CGContext) -> NodePath? {
         guard let renderer = renderer else {
             return .none
         }
@@ -226,21 +226,16 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         let transform = layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw())
         ctx.concatenate(transform)
         let loc = location.applying(transform.inverted())
-        return renderer.findNodeAt(location: loc, ctx: ctx)
+        return renderer.findNodeAt(parentNodePath: NodePath(node: Node(), location: loc), ctx: ctx)
     }
 
-    private func doFindAllNodes(location: CGPoint, ctx: CGContext) -> [Node]? {
-        guard let renderer = renderer else {
-            return .none
+    private func doFindNode(location: CGPoint) -> NodePath? {
+        MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
+        if let ctx = MGraphicsGetCurrentContext() {
+            return doFindNode(location: location, ctx: ctx)
         }
-        ctx.saveGState()
-        defer {
-            ctx.restoreGState()
-        }
-        let transform = layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw())
-        ctx.concatenate(transform)
-        let loc = location.applying(transform.inverted())
-        return renderer.findAllNodesAt(location: loc, ctx: ctx)
+        MGraphicsEndImageContext()
+        return .none
     }
 
     // MARK: - Touches
@@ -259,29 +254,32 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         for touch in touches {
             let location = CGPoint(x: touch.x, y: touch.y)
-            guard let foundNodes = findTappedNodes(location: location) else {
-                return
-            }
+            var nodePath = doFindNode(location: location)
 
             if touchesMap[touch] == nil {
-                touchesMap[touch] = [Node]()
+                touchesMap[touch] = [NodePath]()
             }
 
             let inverted = node.place.invert()!
             let loc = location.applying(inverted.toCG())
 
             let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-            let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
-            let touchEvent = TouchEvent(node: node, points: [point])
 
-            for foundNode in foundNodes {
-                if touchesOfNode[foundNode] == nil {
-                    touchesOfNode[foundNode] = [MTouchEvent]()
+            while let current = nodePath {
+                let node = current.node
+                let relativeLocation = current.location
+                let point = TouchPoint(id: id, location: loc.toMacaw(), relativeLocation: relativeLocation.toMacaw())
+                let touchEvent = TouchEvent(node: node, points: [point])
+
+                if touchesOfNode[node] == nil {
+                    touchesOfNode[node] = [MTouchEvent]()
                 }
 
-                touchesMap[touch]?.append(foundNode)
-                touchesOfNode[foundNode]?.append(touch)
-                foundNode.handleTouchPressed(touchEvent)
+                touchesMap[touch]?.append(current)
+                touchesOfNode[node]?.append(touch)
+                node.handleTouchPressed(touchEvent)
+
+                nodePath = current.parent
             }
         }
     }
@@ -306,10 +304,13 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                     continue
                 }
                 let currentTouch = touches[currentIndex]
+                guard let nodePath = touchesMap[currentTouch]?.first else {
+                    continue
+                }
                 let location = CGPoint(x: currentTouch.x, y: currentTouch.y)
                 let inverted = currentNode.place.invert()!
                 let loc = location.applying(inverted.toCG())
-                let point = TouchPoint(id: currentTouch.id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let point = TouchPoint(id: currentTouch.id, location: loc.toMacaw(), relativeLocation: nodePath.location.toMacaw())
                 points.append(point)
             }
 
@@ -333,13 +334,14 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         for touch in touches {
 
-            touchesMap[touch]?.forEach { node in
+            touchesMap[touch]?.forEach { nodePath in
 
+                let node = nodePath.node
                 let inverted = node.place.invert()!
                 let location = CGPoint(x: touch.x, y: touch.y)
                 let loc = location.applying(inverted.toCG())
                 let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-                let point = TouchPoint(id: id, location: Point(x: Double(loc.x), y: Double(loc.y)))
+                let point = TouchPoint(id: id, location: loc.toMacaw(), relativeLocation: nodePath.location.toMacaw())
                 let touchEvent = TouchEvent(node: node, points: [point])
 
                 node.handleTouchReleased(touchEvent)
@@ -369,15 +371,15 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         let location = recognizer.location(in: self)
-        guard let foundNodes = findTappedNodes(location: location) else {
-            return
-        }
+        var nodePath = doFindNode(location: location)
 
-        foundNodes.forEach { node in
+        while let current = nodePath {
+            let node = current.node
             let inverted = node.place.invert()!
             let loc = location.applying(inverted.toCG())
-            let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+            let event = TapEvent(node: node, location: loc.toMacaw())
             node.handleTap(event)
+            nodePath = nodePath?.parent
         }
     }
 
@@ -393,25 +395,18 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
 
         let location = recognizer.location(in: self)
-        guard let foundNodes = findTappedNodes(location: location) else {
+        guard var nodePath = doFindNode(location: location) else {
             return
         }
 
-        foundNodes.forEach { node in
+        while let next = nodePath.parent {
+            let node = nodePath.node
             let inverted = node.place.invert()!
             let loc = location.applying(inverted.toCG())
-            let event = TapEvent(node: node, location: Point(x: Double(loc.x), y: Double(loc.y)))
+            let event = TapEvent(node: node, location: loc.toMacaw())
             node.handleLongTap(event, touchBegan: recognizer.state == .began)
+            nodePath = next
         }
-    }
-
-    func findTappedNodes(location: CGPoint) -> [Node]? {
-        MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
-        if let ctx = MGraphicsGetCurrentContext() {
-            return doFindAllNodes(location: location, ctx: ctx)
-        }
-        MGraphicsEndImageContext()
-        return nil
     }
 
     // MARK: - Pan
@@ -427,7 +422,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         if recognizer.state == .began {
             let location = recognizer.location(in: self)
-            guard let foundNodes = findTappedNodes(location: location) else {
+            guard var nodePath = doFindNode(location: location) else {
                 return
             }
 
@@ -435,10 +430,12 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                 self.recognizersMap[recognizer] = [Node]()
             }
 
-            for foundNode in foundNodes {
-                if foundNode.shouldCheckForPan() {
-                    self.recognizersMap[recognizer]?.append(foundNode)
+            while let next = nodePath.parent {
+                let node = nodePath.node
+                if node.shouldCheckForPan() {
+                    self.recognizersMap[recognizer]?.append(node)
                 }
+                nodePath = next
             }
         }
 
@@ -475,7 +472,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         if recognizer.state == .began {
             let location = recognizer.location(in: self)
-            guard let foundNodes = findTappedNodes(location: location) else {
+            guard var nodePath = doFindNode(location: location) else {
                 return
             }
 
@@ -483,10 +480,12 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                 self.recognizersMap[recognizer] = [Node]()
             }
 
-            for foundNode in foundNodes {
-                if foundNode.shouldCheckForRotate() {
-                    self.recognizersMap[recognizer]?.append(foundNode)
+            while let next = nodePath.parent {
+                let node = nodePath.node
+                if node.shouldCheckForRotate() {
+                    self.recognizersMap[recognizer]?.append(node)
                 }
+                nodePath = next
             }
         }
 
@@ -516,7 +515,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
         if recognizer.state == .began {
             let location = recognizer.location(in: self)
-            guard let foundNodes = findTappedNodes(location: location) else {
+            guard var nodePath = doFindNode(location: location) else {
                 return
             }
 
@@ -524,10 +523,12 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                 self.recognizersMap[recognizer] = [Node]()
             }
 
-            for foundNode in foundNodes {
-                if foundNode.shouldCheckForPinch() {
-                    self.recognizersMap[recognizer]?.append(foundNode)
+            while let next = nodePath.parent {
+                let node = nodePath.node
+                if node.shouldCheckForPinch() {
+                    self.recognizersMap[recognizer]?.append(node)
                 }
+                nodePath = next
             }
         }
 

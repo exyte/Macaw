@@ -232,7 +232,7 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    public final func findNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
+    final func findNodeAt(parentNodePath: NodePath, ctx: CGContext) -> NodePath? {
         guard let node = node() else {
             return .none
         }
@@ -247,45 +247,16 @@ class NodeRenderer {
 
                 ctx.concatenate(place.toCG())
                 applyClip(in: ctx)
-                let loc = location.applying(inverted.toCG())
-                let result = doFindNodeAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
+                let loc = parentNodePath.location.applying(inverted.toCG())
+                let path = NodePath(node: node, location: loc, parent: parentNodePath)
+                let result = doFindNodeAt(path: path, ctx: ctx)
                 return result
             }
         }
-        return nil
+        return .none
     }
 
-    public final func findAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
-        guard let node = node() else {
-            return .none
-        }
-
-        if node.opaque {
-            let place = node.place
-            if let inverted = place.invert() {
-                ctx.saveGState()
-                defer {
-                    ctx.restoreGState()
-                }
-
-                ctx.concatenate(place.toCG())
-                applyClip(in: ctx)
-                let loc = location.applying(inverted.toCG())
-                let result = doFindAllNodesAt(location: CGPoint(x: loc.x, y: loc.y), ctx: ctx)
-                return result
-            }
-        }
-        return nil
-    }
-
-    public func doFindNodeAt(location: CGPoint, ctx: CGContext) -> Node? {
-        return nil
-    }
-
-    public func doFindAllNodesAt(location: CGPoint, ctx: CGContext) -> [Node]? {
-        if let node = doFindNodeAt(location: location, ctx: ctx) {
-            return [node]
-        }
+    public func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
         return nil
     }
 

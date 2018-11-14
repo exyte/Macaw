@@ -66,7 +66,7 @@ class EventsExampleController: UIViewController {
                 return
             }
             
-            guard let loc = event.points.first?.location else {
+            guard let loc = event.points.first?.location(in: .scene) else {
                 return
             }
             
@@ -93,7 +93,7 @@ class EventsExampleController: UIViewController {
                 return
             }
             
-            guard let loc = event.points.first?.location else {
+            guard let loc = event.points.first?.location(in: .scene) else {
                 return
             }
             

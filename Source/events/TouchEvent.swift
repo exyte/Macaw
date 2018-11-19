@@ -6,6 +6,12 @@
 //
 //
 
+#if os(iOS)
+import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
 public enum Relativity {
     case parent
     case scene
@@ -26,7 +32,7 @@ class NodePath {
 public struct TouchPoint {
     public let id: Int
     @available(*, deprecated) public var location: Point // absolute location
-        { get { return absoluteLocation } }
+    { return absoluteLocation }
 
     private let absoluteLocation: Point
     private let relativeLocation: Point // location inside the node

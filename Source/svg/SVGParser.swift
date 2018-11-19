@@ -967,11 +967,13 @@ open class SVGParser {
         if let referenceNode = self.defNodes[id] {
             if usedReferenced[id] == nil {
                 usedReferenced[id] = id
+                defer {
+                    usedReferenced.removeValue(forKey: id)
+                }
                 if let node = try parseNode(referenceNode, groupStyle: groupStyle) {
                     node.place = place.move(dx: getDoubleValue(element, attribute: "x") ?? 0, dy: getDoubleValue(element, attribute: "y") ?? 0)
                     return node
                 }
-                usedReferenced.removeValue(forKey: id)
             }
         }
         return .none

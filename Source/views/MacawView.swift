@@ -178,8 +178,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     override open func draw(_ rect: CGRect) {
-        calculateZPosition(renderer)
-
         context.cgContext = MGraphicsGetCurrentContext()
         guard let ctx = context.cgContext else {
             return
@@ -192,20 +190,9 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         guard let renderer = renderer else {
             return
         }
+        renderer.calculateZPositionRecursively()
         ctx.concatenate(layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw()))
         renderer.render(in: ctx, force: false, opacity: node.opacity)
-    }
-
-    @discardableResult private func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) -> Int {
-        nodeRenderer?.zPosition = currentIndex
-        if let groupRenderer = nodeRenderer as? GroupRenderer {
-            var i = currentIndex + 1
-            for child in groupRenderer.renderers {
-                i = calculateZPosition(child, currentIndex: i)
-            }
-            return i
-        }
-        return currentIndex + 1
     }
 
     public final func findNodeAt(location: CGPoint) -> Node? {

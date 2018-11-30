@@ -282,6 +282,10 @@ class NodeRenderer {
         }
     }
 
+    func calculateZPositionRecursively() {
+        calculateZPosition(self)
+    }
+
     private func applyClip(in context: CGContext) {
         guard let node = node() else {
             return
@@ -357,4 +361,18 @@ extension NodeRenderer: AnimationObserver {
         animation.nodeRenderer = self
     }
 
+}
+
+@discardableResult fileprivate func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) -> Int {
+    nodeRenderer?.zPosition = currentIndex
+    let tag = nodeRenderer?.node()?.tag.first
+    if let groupRenderer = nodeRenderer as? GroupRenderer {
+        var i = currentIndex + 1
+        for child in groupRenderer.renderers {
+            let tag = child.node()?.tag.first
+            i = calculateZPosition(child, currentIndex: i)
+        }
+        return i
+    }
+    return currentIndex + 1
 }

@@ -22,6 +22,15 @@ class AnimationUtils {
             parentRenderer = parentRenderer?.parentRenderer
         }
 
+        var rootRenderer = nodeRenderer
+        while rootRenderer?.parentRenderer != nil {
+            rootRenderer = rootRenderer?.parentRenderer
+        }
+        if let view = rootRenderer?.view, let bounds = rootRenderer?.node()?.bounds {
+            let a = view.contentLayout.layout(rect: bounds, into: view.bounds.size.toMacaw())
+            transform = transform.concat(with: a)
+        }
+
         return transform
     }
 

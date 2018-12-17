@@ -51,8 +51,8 @@ class AnimationCache {
             let cgRect = shapeBounds.toCG()
 
             let origFrame = CGRect(x: 0.0, y: 0.0,
-                                   width: round(cgRect.width),
-                                   height: round(cgRect.height))
+                                   width: cgRect.width,
+                                   height: cgRect.height)
 
             layer.bounds = origFrame
             layer.anchorPoint = CGPoint(
@@ -78,7 +78,7 @@ class AnimationCache {
         }
 
         layer.opacity = Float(node.opacity)
-        layer.node = node
+        layer.renderer = renderer
 
         layer.contentsScale = calculateAnimationScale(animation: animation)
 

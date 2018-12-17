@@ -149,7 +149,7 @@ class AnimationProducer {
     }
 
     // MARK: - Sequence animation
-    fileprivate func addAnimationSequence(_ animationSequnce: Animation) {
+    func addAnimationSequence(_ animationSequnce: Animation) {
         guard let sequence = animationSequnce as? AnimationSequence else {
             return
         }
@@ -194,73 +194,6 @@ class AnimationProducer {
         // Launching
         if let firstAnimation = sequence.animations.first {
             self.addAnimation(firstAnimation)
-        }
-    }
-
-    // MARK: - Combine animation
-    fileprivate func addCombineAnimation(_ combineAnimation: Animation) {
-        guard let combine = combineAnimation as? CombineAnimation else {
-            return
-        }
-
-        // Reversing
-        if combine.autoreverses {
-            combine.animations.forEach { animation in
-                animation.autoreverses = true
-            }
-        }
-
-        // repeat count
-        if combine.repeatCount > 0.00001 {
-            var sequence = [Animation]()
-
-            for _ in 0..<Int(combine.repeatCount) {
-                sequence.append(combine)
-            }
-
-            combine.repeatCount = 0.0
-            addAnimationSequence(sequence.sequence())
-            return
-        }
-
-        // Looking for longest animation
-        var longestAnimation: BasicAnimation?
-        combine.animations.forEach { animation in
-            guard let longest = longestAnimation else {
-                longestAnimation = animation
-                return
-            }
-
-            if longest.getDuration() < animation.getDuration() {
-                longestAnimation = animation
-            }
-        }
-
-        // Attaching completion empty animation and potential next animation
-        if let completion = combine.completion {
-            let completionAnimation = EmptyAnimation(completion: completion)
-            if let next = combine.next {
-                completionAnimation.next = next
-            }
-
-            longestAnimation?.next = completionAnimation
-
-        } else {
-            if let next = combine.next {
-                longestAnimation?.next = next
-            }
-
-        }
-
-        combine.removeFunc = { [weak combine] in
-            combine?.animations.forEach { animation in
-                animation.removeFunc?()
-            }
-        }
-
-        // Launching
-        combine.animations.forEach { animation in
-            self.addAnimation(animation)
         }
     }
 

@@ -363,13 +363,11 @@ extension NodeRenderer: AnimationObserver {
 
 }
 
-@discardableResult fileprivate func calculateZPosition(_ nodeRenderer: NodeRenderer?, currentIndex: Int = 0) -> Int {
-    nodeRenderer?.zPosition = currentIndex
-    let tag = nodeRenderer?.node()?.tag.first
+@discardableResult fileprivate func calculateZPosition(_ nodeRenderer: NodeRenderer, currentIndex: Int = 0) -> Int {
+    nodeRenderer.zPosition = currentIndex
     if let groupRenderer = nodeRenderer as? GroupRenderer {
         var i = currentIndex + 1
         for child in groupRenderer.renderers {
-            let tag = child.node()?.tag.first
             i = calculateZPosition(child, currentIndex: i)
         }
         return i

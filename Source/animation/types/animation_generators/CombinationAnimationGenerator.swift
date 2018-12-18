@@ -9,16 +9,16 @@ import UIKit
 
 extension AnimationProducer {
 
-    func createChildAnimations(_ combineAnimation: Animation, globalToPosition: Transform?, animations: [Animation] = []) -> [Animation] {
+    func createChildAnimations(_ combineAnimation: Animation, globalToPosition: Transform = .identity, animations: [Animation] = []) -> [Animation] {
         guard let combine = combineAnimation as? CombineAnimation else {
             return animations
         }
 
-        let globalToPosition = globalToPosition ?? .identity
+        let globalToPosition = globalToPosition
         let during = combine.duration
         let delay = combine.delay
         let fromNode = combine.node as! Group
-        let to = combine.toNodes!
+        let to = combine.toNodes
 
         // Shapes on same hierarhy level
         let fromShapes = fromNode.contents.compactMap { $0 as? Shape }
@@ -110,13 +110,16 @@ extension AnimationProducer {
     func addCombineAnimation(_ combineAnimation: Animation) {
         guard let combine = combineAnimation as? CombineAnimation,
             let renderer = combine.nodeRenderer,
-            let view = renderer.view,
-            let toBounds = combine.toNodes?.group().bounds else {
-            return
+            let view = renderer.view else {
+                return
         }
 
-        let globalTransform = view.contentLayout.layout(rect: toBounds, into: view.frame.size.toMacaw())
-        let animations = createChildAnimations(combine, globalToPosition: globalTransform) as! [BasicAnimation]
+        var animations = combine.animations
+        if let toBounds = combine.toNodes.group().bounds {
+            let globalTransform = view.contentLayout.layout(rect: toBounds, into: view.frame.size.toMacaw())
+            let childAnimations = createChildAnimations(combine, globalToPosition: globalTransform) as! [BasicAnimation]
+            animations.append(contentsOf: childAnimations)
+        }
 
         // Reversing
         if combine.autoreverses {
@@ -164,10 +167,10 @@ extension AnimationProducer {
             if let next = combine.next {
                 longestAnimation?.next = next
             }
-            
+
         }
 
-        combine.removeFunc = { 
+        combine.removeFunc = {
             animations.forEach { animation in
                 animation.removeFunc?()
             }
@@ -180,5 +183,3 @@ extension AnimationProducer {
     }
 
 }
-
-

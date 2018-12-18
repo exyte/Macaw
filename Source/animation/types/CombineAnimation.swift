@@ -3,10 +3,10 @@ import Foundation
 internal class CombineAnimation: BasicAnimation {
 
     let animations: [BasicAnimation]
-    let toNodes: [Node]?
+    let toNodes: [Node]
     let duration: Double
 
-    required init(animations: [BasicAnimation], during: Double = 1.0, delay: Double = 0.0, node: Node? = .none, toNodes: [Node]?) {
+    required init(animations: [BasicAnimation], during: Double = 1.0, delay: Double = 0.0, node: Node? = .none, toNodes: [Node] = []) {
         self.animations = animations
         self.duration = during
         self.toNodes = toNodes
@@ -82,7 +82,7 @@ internal class CombineAnimation: BasicAnimation {
 }
 
 public extension Sequence where Iterator.Element: Animation {
-    public func combine(delay: Double = 0.0, node: Node? = .none, toNodes: [Node]? = nil) -> Animation {
+    public func combine(delay: Double = 0.0, node: Node? = .none, toNodes: [Node] = []) -> Animation {
 
         var toCombine = [BasicAnimation]()
         self.forEach { animation in

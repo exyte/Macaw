@@ -7,7 +7,7 @@
 //
 
 class ShapeAnimation: AnimationImpl<Shape> {
-    let toParentGlobalTransfrom: Transform?
+    let toParentGlobalTransfrom: Transform
 
     convenience init(animatedNode: Shape, finalValue: Shape, toParentGlobalTransfrom: Transform = .identity, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 

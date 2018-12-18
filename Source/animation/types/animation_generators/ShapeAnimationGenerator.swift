@@ -149,7 +149,7 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, animation: Shape
     scaleAnimation.duration = duration
     let parentPos = AnimationUtils.absolutePosition(animation.nodeRenderer?.parentRenderer)
     let fromPos = parentPos.concat(with: from.place)
-    let toParentPos = animation.toParentGlobalTransfrom ?? parentPos
+    let toParentPos = animation.toParentGlobalTransfrom
     let toPos = toParentPos.concat(with: to.place)
     scaleAnimation.fromValue = CATransform3DMakeAffineTransform(fromPos.toCG())
     scaleAnimation.toValue = CATransform3DMakeAffineTransform(toPos.toCG())

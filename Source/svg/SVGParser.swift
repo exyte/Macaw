@@ -1235,7 +1235,10 @@ open class SVGParser {
             if xScale == yScale {
                 r *= xScale
             } else {
+                #if DEBUG
                 print("SVG parsing error. No oval radial gradients supported")
+                #endif
+                r *= (xScale + yScale) / 2
             }
 
             let point2 = CGPoint(x: fx, y: fy).applying(cgTransform)

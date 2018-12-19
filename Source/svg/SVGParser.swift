@@ -119,23 +119,32 @@ open class SVGParser {
             config.shouldProcessNamespaces = true
         }
         let parsedXml = config.parse(xmlString)
-
-        var layout: NodeLayout?
+        
+        var svgElement: XMLElement!
         for child in parsedXml.children {
             if let element = child.element {
                 if element.name == "svg" {
-                    layout = try parseViewBox(element)
+                    svgElement = element
                     try prepareSvg(child.children)
                     break
                 }
             }
         }
         try parseSvg(parsedXml.children)
-
-        if let layout = layout {
-            return SVGCanvas(layout: layout, contents: nodes)
+        
+        var group: Group
+        if let layout = try parseViewBox(svgElement!) {
+            group = SVGCanvas(layout: layout, contents: nodes)
+        } else {
+            group = Group(contents: nodes)
         }
-        return Group(contents: nodes)
+        
+        // global opacity
+        if let opacity = svgElement.attribute(by: "opacity") {
+            group.opacity = Double(opacity.text)!
+        }
+        
+        return group
     }
 
     fileprivate func prepareSvg(_ children: [XMLIndexer]) throws {
@@ -232,7 +241,7 @@ open class SVGParser {
         var result: Node?
         if let element = node.element {
             let style = getStyleAttributes(groupStyle, element: element)
-            if style["display"] == "none" {
+            if style["display"] == "none" || style["visibility"] == "hidden" {
                 return .none
             }
             switch element.name {

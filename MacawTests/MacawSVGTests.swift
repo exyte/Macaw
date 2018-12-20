@@ -194,8 +194,9 @@ class MacawSVGTests: XCTestCase {
 
     func createJSON(_ testResourcePath: String) {
         do {
-            let node = try SVGParser.parse(fullPath: testResourcePath)
-            let path = testResourcePath.replacingOccurrences(of: ".svg", with: ".reference")
+            let bundle = Bundle(for: type(of: TestUtils()))
+            let node = try SVGParser.parse(resource: testResourcePath, fromBundle: bundle)
+            let path = testResourcePath + ".reference"
             try getJSONData(node: node).write(to: URL(fileURLWithPath: path))
         } catch {
             XCTFail(error.localizedDescription)

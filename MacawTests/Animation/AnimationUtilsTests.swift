@@ -45,8 +45,8 @@ class AnimationUtilsTests: XCTestCase {
         XCTAssert(aRenderer?.zPosition == 1)
         XCTAssert(bRenderer?.zPosition == 2)
         XCTAssert(cRenderer?.zPosition == 3)
-        XCTAssert(dRenderer?.zPosition == 4 )
-        XCTAssert(eRenderer?.zPosition == 5 )
-        XCTAssert(fRenderer?.zPosition == 6 )
+        XCTAssert(dRenderer?.zPosition == 4)
+        XCTAssert(eRenderer?.zPosition == 5)
+        XCTAssert(fRenderer?.zPosition == 6)
     }
 }

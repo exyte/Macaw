@@ -7,7 +7,9 @@
 //
 
 class ShapeAnimation: AnimationImpl<Shape> {
-    convenience init(animatedNode: Shape, finalValue: Shape, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    let toParentGlobalTransfrom: Transform
+
+    convenience init(animatedNode: Shape, finalValue: Shape, toParentGlobalTransfrom: Transform = .identity, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 
         let interpolationFunc = { (t: Double) -> Shape in
             if t == 0 {
@@ -17,10 +19,11 @@ class ShapeAnimation: AnimationImpl<Shape> {
             return finalValue
         }
 
-        self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
+        self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, toParentGlobalTransfrom: toParentGlobalTransfrom, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
     }
 
-    init(animatedNode: Shape, valueFunc: @escaping (Double) -> Shape, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedNode: Shape, valueFunc: @escaping (Double) -> Shape, toParentGlobalTransfrom: Transform = .identity, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+        self.toParentGlobalTransfrom = toParentGlobalTransfrom
         super.init(observableValue: AnimatableVariable<Shape>(animatedNode), valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .shape
         node = animatedNode
@@ -30,7 +33,8 @@ class ShapeAnimation: AnimationImpl<Shape> {
         }
     }
 
-    init(animatedNode: Shape, factory: @escaping (() -> ((Double) -> Shape)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    init(animatedNode: Shape, factory: @escaping (() -> ((Double) -> Shape)), toParentGlobalTransfrom: Transform = .identity, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+        self.toParentGlobalTransfrom = toParentGlobalTransfrom
         super.init(observableValue: AnimatableVariable<Shape>(animatedNode), factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .shape
         node = animatedNode

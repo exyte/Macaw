@@ -68,6 +68,12 @@ class GroupRenderer: NodeRenderer {
         }) {
             renderers = updatedRenderers
         }
+
+        var parent: NodeRenderer = self
+        while let parentRenderer = parent.parentRenderer {
+            parent = parentRenderer
+        }
+        parent.calculateZPositionRecursively()
     }
 
     override func replaceNode(with replacementNode: Node) {

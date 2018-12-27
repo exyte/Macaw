@@ -867,7 +867,7 @@ open class SVGParser {
             let tspanString = fullString.substring(to: closingTagRange.location + closingTagRange.length)
             let tspanXml = SWXMLHash.parse(tspanString)
             guard let indexer = tspanXml.children.first,
-                let text = parseTspan(indexer, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds) else {
+                let text = parseTspan(indexer, withWhitespace: withWhitespace, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: bounds, previousCollectedTspan: collection.last) else {
 
                     // skip this element if it can't be parsed
                     return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length), collectedTspans: collectedTspans, textAnchor: textAnchor, fill: fill, stroke: stroke, opacity: opacity,
@@ -906,7 +906,7 @@ open class SVGParser {
                              opacity: opacity, fontName: fontName, fontSize: fontSize, fontWeight: fontWeight, bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
     }
 
-    fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect) -> Text? {
+    fileprivate func parseTspan(_ tspan: XMLIndexer, withWhitespace: Bool = false, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, bounds: Rect, previousCollectedTspan: Node?) -> Text? {
 
         guard let element = tspan.element else {
             return .none
@@ -914,7 +914,7 @@ open class SVGParser {
 
         let string = element.text
         var shouldAddWhitespace = withWhitespace
-        let pos = getTspanPosition(element, bounds: bounds, withWhitespace: &shouldAddWhitespace)
+        let pos = getTspanPosition(element, bounds: bounds, previousCollectedTspan: previousCollectedTspan, withWhitespace: &shouldAddWhitespace)
         let text = shouldAddWhitespace ? " \(string)" : string
         let attributes = getStyleAttributes([:], element: element)
 
@@ -931,26 +931,39 @@ open class SVGParser {
             weight: getFontWeight(attributes) ?? fontWeight ?? "normal")
     }
 
-    fileprivate func getTspanPosition(_ element: SWXMLHash.XMLElement, bounds: Rect, withWhitespace: inout Bool) -> Transform {
-        var xPos: Double
-        var yPos: Double
+    fileprivate func getTspanPosition(_ element: SWXMLHash.XMLElement, bounds: Rect, previousCollectedTspan: Node?, withWhitespace: inout Bool) -> Transform {
+        var xPos: Double = bounds.x + bounds.w
+        var yPos: Double = bounds.y
 
         if let absX = getDoubleValue(element, attribute: "x") {
             xPos = absX
             withWhitespace = false
+
+            if let relX = getDoubleValue(element, attribute: "dx") {
+                xPos += relX
+            }
         } else if let relX = getDoubleValue(element, attribute: "dx") {
-            xPos = bounds.x + bounds.w + relX
-        } else {
-            xPos = bounds.x + bounds.w
+            if let prevTspanX = previousCollectedTspan?.place.dx, let prevTspanW = previousCollectedTspan?.bounds?.w {
+                xPos = prevTspanX + prevTspanW + relX
+            } else {
+                xPos += relX
+            }
         }
 
         if let absY = getDoubleValue(element, attribute: "y") {
             yPos = absY
+
+            if let relY = getDoubleValue(element, attribute: "dy") {
+                yPos += relY
+            }
         } else if let relY = getDoubleValue(element, attribute: "dy") {
-            yPos = bounds.y + relY
-        } else {
-            yPos = bounds.y
+            if let prevTspanY = previousCollectedTspan?.place.dy {
+                yPos = prevTspanY + relY
+            } else {
+                yPos += relY
+            }
         }
+
         return Transform.move(dx: xPos, dy: yPos)
     }
 

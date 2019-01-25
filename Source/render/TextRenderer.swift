@@ -46,16 +46,26 @@ class TextRenderer: NodeRenderer {
         let font = getMFont()
         // positive NSBaselineOffsetAttributeName values don't work, couldn't find why
         // for now move the rect itself
+        var attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
+        var hasFill = false
         if var color = text.fill as? Color {
             color = RenderUtils.applyOpacity(color, opacity: opacity)
-            var attributes = [NSAttributedString.Key.font: font,
-                              NSAttributedString.Key.foregroundColor: getTextColor(color)]
-            if let stroke = text.stroke {
-                if let c = stroke.fill as? Color {
-                    attributes[NSAttributedString.Key.strokeColor] = getTextColor(c)
-                }
-                attributes[NSAttributedString.Key.strokeWidth] = stroke.width as NSObject?
+            attributes[NSAttributedString.Key.foregroundColor] = getTextColor(color)
+            hasFill = true
+        }
+        if let stroke = text.stroke {
+            if let c = stroke.fill as? Color {
+                attributes[NSAttributedString.Key.strokeColor] = getTextColor(c)
             }
+            var width = stroke.width
+            if (hasFill) {
+                // To use fill and stroke at the same time width should be negative:
+                // https://developer.apple.com/library/archive/qa/qa1531/_index.html
+                width *= -1
+            }
+            attributes[NSAttributedString.Key.strokeWidth] = width as NSObject?
+        }
+        if (attributes.count > 1) {
             MGraphicsPushContext(context)
             message.draw(in: getBounds(font), withAttributes: attributes)
             MGraphicsPopContext()

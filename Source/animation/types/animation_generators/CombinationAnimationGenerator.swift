@@ -5,7 +5,11 @@
 //  Created by Alisa Mylnikova on 17/12/2018.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
 
 extension AnimationProducer {
 

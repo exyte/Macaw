@@ -58,14 +58,14 @@ class TextRenderer: NodeRenderer {
                 attributes[NSAttributedString.Key.strokeColor] = getTextColor(c)
             }
             var width = stroke.width
-            if (hasFill) {
+            if hasFill {
                 // To use fill and stroke at the same time width should be negative:
                 // https://developer.apple.com/library/archive/qa/qa1531/_index.html
                 width *= -1
             }
             attributes[NSAttributedString.Key.strokeWidth] = width as NSObject?
         }
-        if (attributes.count > 1) {
+        if attributes.count > 1 {
             MGraphicsPushContext(context)
             message.draw(in: getBounds(font), withAttributes: attributes)
             MGraphicsPopContext()

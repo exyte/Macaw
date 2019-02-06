@@ -350,6 +350,20 @@ class NodeRenderer {
             disposables.dispose()
         }
     }
+
+    func getAllChildrenRecursive() -> [NodeRenderer] {
+        return getAllChildren(self)
+    }
+
+    private func getAllChildren(_ nodeRenderer: NodeRenderer) -> [NodeRenderer] {
+        var result = [nodeRenderer]
+        if let groupRenderer = nodeRenderer as? GroupRenderer {
+            for child in groupRenderer.renderers {
+                result.append(contentsOf: getAllChildren(child))
+            }
+        }
+        return result
+    }
 }
 
 protocol AnimationObserver {

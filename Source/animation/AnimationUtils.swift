@@ -37,14 +37,14 @@ class AnimationUtils {
     class func absoluteClip(_ nodeRenderer: NodeRenderer?) -> Locus? {
         // shouldn't this be a superposition of all parents' clips?
         let node = nodeRenderer?.node()
-        if let _ = node?.clip {
-            return node?.clip
+        if let nodeClip = node?.clip {
+            return nodeClip
         }
 
         var parentRenderer = nodeRenderer?.parentRenderer
         while parentRenderer != nil {
-            if let _ = parentRenderer?.node()?.clip {
-                return parentRenderer?.node()?.clip
+            if let parentClip = parentRenderer?.node()?.clip {
+                return parentClip
             }
 
             parentRenderer = parentRenderer?.parentRenderer

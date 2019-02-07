@@ -186,7 +186,7 @@ class ShapeRenderer: NodeRenderer {
             patternBounds = pattern.bounds.applying(boundsTranform)
         }
         let tileImage = renderer.renderToImage(bounds: patternBounds, inset: 0)
-        ctx!.clip()
+        ctx?.clip()
         ctx?.draw(tileImage.cgImage!, in: patternBounds.toCG(), byTiling: true)
     }
 

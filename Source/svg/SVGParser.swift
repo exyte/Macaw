@@ -92,6 +92,7 @@ open class SVGParser {
     fileprivate var defMasks = [String: UserSpaceNode]()
     fileprivate var defClip = [String: UserSpaceLocus]()
     fileprivate var defEffects = [String: Effect]()
+    fileprivate var defPatterns = [String: UserSpacePattern]()
 
     fileprivate var styles = CSSParser()
 
@@ -154,8 +155,10 @@ open class SVGParser {
             }
             if let id = element.allAttributes["id"]?.text {
                 switch element.name {
-                case "linearGradient", "radialGradient", "pattern", "fill":
+                case "linearGradient", "radialGradient", "fill":
                     defFills[id] = try parseFill(node)
+                case "pattern":
+                    defPatterns[id] = try parsePattern(node)
                 case "mask":
                     defMasks[id] = try parseMask(node)
                 case "filter":
@@ -333,14 +336,12 @@ open class SVGParser {
             return parseLinearGradient(fill, groupStyle: style)
         case "radialGradient":
             return parseRadialGradient(fill, groupStyle: style)
-        case "pattern":
-            return try parsePattern(fill, groupStyle: style)
         default:
             return .none
         }
     }
 
-    fileprivate func parsePattern(_ pattern: XMLIndexer, groupStyle: [String: String] = [:]) throws -> Fill? {
+    fileprivate func parsePattern(_ pattern: XMLIndexer) throws -> UserSpacePattern? {
         guard let element = pattern.element else {
             return .none
         }
@@ -348,7 +349,7 @@ open class SVGParser {
         var parentPattern: UserSpacePattern?
         if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: ""), link.hasPrefix("#") {
             let id = link.replacingOccurrences(of: "#", with: "")
-            parentPattern = defFills[id] as? UserSpacePattern
+            parentPattern = defPatterns[id]
         }
 
         let x = getDoubleValue(element, attribute: "x") ?? parentPattern?.bounds.x ?? 0
@@ -625,11 +626,12 @@ open class SVGParser {
             return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
-            let fill = defFills[colorId]
-            if let pattern = fill as? UserSpacePattern {
+            if let fill = defFills[colorId] {
+                return fill
+            }
+            if let pattern = defPatterns[colorId] {
                 return getPatternFill(pattern: pattern, locus: locus)
             }
-            return fill
         }
         if fillColor == "currentColor", let currentColor = groupStyle["color"] {
             fillColor = currentColor
@@ -1819,7 +1821,7 @@ fileprivate class UserSpaceNode {
     }
 }
 
-fileprivate class UserSpacePattern: Fill {
+fileprivate class UserSpacePattern {
 
     public let content: Node
     public let bounds: Rect

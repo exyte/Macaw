@@ -8,6 +8,8 @@ open class Group: Node {
         }
     }
 
+    private var calculatedBounds: Rect?
+
     public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.contentsVar = AnimatableVariable<[Node]>(contents)
         super.init(
@@ -23,6 +25,9 @@ open class Group: Node {
 
         self.contents = contents
         self.contentsVar.node = self
+        self.contentsVar.onChange { _ in
+            self.calculatedBounds = nil
+        }
     }
 
     // Searching
@@ -55,7 +60,10 @@ open class Group: Node {
     }
 
     override open var bounds: Rect? {
-        return BoundsUtils.getNodesBounds(contents)
+        if calculatedBounds == nil {
+            calculatedBounds = BoundsUtils.getNodesBounds(contents)
+        }
+        return calculatedBounds
     }
 
     override func shouldCheckForPressed() -> Bool {

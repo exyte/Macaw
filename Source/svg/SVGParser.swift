@@ -276,7 +276,6 @@ open class SVGParser {
                 let mask = try getMask(style, locus: path)
 
                 return Shape(form: path, fill: getFillColor(style, groupStyle: style, locus: path), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: path), mask: mask, tag: getTag(element))
-
             }
         case "line":
             if let line = parseLine(node) {
@@ -387,7 +386,6 @@ open class SVGParser {
         }
 
         return UserSpacePattern(content: contentNode!, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
-
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, style: [String: String]) throws -> Group? {
@@ -1822,11 +1820,10 @@ fileprivate class UserSpaceNode {
 }
 
 fileprivate class UserSpacePattern {
-
-    public let content: Node
-    public let bounds: Rect
-    public let userSpace: Bool
-    public let contentUserSpace: Bool
+    let content: Node
+    let bounds: Rect
+    let userSpace: Bool
+    let contentUserSpace: Bool
 
     init(content: Node, bounds: Rect, userSpace: Bool = false, contentUserSpace: Bool = true) {
         self.content = content

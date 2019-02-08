@@ -144,7 +144,7 @@ public extension Node {
         ctx.clear(rect.toCG())
 
         let transform = LayoutHelper.calcTransform(self, layout, size)
-        ctx.concatenate(transform)
+        ctx.concatenate(transform.toCG())
         renderer.render(in: ctx, force: false, opacity: self.opacity)
 
         let img = MGraphicsGetImageFromCurrentImageContext()

@@ -14,7 +14,7 @@ import UIKit
 import AppKit
 #endif
 
-func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
     guard let shapeAnimation = animation as? ShapeAnimation else {
         return
     }
@@ -30,17 +30,17 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     let mutatingShape = SceneUtils.shapeCopy(from: fromShape)
     renderer.replaceNode(with: mutatingShape)
 
-    guard let layer = animationCache?.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false) else {
+    guard let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false) else {
         return
     }
 
     // Creating proper animation
-    let generatedAnim = generateShapeAnimation(
-        from: mutatingShape,
-        to: toShape,
-        animation: shapeAnimation,
-        duration: duration,
-        renderTransform: layer.renderTransform!)
+    let generatedAnim = generateShapeAnimation(context,
+                                               from: mutatingShape,
+                                               to: toShape,
+                                               animation: shapeAnimation,
+                                               duration: duration,
+                                               renderTransform: layer.renderTransform!)
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
     generatedAnim.timingFunction = caTimingFunction(animation.easing)
@@ -127,7 +127,7 @@ func addShapeAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animati
     }
 }
 
-fileprivate func generateShapeAnimation(from: Shape, to: Shape, animation: ShapeAnimation, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
+fileprivate func generateShapeAnimation(_ context: AnimationContext, from: Shape, to: Shape, animation: ShapeAnimation, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
 
     let group = CAAnimationGroup()
 
@@ -147,7 +147,7 @@ fileprivate func generateShapeAnimation(from: Shape, to: Shape, animation: Shape
     // Transform
     let scaleAnimation = CABasicAnimation(keyPath: "transform")
     scaleAnimation.duration = duration
-    let parentPos = AnimationUtils.absolutePosition(animation.nodeRenderer?.parentRenderer)
+    let parentPos = AnimationUtils.absolutePosition(animation.nodeRenderer?.parentRenderer, context)
     let fromPos = parentPos.concat(with: from.place)
     let toParentPos = animation.toParentGlobalTransfrom
     let toPos = toParentPos.concat(with: to.place)

@@ -1,37 +1,21 @@
 import Foundation
 
 class AnimationUtils {
-    class func absolutePosition(_ nodeRenderer: NodeRenderer?) -> Transform {
-        return AnimationUtils.absoluteTransform(nodeRenderer, pos: nodeRenderer?.node()?.place ?? .identity)
+
+    class func absolutePosition(_ nodeRenderer: NodeRenderer?, _ context: AnimationContext) -> Transform {
+        return AnimationUtils.absoluteTransform(nodeRenderer, context, pos: nodeRenderer?.node()?.place ?? .identity)
     }
 
-    class func absoluteTransform(_ nodeRenderer: NodeRenderer?, pos: Transform) -> Transform {
+    class func absoluteTransform(_ nodeRenderer: NodeRenderer?, _ context: AnimationContext, pos: Transform) -> Transform {
         var transform = pos
         var parentRenderer = nodeRenderer?.parentRenderer
         while parentRenderer != nil {
-
-            if let canvas = parentRenderer?.node() as? SVGCanvas,
-                let view = parentRenderer?.view {
-                let rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()
-                let canvasTransform = view.contentLayout.layout(rect: rect, into: view.bounds.size.toMacaw()).move(dx: rect.x, dy: rect.y)
-                transform = canvasTransform.concat(with: transform)
-            } else if let node = parentRenderer?.node() {
+            if let node = parentRenderer?.node() {
                 transform = node.place.concat(with: transform)
             }
-
             parentRenderer = parentRenderer?.parentRenderer
         }
-
-        var rootRenderer = nodeRenderer
-        while rootRenderer?.parentRenderer != nil {
-            rootRenderer = rootRenderer?.parentRenderer
-        }
-        if let view = rootRenderer?.view, let bounds = rootRenderer?.node()?.bounds {
-            let a = view.contentLayout.layout(rect: bounds, into: view.bounds.size.toMacaw())
-            transform = transform.concat(with: a)
-        }
-
-        return transform
+        return transform.concat(with: context.getLayoutTransform(nodeRenderer))
     }
 
     class func absoluteClip(_ nodeRenderer: NodeRenderer?) -> Locus? {

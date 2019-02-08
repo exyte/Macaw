@@ -14,7 +14,7 @@ import UIKit
 import AppKit
 #endif
 
-func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
     guard let morphingAnimation = animation as? MorphingAnimation else {
         return
     }
@@ -31,7 +31,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, sceneLayer: CALayer, anim
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    guard let layer = animationCache?.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false) else {
+    guard let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false) else {
         return
     }
     // Creating proper animation

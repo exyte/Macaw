@@ -62,15 +62,25 @@ final internal class BoundsUtils {
         return Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
     }
 
-    class func applyTransformToNodeInRespectiveCoords(respectiveNode: Node, absoluteLocus: Locus) {
-        if let patternShape = respectiveNode as? Shape {
+    class func createNodeFromRespectiveCoords(respectiveNode: Node, absoluteLocus: Locus) -> Node? {
+        guard let copy = SceneUtils.copyNode(respectiveNode) else {
+            return nil
+        }
+
+        if let patternShape = copy as? Shape {
             let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: patternShape.form, absoluteLocus: absoluteLocus)
             patternShape.place = patternShape.place.concat(with: tranform)
         }
-        if let patternGroup = respectiveNode as? Group {
+        if let patternGroup = copy as? Group {
+            var nodes = [Node]()
             for groupNode in patternGroup.contents {
-                applyTransformToNodeInRespectiveCoords(respectiveNode: groupNode, absoluteLocus: absoluteLocus)
+                if let node = createNodeFromRespectiveCoords(respectiveNode: groupNode, absoluteLocus: absoluteLocus) {
+                    nodes.append(node)
+                }
             }
+            patternGroup.contents = nodes
         }
+
+        return copy
     }
 }

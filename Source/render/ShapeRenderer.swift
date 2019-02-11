@@ -175,10 +175,11 @@ class ShapeRenderer: NodeRenderer {
         guard let shape = shape else {
             return
         }
-        if !pattern.userSpace {
-            BoundsUtils.applyTransformToNodeInRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form)
+        var patternNode = pattern.content
+        if !pattern.userSpace, let node = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form) {
+            patternNode = node
         }
-        let renderer = RenderUtils.createNodeRenderer(pattern.content, view: view, animationCache: animationCache)
+        let renderer = RenderUtils.createNodeRenderer(patternNode, view: view, animationCache: animationCache)
 
         var patternBounds = pattern.bounds
         if !pattern.userSpace {

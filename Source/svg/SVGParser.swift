@@ -644,8 +644,9 @@ open class SVGParser {
             return Pattern(content: pattern.content, bounds: pattern.bounds.applying(tranform), userSpace: true)
         }
         if pattern.userSpace == true && pattern.contentUserSpace == false {
-            BoundsUtils.applyTransformToNodeInRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: locus!)
-            return Pattern(content: pattern.content, bounds: pattern.bounds, userSpace: pattern.userSpace)
+            if let patternNode = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: locus!) {
+                return Pattern(content: patternNode, bounds: pattern.bounds, userSpace: pattern.userSpace)
+            }
         }
         return Pattern(content: pattern.content, bounds: pattern.bounds, userSpace: true)
     }

@@ -349,7 +349,7 @@ class AnimationContext {
     var rootTransform: Transform?
 
     func getLayoutTransform(_ renderer: NodeRenderer?) -> Transform {
-        if (rootTransform == nil) {
+        if rootTransform == nil {
             if let view = renderer?.view, let node = view.renderer?.node() {
                 rootTransform = LayoutHelper.calcTransform(node, view.contentLayout, view.bounds.size.toMacaw())
             }

@@ -21,7 +21,7 @@ class AnimationsViewController: NSViewController {
     }
     animationsView?.prepareAnimation()
     
-    let attributes: [NSAttributedStringKey: Any] = [.foregroundColor: NSColor.blue.withAlphaComponent(0.5)]
+    let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.blue.withAlphaComponent(0.5)]
     actionButton.attributedTitle = NSMutableAttributedString(string: actionButton.title, attributes: attributes)
   }
   

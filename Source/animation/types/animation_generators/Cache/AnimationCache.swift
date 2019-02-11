@@ -26,7 +26,7 @@ class AnimationCache {
         self.sceneLayer = sceneLayer
     }
 
-    func layerForNodeRenderer(_ renderer: NodeRenderer, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
+    func layerForNodeRenderer(_ renderer: NodeRenderer, _ context: AnimationContext, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
 
         guard let node = renderer.node() else {
             return ShapeLayer()
@@ -63,7 +63,7 @@ class AnimationCache {
 
             layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
 
-            let nodeTransform = AnimationUtils.absolutePosition(renderer).toCG()
+            let nodeTransform = AnimationUtils.absolutePosition(renderer, context).toCG()
             layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
 
             // Clip

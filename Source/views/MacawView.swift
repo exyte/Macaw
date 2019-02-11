@@ -21,7 +21,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             }
 
             if let _ = superview {
-                animationProducer.addStoredAnimations(node)
+                animationProducer.addStoredAnimations(node, self)
             }
 
             self.setNeedsDisplay()
@@ -53,7 +53,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
                 return
             }
 
-            animationProducer.addStoredAnimations(node)
+            animationProducer.addStoredAnimations(node, self)
         }
     }
 
@@ -64,7 +64,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             return
         }
 
-        animationProducer.addStoredAnimations(node)
+        animationProducer.addStoredAnimations(node, self)
     }
 
     override open var intrinsicContentSize: CGSize {
@@ -571,14 +571,14 @@ class LayoutHelper {
         return CGAffineTransform.identity
     }
 
-    public class func calcTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
+    public class func calcTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> Transform {
         if let canvas = node as? SVGCanvas {
-            return layout.layout(size: canvas.layout(size: size), into: size).toCG()
+            return layout.layout(size: canvas.layout(size: size), into: size)
         }
         if let rect = node.bounds {
-            return layout.layout(rect: rect, into: size).toCG()
+            return layout.layout(rect: rect, into: size)
         }
-        return CGAffineTransform.identity
+        return Transform.identity
     }
 
     public func nodeChanged() {

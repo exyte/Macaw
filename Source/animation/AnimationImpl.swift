@@ -83,7 +83,7 @@ class BasicAnimation: Animation {
         manualStop = false
         paused = false
 
-        animationProducer.addAnimation(self)
+        animationProducer.play(self, AnimationContext())
     }
 
     override open func stop() {

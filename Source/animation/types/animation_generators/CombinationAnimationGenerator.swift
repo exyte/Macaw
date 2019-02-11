@@ -111,7 +111,7 @@ extension AnimationProducer {
     }
 
     // MARK: - Combine animation
-    func addCombineAnimation(_ combineAnimation: Animation) {
+    func addCombineAnimation(_ combineAnimation: Animation, _ context: AnimationContext) {
         guard let combine = combineAnimation as? CombineAnimation,
             let renderer = combine.nodeRenderer,
             let view = renderer.view else {
@@ -141,7 +141,7 @@ extension AnimationProducer {
             }
 
             combine.repeatCount = 0.0
-            addAnimationSequence(sequence.sequence())
+            addAnimationSequence(sequence.sequence(), context)
             return
         }
 
@@ -182,7 +182,7 @@ extension AnimationProducer {
 
         // Launching
         animations.forEach { animation in
-            self.addAnimation(animation)
+            self.play(animation, context)
         }
     }
 

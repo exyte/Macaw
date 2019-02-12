@@ -572,7 +572,7 @@ class LayoutHelper {
     }
 
     public class func calcTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> Transform {
-        if layout === .none {
+        if layout is NoneLayout {
             return Transform.identity
         }
         if let canvas = node as? SVGCanvas {

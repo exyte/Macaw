@@ -26,7 +26,6 @@ class ShapeLayer: CAShapeLayer {
             ctx.concatenate(renderTransform)
         }
 
-        renderer!.directRender(in: ctx, force: isForceRenderingEnabled)
-        renderer!.dispose()
+        renderer?.directRender(in: ctx, force: isForceRenderingEnabled)
     }
 }

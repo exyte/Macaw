@@ -119,8 +119,8 @@ open class SVGParser {
             config.shouldProcessNamespaces = true
         }
         let parsedXml = config.parse(xmlString)
-        
-        var svgElement: XMLElement!
+
+        var svgElement: XMLElement?
         for child in parsedXml.children {
             if let element = child.element {
                 if element.name == "svg" {
@@ -130,21 +130,13 @@ open class SVGParser {
                 }
             }
         }
+        let layout = svgElement != nil ? try parseViewBox(svgElement!) : nil
         try parseSvg(parsedXml.children)
-        
-        var group: Group
-        if let layout = try parseViewBox(svgElement!) {
-            group = SVGCanvas(layout: layout, contents: nodes)
-        } else {
-            group = Group(contents: nodes)
+        let root = layout != nil ? SVGCanvas(layout: layout!, contents: nodes) : Group(contents: nodes)
+        if let opacity = svgElement?.attribute(by: "opacity") {
+            root.opacity = getOpacity(opacity.text)
         }
-        
-        // global opacity
-        if let opacity = svgElement.attribute(by: "opacity") {
-            group.opacity = Double(opacity.text)!
-        }
-        
-        return group
+        return root
     }
 
     fileprivate func prepareSvg(_ children: [XMLIndexer]) throws {
@@ -241,7 +233,7 @@ open class SVGParser {
         var result: Node?
         if let element = node.element {
             let style = getStyleAttributes(groupStyle, element: element)
-            if style["display"] == "none" || style["visibility"] == "hidden" {
+            if style["display"] == "none" {
                 return .none
             }
             switch element.name {
@@ -780,9 +772,13 @@ open class SVGParser {
 
     fileprivate func getOpacity(_ styleParts: [String: String]) -> Double {
         if let opacityAttr = styleParts["opacity"] {
-            return Double(opacityAttr.replacingOccurrences(of: " ", with: "")) ?? 1
+            return getOpacity(opacityAttr)
         }
         return 1
+    }
+
+    fileprivate func getOpacity(_ opacity: String) -> Double {
+        return Double(opacity.replacingOccurrences(of: " ", with: "")) ?? 1
     }
 
     fileprivate func parseLine(_ line: XMLIndexer) -> Line? {

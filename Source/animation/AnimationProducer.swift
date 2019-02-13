@@ -18,6 +18,7 @@ class AnimationProducer {
         let animation: ContentsAnimation
         let layer: CALayer
         weak var cache: AnimationCache?
+        let topRenderers: [NodeRenderer]
         let startDate: Date
         let finishDate: Date
         let completion: (() -> Void)?
@@ -259,10 +260,32 @@ class AnimationProducer {
             return
         }
 
+        var rootRenderer: NodeRenderer? = renderer
+        while rootRenderer?.parentRenderer != nil {
+            rootRenderer = rootRenderer?.parentRenderer
+        }
+        let allRenderers = rootRenderer?.getAllChildrenRecursive()
+        
+        var animationRenderers = [NodeRenderer]()
+        if let groupRenderer = renderer as? GroupRenderer {
+            animationRenderers.append(contentsOf: groupRenderer.renderers)
+        }
+        let bottomRenderer = animationRenderers.min { $0.zPosition < $1.zPosition }
+
+        var topRenderers = [NodeRenderer]()
+        if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
+            for renderer in allRenderers {
+                if renderer.zPosition > bottomRenderer.zPosition {
+                    topRenderers.append(renderer)
+                }
+            }
+        }
+
         let animationDesc = ContentAnimationDesc(
             animation: contentsAnimation,
             layer: layer,
             cache: cache,
+            topRenderers: topRenderers,
             startDate: Date(),
             finishDate: Date(timeInterval: contentsAnimation.duration, since: startDate),
             completion: completion
@@ -274,13 +297,13 @@ class AnimationProducer {
             displayLink = MDisplayLink()
             displayLink?.startUpdates { [weak self] in
                 DispatchQueue.main.async {
-                    self?.updateContentAnimations()
+                    self?.updateContentAnimations(context)
                 }
             }
         }
     }
 
-    @objc func updateContentAnimations() {
+    func updateContentAnimations(_ context: AnimationContext) {
         if contentsAnimations.isEmpty {
             displayLink?.invalidate()
             displayLink = .none
@@ -339,6 +362,12 @@ class AnimationProducer {
                 } else if animation.paused {
                     animation.pausedProgress = progress
                 }
+            }
+            
+            for renderer in animationDesc.topRenderers {
+                let layer = animationDesc.cache?.layerForNodeRenderer(renderer, context, animation: animationDesc.animation)
+                layer?.setNeedsDisplay()
+                layer?.displayIfNeeded()
             }
         }
     }

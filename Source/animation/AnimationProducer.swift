@@ -265,7 +265,7 @@ class AnimationProducer {
             rootRenderer = rootRenderer?.parentRenderer
         }
         let allRenderers = rootRenderer?.getAllChildrenRecursive()
-        
+
         var animationRenderers = [NodeRenderer]()
         if let groupRenderer = renderer as? GroupRenderer {
             animationRenderers.append(contentsOf: groupRenderer.renderers)
@@ -274,10 +274,8 @@ class AnimationProducer {
 
         var topRenderers = [NodeRenderer]()
         if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
-            for renderer in allRenderers {
-                if renderer.zPosition > bottomRenderer.zPosition {
-                    topRenderers.append(renderer)
-                }
+            for renderer in allRenderers where renderer.zPosition > bottomRenderer.zPosition {
+                topRenderers.append(renderer)
             }
         }
 
@@ -363,7 +361,7 @@ class AnimationProducer {
                     animation.pausedProgress = progress
                 }
             }
-            
+
             for renderer in animationDesc.topRenderers {
                 let layer = animationDesc.cache?.layerForNodeRenderer(renderer, context, animation: animationDesc.animation)
                 layer?.setNeedsDisplay()

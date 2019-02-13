@@ -63,7 +63,7 @@ open class ContentLayout {
 }
 
 class NoneLayout: ContentLayout {
-    
+
 }
 
 class ScalingContentLayout: ContentLayout {

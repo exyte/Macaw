@@ -31,7 +31,7 @@ class SceneUtils {
 
         return shape
     }
-    
+
     static func copyNode(_ referenceNode: Node) -> Node? {
         let pos = referenceNode.place
         let opaque = referenceNode.opaque

@@ -101,6 +101,17 @@ extension NSFont {
     class var mFamilyNames: [String] {
         return NSFontManager.shared.availableFontFamilies
     }
+
+    class func mFontNames(forFamily: String) -> [String] {
+        var result = [String]()
+        if let members = NSFontManager.shared.availableMembers(ofFontFamily: forFamily) {
+            for member in members {
+                result.append(member[0] as! String)
+            }
+        }
+        return result
+    }
+
 }
 
 extension NSScreen {

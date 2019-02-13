@@ -52,4 +52,35 @@ final internal class BoundsUtils {
         }
         return union
     }
+
+    class func transformForLocusInRespectiveCoords(respectiveLocus: Locus, absoluteLocus: Locus) -> Transform {
+        let absoluteBounds = absoluteLocus.bounds()
+        let respectiveBounds = respectiveLocus.bounds()
+        let finalSize = Size(w: absoluteBounds.w * respectiveBounds.w,
+                             h: absoluteBounds.h * respectiveBounds.h)
+        let scale = ContentLayout.of(contentMode: .scaleToFill).layout(size: respectiveBounds.size(), into: finalSize)
+        return Transform.move(dx: absoluteBounds.x, dy: absoluteBounds.y).concat(with: scale)
+    }
+
+    class func createNodeFromRespectiveCoords(respectiveNode: Node, absoluteLocus: Locus) -> Node? {
+        guard let copy = SceneUtils.copyNode(respectiveNode) else {
+            return nil
+        }
+
+        if let patternShape = copy as? Shape {
+            let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: patternShape.form, absoluteLocus: absoluteLocus)
+            patternShape.place = patternShape.place.concat(with: tranform)
+        }
+        if let patternGroup = copy as? Group {
+            var nodes = [Node]()
+            for groupNode in patternGroup.contents {
+                if let node = createNodeFromRespectiveCoords(respectiveNode: groupNode, absoluteLocus: absoluteLocus) {
+                    nodes.append(node)
+                }
+            }
+            patternGroup.contents = nodes
+        }
+
+        return copy
+    }
 }

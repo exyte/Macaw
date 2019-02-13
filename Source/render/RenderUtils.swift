@@ -33,36 +33,30 @@ class RenderUtils {
         fatalError("Unsupported node: \(node)")
     }
 
-    static let availableFonts = MFont.mFamilyNames.map { $0.lowercased() }
+    static let availableFonts = prepareFonts()
+
+    static func prepareFonts() -> [String: String] {
+        var result = [String: String]()
+        for family in MFont.mFamilyNames {
+            // TODO: do we need to include family names?
+            result[family.lowercased()] = family
+            for font in MFont.mFontNames(forFamily: family) {
+                result[font.lowercased()] = font
+            }
+        }
+        result["serif"] = "Georgia"
+        result["sans-serif"] = "Arial"
+        result["monospace"] = "Courier"
+        return result
+    }
 
     class func loadFont(name: String, size: Int, weight: String?) -> MFont? {
-
-        var fontName = ""
-        let fontPriorities = name.split(separator: ",").map { String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")) }
-
-        for font in fontPriorities {
-            let lowercasedFont = font.lowercased()
-
-            if availableFonts.contains(lowercasedFont) {
-                fontName = font
-            }
-
-            if lowercasedFont == "serif" {
-                fontName = "Georgia"
-            }
-            if lowercasedFont == "sans-serif" {
-                fontName = "Arial"
-            }
-            if lowercasedFont == "monospace" {
-                fontName = "Courier"
-            }
+        guard let fontName = findFontName(title: name) else {
+            return nil
         }
-        if fontName.isEmpty {
-            return .none
-        }
-
         var fontDesc = MFontDescriptor(name: fontName, size: CGFloat(size))
-        if weight == "bold" || weight == "bolder" {
+        let lowerWeight = weight?.lowercased()
+        if lowerWeight == "bold" || lowerWeight == "bolder" {
             #if os(iOS)
             fontDesc = fontDesc.withSymbolicTraits(.traitBold)!
             #elseif os(OSX)
@@ -71,6 +65,16 @@ class RenderUtils {
 
         }
         return MFont(descriptor: fontDesc, size: CGFloat(size))
+    }
+
+    static func findFontName(title: String) -> String? {
+        let fonts = title.split(separator: ",").map { String($0).trimmingCharacters(in: CharacterSet(charactersIn: " '")) }
+        for font in fonts {
+            if let availableFont = availableFonts[font.lowercased()] {
+                return availableFont
+            }
+        }
+        return nil
     }
 
     class func applyOpacity(_ color: Color, opacity: Double) -> Color {

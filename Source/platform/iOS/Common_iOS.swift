@@ -86,6 +86,10 @@ extension MFont {
     class var mFamilyNames: [String] {
         return UIFont.familyNames
     }
+
+    class func mFontNames(forFamily: String) -> [String] {
+        return UIFont.fontNames(forFamilyName: forFamily)
+    }
 }
 
 extension UIScreen {

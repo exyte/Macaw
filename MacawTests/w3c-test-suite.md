@@ -15,7 +15,7 @@ The rest 306 tests can be split into following categories:
 * 7.8% images (24) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 19.9% text (61) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 24.9% blocked by issues (76)
+* 25.2% blocked by issues (77)
 
 Status of each test:
 
@@ -186,7 +186,7 @@ Status of each test:
 |[paths-data-20-f-manual](w3cSVGTests/paths-data-20-f-manual.svg)       |  [#395](https://github.com/exyte/Macaw/issues/395)        |
 |[pservers-grad-01-b-manual](w3cSVGTests/pservers-grad-01-b-manual.svg)       | ✅                                                 |
 |[pservers-grad-02-b-manual](w3cSVGTests/pservers-grad-02-b-manual.svg)       | ✅                                                 |
-|[pservers-grad-03-b-manual](w3cSVGTests/pservers-grad-03-b-manual.svg)       |  [#396](https://github.com/exyte/Macaw/issues/396)  |
+|[pservers-grad-03-b-manual](w3cSVGTests/pservers-grad-03-b-manual.svg)       |   ✅  |
 |[pservers-grad-04-b-manual](w3cSVGTests/pservers-grad-04-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-05-b-manual](w3cSVGTests/pservers-grad-05-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-06-b-manual](w3cSVGTests/pservers-grad-06-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |

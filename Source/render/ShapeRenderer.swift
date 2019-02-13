@@ -129,6 +129,8 @@ class ShapeRenderer: NodeRenderer {
             ctx!.setFillColor(color.toCG())
         } else if let gradient = fill as? Gradient {
             drawGradient(gradient, ctx: ctx, opacity: opacity)
+        } else if let pattern = fill as? Pattern {
+            drawPattern(pattern, ctx: ctx, opacity: opacity)
         } else {
             print("Unsupported fill: \(fill)")
         }
@@ -167,6 +169,26 @@ class ShapeRenderer: NodeRenderer {
         }
         ctx!.replacePathWithStrokedPath()
         drawGradient(gradient, ctx: ctx, opacity: opacity)
+    }
+
+    fileprivate func drawPattern(_ pattern: Pattern, ctx: CGContext?, opacity: Double) {
+        guard let shape = shape else {
+            return
+        }
+        var patternNode = pattern.content
+        if !pattern.userSpace, let node = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form) {
+            patternNode = node
+        }
+        let renderer = RenderUtils.createNodeRenderer(patternNode, view: view, animationCache: animationCache)
+
+        var patternBounds = pattern.bounds
+        if !pattern.userSpace {
+            let boundsTranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: pattern.bounds, absoluteLocus: shape.form)
+            patternBounds = pattern.bounds.applying(boundsTranform)
+        }
+        let tileImage = renderer.renderToImage(bounds: patternBounds, inset: 0)
+        ctx?.clip()
+        ctx?.draw(tileImage.cgImage!, in: patternBounds.toCG(), byTiling: true)
     }
 
     fileprivate func drawGradient(_ gradient: Gradient, ctx: CGContext?, opacity: Double) {

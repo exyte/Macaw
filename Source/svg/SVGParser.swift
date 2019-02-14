@@ -120,7 +120,7 @@ open class SVGParser {
         }
         let parsedXml = config.parse(xmlString)
 
-        var svgElement: XMLElement?
+        var svgElement: SWXMLHash.XMLElement?
         for child in parsedXml.children {
             if let element = child.element {
                 if element.name == "svg" {

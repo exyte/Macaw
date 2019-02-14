@@ -274,7 +274,7 @@ class AnimationProducer {
 
         var topRenderers = [NodeRenderer]()
         if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
-            for renderer in allRenderers where renderer.zPosition > bottomRenderer.zPosition {
+            for renderer in allRenderers where !(renderer is GroupRenderer) && renderer.zPosition > bottomRenderer.zPosition {
                 topRenderers.append(renderer)
             }
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pJi-Pa-uLB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pJi-Pa-uLB">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -352,6 +352,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hP-nz-SZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-82.400000000000006" y="1915.5922038980511"/>
+        </scene>
+        <!--Texts-->
+        <scene sceneID="bTW-zB-L9Y">
+            <objects>
+                <viewController storyboardIdentifier="TextsViewController" title="Texts" id="WKi-9n-Pbh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ECn-an-4YB"/>
+                        <viewControllerLayoutGuide type="bottom" id="dI3-Tc-JoV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eF2-bs-oUF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPm-Wd-j2e" customClass="TextsExampleView" customModule="Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hPm-Wd-j2e" firstAttribute="leading" secondItem="eF2-bs-oUF" secondAttribute="leading" id="YKn-kZ-CQC"/>
+                            <constraint firstItem="hPm-Wd-j2e" firstAttribute="top" secondItem="ECn-an-4YB" secondAttribute="bottom" id="gIj-5H-QLF"/>
+                            <constraint firstItem="dI3-Tc-JoV" firstAttribute="top" secondItem="hPm-Wd-j2e" secondAttribute="bottom" id="kLf-IH-dyy"/>
+                            <constraint firstAttribute="trailing" secondItem="hPm-Wd-j2e" secondAttribute="trailing" id="xIq-DI-gT3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oGc-AF-UNq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-113" y="1196"/>
         </scene>
     </scenes>
 </document>

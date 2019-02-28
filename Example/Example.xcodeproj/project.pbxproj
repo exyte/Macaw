@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		48BC2FE8BD3BF26100D04E07 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A92F90D3D20D2A289BED45F /* Pods_Example.framework */; };
+		49265C802227B1EB00923A66 /* TextsExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49265C7F2227B1EB00923A66 /* TextsExampleView.swift */; };
 		5747F9BD1E38B683004E338F /* MorphingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5747F9BC1E38B683004E338F /* MorphingView.swift */; };
 		574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */; };
 		574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574EC4401CB7E2440063F317 /* MenuViewController.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		0A92F90D3D20D2A289BED45F /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		131DDFA4A9D164CC4B64C3E8 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		49265C7F2227B1EB00923A66 /* TextsExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsExampleView.swift; sourceTree = "<group>"; };
 		5747F9BC1E38B683004E338F /* MorphingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorphingView.swift; sourceTree = "<group>"; };
 		574EC4341CB7DE7F0063F317 /* ShapesExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapesExampleView.swift; sourceTree = "<group>"; };
 		574EC4401CB7E2440063F317 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Example/MenuViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -82,6 +84,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		49265C7E2227B1B200923A66 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				49265C7F2227B1EB00923A66 /* TextsExampleView.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
 		5747F9BB1E38B660004E338F /* Morphing */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +103,7 @@
 		574EC4271CB7DE7F0063F317 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				49265C7E2227B1B200923A66 /* Text */,
 				574EC4331CB7DE7F0063F317 /* Shapes */,
 				6699B7CE1DFFE8B90072585E /* Transform */,
 				574EC4421CBB607E0063F317 /* Animations */,
@@ -353,6 +364,7 @@
 				5BAE3CB120C54E3D006BEF51 /* FiltersViewController.swift in Sources */,
 				57AF398C1E67E9DB00F0BFE2 /* EventsExampleController.swift in Sources */,
 				B04416FA1E041A420016BC50 /* EasingView.swift in Sources */,
+				49265C802227B1EB00923A66 /* TextsExampleView.swift in Sources */,
 				574EC4411CB7E2440063F317 /* MenuViewController.swift in Sources */,
 				574EC43E1CB7DE7F0063F317 /* ShapesExampleView.swift in Sources */,
 				B04416FC1E04282A0016BC50 /* EasingExampleController.swift in Sources */,

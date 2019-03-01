@@ -24,10 +24,10 @@ class TextsExampleView: MacawView {
     text4.fill = Color(val: 0xFF0000);
     
     let text3 = TextsExampleView.newText("Kern inc", .move(dx: 100, dy: 250))
-    text3.kern = 3.0
+    text3.kerning = 3.0
     
     let text5 = TextsExampleView.newText("Kern dec", .move(dx: 100, dy: 300))
-    text5.kern = -1.0
+    text5.kerning = -1.0
     
     let group = Group(
       contents: [

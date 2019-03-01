@@ -42,10 +42,10 @@ open class Text: Node {
         set(val) { baselineVar.value = val }
     }
   
-    public let kernVar: Variable<Float>
-    open var kern: Float {
-      get { return kernVar.value }
-      set(val) { kernVar.value = val}
+    public let kerningVar: Variable<Float>
+    open var kerning: Float {
+      get { return kerningVar.value }
+      set(val) { kerningVar.value = val}
     }
 
   public init(text: String, font: Font? = nil, fill: Fill? = Color.black, stroke: Stroke? = nil, align: Align = .min, baseline: Baseline = .top, kern: Float = 0.0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
@@ -55,7 +55,7 @@ open class Text: Node {
         self.strokeVar = Variable<Stroke?>(stroke)
         self.alignVar = Variable<Align>(align)
         self.baselineVar = Variable<Baseline>(baseline)
-        self.kernVar = Variable<Float>(kern)
+        self.kerningVar = Variable<Float>(kern)
         super.init(
             place: place,
             opaque: opaque,
@@ -82,7 +82,7 @@ open class Text: Node {
         }
         var stringAttributes: [NSAttributedString.Key: AnyObject] = [:]
         stringAttributes[NSAttributedString.Key.font] = font
-        stringAttributes[NSAttributedString.Key.kern] = NSNumber(value: self.kern)
+        stringAttributes[NSAttributedString.Key.kern] = NSNumber(value: self.kerning)
         let size = (text as NSString).size(withAttributes: stringAttributes)
         return Rect(
             x: calculateAlignmentOffset(font: font),

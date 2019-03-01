@@ -67,9 +67,9 @@ class TextRenderer: NodeRenderer {
             attributes[NSAttributedString.Key.strokeWidth] = width as NSObject?
         }
         if text.kerning != 0.0 {
-          attributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
+            attributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
         }
-      
+
         if attributes.count > 1 {
             MGraphicsPushContext(context)
             message.draw(in: getBounds(font), withAttributes: attributes)
@@ -134,12 +134,12 @@ class TextRenderer: NodeRenderer {
             return .zero
         }
 
-        var textAttributes : [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
-        if (text.kerning != 0.0){
-          textAttributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
+        var textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
+        if text.kerning != 0.0 {
+            textAttributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
         }
         if let stroke = text.stroke {
-          textAttributes[NSAttributedString.Key.strokeWidth] = NSNumber(value: stroke.width)
+            textAttributes[NSAttributedString.Key.strokeWidth] = NSNumber(value: stroke.width)
         }
         let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
         return CGRect(x: calculateAlignmentOffset(text, font: font),

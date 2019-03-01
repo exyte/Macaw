@@ -168,6 +168,25 @@ class NodeBoundsTests: XCTestCase {
         }
     }
     
+    
+    func testTextWithKerning() {
+        let texts = ["", "Hello, World", "Hello,\nWorld", "\nHello\n,\nWorld"]
+        let kernings : [Float] = [-1.0, -0.5, 0.5, 1.0]
+        
+        texts.forEach { (text) in
+            kernings.forEach({ (kerning) in
+                let text = Text(text: text, kerning: kerning)
+                
+                let stringAttributes = [NSAttributedString.Key.font: MFont.systemFont(ofSize: MFont.systemFontSize),
+                                        NSAttributedString.Key.kern: NSNumber(value: kerning)]
+                let size = text.text.size(withAttributes: stringAttributes)
+                let targetRect = Rect(x: 0.0, y: 0.0, w: size.width.doubleValue, h: size.height.doubleValue)
+                
+                checkBounds(rect1: text.bounds, rect2: targetRect)
+            })
+        }
+    }
+    
     // MARK: - Group
     
     func testSimpleGroupZeroBounds() {

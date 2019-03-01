@@ -4,7 +4,7 @@ open class Pattern: Fill {
     public let bounds: Rect
     public let userSpace: Bool
 
-    init(content: Node, bounds: Rect, userSpace: Bool = false) {
+    public init(content: Node, bounds: Rect, userSpace: Bool = false) {
         self.content = content
         self.bounds = bounds
         self.userSpace = userSpace

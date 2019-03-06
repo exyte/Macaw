@@ -132,6 +132,12 @@ class AnimationProducer {
                     self.play(next, context)
                 }
             }
+        case .path:
+            addPathAnimation(animation, context, sceneLayer: layer, animationCache: cache) {
+                if let next = animation.next {
+                    self.play(next, context)
+                }
+            }
         default:
             break
         }

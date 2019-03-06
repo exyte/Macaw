@@ -94,31 +94,7 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     }
 
     layer.path = fromShape.form.toCGPath()
-
-    // Stroke
-    if let stroke = shape.stroke {
-        if let color = stroke.fill as? Color {
-            layer.strokeColor = color.toCG()
-        } else {
-            layer.strokeColor = MColor.black.cgColor
-        }
-
-        layer.lineWidth = CGFloat(stroke.width)
-        layer.lineCap = MCAShapeLayerLineCap.mapToGraphics(model: stroke.cap)
-        layer.lineJoin = MCAShapeLayerLineJoin.mapToGraphics(model: stroke.join)
-        layer.lineDashPattern = stroke.dashes.map { NSNumber(value: $0) }
-        layer.lineDashPhase = CGFloat(stroke.offset)
-    } else if shape.fill == nil {
-        layer.strokeColor = MColor.black.cgColor
-        layer.lineWidth = 1.0
-    }
-
-    // Fill
-    if let color = shape.fill as? Color {
-        layer.fillColor = color.toCG()
-    } else {
-        layer.fillColor = MColor.clear.cgColor
-    }
+    layer.setupStrokeAndFill(fromShape)
 
     let animationId = animation.ID
     layer.add(generatedAnim, forKey: animationId)

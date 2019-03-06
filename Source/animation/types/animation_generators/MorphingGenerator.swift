@@ -75,27 +75,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     }
 
     layer.path = fromLocus.toCGPath()
-
-    // Stroke
-    if let stroke = mutatingShape.stroke {
-        if let color = stroke.fill as? Color {
-            layer.strokeColor = color.toCG()
-        } else {
-            layer.strokeColor = MColor.black.cgColor
-        }
-
-        layer.lineWidth = CGFloat(stroke.width)
-        layer.lineCap = MCAShapeLayerLineCap.mapToGraphics(model: stroke.cap)
-        layer.lineJoin = MCAShapeLayerLineJoin.mapToGraphics(model: stroke.join)
-        layer.lineDashPattern = stroke.dashes.map { NSNumber(value: $0) }
-    }
-
-    // Fill
-    if let color = mutatingShape.fill as? Color {
-        layer.fillColor = color.toCG()
-    } else {
-        layer.fillColor = MColor.clear.cgColor
-    }
+    layer.setupStrokeAndFill(mutatingShape)
 
     let animationId = animation.ID
     layer.add(generatedAnim, forKey: animationId)

@@ -129,6 +129,17 @@ class AnimationCache {
         return defaultScale * CGFloat(sqrt(maxArea))
     }
 
+    func freeLayerHard(_ renderer: NodeRenderer) {
+        guard let cachedLayer = layerCache[renderer] else {
+            return
+        }
+
+        let layer = cachedLayer.layer
+        layerCache.removeValue(forKey: renderer)
+        sceneLayer?.setNeedsDisplay()
+        layer.removeFromSuperlayer()
+    }
+
     func freeLayer(_ renderer: NodeRenderer) {
         guard let cachedLayer = layerCache[renderer] else {
             return

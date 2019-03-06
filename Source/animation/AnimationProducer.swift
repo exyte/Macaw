@@ -8,6 +8,13 @@ import AppKit
 
 let animationProducer = AnimationProducer()
 
+struct WeakThing<T: AnyObject> {
+    weak var value: T?
+    init(_ value: T) {
+        self.value = value
+    }
+}
+
 class AnimationProducer {
 
     var storedAnimations = [Node: BasicAnimation]() // is used to make sure node is in view hierarchy before actually creating the animation
@@ -18,7 +25,7 @@ class AnimationProducer {
         let animation: ContentsAnimation
         let layer: CALayer
         weak var cache: AnimationCache?
-        let topRenderers: [NodeRenderer]
+        let topRenderers: [WeakThing<NodeRenderer>]
         let startDate: Date
         let finishDate: Date
         let completion: (() -> Void)?
@@ -272,10 +279,10 @@ class AnimationProducer {
         }
         let bottomRenderer = animationRenderers.min { $0.zPosition < $1.zPosition }
 
-        var topRenderers = [NodeRenderer]()
+        var topRenderers = [WeakThing<NodeRenderer>]()
         if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
             for renderer in allRenderers where !(renderer is GroupRenderer) && renderer.zPosition > bottomRenderer.zPosition {
-                topRenderers.append(renderer)
+                topRenderers.append(WeakThing(renderer))
             }
         }
 
@@ -361,11 +368,13 @@ class AnimationProducer {
                     animation.pausedProgress = progress
                 }
             }
-
-            for renderer in animationDesc.topRenderers {
-                let layer = animationDesc.cache?.layerForNodeRenderer(renderer, context, animation: animationDesc.animation)
-                layer?.setNeedsDisplay()
-                layer?.displayIfNeeded()
+            
+            for weakRenderer in animationDesc.topRenderers {
+                if let renderer = weakRenderer.value {
+                    let layer = animationDesc.cache?.layerForNodeRenderer(renderer, context, animation: animationDesc.animation)
+                    layer?.setNeedsDisplay()
+                    layer?.displayIfNeeded()
+                }
             }
         }
     }

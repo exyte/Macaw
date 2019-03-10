@@ -292,7 +292,49 @@ open class SVGConstants {
         "yellow": 0xffff00,
         "yellowgreen": 0x9acd32
     ]
-
+    
+    #if os(iOS)
+    public static let systemColorList = [
+        "AppWorkspace": 0xffffff,
+        "ActiveBorder": 0xffffff,
+        "ActiveCaption": 0xcccccc,
+        "Background": 0x6363ce,
+        "ButtonFace": 0xc0c0c0,
+        "ButtonHighlight": 0xcccccc,
+        "ButtonShadow": 0x888888,
+        "CaptionText": 0x000000,
+        "HighlightText": 0x000000,
+        "Menu": 0xc0c0c0,
+        "MenuText": 0x000000,
+        "ThreeDFace": 0xc0c0c0,
+        "ThreeDDarkShadow": 0x666666,
+        "ThreeDLightShadow": 0xc0c0c0,
+        "Window": 0xffffff,
+        "WindowFrame": 0xcccccc,
+        "WindowText": 0x000000
+    ]
+    #elseif os(OSX)
+    public static let systemColorList = [
+        "AppWorkspace": 0xaaaaaa,
+        "ActiveBorder": 0x992a6ccd,
+        "ActiveCaption": 0x242424,
+        "Background": 0x6363ce,
+        "ButtonFace": 0xc0c0c0,
+        "ButtonHighlight": 0xffffff,
+        "ButtonShadow": 0x8d8d8d,
+        "CaptionText": 0x000000,
+        "HighlightText": 0x000000,
+        "Menu": 0xf6f6f6,
+        "MenuText": 0xffffff,
+        "ThreeDFace": 0xc0c0c0,
+        "ThreeDDarkShadow": 0x000000,
+        "ThreeDLightShadow": 0xffffff,
+        "Window": 0xececec,
+        "WindowFrame": 0xaaaaaa,
+        "WindowText": 0x242424
+    ]
+    #endif
+    
     public static func valueToColor(_ color: Int) -> String? {
         return SVGConstants.colorList.filter { _, v -> Bool in v == color }.map { k, _ -> String in k }.first
     }

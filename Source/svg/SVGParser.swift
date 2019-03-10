@@ -596,110 +596,7 @@ open class SVGParser {
         let green = CGFloat((rgbValue >> 08) & 0xff)
         let blue = CGFloat((rgbValue >> 00) & 0xff)
         
-        switch cleanedHexString {
-        case "AppWorkspace":
-            #if os(iOS)
-            return Color.white
-            #elseif os(OSX)
-            return Color.rgba(r: Int(170), g: Int(170), b: Int(170), a: opacity)
-            #endif
-            
-        case "ActiveBorder":
-            #if os(iOS)
-            return Color.white
-            #elseif os(OSX)
-            return Color.rgba(r: Int(42), g: Int(108), b: Int(205), a: 0.36)
-            #endif
-            
-        case "ActiveCaption":
-            #if os(iOS)
-            return Color.rgba(r: Int(204), g: Int(204), b: Int(204), a: opacity)
-            #elseif os(OSX)
-            return Color.rgba(r: Int(36), g: Int(36), b: Int(36), a: opacity)
-            #endif
-            
-        case "Background":
-            return Color.rgba(r: Int(99), g: Int(99), b: Int(206), a: opacity)
-            
-        case "ButtonFace":
-            return Color.silver
-            
-        case "ButtonHighlight":
-            #if os(iOS)
-            return Color.rgba(r: Int(204), g: Int(204), b: Int(204), a: opacity)
-            #elseif os(OSX)
-            return Color.white
-            #endif
-            
-        case "ButtonShadow":
-            #if os(iOS)
-            return Color.rgba(r: Int(136), g: Int(136), b: Int(136), a: opacity)
-            
-            #elseif os(OSX)
-            return Color.rgba(r: Int(141), g: Int(141), b: Int(141), a: opacity)
-            #endif
-            
-        case "CaptionText":
-            return Color.black
-            
-        case "HighlightText":
-            return Color.black
-    
-        case "Menu":
-            #if os(iOS)
-            return Color.silver
-            #elseif os(OSX)
-            return Color.rgba(r: Int(246), g: Int(246), b: Int(246), a: opacity)
-            #endif
-            
-        case "MenuText":
-            #if os(iOS)
-            return Color.black
-            #elseif os(OSX)
-            return Color.white
-            #endif
-            
-        case "ThreeDFace":
-            return Color.silver
-    
-        case "ThreeDDarkShadow":
-            #if os(iOS)
-            return Color.rgba(r: Int(102), g: Int(102), b: Int(102), a: opacity)
-            #elseif os(OSX)
-            return Color.black
-            #endif
-            
-        case "ThreeDLightShadow":
-            #if os(iOS)
-            return Color.silver
-            #elseif os(OSX)
-            return Color.white
-            #endif
-            
-        case "Window":
-            #if os(iOS)
-            return Color.white
-            #elseif os(OSX)
-            return Color.rgba(r: Int(236), g: Int(236), b: Int(236), a: opacity)
-            #endif
-            
-        case "WindowFrame":
-            #if os(iOS)
-            return Color.rgba(r: Int(204), g: Int(204), b: Int(204), a: opacity)
-            #elseif os(OSX)
-            return Color.rgba(r: Int(170), g: Int(170), b: Int(170), a: opacity)
-            #endif
-            
-        case "WindowText":
-            #if os(iOS)
-            return Color.black
-            #elseif os(OSX)
-            return Color.rgba(r: Int(36), g: Int(36), b: Int(36), a: opacity)
-            #endif
-            
-        default:
-            return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
-        }
+        return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 
     fileprivate func createColor(_ colorString: String, opacity: Double = 1) -> Color? {
@@ -710,6 +607,10 @@ open class SVGParser {
         if let defaultColor = SVGConstants.colorList[colorString] {
             let color = Color(val: defaultColor)
             return opacity != 1 ? color.with(a: opacity) : color
+        }
+        if let systemColor = SVGConstants.systemColorList[colorString] {
+            let color = Color(val: systemColor)
+            return color
         }
         if colorString.hasPrefix("rgb") {
             let color = parseRGBNotation(colorString: colorString)

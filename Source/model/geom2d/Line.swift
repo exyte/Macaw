@@ -19,4 +19,8 @@ open class Line: Locus {
             w: abs(x1 - x2),
             h: abs(y1 - y2))
     }
+
+    override open func toPath() -> Path {
+        return MoveTo(x: x1, y: y1).lineTo(x: x2, y: y2).build()
+    }
 }

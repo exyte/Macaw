@@ -2,10 +2,6 @@ import Foundation
 
 extension Locus {
 
-    internal func rectToPath(_ rect: Rect) -> Path {
-        return MoveTo(x: rect.x, y: rect.y).lineTo(x: rect.x, y: rect.y + rect.h).lineTo(x: rect.x + rect.w, y: rect.y + rect.h).lineTo(x: rect.x + rect.w, y: rect.y).close().build()
-    }
-
     internal func circleToPath(_ circle: Circle) -> Path {
         return MoveTo(x: circle.cx, y: circle.cy).m(-circle.r, 0).a(circle.r, circle.r, 0.0, true, false, circle.r * 2.0, 0.0).a(circle.r, circle.r, 0.0, true, false, -(circle.r * 2.0), 0.0).build()
     }

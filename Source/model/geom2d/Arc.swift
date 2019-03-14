@@ -1,3 +1,5 @@
+import Darwin
+
 open class Arc: Locus {
 
     public let ellipse: Ellipse
@@ -16,5 +18,31 @@ open class Arc: Locus {
             y: ellipse.cy - ellipse.ry,
             w: ellipse.rx * 2.0,
             h: ellipse.ry * 2.0)
+    }
+
+    override open func toPath() -> Path {
+        let rx = ellipse.rx
+        let ry = ellipse.ry
+        let cx = ellipse.cx
+        let cy = ellipse.cy
+
+        var delta = extent
+        if shift == 0.0 && abs(extent - .pi * 2.0) < 0.00001 {
+            delta = .pi * 2.0 - 0.001
+        }
+        let theta1 = shift
+
+        let theta2 = theta1 + delta
+
+        let x1 = cx + rx * cos(theta1)
+        let y1 = cy + ry * sin(theta1)
+
+        let x2 = cx + rx * cos(theta2)
+        let y2 = cy + ry * sin(theta2)
+
+        let largeArcFlag = abs(delta) > .pi ? true : false
+        let sweepFlag = delta > 0.0 ? true : false
+
+        return PathBuilder(segment: PathSegment(type: .M, data: [x1, y1])).A(rx, ry, 0.0, largeArcFlag, sweepFlag, x2, y2).build()
     }
 }

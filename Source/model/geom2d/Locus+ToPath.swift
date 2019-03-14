@@ -2,10 +2,6 @@ import Foundation
 
 extension Locus {
 
-    internal func pointToPath(_ point: Point) -> Path {
-        return MoveTo(x: point.x, y: point.y).lineTo(x: point.x, y: point.y).build()
-    }
-
     internal func pointsToPath(_ points: [Double], close: Bool = false) -> Path {
         var pb = PathBuilder(segment: PathSegment(type: .M, data: [points[0], points[1]]))
         if points.count > 2 {

@@ -2,10 +2,6 @@ import Foundation
 
 extension Locus {
 
-    internal func circleToPath(_ circle: Circle) -> Path {
-        return MoveTo(x: circle.cx, y: circle.cy).m(-circle.r, 0).a(circle.r, circle.r, 0.0, true, false, circle.r * 2.0, 0.0).a(circle.r, circle.r, 0.0, true, false, -(circle.r * 2.0), 0.0).build()
-    }
-
     internal func arcToPath(_ arc: Arc) -> Path {
         let rx = arc.ellipse.rx
         let ry = arc.ellipse.ry

@@ -20,9 +20,7 @@ open class Locus {
     }
 
     open func toPath() -> Path {
-        if let circle = self as? Circle {
-            return circleToPath(circle)
-        } else if let arc = self as? Arc {
+        if let arc = self as? Arc {
             return arcToPath(arc)
         } else if let point = self as? Point {
             return MoveTo(x: point.x, y: point.y).lineTo(x: point.x, y: point.y).build()

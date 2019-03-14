@@ -21,4 +21,8 @@ open class Circle: Locus {
     open func arc(shift: Double, extent: Double) -> Arc {
         return Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
     }
+
+    override open func toPath() -> Path {
+        return MoveTo(x: cx, y: cy).m(-r, 0).a(r, r, 0.0, true, false, r * 2.0, 0.0).a(r, r, 0.0, true, false, -(r * 2.0), 0.0).build()
+    }
 }

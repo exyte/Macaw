@@ -20,9 +20,7 @@ open class Locus {
     }
 
     open func toPath() -> Path {
-        if let polyline = self as? Polyline {
-            return pointsToPath(polyline.points)
-        } else if let path = self as? Path {
+        if let path = self as? Path {
             return path
         }
         fatalError("Unsupported locus: \(self)")

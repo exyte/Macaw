@@ -20,9 +20,6 @@ open class Locus {
     }
 
     open func toPath() -> Path {
-        if let path = self as? Path {
-            return path
-        }
         fatalError("Unsupported locus: \(self)")
     }
 }

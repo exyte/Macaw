@@ -20,9 +20,7 @@ open class Locus {
     }
 
     open func toPath() -> Path {
-        if let polygon = self as? Polygon {
-            return pointsToPath(polygon.points, close: true)
-        } else if let polyline = self as? Polyline {
+        if let polyline = self as? Polyline {
             return pointsToPath(polyline.points)
         } else if let path = self as? Path {
             return path

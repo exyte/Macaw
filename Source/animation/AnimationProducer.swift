@@ -8,13 +8,6 @@ import AppKit
 
 let animationProducer = AnimationProducer()
 
-struct WeakThing<T: AnyObject> {
-    weak var value: T?
-    init(_ value: T) {
-        self.value = value
-    }
-}
-
 class AnimationProducer {
 
     var storedAnimations = [Node: BasicAnimation]() // is used to make sure node is in view hierarchy before actually creating the animation
@@ -368,7 +361,7 @@ class AnimationProducer {
                     animation.pausedProgress = progress
                 }
             }
-            
+
             for weakRenderer in animationDesc.topRenderers {
                 if let renderer = weakRenderer.value {
                     let layer = animationDesc.cache?.layerForNodeRenderer(renderer, context, animation: animationDesc.animation)

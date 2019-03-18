@@ -58,7 +58,7 @@ class GroupRenderer: NodeRenderer {
     }
 
     private func updateRenderers() {
-        
+
         renderers.forEach {
             animationCache?.freeLayerHard($0)
             $0.dispose()

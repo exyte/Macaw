@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -111,7 +111,7 @@
         <!--Tab View Controller-->
         <scene sceneID="HCD-4m-c8h">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="hdB-7F-R9Q" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="6" id="hdB-7F-R9Q" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="3QN-7z-LrX"/>
                         <tabViewItem id="1e3-gs-UK8"/>
@@ -120,6 +120,7 @@
                         <tabViewItem id="cOY-ae-H1s"/>
                         <tabViewItem id="h85-ch-mEO"/>
                         <tabViewItem id="fd7-0D-v5P"/>
+                        <tabViewItem id="Lcq-hY-C2R"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="2WP-RT-S1E">
                         <rect key="frame" x="-57" y="5" width="615" height="95"/>
@@ -138,6 +139,7 @@
                         <segue destination="6Ok-1N-J6E" kind="relationship" relationship="tabItems" id="Oei-AM-VA1"/>
                         <segue destination="Rn8-Li-WZ2" kind="relationship" relationship="tabItems" id="XnE-5e-LQB"/>
                         <segue destination="9aj-uf-eJX" kind="relationship" relationship="tabItems" id="dm1-xg-c0C"/>
+                        <segue destination="UV0-nl-E6y" kind="relationship" relationship="tabItems" id="10z-7p-st3"/>
                     </connections>
                 </tabViewController>
                 <customObject id="vzO-zk-Zwd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -344,6 +346,30 @@
                 <customObject id="RA2-nh-XE7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="57" y="2256"/>
+        </scene>
+        <!--Texts-->
+        <scene sceneID="X4E-CY-SgF">
+            <objects>
+                <viewController title="Texts" id="UV0-nl-E6y" sceneMemberID="viewController">
+                    <view key="view" id="Sna-Mq-RHP">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="6Dc-5k-wX7" customClass="TextsExampleView" customModule="Example_macOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6Dc-5k-wX7" secondAttribute="bottom" id="MpI-b9-QYF"/>
+                            <constraint firstItem="6Dc-5k-wX7" firstAttribute="top" secondItem="Sna-Mq-RHP" secondAttribute="top" id="VVy-XW-3NP"/>
+                            <constraint firstItem="6Dc-5k-wX7" firstAttribute="leading" secondItem="Sna-Mq-RHP" secondAttribute="leading" id="o8h-7H-raU"/>
+                            <constraint firstAttribute="trailing" secondItem="6Dc-5k-wX7" secondAttribute="trailing" id="pk8-Tx-3CR"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="uqV-13-To9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1128" y="350"/>
         </scene>
     </scenes>
 </document>

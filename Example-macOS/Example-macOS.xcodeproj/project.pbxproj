@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49265C832227BB7A00923A66 /* TextsExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49265C822227BB7A00923A66 /* TextsExampleView.swift */; };
 		970AB811D179560D74930D39 /* Pods_Example_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */; };
 		A715CA7D215E472800EE7651 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715CA7C215E472800EE7651 /* ExampleViewController.swift */; };
 		A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72862CA1F4308A50033893D /* AnimationsViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49265C822227BB7A00923A66 /* TextsExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsExampleView.swift; sourceTree = "<group>"; };
 		5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A715CA7C215E472800EE7651 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		A72862CA1F4308A50033893D /* AnimationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimationsViewController.swift; path = Examples/Animations/AnimationsViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,15 @@
 				5184A00051CAC5E360198B48 /* Pods_Example_macOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		49265C812227BB7A00923A66 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				49265C822227BB7A00923A66 /* TextsExampleView.swift */,
+			);
+			name = Text;
+			path = ../../Example/Example/Examples/Text;
 			sourceTree = "<group>";
 		};
 		4F8946156C3F28DC7B262776 /* Pods */ = {
@@ -110,6 +121,7 @@
 		A759399F1F41C51A000CE329 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				49265C812227BB7A00923A66 /* Text */,
 				A715CA7C215E472800EE7651 /* ExampleViewController.swift */,
 				A75939A01F41C544000CE329 /* Shapes */,
 				A75939A61F41C58D000CE329 /* Transform */,
@@ -281,7 +293,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Example-macOS/Pods-Example-macOS-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Example-macOS/Pods-Example-macOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 			);
@@ -292,7 +304,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example-macOS/Pods-Example-macOS-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example-macOS/Pods-Example-macOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -310,6 +322,7 @@
 				A768EAD81F42C98E00F22A17 /* EventsExampleController.swift in Sources */,
 				A72862CE1F430DF00033893D /* EasingViewController.swift in Sources */,
 				A72862CB1F4308A50033893D /* AnimationsViewController.swift in Sources */,
+				49265C832227BB7A00923A66 /* TextsExampleView.swift in Sources */,
 				A768EADE1F42CCBC00F22A17 /* AnimationsView.swift in Sources */,
 				A75939A81F41C5A8000CE329 /* TransformExampleView.swift in Sources */,
 				A768EADC1F42CC7C00F22A17 /* EasingView.swift in Sources */,

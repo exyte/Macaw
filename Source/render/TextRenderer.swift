@@ -35,6 +35,7 @@ class TextRenderer: NodeRenderer {
         observe(text.strokeVar)
         observe(text.alignVar)
         observe(text.baselineVar)
+        observe(text.kerningVar)
     }
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
@@ -65,6 +66,10 @@ class TextRenderer: NodeRenderer {
             }
             attributes[NSAttributedString.Key.strokeWidth] = width as NSObject?
         }
+        if text.kerning != 0.0 {
+            attributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
+        }
+
         if attributes.count > 1 {
             MGraphicsPushContext(context)
             message.draw(in: getBounds(font), withAttributes: attributes)
@@ -129,7 +134,13 @@ class TextRenderer: NodeRenderer {
             return .zero
         }
 
-        let textAttributes = [NSAttributedString.Key.font: font]
+        var textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
+        if text.kerning != 0.0 {
+            textAttributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
+        }
+        if let stroke = text.stroke {
+            textAttributes[NSAttributedString.Key.strokeWidth] = NSNumber(value: stroke.width)
+        }
         let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
         return CGRect(x: calculateAlignmentOffset(text, font: font),
                       y: calculateBaselineOffset(text, font: font),

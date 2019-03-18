@@ -58,7 +58,11 @@ class GroupRenderer: NodeRenderer {
     }
 
     private func updateRenderers() {
-        renderers.forEach { $0.dispose() }
+
+        renderers.forEach {
+            animationCache?.freeLayerHard($0)
+            $0.dispose()
+        }
         renderers.removeAll()
 
         if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in

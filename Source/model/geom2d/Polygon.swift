@@ -45,4 +45,15 @@ open class Polygon: Locus {
                     w: maxX - minX,
                     h: maxY - minY)
     }
+
+    override open func toPath() -> Path {
+        var pb = PathBuilder(segment: PathSegment(type: .M, data: [points[0], points[1]]))
+        if points.count > 2 {
+            let parts = stride(from: 2, to: points.count, by: 2).map { Array(points[$0 ..< $0 + 2]) }
+            for part in parts {
+                pb = pb.lineTo(x: part[0], y: part[1])
+            }
+        }
+        return pb.close().build()
+    }
 }

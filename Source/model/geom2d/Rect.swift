@@ -63,6 +63,9 @@ open class Rect: Locus {
         return Size(w: w, h: h)
     }
 
+    override open func toPath() -> Path {
+        return MoveTo(x: x, y: y).lineTo(x: x, y: y + h).lineTo(x: x + w, y: y + h).lineTo(x: x + w, y: y).close().build()
+    }
 }
 
 extension Rect {

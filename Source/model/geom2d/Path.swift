@@ -15,4 +15,8 @@ open class Path: Locus {
     override open func bounds() -> Rect {
         return toCGPath().boundingBoxOfPath.toMacaw()
     }
+
+    override open func toPath() -> Path {
+        return self
+    }
 }

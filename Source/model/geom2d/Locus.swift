@@ -18,4 +18,8 @@ open class Locus {
     open func stroke(fill: Fill = Color.black, width: Double = 1, cap: LineCap = .butt, join: LineJoin = .miter, dashes: [Double] = []) -> Shape {
         return Shape(form: self, stroke: Stroke(fill: fill, width: width, cap: cap, join: join, dashes: dashes))
     }
+
+    open func toPath() -> Path {
+        fatalError("Unsupported locus: \(self)")
+    }
 }

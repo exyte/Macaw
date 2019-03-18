@@ -27,4 +27,8 @@ open class Point: Locus {
     open func rect(size: Size) -> Rect {
         return Rect(point: self, size: size)
     }
+
+    override open func toPath() -> Path {
+        return MoveTo(x: x, y: y).lineTo(x: x, y: y).build()
+    }
 }

@@ -140,6 +140,31 @@ class AnimationCache {
         layer.removeFromSuperlayer()
     }
 
+    func freeLayer(layer: ShapeLayer) {
+        var cached: CachedLayer?
+        var renderer: NodeRenderer?
+        layerCache.forEach { key, value in
+            if value.layer === layer {
+                cached = value
+                renderer = key
+            }
+        }
+        guard let cachedLayer = cached, let nodeRenderer = renderer else {
+            return
+        }
+
+        cachedLayer.linksCounter -= 1
+
+        if cachedLayer.linksCounter != 0 {
+            return
+        }
+
+        let layer = cachedLayer.layer
+        layerCache.removeValue(forKey: nodeRenderer)
+        sceneLayer?.setNeedsDisplay()
+        layer.removeFromSuperlayer()
+    }
+
     func freeLayer(_ renderer: NodeRenderer) {
         guard let cachedLayer = layerCache[renderer] else {
             return

@@ -487,6 +487,8 @@
 		5BAE204C208E1EF4006BF277 /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE201E208E1211006BF277 /* SVGCanvas.swift */; };
 		5BAE2058208F24DE006BF277 /* SceneSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE2057208F24DE006BF277 /* SceneSerialization.swift */; };
 		5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEA9C8206CEAA20049AAAE /* viewBox.svg */; };
+		5BB63E302244B83C00CD97D5 /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECDC7A222FE6DD009C8E6A /* PathAnimation.swift */; };
+		5BB63E312244B84000CD97D5 /* PathAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECDC7C222FE6E2009C8E6A /* PathAnimationGenerator.swift */; };
 		5BC2CA0D21C7B8F500AC46D9 /* CombinationAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2CA0C21C7B8F400AC46D9 /* CombinationAnimationGenerator.swift */; };
 		5BC2CA0E21C7B8F900AC46D9 /* CombinationAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2CA0C21C7B8F400AC46D9 /* CombinationAnimationGenerator.swift */; };
 		5BECDC7B222FE6DE009C8E6A /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECDC7A222FE6DD009C8E6A /* PathAnimation.swift */; };
@@ -2114,6 +2116,7 @@
 				57614B521F83D15600875933 /* GeomUtils.swift in Sources */,
 				5B6E194420AC58F900454E7E /* Gradient.swift in Sources */,
 				57614B531F83D15600875933 /* CAAnimationClosure.swift in Sources */,
+				5BB63E312244B84000CD97D5 /* PathAnimationGenerator.swift in Sources */,
 				5B6E194220AC58F900454E7E /* Color.swift in Sources */,
 				57614B551F83D15600875933 /* Common_iOS.swift in Sources */,
 				57614B561F83D15600875933 /* Common_macOS.swift in Sources */,
@@ -2143,6 +2146,7 @@
 				57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */,
 				5B6E193620AC58F900454E7E /* Stop.swift in Sources */,
 				57614B6C1F83D15600875933 /* SWXMLHash+TypeConversion.swift in Sources */,
+				5BB63E302244B83C00CD97D5 /* PathAnimation.swift in Sources */,
 				57614B6D1F83D15600875933 /* AnimationSequence.swift in Sources */,
 				5B1A8C7720A15F7300E5FFAE /* SVGNodeLayout.swift in Sources */,
 				57614B6E1F83D15600875933 /* MorphingGenerator.swift in Sources */,

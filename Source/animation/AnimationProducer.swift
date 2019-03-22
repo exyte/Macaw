@@ -273,7 +273,6 @@ class AnimationProducer {
         let bottomRenderer = animationRenderers.min { $0.zPosition < $1.zPosition }
 
         var topLayers = [ShapeLayer]()
-        var topRenderers = [WeakThing<NodeRenderer>]()
         if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
             for renderer in allRenderers where !(renderer is GroupRenderer) && renderer.zPosition > bottomRenderer.zPosition {
                 if let layer = cache?.layerForNodeRenderer(renderer, context, animation: contentsAnimation) {

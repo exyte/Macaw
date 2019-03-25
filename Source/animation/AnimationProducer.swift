@@ -268,16 +268,19 @@ class AnimationProducer {
 
         var animationRenderers = [NodeRenderer]()
         if let groupRenderer = renderer as? GroupRenderer {
-            animationRenderers.append(contentsOf: groupRenderer.renderers)
+            animationRenderers.append(contentsOf: groupRenderer.getAllChildrenRecursive())
         }
         let bottomRenderer = animationRenderers.min { $0.zPosition < $1.zPosition }
 
         var topLayers = [ShapeLayer]()
         if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
-            for renderer in allRenderers where !(renderer is GroupRenderer) && renderer.zPosition > bottomRenderer.zPosition {
-                if let layer = cache?.layerForNodeRenderer(renderer, context, animation: contentsAnimation) {
-                    topLayers.append(layer)
-                }
+            for renderer in allRenderers
+                where !(renderer is GroupRenderer)
+                    && renderer.zPosition > bottomRenderer.zPosition
+                    && !animationRenderers.contains(renderer) {
+                        if let layer = cache?.layerForNodeRenderer(renderer, context, animation: contentsAnimation) {
+                            topLayers.append(layer)
+                        }
             }
         }
 

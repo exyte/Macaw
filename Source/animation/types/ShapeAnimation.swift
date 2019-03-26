@@ -69,7 +69,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
 }
 
 public extension AnimatableVariable {
-    public func animate<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
+    func animate<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
         let shape = node as! Shape
 
         var safeFrom = from
@@ -89,7 +89,7 @@ public extension AnimatableVariable {
         _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
 
-    public func animation<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let shape = node as! Shape
 
         var safeFrom = from
@@ -111,7 +111,7 @@ public extension AnimatableVariable {
 }
 
 public extension AnimatableVariable {
-    public func animate<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
+    func animate<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
         let shape = node as! Shape
 
         var safeFrom = from
@@ -131,7 +131,7 @@ public extension AnimatableVariable {
         _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
 
-    public func animation<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let shape = node as! Shape
 
         var safeFrom = from

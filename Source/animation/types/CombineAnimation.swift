@@ -82,7 +82,7 @@ internal class CombineAnimation: BasicAnimation {
 }
 
 public extension Sequence where Iterator.Element: Animation {
-    public func combine(delay: Double = 0.0, node: Node? = .none, toNodes: [Node] = []) -> Animation {
+    func combine(delay: Double = 0.0, node: Node? = .none, toNodes: [Node] = []) -> Animation {
 
         var toCombine = [BasicAnimation]()
         self.forEach { animation in

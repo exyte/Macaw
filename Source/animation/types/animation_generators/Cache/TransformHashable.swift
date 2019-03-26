@@ -1,11 +1,11 @@
 extension Transform: Hashable {
-    public var hashValue: Int {
-        return m11.hashValue ^
-            m12.hashValue ^
-            m21.hashValue ^
-            m22.hashValue ^
-            dx.hashValue ^
-            dy.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(m11)
+        hasher.combine(m12)
+        hasher.combine(m21)
+        hasher.combine(m22)
+        hasher.combine(dx)
+        hasher.combine(dy)
     }
 }
 

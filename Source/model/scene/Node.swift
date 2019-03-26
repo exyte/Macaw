@@ -73,7 +73,7 @@ open class Node: Drawable {
         touchPressedHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler]  in
-            guard let index = self?.touchPressedHandlers.index(of: handler) else {
+            guard let index = self?.touchPressedHandlers.firstIndex(of: handler) else {
                 return
             }
 
@@ -86,7 +86,7 @@ open class Node: Drawable {
         touchMovedHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.touchMovedHandlers.index(of: handler) else {
+            guard let index = self?.touchMovedHandlers.firstIndex(of: handler) else {
                 return
             }
 
@@ -99,7 +99,7 @@ open class Node: Drawable {
         touchReleasedHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.touchReleasedHandlers.index(of: handler) else {
+            guard let index = self?.touchReleasedHandlers.firstIndex(of: handler) else {
                 return
             }
 
@@ -116,7 +116,7 @@ open class Node: Drawable {
         }
 
         return Disposable { [weak self, unowned handler]  in
-            guard let index = self?.tapHandlers[tapCount]?.index(of: handler) else {
+            guard let index = self?.tapHandlers[tapCount]?.firstIndex(of: handler) else {
                 return
             }
 
@@ -129,7 +129,7 @@ open class Node: Drawable {
         longTapHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.longTapHandlers.index(of: handler) else {
+            guard let index = self?.longTapHandlers.firstIndex(of: handler) else {
                 return
             }
 
@@ -142,7 +142,7 @@ open class Node: Drawable {
         panHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.panHandlers.index(of: handler) else {
+            guard let index = self?.panHandlers.firstIndex(of: handler) else {
                 return
             }
 
@@ -155,7 +155,7 @@ open class Node: Drawable {
         rotateHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.rotateHandlers.index(of: handler) else {
+            guard let index = self?.rotateHandlers.firstIndex(of: handler) else {
                 return
             }
 
@@ -168,7 +168,7 @@ open class Node: Drawable {
         pinchHandlers.append(handler)
 
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.pinchHandlers.index(of: handler) else {
+            guard let index = self?.pinchHandlers.firstIndex(of: handler) else {
                 return
             }
 

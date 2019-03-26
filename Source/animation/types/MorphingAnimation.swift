@@ -38,19 +38,19 @@ class MorphingAnimation: AnimationImpl<Locus> {
 public typealias MorphingAnimationDescription = AnimationDescription<Locus>
 
 public extension AnimatableVariable where T: LocusInterpolation {
-    public func animate(_ desc: MorphingAnimationDescription) {
+    func animate(_ desc: MorphingAnimationDescription) {
         _ = MorphingAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
     }
 
-    public func animation(_ desc: MorphingAnimationDescription) -> Animation {
+    func animation(_ desc: MorphingAnimationDescription) -> Animation {
         return MorphingAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
-    public func animate(from: Locus? = nil, to: Locus, during: Double = 1.0, delay: Double = 0.0) {
+    func animate(from: Locus? = nil, to: Locus, during: Double = 1.0, delay: Double = 0.0) {
         self.animate(((from ?? (node as! Shape).form) >> to).t(during, delay: delay))
     }
 
-    public func animation(from: Locus? = nil, to: Locus, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(from: Locus? = nil, to: Locus, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
@@ -67,7 +67,7 @@ public extension AnimatableVariable where T: LocusInterpolation {
         return MorphingAnimation(animatedNode: self.node as! Shape, factory: factory, animationDuration: during, delay: delay)
     }
 
-    public func animation(_ f: @escaping (Double) -> Locus, during: Double, delay: Double = 0.0) -> Animation {
+    func animation(_ f: @escaping (Double) -> Locus, during: Double, delay: Double = 0.0) -> Animation {
         return MorphingAnimation(animatedNode: node as! Shape, valueFunc: f, animationDuration: during, delay: delay)
     }
 
@@ -76,7 +76,7 @@ public extension AnimatableVariable where T: LocusInterpolation {
 // MARK: - Group
 
 public extension AnimatableVariable where T: ContentsInterpolation {
-    public func animation(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) -> Animation {
         var fromNode = node as! Group
         if let passedFromNode = from {
             fromNode = passedFromNode
@@ -85,7 +85,7 @@ public extension AnimatableVariable where T: ContentsInterpolation {
         return CombineAnimation(animations: [], during: during, node: fromNode, toNodes: to)
     }
 
-    public func animate(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) {
+    func animate(from: Group? = nil, to: [Node], during: Double = 1.0, delay: Double = 0.0) {
         animation(from: from, to: to, during: during, delay: delay).play()
     }
 }

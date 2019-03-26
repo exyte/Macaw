@@ -65,29 +65,29 @@ internal class TransformAnimation: AnimationImpl<Transform> {
 public typealias TransformAnimationDescription = AnimationDescription<Transform>
 
 public extension AnimatableVariable where T: TransformInterpolation {
-    public func animate(_ desc: TransformAnimationDescription) {
+    func animate(_ desc: TransformAnimationDescription) {
         _ = TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
     }
 
-    public func animation(_ desc: TransformAnimationDescription) -> Animation {
+    func animation(_ desc: TransformAnimationDescription) -> Animation {
         return TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
-    public func animate(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
+    func animate(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
         self.animate(((from ?? node!.place) >> to).t(during, delay: delay))
     }
 
-    public func animate(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) {
+    func animate(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) {
         let animation = self.animation(angle: angle, x: x, y: y, during: during, delay: delay)
         animation.play()
     }
 
-    public func animate(along path: Path, during: Double = 1.0, delay: Double = 0.0) {
+    func animate(along path: Path, during: Double = 1.0, delay: Double = 0.0) {
         let animation = self.animation(along: path, during: during, delay: delay)
         animation.play()
     }
 
-    public func animation(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
@@ -98,11 +98,11 @@ public extension AnimatableVariable where T: TransformInterpolation {
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
     }
 
-    public func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation {
         return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
     }
 
-    public func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let bounds = node!.bounds!
 
         let factory = { () -> (Double) -> Transform in { t in
@@ -130,7 +130,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
         return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
     }
 
-    public func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation {
 
         let factory = { () -> (Double) -> Transform in { (t: Double) in Transform.identity }
         }

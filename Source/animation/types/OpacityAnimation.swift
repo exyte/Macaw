@@ -49,19 +49,19 @@ internal class OpacityAnimation: AnimationImpl<Double> {
 public typealias OpacityAnimationDescription = AnimationDescription<Double>
 
 public extension AnimatableVariable where T: DoubleInterpolation {
-    public func animate(_ desc: OpacityAnimationDescription) {
+    func animate(_ desc: OpacityAnimationDescription) {
         _ = OpacityAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
     }
 
-    public func animation(_ desc: OpacityAnimationDescription) -> Animation {
+    func animation(_ desc: OpacityAnimationDescription) -> Animation {
         return OpacityAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
-    public func animate(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) {
+    func animate(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) {
         self.animate(((from ?? node!.opacity) >> to).t(during, delay: delay))
     }
 
-    public func animation(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
@@ -71,7 +71,7 @@ public extension AnimatableVariable where T: DoubleInterpolation {
         return OpacityAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
     }
 
-    public func animation(_ f: @escaping ((Double) -> Double), during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(_ f: @escaping ((Double) -> Double), during: Double = 1.0, delay: Double = 0.0) -> Animation {
         return OpacityAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
     }
 

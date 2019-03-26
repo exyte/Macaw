@@ -70,7 +70,7 @@ class CAAnimationDelegateImpl: NSObject, CAAnimationDelegate {
 
 public extension CAAnimation {
     /// A block (closure) object to be executed when the animation starts. This block has no return value and takes no argument.
-    public var start: (() -> Void)? {
+    var start: (() -> Void)? {
         set {
             if let animationDelegate = delegate as? CAAnimationDelegateImpl {
                 animationDelegate.start = newValue
@@ -91,7 +91,7 @@ public extension CAAnimation {
     }
 
     /// A block (closure) object to be executed when the animation ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished.
-    public var completion: ((Bool) -> Void)? {
+    var completion: ((Bool) -> Void)? {
         set {
             if let animationDelegate = delegate as? CAAnimationDelegateImpl {
                 animationDelegate.completion = newValue
@@ -112,7 +112,7 @@ public extension CAAnimation {
     }
 
     /// A block (closure) object to be executed when the animation is animating. This block has no return value and takes a single CGFloat argument that indicates the progress of the animation (From 0 ..< 1)
-    public var animating: ((CGFloat) -> Void)? {
+    var animating: ((CGFloat) -> Void)? {
         set {
             if let animationDelegate = delegate as? CAAnimationDelegateImpl {
                 animationDelegate.animating = newValue
@@ -133,7 +133,7 @@ public extension CAAnimation {
     }
 
     /// Alias to `animating`
-    public var progress: ((CGFloat) -> Void)? {
+    var progress: ((CGFloat) -> Void)? {
         set {
             animating = newValue
         }

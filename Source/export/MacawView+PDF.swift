@@ -10,7 +10,7 @@ import Foundation
 import CoreGraphics
 
 public extension MacawView {
-    public func toPDF(size: CGSize, path: URL) {
+    func toPDF(size: CGSize, path: URL) {
         let currentColor = backgroundColor
         backgroundColor = MColor.white
         defer {

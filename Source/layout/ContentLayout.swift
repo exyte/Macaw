@@ -46,6 +46,10 @@ open class ContentLayout {
             return of(scaling: .doNothing, xAlign: .min, yAlign: .max)
         case .bottomRight:
             return of(scaling: .doNothing, xAlign: .max, yAlign: .max)
+            #if os(iOS)
+        @unknown default:
+            return .none
+            #endif
         }
     }
 

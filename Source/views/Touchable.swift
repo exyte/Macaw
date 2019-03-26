@@ -9,8 +9,8 @@ class MTouchEvent: Hashable {
         self.id = id
     }
 
-    public var hashValue: Int {
-        return id.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
     public static func == (lhs: MTouchEvent, rhs: MTouchEvent) -> Bool {

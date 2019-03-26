@@ -13,7 +13,7 @@ import AppKit
 
 public extension Color {
 
-    public func toCG() -> CGColor {
+    func toCG() -> CGColor {
         let red = CGFloat(Double(r()) / 255.0)
         let green = CGFloat(Double(g()) / 255.0)
         let blue = CGFloat(Double(b()) / 255.0)
@@ -25,7 +25,7 @@ public extension Color {
 
 public extension Transform {
 
-    public func toCG() -> CGAffineTransform {
+    func toCG() -> CGAffineTransform {
         return CGAffineTransform(a: CGFloat(m11), b: CGFloat(m12), c: CGFloat(m21),
                                  d: CGFloat(m22), tx: CGFloat(dx), ty: CGFloat(dy))
     }
@@ -34,7 +34,7 @@ public extension Transform {
 
 public extension LineJoin {
 
-    public func toCG() -> CGLineJoin {
+    func toCG() -> CGLineJoin {
         switch self {
         case .round:
             return .round
@@ -49,7 +49,7 @@ public extension LineJoin {
 
 public extension LineCap {
 
-    public func toCG() -> CGLineCap {
+    func toCG() -> CGLineCap {
         switch self {
         case .round:
             return CGLineCap.round
@@ -64,7 +64,7 @@ public extension LineCap {
 
 public extension Rect {
 
-    public func toCG() -> CGRect {
+    func toCG() -> CGRect {
         return CGRect(x: self.x, y: self.y, width: self.w, height: self.h)
     }
 
@@ -76,7 +76,7 @@ public extension Rect {
 
 public extension CGRect {
 
-    public func toMacaw() -> Rect {
+    func toMacaw() -> Rect {
         return Rect(x: Double(origin.x),
                     y: Double(origin.y),
                     w: Double(size.width),
@@ -87,7 +87,7 @@ public extension CGRect {
 
 public extension Size {
 
-    public func toCG() -> CGSize {
+    func toCG() -> CGSize {
         return CGSize(width: self.w, height: self.h)
     }
 
@@ -95,7 +95,7 @@ public extension Size {
 
 public extension CGSize {
 
-    public func toMacaw() -> Size {
+    func toMacaw() -> Size {
         return Size(w: Double(width),
                     h: Double(height))
     }
@@ -104,7 +104,7 @@ public extension CGSize {
 
 public extension Point {
 
-    public func toCG() -> CGPoint {
+    func toCG() -> CGPoint {
         return CGPoint(x: self.x, y: self.y)
     }
 
@@ -112,7 +112,7 @@ public extension Point {
 
 public extension CGPoint {
 
-    public func toMacaw() -> Point {
+    func toMacaw() -> Point {
         return Point(x: Double(x), y: Double(y))
     }
 
@@ -120,7 +120,7 @@ public extension CGPoint {
 
 public extension Locus {
 
-    public func toCGPath() -> CGPath {
+    func toCGPath() -> CGPath {
         return RenderUtils.toCGPath(self)
     }
 
@@ -128,14 +128,14 @@ public extension Locus {
 
 public extension CGAffineTransform {
 
-    public func toMacaw() -> Transform {
+    func toMacaw() -> Transform {
         return Transform(m11: Double(a), m12: Double(b), m21: Double(c), m22: Double(d), dx: Double(tx), dy: Double(ty))
     }
 }
 
 public extension Node {
 
-    public func toNativeImage(size: Size, layout: ContentLayout = .of()) -> MImage {
+    func toNativeImage(size: Size, layout: ContentLayout = .of()) -> MImage {
         let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
         let rect = size.rect()
 

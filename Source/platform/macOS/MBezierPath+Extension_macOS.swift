@@ -52,6 +52,8 @@ extension MBezierPath {
 
             case .closePath:
                 path.closeSubpath()
+            @unknown default:
+                fatalError("Type of element undefined")
             }
         }
 

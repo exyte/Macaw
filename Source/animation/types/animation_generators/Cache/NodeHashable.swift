@@ -1,8 +1,8 @@
 // TODO: Implement better hash
 
 extension Node: Hashable {
-    public var hashValue: Int {
-        return Unmanaged.passUnretained(self).toOpaque().hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(Unmanaged.passUnretained(self).toOpaque())
     }
 }
 
@@ -11,8 +11,8 @@ public func == (lhs: Node, rhs: Node) -> Bool {
 }
 
 extension NodeRenderer: Hashable {
-    public var hashValue: Int {
-        return Unmanaged.passUnretained(self).toOpaque().hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(Unmanaged.passUnretained(self).toOpaque())
     }
 }
 

@@ -133,8 +133,9 @@ class BasicAnimation: Animation {
 
 // MARK: - Hashable
 extension BasicAnimation: Hashable {
-    public var hashValue: Int {
-        return ID.hashValue
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ID)
     }
 
     public static func == (lhs: BasicAnimation, rhs: BasicAnimation) -> Bool {

@@ -37,7 +37,7 @@ open class Variable<T> {
         let handler = ChangeHandler<T>(f)
         handlers.append(handler)
         return Disposable { [weak self, unowned handler] in
-            guard let index = self?.handlers.index(of: handler) else {
+            guard let index = self?.handlers.firstIndex(of: handler) else {
                 return
             }
 

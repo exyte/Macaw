@@ -307,4 +307,11 @@ open class Node: Drawable {
         return .none
     }
 
+    // MARK: - Hash
+
+    override open var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(Unmanaged.passUnretained(self).toOpaque())
+        return hasher.finalize()
+    }
 }

@@ -1,4 +1,4 @@
-open class Drawable {
+open class Drawable: NSObject {
 
     public let visible: Bool
     public let tag: [String]

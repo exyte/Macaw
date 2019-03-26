@@ -19,7 +19,7 @@ open class SVGView: MacawView {
         self.node = node
     }
 
-    override public init?(node: Node, coder aDecoder: NSCoder) {
+    @objc override public init?(node: Node, coder aDecoder: NSCoder) {
         super.init(node: node, coder: aDecoder)
     }
 

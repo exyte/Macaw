@@ -104,7 +104,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
     #endif
 
-    public init?(node: Node, coder aDecoder: NSCoder) {
+    @objc public init?(node: Node, coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         initializeView()
@@ -132,7 +132,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         initializeView()
     }
 
-    public convenience required init?(coder aDecoder: NSCoder) {
+    @objc public convenience required init?(coder aDecoder: NSCoder) {
         self.init(node: Group(), coder: aDecoder)
     }
 

@@ -1,3 +1,5 @@
+import Foundation
+
 open class Drawable: NSObject {
 
     public let visible: Bool

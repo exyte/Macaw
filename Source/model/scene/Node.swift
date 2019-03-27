@@ -307,4 +307,18 @@ open class Node: Drawable {
         return .none
     }
 
+    // MARK: - Hash
+
+    override open var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(Unmanaged.passUnretained(self).toOpaque())
+        return hasher.finalize()
+    }
+
+    override open func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? Node else {
+            return false
+        }
+        return Unmanaged.passUnretained(self).toOpaque() == Unmanaged.passUnretained(object).toOpaque()
+    }
 }

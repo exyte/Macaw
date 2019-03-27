@@ -1,4 +1,6 @@
-open class Drawable {
+import Foundation
+
+open class Drawable: NSObject {
 
     public let visible: Bool
     public let tag: [String]

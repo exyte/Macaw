@@ -80,13 +80,13 @@ class MyView: MacawView {
 
 要安装，把以下句子加到你的Podfile中：
 ```ruby
-pod "Macaw", "0.9.3"
+pod "Macaw", "0.9.5"
 ```
 
 ## [Carthage](http://github.com/Carthage/Carthage)
 
 ```ogdl
-github "Exyte/Macaw" ~> 0.9.3
+github "Exyte/Macaw" ~> 0.9.5
 ```
 
 ## 从原始檔建立

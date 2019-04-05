@@ -1,6 +1,6 @@
 ## W3C SVG Test Suite Coverage
 
-There are 521 SVG tests in total. 215 files use features that are not covered by Macaw right now, namely:
+There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/svg/import) in total. 215 files use features that are not covered by Macaw right now, namely:
 * [Scripts](https://www.w3.org/TR/SVG11/script.html#ScriptElement) (59)
 * [Interactivity](https://www.w3.org/TR/SVG11/interact.html) (33)
 * [Linking](https://www.w3.org/TR/SVG11/linking.html) (16)

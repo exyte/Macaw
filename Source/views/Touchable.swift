@@ -19,8 +19,8 @@ class MTouchEvent: Hashable {
 }
 
 protocol Touchable {
-    func mTouchesBegan(_ touches: [MTouchEvent])
-    func mTouchesMoved(_ touches: [MTouchEvent])
-    func mTouchesEnded(_ touches: [MTouchEvent])
-    func mTouchesCancelled(_ touches: [MTouchEvent])
+    func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?)
+    func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?)
+    func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?)
+    func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?)
 }

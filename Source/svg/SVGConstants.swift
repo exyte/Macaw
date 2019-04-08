@@ -292,7 +292,7 @@ open class SVGConstants {
         "yellow": 0xffff00,
         "yellowgreen": 0x9acd32
     ]
-    
+
     #if os(iOS)
     public static let systemColorList = [
         "AppWorkspace": 0xffffff,
@@ -334,7 +334,7 @@ open class SVGConstants {
         "WindowText": 0x242424
     ]
     #endif
-    
+
     public static func valueToColor(_ color: Int) -> String? {
         return SVGConstants.colorList.filter { _, v -> Bool in v == color }.map { k, _ -> String in k }.first
     }

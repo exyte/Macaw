@@ -249,29 +249,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         return .none
     }
 
-    open override func touchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesBegan(touches, with: event)
-        zoom.touchesBegan(touches)
-    }
-
-    open override func touchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesMoved(touches, with: event)
-        zoom.touchesMoved(touches)
-    }
-
-    open override func touchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesEnded(touches, with: event)
-        zoom.touchesEnded(touches)
-    }
-
-    open override func touchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesCancelled(touches, with: event)
-        zoom.touchesEnded(touches)
-    }
-
     // MARK: - Touches
+    override func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
+        zoom.touchesBegan(touches)
 
-    override func mTouchesBegan(_ touches: [MTouchEvent]) {
+        let touchPoints = convert(touches: touches)
         if !self.node.shouldCheckForPressed() &&
             !self.node.shouldCheckForMoved() &&
             !self.node.shouldCheckForReleased () {
@@ -282,7 +264,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             return
         }
 
-        for touch in touches {
+        for touch in touchPoints {
             let location = CGPoint(x: touch.x, y: touch.y)
             var nodePath = doFindNode(location: location)
 
@@ -314,7 +296,8 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
     }
 
-    override func mTouchesMoved(_ touches: [MTouchEvent]) {
+    override func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
+        zoom.touchesMoved(touches)
         if !self.node.shouldCheckForMoved() {
             return
         }
@@ -323,6 +306,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             return
         }
 
+        let touchPoints = convert(touches: touches)
         touchesOfNode.keys.forEach { currentNode in
             guard let initialTouches = touchesOfNode[currentNode] else {
                 return
@@ -330,10 +314,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
             var points = [TouchPoint]()
             for initialTouch in initialTouches {
-                guard let currentIndex = touches.firstIndex(of: initialTouch) else {
+                guard let currentIndex = touchPoints.firstIndex(of: initialTouch) else {
                     continue
                 }
-                let currentTouch = touches[currentIndex]
+                let currentTouch = touchPoints[currentIndex]
                 guard let nodePath = touchesMap[currentTouch]?.first else {
                     continue
                 }
@@ -349,20 +333,30 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
     }
 
-    override func mTouchesCancelled(_ touches: [MTouchEvent]) {
+    override func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
         touchesEnded(touches: touches)
     }
 
-    override func mTouchesEnded(_ touches: [MTouchEvent]) {
+    override func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
         touchesEnded(touches: touches)
     }
 
-    private func touchesEnded(touches: [MTouchEvent]) {
+    private func convert(touches: Set<MTouch>) -> [MTouchEvent] {
+        return touches.map { touch -> MTouchEvent in
+            let location = touch.location(in: self)
+            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
+            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
+        }
+    }
+
+    private func touchesEnded(touches: Set<MTouch>) {
+        zoom.touchesEnded(touches)
         guard let _ = renderer else {
             return
         }
 
-        for touch in touches {
+        let touchPoints = convert(touches: touches)
+        for touch in touchPoints {
 
             touchesMap[touch]?.forEach { nodePath in
 

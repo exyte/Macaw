@@ -610,7 +610,7 @@ open class SVGParser {
         }
         if let systemColor = SVGConstants.systemColorList[colorString] {
             let color = Color(val: systemColor)
-            return color
+            return opacity != 1 ? color.with(a: opacity) : color
         }
         if colorString.hasPrefix("rgb") {
             let color = parseRGBNotation(colorString: colorString)

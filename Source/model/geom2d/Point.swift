@@ -1,3 +1,5 @@
+import Foundation
+
 open class Point: Locus {
 
     public let x: Double
@@ -11,24 +13,35 @@ open class Point: Locus {
     }
 
     override open func bounds() -> Rect {
-        return Rect(
-            x: x,
-            y: y,
-            w: 0.0,
-            h: 0.0)
+        return Rect(x: x, y: y, w: 0.0, h: 0.0)
     }
 
     open func add(_ point: Point) -> Point {
-        return Point(
-            x: self.x + point.x,
-            y: self.y + point.y)
+        return Point( x: x + point.x, y: y + point.y)
     }
 
     open func rect(size: Size) -> Rect {
         return Rect(point: self, size: size)
     }
 
+    open func distance(to point: Point) -> Double {
+        let dx = point.x - x
+        let dy = point.y - y
+        return sqrt(dx * dx + dy * dy)
+    }
+
     override open func toPath() -> Path {
         return MoveTo(x: x, y: y).lineTo(x: x, y: y).build()
+    }
+}
+
+extension Point: Equatable {
+    public static func == (lhs: Point, rhs: Point) -> Bool {
+        return lhs.x == rhs.x
+            && lhs.y == rhs.y
+    }
+
+    public static func - (lhs: Point, rhs: Point) -> Size {
+        return Size(w: lhs.x - rhs.x, h: lhs.y - rhs.y)
     }
 }

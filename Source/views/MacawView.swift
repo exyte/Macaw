@@ -5,6 +5,7 @@ import UIKit
 #elseif os(OSX)
 import AppKit
 #endif
+
 ///
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
 /// You could create your own view extended from MacawView with predefined scene.
@@ -42,6 +43,18 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             contentLayout = ContentLayout.of(contentMode: contentMode)
         }
     }
+
+    public let zoom = MacawZoom()
+
+    public var place: Transform {
+        return placeManager.placeVar.value
+    }
+
+    public var placeVar: Variable<Transform> {
+        return placeManager.placeVar
+    }
+
+    private let placeManager = RootPlaceManager()
 
     override open var frame: CGRect {
         didSet {
@@ -106,6 +119,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     @objc public init?(node: Node, coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        zoom.initialize(view: self, onChange: onZoomChange)
 
         initializeView()
 
@@ -128,12 +142,18 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        zoom.initialize(view: self, onChange: onZoomChange)
 
         initializeView()
     }
 
     @objc public convenience required init?(coder aDecoder: NSCoder) {
         self.init(node: Group(), coder: aDecoder)
+    }
+
+    private func onZoomChange(t: Transform) {
+        placeManager.setZoom(place: t)
+        self.setNeedsDisplay()
     }
 
     func initializeView() {
@@ -191,7 +211,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             return
         }
         renderer.calculateZPositionRecursively()
-        ctx.concatenate(layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw()))
+
+        // TODO: actually we should track all changes
+        placeManager.setLayout(place: layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw()))
+
+        ctx.concatenate(self.place.toCG())
         renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
 
@@ -210,7 +234,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         defer {
             ctx.restoreGState()
         }
-        let transform = layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw())
+        let transform = place.toCG()
         ctx.concatenate(transform)
         let loc = location.applying(transform.inverted())
         return renderer.findNodeAt(parentNodePath: NodePath(node: Node(), location: loc), ctx: ctx)
@@ -225,10 +249,29 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         return .none
     }
 
+    open override func touchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesBegan(touches, with: event)
+        zoom.touchesBegan(touches)
+    }
+
+    open override func touchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesMoved(touches, with: event)
+        zoom.touchesMoved(touches)
+    }
+
+    open override func touchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesEnded(touches, with: event)
+        zoom.touchesEnded(touches)
+    }
+
+    open override func touchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesCancelled(touches, with: event)
+        zoom.touchesEnded(touches)
+    }
+
     // MARK: - Touches
 
     override func mTouchesBegan(_ touches: [MTouchEvent]) {
-
         if !self.node.shouldCheckForPressed() &&
             !self.node.shouldCheckForMoved() &&
             !self.node.shouldCheckForReleased () {
@@ -547,9 +590,9 @@ class LayoutHelper {
 
     private var prevSize: Size?
     private var prevRect: Rect?
-    private var prevTransform: CGAffineTransform?
+    private var prevTransform: Transform?
 
-    public func getTransform(_ nodeRenderer: NodeRenderer, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
+    public func getTransform(_ nodeRenderer: NodeRenderer, _ layout: ContentLayout, _ size: Size) -> Transform {
         setSize(size: size)
         let node = nodeRenderer.node()
         var rect = node?.bounds
@@ -566,9 +609,9 @@ class LayoutHelper {
             if let transform = prevTransform {
                 return transform
             }
-            return setTransform(transform: layout.layout(rect: prevRect!, into: size).toCG())
+            return setTransform(transform: layout.layout(rect: rect, into: size))
         }
-        return CGAffineTransform.identity
+        return Transform.identity
     }
 
     public class func calcTransform(_ node: Node, _ layout: ContentLayout, _ size: Size) -> Transform {
@@ -624,9 +667,39 @@ class LayoutHelper {
         prevTransform = nil
     }
 
-    private func setTransform(transform: CGAffineTransform) -> CGAffineTransform {
+    private func setTransform(transform: Transform) -> Transform {
         prevTransform = transform
         return transform
+    }
+
+}
+
+class RootPlaceManager {
+
+    var placeVar = Variable(Transform.identity)
+    private var places: [Transform] = [.identity, .identity]
+
+    func setLayout(place: Transform) {
+        if places[1] !== place {
+            places[1] = place
+            placeVar.value = recalc()
+        }
+    }
+
+    func setZoom(place: Transform) {
+        if places[0] !== place {
+            places[0] = place
+            placeVar.value = recalc()
+        }
+    }
+
+    private func recalc() -> Transform {
+        if places[0] === Transform.identity {
+            return places[1]
+        } else if places[1] === Transform.identity {
+            return places[0]
+        }
+        return places[0].concat(with: places[1])
     }
 
 }

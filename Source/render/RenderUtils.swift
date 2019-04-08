@@ -16,19 +16,15 @@ class RenderUtils {
         return p
     }
 
-    class func createNodeRenderer(
-        _ node: Node,
-        view: MacawView?,
-        animationCache: AnimationCache?
-        ) -> NodeRenderer {
+    class func createNodeRenderer(_ node: Node, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) -> NodeRenderer {
         if let group = node as? Group {
-            return GroupRenderer(group: group, view: view, animationCache: animationCache)
+            return GroupRenderer(group: group, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
         } else if let shape = node as? Shape {
-            return ShapeRenderer(shape: shape, view: view, animationCache: animationCache)
+            return ShapeRenderer(shape: shape, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
         } else if let text = node as? Text {
-            return TextRenderer(text: text, view: view, animationCache: animationCache)
+            return TextRenderer(text: text, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
         } else if let image = node as? Image {
-            return ImageRenderer(image: image, view: view, animationCache: animationCache)
+            return ImageRenderer(image: image, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
         }
         fatalError("Unsupported node: \(node)")
     }

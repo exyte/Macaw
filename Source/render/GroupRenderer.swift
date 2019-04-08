@@ -13,7 +13,7 @@ class GroupRenderer: NodeRenderer {
         return group
     }
 
-    init(group: Group, view: MacawView?, animationCache: AnimationCache?) {
+    init(group: Group, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) {
         self.group = group
         super.init(node: group, view: view, animationCache: animationCache)
         updateRenderers()
@@ -30,9 +30,11 @@ class GroupRenderer: NodeRenderer {
             self?.updateRenderers()
         }
         observe(group.contentsVar)
+    }
 
-        group.placeVar.onChange { [weak self] (_) in
-            self?.freeCachedAbsPlace()
+    override func freeCachedAbsPlace() {
+        for renderer in renderers {
+            renderer.freeCachedAbsPlace()
         }
     }
 
@@ -66,9 +68,7 @@ class GroupRenderer: NodeRenderer {
         renderers.removeAll()
 
         renderers = group.contents.compactMap { child -> NodeRenderer? in
-            let childRenderer = RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
-            childRenderer.parentRenderer = self
-            return childRenderer
+            return RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache, parentRenderer: self)
         }
 
         var parent: NodeRenderer = self

@@ -13,8 +13,8 @@ enum ColoringMode {
 class NodeRenderer {
 
     weak var view: MacawView?
-    weak var parentRenderer: NodeRenderer?
-    internal var zPosition: Int = 0
+    let parentRenderer: NodeRenderer?
+    var zPosition: Int = 0
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
@@ -23,19 +23,18 @@ class NodeRenderer {
 
     fileprivate var cachedAbsPlace: Transform?
     public var absPlace: Transform {
-        get {
-            if let place = cachedAbsPlace {
-                return place
-            }
-
-            if let place = parentRenderer?.absPlace.concat(with: node.place) {
-                cachedAbsPlace = place
-                return place
-            }
-
-            return .identity
+        if let place = cachedAbsPlace {
+            return place
         }
+
+        if let place = parentRenderer?.absPlace.concat(with: node.place) {
+            cachedAbsPlace = place
+            return place
+        }
+
+        return node.place
     }
+
     func freeCachedAbsPlace() {
         cachedAbsPlace = nil
     }
@@ -44,9 +43,10 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    init(node: Node, view: MacawView?, animationCache: AnimationCache?) {
+    init(node: Node, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) {
         self.view = view
         self.animationCache = animationCache
+        self.parentRenderer = parentRenderer
 
         onNodeChange = { [unowned node, weak view] in
             guard let isAnimating = animationCache?.isAnimating(node) else {
@@ -76,7 +76,7 @@ class NodeRenderer {
 
         node.animationObservers.append(self)
 
-        node.placeVar.onChange { [weak self] (_) in
+        node.placeVar.onChange { [weak self] _ in
             self?.freeCachedAbsPlace()
         }
     }

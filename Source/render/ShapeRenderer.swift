@@ -10,7 +10,7 @@ class ShapeRenderer: NodeRenderer {
 
     var shape: Shape
 
-    init(shape: Shape, view: MacawView?, animationCache: AnimationCache?) {
+    init(shape: Shape, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) {
         self.shape = shape
         super.init(node: shape, view: view, animationCache: animationCache)
     }

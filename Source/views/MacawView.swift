@@ -213,7 +213,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         let transform = layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw())
         ctx.concatenate(transform)
         let loc = location.applying(transform.inverted())
-        return renderer.findNodeAt(parentNodePath: NodePath(node: Node(), location: loc), ctx: ctx)
+        return renderer.findNodeAt(parentNodePath: NodePath(node: node, location: loc), ctx: ctx)
     }
 
     private func doFindNode(location: CGPoint) -> NodePath? {
@@ -551,8 +551,8 @@ class LayoutHelper {
 
     public func getTransform(_ nodeRenderer: NodeRenderer, _ layout: ContentLayout, _ size: Size) -> CGAffineTransform {
         setSize(size: size)
-        let node = nodeRenderer.node()
-        var rect = node?.bounds
+        let node = nodeRenderer.node
+        var rect = node.bounds
         if let canvas = node as? SVGCanvas {
             if let view = nodeRenderer.view {
                 rect = canvas.layout(size: view.bounds.size.toMacaw()).rect()

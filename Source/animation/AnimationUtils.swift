@@ -3,14 +3,14 @@ import Foundation
 class AnimationUtils {
 
     class func absolutePosition(_ nodeRenderer: NodeRenderer?, _ context: AnimationContext) -> Transform {
-        return AnimationUtils.absoluteTransform(nodeRenderer, context, pos: nodeRenderer?.node()?.place ?? .identity)
+        return AnimationUtils.absoluteTransform(nodeRenderer, context, pos: nodeRenderer?.node.place ?? .identity)
     }
 
     class func absoluteTransform(_ nodeRenderer: NodeRenderer?, _ context: AnimationContext, pos: Transform) -> Transform {
         var transform = pos
         var parentRenderer = nodeRenderer?.parentRenderer
         while parentRenderer != nil {
-            if let node = parentRenderer?.node() {
+            if let node = parentRenderer?.node {
                 transform = node.place.concat(with: transform)
             }
             parentRenderer = parentRenderer?.parentRenderer
@@ -20,14 +20,14 @@ class AnimationUtils {
 
     class func absoluteClip(_ nodeRenderer: NodeRenderer?) -> Locus? {
         // shouldn't this be a superposition of all parents' clips?
-        let node = nodeRenderer?.node()
+        let node = nodeRenderer?.node
         if let nodeClip = node?.clip {
             return nodeClip
         }
 
         var parentRenderer = nodeRenderer?.parentRenderer
         while parentRenderer != nil {
-            if let parentClip = parentRenderer?.node()?.clip {
+            if let parentClip = parentRenderer?.node.clip {
                 return parentClip
             }
 

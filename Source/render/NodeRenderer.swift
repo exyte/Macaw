@@ -21,6 +21,29 @@ class NodeRenderer {
     fileprivate var active = false
     weak var animationCache: AnimationCache?
 
+    fileprivate var cachedAbsPlace: Transform?
+    public var absPlace: Transform {
+        get {
+            if let place = cachedAbsPlace {
+                return place
+            }
+
+            if let place = parentRenderer?.absPlace.concat(with: node.place) {
+                cachedAbsPlace = place
+                return place
+            }
+
+            return .identity
+        }
+    }
+    func freeCachedAbsPlace() {
+        cachedAbsPlace = nil
+    }
+
+    open var node: Node {
+        fatalError("Unsupported")
+    }
+
     init(node: Node, view: MacawView?, animationCache: AnimationCache?) {
         self.view = view
         self.animationCache = animationCache
@@ -45,10 +68,6 @@ class NodeRenderer {
     }
 
     func doAddObservers() {
-        guard let node = node() else {
-            return
-        }
-
         observe(node.placeVar)
         observe(node.opaqueVar)
         observe(node.opacityVar)
@@ -56,6 +75,10 @@ class NodeRenderer {
         observe(node.effectVar)
 
         node.animationObservers.append(self)
+
+        node.placeVar.onChange { [weak self] (_) in
+            self?.freeCachedAbsPlace()
+        }
     }
 
     func observe<E>(_ v: Variable<E>) {
@@ -72,20 +95,13 @@ class NodeRenderer {
 
     open func dispose() {
         removeObservers()
-        node()?.animationObservers = node()?.animationObservers.filter { !($0 as? NodeRenderer === self) } ?? []
-    }
-
-    open func node() -> Node? {
-        fatalError("Unsupported")
+        node.animationObservers = node.animationObservers.filter { !($0 as? NodeRenderer === self) }
     }
 
     final public func render(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         context.saveGState()
         defer {
             context.restoreGState()
-        }
-        guard let node = node() else {
-            return
         }
         let newOpacity = node.opacity * opacity
 
@@ -133,10 +149,6 @@ class NodeRenderer {
     }
 
     final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, coloringMode: ColoringMode = .rgb) {
-        guard let node = node() else {
-            return
-        }
-
         if let isAnimating = animationCache?.isAnimating(node), isAnimating {
             self.removeObservers()
             if !force {
@@ -166,7 +178,7 @@ class NodeRenderer {
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let node = node(), let bounds = node.bounds else {
+        guard let bounds = node.bounds else {
             return
         }
         var inset: Double = 0
@@ -233,10 +245,6 @@ class NodeRenderer {
     }
 
     final func findNodeAt(parentNodePath: NodePath, ctx: CGContext) -> NodePath? {
-        guard let node = node() else {
-            return .none
-        }
-
         if node.opaque {
             let place = node.place
             if let inverted = place.invert() {
@@ -261,11 +269,7 @@ class NodeRenderer {
     }
 
     func replaceNode(with replacementNode: Node) {
-        guard let node = node() else {
-            return
-        }
-
-        if let groupRenderer = parentRenderer as? GroupRenderer, let group = groupRenderer.node() as? Group {
+        if let groupRenderer = parentRenderer as? GroupRenderer, let group = groupRenderer.node as? Group {
             var contents = group.contents
             var indexToInsert = 0
             if let index = contents.firstIndex(of: node) {
@@ -287,10 +291,6 @@ class NodeRenderer {
     }
 
     private func applyClip(in context: CGContext) {
-        guard let node = node() else {
-            return
-        }
-
         guard let clip = node.clip else {
             return
         }
@@ -309,7 +309,7 @@ class NodeRenderer {
     }
 
     private func getMaskedImage(bounds: Rect) -> CGImage {
-        let mask = node()!.mask!
+        let mask = node.mask!
         let image = renderToImage(bounds: bounds)
         let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none, animationCache: animationCache)
         let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)

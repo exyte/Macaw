@@ -6,8 +6,12 @@ import UIKit
 
 class GroupRenderer: NodeRenderer {
 
-    weak var group: Group?
+    var group: Group
     var renderers: [NodeRenderer] = []
+
+    override var node: Node {
+        return group
+    }
 
     init(group: Group, view: MacawView?, animationCache: AnimationCache?) {
         self.group = group
@@ -22,18 +26,14 @@ class GroupRenderer: NodeRenderer {
     override func doAddObservers() {
         super.doAddObservers()
 
-        guard let group = group else {
-            return
-        }
-
         group.contentsVar.onChange { [weak self] _ in
             self?.updateRenderers()
         }
         observe(group.contentsVar)
-    }
 
-    override func node() -> Node? {
-        return group
+        group.placeVar.onChange { [weak self] (_) in
+            self?.freeCachedAbsPlace()
+        }
     }
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
@@ -65,12 +65,10 @@ class GroupRenderer: NodeRenderer {
         }
         renderers.removeAll()
 
-        if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
+        renderers = group.contents.compactMap { child -> NodeRenderer? in
             let childRenderer = RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
             childRenderer.parentRenderer = self
             return childRenderer
-        }) {
-            renderers = updatedRenderers
         }
 
         var parent: NodeRenderer = self

@@ -6,6 +6,12 @@ import UIKit
 import AppKit
 #endif
 
+public enum Relativity {
+    case parent
+    case scene
+    case view
+}
+
 enum ColoringMode {
     case rgb, greyscale, alphaOnly
 }
@@ -22,7 +28,7 @@ class NodeRenderer {
     weak var animationCache: AnimationCache?
 
     fileprivate var cachedAbsPlace: Transform?
-    public var absPlace: Transform {
+    fileprivate var absPlace: Transform {
         if let place = cachedAbsPlace {
             return place
         }
@@ -37,6 +43,20 @@ class NodeRenderer {
 
     func freeCachedAbsPlace() {
         cachedAbsPlace = nil
+    }
+
+    public func place(in relativity: Relativity = .parent) -> Transform {
+        switch relativity {
+        case .parent:
+            return node.place
+        case .scene:
+            return absPlace
+        case .view:
+            if let viewPlace = view?.place {
+                return viewPlace.concat(with: absPlace)
+            }
+            return absPlace
+        }
     }
 
     open var node: Node {

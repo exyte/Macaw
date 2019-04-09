@@ -595,7 +595,7 @@ open class SVGParser {
         let red = CGFloat((rgbValue >> 16) & 0xff)
         let green = CGFloat((rgbValue >> 08) & 0xff)
         let blue = CGFloat((rgbValue >> 00) & 0xff)
-        
+
         return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 

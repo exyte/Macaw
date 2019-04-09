@@ -75,12 +75,19 @@ public final class Transform {
         return Transform(m11: nm11, m12: nm12, m21: nm21, m22: nm22, dx: ndx, dy: ndy)
     }
 
+    public func apply(to: Point) -> Point {
+        let x2 = m11 * to.x + m12 * to.x + dx
+        let y2 = m21 * to.y + m22 * to.y + dy
+        return Point(x: x2, y: y2)
+    }
+
     public func invert() -> Transform? {
         let det = self.m11 * self.m22 - self.m12 * self.m21
         if det == 0 {
             return nil
         }
-        return Transform(m11: m22 / det, m12: -m12 / det, m21: -m21 / det, m22: m11 / det,
+        return Transform(m11: m22 / det, m12: -m12 / det,
+                         m21: -m21 / det, m22: m11 / det,
                          dx: (m21 * dy - m22 * dx) / det,
                          dy: (m12 * dx - m11 * dy) / det)
     }

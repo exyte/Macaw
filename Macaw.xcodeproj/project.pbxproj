@@ -19,6 +19,8 @@
 		30FF496D215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */; };
 		30FF496F215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */; };
 		30FF4971215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */; };
+		421C66502225196900DD73F5 /* color-prop-04-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */; };
+		4269F43E2257265800D91393 /* color-prop-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -232,6 +234,8 @@
 		5852891620B29D67003E51D1 /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
 		5852891720B29D67003E51D1 /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
 		5874CCB720DA8A860090DBD5 /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */; };
+		5876C63222572859000B31B6 /* MacawZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5876C63122572859000B31B6 /* MacawZoom.swift */; };
+		5876C63322572859000B31B6 /* MacawZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5876C63122572859000B31B6 /* MacawZoom.swift */; };
 		58944BDA20AC8A9A00657640 /* logo_base64.txt in Resources */ = {isa = PBXBuildFile; fileRef = 57B7A4E01EE70DA5009D78D7 /* logo_base64.txt */; };
 		58944BDB20AC8A9A00657640 /* clip.svg in Resources */ = {isa = PBXBuildFile; fileRef = C43B064C1F9738EF00787A35 /* clip.svg */; };
 		58B0523920E10E7100D45008 /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */; };
@@ -555,6 +559,8 @@
 		30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAShapeLayerLineCap_macOS.swift; sourceTree = "<group>"; };
 		30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFunctionName_iOS.swift; sourceTree = "<group>"; };
 		30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFunctionName_macOS.swift; sourceTree = "<group>"; };
+		421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual.svg"; sourceTree = "<group>"; };
+		4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual.reference"; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -672,6 +678,7 @@
 		585288F320AD96A2003E51D1 /* ContentLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentLayout.swift; sourceTree = "<group>"; };
 		5852891520B29D67003E51D1 /* TransformedLocus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformedLocus.swift; sourceTree = "<group>"; };
 		5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMatrix.swift; sourceTree = "<group>"; };
+		5876C63122572859000B31B6 /* MacawZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawZoom.swift; sourceTree = "<group>"; };
 		5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGNodeLayout.swift; sourceTree = "<group>"; };
 		5B1AE18420B6A669007EECCB /* text-align-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "text-align-01-b-manual.svg"; sourceTree = "<group>"; };
 		5B1AE18520B6A669007EECCB /* paths-data-06-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-06-t-manual.reference"; sourceTree = "<group>"; };
@@ -1291,6 +1298,7 @@
 				57F108731F502A3600DC365B /* Touchable.swift */,
 				57E5E1501E3B393900D1CB28 /* MacawView.swift */,
 				57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */,
+				5876C63122572859000B31B6 /* MacawZoom.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1356,6 +1364,8 @@
 		5B1AE18320B6A669007EECCB /* w3cSVGTests */ = {
 			isa = PBXGroup;
 			children = (
+				421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */,
+				4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */,
 				5B1AE22D20B6A669007EECCB /* color-prop-01-b-manual.reference */,
 				5B1AE18A20B6A669007EECCB /* color-prop-01-b-manual.svg */,
 				5B1AE22C20B6A669007EECCB /* color-prop-02-f-manual.reference */,
@@ -1765,6 +1775,7 @@
 				5B1AE26920B6A669007EECCB /* struct-use-03-t-manual.reference in Resources */,
 				5B1AE27820B6A669007EECCB /* struct-group-01-t-manual.reference in Resources */,
 				5B1AE2B820B6A669007EECCB /* painting-stroke-03-t-manual.reference in Resources */,
+				4269F43E2257265800D91393 /* color-prop-04-t-manual.reference in Resources */,
 				5B1AE2C720B6A669007EECCB /* paths-data-02-t-manual.svg in Resources */,
 				5B1AE27120B6A669007EECCB /* painting-stroke-04-t-manual.reference in Resources */,
 				5B1AE2C220B6A669007EECCB /* coords-trans-05-t-manual.svg in Resources */,
@@ -1851,6 +1862,7 @@
 				5B1AE23C20B6A669007EECCB /* paths-data-15-t-manual.svg in Resources */,
 				5BAE2039208E163D006BF277 /* polygon.reference in Resources */,
 				5B1AE27220B6A669007EECCB /* struct-frag-06-t-manual.svg in Resources */,
+				421C66502225196900DD73F5 /* color-prop-04-t-manual.svg in Resources */,
 				5B1AE2A020B6A669007EECCB /* coords-trans-08-t-manual.svg in Resources */,
 				5B1AE23A20B6A669007EECCB /* painting-fill-03-t-manual.reference in Resources */,
 				5BAE2043208E163D006BF277 /* textBasicTransform.reference in Resources */,
@@ -2074,6 +2086,7 @@
 				57614B3A1F83D15600875933 /* AnimationProducer.swift in Sources */,
 				585288F620AD96A2003E51D1 /* ContentLayout.swift in Sources */,
 				57614B3C1F83D15600875933 /* ShapeInterpolation.swift in Sources */,
+				5876C63322572859000B31B6 /* MacawZoom.swift in Sources */,
 				57614B3D1F83D15600875933 /* Graphics_iOS.swift in Sources */,
 				57614BDB1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
 				57614B411F83D15600875933 /* Text.swift in Sources */,
@@ -2214,6 +2227,7 @@
 				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
 				A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */,
 				57614BDA1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
+				5876C63222572859000B31B6 /* MacawZoom.swift in Sources */,
 				57E5E1A21E3B393900D1CB28 /* Text.swift in Sources */,
 				57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */,
 				57E5E1A61E3B393900D1CB28 /* RenderContext.swift in Sources */,

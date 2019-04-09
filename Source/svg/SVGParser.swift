@@ -595,7 +595,7 @@ open class SVGParser {
         let red = CGFloat((rgbValue >> 16) & 0xff)
         let green = CGFloat((rgbValue >> 08) & 0xff)
         let blue = CGFloat((rgbValue >> 00) & 0xff)
-
+        
         return Color.rgba(r: Int(red), g: Int(green), b: Int(blue), a: opacity)
     }
 
@@ -606,6 +606,10 @@ open class SVGParser {
         let opacity = min(max(opacity, 0), 1)
         if let defaultColor = SVGConstants.colorList[colorString] {
             let color = Color(val: defaultColor)
+            return opacity != 1 ? color.with(a: opacity) : color
+        }
+        if let systemColor = SVGConstants.systemColorList[colorString] {
+            let color = Color(val: systemColor)
             return opacity != 1 ? color.with(a: opacity) : color
         }
         if colorString.hasPrefix("rgb") {

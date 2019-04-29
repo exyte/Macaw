@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="63px" height="84px" viewBox="0 0 63 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>boy_1_short</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M51.512,11.9993 C56.926,17.4473 60.272,24.9533 60.272,33.2413 L60.272,51.1703 C60.272,67.8133 46.78,81.3063 30.136,81.3063 C13.492,81.3063 0,67.8133 0,51.1703 L0,33.2413 C0,32.4453 0.031,31.6553 0.092,30.8753 L0.7265625,16.5151367" id="path-1"></path>
+    </defs>
+    <g id="理髮服務-第一階段" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="男生_瀏海_短-copy" transform="translate(-215.000000, -35.000000)" stroke="#1A1C69">
+            <g id="boy_1_short" transform="translate(217.000000, 37.000000)">
+                <g id="Page-1">
+                    <path stroke-width="2.88" d="M50.9567458,13.4943548 L2.10944583,17.8378525 L1.52761655,30.9875726 C1.46933001,31.7328758 1.44,32.485441 1.44,33.2413 L1.44,51.1703 C1.44,67.0183627 14.2876428,79.8663 30.136,79.8663 C45.9843572,79.8663 58.832,67.0183627 58.832,51.1703 L58.832,33.2413 C58.832,25.7852174 55.9769252,18.7842593 50.9567458,13.4943548 Z" stroke-linejoin="square"></path>
+                    <use stroke-width="1" xlink:href="#path-1"></use>
+                </g>
+                <g id="Group" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.88">
+                    <path d="M0,22.5692343 C0,10.1045904 13.2075999,0 29.5,0 C45.7924001,0 59,10.1045904 59,22.5692343 L59,25 L49.3209984,25 L46.3458252,19.4292502 L43.3174933,25 L0,25 L0,22.5692343 Z" id="Combined-Shape-Copy-2" fill="#FFFFFF"></path>
+                    <path d="M14,16 C12.0992302,18.6305012 11.0992302,21.6305012 11,25" id="Path-5" transform="translate(12.500000, 20.500000) scale(-1, 1) rotate(-40.000000) translate(-12.500000, -20.500000) "></path>
+                    <path d="M23,17 C21.5340012,18.5556845 20.8739346,20.8890178 21.0198001,24" id="Path-5-Copy" transform="translate(22.000000, 20.500000) scale(-1, 1) rotate(-40.000000) translate(-22.000000, -20.500000) "></path>
+                    <path d="M33,18 C32.9219498,18.0617444 30.818315,20.7585764 31.0126775,25" id="Path-5-Copy-2" transform="translate(32.000000, 21.500000) scale(-1, 1) rotate(-40.000000) translate(-32.000000, -21.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -23,9 +23,8 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
         return
     }
 
-    let mutatingShape = SceneUtils.shapeCopy(from: shape)
-    renderer.replaceNode(with: mutatingShape)
-    animation.node = mutatingShape
+    let transactionsDisabled = CATransaction.disableActions()
+    CATransaction.setDisableActions(true)
 
     let fromLocus = morphingAnimation.getVFunc()(0.0)
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
@@ -38,8 +37,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     let generatedAnim = pathAnimation(
         from: fromLocus,
         to: toLocus,
-        duration: duration,
-        renderTransform: layer.renderTransform!)
+        duration: duration)
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
     generatedAnim.timingFunction = caTimingFunction(animation.easing)
@@ -49,10 +47,10 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
 
         if animation.manualStop {
             animation.progress = 0.0
-            mutatingShape.form = morphingAnimation.getVFunc()(0.0)
+            shape.form = morphingAnimation.getVFunc()(0.0)
         } else if finished {
             animation.progress = 1.0
-            mutatingShape.form = morphingAnimation.getVFunc()(1.0)
+            shape.form = morphingAnimation.getVFunc()(1.0)
         }
 
         animationCache?.freeLayer(renderer)
@@ -65,19 +63,10 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
         completion()
     }
 
-    generatedAnim.progress = { progress in
-
-        let t = Double(progress)
-        mutatingShape.form = morphingAnimation.getVFunc()(t)
-
-        animation.progress = t
-        animation.onProgressUpdate?(t)
-    }
-
     layer.path = fromLocus.toCGPath()
 
     // Stroke
-    if let stroke = mutatingShape.stroke {
+    if let stroke = shape.stroke {
         if let color = stroke.fill as? Color {
             layer.strokeColor = color.toCG()
         } else {
@@ -91,7 +80,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     }
 
     // Fill
-    if let color = mutatingShape.fill as? Color {
+    if let color = shape.fill as? Color {
         layer.fillColor = color.toCG()
     } else {
         layer.fillColor = MColor.clear.cgColor
@@ -102,13 +91,16 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     animation.removeFunc = { [weak layer] in
         layer?.removeAnimation(forKey: animationId)
     }
+
+    if !transactionsDisabled {
+        CATransaction.commit()
+    }
 }
 
-fileprivate func pathAnimation(from: Locus, to: Locus, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
+fileprivate func pathAnimation(from: Locus, to: Locus, duration: Double) -> CAAnimation {
 
-    var transform = renderTransform
-    let fromPath = from.toCGPath().copy(using: &transform)
-    let toPath = to.toCGPath().copy(using: &transform)
+    let fromPath = from.toCGPath()
+    let toPath = to.toCGPath()
 
     let animation = CABasicAnimation(keyPath: "path")
     animation.fromValue = fromPath

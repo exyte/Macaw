@@ -15,18 +15,22 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
         return
     }
 
+    let transactionsDisabled = CATransaction.disableActions()
+    CATransaction.setDisableActions(true)
+
+    guard let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: true) else {
+        return
+    }
+
     if transformAnimation.trajectory != nil && transformAnimation.easing === Easing.elasticInOut {
         fatalError("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
     }
-
-    node.placeVar.value = transformAnimation.getVFunc()(0.0)
 
     // Creating proper animation
     var generatedAnimation: CAAnimation?
 
     generatedAnimation = transformAnimationByFunc(transformAnimation,
                                                   context,
-                                                  node: node,
                                                   duration: animation.getDuration(),
                                                   offset: animation.pausedProgress,
                                                   fps: transformAnimation.logicalFps)
@@ -63,25 +67,18 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
         completion()
     }
 
-    generatedAnim.progress = { progress in
-
-        let t = Double(progress)
-        node.placeVar.value = transformAnimation.getVFunc()(t)
-
-        animation.progress = t
-        animation.onProgressUpdate?(t)
+    let animationId = animation.ID
+    layer.add(generatedAnim, forKey: animationId)
+    animation.removeFunc = { [weak layer] in
+        layer?.removeAnimation(forKey: animationId)
     }
 
-    if let renderer = animation.nodeRenderer, let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation) {
-        let animationId = animation.ID
-        layer.add(generatedAnim, forKey: animationId)
-        animation.removeFunc = { [weak layer] in
-            layer?.removeAnimation(forKey: animationId)
-        }
+    if !transactionsDisabled {
+        CATransaction.commit()
     }
 }
 
-func transformAnimationByFunc(_ animation: TransformAnimation, _ context: AnimationContext, node: Node, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
+func transformAnimationByFunc(_ animation: TransformAnimation, _ context: AnimationContext, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
     let valueFunc = animation.getVFunc()
 
@@ -90,7 +87,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, _ context: Animat
         pathAnimation.timingFunction = caTimingFunction(animation.easing)
         pathAnimation.duration = duration / 2
         pathAnimation.autoreverses = animation.autoreverses
-        let value = AnimationUtils.absoluteTransform(animation.nodeRenderer, context, pos: valueFunc(0))
+        let value = valueFunc(0)
         pathAnimation.values = [NSValue(caTransform3D: CATransform3DMakeAffineTransform(value.toCG()))]
         pathAnimation.fillMode = MCAMediaTimingFillMode.forwards
         pathAnimation.isRemovedOnCompletion = false
@@ -105,7 +102,7 @@ func transformAnimationByFunc(_ animation: TransformAnimation, _ context: Animat
     tValue.append(1.0)
     for t in tValue {
         let progress = animation.easing.progressFor(time: t)
-        let value = AnimationUtils.absoluteTransform(animation.nodeRenderer, context, pos: valueFunc(offset + progress))
+        let value = valueFunc(offset + progress)
         let cgValue = CATransform3DMakeAffineTransform(value.toCG())
         transformValues.append(cgValue)
     }

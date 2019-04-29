@@ -230,14 +230,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         guard let renderer = renderer else {
             return .none
         }
-        ctx.saveGState()
-        defer {
-            ctx.restoreGState()
-        }
-        let transform = place.toCG()
-        ctx.concatenate(transform)
-        let loc = location.applying(transform.inverted())
-        return renderer.findNodeAt(parentNodePath: NodePath(node: node, location: loc), ctx: ctx)
+        return renderer.findNodeAt(location: location, ctx: ctx)
     }
 
     private func doFindNode(location: CGPoint) -> NodePath? {

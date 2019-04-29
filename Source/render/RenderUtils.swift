@@ -16,7 +16,7 @@ class RenderUtils {
         return p
     }
 
-    class func createNodeRenderer(_ node: Node, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) -> NodeRenderer {
+    class func createNodeRenderer(_ node: Node, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) -> NodeRenderer {
         if let group = node as? Group {
             return GroupRenderer(group: group, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
         } else if let shape = node as? Shape {

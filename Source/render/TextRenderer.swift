@@ -13,9 +13,9 @@ class TextRenderer: NodeRenderer {
         return text
     }
 
-    init(text: Text, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) {
+    init(text: Text, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
         self.text = text
-        super.init(node: text, view: view, animationCache: animationCache)
+        super.init(node: text, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
     }
 
     deinit {
@@ -171,13 +171,5 @@ class TextRenderer: NodeRenderer {
 
         }
         return MColor.black
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Text {
-            text = node
-        }
     }
 }

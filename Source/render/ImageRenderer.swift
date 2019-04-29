@@ -17,9 +17,9 @@ class ImageRenderer: NodeRenderer {
         return image
     }
 
-    init(image: Image, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) {
+    init(image: Image, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
         self.image = image
-        super.init(node: image, view: view, animationCache: animationCache)
+        super.init(node: image, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
     }
 
     deinit {
@@ -66,13 +66,5 @@ class ImageRenderer: NodeRenderer {
             }
         }
         return .none
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Image {
-            image = node
-        }
     }
 }

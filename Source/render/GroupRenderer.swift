@@ -13,9 +13,9 @@ class GroupRenderer: NodeRenderer {
         return group
     }
 
-    init(group: Group, view: MacawView?, animationCache: AnimationCache?, parentRenderer: NodeRenderer? = nil) {
+    init(group: Group, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
         self.group = group
-        super.init(node: group, view: view, animationCache: animationCache)
+        super.init(node: group, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
         updateRenderers()
     }
 
@@ -40,7 +40,9 @@ class GroupRenderer: NodeRenderer {
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         renderers.forEach { renderer in
-            renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
+            if !(animationCache?.isAnimating(renderer) ?? false) {
+                renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
+            }
         }
     }
 
@@ -76,13 +78,5 @@ class GroupRenderer: NodeRenderer {
             parent = parentRenderer
         }
         parent.calculateZPositionRecursively()
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Group {
-            group = node
-        }
     }
 }

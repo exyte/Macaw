@@ -27,17 +27,11 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
     }
 
     // Creating proper animation
-    var generatedAnimation: CAAnimation?
-
-    generatedAnimation = transformAnimationByFunc(transformAnimation,
-                                                  context,
-                                                  duration: animation.getDuration(),
-                                                  offset: animation.pausedProgress,
-                                                  fps: transformAnimation.logicalFps)
-
-    guard let generatedAnimation = generatedAnimation else {
-        return
-    }
+    let generatedAnimation = transformAnimationByFunc(transformAnimation,
+                                             context,
+                                             duration: animation.getDuration(),
+                                             offset: animation.pausedProgress,
+                                             fps: transformAnimation.logicalFps)
 
     generatedAnimation.repeatCount = Float(animation.repeatCount)
 

@@ -16,9 +16,7 @@ class AnimationProducer {
 
     struct ContentAnimationDesc {
         let animation: ContentsAnimation
-        let layer: CALayer
         weak var cache: AnimationCache?
-        let topLayers: [ShapeLayer]
         let startDate: Date
         let finishDate: Date
         let completion: (() -> Void)?
@@ -92,11 +90,7 @@ class AnimationProducer {
             return
         }
 
-        guard let layer = macawView.mLayer else {
-            return
-        }
-
-        guard let cache = macawView.animationCache else {
+        guard let layer = macawView.mLayer, let cache = macawView.animationCache else {
             return
         }
 
@@ -256,39 +250,9 @@ class AnimationProducer {
             unionBounds = unionBounds?.union(rect: contentsAnimation.getVFunc()(t).group().bounds!)
         }
 
-        guard let renderer = animation.nodeRenderer, let layer = cache?.layerForNodeRenderer(renderer, context, animation: contentsAnimation, customBounds: unionBounds) else {
-            return
-        }
-
-        var rootRenderer: NodeRenderer? = renderer
-        while rootRenderer?.parentRenderer != nil {
-            rootRenderer = rootRenderer?.parentRenderer
-        }
-        let allRenderers = rootRenderer?.getAllChildrenRecursive()
-
-        var animationRenderers = [NodeRenderer]()
-        if let groupRenderer = renderer as? GroupRenderer {
-            animationRenderers.append(contentsOf: groupRenderer.getAllChildrenRecursive())
-        }
-        let bottomRenderer = animationRenderers.min { $0.zPosition < $1.zPosition }
-
-        var topLayers = [ShapeLayer]()
-        if let bottomRenderer = bottomRenderer, let allRenderers = allRenderers {
-            for renderer in allRenderers
-                where !(renderer is GroupRenderer)
-                    && renderer.zPosition > bottomRenderer.zPosition
-                    && !animationRenderers.contains(renderer) {
-                        if let layer = cache?.layerForNodeRenderer(renderer, context, animation: contentsAnimation) {
-                            topLayers.append(layer)
-                        }
-            }
-        }
-
         let animationDesc = ContentAnimationDesc(
             animation: contentsAnimation,
-            layer: layer,
             cache: cache,
-            topLayers: topLayers,
             startDate: Date(),
             finishDate: Date(timeInterval: contentsAnimation.duration, since: startDate),
             completion: completion
@@ -322,11 +286,6 @@ class AnimationProducer {
                 continue
             }
 
-            defer {
-                animationDesc.layer.setNeedsDisplay()
-                animationDesc.layer.displayIfNeeded()
-            }
-
             let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration + animation.pausedProgress
 
             // Completion
@@ -345,9 +304,6 @@ class AnimationProducer {
                 contentsAnimations.remove(at: count - 1 - index)
                 animationDesc.cache?.freeLayer(renderer)
                 animationDesc.completion?()
-                for layer in animationDesc.topLayers {
-                    animationDesc.cache?.freeLayer(layer: layer)
-                }
                 continue
             }
 
@@ -368,11 +324,6 @@ class AnimationProducer {
                 } else if animation.paused {
                     animation.pausedProgress = progress
                 }
-            }
-
-            for layer in animationDesc.topLayers {
-                layer.setNeedsDisplay()
-                layer.displayIfNeeded()
             }
         }
     }

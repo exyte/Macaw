@@ -39,14 +39,16 @@ class SceneUtils {
         let clip = referenceNode.clip
         let tag = referenceNode.tag
 
+        var result: Node?
+
         if let shape = referenceNode as? Shape {
-            return Shape(form: shape.form, fill: shape.fill, stroke: shape.stroke, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
+            result = Shape(form: shape.form, fill: shape.fill, stroke: shape.stroke, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let text = referenceNode as? Text {
-            return Text(text: text.text, font: text.font, fill: text.fill, stroke: text.stroke, align: text.align, baseline: text.baseline, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
+            result = Text(text: text.text, font: text.font, fill: text.fill, stroke: text.stroke, align: text.align, baseline: text.baseline, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let image = referenceNode as? Image {
-            return Image(src: image.src, xAlign: image.xAlign, yAlign: image.yAlign, aspectRatio: image.aspectRatio, w: image.w, h: image.h, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
+            result = Image(src: image.src, xAlign: image.xAlign, yAlign: image.yAlign, aspectRatio: image.aspectRatio, w: image.w, h: image.h, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let group = referenceNode as? Group {
             var contents = [Node]()
@@ -55,8 +57,19 @@ class SceneUtils {
                     contents.append(copy)
                 }
             }
-            return Group(contents: contents, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
+            result = Group(contents: contents, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
-        return .none
+
+        result?.touchPressedHandlers = referenceNode.touchPressedHandlers
+        result?.touchMovedHandlers = referenceNode.touchMovedHandlers
+        result?.touchReleasedHandlers = referenceNode.touchReleasedHandlers
+
+        result?.tapHandlers = referenceNode.tapHandlers
+        result?.longTapHandlers = referenceNode.longTapHandlers
+        result?.panHandlers = referenceNode.panHandlers
+        result?.rotateHandlers = referenceNode.rotateHandlers
+        result?.pinchHandlers = referenceNode.pinchHandlers
+
+        return result
     }
 }

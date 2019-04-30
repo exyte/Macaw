@@ -15,6 +15,9 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
         return
     }
 
+    let transactionsDisabled = CATransaction.disableActions()
+    CATransaction.setDisableActions(true)
+
     // Creating proper animation
     let generatedAnimation = opacityAnimationByFunc(opacityAnimation.getVFunc(),
                                                     duration: animation.getDuration(),
@@ -22,6 +25,12 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
                                                     fps: opacityAnimation.logicalFps)
     generatedAnimation.repeatCount = Float(animation.repeatCount)
     generatedAnimation.timingFunction = caTimingFunction(animation.easing)
+
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
 
     generatedAnimation.completion = { finished in
 
@@ -49,21 +58,16 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
         completion()
     }
 
-    generatedAnimation.progress = { progress in
-
-        let t = Double(progress)
-        node.opacityVar.value = opacityAnimation.getVFunc()(t)
-
-        animation.progress = t
-        animation.onProgressUpdate?(t)
-    }
-
-    if let renderer = animation.nodeRenderer, let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation) {
+    if let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation) {
         let animationId = animation.ID
         layer.add(generatedAnimation, forKey: animationId)
         animation.removeFunc = { [weak layer] in
             layer?.removeAnimation(forKey: animationId)
         }
+    }
+
+    if !transactionsDisabled {
+        CATransaction.commit()
     }
 }
 

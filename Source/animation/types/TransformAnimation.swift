@@ -104,35 +104,31 @@ public extension AnimatableVariable where T: TransformInterpolation {
 
     func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let bounds = node!.bounds!
+        let place = node!.place
 
         let factory = { () -> (Double) -> Transform in { t in
             let asin = sin(angle * t); let acos = cos(angle * t)
 
             let rotation = Transform(
                 m11: acos, m12: -asin,
-                m21: asin, m22: acos,
-                dx: 0.0, dy: 0.0
+                m21: asin, m22: acos
             )
 
             let move = Transform.move(
-                dx: x ?? bounds.w / 2.0,
-                dy: y ?? bounds.h / 2.0
+                dx: x ?? bounds.x + bounds.w / 2.0,
+                dy: y ?? bounds.y + bounds.h / 2.0
             )
 
-            let t1 = move.concat(with: rotation)
-            let t2 = t1.concat(with: move.invert()!)
-            let result = t1.concat(with: t2)
-
-            return result
+            return place.concat(with: move).concat(with: rotation).concat(with: move.invert()!)
             }
         }
 
-        return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
+        return TransformAnimation(animatedNode: node!, factory: factory, animationDuration: during, delay: delay)
     }
 
     func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation {
 
-        let factory = { () -> (Double) -> Transform in { (t: Double) in Transform.identity }
+        let factory = { () -> (Double) -> Transform in { (t: Double) in self.node?.place ?? .identity }
         }
         return TransformAnimation(animatedNode: self.node!, factory: factory, along: path, animationDuration: during, delay: delay)
     }

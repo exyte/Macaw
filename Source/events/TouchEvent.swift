@@ -12,11 +12,6 @@ import UIKit
 import AppKit
 #endif
 
-public enum Relativity {
-    case parent
-    case scene
-}
-
 class NodePath {
     let node: Node
     let location: CGPoint
@@ -36,11 +31,13 @@ public struct TouchPoint {
 
     private let absoluteLocation: Point
     private let relativeLocation: Point // location inside the node
+    private let viewLocation: Point // location relative t
 
-    init(id: Int, location: Point, relativeLocation: Point) {
+    init(id: Int, location: Point, relativeToNodeLocation: Point, relativeToViewLocation: Point) {
         self.id = id
         self.absoluteLocation = location
-        self.relativeLocation = relativeLocation
+        self.relativeLocation = relativeToNodeLocation
+        self.viewLocation = relativeToViewLocation
     }
 
     public func location(in relativity: Relativity = .parent) -> Point {
@@ -49,6 +46,8 @@ public struct TouchPoint {
             return relativeLocation
         case .scene:
             return absoluteLocation
+        case .view:
+            return viewLocation
         }
     }
 }

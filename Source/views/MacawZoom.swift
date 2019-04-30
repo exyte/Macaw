@@ -30,7 +30,9 @@ open class MacawZoom {
         trackScale = scale
         trackRotate = rotate
         if scale || rotate {
+            #if os(iOS)
             view.isMultipleTouchEnabled = true
+            #endif
         }
     }
 
@@ -66,11 +68,6 @@ open class MacawZoom {
 
     func touchesEnded(_ touches: Set<MTouch>) {
         cleanTouches()
-        if let touch = touches.first {
-            if touches.count == 1 && touch.tapCount == 2 && touch.timestamp + 0.3 >= CACurrentMediaTime() {
-                set(offset: .zero, scale: 1, angle: 0)
-            }
-        }
     }
 
     @discardableResult private func cleanTouches() -> ZoomData? {

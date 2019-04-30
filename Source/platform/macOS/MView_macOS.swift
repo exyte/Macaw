@@ -38,7 +38,6 @@ open class MView: NSView, Touchable {
         super.init(coder: coder)
 
         self.wantsLayer = true
-        setupMouse()
     }
 
     open override var isFlipped: Bool {
@@ -80,118 +79,39 @@ open class MView: NSView, Touchable {
     func layoutSubviews() {
         super.resizeSubviews(withOldSize: self.bounds.size)
     }
-
+    
     // MARK: - Touch pad
     open override func touchesBegan(with event: NSEvent) {
         super.touchesBegan(with: event)
-
-        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-            let location = touch.location(in: self)
-            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-
-            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-        }
-
-        mTouchesBegan(touchPoints)
+        mTouchesBegan(event.touches(matching: .any, in: self), with: event)
     }
 
     open override func touchesEnded(with event: NSEvent) {
         super.touchesEnded(with: event)
-
-        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-            let location = touch.location(in: self)
-            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-
-            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-        }
-
-        mTouchesEnded(touchPoints)
+        mTouchesEnded(event.touches(matching: .any, in: self), with: event)
     }
 
     open override func touchesMoved(with event: NSEvent) {
         super.touchesMoved(with: event)
-
-        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-            let location = touch.location(in: self)
-            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-
-            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-        }
-
-        mTouchesMoved(touchPoints)
+        mTouchesMoved(event.touches(matching: .any, in: self), with: event)
     }
 
     open override func touchesCancelled(with event: NSEvent) {
         super.touchesCancelled(with: event)
-
-        let touchPoints = event.touches(matching: .any, in: self).map { touch -> MTouchEvent in
-            let location = touch.location(in: self)
-            let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
-
-            return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
-        }
-
-        mTouchesCancelled(touchPoints)
-    }
-
-    // MARK: - Mouse
-    private func setupMouse() {
-        subscribeForMouseDown()
-        subscribeForMouseUp()
-        subscribeForMouseDragged()
-    }
-
-    private func subscribeForMouseDown() {
-        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { [weak self] event -> NSEvent? in
-            self?.handleInput(event: event) { touches in
-                self?.mTouchesBegan(touches)
-            }
-            return event
-        }
-    }
-
-    private func subscribeForMouseUp() {
-        NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp) { [weak self] event -> NSEvent? in
-            self?.handleInput(event: event) { touches in
-                self?.mTouchesEnded(touches)
-            }
-            return event
-        }
-    }
-
-    private func subscribeForMouseDragged() {
-        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged) { [weak self] event -> NSEvent? in
-            self?.handleInput(event: event) { touches in
-                self?.mTouchesMoved(touches)
-            }
-            return event
-        }
-    }
-
-    private func handleInput(event: NSEvent, handler: (_ touches: [MTouchEvent]) -> Void ) {
-        let location = self.convert(event.locationInWindow, to: .none)
-        let touchPoint = MTouchEvent(x: Double(location.x), y: Double(location.y), id: 0)
-
-        handler([touchPoint])
-
-        return
+        mTouchesCancelled(event.touches(matching: .any, in: self), with: event)
     }
 
     // MARK: - Touchable
-    func mTouchesBegan(_ touches: [MTouchEvent]) {
-
+    func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
     }
 
-    func mTouchesMoved(_ touches: [MTouchEvent]) {
-
+    func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
     }
 
-    func mTouchesEnded(_ touches: [MTouchEvent]) {
-
+    func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
     }
 
-    func mTouchesCancelled(_ touches: [MTouchEvent]) {
-
+    func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
     }
 }
 #endif

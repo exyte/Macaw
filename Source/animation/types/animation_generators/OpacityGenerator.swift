@@ -26,6 +26,12 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
     generatedAnimation.repeatCount = Float(animation.repeatCount)
     generatedAnimation.timingFunction = caTimingFunction(animation.easing)
 
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
+
     generatedAnimation.completion = { finished in
 
         animationCache?.freeLayer(renderer)

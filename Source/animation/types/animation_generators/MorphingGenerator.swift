@@ -34,16 +34,22 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
         return
     }
     // Creating proper animation
-    let generatedAnim = pathAnimation(
+    let generatedAnimation = pathAnimation(
         from: fromLocus,
         to: toLocus,
         duration: duration)
 
-    generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
-    generatedAnim.autoreverses = animation.autoreverses
+    generatedAnimation.repeatCount = Float(animation.repeatCount)
+    generatedAnimation.timingFunction = caTimingFunction(animation.easing)
+    generatedAnimation.autoreverses = animation.autoreverses
 
-    generatedAnim.completion = { finished in
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
+
+    generatedAnimation.completion = { finished in
 
         if animation.manualStop {
             animation.progress = 0.0
@@ -87,7 +93,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     }
 
     let animationId = animation.ID
-    layer.add(generatedAnim, forKey: animationId)
+    layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
         layer?.removeAnimation(forKey: animationId)
     }

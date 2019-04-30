@@ -128,7 +128,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
 
     func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation {
 
-        let factory = { () -> (Double) -> Transform in { (t: Double) in Transform.identity }
+        let factory = { () -> (Double) -> Transform in { (t: Double) in self.node?.place ?? .identity }
         }
         return TransformAnimation(animatedNode: self.node!, factory: factory, along: path, animationDuration: during, delay: delay)
     }

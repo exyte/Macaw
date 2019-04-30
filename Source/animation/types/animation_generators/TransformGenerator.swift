@@ -11,6 +11,10 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
         return
     }
 
+    if transformAnimation.trajectory != nil && transformAnimation.easing === Easing.elasticInOut {
+        fatalError("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
+    }
+
     guard let node = animation.node, let renderer = animation.nodeRenderer else {
         return
     }
@@ -22,10 +26,6 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
         return
     }
 
-    if transformAnimation.trajectory != nil && transformAnimation.easing === Easing.elasticInOut {
-        fatalError("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
-    }
-
     // Creating proper animation
     var generatedAnimation: CAAnimation?
 
@@ -35,13 +35,19 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
                                                   offset: animation.pausedProgress,
                                                   fps: transformAnimation.logicalFps)
 
-    guard let generatedAnim = generatedAnimation else {
+    guard let generatedAnimation = generatedAnimation else {
         return
     }
 
-    generatedAnim.repeatCount = Float(animation.repeatCount)
+    generatedAnimation.repeatCount = Float(animation.repeatCount)
 
-    generatedAnim.completion = { finished in
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
+
+    generatedAnimation.completion = { finished in
 
         if animation.paused {
             animation.pausedProgress += animation.progress
@@ -68,7 +74,7 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
     }
 
     let animationId = animation.ID
-    layer.add(generatedAnim, forKey: animationId)
+    layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
         layer?.removeAnimation(forKey: animationId)
     }
@@ -87,8 +93,6 @@ func transformAnimationByFunc(_ animation: TransformAnimation, _ context: Animat
         pathAnimation.timingFunction = caTimingFunction(animation.easing)
         pathAnimation.duration = duration / 2
         pathAnimation.autoreverses = animation.autoreverses
-        let value = valueFunc(0)
-        pathAnimation.values = [NSValue(caTransform3D: CATransform3DMakeAffineTransform(value.toCG()))]
         pathAnimation.fillMode = MCAMediaTimingFillMode.forwards
         pathAnimation.isRemovedOnCompletion = false
         pathAnimation.path = trajectory.toCGPath()

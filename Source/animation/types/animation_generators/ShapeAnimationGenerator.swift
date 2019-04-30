@@ -35,17 +35,23 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     }
 
     // Creating proper animation
-    let generatedAnim = generateShapeAnimation(context,
+    let generatedAnimation = generateShapeAnimation(context,
                                                from: fromShape,
                                                to: toShape,
                                                animation: shapeAnimation,
                                                duration: duration)
 
-    generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
-    generatedAnim.autoreverses = animation.autoreverses
+    generatedAnimation.repeatCount = Float(animation.repeatCount)
+    generatedAnimation.timingFunction = caTimingFunction(animation.easing)
+    generatedAnimation.autoreverses = animation.autoreverses
 
-    generatedAnim.completion = { finished in
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
+
+    generatedAnimation.completion = { finished in
 
         animation.progress = animation.manualStop ? 0.0 : 1.0
 
@@ -99,7 +105,7 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     }
 
     let animationId = animation.ID
-    layer.add(generatedAnim, forKey: animationId)
+    layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
         layer?.removeAnimation(forKey: animationId)
     }

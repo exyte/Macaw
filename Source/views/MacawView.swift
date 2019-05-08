@@ -106,9 +106,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             }
             initializeView()
 
-            if let cache = self.animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, view: self)
-            }
+            self.renderer = RenderUtils.createNodeRenderer(node, view: self)
         }
     }
     #endif

@@ -8,7 +8,6 @@ import AppKit
 
 class ShapeLayer: CAShapeLayer {
     weak var renderer: NodeRenderer?
-    weak var animationCache: AnimationCache?
     var shouldRenderContent = true
     var isForceRenderingEnabled = true
 

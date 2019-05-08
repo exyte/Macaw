@@ -6,26 +6,34 @@ import UIKit
 import AppKit
 #endif
 
-public enum Relativity {
-    case parent
-    case scene
-    case view
-}
-
 enum ColoringMode {
     case rgb, greyscale, alphaOnly
+}
+
+class CachedLayer {
+    let rootLayer: ShapeLayer
+    let animationLayer: ShapeLayer
+
+    required init(rootLayer: ShapeLayer, animationLayer: ShapeLayer) {
+        self.rootLayer = rootLayer
+        self.animationLayer = animationLayer
+    }
 }
 
 class NodeRenderer {
 
     weak var view: MacawView?
-    let parentRenderer: GroupRenderer?
+    var sceneLayer: CALayer? {
+        return view?.mLayer
+    }
+    var layer: CachedLayer?
     var zPosition: Int = 0
+
+    let parentRenderer: GroupRenderer?
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
-    weak var animationCache: AnimationCache?
 
     fileprivate var cachedAbsPlace: Transform?
     fileprivate var absPlace: Transform {
@@ -63,19 +71,14 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    init(node: Node, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
+    init(node: Node, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.view = view
-        self.animationCache = animationCache
         self.parentRenderer = parentRenderer
 
-        onNodeChange = { [unowned node, weak view] in
-            guard let isAnimating = animationCache?.isAnimating(node) else {
-                return
-            }
-
-            if isAnimating {
-                return
-            }
+        onNodeChange = { [weak view] in
+            //            if self.isAnimating() {
+            //                return
+            //            }
 
             view?.setNeedsDisplay()
         }
@@ -116,6 +119,7 @@ class NodeRenderer {
     open func dispose() {
         removeObservers()
         node.animationObservers = node.animationObservers.filter { !($0 as? NodeRenderer === self) }
+        freeLayer()
     }
 
     final public func render(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
@@ -169,7 +173,7 @@ class NodeRenderer {
     }
 
     final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, coloringMode: ColoringMode = .rgb) {
-        if let isAnimating = animationCache?.isAnimating(self), isAnimating {
+        if isAnimating() {
             self.removeObservers()
             if !force {
                 return
@@ -329,7 +333,7 @@ class NodeRenderer {
     private func getMaskedImage(bounds: Rect) -> CGImage {
         let mask = node.mask!
         let image = renderToImage(bounds: bounds)
-        let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none, animationCache: animationCache)
+        let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none)
         let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)
         return apply(maskImage: maskImage, to: image)
     }
@@ -371,7 +375,7 @@ class NodeRenderer {
 
     func getAllChildrenRecursive() -> [NodeRenderer] {
         var children = getAllChildren(self)
-        children.removeAll(where: { (r) -> Bool in
+        children.removeAll(where: { r -> Bool in
             r === self
         })
         return children

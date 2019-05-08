@@ -6,7 +6,7 @@ import UIKit
 import AppKit
 #endif
 
-func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer?, completion: @escaping (() -> Void)) {
     guard let opacityAnimation = animation as? OpacityAnimation else {
         return
     }
@@ -34,7 +34,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
 
     generatedAnimation.completion = { finished in
 
-        animationCache?.freeLayer(renderer)
+        renderer.freeLayer()
 
         if animation.paused {
             animation.pausedProgress += animation.progress
@@ -58,12 +58,11 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
         completion()
     }
 
-    if let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation) {
-        let animationId = animation.ID
-        layer.add(generatedAnimation, forKey: animationId)
-        animation.removeFunc = { [weak layer] in
-            layer?.removeAnimation(forKey: animationId)
-        }
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation)
+    let animationId = animation.ID
+    layer.add(generatedAnimation, forKey: animationId)
+    animation.removeFunc = { [weak layer] in
+        layer?.removeAnimation(forKey: animationId)
     }
 
     if !transactionsDisabled {

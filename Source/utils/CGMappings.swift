@@ -136,7 +136,7 @@ public extension CGAffineTransform {
 public extension Node {
 
     func toNativeImage(size: Size, layout: ContentLayout = .of()) -> MImage {
-        let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
+        let renderer = RenderUtils.createNodeRenderer(self, view: nil)
         let rect = size.rect()
 
         MGraphicsBeginImageContextWithOptions(size.toCG(), false, 1)

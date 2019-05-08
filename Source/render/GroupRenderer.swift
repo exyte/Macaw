@@ -13,9 +13,9 @@ class GroupRenderer: NodeRenderer {
         return group
     }
 
-    init(group: Group, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
+    init(group: Group, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.group = group
-        super.init(node: group, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
+        super.init(node: group, view: view, parentRenderer: parentRenderer)
         updateRenderers()
     }
 
@@ -40,7 +40,7 @@ class GroupRenderer: NodeRenderer {
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         renderers.forEach { renderer in
-            if !(animationCache?.isAnimating(renderer) ?? false) {
+            if !renderer.isAnimating() {
                 renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
             }
         }
@@ -64,13 +64,12 @@ class GroupRenderer: NodeRenderer {
     private func updateRenderers() {
 
         renderers.forEach {
-            animationCache?.freeLayerHard($0)
             $0.dispose()
         }
         renderers.removeAll()
 
         renderers = group.contents.compactMap { child -> NodeRenderer? in
-            return RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache, parentRenderer: self)
+            return RenderUtils.createNodeRenderer(child, view: view, parentRenderer: self)
         }
 
         var parent: NodeRenderer = self

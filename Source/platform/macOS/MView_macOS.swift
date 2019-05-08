@@ -79,7 +79,7 @@ open class MView: NSView, Touchable {
     func layoutSubviews() {
         super.resizeSubviews(withOldSize: self.bounds.size)
     }
-    
+
     // MARK: - Touch pad
     open override func touchesBegan(with event: NSEvent) {
         super.touchesBegan(with: event)

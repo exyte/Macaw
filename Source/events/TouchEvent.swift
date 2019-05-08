@@ -12,6 +12,12 @@ import UIKit
 import AppKit
 #endif
 
+public enum Relativity {
+    case parent
+    case scene
+    case view
+}
+
 class NodePath {
     let node: Node
     let location: CGPoint

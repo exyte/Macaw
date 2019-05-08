@@ -10,9 +10,9 @@ class ShapeRenderer: NodeRenderer {
 
     var shape: Shape
 
-    init(shape: Shape, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
+    init(shape: Shape, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.shape = shape
-        super.init(node: shape, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
+        super.init(node: shape, view: view, parentRenderer: parentRenderer)
     }
 
     deinit {
@@ -165,7 +165,7 @@ class ShapeRenderer: NodeRenderer {
         if !pattern.userSpace, let node = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form) {
             patternNode = node
         }
-        let renderer = RenderUtils.createNodeRenderer(patternNode, view: view, animationCache: animationCache)
+        let renderer = RenderUtils.createNodeRenderer(patternNode, view: view)
 
         var patternBounds = pattern.bounds
         if !pattern.userSpace {

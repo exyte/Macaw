@@ -13,9 +13,9 @@ class TextRenderer: NodeRenderer {
         return text
     }
 
-    init(text: Text, view: MacawView?, animationCache: AnimationCache?, parentRenderer: GroupRenderer? = nil) {
+    init(text: Text, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.text = text
-        super.init(node: text, view: view, animationCache: animationCache, parentRenderer: parentRenderer)
+        super.init(node: text, view: view, parentRenderer: parentRenderer)
     }
 
     deinit {

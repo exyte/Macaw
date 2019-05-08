@@ -1,9 +1,9 @@
 import Foundation
 
-class AnimationUtils {
+class AbsoluteUtils {
 
     class func absolutePosition(_ nodeRenderer: NodeRenderer?, _ context: AnimationContext) -> Transform {
-        return AnimationUtils.absoluteTransform(nodeRenderer, context, pos: nodeRenderer?.node.place ?? .identity)
+        return AbsoluteUtils.absoluteTransform(nodeRenderer, context, pos: nodeRenderer?.node.place ?? .identity)
     }
 
     class func absoluteTransform(_ nodeRenderer: NodeRenderer?, _ context: AnimationContext, pos: Transform) -> Transform {

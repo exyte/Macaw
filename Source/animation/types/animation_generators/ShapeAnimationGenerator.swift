@@ -14,7 +14,7 @@ import UIKit
 import AppKit
 #endif
 
-func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer?, completion: @escaping (() -> Void)) {
     guard let shapeAnimation = animation as? ShapeAnimation else {
         return
     }
@@ -30,16 +30,14 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    guard let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false) else {
-        return
-    }
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false)
 
     // Creating proper animation
     let generatedAnimation = generateShapeAnimation(context,
-                                               from: fromShape,
-                                               to: toShape,
-                                               animation: shapeAnimation,
-                                               duration: duration)
+                                                    from: fromShape,
+                                                    to: toShape,
+                                                    animation: shapeAnimation,
+                                                    duration: duration)
 
     generatedAnimation.repeatCount = Float(animation.repeatCount)
     generatedAnimation.timingFunction = caTimingFunction(animation.easing)
@@ -68,7 +66,7 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
             shape.fill = fromShape.fill
         }
 
-        animationCache?.freeLayer(renderer)
+        renderer.freeLayer()
 
         if !animation.cycled && !animation.manualStop {
             animation.completion?()

@@ -16,7 +16,6 @@ class AnimationProducer {
 
     struct ContentAnimationDesc {
         let animation: ContentsAnimation
-        weak var cache: AnimationCache?
         let startDate: Date
         let finishDate: Date
         let completion: (() -> Void)?
@@ -90,38 +89,38 @@ class AnimationProducer {
             return
         }
 
-        guard let layer = macawView.mLayer, let cache = macawView.animationCache else {
+        guard let layer = macawView.mLayer else {
             return
         }
 
         // swiftlint:disable superfluous_disable_command switch_case_alignment
         switch animation.type {
         case .affineTransformation:
-            addTransformAnimation(animation, context, sceneLayer: layer, animationCache: cache, completion: {
+            addTransformAnimation(animation, context, sceneLayer: layer, completion: {
                 if let next = animation.next {
                     self.play(next, context)
                 }
             })
         case .opacity:
-            addOpacityAnimation(animation, context, sceneLayer: layer, animationCache: cache, completion: {
+            addOpacityAnimation(animation, context, sceneLayer: layer, completion: {
                 if let next = animation.next {
                     self.play(next, context)
                 }
             })
         case .contents:
-            addContentsAnimation(animation, context, cache: cache) {
+            addContentsAnimation(animation, context) {
                 if let next = animation.next {
                     self.play(next, context)
                 }
             }
         case .morphing:
-            addMorphingAnimation(animation, context, sceneLayer: layer, animationCache: cache) {
+            addMorphingAnimation(animation, context, sceneLayer: layer) {
                 if let next = animation.next {
                     self.play(next, context)
                 }
             }
         case .shape:
-            addShapeAnimation(animation, context, sceneLayer: layer, animationCache: cache) {
+            addShapeAnimation(animation, context, sceneLayer: layer) {
                 if let next = animation.next {
                     self.play(next, context)
                 }
@@ -220,7 +219,7 @@ class AnimationProducer {
 
     // MARK: - Contents animation
 
-    func addContentsAnimation(_ animation: BasicAnimation, _ context: AnimationContext, cache: AnimationCache?, completion: @escaping (() -> Void)) {
+    func addContentsAnimation(_ animation: BasicAnimation, _ context: AnimationContext, completion: @escaping (() -> Void)) {
         guard let contentsAnimation = animation as? ContentsAnimation else {
             return
         }
@@ -252,7 +251,6 @@ class AnimationProducer {
 
         let animationDesc = ContentAnimationDesc(
             animation: contentsAnimation,
-            cache: cache,
             startDate: Date(),
             finishDate: Date(timeInterval: contentsAnimation.duration, since: startDate),
             completion: completion
@@ -302,7 +300,7 @@ class AnimationProducer {
                 }
 
                 contentsAnimations.remove(at: count - 1 - index)
-                animationDesc.cache?.freeLayer(renderer)
+                renderer.freeLayer()
                 animationDesc.completion?()
                 continue
             }
@@ -315,7 +313,7 @@ class AnimationProducer {
             if animation.manualStop || animation.paused {
                 defer {
                     contentsAnimations.remove(at: count - 1 - index)
-                    animationDesc.cache?.freeLayer(renderer)
+                    renderer.freeLayer()
                 }
 
                 if animation.manualStop {

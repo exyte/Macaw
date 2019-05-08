@@ -17,9 +17,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         didSet {
             layoutHelper.nodeChanged()
             self.renderer?.dispose()
-            if let cache = animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
-            }
+            self.renderer = RenderUtils.createNodeRenderer(node, view: self)
 
             if let _ = superview {
                 animationProducer.addStoredAnimations(node, self)
@@ -100,8 +98,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     var toRender = true
     var frameSetFirstTime = false
 
-    internal var animationCache: AnimationCache?
-
     #if os(OSX)
     open override var layer: CALayer? {
         didSet {
@@ -111,7 +107,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             initializeView()
 
             if let cache = self.animationCache {
-                self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
+                self.renderer = RenderUtils.createNodeRenderer(node, view: self)
             }
         }
     }
@@ -124,9 +120,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         initializeView()
 
         self.node = node
-        if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
-        }
+        self.renderer = RenderUtils.createNodeRenderer(node, view: self)
         backgroundColor = .white
     }
 
@@ -134,9 +128,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.init(frame: frame)
 
         self.node = node
-        if let cache = self.animationCache {
-            self.renderer = RenderUtils.createNodeRenderer(node, view: self, animationCache: cache)
-        }
+        self.renderer = RenderUtils.createNodeRenderer(node, view: self)
         backgroundColor = .white
     }
 
@@ -159,12 +151,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     func initializeView() {
         self.contentLayout = .none
         self.context = RenderContext(view: self)
-
-        guard let layer = self.mLayer else {
-            return
-        }
-
-        self.animationCache = AnimationCache(sceneLayer: layer)
 
         let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
         let longTapRecognizer = MLongPressGestureRecognizer(target: self, action: #selector(MacawView.handleLongTap(recognizer:)))

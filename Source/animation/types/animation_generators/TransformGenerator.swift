@@ -6,7 +6,7 @@ import UIKit
 import AppKit
 #endif
 
-func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer?, completion: @escaping (() -> Void)) {
     guard let transformAnimation = animation as? TransformAnimation else {
         return
     }
@@ -22,16 +22,14 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
     let transactionsDisabled = CATransaction.disableActions()
     CATransaction.setDisableActions(true)
 
-    guard let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: true) else {
-        return
-    }
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: true)
 
     // Creating proper animation
     let generatedAnimation = transformAnimationByFunc(transformAnimation,
-                                             context,
-                                             duration: animation.getDuration(),
-                                             offset: animation.pausedProgress,
-                                             fps: transformAnimation.logicalFps)
+                                                      context,
+                                                      duration: animation.getDuration(),
+                                                      offset: animation.pausedProgress,
+                                                      fps: transformAnimation.logicalFps)
 
     generatedAnimation.repeatCount = Float(animation.repeatCount)
 
@@ -56,7 +54,7 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
             node.placeVar.value = transformAnimation.getVFunc()(1.0)
         }
 
-        animationCache?.freeLayer(renderer)
+        renderer.freeLayer()
 
         if !animation.cycled &&
             !animation.manualStop &&

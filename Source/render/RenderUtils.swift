@@ -58,7 +58,9 @@ class RenderUtils {
         let lowerWeight = weight?.lowercased()
         if lowerWeight == "bold" || lowerWeight == "bolder" {
             #if os(iOS)
-            fontDesc = fontDesc.withSymbolicTraits(.traitBold)!
+            if let boldDesc = fontDesc.withSymbolicTraits(.traitBold) {
+                fontDesc = boldDesc
+            }
             #elseif os(OSX)
             fontDesc = fontDesc.withSymbolicTraits(.bold)
             #endif

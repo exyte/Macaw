@@ -26,3 +26,26 @@ class TestUtils {
 	}
 
 }
+
+var isDebug: Bool {
+    return isDebugMode
+}
+
+var isRelease: Bool {
+    return !isDebugMode
+}
+
+// MARK: -
+
+fileprivate let isDebugMode: Bool = {
+    var isDebug = false
+    
+    func set(debug: Bool) -> Bool {
+        isDebug = debug
+        return isDebug
+    }
+    
+    assert(set(debug: true))
+    
+    return isDebug
+}()

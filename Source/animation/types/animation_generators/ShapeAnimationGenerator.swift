@@ -131,8 +131,8 @@ fileprivate func generateShapeAnimation(_ context: AnimationContext, from: Shape
     // Transform
     let transformAnimation = CABasicAnimation(keyPath: "transform")
     transformAnimation.duration = duration
-    transformAnimation.fromValue = CATransform3DMakeAffineTransform(animation.fromLayoutGlobalTransfrom.concat(with: from.place).toCG())
-    transformAnimation.toValue = CATransform3DMakeAffineTransform(animation.toLayoutGlobalTransfrom.concat(with: to.place).toCG())
+    transformAnimation.fromValue = CATransform3DMakeAffineTransform(from.place.toCG())
+    transformAnimation.toValue = CATransform3DMakeAffineTransform(to.place.toCG())
 
     group.animations?.append(transformAnimation)
 

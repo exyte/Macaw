@@ -13,7 +13,7 @@ import AppKit
 
 extension AnimationProducer {
 
-    func createChildAnimations(_ combineAnimation: Animation, fromLayoutGlobalTransfrom: Transform, toLayoutGlobalTransfrom: Transform, animations: [Animation] = []) -> [Animation] {
+    func createChildAnimations(_ combineAnimation: Animation, animations: [Animation] = []) -> [Animation] {
         guard let combine = combineAnimation as? CombineAnimation else {
             return animations
         }
@@ -36,7 +36,7 @@ extension AnimationProducer {
             let fromShape = fromShapes[i]
             let toShape = toShapes[i]
 
-            let animation = ShapeAnimation(animatedNode: fromShape, finalValue: toShape, fromLayoutGlobalTransfrom: fromLayoutGlobalTransfrom, toLayoutGlobalTransfrom: toLayoutGlobalTransfrom, animationDuration: during, delay: delay)
+            let animation = ShapeAnimation(animatedNode: fromShape, finalValue: toShape, animationDuration: during, delay: delay)
             animations.append(animation)
         }
 
@@ -68,7 +68,7 @@ extension AnimationProducer {
             let toGroup = toGroups[i]
 
             let groupAnimation = fromGroup.contentsVar.animation(to: toGroup.contents, during: during, delay: delay)
-            let groupAnimations = createChildAnimations(groupAnimation, fromLayoutGlobalTransfrom: fromLayoutGlobalTransfrom, toLayoutGlobalTransfrom: toLayoutGlobalTransfrom, animations: animations)
+            let groupAnimations = createChildAnimations(groupAnimation, animations: animations)
             animations.append(contentsOf: groupAnimations)
         }
 
@@ -122,9 +122,7 @@ extension AnimationProducer {
 
         var animations = combine.animations
         if let fromBounds = combine.node?.bounds, let toBounds = combine.toNodes.group().bounds {
-            let fromLayoutTransform = view.contentLayout.layout(rect: fromBounds, into: view.frame.size.toMacaw())
-            let toLayoutTransform = view.contentLayout.layout(rect: toBounds, into: view.frame.size.toMacaw())
-            let childAnimations = createChildAnimations(combine, fromLayoutGlobalTransfrom: fromLayoutTransform, toLayoutGlobalTransfrom: toLayoutTransform) as! [BasicAnimation]
+            let childAnimations = createChildAnimations(combine) as! [BasicAnimation]
             animations.append(contentsOf: childAnimations)
         }
 

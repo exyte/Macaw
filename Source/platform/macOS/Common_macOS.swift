@@ -160,4 +160,20 @@ extension MBezierPath {
     }
 }
 
+extension CGContext {
+    private struct CGContextScale {
+        static var _scale: CGFloat = 0.0
+    }
+    
+    var scale: CGFloat {
+        get {
+            return CGContextScale._scale
+        }
+        
+        set(newValue) {
+            CGContextScale._scale = newValue
+        }
+    }
+}
+
 #endif

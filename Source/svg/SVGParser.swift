@@ -571,9 +571,14 @@ open class SVGParser {
             }
         }
 
+        let hasCurrentColor = styleAttributes["fill"] == "currentColor"
+
         self.availableStyleAttributes.forEach { availableAttribute in
             if let styleAttribute = element.allAttributes[availableAttribute]?.text, styleAttribute != "inherit" {
-                styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+
+                if !hasCurrentColor || availableAttribute != "color" {
+                    styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+                }
             }
         }
 

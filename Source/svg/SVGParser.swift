@@ -156,7 +156,7 @@ open class SVGParser {
             }
             if let id = element.allAttributes["id"]?.text {
                 switch element.name {
-                case "linearGradient", "radialGradient", "fill":
+                case "linearGradient", "radialGradient", SVGKeys.fill:
                     defFills[id] = try parseFill(node)
                 case "pattern":
                     defPatterns[id] = try parsePattern(node)
@@ -316,7 +316,7 @@ open class SVGParser {
         case "use":
             return try parseUse(node, groupStyle: style, place: position)
         case "title", "desc", "mask", "clip", "filter",
-             "linearGradient", "radialGradient", "fill":
+             "linearGradient", "radialGradient", SVGKeys.fill:
             break
         default:
             print("SVG parsing error. Shape \(element.name) not supported")
@@ -571,9 +571,14 @@ open class SVGParser {
             }
         }
 
+        let hasCurrentColor = styleAttributes[SVGKeys.fill] == SVGKeys.currentColor
+
         self.availableStyleAttributes.forEach { availableAttribute in
             if let styleAttribute = element.allAttributes[availableAttribute]?.text, styleAttribute != "inherit" {
-                styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+
+                if !hasCurrentColor || availableAttribute != SVGKeys.color {
+                    styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
+                }
             }
         }
 
@@ -625,7 +630,7 @@ open class SVGParser {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
 
-        guard var fillColor = styleParts["fill"] else {
+        guard var fillColor = styleParts[SVGKeys.fill] else {
             return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
@@ -636,7 +641,7 @@ open class SVGParser {
                 return getPatternFill(pattern: pattern, locus: locus)
             }
         }
-        if fillColor == "currentColor", let currentColor = groupStyle["color"] {
+        if fillColor == SVGKeys.currentColor, let currentColor = groupStyle[SVGKeys.color] {
             fillColor = currentColor
         }
 
@@ -660,7 +665,7 @@ open class SVGParser {
         guard var strokeColor = styleParts["stroke"] else {
             return .none
         }
-        if strokeColor == "currentColor", let currentColor = groupStyle["color"] {
+        if strokeColor == SVGKeys.currentColor, let currentColor = groupStyle[SVGKeys.color] {
             strokeColor = currentColor
         }
         var opacity: Double = 1
@@ -997,7 +1002,7 @@ open class SVGParser {
         let attributes = getStyleAttributes([:], element: element)
 
         return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                    fill: (attributes["fill"] != nil) ? getFillColor(attributes)! : fill, stroke: stroke ?? getStroke(attributes),
+                    fill: (attributes[SVGKeys.fill] != nil) ? getFillColor(attributes)! : fill, stroke: stroke ?? getStroke(attributes),
                     align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
@@ -1352,7 +1357,7 @@ open class SVGParser {
         }
         var color = Color.black.with(a: opacity)
         if var stopColor = getStyleAttributes([:], element: element)["stop-color"] {
-            if stopColor == "currentColor", let currentColor = groupStyle["color"] {
+            if stopColor == SVGKeys.currentColor, let currentColor = groupStyle[SVGKeys.color] {
                 stopColor = currentColor
             }
             color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)!
@@ -1841,4 +1846,10 @@ fileprivate class UserSpacePattern {
         self.userSpace = userSpace
         self.contentUserSpace = contentUserSpace
     }
+}
+
+fileprivate enum SVGKeys {
+    static let fill = "fill"
+    static let color = "color"
+    static let currentColor = "currentColor"
 }

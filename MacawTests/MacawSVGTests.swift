@@ -265,6 +265,10 @@ class MacawSVGTests: XCTestCase {
         validateJSON("color-prop-01-b-manual")
     }
     
+    func testColorProp05() {
+        validateJSON("color-prop-05-t-manual")
+    }
+    
     func testShapesEllipse01() {
         validateJSON("shapes-ellipse-01-t-manual")
     }

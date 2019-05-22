@@ -10,12 +10,12 @@ There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 31.0% passed (95)
+* 31.4% passed (96)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 7.8% images (24) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 19.9% text (61) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 24.8% blocked by issues (76)
+* 24.5% blocked by issues (75)
 
 Status of each test:
 
@@ -26,7 +26,7 @@ Status of each test:
 |[color-prop-02-f-manual](w3cSVGTests/color-prop-02-f-manual.svg)       | ✅                                                |
 |[color-prop-03-t-manual](w3cSVGTests/color-prop-03-t-manual.svg)       | ✅                                                |
 |[color-prop-04-t-manual](w3cSVGTests/color-prop-04-t-manual.svg)       | [#387](https://github.com/exyte/Macaw/issues/387)                                                 |
-|[color-prop-05-t-manual](w3cSVGTests/color-prop-05-t-manual.svg)       | [#388](https://github.com/exyte/Macaw/issues/388)                                             |
+|[color-prop-05-t-manual](w3cSVGTests/color-prop-05-t-manual.svg)       | ✅                                                |
 |[conform-viewers-02-f-manual](w3cSVGTests/conform-viewers-02-f-manual.svg)       | [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) |
 |[conform-viewers-03-f-manual](w3cSVGTests/conform-viewers-03-f-manual.svg)       | [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178)  |
 |[coords-coord-01-t-manual](w3cSVGTests/coords-coord-01-t-manual.svg)       | ✅                                                 |
@@ -275,7 +275,7 @@ Status of each test:
 |[struct-svg-03-f-manual](w3cSVGTests/struct-svg-03-f-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344)   |
 |[struct-symbol-01-b-manual](w3cSVGTests/struct-symbol-01-b-manual.svg)       | [#398](https://github.com/exyte/Macaw/issues/398)                                                  |
 |[struct-use-01-t-manual](w3cSVGTests/struct-use-01-t-manual.svg)       | 
-✅
+✅                                                 |
 |[struct-use-03-t-manual](w3cSVGTests/struct-use-03-t-manual.svg)       | ✅                                                 |
 |[struct-use-09-b-manual](w3cSVGTests/struct-use-09-b-manual.svg)       | [#398](https://github.com/exyte/Macaw/issues/398)  |
 |[struct-use-12-f-manual](w3cSVGTests/struct-use-12-f-manual.svg)       | ✅                                                 |

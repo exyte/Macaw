@@ -1,5 +1,11 @@
 open class SVGConstants {
 
+    public enum Keys {
+        public static let fill = "fill"
+        public static let color = "color"
+        public static let currentColor = "currentColor"
+    }
+
     public static let valueToColor = [
         0x000000: "black",
         0x000080: "navy",

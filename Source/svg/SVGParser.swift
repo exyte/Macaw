@@ -156,7 +156,7 @@ open class SVGParser {
             }
             if let id = element.allAttributes["id"]?.text {
                 switch element.name {
-                case "linearGradient", "radialGradient", "fill":
+                case "linearGradient", "radialGradient", SVGConstants.Keys.fill:
                     defFills[id] = try parseFill(node)
                 case "pattern":
                     defPatterns[id] = try parsePattern(node)
@@ -316,7 +316,7 @@ open class SVGParser {
         case "use":
             return try parseUse(node, groupStyle: style, place: position)
         case "title", "desc", "mask", "clip", "filter",
-             "linearGradient", "radialGradient", "fill":
+             "linearGradient", "radialGradient", SVGConstants.Keys.fill:
             break
         default:
             print("SVG parsing error. Shape \(element.name) not supported")
@@ -571,12 +571,12 @@ open class SVGParser {
             }
         }
 
-        let hasCurrentColor = styleAttributes["fill"] == "currentColor"
+        let hasCurrentColor = styleAttributes[SVGConstants.Keys.fill] == SVGConstants.Keys.currentColor
 
         self.availableStyleAttributes.forEach { availableAttribute in
             if let styleAttribute = element.allAttributes[availableAttribute]?.text, styleAttribute != "inherit" {
 
-                if !hasCurrentColor || availableAttribute != "color" {
+                if !hasCurrentColor || availableAttribute != SVGConstants.Keys.color {
                     styleAttributes.updateValue(styleAttribute, forKey: availableAttribute)
                 }
             }
@@ -630,7 +630,7 @@ open class SVGParser {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
 
-        guard var fillColor = styleParts["fill"] else {
+        guard var fillColor = styleParts[SVGConstants.Keys.fill] else {
             return Color.black.with(a: opacity)
         }
         if let colorId = parseIdFromUrl(fillColor) {
@@ -641,7 +641,7 @@ open class SVGParser {
                 return getPatternFill(pattern: pattern, locus: locus)
             }
         }
-        if fillColor == "currentColor", let currentColor = groupStyle["color"] {
+        if fillColor == SVGConstants.Keys.currentColor, let currentColor = groupStyle[SVGConstants.Keys.color] {
             fillColor = currentColor
         }
 
@@ -665,7 +665,7 @@ open class SVGParser {
         guard var strokeColor = styleParts["stroke"] else {
             return .none
         }
-        if strokeColor == "currentColor", let currentColor = groupStyle["color"] {
+        if strokeColor == SVGConstants.Keys.currentColor, let currentColor = groupStyle[SVGConstants.Keys.color] {
             strokeColor = currentColor
         }
         var opacity: Double = 1
@@ -1002,7 +1002,7 @@ open class SVGParser {
         let attributes = getStyleAttributes([:], element: element)
 
         return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                    fill: (attributes["fill"] != nil) ? getFillColor(attributes)! : fill, stroke: stroke ?? getStroke(attributes),
+                    fill: (attributes[SVGConstants.Keys.fill] != nil) ? getFillColor(attributes)! : fill, stroke: stroke ?? getStroke(attributes),
                     align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
                     place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
@@ -1357,7 +1357,7 @@ open class SVGParser {
         }
         var color = Color.black.with(a: opacity)
         if var stopColor = getStyleAttributes([:], element: element)["stop-color"] {
-            if stopColor == "currentColor", let currentColor = groupStyle["color"] {
+            if stopColor == SVGConstants.Keys.currentColor, let currentColor = groupStyle[SVGConstants.Keys.color] {
                 stopColor = currentColor
             }
             color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)!

@@ -10,12 +10,12 @@ There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 30.7% passed (94)
+* 31.0% passed (95)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 7.8% images (24) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 19.9% text (61) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 25.2% blocked by issues (77)
+* 24.8% blocked by issues (76)
 
 Status of each test:
 
@@ -274,7 +274,8 @@ Status of each test:
 |[struct-image-19-f-manual](w3cSVGTests/struct-image-19-f-manual.svg)       | [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178)                 |
 |[struct-svg-03-f-manual](w3cSVGTests/struct-svg-03-f-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344)   |
 |[struct-symbol-01-b-manual](w3cSVGTests/struct-symbol-01-b-manual.svg)       | [#398](https://github.com/exyte/Macaw/issues/398)                                                  |
-|[struct-use-01-t-manual](w3cSVGTests/struct-use-01-t-manual.svg)       | [#399](https://github.com/exyte/Macaw/issues/399)  |
+|[struct-use-01-t-manual](w3cSVGTests/struct-use-01-t-manual.svg)       | 
+✅
 |[struct-use-03-t-manual](w3cSVGTests/struct-use-03-t-manual.svg)       | ✅                                                 |
 |[struct-use-09-b-manual](w3cSVGTests/struct-use-09-b-manual.svg)       | [#398](https://github.com/exyte/Macaw/issues/398)  |
 |[struct-use-12-f-manual](w3cSVGTests/struct-use-12-f-manual.svg)       | ✅                                                 |

@@ -1681,7 +1681,7 @@ private class PathDataReader {
 
         var chars = [ch]
         var hasDot = ch == "."
-        let isFlag = type == .a && (index == 3 || index == 4)
+        let isFlag = (type == .a || type == .A) && (index == 3 || index == 4)
 
         while let ch = readDigit(&hasDot), !isFlag {
             chars.append(ch)
@@ -1692,15 +1692,12 @@ private class PathDataReader {
         guard let value = Double(buf) else {
             return .none
         }
-
         guard isFlag else {
             return value
         }
-
         guard value == 0 || value == 1 else {
             return .none
         }
-
         return value
     }
 

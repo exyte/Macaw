@@ -1625,7 +1625,7 @@ private class PathDataReader {
                 return [PathSegment(type: type)]
             }
             var result = [PathSegment]()
-            let data = readData()
+            let data = readData(type: type)
             var index = 0
             var isFirstSegment = true
             while index < data.count {
@@ -1651,11 +1651,11 @@ private class PathDataReader {
         return nil
     }
 
-    private func readData() -> [Double] {
+    private func readData(type: PathSegmentType) -> [Double] {
         var data = [Double]()
         while true {
             skipSpaces()
-            if let value = readNum() {
+            if let value = readNum(type: type, index: data.count) {
                 data.append(value)
             } else {
                 return data
@@ -1670,21 +1670,38 @@ private class PathDataReader {
         }
     }
 
-    fileprivate func readNum() -> Double? {
+    fileprivate func readNum(type: PathSegmentType, index: Int) -> Double? {
         guard let ch = current else {
-            return nil
+            return .none
         }
-        if (ch >= "0" && ch <= "9") || ch == "." || ch == "-" {
-            var chars = [ch]
-            var hasDot = ch == "."
-            while let ch = readDigit(&hasDot) {
-                chars.append(ch)
-            }
-            var buf = ""
-            buf.unicodeScalars.append(contentsOf: chars)
-            return Double(buf)
+
+        guard ch >= "0" && ch <= "9" || ch == "." || ch == "-" else {
+            return .none
         }
-        return nil
+
+        var chars = [ch]
+        var hasDot = ch == "."
+        let isFlag = type == .a && (index == 3 || index == 4)
+
+        while let ch = readDigit(&hasDot), !isFlag {
+            chars.append(ch)
+        }
+
+        var buf = ""
+        buf.unicodeScalars.append(contentsOf: chars)
+        guard let value = Double(buf) else {
+            return .none
+        }
+
+        guard isFlag else {
+            return value
+        }
+
+        guard value == 0 || value == 1 else {
+            return .none
+        }
+
+        return value
     }
 
     fileprivate func readDigit(_ hasDot: inout Bool) -> UnicodeScalar? {

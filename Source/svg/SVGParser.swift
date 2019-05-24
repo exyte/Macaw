@@ -1610,7 +1610,7 @@ private class PathDataReader {
     }
 
     public func read() -> [PathSegment] {
-        _ = readNext()
+        readNext()
         var segments = [PathSegment]()
         while let array = readSegments() {
             segments.append(contentsOf: array)
@@ -1625,7 +1625,12 @@ private class PathDataReader {
                 return [PathSegment(type: type)]
             }
             var result = [PathSegment]()
-            let data = readData()
+            let data: [Double]
+            if type == .a || type == .A {
+                data = readDataOfASegment()
+            } else {
+                data = readData()
+            }
             var index = 0
             var isFirstSegment = true
             while index < data.count {
@@ -1663,6 +1668,28 @@ private class PathDataReader {
         }
     }
 
+    private func readDataOfASegment() -> [Double] {
+        let argCount = getArgCount(segment: .A)
+        var data: [Double] = []
+        var index = 0
+        while true {
+            skipSpaces()
+            let value: Double?
+            let indexMod = index % argCount
+            if indexMod == 3 || indexMod == 4 {
+                value = readFlag()
+            } else {
+                value = readNum()
+            }
+            guard let doubleValue = value else {
+                return data
+            }
+            data.append(doubleValue)
+            index += 1
+        }
+        return data
+    }
+
     private func skipSpaces() {
         var ch = current
         while ch != nil && "\n\r\t ,".contains(String(ch!)) {
@@ -1670,21 +1697,42 @@ private class PathDataReader {
         }
     }
 
+    private func readFlag() -> Double? {
+        guard let ch = current else {
+            return .none
+        }
+        readNext()
+        switch ch {
+        case "0":
+            return 0
+        case "1":
+            return 1
+        default:
+            return .none
+        }
+    }
+
     fileprivate func readNum() -> Double? {
         guard let ch = current else {
-            return nil
+            return .none
         }
-        if (ch >= "0" && ch <= "9") || ch == "." || ch == "-" {
-            var chars = [ch]
-            var hasDot = ch == "."
-            while let ch = readDigit(&hasDot) {
-                chars.append(ch)
-            }
-            var buf = ""
-            buf.unicodeScalars.append(contentsOf: chars)
-            return Double(buf)
+
+        guard ch >= "0" && ch <= "9" || ch == "." || ch == "-" else {
+            return .none
         }
-        return nil
+
+        var chars = [ch]
+        var hasDot = ch == "."
+        while let ch = readDigit(&hasDot) {
+            chars.append(ch)
+        }
+
+        var buf = ""
+        buf.unicodeScalars.append(contentsOf: chars)
+        guard let value = Double(buf) else {
+            return .none
+        }
+        return value
     }
 
     fileprivate func readDigit(_ hasDot: inout Bool) -> UnicodeScalar? {
@@ -1714,6 +1762,7 @@ private class PathDataReader {
         return false
     }
 
+    @discardableResult
     private func readNext() -> UnicodeScalar? {
         previous = current
         current = iterator.next()
@@ -1730,7 +1779,7 @@ private class PathDataReader {
     private func readSegmentType() -> PathSegmentType? {
         while true {
             if let type = getPathSegmentType() {
-                _ = readNext()
+                readNext()
                 return type
             }
             if readNext() == nil {

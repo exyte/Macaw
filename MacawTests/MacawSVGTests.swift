@@ -349,8 +349,28 @@ class MacawSVGTests: XCTestCase {
         validateJSON("painting-fill-03-t-manual")
     }
     
+    func testShapesRect02() {
+        validateJSON("shapes-rect-02-t-manual")
+    }
+    
+    func testShapesRect03() {
+        validateJSON("shapes-rect-03-t-manual")
+    }
+    
+    func testShapesRect04() {
+        validateJSON("shapes-rect-04-f-manual")
+    }
+    
     func testShapesRect05() {
         validateJSON("shapes-rect-05-f-manual")
+    }
+    
+    func testShapesRect06() {
+        validateJSON("shapes-rect-06-f-manual")
+    }
+    
+    func testShapesRect07() {
+        validateJSON("shapes-rect-07-f-manual")
     }
     
     func testPaintingFill04() {
@@ -391,10 +411,6 @@ class MacawSVGTests: XCTestCase {
     
     func testPaintingFill02() {
         validateJSON("painting-fill-02-t-manual")
-    }
-    
-    func testShapesRect04() {
-        validateJSON("shapes-rect-04-f-manual")
     }
     
     func testCoordsTransformattr03() {

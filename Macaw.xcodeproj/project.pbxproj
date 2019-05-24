@@ -512,6 +512,14 @@
 		A74C81ED229284790085A832 /* struct-use-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C81EB229284780085A832 /* struct-use-01-t-manual.svg */; };
 		A74C81F12292B3940085A832 /* color-prop-05-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C81F02292B3940085A832 /* color-prop-05-t-manual.svg */; };
 		A74C81F32292B45E0085A832 /* color-prop-05-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C81F22292B45D0085A832 /* color-prop-05-t-manual.reference */; };
+		A74C82322297D8B40085A832 /* shapes-rect-06-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C822E2297D8B30085A832 /* shapes-rect-06-f-manual.svg */; };
+		A74C82332297D8B40085A832 /* shapes-rect-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C822F2297D8B30085A832 /* shapes-rect-02-t-manual.svg */; };
+		A74C82342297D8B40085A832 /* shapes-rect-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C82302297D8B30085A832 /* shapes-rect-03-t-manual.svg */; };
+		A74C82352297D8B40085A832 /* shapes-rect-07-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C82312297D8B40085A832 /* shapes-rect-07-f-manual.svg */; };
+		A74C823C2297DB2C0085A832 /* shapes-rect-07-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82382297DB2B0085A832 /* shapes-rect-07-f-manual.reference */; };
+		A74C823E2297DB2C0085A832 /* shapes-rect-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C823A2297DB2B0085A832 /* shapes-rect-03-t-manual.reference */; };
+		A74C823F2297DB2C0085A832 /* shapes-rect-06-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C823B2297DB2B0085A832 /* shapes-rect-06-f-manual.reference */; };
+		A74C82412297DC220085A832 /* shapes-rect-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82402297DC220085A832 /* shapes-rect-02-t-manual.reference */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
@@ -927,10 +935,18 @@
 		A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MDisplayLink_macOS.swift; path = Source/platform/macOS/MDisplayLink_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
-		A74C81F02292B3940085A832 /* color-prop-05-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-05-t-manual.svg"; sourceTree = "<group>"; };
-		A74C81F22292B45D0085A832 /* color-prop-05-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-05-t-manual.reference"; sourceTree = "<group>"; };
 		A74C81EA229284780085A832 /* struct-use-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-01-t-manual.reference"; sourceTree = "<group>"; };
 		A74C81EB229284780085A832 /* struct-use-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-01-t-manual.svg"; sourceTree = "<group>"; };
+		A74C81F02292B3940085A832 /* color-prop-05-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-05-t-manual.svg"; sourceTree = "<group>"; };
+		A74C81F22292B45D0085A832 /* color-prop-05-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-05-t-manual.reference"; sourceTree = "<group>"; };
+		A74C822E2297D8B30085A832 /* shapes-rect-06-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-06-f-manual.svg"; sourceTree = "<group>"; };
+		A74C822F2297D8B30085A832 /* shapes-rect-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-02-t-manual.svg"; sourceTree = "<group>"; };
+		A74C82302297D8B30085A832 /* shapes-rect-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-03-t-manual.svg"; sourceTree = "<group>"; };
+		A74C82312297D8B40085A832 /* shapes-rect-07-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-07-f-manual.svg"; sourceTree = "<group>"; };
+		A74C82382297DB2B0085A832 /* shapes-rect-07-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-07-f-manual.reference"; sourceTree = "<group>"; };
+		A74C823A2297DB2B0085A832 /* shapes-rect-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-03-t-manual.reference"; sourceTree = "<group>"; };
+		A74C823B2297DB2B0085A832 /* shapes-rect-06-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-06-f-manual.reference"; sourceTree = "<group>"; };
+		A74C82402297DC220085A832 /* shapes-rect-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-02-t-manual.reference"; sourceTree = "<group>"; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
@@ -1536,10 +1552,18 @@
 				5B1AE1BA20B6A669007EECCB /* shapes-polyline-01-t-manual.svg */,
 				5B1AE1AF20B6A669007EECCB /* shapes-polyline-02-t-manual.reference */,
 				5B1AE1E120B6A669007EECCB /* shapes-polyline-02-t-manual.svg */,
+				A74C82402297DC220085A832 /* shapes-rect-02-t-manual.reference */,
+				A74C822F2297D8B30085A832 /* shapes-rect-02-t-manual.svg */,
+				A74C823A2297DB2B0085A832 /* shapes-rect-03-t-manual.reference */,
+				A74C82302297D8B30085A832 /* shapes-rect-03-t-manual.svg */,
 				5B1AE22520B6A669007EECCB /* shapes-rect-04-f-manual.reference */,
 				5B1AE1CE20B6A669007EECCB /* shapes-rect-04-f-manual.svg */,
 				5B1AE19620B6A669007EECCB /* shapes-rect-05-f-manual.reference */,
 				5B1AE1B720B6A669007EECCB /* shapes-rect-05-f-manual.svg */,
+				A74C823B2297DB2B0085A832 /* shapes-rect-06-f-manual.reference */,
+				A74C822E2297D8B30085A832 /* shapes-rect-06-f-manual.svg */,
+				A74C82382297DB2B0085A832 /* shapes-rect-07-f-manual.reference */,
+				A74C82312297D8B40085A832 /* shapes-rect-07-f-manual.svg */,
 				5B1AE22220B6A669007EECCB /* struct-defs-01-t-manual.reference */,
 				5B1AE22E20B6A669007EECCB /* struct-defs-01-t-manual.svg */,
 				5B1AE19720B6A669007EECCB /* struct-frag-01-t-manual.reference */,
@@ -1770,6 +1794,7 @@
 				5BAE203C208E163D006BF277 /* triangle.reference in Resources */,
 				C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */,
 				5BAE2048208E163D006BF277 /* line.reference in Resources */,
+				A74C82322297D8B40085A832 /* shapes-rect-06-f-manual.svg in Resources */,
 				5B1AE2A420B6A669007EECCB /* paths-data-12-t-manual.reference in Resources */,
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
 				5B7E79CF20CBE69700C50BCF /* masking-path-02-b-manual.svg in Resources */,
@@ -1790,6 +1815,7 @@
 				5B1AE2B820B6A669007EECCB /* painting-stroke-03-t-manual.reference in Resources */,
 				4269F43E2257265800D91393 /* color-prop-04-t-manual.reference in Resources */,
 				5B1AE2C720B6A669007EECCB /* paths-data-02-t-manual.svg in Resources */,
+				A74C823C2297DB2C0085A832 /* shapes-rect-07-f-manual.reference in Resources */,
 				5B1AE27120B6A669007EECCB /* painting-stroke-04-t-manual.reference in Resources */,
 				5B1AE2C220B6A669007EECCB /* coords-trans-05-t-manual.svg in Resources */,
 				5B1AE29D20B6A669007EECCB /* types-basic-01-f-manual.reference in Resources */,
@@ -1809,6 +1835,7 @@
 				5BAE2040208E163D006BF277 /* ellipse.reference in Resources */,
 				5B1AE27E20B6A669007EECCB /* coords-transformattr-02-f-manual.reference in Resources */,
 				5B1AE25720B6A669007EECCB /* coords-trans-07-t-manual.svg in Resources */,
+				A74C823F2297DB2C0085A832 /* shapes-rect-06-f-manual.reference in Resources */,
 				5B1AE2BC20B6A669007EECCB /* coords-coord-02-t-manual.svg in Resources */,
 				5B1AE23520B6A669007EECCB /* shapes-line-02-f-manual.reference in Resources */,
 				5B1AE2CD20B6A669007EECCB /* paths-data-10-t-manual.svg in Resources */,
@@ -1818,6 +1845,7 @@
 				5B1AE29020B6A669007EECCB /* painting-stroke-08-t-manual.svg in Resources */,
 				5B1AE2A720B6A669007EECCB /* paths-data-09-t-manual.svg in Resources */,
 				5B1AE2AB20B6A669007EECCB /* painting-stroke-08-t-manual.reference in Resources */,
+				A74C82352297D8B40085A832 /* shapes-rect-07-f-manual.svg in Resources */,
 				5B1AE2A520B6A669007EECCB /* coords-trans-02-t-manual.reference in Resources */,
 				5B1AE23220B6A669007EECCB /* text-align-01-b-manual.svg in Resources */,
 				5B1AE2B220B6A669007EECCB /* types-basic-01-f-manual.svg in Resources */,
@@ -1832,6 +1860,7 @@
 				5B1AE25020B6A669007EECCB /* render-elems-01-t-manual.reference in Resources */,
 				5B1AE24520B6A669007EECCB /* struct-frag-01-t-manual.reference in Resources */,
 				5B1AE25B20B6A669007EECCB /* painting-stroke-01-t-manual.svg in Resources */,
+				A74C823E2297DB2C0085A832 /* shapes-rect-03-t-manual.reference in Resources */,
 				5BAE2047208E163D006BF277 /* viewBox.reference in Resources */,
 				5B1AE2C120B6A669007EECCB /* painting-stroke-04-t-manual.svg in Resources */,
 				5B1AE2BE20B6A669007EECCB /* painting-stroke-03-t-manual.svg in Resources */,
@@ -1863,6 +1892,7 @@
 				5B1AE2CF20B6A669007EECCB /* paths-data-07-t-manual.reference in Resources */,
 				5B1AE28D20B6A669007EECCB /* shapes-circle-01-t-manual.reference in Resources */,
 				5B1AE2A320B6A669007EECCB /* painting-fill-01-t-manual.svg in Resources */,
+				A74C82332297D8B40085A832 /* shapes-rect-02-t-manual.svg in Resources */,
 				5B1AE2CB20B6A669007EECCB /* painting-fill-02-t-manual.reference in Resources */,
 				5B1AE26520B6A669007EECCB /* shapes-rect-05-f-manual.svg in Resources */,
 				5B1AE2D120B6A669007EECCB /* paths-data-03-f-manual.reference in Resources */,
@@ -1888,6 +1918,7 @@
 				5B1AE28220B6A669007EECCB /* coords-coord-01-t-manual.reference in Resources */,
 				A74C81F32292B45E0085A832 /* color-prop-05-t-manual.reference in Resources */,
 				5B1AE23420B6A669007EECCB /* painting-control-03-f-manual.reference in Resources */,
+				A74C82342297D8B40085A832 /* shapes-rect-03-t-manual.svg in Resources */,
 				5B1AE26820B6A669007EECCB /* shapes-polyline-01-t-manual.svg in Resources */,
 				5B1AE29A20B6A669007EECCB /* struct-frag-02-t-manual.svg in Resources */,
 				5B1AE2A620B6A669007EECCB /* text-fonts-01-t-manual.svg in Resources */,
@@ -1916,6 +1947,7 @@
 				5B1AE26A20B6A669007EECCB /* painting-control-06-f-manual.reference in Resources */,
 				C46E83551F94B20E00208037 /* transform.svg in Resources */,
 				5B1AE2C420B6A669007EECCB /* painting-fill-01-t-manual.reference in Resources */,
+				A74C82412297DC220085A832 /* shapes-rect-02-t-manual.reference in Resources */,
 				5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */,
 				5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */,
 				5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */,

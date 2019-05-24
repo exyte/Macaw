@@ -5,6 +5,13 @@ open class Rect: Locus {
     public let w: Double
     public let h: Double
 
+    public init(_ x: Double, _ y: Double, _ w: Double, _ h: Double) {
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+    }
+
     public init(x: Double = 0, y: Double = 0, w: Double = 0, h: Double = 0) {
         self.x = x
         self.y = y

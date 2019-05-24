@@ -5,7 +5,12 @@ open class Point: Locus {
     public let x: Double
     public let y: Double
 
-    public static let origin: Point = Point( x: 0, y: 0 )
+    public static let origin = Point(0, 0)
+
+    public init(_ x: Double, _ y: Double) {
+        self.x = x
+        self.y = y
+    }
 
     public init(x: Double = 0, y: Double = 0) {
         self.x = x

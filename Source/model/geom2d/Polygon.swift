@@ -4,6 +4,10 @@ open class Polygon: Locus {
 
     public let points: [Double]
 
+    public init(_ points: [Double]) {
+        self.points = points
+    }
+
     public init(points: [Double] = []) {
         self.points = points
     }

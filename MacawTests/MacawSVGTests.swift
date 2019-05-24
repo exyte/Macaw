@@ -529,6 +529,10 @@ class MacawSVGTests: XCTestCase {
         validateJSON("paths-data-19-f-manual")
     }
     
+    func testPathsData20() {
+        validateJSON("paths-data-20-f-manual")
+    }
+    
     func testStructGroup01() {
         validateJSON("struct-group-01-t-manual")
     }

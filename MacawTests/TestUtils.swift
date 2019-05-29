@@ -1,5 +1,11 @@
 import Foundation
-import Macaw
+#if os(OSX)
+@testable import MacawOSX
+#endif
+
+#if os(iOS)
+@testable import Macaw
+#endif
 
 class TestUtils {
 

@@ -6,8 +6,15 @@
 //  Copyright © 2018 Exyte. All rights reserved.
 //
 
+#if os(OSX)
+import Foundation
+@testable import MacawOSX
+#endif
+
+#if os(iOS)
 import UIKit
 @testable import Macaw
+#endif
 
 protocol Initializable {
     init()
@@ -367,12 +374,15 @@ extension Path: Serializable {
     }
 }
 
+//TODO: setup Polygon for OSX
+#if os(iOS)
 extension Polygon: Serializable {
     
     func toDictionary() -> [String:Any] {
         return ["type": "Polygon", "points": points]
     }
 }
+#endif
 
 extension Polyline: Serializable {
     

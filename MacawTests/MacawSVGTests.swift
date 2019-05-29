@@ -1,5 +1,12 @@
 import XCTest
+
+#if os(OSX)
+@testable import MacawOSX
+#endif
+
+#if os(iOS)
 @testable import Macaw
+#endif
 
 class MacawSVGTests: XCTestCase {
     
@@ -214,11 +221,24 @@ class MacawSVGTests: XCTestCase {
             return Data()
         }
         do {
+            
+            #if os(OSX)
+            if #available(OSX 10.13, *) {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
+            } else {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
+            }
+            #endif
+            
+            #if os(iOS)
             if #available(iOS 11.0, *) {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
             } else {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
             }
+            #endif
+            
+            
         } catch {
             XCTFail(error.localizedDescription)
             return Data()

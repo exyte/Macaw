@@ -669,20 +669,24 @@ class MacawSVGTests: XCTestCase {
         validateJSON("shapes-grammar-01-f-manual")
     }
 
-    func testMaskingPath02() {
-        validateJSON("masking-path-02-b-manual")
+    func testPserversGrad03() {
+        validateJSON("pservers-grad-03-b-manual")
     }
     
     func testMaskingIntro01() {
         validateJSON("masking-intro-01-f-manual")
     }
-
-    func testPserversGrad03() {
-        validateJSON("pservers-grad-03-b-manual")
-    }
     
     func testMaskingFilter01() {
         validateJSON("masking-filter-01-f-manual")
+    }
+    
+    func testMaskingPath02() {
+        validateJSON("masking-path-02-b-manual")
+    }
+    
+    func testMaskingPath13() {
+        validateJSON("masking-path-13-f-manual")
     }
     
     func testMaskingMask02() {

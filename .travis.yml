@@ -6,6 +6,7 @@ branches:
     - master
 
 script:
+  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,OS=12.2,name=iPhone X' | xcpretty;
   - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'MacawOSX' ONLY_ACTIVE_ARCH=NO | xcpretty;
 
 

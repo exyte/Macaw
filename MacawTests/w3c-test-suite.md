@@ -10,12 +10,12 @@ There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 35.3% passed (108)
+* 37.6% passed (115)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 8.5% images (26) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 20.6% text (63) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 19.0% blocked by issues (58)
+* 16.7% blocked by issues (51)
 
 Status of each test:
 
@@ -190,23 +190,23 @@ Status of each test:
 |[pservers-grad-04-b-manual](w3cSVGTests/pservers-grad-04-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-05-b-manual](w3cSVGTests/pservers-grad-05-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-06-b-manual](w3cSVGTests/pservers-grad-06-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-07-b-manual](w3cSVGTests/pservers-grad-07-b-manual.svg)      | ✅                                                 |
+|[pservers-grad-07-b-manual](w3cSVGTests/pservers-grad-07-b-manual.svg)       | ✅                                                 |
 |[pservers-grad-08-b-manual](w3cSVGTests/pservers-grad-08-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-09-b-manual](w3cSVGTests/pservers-grad-09-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
+|[pservers-grad-09-b-manual](w3cSVGTests/pservers-grad-09-b-manual.svg)       | ✅                                                 |
 |[pservers-grad-10-b-manual](w3cSVGTests/pservers-grad-10-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-11-b-manual](w3cSVGTests/pservers-grad-11-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-12-b-manual](w3cSVGTests/pservers-grad-12-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-13-b-manual](w3cSVGTests/pservers-grad-13-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
+|[pservers-grad-12-b-manual](w3cSVGTests/pservers-grad-12-b-manual.svg)       | ✅                                                 |
+|[pservers-grad-13-b-manual](w3cSVGTests/pservers-grad-13-b-manual.svg)       | ✅                                                 |
 |[pservers-grad-14-b-manual](w3cSVGTests/pservers-grad-14-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-15-b-manual](w3cSVGTests/pservers-grad-15-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
+|[pservers-grad-15-b-manual](w3cSVGTests/pservers-grad-15-b-manual.svg)       | ✅                                                 |
 |[pservers-grad-16-b-manual](w3cSVGTests/pservers-grad-16-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-17-b-manual](w3cSVGTests/pservers-grad-17-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-18-b-manual](w3cSVGTests/pservers-grad-18-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-20-b-manual](w3cSVGTests/pservers-grad-20-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
 |[pservers-grad-21-b-manual](w3cSVGTests/pservers-grad-21-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-22-b-manual](w3cSVGTests/pservers-grad-22-b-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-23-f-manual](w3cSVGTests/pservers-grad-23-f-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
-|[pservers-grad-24-f-manual](w3cSVGTests/pservers-grad-24-f-manual.svg)       | [#396](https://github.com/exyte/Macaw/issues/396)                |
+|[pservers-grad-22-b-manual](w3cSVGTests/pservers-grad-22-b-manual.svg)       | ✅                                                 |
+|[pservers-grad-23-f-manual](w3cSVGTests/pservers-grad-23-f-manual.svg)       | ✅                                                 |
+|[pservers-grad-24-f-manual](w3cSVGTests/pservers-grad-24-f-manual.svg)       | ✅                                                 |
 |[pservers-grad-stops-01-f-manual](w3cSVGTests/pservers-grad-stops-01-f-manual.svg)       | ✅                                                 |
 |[pservers-pattern-01-b-manual](w3cSVGTests/pservers-pattern-01-b-manual.svg)       | [#203](https://github.com/exyte/Macaw/issues/203)  |
 |[pservers-pattern-02-f-manual](w3cSVGTests/pservers-pattern-02-f-manual.svg)       | [#203](https://github.com/exyte/Macaw/issues/203)  |

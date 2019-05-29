@@ -177,7 +177,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="tiger"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fileName" value="masking-mask-02-f-manual"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

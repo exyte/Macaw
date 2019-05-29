@@ -1116,7 +1116,11 @@ open class SVGParser {
                 }
             }
         }
-        return UserSpaceLocus(locus: path!, userSpace: userSpace)
+        
+        if let path = path {
+            return UserSpaceLocus(locus: path, userSpace: userSpace)
+        }
+        return .none
     }
 
     fileprivate func parseMask(_ mask: XMLIndexer) throws -> UserSpaceNode? {

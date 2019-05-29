@@ -269,43 +269,35 @@ open class SVGParser {
         let position = getPosition(element)
         switch element.name {
         case "path":
-            if var path = parsePath(node) {
+            if var path = parsePath(node), let mask = try getMask(style, locus: path) {
                 if let rule = getFillRule(style) {
                     path = Path(segments: path.segments, fillRule: rule)
                 }
-
-                let mask = try getMask(style, locus: path)
-
+                
                 return Shape(form: path, fill: getFillColor(style, groupStyle: style, locus: path), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: path), mask: mask, tag: getTag(element))
             }
         case "line":
-            if let line = parseLine(node) {
-                let mask = try getMask(style, locus: line)
+            if let line = parseLine(node), let mask = try getMask(style, locus: line) {
                 return Shape(form: line, fill: getFillColor(style, groupStyle: style, locus: line), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: line), mask: mask, tag: getTag(element))
             }
         case "rect":
-            if let rect = parseRect(node) {
-                let mask = try getMask(style, locus: rect)
+            if let rect = parseRect(node), let mask = try getMask(style, locus: rect) {
                 return Shape(form: rect, fill: getFillColor(style, groupStyle: style, locus: rect), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: rect), mask: mask, tag: getTag(element))
             }
         case "circle":
-            if let circle = parseCircle(node) {
-                let mask = try getMask(style, locus: circle)
+            if let circle = parseCircle(node), let mask = try getMask(style, locus: circle) {
                 return Shape(form: circle, fill: getFillColor(style, groupStyle: style, locus: circle), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: circle), mask: mask, tag: getTag(element))
             }
         case "ellipse":
-            if let ellipse = parseEllipse(node) {
-                let mask = try getMask(style, locus: ellipse)
+            if let ellipse = parseEllipse(node), let mask = try getMask(style, locus: ellipse) {
                 return Shape(form: ellipse, fill: getFillColor(style, groupStyle: style, locus: ellipse), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: ellipse), mask: mask, tag: getTag(element))
             }
         case "polygon":
-            if let polygon = parsePolygon(node) {
-                let mask = try getMask(style, locus: polygon)
+            if let polygon = parsePolygon(node), let mask = try getMask(style, locus: polygon) {
                 return Shape(form: polygon, fill: getFillColor(style, groupStyle: style, locus: polygon), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: polygon), mask: mask, tag: getTag(element))
             }
         case "polyline":
-            if let polyline = parsePolyline(node) {
-                let mask = try getMask(style, locus: polyline)
+            if let polyline = parsePolyline(node), let mask = try getMask(style, locus: polyline) {
                 return Shape(form: polyline, fill: getFillColor(style, groupStyle: style, locus: polyline), stroke: getStroke(style, groupStyle: style), place: position, opacity: getOpacity(style), clip: getClipPath(style, locus: polyline), mask: mask, tag: getTag(element))
             }
         case "image":
@@ -1510,9 +1502,13 @@ open class SVGParser {
     }
 
     fileprivate func getMask(_ attributes: [String: String], locus: Locus?) throws -> Node? {
-        guard let maskName = attributes["mask"], let id = parseIdFromUrl(maskName), let userSpaceNode = defMasks[id], let locus = locus else {
+        guard let maskName = attributes["mask"], let locus = locus else {
+            return Node()
+        }
+        guard let id = parseIdFromUrl(maskName), let userSpaceNode = defMasks[id] else {
             return .none
         }
+        
         if !userSpaceNode.userSpace {
             if let group = userSpaceNode.node as? Group {
                 for node in group.contents {

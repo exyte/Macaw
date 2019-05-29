@@ -1116,7 +1116,7 @@ open class SVGParser {
                 }
             }
         }
-        
+
         if let path = path {
             return UserSpaceLocus(locus: path, userSpace: userSpace)
         }

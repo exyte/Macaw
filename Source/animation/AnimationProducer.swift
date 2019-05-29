@@ -284,6 +284,10 @@ class AnimationProducer {
                 continue
             }
 
+            defer {
+                renderer.sceneLayer?.setNeedsDisplay()
+            }
+
             let progress = currentDate.timeIntervalSince(animationDesc.startDate) / animation.duration + animation.pausedProgress
 
             // Completion

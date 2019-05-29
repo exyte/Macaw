@@ -157,6 +157,17 @@ class AnimationUtils {
     }
 }
 
+extension Node {
+
+    func isAnimating() -> Bool {
+        return !animations.filter { $0.state() == AnimationState.running }.isEmpty
+    }
+
+    func needsLayer() -> Bool {
+        return !animations.filter { $0.state() == AnimationState.running || $0.state() == AnimationState.initial }.isEmpty
+    }
+}
+
 extension NodeRenderer {
 
     func isAnimating() -> Bool {
@@ -166,7 +177,7 @@ extension NodeRenderer {
     func freeLayer() {
 
         let nodeRenderer = self
-        guard let layer = nodeRenderer.layer else {
+        guard let layer = nodeRenderer.layer, !node.needsLayer() else {
             return
         }
         nodeRenderer.layer = nil

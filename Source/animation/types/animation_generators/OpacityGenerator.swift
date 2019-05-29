@@ -34,8 +34,6 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
 
     generatedAnimation.completion = { finished in
 
-        renderer.freeLayer()
-
         if animation.paused {
             animation.pausedProgress += animation.progress
             node.opacityVar.value = opacityAnimation.getVFunc()(animation.pausedProgress)
@@ -48,6 +46,8 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
             animation.progress = 1.0
             node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
         }
+
+        renderer.freeLayer()
 
         if  !animation.cycled &&
             !animation.manualStop &&

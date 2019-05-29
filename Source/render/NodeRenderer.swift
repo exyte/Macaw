@@ -76,9 +76,9 @@ class NodeRenderer {
         self.parentRenderer = parentRenderer
 
         onNodeChange = { [weak view] in
-            //            if self.isAnimating() {
-            //                return
-            //            }
+            if node.isAnimating() {
+                return
+            }
 
             view?.setNeedsDisplay()
         }

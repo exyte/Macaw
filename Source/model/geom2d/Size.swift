@@ -5,7 +5,12 @@ open class Size {
     public let w: Double
     public let h: Double
 
-    public static let zero: Size = Size(w: 0, h: 0)
+    public static let zero = Size(0, 0)
+
+    public init(_ w: Double, _ h: Double) {
+        self.w = w
+        self.h = h
+    }
 
     public init(w: Double = 0, h: Double = 0) {
         self.w = w

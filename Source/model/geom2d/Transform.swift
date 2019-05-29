@@ -9,7 +9,16 @@ public final class Transform {
     public let dx: Double
     public let dy: Double
 
-    public static let identity: Transform = Transform()
+    public static let identity = Transform()
+
+    public init(_ m11: Double, _ m12: Double, _ m21: Double, _ m22: Double, _ dx: Double, _ dy: Double) {
+        self.m11 = m11
+        self.m12 = m12
+        self.m21 = m21
+        self.m22 = m22
+        self.dx = dx
+        self.dy = dy
+    }
 
     public init(m11: Double = 1, m12: Double = 0, m21: Double = 0, m22: Double = 1, dx: Double = 0, dy: Double = 0) {
         self.m11 = m11
@@ -20,39 +29,74 @@ public final class Transform {
         self.dy = dy
     }
 
-    public func move(dx: Double, dy: Double) -> Transform {
-        return Transform(m11: m11, m12: m12, m21: m21, m22: m22,
-                         dx: dx * m11 + dy * m21 + self.dx, dy: dx * m12 + dy * m22 + self.dy)
+    public func move(_ dx: Double, _ dy: Double) -> Transform {
+        return move(dx: dx, dy: dy)
     }
 
-    public func scale(sx: Double, sy: Double) -> Transform {
+    public func move(dx: Double = 0, dy: Double = 0) -> Transform {
+        return Transform(m11: m11, m12: m12, m21: m21, m22: m22,
+                         dx: dx * m11 + dy * m21 + self.dx,
+                         dy: dx * m12 + dy * m22 + self.dy)
+    }
+
+    public func scale(sx: Double = 0, sy: Double = 0) -> Transform {
         return Transform(m11: m11 * sx, m12: m12 * sx, m21: m21 * sy, m22: m22 * sy, dx: dx, dy: dy)
     }
 
-    public func shear(shx: Double, shy: Double) -> Transform {
+    public func scale(_ sx: Double, _ sy: Double) -> Transform {
+        return scale(sx: sx, sy: sy)
+    }
+
+    public func shear(shx: Double = 0, shy: Double = 0) -> Transform {
         return Transform(m11: m11 + m21 * shy, m12: m12 + m22 * shy,
                          m21: m11 * shx + m21, m22: m12 * shx + m22, dx: dx, dy: dy)
     }
 
-    public func rotate(angle: Double) -> Transform {
-        let asin = sin(angle); let acos = cos(angle)
-        return Transform(m11: acos * m11 + asin * m21, m12: acos * m12 + asin * m22,
-                         m21: -asin * m11 + acos * m21, m22: -asin * m12 + acos * m22, dx: dx, dy: dy)
+    public func shear(_ shx: Double, _ shy: Double) -> Transform {
+        return shear(shx: shx, shy: shy)
     }
 
-    public func rotate(angle: Double, x: Double, y: Double) -> Transform {
+    public func rotate(angle: Double) -> Transform {
+        let asin = sin(angle)
+        let acos = cos(angle)
+        return Transform(m11: acos * m11 + asin * m21, m12: acos * m12 + asin * m22,
+                         m21: -asin * m11 + acos * m21, m22: -asin * m12 + acos * m22,
+                         dx: dx, dy: dy)
+    }
+
+    public func rotate(_ angle: Double) -> Transform {
+        return rotate(angle: angle)
+    }
+
+    public func rotate(angle: Double, x: Double = 0, y: Double = 0) -> Transform {
         return move(dx: x, dy: y).rotate(angle: angle).move(dx: -x, dy: -y)
     }
 
-    public class func move(dx: Double, dy: Double) -> Transform {
+    public func rotate(_ angle: Double, _ x: Double, _ y: Double) -> Transform {
+        return rotate(angle: angle, x: x, y: y)
+    }
+
+    public class func move(dx: Double = 0, dy: Double = 0) -> Transform {
         return Transform(dx: dx, dy: dy)
     }
 
-    public class func scale(sx: Double, sy: Double) -> Transform {
+    public class func move(_ dx: Double, _ dy: Double) -> Transform {
+        return Transform(dx: dx, dy: dy)
+    }
+
+    public class func scale(sx: Double = 0, sy: Double = 0) -> Transform {
         return Transform(m11: sx, m22: sy)
     }
 
-    public class func shear(shx: Double, shy: Double) -> Transform {
+    public class func scale(_ sx: Double, _ sy: Double) -> Transform {
+        return Transform(m11: sx, m22: sy)
+    }
+
+    public class func shear(shx: Double = 0, shy: Double = 0) -> Transform {
+        return Transform(m12: shy, m21: shx)
+    }
+
+    public class func shear(_ shx: Double, _ shy: Double) -> Transform {
         return Transform(m12: shy, m21: shx)
     }
 
@@ -61,8 +105,16 @@ public final class Transform {
         return Transform(m11: acos, m12: asin, m21: -asin, m22: acos)
     }
 
-    public class func rotate(angle: Double, x: Double, y: Double) -> Transform {
+    public class func rotate(_ angle: Double) -> Transform {
+        return rotate(angle: angle)
+    }
+
+    public class func rotate(angle: Double, x: Double = 0, y: Double = 0) -> Transform {
         return Transform.move(dx: x, dy: y).rotate(angle: angle).move(dx: -x, dy: -y)
+    }
+
+    public class func rotate(_ angle: Double, _ x: Double, _ y: Double) -> Transform {
+        return rotate(angle: angle, x: x, y: y)
     }
 
     public func concat(with: Transform) -> Transform {

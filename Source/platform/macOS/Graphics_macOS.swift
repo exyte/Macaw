@@ -11,8 +11,6 @@ import Foundation
 #if os(OSX)
 import AppKit
 
-private var imageContextStack: [CGFloat] = []
-
 func MGraphicsGetCurrentContext() -> CGContext? {
     return NSGraphicsContext.current?.cgContext
 }
@@ -54,8 +52,6 @@ func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ sca
     let height = Int(size.height * scale)
 
     if width > 0 && height > 0 {
-        imageContextStack.append(scale)
-
         let colorSpace = CGColorSpaceCreateDeviceRGB()
 
         guard let ctx = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 4 * width, space: colorSpace, bitmapInfo: (opaque ?  CGImageAlphaInfo.noneSkipFirst.rawValue : CGImageAlphaInfo.premultipliedFirst.rawValue)) else {
@@ -64,32 +60,24 @@ func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ sca
 
         ctx.concatenate(CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: CGFloat(height)))
         ctx.scaleBy(x: scale, y: scale)
+        ctx.scale = scale
         MGraphicsPushContext(ctx)
     }
 }
 
 func MGraphicsGetImageFromCurrentImageContext() -> MImage? {
-    if !imageContextStack.isEmpty {
-        guard let ctx = MGraphicsGetCurrentContext() else {
+    guard let ctx = MGraphicsGetCurrentContext(),
+        let theCGImage = ctx.makeImage() else {
             return nil
-        }
-
-        let scale = imageContextStack.last!
-        if let theCGImage = ctx.makeImage() {
-            let size = CGSize(width: CGFloat(ctx.width) / scale, height: CGFloat(ctx.height) / scale)
-            let image = NSImage(cgImage: theCGImage, size: size)
-            return image
-        }
     }
-
-    return nil
+    let scale = ctx.scale
+    let size = CGSize(width: CGFloat(ctx.width) / scale, height: CGFloat(ctx.height) / scale)
+    let image = NSImage(cgImage: theCGImage, size: size)
+    return image
 }
 
 func MGraphicsEndImageContext() {
-    if imageContextStack.last != nil {
-        imageContextStack.removeLast()
-        MGraphicsPopContext()
-    }
+    MGraphicsPopContext()
 }
 
 func MNoIntrinsicMetric() -> CGFloat {

@@ -81,7 +81,7 @@ open class MacawZoom {
     }
 
     private func getNewZoom() -> ZoomData {
-        if touches.count == 0 || (touches.count == 1 && !trackMove) {
+        if touches.isEmpty || (touches.count == 1 && !trackMove) {
             return zoomData
         }
         let s1 = touches[0].point

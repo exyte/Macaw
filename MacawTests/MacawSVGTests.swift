@@ -265,6 +265,10 @@ class MacawSVGTests: XCTestCase {
         validateJSON("color-prop-01-b-manual")
     }
     
+    func testColorProp05() {
+        validateJSON("color-prop-05-t-manual")
+    }
+    
     func testShapesEllipse01() {
         validateJSON("shapes-ellipse-01-t-manual")
     }
@@ -277,8 +281,60 @@ class MacawSVGTests: XCTestCase {
         validateJSON("paths-data-12-t-manual")
     }
     
+    func testCoordsTrans01() {
+        validateJSON("coords-trans-01-b-manual")
+    }
+    
+    func testCoordsTrans02() {
+        validateJSON("coords-trans-02-t-manual")
+    }
+    
+    func testCoordsTrans03() {
+        validateJSON("coords-trans-03-t-manual")
+    }
+    
+    func testCoordsTrans04() {
+        validateJSON("coords-trans-04-t-manual")
+    }
+    
+    func testCoordsTrans05() {
+        validateJSON("coords-trans-05-t-manual")
+    }
+    
     func testCoordsTrans06() {
         validateJSON("coords-trans-06-t-manual")
+    }
+    
+    func testCoordsTrans07() {
+        validateJSON("coords-trans-07-t-manual")
+    }
+    
+    func testCoordsTrans08() {
+        validateJSON("coords-trans-08-t-manual")
+    }
+    
+    func testCoordsTrans09() {
+        validateJSON("coords-trans-09-t-manual")
+    }
+    
+    func testCoordsTrans10() {
+        validateJSON("coords-trans-10-f-manual")
+    }
+    
+    func testCoordsTrans11() {
+        validateJSON("coords-trans-11-f-manual")
+    }
+    
+    func testCoordsTrans12() {
+        validateJSON("coords-trans-12-f-manual")
+    }
+    
+    func testCoordsTrans13() {
+        validateJSON("coords-trans-13-f-manual")
+    }
+    
+    func testCoordsTrans14() {
+        validateJSON("coords-trans-14-f-manual")
     }
     
     func testCoordsCoord01() {
@@ -317,14 +373,6 @@ class MacawSVGTests: XCTestCase {
         validateJSON("paths-data-06-t-manual")
     }
     
-    func testCoordsTrans07() {
-        validateJSON("coords-trans-07-t-manual")
-    }
-    
-    func testCoordsTrans01() {
-        validateJSON("coords-trans-01-b-manual")
-    }
-    
     func testPaintingStroke01() {
         validateJSON("painting-stroke-01-t-manual")
     }
@@ -345,8 +393,28 @@ class MacawSVGTests: XCTestCase {
         validateJSON("painting-fill-03-t-manual")
     }
     
+    func testShapesRect02() {
+        validateJSON("shapes-rect-02-t-manual")
+    }
+    
+    func testShapesRect03() {
+        validateJSON("shapes-rect-03-t-manual")
+    }
+    
+    func testShapesRect04() {
+        validateJSON("shapes-rect-04-f-manual")
+    }
+    
     func testShapesRect05() {
         validateJSON("shapes-rect-05-f-manual")
+    }
+    
+    func testShapesRect06() {
+        validateJSON("shapes-rect-06-f-manual")
+    }
+    
+    func testShapesRect07() {
+        validateJSON("shapes-rect-07-f-manual")
     }
     
     func testPaintingFill04() {
@@ -389,10 +457,6 @@ class MacawSVGTests: XCTestCase {
         validateJSON("painting-fill-02-t-manual")
     }
     
-    func testShapesRect04() {
-        validateJSON("shapes-rect-04-f-manual")
-    }
-    
     func testCoordsTransformattr03() {
         validateJSON("coords-transformattr-03-f-manual")
     }
@@ -419,10 +483,6 @@ class MacawSVGTests: XCTestCase {
     
     func testCoordsTransformattr01() {
         validateJSON("coords-transformattr-01-f-manual")
-    }
-    
-    func testCoordsTrans09() {
-        validateJSON("coords-trans-09-t-manual")
     }
     
     func testShapesCircle01() {
@@ -453,10 +513,6 @@ class MacawSVGTests: XCTestCase {
         validateJSON("painting-stroke-09-t-manual")
     }
     
-    func testCoordsTrans08() {
-        validateJSON("coords-trans-08-t-manual")
-    }
-    
     func testPaintingFill01() {
         validateJSON("painting-fill-01-t-manual")
     }
@@ -473,12 +529,16 @@ class MacawSVGTests: XCTestCase {
         validateJSON("struct-frag-03-t-manual")
     }
     
-    func testStructUse12() {
-        validateJSON("struct-use-12-f-manual")
+    func testStructUse01() {
+        validateJSON("struct-use-01-t-manual")
     }
     
     func testStructUse03() {
         validateJSON("struct-use-03-t-manual")
+    }
+    
+    func testStructUse12() {
+        validateJSON("struct-use-12-f-manual")
     }
     
     func testColorProp03() {
@@ -505,14 +565,6 @@ class MacawSVGTests: XCTestCase {
         validateJSON("coords-coord-02-t-manual")
     }
     
-    func testCoordsTrans05() {
-        validateJSON("coords-trans-05-t-manual")
-    }
-    
-    func testCoordsTrans02() {
-        validateJSON("coords-trans-02-t-manual")
-    }
-    
     func testPathsData02() {
         validateJSON("paths-data-02-t-manual")
     }
@@ -521,20 +573,16 @@ class MacawSVGTests: XCTestCase {
         validateJSON("paths-data-19-f-manual")
     }
     
+    func testPathsData20() {
+        validateJSON("paths-data-20-f-manual")
+    }
+    
     func testStructGroup01() {
         validateJSON("struct-group-01-t-manual")
     }
     
     func testPaintingStroke05() {
         validateJSON("painting-stroke-05-t-manual")
-    }
-    
-    func testCoordsTrans03() {
-        validateJSON("coords-trans-03-t-manual")
-    }
-    
-    func testCoordsTrans04() {
-        validateJSON("coords-trans-04-t-manual")
     }
     
     func testMetadataExample01() {

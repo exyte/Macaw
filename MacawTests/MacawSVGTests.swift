@@ -680,4 +680,12 @@ class MacawSVGTests: XCTestCase {
     func testPserversGrad03() {
         validateJSON("pservers-grad-03-b-manual")
     }
+    
+    func testMaskingFilter01() {
+        validateJSON("masking-filter-01-f-manual")
+    }
+    
+    func testMaskingMask02() {
+        validateJSON("masking-mask-02-f-manual")
+    }
 }

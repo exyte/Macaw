@@ -7,7 +7,7 @@ branches:
 
 script:
   - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,OS=12.2,name=iPhone X' | xcpretty;
-  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'MacawOSX' -sdk macosx ONLY_ACTIVE_ARCH=NO -destination 'platform=OS X,arch=x86_64' | xcpretty;
+  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'MacawOSX' -sdk macosx ONLY_ACTIVE_ARCH=NO -destination 'platform='OS X',arch=x86_64' | xcpretty;
 
 notifications:
     slack: exyte:kdo9FNtTOFMuMqAyyvZPDAD7

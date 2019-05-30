@@ -1,4 +1,4 @@
-language: objective-c
+language: swift
 osx_image: xcode10.2
 
 branches:

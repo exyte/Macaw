@@ -188,6 +188,13 @@ class MacawSVGTests: XCTestCase {
                     let _ = writeToFile(string: nodeContent!, fileName: referenceFile + "_incorrect.txt")
                     XCTFail("Not equal, see both files in \(String(describing: referencePath?.deletingLastPathComponent().path))")
                 }
+                
+                let nativeImage = getImage(from: referenceFile)
+            
+                //To save new PNG image for test, uncomment this
+                //saveImage(image: nativeImage, fileName: referenceFile)
+                
+                validateImage(nodeImage: nativeImage, referenceFile: referenceFile)
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -203,6 +210,31 @@ class MacawSVGTests: XCTestCase {
             validateJSON(node: node, referenceFile: testResource)
         } catch {
             XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func validateImage(nodeImage: UIImage, referenceFile: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        
+        guard let fullpath = bundle.path(forResource: referenceFile, ofType: "png"), let referenceImage = UIImage(contentsOfFile: fullpath) else {
+            XCTFail("No reference image \(referenceFile)")
+            return
+        }
+        
+        guard let referenceContent = referenceImage.pngData() else {
+            XCTFail("Failed to get Data from png \(referenceFile).png")
+            return
+        }
+        
+        guard  let nodeContent = nodeImage.pngData() else {
+            XCTFail("Failed to get Data from reference image \(referenceFile)")
+            return
+        }
+        
+        if referenceContent != nodeContent {
+            let referencePath = saveImage(image: referenceImage, fileName: referenceFile + "_reference")
+            let _ = saveImage(image: nodeImage, fileName: referenceFile + "_incorrect")
+            XCTFail("Not equal, see both pictures in \(String(describing: referencePath!.deletingLastPathComponent().path))")
         }
     }
 
@@ -706,5 +738,33 @@ class MacawSVGTests: XCTestCase {
 
     func testPserversGrad03() {
         validateJSON("pservers-grad-03-b-manual")
+    }
+    
+    func getImage(from svgName: String) -> UIImage {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(resource: svgName, fromBundle: bundle)
+            
+            var frame = node.bounds
+            if frame == nil, let group = node as? Group {
+                frame = Group(contents: group.contents).bounds
+            }
+            
+            let image = node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
+            return image
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+        
+        XCTFail()
+        return UIImage()
+    }
+    
+    func saveImage(image: UIImage, fileName: String) -> URL? {
+        guard let data = image.pngData() else {
+            return .none
+        }
+       
+        return writeToFile(data: data, fileName: "\(fileName).png")
     }
 }

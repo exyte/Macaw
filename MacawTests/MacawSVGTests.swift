@@ -569,7 +569,11 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testColorProp04() {
+        #if os(iOS)
         validateJSON("color-prop-04-t-manual")
+        #elseif os(OSX)
+        validateJSON("color-prop-04-t-manual-osx")
+        #endif
     }
     
     func testTypesBasic01() {

@@ -1,5 +1,12 @@
 import XCTest
+
+#if os(OSX)
+@testable import MacawOSX
+#endif
+
+#if os(iOS)
 @testable import Macaw
+#endif
 
 class MacawSVGTests: XCTestCase {
     
@@ -105,10 +112,13 @@ class MacawSVGTests: XCTestCase {
     func testSVGImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
         if let path = bundle.path(forResource: "small-logo", ofType: "png") {
-            if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
-                let node = Image(image: mimage)
-                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
-                XCTAssertEqual(SVGSerializer.serialize(node: node), imageReferenceContent)
+            if let mImage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mImage)?.base64EncodedString() {
+                let imageSize = mImage.size
+                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"\(imageSize.width)\" height=\"\(imageSize.height)\" /></svg>"
+                
+                let node = Image(image: mImage)
+                let imageSerialization = SVGSerializer.serialize(node: node)
+                XCTAssertEqual(imageSerialization, imageReferenceContent)
             }
         }
     }
@@ -214,11 +224,24 @@ class MacawSVGTests: XCTestCase {
             return Data()
         }
         do {
+            
+            #if os(OSX)
+            if #available(OSX 10.13, *) {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
+            } else {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
+            }
+            #endif
+            
+            #if os(iOS)
             if #available(iOS 11.0, *) {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
             } else {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
             }
+            #endif
+            
+            
         } catch {
             XCTFail(error.localizedDescription)
             return Data()
@@ -546,7 +569,11 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testColorProp04() {
+        #if os(iOS)
         validateJSON("color-prop-04-t-manual")
+        #elseif os(OSX)
+        validateJSON("color-prop-04-t-manual-osx")
+        #endif
     }
     
     func testTypesBasic01() {

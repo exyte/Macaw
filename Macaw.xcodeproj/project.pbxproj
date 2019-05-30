@@ -550,13 +550,6 @@
 			remoteGlobalIDString = 57FCD26B1D76EA4600CC0FB6;
 			remoteInfo = Macaw;
 		};
-		A74C8329229F97940085A832 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FCD2631D76EA4600CC0FB6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57614AFB1F83D15600875933;
-			remoteInfo = MacawOSX;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1768,7 +1761,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				A74C832A229F97940085A832 /* PBXTargetDependency */,
 				57FCD2791D76EA4600CC0FB6 /* PBXTargetDependency */,
 			);
 			name = MacawTests;
@@ -2436,11 +2428,6 @@
 			isa = PBXTargetDependency;
 			target = 57FCD26B1D76EA4600CC0FB6 /* Macaw */;
 			targetProxy = 57FCD2781D76EA4600CC0FB6 /* PBXContainerItemProxy */;
-		};
-		A74C832A229F97940085A832 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57614AFB1F83D15600875933 /* MacawOSX */;
-			targetProxy = A74C8329229F97940085A832 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

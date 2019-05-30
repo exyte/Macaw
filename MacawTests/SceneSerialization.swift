@@ -374,9 +374,17 @@ extension Path: Serializable {
     }
 }
 
-//TODO: setup Polygon for OSX
 #if os(iOS)
 extension Polygon: Serializable {
+    
+    func toDictionary() -> [String:Any] {
+        return ["type": "Polygon", "points": points]
+    }
+}
+#endif
+
+#if os(OSX)
+extension MacawOSX.Polygon: Serializable {
     
     func toDictionary() -> [String:Any] {
         return ["type": "Polygon", "points": points]

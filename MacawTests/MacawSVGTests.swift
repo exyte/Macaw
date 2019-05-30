@@ -112,10 +112,13 @@ class MacawSVGTests: XCTestCase {
     func testSVGImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
         if let path = bundle.path(forResource: "small-logo", ofType: "png") {
-            if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
-                let node = Image(image: mimage)
-                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
-                XCTAssertEqual(SVGSerializer.serialize(node: node), imageReferenceContent)
+            if let mImage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mImage)?.base64EncodedString() {
+                let imageSize = mImage.size
+                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"\(imageSize.width)\" height=\"\(imageSize.height)\" /></svg>"
+                
+                let node = Image(image: mImage)
+                let imageSerialization = SVGSerializer.serialize(node: node)
+                XCTAssertEqual(imageSerialization, imageReferenceContent)
             }
         }
     }

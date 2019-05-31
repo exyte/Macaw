@@ -21,6 +21,7 @@
 		30FF4971215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */; };
 		421C66502225196900DD73F5 /* color-prop-04-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */; };
 		4269F43E2257265800D91393 /* color-prop-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */; };
+		42D86F3C229E86300035DE11 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 42D86F3B229E86300035DE11 /* README */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -223,7 +224,6 @@
 		57F108741F502A3600DC365B /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108731F502A3600DC365B /* Touchable.swift */; };
 		57F1087A1F53C92000DC365B /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108791F53C92000DC365B /* MDisplayLink.swift */; };
 		57F1087C1F53CA7E00DC365B /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
-		57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */; };
 		57FCD27C1D76EA4600CC0FB6 /* MacawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */; };
 		5815D59D2186E89A00BD08F9 /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5815D59C2186E89A00BD08F9 /* CSSParser.swift */; };
 		5815D59E2186E89A00BD08F9 /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5815D59C2186E89A00BD08F9 /* CSSParser.swift */; };
@@ -546,6 +546,14 @@
 		A74C82F3229E369A0085A832 /* pservers-grad-09-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82EC229E36990085A832 /* pservers-grad-09-b-manual.reference */; };
 		A74C82F4229E369A0085A832 /* pservers-grad-13-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82ED229E36990085A832 /* pservers-grad-13-b-manual.reference */; };
 		A74C82F5229E369A0085A832 /* pservers-grad-22-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82EE229E369A0085A832 /* pservers-grad-22-b-manual.reference */; };
+		A74C832C229FB7690085A832 /* color-prop-04-t-manual-osx.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */; };
+		A74C832E229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */; };
+		A74C8307229E9CCE0085A832 /* masking-filter-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C8305229E9CCD0085A832 /* masking-filter-01-f-manual.svg */; };
+		A74C8308229E9CCE0085A832 /* masking-mask-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C8306229E9CCE0085A832 /* masking-mask-02-f-manual.svg */; };
+		A74C830B229E9D700085A832 /* masking-filter-01-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C8309229E9D6F0085A832 /* masking-filter-01-f-manual.reference */; };
+		A74C830C229E9D700085A832 /* masking-mask-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C830A229E9D700085A832 /* masking-mask-02-f-manual.reference */; };
+		A74C8324229EB7150085A832 /* masking-path-13-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C8323229EB7150085A832 /* masking-path-13-f-manual.svg */; };
+		A74C8326229EB77B0085A832 /* masking-path-13-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C8325229EB77B0085A832 /* masking-path-13-f-manual.reference */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
@@ -599,6 +607,7 @@
 		30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCAMediaTimingFunctionName_macOS.swift; sourceTree = "<group>"; };
 		421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual.svg"; sourceTree = "<group>"; };
 		4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual.reference"; sourceTree = "<group>"; };
+		42D86F3B229E86300035DE11 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -999,6 +1008,14 @@
 		A74C82EC229E36990085A832 /* pservers-grad-09-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-09-b-manual.reference"; sourceTree = "<group>"; };
 		A74C82ED229E36990085A832 /* pservers-grad-13-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-13-b-manual.reference"; sourceTree = "<group>"; };
 		A74C82EE229E369A0085A832 /* pservers-grad-22-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-22-b-manual.reference"; sourceTree = "<group>"; };
+		A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.svg"; sourceTree = "<group>"; };
+		A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.reference"; sourceTree = "<group>"; };
+		A74C8305229E9CCD0085A832 /* masking-filter-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-filter-01-f-manual.svg"; sourceTree = "<group>"; };
+		A74C8306229E9CCE0085A832 /* masking-mask-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-mask-02-f-manual.svg"; sourceTree = "<group>"; };
+		A74C8309229E9D6F0085A832 /* masking-filter-01-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-filter-01-f-manual.reference"; sourceTree = "<group>"; };
+		A74C830A229E9D700085A832 /* masking-mask-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-mask-02-f-manual.reference"; sourceTree = "<group>"; };
+		A74C8323229EB7150085A832 /* masking-path-13-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-path-13-f-manual.svg"; sourceTree = "<group>"; };
+		A74C8325229EB77B0085A832 /* masking-path-13-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-path-13-f-manual.reference"; sourceTree = "<group>"; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
@@ -1027,7 +1044,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FCD2771D76EA4600CC0FB6 /* Macaw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1419,12 +1435,13 @@
 				5713C4F11E5AD35900BBA4D9 /* Animation */,
 				57CAB1241D7832E000FD8E47 /* svg */,
 				5B1AE18320B6A669007EECCB /* w3cSVGTests */,
-				57CAB1221D782DFC00FD8E47 /* TestUtils.swift */,
 				57FCD27B1D76EA4600CC0FB6 /* MacawTests.swift */,
 				C4820B191F458D64008CE0FF /* MacawSVGTests.swift */,
-				5BAE2057208F24DE006BF277 /* SceneSerialization.swift */,
-				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 				6A616BFB212964E8006A07FA /* SVGParserTest.swift */,
+				5BAE2057208F24DE006BF277 /* SceneSerialization.swift */,
+				57CAB1221D782DFC00FD8E47 /* TestUtils.swift */,
+				42D86F3B229E86300035DE11 /* README */,
+				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
 			sourceTree = "<group>";
@@ -1448,6 +1465,8 @@
 				5B1AE20320B6A669007EECCB /* color-prop-03-t-manual.svg */,
 				4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */,
 				421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */,
+				A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */,
+				A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */,
 				A74C81F22292B45D0085A832 /* color-prop-05-t-manual.reference */,
 				A74C81F02292B3940085A832 /* color-prop-05-t-manual.svg */,
 				5B1AE1D420B6A669007EECCB /* coords-coord-01-t-manual.reference */,
@@ -1496,6 +1515,12 @@
 				5B7E79DD20D2781A00C50BCF /* masking-intro-01-f-manual.svg */,
 				5B7E79CC20CBE69600C50BCF /* masking-path-02-b-manual.reference */,
 				5B7E79CD20CBE69700C50BCF /* masking-path-02-b-manual.svg */,
+				A74C8325229EB77B0085A832 /* masking-path-13-f-manual.reference */,
+				A74C8323229EB7150085A832 /* masking-path-13-f-manual.svg */,
+				A74C8309229E9D6F0085A832 /* masking-filter-01-f-manual.reference */,
+				A74C8305229E9CCD0085A832 /* masking-filter-01-f-manual.svg */,
+				A74C830A229E9D700085A832 /* masking-mask-02-f-manual.reference */,
+				A74C8306229E9CCE0085A832 /* masking-mask-02-f-manual.svg */,
 				5B1AE19E20B6A669007EECCB /* metadata-example-01-t-manual.reference */,
 				5B1AE22A20B6A669007EECCB /* metadata-example-01-t-manual.svg */,
 				5B1AE20C20B6A669007EECCB /* painting-control-01-f-manual.reference */,
@@ -1876,6 +1901,7 @@
 				5B1AE2A420B6A669007EECCB /* paths-data-12-t-manual.reference in Resources */,
 				57CAB1361D7832E000FD8E47 /* triangle.svg in Resources */,
 				5B7E79CF20CBE69700C50BCF /* masking-path-02-b-manual.svg in Resources */,
+				A74C830C229E9D700085A832 /* masking-mask-02-f-manual.reference in Resources */,
 				5BFEF5D620BC1C1F008DAC11 /* paths-data-18-f-manual.svg in Resources */,
 				A74C81ED229284790085A832 /* struct-use-01-t-manual.svg in Resources */,
 				5B1AE23620B6A669007EECCB /* paths-data-07-t-manual.svg in Resources */,
@@ -1927,11 +1953,13 @@
 				A74C82052296BFC60085A832 /* paths-data-20-f-manual.reference in Resources */,
 				5B1AE29020B6A669007EECCB /* painting-stroke-08-t-manual.svg in Resources */,
 				5B1AE2A720B6A669007EECCB /* paths-data-09-t-manual.svg in Resources */,
+				A74C830B229E9D700085A832 /* masking-filter-01-f-manual.reference in Resources */,
 				5B1AE2AB20B6A669007EECCB /* painting-stroke-08-t-manual.reference in Resources */,
 				A74C82352297D8B40085A832 /* shapes-rect-07-f-manual.svg in Resources */,
 				5B1AE2A520B6A669007EECCB /* coords-trans-02-t-manual.reference in Resources */,
 				5B1AE23220B6A669007EECCB /* text-align-01-b-manual.svg in Resources */,
 				A74C82E5229E35D30085A832 /* pservers-grad-13-b-manual.svg in Resources */,
+				A74C8308229E9CCE0085A832 /* masking-mask-02-f-manual.svg in Resources */,
 				5B1AE2B220B6A669007EECCB /* types-basic-01-f-manual.svg in Resources */,
 				58944BDA20AC8A9A00657640 /* logo_base64.txt in Resources */,
 				5B1AE2C520B6A669007EECCB /* coords-trans-02-t-manual.svg in Resources */,
@@ -1946,6 +1974,7 @@
 				A74C82E1229E35D30085A832 /* pservers-grad-09-b-manual.svg in Resources */,
 				5B1AE24520B6A669007EECCB /* struct-frag-01-t-manual.reference in Resources */,
 				5B1AE25B20B6A669007EECCB /* painting-stroke-01-t-manual.svg in Resources */,
+				A74C8324229EB7150085A832 /* masking-path-13-f-manual.svg in Resources */,
 				A74C823E2297DB2C0085A832 /* shapes-rect-03-t-manual.reference in Resources */,
 				5BAE2047208E163D006BF277 /* viewBox.reference in Resources */,
 				5B1AE2C120B6A669007EECCB /* painting-stroke-04-t-manual.svg in Resources */,
@@ -2027,6 +2056,7 @@
 				5B1AE29920B6A669007EECCB /* pservers-grad-stops-01-f-manual.svg in Resources */,
 				5B1AE27520B6A669007EECCB /* struct-frag-04-t-manual.reference in Resources */,
 				A74C82292297D5350085A832 /* coords-trans-12-f-manual.reference in Resources */,
+				A74C832E229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference in Resources */,
 				5B1AE28720B6A669007EECCB /* render-elems-03-t-manual.svg in Resources */,
 				5B1AE2AD20B6A669007EECCB /* painting-stroke-05-t-manual.reference in Resources */,
 				5B1AE25920B6A669007EECCB /* coords-trans-01-b-manual.svg in Resources */,
@@ -2084,6 +2114,7 @@
 				57CAB1311D7832E000FD8E47 /* line.svg in Resources */,
 				A74C82222297D4810085A832 /* coords-trans-10-f-manual.svg in Resources */,
 				57B7A4DF1EE70D17009D78D7 /* logo.png in Resources */,
+				A74C832C229FB7690085A832 /* color-prop-04-t-manual-osx.svg in Resources */,
 				5B1AE24F20B6A669007EECCB /* painting-stroke-02-t-manual.reference in Resources */,
 				5B1AE28420B6A669007EECCB /* shapes-polyline-01-t-manual.reference in Resources */,
 				5B1AE2C320B6A669007EECCB /* text-fonts-02-t-manual.reference in Resources */,
@@ -2091,6 +2122,7 @@
 				5B1AE2D220B6A669007EECCB /* struct-group-01-t-manual.svg in Resources */,
 				5B1AE2B520B6A669007EECCB /* coords-trans-09-t-manual.reference in Resources */,
 				5B3713A320BE9D8A004BB6EE /* shapes-grammar-01-f-manual.reference in Resources */,
+				A74C8326229EB77B0085A832 /* masking-path-13-f-manual.reference in Resources */,
 				57CAB1321D7832E000FD8E47 /* polygon.svg in Resources */,
 				5BAE203A208E163D006BF277 /* rect.reference in Resources */,
 				5BAE2044208E163D006BF277 /* style.reference in Resources */,
@@ -2111,6 +2143,7 @@
 				5B1AE27A20B6A669007EECCB /* coords-transformattr-01-f-manual.reference in Resources */,
 				5B1AE24C20B6A669007EECCB /* metadata-example-01-t-manual.reference in Resources */,
 				5B1AE29720B6A669007EECCB /* render-elems-01-t-manual.svg in Resources */,
+				A74C8307229E9CCE0085A832 /* masking-filter-01-f-manual.svg in Resources */,
 				5B1AE26220B6A669007EECCB /* coords-transformattr-02-f-manual.svg in Resources */,
 				5B1AE28F20B6A669007EECCB /* shapes-polyline-02-t-manual.svg in Resources */,
 				5B1AE24420B6A669007EECCB /* shapes-rect-05-f-manual.reference in Resources */,
@@ -2124,6 +2157,7 @@
 				A74C82E7229E35D30085A832 /* pservers-grad-12-b-manual.svg in Resources */,
 				5B1AE25F20B6A669007EECCB /* coords-transformattr-05-f-manual.svg in Resources */,
 				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,
+				42D86F3C229E86300035DE11 /* README in Resources */,
 				5B1AE2D920B6A669007EECCB /* render-elems-03-t-manual.reference in Resources */,
 				5B1AE28120B6A669007EECCB /* coords-transformattr-04-f-manual.svg in Resources */,
 				5B1AE2B020B6A669007EECCB /* paths-data-16-t-manual.svg in Resources */,

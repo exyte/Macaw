@@ -269,7 +269,7 @@ class MacawSVGTests: XCTestCase {
             
             var failInfo = "referenceContentData is not equal to nodeContentData"
             
-            if isDebug {
+            if shouldSaveFaildedTestImage {
                 let _ = saveImage(image: referenceImage, fileName: referenceFile + "_reference")
                 let _ = saveImage(image: nodeImage, fileName: referenceFile + "_incorrect")
                 

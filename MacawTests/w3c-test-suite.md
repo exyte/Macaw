@@ -10,12 +10,12 @@ There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 35.3% passed (108)
+* 38.9% passed (119)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 8.5% images (26) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 20.6% text (63) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 19.0% blocked by issues (58)
+* 15.6% blocked by issues (47)
 
 Status of each test:
 
@@ -53,7 +53,7 @@ Status of each test:
 |[coords-units-01-b-manual](w3cSVGTests/coords-units-01-b-manual.svg)       | [#389](https://github.com/exyte/Macaw/issues/389) |
 |[coords-units-02-b-manual](w3cSVGTests/coords-units-02-b-manual.svg)       | [#389](https://github.com/exyte/Macaw/issues/389) |
 |[coords-units-03-b-manual](w3cSVGTests/coords-units-03-b-manual.svg)       | [#389](https://github.com/exyte/Macaw/issues/389) |
-|[coords-viewattr-01-b-manual](w3cSVGTests/coords-viewattr-01-b-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344)   |
+|[coords-viewattr-01-b-manual](w3cSVGTests/coords-viewattr-01-b-manual.svg)       | ✅                                                 |
 |[coords-viewattr-02-b-manual](w3cSVGTests/coords-viewattr-02-b-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344) |
 |[coords-viewattr-03-b-manual](w3cSVGTests/coords-viewattr-03-b-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344) |
 |[coords-viewattr-04-f-manual](w3cSVGTests/coords-viewattr-04-f-manual.svg)       | [#344](https://github.com/exyte/Macaw/issues/344) |

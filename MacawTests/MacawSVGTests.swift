@@ -212,9 +212,11 @@ class MacawSVGTests: XCTestCase {
             
                 //To save new PNG image for test, uncomment this
                 //saveImage(image: nativeImage, fileName: referenceFile)
+                #if os(OSX)
                 if shouldComparePNGImages {
                     validateImage(nodeImage: nativeImage, referenceFile: referenceFile)
                 }
+                #endif
             } else {
                 XCTFail("No file \(referenceFile)")
             }

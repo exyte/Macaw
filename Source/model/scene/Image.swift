@@ -150,7 +150,7 @@ open class Image: Node {
         }
 
         // Base64 image
-        let decodableFormat = ["image/png", "image/jpg"]
+        let decodableFormat = ["image/png", "image/jpg", "image/jpeg"]
         for format in decodableFormat {
             let prefix = "data:\(format);base64,"
             if src.hasPrefix(prefix) {

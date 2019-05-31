@@ -707,4 +707,8 @@ class MacawSVGTests: XCTestCase {
     func testPserversGrad03() {
         validateJSON("pservers-grad-03-b-manual")
     }
+    
+    func testCoordsViewAttr01() {
+        validateJSON("coords-viewattr-01-b-manual")
+    }
 }

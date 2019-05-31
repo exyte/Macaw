@@ -185,6 +185,20 @@ open class SVGParser {
         }
     }
 
+    private func parseSVG(_ node: XMLIndexer, groupStyle: [String: String] = [:]) throws -> Node? {
+        guard let element = node.element else {
+            return .none
+        }
+        guard let layout = try parseViewBox(element), let group = try parseGroup(node, style: groupStyle) else {
+            return .none
+        }
+        let canvas = SVGCanvas(layout: layout, contents: group.contents)
+        if let opacity = element.attribute(by: "opacity") {
+            canvas.opacity = getOpacity(opacity.text)
+        }
+        return canvas
+    }
+
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) throws -> SVGNodeLayout? {
         if element.allAttributes["width"] == nil && element.allAttributes["height"] == nil && element.allAttributes["viewBox"] == nil {
             return .none
@@ -318,6 +332,8 @@ open class SVGParser {
         case "title", "desc", "mask", "clip", "filter",
              "linearGradient", "radialGradient", SVGKeys.fill:
             break
+        case "svg":
+            return try parseSVG(node, groupStyle: style)
         default:
             print("SVG parsing error. Shape \(element.name) not supported")
             return .none

@@ -23,12 +23,13 @@ class MacawSVGTests: XCTestCase {
     private let testFolderName = "MacawTestOutputData"
     private let shouldComparePNGImages = true
     private let multipleTestsWillRun = true
+    private let shouldSaveFaildedTestImage = true
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         super.setUp()
         
-        if isDebug {
+        if shouldSaveFaildedTestImage {
             setupTestFolderDirectory()
         }
     }

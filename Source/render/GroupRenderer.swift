@@ -57,14 +57,23 @@ class GroupRenderer: NodeRenderer {
         renderers.removeAll()
     }
 
-    private func updateRenderers() {
+    override func replaceNode(with replacementNode: Node) {
+        super.replaceNode(with: replacementNode)
 
+        if let node = replacementNode as? Group {
+            group = node
+        }
+    }
+    
+    private func updateRenderers() {
+        updateLayout()
+        
         renderers.forEach {
             animationCache?.freeLayerHard($0)
             $0.dispose()
         }
         renderers.removeAll()
-
+        
         if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
             let childRenderer = RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
             childRenderer.parentRenderer = self
@@ -72,19 +81,18 @@ class GroupRenderer: NodeRenderer {
         }) {
             renderers = updatedRenderers
         }
-
+        
         var parent: NodeRenderer = self
         while let parentRenderer = parent.parentRenderer {
             parent = parentRenderer
         }
         parent.calculateZPositionRecursively()
     }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Group {
-            group = node
+    
+    private func updateLayout() {
+        guard let canvas = group as? SVGCanvas, let view = view else {
+            return
         }
+        _ = canvas.layout(size: view.bounds.size.toMacaw())
     }
 }

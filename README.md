@@ -8,7 +8,7 @@
 
 <img src="https://raw.githubusercontent.com/exyte/Macaw/master/logo.png" width="400">
 
-Stay tuned on [twitter](https://twitter.com/MacawFramework) or [Instagram](https://www.instagram.com/macaw_framework/).
+Stay tuned on [twitter](https://twitter.com/MacawFramework) or [Instagram](https://www.instagram.com/macaw.framework/).
 
 ## What is Macaw?
 

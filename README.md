@@ -9,7 +9,6 @@
 <img src="https://raw.githubusercontent.com/exyte/Macaw/master/logo.png" width="400">
 
 Stay tuned on [twitter](https://twitter.com/MacawFramework) or [Instagram](https://www.instagram.com/macaw_framework/).
-Join developers' chat on [Telegram](https://t.me/MacawFramework)
 
 ## What is Macaw?
 

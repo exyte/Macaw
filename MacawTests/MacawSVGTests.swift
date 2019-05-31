@@ -679,6 +679,10 @@ class MacawSVGTests: XCTestCase {
     func testPathsData10() {
         validateJSON("paths-data-10-t-manual")
     }
+
+    func testShapesGrammar01() {
+        validateJSON("shapes-grammar-01-f-manual")
+    }
     
     func testPserversGrad01() {
         validateJSON("pservers-grad-01-b-manual")
@@ -688,16 +692,40 @@ class MacawSVGTests: XCTestCase {
         validateJSON("pservers-grad-02-b-manual")
     }
     
+    func testPserversGrad03() {
+        validateJSON("pservers-grad-03-b-manual")
+    }
+    
     func testPserversGrad07() {
         validateJSON("pservers-grad-07-b-manual")
     }
-
-    func testShapesGrammar01() {
-        validateJSON("shapes-grammar-01-f-manual")
+    
+    func testPserversGrad09() {
+        validateJSON("pservers-grad-09-b-manual")
     }
-
-    func testPserversGrad03() {
-        validateJSON("pservers-grad-03-b-manual")
+    
+    func testPserversGrad12() {
+        validateJSON("pservers-grad-12-b-manual")
+    }
+    
+    func testPserversGrad13() {
+        validateJSON("pservers-grad-13-b-manual")
+    }
+    
+    func testPserversGrad15() {
+        validateJSON("pservers-grad-15-b-manual")
+    }
+    
+    func testPserversGrad22() {
+        validateJSON("pservers-grad-22-b-manual")
+    }
+    
+    func testPserversGrad23() {
+        validateJSON("pservers-grad-23-f-manual")
+    }
+    
+    func testPserversGrad24() {
+        validateJSON("pservers-grad-24-f-manual")
     }
     
     func testMaskingIntro01() {

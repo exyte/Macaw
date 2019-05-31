@@ -128,7 +128,6 @@
 		429595AE22A0F7CE00869079 /* shapes-rect-06-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954322A0F7CE00869079 /* shapes-rect-06-f-manual.png */; };
 		429595AF22A0F7CE00869079 /* shapes-polyline-02-t-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954422A0F7CE00869079 /* shapes-polyline-02-t-manual.png */; };
 		429595B022A0F7CE00869079 /* shapes-polygon-01-t-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954522A0F7CE00869079 /* shapes-polygon-01-t-manual.png */; };
-		42D86F3C229E86300035DE11 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 42D86F3B229E86300035DE11 /* README */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -801,7 +800,6 @@
 		4295954322A0F7CE00869079 /* shapes-rect-06-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-rect-06-f-manual.png"; sourceTree = "<group>"; };
 		4295954422A0F7CE00869079 /* shapes-polyline-02-t-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-polyline-02-t-manual.png"; sourceTree = "<group>"; };
 		4295954522A0F7CE00869079 /* shapes-polygon-01-t-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-polygon-01-t-manual.png"; sourceTree = "<group>"; };
-		42D86F3B229E86300035DE11 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -1729,7 +1727,6 @@
 				6A616BFB212964E8006A07FA /* SVGParserTest.swift */,
 				5BAE2057208F24DE006BF277 /* SceneSerialization.swift */,
 				57CAB1221D782DFC00FD8E47 /* TestUtils.swift */,
-				42D86F3B229E86300035DE11 /* README */,
 				57FCD27D1D76EA4600CC0FB6 /* Info.plist */,
 			);
 			path = MacawTests;
@@ -2518,7 +2515,6 @@
 				5B1AE25F20B6A669007EECCB /* coords-transformattr-05-f-manual.svg in Resources */,
 				4295955322A0F7CE00869079 /* paths-data-17-f-manual.png in Resources */,
 				57CAB1341D7832E000FD8E47 /* rect.svg in Resources */,
-				42D86F3C229E86300035DE11 /* README in Resources */,
 				5B1AE2D920B6A669007EECCB /* render-elems-03-t-manual.reference in Resources */,
 				5B1AE28120B6A669007EECCB /* coords-transformattr-04-f-manual.svg in Resources */,
 				5B1AE2B020B6A669007EECCB /* paths-data-16-t-manual.svg in Resources */,

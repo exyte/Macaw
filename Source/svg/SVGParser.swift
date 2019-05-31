@@ -192,13 +192,13 @@ open class SVGParser {
         guard let layout = try parseViewBox(element), let group = try parseGroup(node, style: groupStyle) else {
             return .none
         }
-        let root = SVGCanvas(layout: layout, contents: group.contents)
+        let canvas = SVGCanvas(layout: layout, contents: group.contents)
         if let opacity = element.attribute(by: "opacity") {
-            root.opacity = getOpacity(opacity.text)
+            canvas.opacity = getOpacity(opacity.text)
         }
-        return root
+        return canvas
     }
-    
+
     fileprivate func parseViewBox(_ element: SWXMLHash.XMLElement) throws -> SVGNodeLayout? {
         if element.allAttributes["width"] == nil && element.allAttributes["height"] == nil && element.allAttributes["viewBox"] == nil {
             return .none

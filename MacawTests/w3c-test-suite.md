@@ -10,12 +10,12 @@ There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 35.3% passed (108)
+* 38.6% passed (118)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 8.5% images (26) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
 * 20.6% text (63) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 19.0% blocked by issues (58)
+* 15.7% blocked by issues (48)
 
 Status of each test:
 
@@ -118,9 +118,9 @@ Status of each test:
 |[fonts-kern-01-t-manual](w3cSVGTests/fonts-kern-01-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[fonts-overview-201-t-manual](w3cSVGTests/fonts-overview-201-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[imp-path-01-f-manual](w3cSVGTests/imp-path-01-f-manual.svg)       | [#392](https://github.com/exyte/Macaw/issues/392)     |
-|[masking-filter-01-f-manual](w3cSVGTests/masking-filter-01-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)  |
-|[masking-intro-01-f-manual](w3cSVGTests/masking-intro-01-f-manual.svg)       | ✅               |
-|[masking-mask-02-f-manual](w3cSVGTests/masking-mask-02-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
+|[masking-filter-01-f-manual](w3cSVGTests/masking-filter-01-f-manual.svg)   | ✅                                                 |
+|[masking-intro-01-f-manual](w3cSVGTests/masking-intro-01-f-manual.svg)     | ✅                                                 |
+|[masking-mask-02-f-manual](w3cSVGTests/masking-mask-02-f-manual.svg)       | ✅                                                 |
 |[masking-opacity-01-b-manual](w3cSVGTests/masking-opacity-01-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-01-b-manual](w3cSVGTests/masking-path-01-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-02-b-manual](w3cSVGTests/masking-path-02-b-manual.svg)       | ✅                |
@@ -132,7 +132,7 @@ Status of each test:
 |[masking-path-08-b-manual](w3cSVGTests/masking-path-08-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-10-b-manual](w3cSVGTests/masking-path-10-b-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[masking-path-11-b-manual](w3cSVGTests/masking-path-11-b-manual.svg)       | [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178)   |
-|[masking-path-13-f-manual](w3cSVGTests/masking-path-13-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
+|[masking-path-13-f-manual](w3cSVGTests/masking-path-13-f-manual.svg)       | ✅                                                 |
 |[masking-path-14-f-manual](w3cSVGTests/masking-path-14-f-manual.svg)       | [#393](https://github.com/exyte/Macaw/issues/393)                |
 |[metadata-example-01-t-manual](w3cSVGTests/metadata-example-01-t-manual.svg)       | ✅                                                 |
 |[painting-control-01-f-manual](w3cSVGTests/painting-control-01-f-manual.svg)       | ✅                                                 |

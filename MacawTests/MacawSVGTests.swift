@@ -11,8 +11,7 @@ import XCTest
 class MacawSVGTests: XCTestCase {
     
     /*
-     Test utils
-     When test are running on device, in debug mode, if shouldComparePNGImages set to true, result images will be saved into MacawTestOutputData folder in documents.
+     When test are running, if shouldSaveFaildedTestImage set to true, result images will be saved into MacawTestOutputData folder in documents.
      
      Also, there is no way to detect that multiple test will runs.
      In this case, when all MacawSVGTests will be performed, set multipleTestsWillRun to true, then all test images will be saved to the folder.

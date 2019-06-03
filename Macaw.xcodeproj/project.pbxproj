@@ -128,6 +128,16 @@
 		429595AE22A0F7CE00869079 /* shapes-rect-06-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954322A0F7CE00869079 /* shapes-rect-06-f-manual.png */; };
 		429595AF22A0F7CE00869079 /* shapes-polyline-02-t-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954422A0F7CE00869079 /* shapes-polyline-02-t-manual.png */; };
 		429595B022A0F7CE00869079 /* shapes-polygon-01-t-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954522A0F7CE00869079 /* shapes-polygon-01-t-manual.png */; };
+		42DB450D22A52A4200091DC6 /* pservers-grad-13-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */; };
+		42DB450E22A52A4200091DC6 /* pservers-grad-24-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */; };
+		42DB450F22A52A4200091DC6 /* pservers-grad-23-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */; };
+		42DB451022A52A4200091DC6 /* masking-mask-02-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450622A52A4000091DC6 /* masking-mask-02-f-manual.png */; };
+		42DB451122A52A4200091DC6 /* masking-filter-01-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450722A52A4100091DC6 /* masking-filter-01-f-manual.png */; };
+		42DB451222A52A4200091DC6 /* pservers-grad-12-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450822A52A4100091DC6 /* pservers-grad-12-b-manual.png */; };
+		42DB451322A52A4200091DC6 /* masking-path-13-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450922A52A4100091DC6 /* masking-path-13-f-manual.png */; };
+		42DB451422A52A4200091DC6 /* pservers-grad-22-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450A22A52A4200091DC6 /* pservers-grad-22-b-manual.png */; };
+		42DB451522A52A4200091DC6 /* pservers-grad-09-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450B22A52A4200091DC6 /* pservers-grad-09-b-manual.png */; };
+		42DB451622A52A4200091DC6 /* pservers-grad-15-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450C22A52A4200091DC6 /* pservers-grad-15-b-manual.png */; };
 		5713C4E21E51EC8F00BBA4D9 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
 		5713C4F31E5AD46800BBA4D9 /* ControlStatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */; };
 		5713C4F51E5AE2C300BBA4D9 /* CombineAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */; };
@@ -652,14 +662,14 @@
 		A74C82F3229E369A0085A832 /* pservers-grad-09-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82EC229E36990085A832 /* pservers-grad-09-b-manual.reference */; };
 		A74C82F4229E369A0085A832 /* pservers-grad-13-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82ED229E36990085A832 /* pservers-grad-13-b-manual.reference */; };
 		A74C82F5229E369A0085A832 /* pservers-grad-22-b-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C82EE229E369A0085A832 /* pservers-grad-22-b-manual.reference */; };
-		A74C832C229FB7690085A832 /* color-prop-04-t-manual-osx.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */; };
-		A74C832E229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */; };
 		A74C8307229E9CCE0085A832 /* masking-filter-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C8305229E9CCD0085A832 /* masking-filter-01-f-manual.svg */; };
 		A74C8308229E9CCE0085A832 /* masking-mask-02-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C8306229E9CCE0085A832 /* masking-mask-02-f-manual.svg */; };
 		A74C830B229E9D700085A832 /* masking-filter-01-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C8309229E9D6F0085A832 /* masking-filter-01-f-manual.reference */; };
 		A74C830C229E9D700085A832 /* masking-mask-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C830A229E9D700085A832 /* masking-mask-02-f-manual.reference */; };
 		A74C8324229EB7150085A832 /* masking-path-13-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C8323229EB7150085A832 /* masking-path-13-f-manual.svg */; };
 		A74C8326229EB77B0085A832 /* masking-path-13-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C8325229EB77B0085A832 /* masking-path-13-f-manual.reference */; };
+		A74C832C229FB7690085A832 /* color-prop-04-t-manual-osx.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */; };
+		A74C832E229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
@@ -820,6 +830,16 @@
 		4295954322A0F7CE00869079 /* shapes-rect-06-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-rect-06-f-manual.png"; sourceTree = "<group>"; };
 		4295954422A0F7CE00869079 /* shapes-polyline-02-t-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-polyline-02-t-manual.png"; sourceTree = "<group>"; };
 		4295954522A0F7CE00869079 /* shapes-polygon-01-t-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-polygon-01-t-manual.png"; sourceTree = "<group>"; };
+		42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-13-b-manual.png"; sourceTree = "<group>"; };
+		42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-24-f-manual.png"; sourceTree = "<group>"; };
+		42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-23-f-manual.png"; sourceTree = "<group>"; };
+		42DB450622A52A4000091DC6 /* masking-mask-02-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-mask-02-f-manual.png"; sourceTree = "<group>"; };
+		42DB450722A52A4100091DC6 /* masking-filter-01-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-filter-01-f-manual.png"; sourceTree = "<group>"; };
+		42DB450822A52A4100091DC6 /* pservers-grad-12-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-12-b-manual.png"; sourceTree = "<group>"; };
+		42DB450922A52A4100091DC6 /* masking-path-13-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-path-13-f-manual.png"; sourceTree = "<group>"; };
+		42DB450A22A52A4200091DC6 /* pservers-grad-22-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-22-b-manual.png"; sourceTree = "<group>"; };
+		42DB450B22A52A4200091DC6 /* pservers-grad-09-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-09-b-manual.png"; sourceTree = "<group>"; };
+		42DB450C22A52A4200091DC6 /* pservers-grad-15-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-15-b-manual.png"; sourceTree = "<group>"; };
 		5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
 		5713C4F21E5AD46800BBA4D9 /* ControlStatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlStatesTests.swift; sourceTree = "<group>"; };
 		5713C4F41E5AE2C300BBA4D9 /* CombineAnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineAnimationTests.swift; sourceTree = "<group>"; };
@@ -1220,14 +1240,14 @@
 		A74C82EC229E36990085A832 /* pservers-grad-09-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-09-b-manual.reference"; sourceTree = "<group>"; };
 		A74C82ED229E36990085A832 /* pservers-grad-13-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-13-b-manual.reference"; sourceTree = "<group>"; };
 		A74C82EE229E369A0085A832 /* pservers-grad-22-b-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "pservers-grad-22-b-manual.reference"; sourceTree = "<group>"; };
-		A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.svg"; sourceTree = "<group>"; };
-		A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.reference"; sourceTree = "<group>"; };
 		A74C8305229E9CCD0085A832 /* masking-filter-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-filter-01-f-manual.svg"; sourceTree = "<group>"; };
 		A74C8306229E9CCE0085A832 /* masking-mask-02-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-mask-02-f-manual.svg"; sourceTree = "<group>"; };
 		A74C8309229E9D6F0085A832 /* masking-filter-01-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-filter-01-f-manual.reference"; sourceTree = "<group>"; };
 		A74C830A229E9D700085A832 /* masking-mask-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-mask-02-f-manual.reference"; sourceTree = "<group>"; };
 		A74C8323229EB7150085A832 /* masking-path-13-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-path-13-f-manual.svg"; sourceTree = "<group>"; };
 		A74C8325229EB77B0085A832 /* masking-path-13-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "masking-path-13-f-manual.reference"; sourceTree = "<group>"; };
+		A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.svg"; sourceTree = "<group>"; };
+		A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.reference"; sourceTree = "<group>"; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
@@ -1274,6 +1294,16 @@
 			isa = PBXGroup;
 			children = (
 				429594DB22A0F7CE00869079 /* text-fonts-02-t-manual.png */,
+				42DB450722A52A4100091DC6 /* masking-filter-01-f-manual.png */,
+				42DB450622A52A4000091DC6 /* masking-mask-02-f-manual.png */,
+				42DB450922A52A4100091DC6 /* masking-path-13-f-manual.png */,
+				42DB450B22A52A4200091DC6 /* pservers-grad-09-b-manual.png */,
+				42DB450822A52A4100091DC6 /* pservers-grad-12-b-manual.png */,
+				42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */,
+				42DB450C22A52A4200091DC6 /* pservers-grad-15-b-manual.png */,
+				42DB450A22A52A4200091DC6 /* pservers-grad-22-b-manual.png */,
+				42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */,
+				42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */,
 				429594DC22A0F7CE00869079 /* render-elems-03-t-manual.png */,
 				429594DD22A0F7CE00869079 /* paths-data-03-f-manual.png */,
 				429594DE22A0F7CE00869079 /* shapes-grammar-01-f-manual.png */,
@@ -2278,6 +2308,7 @@
 				5B1AE2DF20B6A669007EECCB /* coords-trans-07-t-manual.reference in Resources */,
 				4295955922A0F7CE00869079 /* painting-fill-05-b-manual.png in Resources */,
 				5BAE204B208E163D006BF277 /* clip.reference in Resources */,
+				42DB451622A52A4200091DC6 /* pservers-grad-15-b-manual.png in Resources */,
 				4295959B22A0F7CE00869079 /* struct-frag-04-t-manual.png in Resources */,
 				58944BDB20AC8A9A00657640 /* clip.svg in Resources */,
 				5B1AE29420B6A669007EECCB /* painting-fill-04-t-manual.reference in Resources */,
@@ -2289,11 +2320,13 @@
 				4295955522A0F7CE00869079 /* struct-frag-01-t-manual.png in Resources */,
 				5B1AE26B20B6A669007EECCB /* shapes-polygon-02-t-manual.svg in Resources */,
 				5B1AE28E20B6A669007EECCB /* struct-frag-06-t-manual.reference in Resources */,
+				42DB450F22A52A4200091DC6 /* pservers-grad-23-f-manual.png in Resources */,
 				5BAE2040208E163D006BF277 /* ellipse.reference in Resources */,
 				4295954F22A0F7CE00869079 /* shapes-rect-04-f-manual.png in Resources */,
 				5B1AE27E20B6A669007EECCB /* coords-transformattr-02-f-manual.reference in Resources */,
 				5B1AE25720B6A669007EECCB /* coords-trans-07-t-manual.svg in Resources */,
 				A74C823F2297DB2C0085A832 /* shapes-rect-06-f-manual.reference in Resources */,
+				42DB451222A52A4200091DC6 /* pservers-grad-12-b-manual.png in Resources */,
 				5B1AE2BC20B6A669007EECCB /* coords-coord-02-t-manual.svg in Resources */,
 				5B1AE23520B6A669007EECCB /* shapes-line-02-f-manual.reference in Resources */,
 				4295959C22A0F7CE00869079 /* struct-frag-03-t-manual.png in Resources */,
@@ -2326,6 +2359,7 @@
 				4295955622A0F7CE00869079 /* struct-frag-06-t-manual.png in Resources */,
 				5B1AE2B620B6A669007EECCB /* paths-data-04-t-manual.svg in Resources */,
 				5B1AE25620B6A669007EECCB /* paths-data-05-t-manual.reference in Resources */,
+				42DB451522A52A4200091DC6 /* pservers-grad-09-b-manual.png in Resources */,
 				4295954C22A0F7CE00869079 /* coords-trans-10-f-manual.png in Resources */,
 				4295959522A0F7CE00869079 /* shapes-ellipse-02-t-manual.png in Resources */,
 				5B1AE2D020B6A669007EECCB /* struct-defs-01-t-manual.reference in Resources */,
@@ -2362,6 +2396,7 @@
 				4295954722A0F7CE00869079 /* render-elems-03-t-manual.png in Resources */,
 				4295954822A0F7CE00869079 /* paths-data-03-f-manual.png in Resources */,
 				5B7E79DE20D2781A00C50BCF /* masking-intro-01-f-manual.reference in Resources */,
+				42DB451322A52A4200091DC6 /* masking-path-13-f-manual.png in Resources */,
 				5B1AE28A20B6A669007EECCB /* shapes-polygon-01-t-manual.reference in Resources */,
 				4295955B22A0F7CE00869079 /* shapes-rect-05-f-manual.png in Resources */,
 				4295958D22A0F7CE00869079 /* coords-trans-02-t-manual.png in Resources */,
@@ -2387,6 +2422,7 @@
 				5B1AE2CB20B6A669007EECCB /* painting-fill-02-t-manual.reference in Resources */,
 				5B1AE26520B6A669007EECCB /* shapes-rect-05-f-manual.svg in Resources */,
 				5B1AE2D120B6A669007EECCB /* paths-data-03-f-manual.reference in Resources */,
+				42DB450D22A52A4200091DC6 /* pservers-grad-13-b-manual.png in Resources */,
 				5B1AE28920B6A669007EECCB /* shapes-intro-01-t-manual.reference in Resources */,
 				429595AB22A0F7CE00869079 /* coords-trans-12-f-manual.png in Resources */,
 				429595A122A0F7CE00869079 /* coords-trans-13-f-manual.png in Resources */,
@@ -2421,6 +2457,7 @@
 				4295955F22A0F7CE00869079 /* coords-transformattr-05-f-manual.png in Resources */,
 				A74C82342297D8B40085A832 /* shapes-rect-03-t-manual.svg in Resources */,
 				5B1AE26820B6A669007EECCB /* shapes-polyline-01-t-manual.svg in Resources */,
+				42DB451122A52A4200091DC6 /* masking-filter-01-f-manual.png in Resources */,
 				5B1AE29A20B6A669007EECCB /* struct-frag-02-t-manual.svg in Resources */,
 				5B1AE2A620B6A669007EECCB /* text-fonts-01-t-manual.svg in Resources */,
 				5B1AE28520B6A669007EECCB /* paths-data-19-f-manual.reference in Resources */,
@@ -2535,6 +2572,7 @@
 				4295956322A0F7CE00869079 /* painting-stroke-06-t-manual.png in Resources */,
 				5B1AE28420B6A669007EECCB /* shapes-polyline-01-t-manual.reference in Resources */,
 				4295957C22A0F7CE00869079 /* painting-control-03-f-manual.png in Resources */,
+				42DB450E22A52A4200091DC6 /* pservers-grad-24-f-manual.png in Resources */,
 				5B1AE2C320B6A669007EECCB /* text-fonts-02-t-manual.reference in Resources */,
 				5B1AE2CC20B6A669007EECCB /* text-fonts-01-t-manual.reference in Resources */,
 				4295959422A0F7CE00869079 /* pservers-grad-07-b-manual.png in Resources */,
@@ -2574,6 +2612,7 @@
 				4295956722A0F7CE00869079 /* paths-data-01-t-manual.png in Resources */,
 				A74C8307229E9CCE0085A832 /* masking-filter-01-f-manual.svg in Resources */,
 				5B1AE26220B6A669007EECCB /* coords-transformattr-02-f-manual.svg in Resources */,
+				42DB451022A52A4200091DC6 /* masking-mask-02-f-manual.png in Resources */,
 				4295956F22A0F7CE00869079 /* coords-coord-01-t-manual.png in Resources */,
 				4295959922A0F7CE00869079 /* types-basic-01-f-manual.png in Resources */,
 				5B1AE28F20B6A669007EECCB /* shapes-polyline-02-t-manual.svg in Resources */,
@@ -2587,6 +2626,7 @@
 				5B1AE2DB20B6A669007EECCB /* color-prop-01-b-manual.reference in Resources */,
 				4295959122A0F7CE00869079 /* coords-coord-02-t-manual.png in Resources */,
 				4295958022A0F7CE00869079 /* coords-trans-04-t-manual.png in Resources */,
+				42DB451422A52A4200091DC6 /* pservers-grad-22-b-manual.png in Resources */,
 				5B1AE2BF20B6A669007EECCB /* shapes-ellipse-02-t-manual.reference in Resources */,
 				5B1AE24220B6A669007EECCB /* coords-trans-06-t-manual.reference in Resources */,
 				5B1AE2A920B6A669007EECCB /* struct-frag-04-t-manual.svg in Resources */,

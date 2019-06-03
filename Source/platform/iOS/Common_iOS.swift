@@ -11,6 +11,7 @@ import Foundation
 #if os(iOS)
 import UIKit
 
+public typealias MWindow = UIWindow
 public typealias MRectCorner = UIRectCorner
 public typealias MFont = UIFont
 public typealias MFontDescriptor = UIFontDescriptor

@@ -9,21 +9,27 @@
 #if os(iOS)
 
 import XCTest
+#if os(OSX)
+@testable import MacawOSX
+#endif
+
+#if os(iOS)
 @testable import Macaw
+#endif
 
 class SequenceAnimationTests: XCTestCase {
     
     var testView: MacawView!
     var testGroup: Group!
-    var window: UIWindow!
+    var window: MWindow!
     
     override func setUp() {
         super.setUp()
         
         testGroup = [Shape(form:Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0))].group()
-        testView = MacawView(node: testGroup, frame: CGRect.zero)
+        testView = MacawView(node: testGroup, frame: .zero)
         
-        window = UIWindow()
+        window = MWindow()
         window.addSubview(testView)
     }
     

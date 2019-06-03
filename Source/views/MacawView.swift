@@ -242,11 +242,13 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     private func doFindNode(location: CGPoint) -> NodePath? {
         MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
-        if let ctx = MGraphicsGetCurrentContext() {
-            return doFindNode(location: location, ctx: ctx)
+        defer {
+            MGraphicsEndImageContext()
         }
-        MGraphicsEndImageContext()
-        return .none
+        guard let ctx = MGraphicsGetCurrentContext() else {
+            return .none
+        }
+        return doFindNode(location: location, ctx: ctx)
     }
 
     // MARK: - Touches

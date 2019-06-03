@@ -131,7 +131,6 @@
 		42DB450D22A52A4200091DC6 /* pservers-grad-13-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */; };
 		42DB450E22A52A4200091DC6 /* pservers-grad-24-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */; };
 		42DB450F22A52A4200091DC6 /* pservers-grad-23-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */; };
-		42DB451022A52A4200091DC6 /* masking-mask-02-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450622A52A4000091DC6 /* masking-mask-02-f-manual.png */; };
 		42DB451122A52A4200091DC6 /* masking-filter-01-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450722A52A4100091DC6 /* masking-filter-01-f-manual.png */; };
 		42DB451222A52A4200091DC6 /* pservers-grad-12-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450822A52A4100091DC6 /* pservers-grad-12-b-manual.png */; };
 		42DB451322A52A4200091DC6 /* masking-path-13-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450922A52A4100091DC6 /* masking-path-13-f-manual.png */; };
@@ -624,6 +623,7 @@
 		A718CD4F1F45C28F00966E06 /* MDisplayLink_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */; };
 		A718CD501F45C28F00966E06 /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
 		A718CD521F45C2A400966E06 /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
+		A71FB29922A55EE700B58C29 /* masking-mask-02-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = A71FB29822A55EE600B58C29 /* masking-mask-02-f-manual.png */; };
 		A74C81EC229284790085A832 /* struct-use-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C81EA229284780085A832 /* struct-use-01-t-manual.reference */; };
 		A74C81ED229284790085A832 /* struct-use-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C81EB229284780085A832 /* struct-use-01-t-manual.svg */; };
 		A74C81F12292B3940085A832 /* color-prop-05-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C81F02292B3940085A832 /* color-prop-05-t-manual.svg */; };
@@ -833,7 +833,6 @@
 		42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-13-b-manual.png"; sourceTree = "<group>"; };
 		42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-24-f-manual.png"; sourceTree = "<group>"; };
 		42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-23-f-manual.png"; sourceTree = "<group>"; };
-		42DB450622A52A4000091DC6 /* masking-mask-02-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-mask-02-f-manual.png"; sourceTree = "<group>"; };
 		42DB450722A52A4100091DC6 /* masking-filter-01-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-filter-01-f-manual.png"; sourceTree = "<group>"; };
 		42DB450822A52A4100091DC6 /* pservers-grad-12-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-12-b-manual.png"; sourceTree = "<group>"; };
 		42DB450922A52A4100091DC6 /* masking-path-13-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-path-13-f-manual.png"; sourceTree = "<group>"; };
@@ -1202,6 +1201,7 @@
 		A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MDisplayLink_macOS.swift; path = Source/platform/macOS/MDisplayLink_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD4C1F45C28F00966E06 /* MView_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MView_macOS.swift; path = Source/platform/macOS/MView_macOS.swift; sourceTree = SOURCE_ROOT; };
 		A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MBezierPath+Extension_macOS.swift"; path = "Source/platform/macOS/MBezierPath+Extension_macOS.swift"; sourceTree = SOURCE_ROOT; };
+		A71FB29822A55EE600B58C29 /* masking-mask-02-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masking-mask-02-f-manual.png"; sourceTree = "<group>"; };
 		A74C81EA229284780085A832 /* struct-use-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-01-t-manual.reference"; sourceTree = "<group>"; };
 		A74C81EB229284780085A832 /* struct-use-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-01-t-manual.svg"; sourceTree = "<group>"; };
 		A74C81F02292B3940085A832 /* color-prop-05-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-05-t-manual.svg"; sourceTree = "<group>"; };
@@ -1295,7 +1295,7 @@
 			children = (
 				429594DB22A0F7CE00869079 /* text-fonts-02-t-manual.png */,
 				42DB450722A52A4100091DC6 /* masking-filter-01-f-manual.png */,
-				42DB450622A52A4000091DC6 /* masking-mask-02-f-manual.png */,
+				A71FB29822A55EE600B58C29 /* masking-mask-02-f-manual.png */,
 				42DB450922A52A4100091DC6 /* masking-path-13-f-manual.png */,
 				42DB450B22A52A4200091DC6 /* pservers-grad-09-b-manual.png */,
 				42DB450822A52A4100091DC6 /* pservers-grad-12-b-manual.png */,
@@ -2307,6 +2307,7 @@
 				5B1AE24A20B6A669007EECCB /* struct-frag-02-t-manual.reference in Resources */,
 				5B1AE2DF20B6A669007EECCB /* coords-trans-07-t-manual.reference in Resources */,
 				4295955922A0F7CE00869079 /* painting-fill-05-b-manual.png in Resources */,
+				A71FB29922A55EE700B58C29 /* masking-mask-02-f-manual.png in Resources */,
 				5BAE204B208E163D006BF277 /* clip.reference in Resources */,
 				42DB451622A52A4200091DC6 /* pservers-grad-15-b-manual.png in Resources */,
 				4295959B22A0F7CE00869079 /* struct-frag-04-t-manual.png in Resources */,
@@ -2612,7 +2613,6 @@
 				4295956722A0F7CE00869079 /* paths-data-01-t-manual.png in Resources */,
 				A74C8307229E9CCE0085A832 /* masking-filter-01-f-manual.svg in Resources */,
 				5B1AE26220B6A669007EECCB /* coords-transformattr-02-f-manual.svg in Resources */,
-				42DB451022A52A4200091DC6 /* masking-mask-02-f-manual.png in Resources */,
 				4295956F22A0F7CE00869079 /* coords-coord-01-t-manual.png in Resources */,
 				4295959922A0F7CE00869079 /* types-basic-01-f-manual.png in Resources */,
 				5B1AE28F20B6A669007EECCB /* shapes-polyline-02-t-manual.svg in Resources */,

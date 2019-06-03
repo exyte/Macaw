@@ -8,6 +8,8 @@
 
 <img src="https://raw.githubusercontent.com/exyte/Macaw/master/logo.png" width="400">
 
+Stay tuned on [twitter](https://twitter.com/MacawFramework) or [Instagram](https://www.instagram.com/macaw.framework/).
+
 ## What is Macaw?
 
 Macaw is a powerful and easy-to-use vector graphics library written in Swift.

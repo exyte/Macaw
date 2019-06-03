@@ -51,8 +51,7 @@ class MacawSVGTests: XCTestCase {
                 XCTFail("No file \(referenceFile)")
             }
         } catch {
-            print(error)
-            XCTFail()
+            XCTFail(error.localizedDescription)
         }
     }
     
@@ -62,8 +61,7 @@ class MacawSVGTests: XCTestCase {
             let node = try SVGParser.parse(resource: testResource, fromBundle: bundle)
             validate(node: node, referenceFile: testResource)
         } catch {
-            print(error)
-            XCTFail()
+            XCTFail(error.localizedDescription)
         }
     }
 
@@ -85,8 +83,7 @@ class MacawSVGTests: XCTestCase {
             let path = bundle.bundlePath + "/" + name + ".reference"
             try result.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
         } catch {
-            print(error)
-            XCTFail()
+            XCTFail(error.localizedDescription)
         }
     }
     
@@ -203,8 +200,6 @@ class MacawSVGTests: XCTestCase {
                 let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
                 
                 if nodeContent != referenceContent {
-                    //let referencePath = writeToFile(string: referenceContent, fileName: referenceFile + "_reference.txt")
-                    //let _ = writeToFile(string: nodeContent!, fileName: referenceFile + "_incorrect.txt")
                     XCTFail("nodeContent is not equal to referenceContent")
                 }
                 
@@ -300,7 +295,6 @@ class MacawSVGTests: XCTestCase {
             return Data()
         }
         do {
-            
             #if os(OSX)
             if #available(OSX 10.13, *) {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
@@ -316,8 +310,6 @@ class MacawSVGTests: XCTestCase {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
             }
             #endif
-            
-            
         } catch {
             XCTFail(error.localizedDescription)
             return Data()
@@ -348,7 +340,7 @@ class MacawSVGTests: XCTestCase {
             try data.write(to: path)
             return path
         } catch {
-            print(error.localizedDescription)
+            XCTFail(error.localizedDescription)
             return .none
         }
     }
@@ -838,6 +830,7 @@ class MacawSVGTests: XCTestCase {
                 try FileManager.default.createDirectory(at: testDirectoryPath, withIntermediateDirectories: true, attributes: .none)
             }
         } catch {
+            XCTFail(error.localizedDescription)
             return
         }
     }

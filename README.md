@@ -103,7 +103,7 @@ To build Macaw from sources:
 Over one thousand users already utilize Macaw in their applications. We would like to prepare the list of top use cases.
 Please share your story with us at info@exyte.com and we will thank you with Macaw stickers!
 
-Follow Macaw on [twitter](https://twitter.com/MacawFramework) and [Instagram](https://www.instagram.com/macaw_framework/)
+Follow Macaw on [twitter](https://twitter.com/MacawFramework) and [Instagram](https://www.instagram.com/macaw.framework/)
 
 <img src="https://i.imgur.com/m0pBChS.jpg" height="200">
 

@@ -362,6 +362,7 @@
 		5B1AE23520B6A669007EECCB /* shapes-line-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18720B6A669007EECCB /* shapes-line-02-f-manual.reference */; };
 		5B1AE23620B6A669007EECCB /* paths-data-07-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18820B6A669007EECCB /* paths-data-07-t-manual.svg */; };
 		5B1AE23720B6A669007EECCB /* paths-data-16-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18920B6A669007EECCB /* paths-data-16-t-manual.reference */; };
+		5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18A20B6A669007EECCB /* color-prop-01-b-manual.svg */; };
 		5B1AE23920B6A669007EECCB /* shapes-ellipse-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18B20B6A669007EECCB /* shapes-ellipse-01-t-manual.svg */; };
 		5B1AE23A20B6A669007EECCB /* painting-fill-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18C20B6A669007EECCB /* painting-fill-03-t-manual.reference */; };
 		5B1AE23B20B6A669007EECCB /* struct-use-12-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18D20B6A669007EECCB /* struct-use-12-f-manual.reference */; };
@@ -375,6 +376,7 @@
 		5B1AE24320B6A669007EECCB /* painting-stroke-07-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19520B6A669007EECCB /* painting-stroke-07-t-manual.svg */; };
 		5B1AE24420B6A669007EECCB /* shapes-rect-05-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19620B6A669007EECCB /* shapes-rect-05-f-manual.reference */; };
 		5B1AE24520B6A669007EECCB /* struct-frag-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19720B6A669007EECCB /* struct-frag-01-t-manual.reference */; };
+		5B1AE24620B6A669007EECCB /* painting-control-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19820B6A669007EECCB /* painting-control-01-f-manual.svg */; };
 		5B1AE24720B6A669007EECCB /* painting-stroke-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19920B6A669007EECCB /* painting-stroke-01-t-manual.reference */; };
 		5B1AE24820B6A669007EECCB /* coords-coord-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19A20B6A669007EECCB /* coords-coord-01-t-manual.svg */; };
 		5B1AE24920B6A669007EECCB /* painting-control-06-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19B20B6A669007EECCB /* painting-control-06-f-manual.svg */; };
@@ -453,6 +455,7 @@
 		5B1AE29220B6A669007EECCB /* coords-transformattr-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E420B6A669007EECCB /* coords-transformattr-03-f-manual.reference */; };
 		5B1AE29320B6A669007EECCB /* coords-trans-09-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E520B6A669007EECCB /* coords-trans-09-t-manual.svg */; };
 		5B1AE29420B6A669007EECCB /* painting-fill-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E620B6A669007EECCB /* painting-fill-04-t-manual.reference */; };
+		5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E720B6A669007EECCB /* shapes-ellipse-03-f-manual.reference */; };
 		5B1AE29620B6A669007EECCB /* shapes-circle-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E820B6A669007EECCB /* shapes-circle-02-t-manual.svg */; };
 		5B1AE29720B6A669007EECCB /* render-elems-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E920B6A669007EECCB /* render-elems-01-t-manual.svg */; };
 		5B1AE29820B6A669007EECCB /* paths-data-08-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1EA20B6A669007EECCB /* paths-data-08-t-manual.svg */; };
@@ -477,8 +480,10 @@
 		5B1AE2AB20B6A669007EECCB /* painting-stroke-08-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1FD20B6A669007EECCB /* painting-stroke-08-t-manual.reference */; };
 		5B1AE2AC20B6A669007EECCB /* struct-use-12-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1FE20B6A669007EECCB /* struct-use-12-f-manual.svg */; };
 		5B1AE2AD20B6A669007EECCB /* painting-stroke-05-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1FF20B6A669007EECCB /* painting-stroke-05-t-manual.reference */; };
+		5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20020B6A669007EECCB /* shapes-circle-02-t-manual.reference */; };
 		5B1AE2AF20B6A669007EECCB /* struct-use-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20120B6A669007EECCB /* struct-use-03-t-manual.svg */; };
 		5B1AE2B020B6A669007EECCB /* paths-data-16-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20220B6A669007EECCB /* paths-data-16-t-manual.svg */; };
+		5B1AE2B120B6A669007EECCB /* color-prop-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20320B6A669007EECCB /* color-prop-03-t-manual.svg */; };
 		5B1AE2B220B6A669007EECCB /* types-basic-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20420B6A669007EECCB /* types-basic-01-f-manual.svg */; };
 		5B1AE2B320B6A669007EECCB /* coords-trans-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20520B6A669007EECCB /* coords-trans-04-t-manual.reference */; };
 		5B1AE2B420B6A669007EECCB /* shapes-ellipse-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20620B6A669007EECCB /* shapes-ellipse-02-t-manual.svg */; };
@@ -2492,14 +2497,24 @@
 				C46E83551F94B20E00208037 /* transform.svg in Resources */,
 				5B1AE2C420B6A669007EECCB /* painting-fill-01-t-manual.reference in Resources */,
 				A74C82412297DC220085A832 /* shapes-rect-02-t-manual.reference in Resources */,
+				5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */,
+				5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */,
+				5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */,
 				A74C822A2297D5350085A832 /* coords-trans-11-f-manual.reference in Resources */,
 				4295958522A0F7CE00869079 /* paths-data-10-t-manual.png in Resources */,
 				4295954D22A0F7CE00869079 /* paths-data-20-f-manual.png in Resources */,
 				4295958722A0F7CE00869079 /* paths-data-19-f-manual.png in Resources */,
 				A74C82E6229E35D30085A832 /* pservers-grad-23-f-manual.svg in Resources */,
+				5B1AE24620B6A669007EECCB /* painting-control-01-f-manual.svg in Resources */,
+				5B1AE2B120B6A669007EECCB /* color-prop-03-t-manual.svg in Resources */,
 				A74C81EC229284790085A832 /* struct-use-01-t-manual.reference in Resources */,
 				429595B022A0F7CE00869079 /* shapes-polygon-01-t-manual.png in Resources */,
+				5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */,
+				5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */,
+				5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */,
 				4295959D22A0F7CE00869079 /* paths-data-09-t-manual.png in Resources */,
+				5B1AE24620B6A669007EECCB /* painting-control-01-f-manual.svg in Resources */,
+				5B1AE2B120B6A669007EECCB /* color-prop-03-t-manual.svg in Resources */,
 				5B1AE23B20B6A669007EECCB /* struct-use-12-f-manual.reference in Resources */,
 				5B1AE29F20B6A669007EECCB /* painting-stroke-09-t-manual.svg in Resources */,
 				429595A222A0F7CE00869079 /* coords-trans-08-t-manual.png in Resources */,

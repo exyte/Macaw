@@ -6,10 +6,13 @@
 //  Copyright © 2017 Exyte. All rights reserved.
 //
 
-#if os(iOS)
-
 import XCTest
+
+#if os(OSX)
+@testable import MacawOSX
+#elseif os(iOS)
 @testable import Macaw
+#endif
 
 class ImageBoundsTests: XCTestCase {
     
@@ -26,7 +29,11 @@ class ImageBoundsTests: XCTestCase {
             return
         }
         
-        XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for path src")
+        #if os(iOS)
+            XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for path src")
+        #elseif os(OSX)
+            XCTAssert(bounds.w == 587.0 && bounds.h == 431.0, "Wrong bounds for path src")
+        #endif
     }
     
     func testSrcAsBase64() {
@@ -35,7 +42,6 @@ class ImageBoundsTests: XCTestCase {
             XCTFail()
             return
         }
-        
         
         let url = URL(fileURLWithPath: path)
         guard let base64Content = try? String(contentsOf: url) else {
@@ -49,15 +55,28 @@ class ImageBoundsTests: XCTestCase {
             return
         }
         
-        XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for base64 src")
+        #if os(iOS)
+            XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for base64 src")
+        #elseif os(OSX)
+            XCTAssert(bounds.w == 587.0 && bounds.h == 431.0, "Wrong bounds for base64 src")
+        #endif
     }
     
     func testInMemoryImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
+        
+        #if os(iOS)
         guard let mImage = MImage(named: "logo.png", in: bundle, compatibleWith: .none) else {
             XCTFail()
             return
         }
+        
+        #elseif os(OSX)
+        guard let mImage = bundle.image(forResource: "logo.png") else {
+            XCTFail()
+            return
+        }
+        #endif
         
         let image = Image(image: mImage)
         guard let bounds = image.bounds else {
@@ -65,9 +84,11 @@ class ImageBoundsTests: XCTestCase {
             return
         }
         
-        XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for in-memory image")
+        #if os(iOS)
+            XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for in-memory image")
+        #elseif os(OSX)
+            XCTAssert(bounds.w == 587.0 && bounds.h == 431.0, "Wrong bounds for in-memory image")
+        #endif
     }
     
 }
-
-#endif

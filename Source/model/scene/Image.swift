@@ -163,6 +163,10 @@ open class Image: Node {
             }
         }
 
+        #if os(iOS)
         return MImage(named: src)
+        #elseif os(OSX)
+        return MImage(contentsOfFile: src)
+        #endif
     }
 }

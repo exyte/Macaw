@@ -2,9 +2,7 @@ import XCTest
 
 #if os(OSX)
 @testable import MacawOSX
-#endif
-
-#if os(iOS)
+#elseif os(iOS)
 @testable import Macaw
 #endif
 

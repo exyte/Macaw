@@ -128,6 +128,11 @@
 		429595AE22A0F7CE00869079 /* shapes-rect-06-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954322A0F7CE00869079 /* shapes-rect-06-f-manual.png */; };
 		429595AF22A0F7CE00869079 /* shapes-polyline-02-t-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954422A0F7CE00869079 /* shapes-polyline-02-t-manual.png */; };
 		429595B022A0F7CE00869079 /* shapes-polygon-01-t-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 4295954522A0F7CE00869079 /* shapes-polygon-01-t-manual.png */; };
+		42DAF9A822A612730095B936 /* shapes-circle-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 42DAF9A722A612730095B936 /* shapes-circle-02-t-manual.reference */; };
+		42DAF9AA22A612B00095B936 /* shapes-ellipse-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 42DAF9A922A612B00095B936 /* shapes-ellipse-03-f-manual.reference */; };
+		42DAF9AC22A612CF0095B936 /* color-prop-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 42DAF9AB22A612CF0095B936 /* color-prop-01-b-manual.svg */; };
+		42DAF9AE22A612EC0095B936 /* painting-control-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 42DAF9AD22A612EC0095B936 /* painting-control-01-f-manual.svg */; };
+		42DAF9B022A6130D0095B936 /* color-prop-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 42DAF9AF22A6130D0095B936 /* color-prop-03-t-manual.svg */; };
 		42DB450D22A52A4200091DC6 /* pservers-grad-13-b-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */; };
 		42DB450E22A52A4200091DC6 /* pservers-grad-24-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */; };
 		42DB450F22A52A4200091DC6 /* pservers-grad-23-f-manual.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */; };
@@ -362,7 +367,6 @@
 		5B1AE23520B6A669007EECCB /* shapes-line-02-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18720B6A669007EECCB /* shapes-line-02-f-manual.reference */; };
 		5B1AE23620B6A669007EECCB /* paths-data-07-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18820B6A669007EECCB /* paths-data-07-t-manual.svg */; };
 		5B1AE23720B6A669007EECCB /* paths-data-16-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18920B6A669007EECCB /* paths-data-16-t-manual.reference */; };
-		5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18A20B6A669007EECCB /* color-prop-01-b-manual.svg */; };
 		5B1AE23920B6A669007EECCB /* shapes-ellipse-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18B20B6A669007EECCB /* shapes-ellipse-01-t-manual.svg */; };
 		5B1AE23A20B6A669007EECCB /* painting-fill-03-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18C20B6A669007EECCB /* painting-fill-03-t-manual.reference */; };
 		5B1AE23B20B6A669007EECCB /* struct-use-12-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE18D20B6A669007EECCB /* struct-use-12-f-manual.reference */; };
@@ -376,7 +380,6 @@
 		5B1AE24320B6A669007EECCB /* painting-stroke-07-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19520B6A669007EECCB /* painting-stroke-07-t-manual.svg */; };
 		5B1AE24420B6A669007EECCB /* shapes-rect-05-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19620B6A669007EECCB /* shapes-rect-05-f-manual.reference */; };
 		5B1AE24520B6A669007EECCB /* struct-frag-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19720B6A669007EECCB /* struct-frag-01-t-manual.reference */; };
-		5B1AE24620B6A669007EECCB /* painting-control-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19820B6A669007EECCB /* painting-control-01-f-manual.svg */; };
 		5B1AE24720B6A669007EECCB /* painting-stroke-01-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19920B6A669007EECCB /* painting-stroke-01-t-manual.reference */; };
 		5B1AE24820B6A669007EECCB /* coords-coord-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19A20B6A669007EECCB /* coords-coord-01-t-manual.svg */; };
 		5B1AE24920B6A669007EECCB /* painting-control-06-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE19B20B6A669007EECCB /* painting-control-06-f-manual.svg */; };
@@ -455,7 +458,6 @@
 		5B1AE29220B6A669007EECCB /* coords-transformattr-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E420B6A669007EECCB /* coords-transformattr-03-f-manual.reference */; };
 		5B1AE29320B6A669007EECCB /* coords-trans-09-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E520B6A669007EECCB /* coords-trans-09-t-manual.svg */; };
 		5B1AE29420B6A669007EECCB /* painting-fill-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E620B6A669007EECCB /* painting-fill-04-t-manual.reference */; };
-		5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E720B6A669007EECCB /* shapes-ellipse-03-f-manual.reference */; };
 		5B1AE29620B6A669007EECCB /* shapes-circle-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E820B6A669007EECCB /* shapes-circle-02-t-manual.svg */; };
 		5B1AE29720B6A669007EECCB /* render-elems-01-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1E920B6A669007EECCB /* render-elems-01-t-manual.svg */; };
 		5B1AE29820B6A669007EECCB /* paths-data-08-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1EA20B6A669007EECCB /* paths-data-08-t-manual.svg */; };
@@ -480,10 +482,8 @@
 		5B1AE2AB20B6A669007EECCB /* painting-stroke-08-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1FD20B6A669007EECCB /* painting-stroke-08-t-manual.reference */; };
 		5B1AE2AC20B6A669007EECCB /* struct-use-12-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1FE20B6A669007EECCB /* struct-use-12-f-manual.svg */; };
 		5B1AE2AD20B6A669007EECCB /* painting-stroke-05-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE1FF20B6A669007EECCB /* painting-stroke-05-t-manual.reference */; };
-		5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20020B6A669007EECCB /* shapes-circle-02-t-manual.reference */; };
 		5B1AE2AF20B6A669007EECCB /* struct-use-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20120B6A669007EECCB /* struct-use-03-t-manual.svg */; };
 		5B1AE2B020B6A669007EECCB /* paths-data-16-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20220B6A669007EECCB /* paths-data-16-t-manual.svg */; };
-		5B1AE2B120B6A669007EECCB /* color-prop-03-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20320B6A669007EECCB /* color-prop-03-t-manual.svg */; };
 		5B1AE2B220B6A669007EECCB /* types-basic-01-f-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20420B6A669007EECCB /* types-basic-01-f-manual.svg */; };
 		5B1AE2B320B6A669007EECCB /* coords-trans-04-t-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20520B6A669007EECCB /* coords-trans-04-t-manual.reference */; };
 		5B1AE2B420B6A669007EECCB /* shapes-ellipse-02-t-manual.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5B1AE20620B6A669007EECCB /* shapes-ellipse-02-t-manual.svg */; };
@@ -830,6 +830,11 @@
 		4295954322A0F7CE00869079 /* shapes-rect-06-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-rect-06-f-manual.png"; sourceTree = "<group>"; };
 		4295954422A0F7CE00869079 /* shapes-polyline-02-t-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-polyline-02-t-manual.png"; sourceTree = "<group>"; };
 		4295954522A0F7CE00869079 /* shapes-polygon-01-t-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shapes-polygon-01-t-manual.png"; sourceTree = "<group>"; };
+		42DAF9A722A612730095B936 /* shapes-circle-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-02-t-manual.reference"; sourceTree = "<group>"; };
+		42DAF9A922A612B00095B936 /* shapes-ellipse-03-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-03-f-manual.reference"; sourceTree = "<group>"; };
+		42DAF9AB22A612CF0095B936 /* color-prop-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-01-b-manual.svg"; sourceTree = "<group>"; };
+		42DAF9AD22A612EC0095B936 /* painting-control-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-01-f-manual.svg"; sourceTree = "<group>"; };
+		42DAF9AF22A6130D0095B936 /* color-prop-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-03-t-manual.svg"; sourceTree = "<group>"; };
 		42DB450322A52A3F00091DC6 /* pservers-grad-13-b-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-13-b-manual.png"; sourceTree = "<group>"; };
 		42DB450422A52A3F00091DC6 /* pservers-grad-24-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-24-f-manual.png"; sourceTree = "<group>"; };
 		42DB450522A52A4000091DC6 /* pservers-grad-23-f-manual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pservers-grad-23-f-manual.png"; sourceTree = "<group>"; };
@@ -964,7 +969,6 @@
 		5B1AE18720B6A669007EECCB /* shapes-line-02-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-line-02-f-manual.reference"; sourceTree = "<group>"; };
 		5B1AE18820B6A669007EECCB /* paths-data-07-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-07-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE18920B6A669007EECCB /* paths-data-16-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-16-t-manual.reference"; sourceTree = "<group>"; };
-		5B1AE18A20B6A669007EECCB /* color-prop-01-b-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-01-b-manual.svg"; sourceTree = "<group>"; };
 		5B1AE18B20B6A669007EECCB /* shapes-ellipse-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-01-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE18C20B6A669007EECCB /* painting-fill-03-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-03-t-manual.reference"; sourceTree = "<group>"; };
 		5B1AE18D20B6A669007EECCB /* struct-use-12-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-12-f-manual.reference"; sourceTree = "<group>"; };
@@ -978,7 +982,6 @@
 		5B1AE19520B6A669007EECCB /* painting-stroke-07-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-07-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE19620B6A669007EECCB /* shapes-rect-05-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-rect-05-f-manual.reference"; sourceTree = "<group>"; };
 		5B1AE19720B6A669007EECCB /* struct-frag-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-frag-01-t-manual.reference"; sourceTree = "<group>"; };
-		5B1AE19820B6A669007EECCB /* painting-control-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-01-f-manual.svg"; sourceTree = "<group>"; };
 		5B1AE19920B6A669007EECCB /* painting-stroke-01-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-01-t-manual.reference"; sourceTree = "<group>"; };
 		5B1AE19A20B6A669007EECCB /* coords-coord-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-coord-01-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE19B20B6A669007EECCB /* painting-control-06-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-control-06-f-manual.svg"; sourceTree = "<group>"; };
@@ -1057,7 +1060,6 @@
 		5B1AE1E420B6A669007EECCB /* coords-transformattr-03-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-transformattr-03-f-manual.reference"; sourceTree = "<group>"; };
 		5B1AE1E520B6A669007EECCB /* coords-trans-09-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-09-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE1E620B6A669007EECCB /* painting-fill-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-fill-04-t-manual.reference"; sourceTree = "<group>"; };
-		5B1AE1E720B6A669007EECCB /* shapes-ellipse-03-f-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-03-f-manual.reference"; sourceTree = "<group>"; };
 		5B1AE1E820B6A669007EECCB /* shapes-circle-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-02-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE1E920B6A669007EECCB /* render-elems-01-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "render-elems-01-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE1EA20B6A669007EECCB /* paths-data-08-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-08-t-manual.svg"; sourceTree = "<group>"; };
@@ -1082,10 +1084,8 @@
 		5B1AE1FD20B6A669007EECCB /* painting-stroke-08-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-08-t-manual.reference"; sourceTree = "<group>"; };
 		5B1AE1FE20B6A669007EECCB /* struct-use-12-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-12-f-manual.svg"; sourceTree = "<group>"; };
 		5B1AE1FF20B6A669007EECCB /* painting-stroke-05-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "painting-stroke-05-t-manual.reference"; sourceTree = "<group>"; };
-		5B1AE20020B6A669007EECCB /* shapes-circle-02-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-circle-02-t-manual.reference"; sourceTree = "<group>"; };
 		5B1AE20120B6A669007EECCB /* struct-use-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "struct-use-03-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE20220B6A669007EECCB /* paths-data-16-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "paths-data-16-t-manual.svg"; sourceTree = "<group>"; };
-		5B1AE20320B6A669007EECCB /* color-prop-03-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-03-t-manual.svg"; sourceTree = "<group>"; };
 		5B1AE20420B6A669007EECCB /* types-basic-01-f-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "types-basic-01-f-manual.svg"; sourceTree = "<group>"; };
 		5B1AE20520B6A669007EECCB /* coords-trans-04-t-manual.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "coords-trans-04-t-manual.reference"; sourceTree = "<group>"; };
 		5B1AE20620B6A669007EECCB /* shapes-ellipse-02-t-manual.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shapes-ellipse-02-t-manual.svg"; sourceTree = "<group>"; };
@@ -1813,12 +1813,15 @@
 		5B1AE18320B6A669007EECCB /* w3cSVGTests */ = {
 			isa = PBXGroup;
 			children = (
+				42DAF9A722A612730095B936 /* shapes-circle-02-t-manual.reference */,
+				42DAF9AF22A6130D0095B936 /* color-prop-03-t-manual.svg */,
+				42DAF9AD22A612EC0095B936 /* painting-control-01-f-manual.svg */,
+				42DAF9AB22A612CF0095B936 /* color-prop-01-b-manual.svg */,
+				42DAF9A922A612B00095B936 /* shapes-ellipse-03-f-manual.reference */,
 				5B1AE22D20B6A669007EECCB /* color-prop-01-b-manual.reference */,
-				5B1AE18A20B6A669007EECCB /* color-prop-01-b-manual.svg */,
 				5B1AE22C20B6A669007EECCB /* color-prop-02-f-manual.reference */,
 				5B1AE1C620B6A669007EECCB /* color-prop-02-f-manual.svg */,
 				5B1AE1FA20B6A669007EECCB /* color-prop-03-t-manual.reference */,
-				5B1AE20320B6A669007EECCB /* color-prop-03-t-manual.svg */,
 				4269F43D2257265700D91393 /* color-prop-04-t-manual.reference */,
 				421C664F2225196900DD73F5 /* color-prop-04-t-manual.svg */,
 				A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */,
@@ -1880,7 +1883,6 @@
 				5B1AE19E20B6A669007EECCB /* metadata-example-01-t-manual.reference */,
 				5B1AE22A20B6A669007EECCB /* metadata-example-01-t-manual.svg */,
 				5B1AE20C20B6A669007EECCB /* painting-control-01-f-manual.reference */,
-				5B1AE19820B6A669007EECCB /* painting-control-01-f-manual.svg */,
 				5B1AE22020B6A669007EECCB /* painting-control-02-f-manual.reference */,
 				5B1AE20B20B6A669007EECCB /* painting-control-02-f-manual.svg */,
 				5B1AE18620B6A669007EECCB /* painting-control-03-f-manual.reference */,
@@ -1985,13 +1987,11 @@
 				5B1AE1D920B6A669007EECCB /* render-elems-03-t-manual.svg */,
 				5B1AE1DF20B6A669007EECCB /* shapes-circle-01-t-manual.reference */,
 				5B1AE1CB20B6A669007EECCB /* shapes-circle-01-t-manual.svg */,
-				5B1AE20020B6A669007EECCB /* shapes-circle-02-t-manual.reference */,
 				5B1AE1E820B6A669007EECCB /* shapes-circle-02-t-manual.svg */,
 				5B1AE21C20B6A669007EECCB /* shapes-ellipse-01-t-manual.reference */,
 				5B1AE18B20B6A669007EECCB /* shapes-ellipse-01-t-manual.svg */,
 				5B1AE21120B6A669007EECCB /* shapes-ellipse-02-t-manual.reference */,
 				5B1AE20620B6A669007EECCB /* shapes-ellipse-02-t-manual.svg */,
-				5B1AE1E720B6A669007EECCB /* shapes-ellipse-03-f-manual.reference */,
 				5B1AE1C120B6A669007EECCB /* shapes-ellipse-03-f-manual.svg */,
 				5B3713A120BE9D89004BB6EE /* shapes-grammar-01-f-manual.reference */,
 				5B3713A220BE9D8A004BB6EE /* shapes-grammar-01-f-manual.svg */,
@@ -2270,6 +2270,7 @@
 				5B1AE27720B6A669007EECCB /* coords-trans-03-t-manual.reference in Resources */,
 				5B1AE26420B6A669007EECCB /* painting-fill-03-t-manual.svg in Resources */,
 				5BAEA9C9206CEAA20049AAAE /* viewBox.svg in Resources */,
+				42DAF9A822A612730095B936 /* shapes-circle-02-t-manual.reference in Resources */,
 				4295956022A0F7CE00869079 /* coords-transformattr-02-f-manual.png in Resources */,
 				5B1AE2DA20B6A669007EECCB /* color-prop-02-f-manual.reference in Resources */,
 				4295959A22A0F7CE00869079 /* struct-use-12-f-manual.png in Resources */,
@@ -2319,6 +2320,7 @@
 				5B1AE25420B6A669007EECCB /* paths-data-06-t-manual.svg in Resources */,
 				4295959622A0F7CE00869079 /* paths-data-16-t-manual.png in Resources */,
 				4295955522A0F7CE00869079 /* struct-frag-01-t-manual.png in Resources */,
+				42DAF9AC22A612CF0095B936 /* color-prop-01-b-manual.svg in Resources */,
 				5B1AE26B20B6A669007EECCB /* shapes-polygon-02-t-manual.svg in Resources */,
 				5B1AE28E20B6A669007EECCB /* struct-frag-06-t-manual.reference in Resources */,
 				42DB450F22A52A4200091DC6 /* pservers-grad-23-f-manual.png in Resources */,
@@ -2331,7 +2333,9 @@
 				5B1AE2BC20B6A669007EECCB /* coords-coord-02-t-manual.svg in Resources */,
 				5B1AE23520B6A669007EECCB /* shapes-line-02-f-manual.reference in Resources */,
 				4295959C22A0F7CE00869079 /* struct-frag-03-t-manual.png in Resources */,
+				42DAF9B022A6130D0095B936 /* color-prop-03-t-manual.svg in Resources */,
 				5B1AE2CD20B6A669007EECCB /* paths-data-10-t-manual.svg in Resources */,
+				42DAF9AE22A612EC0095B936 /* painting-control-01-f-manual.svg in Resources */,
 				5B1AE29C20B6A669007EECCB /* paths-data-01-t-manual.reference in Resources */,
 				4295955822A0F7CE00869079 /* shapes-ellipse-03-f-manual.png in Resources */,
 				4295959F22A0F7CE00869079 /* shapes-rect-07-f-manual.png in Resources */,
@@ -2373,6 +2377,7 @@
 				A74C823E2297DB2C0085A832 /* shapes-rect-03-t-manual.reference in Resources */,
 				5BAE2047208E163D006BF277 /* viewBox.reference in Resources */,
 				4295957722A0F7CE00869079 /* pservers-grad-03-b-manual.png in Resources */,
+				42DAF9AA22A612B00095B936 /* shapes-ellipse-03-f-manual.reference in Resources */,
 				4295957122A0F7CE00869079 /* painting-stroke-07-t-manual.png in Resources */,
 				4295957D22A0F7CE00869079 /* shapes-rect-02-t-manual.png in Resources */,
 				5B1AE2C120B6A669007EECCB /* painting-stroke-04-t-manual.svg in Resources */,
@@ -2497,24 +2502,14 @@
 				C46E83551F94B20E00208037 /* transform.svg in Resources */,
 				5B1AE2C420B6A669007EECCB /* painting-fill-01-t-manual.reference in Resources */,
 				A74C82412297DC220085A832 /* shapes-rect-02-t-manual.reference in Resources */,
-				5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */,
-				5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */,
-				5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */,
 				A74C822A2297D5350085A832 /* coords-trans-11-f-manual.reference in Resources */,
 				4295958522A0F7CE00869079 /* paths-data-10-t-manual.png in Resources */,
 				4295954D22A0F7CE00869079 /* paths-data-20-f-manual.png in Resources */,
 				4295958722A0F7CE00869079 /* paths-data-19-f-manual.png in Resources */,
 				A74C82E6229E35D30085A832 /* pservers-grad-23-f-manual.svg in Resources */,
-				5B1AE24620B6A669007EECCB /* painting-control-01-f-manual.svg in Resources */,
-				5B1AE2B120B6A669007EECCB /* color-prop-03-t-manual.svg in Resources */,
 				A74C81EC229284790085A832 /* struct-use-01-t-manual.reference in Resources */,
 				429595B022A0F7CE00869079 /* shapes-polygon-01-t-manual.png in Resources */,
-				5B1AE2AE20B6A669007EECCB /* shapes-circle-02-t-manual.reference in Resources */,
-				5B1AE29520B6A669007EECCB /* shapes-ellipse-03-f-manual.reference in Resources */,
-				5B1AE23820B6A669007EECCB /* color-prop-01-b-manual.svg in Resources */,
 				4295959D22A0F7CE00869079 /* paths-data-09-t-manual.png in Resources */,
-				5B1AE24620B6A669007EECCB /* painting-control-01-f-manual.svg in Resources */,
-				5B1AE2B120B6A669007EECCB /* color-prop-03-t-manual.svg in Resources */,
 				5B1AE23B20B6A669007EECCB /* struct-use-12-f-manual.reference in Resources */,
 				5B1AE29F20B6A669007EECCB /* painting-stroke-09-t-manual.svg in Resources */,
 				429595A222A0F7CE00869079 /* coords-trans-08-t-manual.png in Resources */,

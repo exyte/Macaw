@@ -6,14 +6,11 @@
 //  Copyright © 2017 Exyte. All rights reserved.
 //
 
-#if os(iOS)
-
 import XCTest
+
 #if os(OSX)
 @testable import MacawOSX
-#endif
-
-#if os(iOS)
+#elseif os(iOS)
 @testable import Macaw
 #endif
 
@@ -84,5 +81,3 @@ class SequenceAnimationTests: XCTestCase {
     }
     
 }
-
-#endif

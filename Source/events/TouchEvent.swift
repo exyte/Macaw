@@ -37,7 +37,7 @@ public struct TouchPoint {
 
     private let absoluteLocation: Point
     private let relativeLocation: Point // location inside the node
-    private let viewLocation: Point // location relative t
+    private let viewLocation: Point // location relative to containing view - no content layout or zoom transformations
 
     init(id: Int, location: Point, relativeToNodeLocation: Point, relativeToViewLocation: Point) {
         self.id = id

@@ -184,7 +184,6 @@ extension AnimationProducer {
         CATransaction.setDisableActions(true)
         defer {
             CATransaction.commit()
-            //CATransaction.flush()
         }
 
         // Launching

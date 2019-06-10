@@ -370,6 +370,10 @@ open class SVGParser {
         let w = getDoubleValue(element, attribute: "width") ?? parentPattern?.bounds.w ?? 0
         let h = getDoubleValue(element, attribute: "height") ?? parentPattern?.bounds.h ?? 0
         let bounds = Rect(x: x, y: y, w: w, h: h)
+        
+        guard bounds.w > 0 && bounds.h > 0 else {
+            return .none
+        }
 
         var userSpace = parentPattern?.userSpace ?? false
         if let units = element.allAttributes["patternUnits"]?.text, units == "userSpaceOnUse" {
@@ -398,8 +402,12 @@ open class SVGParser {
             }
             contentNode = Group(contents: shapes)
         }
+        
+        if let contentNode = contentNode {
+            return UserSpacePattern(content: contentNode, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+        }
 
-        return UserSpacePattern(content: contentNode!, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+        return .none
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, style: [String: String]) throws -> Group? {
@@ -653,7 +661,11 @@ open class SVGParser {
             if let pattern = defPatterns[colorId] {
                 return getPatternFill(pattern: pattern, locus: locus)
             }
+            if let fallbackColor = fillColor.split(separator: " ").last {
+                fillColor = String(fallbackColor)
+            }
         }
+        
         if fillColor == SVGKeys.currentColor, let currentColor = groupStyle[SVGKeys.color] {
             fillColor = currentColor
         }
@@ -1392,7 +1404,7 @@ open class SVGParser {
 
     fileprivate func parseIdFromUrl(_ urlString: String) -> String? {
         if urlString.hasPrefix("url") {
-            return urlString.substringWithOffset(fromStart: 5, fromEnd: 1)
+            return urlString.slice(from: "(#", to: ")")
         }
         return .none
     }
@@ -1880,6 +1892,14 @@ fileprivate extension String {
         let start = index(startIndex, offsetBy: fromStart)
         let end = index(endIndex, offsetBy: -fromEnd)
         return String(self[start..<end])
+    }
+    
+    func slice(from: String, to: String) -> String? {
+        return (range(of: from)?.upperBound).flatMap { substringFrom in
+            (range(of: to, range: substringFrom..<endIndex)?.lowerBound).map { substringTo in
+                String(self[substringFrom..<substringTo])
+            }
+        }
     }
 }
 

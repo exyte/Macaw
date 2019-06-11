@@ -872,6 +872,10 @@ class MacawSVGTests: XCTestCase {
         validateJSON("masking-mask-02-f-manual")
     }
     
+    func testPserversPattern02() {
+        validateJSON("pservers-pattern-02-f-manual")
+    }
+    
     func testPserversPattern03() {
         validateJSON("pservers-pattern-03-f-manual")
     }

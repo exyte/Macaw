@@ -186,7 +186,13 @@ class ShapeRenderer: NodeRenderer {
             let boundsTranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: pattern.bounds, absoluteLocus: shape.form)
             patternBounds = pattern.bounds.applying(boundsTranform)
         }
-        let tileImage = renderer.renderToImage(bounds: pattern.viewBox, inset: 0)
+
+        var viewBox = pattern.viewBox
+        if viewBox == .zero() {
+            viewBox = patternBounds
+        }
+
+        let tileImage = renderer.renderToImage(bounds: viewBox, inset: 0)
         ctx?.concatenate(pattern.position.toCG())
         ctx?.clip()
         ctx?.draw(tileImage.cgImage!, in: patternBounds.toCG(), byTiling: true)

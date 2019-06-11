@@ -365,7 +365,7 @@ open class SVGParser {
             parentPattern = defPatterns[id]
         }
 
-        var viewBox: Rect = .zero()
+        var viewBox: Rect = parentPattern?.viewBox ?? .zero()
         if let viewBoxString = element.allAttributes["viewBox"]?.text {
             let nums = viewBoxString.components(separatedBy: .whitespaces).map { Double($0) }
             if nums.count == 4, let x = nums[0], let y = nums[1], let w = nums[2], let h = nums[3] {

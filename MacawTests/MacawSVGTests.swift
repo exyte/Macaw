@@ -20,7 +20,7 @@ class MacawSVGTests: XCTestCase {
     private let testFolderName = "MacawTestOutputData"
     private let shouldComparePNGImages = true
     private let multipleTestsWillRun = false
-    private let shouldSaveFaildedTestImage = false
+    private let shouldSaveFaildedTestImage = true
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -146,7 +146,7 @@ class MacawSVGTests: XCTestCase {
                 frame = Group(contents: group.contents).bounds
             }
             
-            let image = node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
+            let image = node.toNativeImage(size: frame?.size() ?? Size(w: 100, h: 100))
             return image
         } catch {
             XCTFail(error.localizedDescription)
@@ -253,16 +253,16 @@ class MacawSVGTests: XCTestCase {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
                 let referenceContent = try String(contentsOfFile: path)
                 
-                let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
+                let nodeContent = String(data: getJSONData(node: node), encoding: .utf8)
                 
                 if nodeContent != referenceContent {
                     XCTFail("nodeContent is not equal to referenceContent")
                 }
-            
-                //To save new PNG image for test, uncomment this
-                //saveImage(image: nativeImage, fileName: referenceFile)
+
                 #if os(OSX)
                 let nativeImage = getImage(from: referenceFile)
+                //To save new PNG image for test, uncomment this
+                //saveImage(image: nativeImage, fileName: referenceFile)
                 if shouldComparePNGImages {
                     validateImage(nodeImage: nativeImage, referenceFile: referenceFile)
                 }
@@ -878,5 +878,9 @@ class MacawSVGTests: XCTestCase {
     
     func testPserversPattern03() {
         validateJSON("pservers-pattern-03-f-manual")
+    }
+    
+    func testPserversPattern09() {
+        validateJSON("pservers-pattern-09-f-manual")
     }
 }

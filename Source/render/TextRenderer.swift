@@ -69,7 +69,9 @@ class TextRenderer: NodeRenderer {
         if text.kerning != 0.0 {
             attributes[NSAttributedString.Key.kern] = NSNumber(value: text.kerning)
         }
-
+        
+        attributes[NSAttributedString.Key.writingDirection] = text.direction.attributedStringValue
+        
         if attributes.count > 1 {
             MGraphicsPushContext(context)
             message.draw(in: getBounds(font), withAttributes: attributes)
@@ -141,6 +143,7 @@ class TextRenderer: NodeRenderer {
         if let stroke = text.stroke {
             textAttributes[NSAttributedString.Key.strokeWidth] = NSNumber(value: stroke.width)
         }
+        
         let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
         return CGRect(x: calculateAlignmentOffset(text, font: font),
                       y: calculateBaselineOffset(text, font: font),
@@ -164,7 +167,8 @@ class TextRenderer: NodeRenderer {
 
     fileprivate func calculateAlignmentOffset(_ text: Text, font: MFont) -> CGFloat {
         let textAttributes = [
-            NSAttributedString.Key.font: font
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.writingDirection: text.direction.attributedStringValue
         ]
         let textSize = NSString(string: text.text).size(withAttributes: textAttributes)
         return -CGFloat(text.align.align(size: textSize.width.doubleValue))
@@ -172,13 +176,11 @@ class TextRenderer: NodeRenderer {
 
     fileprivate func getTextColor(_ fill: Fill) -> MColor {
         if let color = fill as? Color {
-
             #if os(iOS)
             return MColor(cgColor: color.toCG())
             #elseif os(OSX)
             return MColor(cgColor: color.toCG()) ?? .black
             #endif
-
         }
         return MColor.black
     }

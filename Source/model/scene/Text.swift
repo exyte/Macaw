@@ -47,15 +47,28 @@ open class Text: Node {
         get { return kerningVar.value }
         set(val) { kerningVar.value = val }
     }
+    
+    public let directionVar: Variable<Direction>
+    open var direction: Direction {
+        get { return directionVar.value }
+        set(val) { directionVar.value = val }
+    }
 
-    public init(text: String, font: Font? = nil, fill: Fill? = Color.black, stroke: Stroke? = nil, align: Align = .min, baseline: Baseline = .top, kerning: Float = 0.0, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
+    public init(text: String, font: Font? = nil, fill: Fill? = Color.black, stroke: Stroke? = nil, align: Align = .min, baseline: Baseline = .top, kerning: Float = 0.0, direction: Direction = .lre, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.textVar = Variable<String>(text)
         self.fontVar = Variable<Font?>(font)
         self.fillVar = Variable<Fill?>(fill)
         self.strokeVar = Variable<Stroke?>(stroke)
-        self.alignVar = Variable<Align>(align)
         self.baselineVar = Variable<Baseline>(baseline)
         self.kerningVar = Variable<Float>(kerning)
+        self.directionVar = Variable<Direction>(direction)
+        
+        if direction == .rle || direction == .rlo {
+            self.alignVar = Variable<Align>(align.reverse())
+        } else {
+            self.alignVar = Variable<Align>(align)
+        }
+        
         super.init(
             place: place,
             opaque: opaque,
@@ -71,7 +84,6 @@ open class Text: Node {
     override open var bounds: Rect {
         let font: MFont
         if let f = self.font {
-
             if let customFont = RenderUtils.loadFont(name: f.name, size: f.size, weight: f.weight) {
                 font = customFont
             } else {

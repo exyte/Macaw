@@ -930,21 +930,21 @@ open class SVGParser {
     }
 
     fileprivate func anchorToAlign(_ textAnchor: String?) -> Align {
-        if let anchor = textAnchor {
-            if anchor == "middle" {
-                return .mid
-            } else if anchor == "end" {
-                return .max
-            }
+        switch textAnchor {
+        case "middle":
+            return .mid
+        case "end":
+            return .max
+        default:
+            return .min
         }
-        return Align.min
     }
 
     fileprivate func parseSimpleText(_ text: SWXMLHash.XMLElement, textAnchor: String?, fill: Fill?, stroke: Stroke?, opacity: Double, fontName: String?, fontSize: Int?, fontWeight: String?, pos: Transform = Transform()) -> Text? {
         let string = text.text
         let position = pos.move(dx: getDoubleValue(text, attribute: "x") ?? 0, dy: getDoubleValue(text, attribute: "y") ?? 0)
-
-        return Text(text: string, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .bottom, place: position, opacity: opacity, tag: getTag(text))
+        let direction = getDirection(text)
+        return Text(text: string, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .bottom, direction: direction, place: position, opacity: opacity, tag: getTag(text))
     }
 
     // REFACTOR
@@ -990,9 +990,7 @@ open class SVGParser {
             nextStringWhitespace = true
         }
         trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
-        let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                        fill: fill, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .alphabetic,
-                        place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
+        let text = Text(text: trimmedString, font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: fill, stroke: stroke, align: anchorToAlign(textAnchor), baseline: .alphabetic, place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
         collection.append(text)
         if tagRange.location >= fullString.length { // leave recursion
             return collection
@@ -1013,11 +1011,8 @@ open class SVGParser {
         let pos = getTspanPosition(element, bounds: bounds, previousCollectedTspan: previousCollectedTspan, withWhitespace: &shouldAddWhitespace)
         let text = shouldAddWhitespace ? " \(string)" : string
         let attributes = getStyleAttributes([:], element: element)
-
-        return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                    fill: (attributes[SVGKeys.fill] != nil) ? getFillColor(attributes)! : fill, stroke: stroke ?? getStroke(attributes),
-                    align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic,
-                    place: pos, opacity: getOpacity(attributes), tag: getTag(element))
+        let direction = getDirection(element)
+        return Text(text: text, font: getFont(attributes, fontName: fontName, fontWeight: fontWeight, fontSize: fontSize), fill: (attributes[SVGKeys.fill] != nil) ? getFillColor(attributes)! : fill, stroke: stroke ?? getStroke(attributes), align: anchorToAlign(textAnchor ?? getTextAnchor(attributes)), baseline: .alphabetic, direction: direction, place: pos, opacity: getOpacity(attributes), tag: getTag(element))
     }
 
     fileprivate func getFont(_ attributes: [String: String] = [:], fontName: String?, fontWeight: String?, fontSize: Int?) -> Font {
@@ -1025,6 +1020,12 @@ open class SVGParser {
             name: getFontName(attributes) ?? fontName ?? "Serif",
             size: getFontSize(attributes) ?? fontSize ?? 12,
             weight: getFontWeight(attributes) ?? fontWeight ?? "normal")
+    }
+    
+    private func getDirection(_ element: SWXMLHash.XMLElement) -> Direction {
+        let direction = element.allAttributes["direction"]?.text
+        let unicodebidi = element.allAttributes["unicode-bidi"]?.text
+        return Direction.from(direction: direction, unicodebidi: unicodebidi)
     }
 
     fileprivate func getTspanPosition(_ element: SWXMLHash.XMLElement, bounds: Rect, previousCollectedTspan: Node?, withWhitespace: inout Bool) -> Transform {
@@ -1594,7 +1595,7 @@ open class SVGParser {
             return Shape(form: shape.form, fill: shape.fill, stroke: shape.stroke, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let text = referenceNode as? Text {
-            return Text(text: text.text, font: text.font, fill: text.fill, stroke: text.stroke, align: text.align, baseline: text.baseline, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
+            return Text(text: text.text, font: text.font, fill: text.fill, stroke: text.stroke, align: text.align, baseline: text.baseline, direction: text.direction, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)
         }
         if let image = referenceNode as? Image {
             return Image(src: image.src, xAlign: image.xAlign, yAlign: image.yAlign, aspectRatio: image.aspectRatio, w: image.w, h: image.h, place: pos, opaque: opaque, clip: clip, visible: visible, tag: tag)

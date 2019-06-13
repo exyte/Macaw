@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 public enum Direction {
     case lre

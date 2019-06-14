@@ -8,24 +8,24 @@ public enum Direction {
 }
 
 extension Direction {
-    
+
     var attributedStringValue: NSArray {
         switch self {
         case .lre:
-            return [NSNumber(integerLiteral: 0)]
+            return [NSNumber(value: 0)]
         case .rle:
-            return [NSNumber(integerLiteral: 1)]
+            return [NSNumber(value: 1)]
         case .lro:
-            return [NSNumber(integerLiteral: 2)]
+            return [NSNumber(value: 2)]
         case .rlo:
-            return [NSNumber(integerLiteral: 3)]
+            return [NSNumber(value: 3)]
         }
     }
-    
+
     static func from(direction: String?, unicodebidi: String?) -> Direction {
         let direction = direction ?? "ltr"
         let unicodebidi = unicodebidi ?? "normal"
-        
+
         switch (direction, unicodebidi) {
         case ("ltr", "bidi-override"):
             return .lro

@@ -1021,7 +1021,7 @@ open class SVGParser {
             size: getFontSize(attributes) ?? fontSize ?? 12,
             weight: getFontWeight(attributes) ?? fontWeight ?? "normal")
     }
-    
+
     private func getDirection(_ element: SWXMLHash.XMLElement) -> Direction {
         let direction = element.allAttributes["direction"]?.text
         let unicodebidi = element.allAttributes["unicode-bidi"]?.text

@@ -47,7 +47,7 @@ open class Text: Node {
         get { return kerningVar.value }
         set(val) { kerningVar.value = val }
     }
-    
+
     public let directionVar: Variable<Direction>
     open var direction: Direction {
         get { return directionVar.value }
@@ -62,13 +62,13 @@ open class Text: Node {
         self.baselineVar = Variable<Baseline>(baseline)
         self.kerningVar = Variable<Float>(kerning)
         self.directionVar = Variable<Direction>(direction)
-        
+
         if direction == .rle || direction == .rlo {
             self.alignVar = Variable<Align>(align.reverse())
         } else {
             self.alignVar = Variable<Align>(align)
         }
-        
+
         super.init(
             place: place,
             opaque: opaque,

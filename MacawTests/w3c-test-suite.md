@@ -10,12 +10,12 @@ There are [521 SVG tests](https://github.com/web-platform-tests/wpt/tree/master/
 * [switch/object](https://www.w3.org/TR/SVG11/backward.html) (7)
 
 The rest 306 tests can be split into following categories:
-* 38.6% passed (118)
+* 40.2% passed (123)
 * 14.1% filters (43) [#390](https://github.com/exyte/Macaw/issues/390)
 * 8.5% images (26) [wpt issue](https://github.com/web-platform-tests/wpt/issues/11178) 
 * 2.6% markers (8) [#392](https://github.com/exyte/Macaw/issues/392)
-* 20.6% text (63) [#391](https://github.com/exyte/Macaw/issues/391) 
-* 15.7% blocked by issues (48)
+* 19.0% text (58) [#391](https://github.com/exyte/Macaw/issues/391) 
+* 14.1% blocked by issues (43)
 
 Status of each test:
 
@@ -289,23 +289,23 @@ Status of each test:
 |[text-bidi-01-t-manual](w3cSVGTests/text-bidi-01-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-deco-01-b-manual](w3cSVGTests/text-deco-01-b-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-fonts-01-t-manual](w3cSVGTests/text-fonts-01-t-manual.svg)       | ✅                                                 |
-|[text-fonts-02-t-manual](w3cSVGTests/text-fonts-02-t-manual.svg)       | ✅                                                 |
+|[text-fonts-02-t-manual](w3cSVGTests/text-fonts-02-t-manual.svg)       |  ✅                                                 |
 |[text-fonts-03-t-manual](w3cSVGTests/text-fonts-03-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-fonts-04-t-manual](w3cSVGTests/text-fonts-04-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-fonts-05-f-manual](w3cSVGTests/text-fonts-05-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-fonts-202-t-manual](w3cSVGTests/text-fonts-202-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-fonts-203-t-manual](w3cSVGTests/text-fonts-203-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-fonts-204-t-manual](w3cSVGTests/text-fonts-204-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
-|[text-intro-01-t-manual](w3cSVGTests/text-intro-01-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
-|[text-intro-02-b-manual](w3cSVGTests/text-intro-02-b-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
+|[text-intro-01-t-manual](w3cSVGTests/text-intro-01-t-manual.svg)       | ✅                                                 |
+|[text-intro-02-b-manual](w3cSVGTests/text-intro-02-b-manual.svg)       | ✅                                                 |
 |[text-intro-03-b-manual](w3cSVGTests/text-intro-03-b-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
-|[text-intro-04-t-manual](w3cSVGTests/text-intro-04-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
+|[text-intro-04-t-manual](w3cSVGTests/text-intro-04-t-manual.svg)       | ✅                                                 |
 |[text-intro-05-t-manual](w3cSVGTests/text-intro-05-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-intro-06-t-manual](w3cSVGTests/text-intro-06-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-intro-07-t-manual](w3cSVGTests/text-intro-07-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
-|[text-intro-09-b-manual](w3cSVGTests/text-intro-09-b-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
+|[text-intro-09-b-manual](w3cSVGTests/text-intro-09-b-manual.svg)       | ✅                                                 |
 |[text-intro-10-f-manual](w3cSVGTests/text-intro-10-f-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
-|[text-intro-11-t-manual](w3cSVGTests/text-intro-11-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
+|[text-intro-11-t-manual](w3cSVGTests/text-intro-11-t-manual.svg)       | ✅                                                 |
 |[text-intro-12-t-manual](w3cSVGTests/text-intro-12-t-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-path-01-b-manual](w3cSVGTests/text-path-01-b-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |
 |[text-path-02-b-manual](w3cSVGTests/text-path-02-b-manual.svg)       | [#391](https://github.com/exyte/Macaw/issues/391)                                         |

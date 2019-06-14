@@ -19,7 +19,7 @@ class MacawSVGTests: XCTestCase {
     
     private let testFolderName = "MacawTestOutputData"
     private let shouldComparePNGImages = true
-    private let multipleTestsWillRun = false
+    private let multipleTestsWillRun = true
     private let shouldSaveFaildedTestImage = false
     
     override func setUp() {
@@ -812,6 +812,26 @@ class MacawSVGTests: XCTestCase {
     
     func testMaskingMask02() {
         validateJSON("masking-mask-02-f-manual")
+    }
+    
+    func testTextIntro01() {
+        validateJSON("text-intro-01-t-manual")
+    }
+    
+    func testTextIntro02() {
+        validateJSON("text-intro-02-b-manual")
+    }
+    
+    func testTextIntro04() {
+        validateJSON("text-intro-04-t-manual")
+    }
+    
+    func testTextIntro09() {
+        validateJSON("text-intro-09-b-manual")
+    }
+    
+    func testTextIntro11() {
+        validateJSON("text-intro-11-t-manual")
     }
     
     func getImage(from svgName: String) -> MImage {

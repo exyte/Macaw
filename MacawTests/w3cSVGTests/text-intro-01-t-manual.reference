@@ -1,0 +1,212 @@
+{
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "align" : "min",
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 40,
+            "weight" : "normal"
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 5, 40",
+          "text" : "Test left-to-right text."
+        },
+        {
+          "contents" : [
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, Georgia, 'Arial Hebrew', 'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 75",
+              "text" : "Polish: Mogę jeść szkło, i mi ..."
+            },
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, Georgia, 'Arial Hebrew', 'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 110",
+              "text" : "Russian: Я могу есть стекло, ..."
+            },
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, Georgia, 'Arial Hebrew', 'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 145",
+              "text" : "Greek: Μπορώ να φάω ..."
+            },
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, Georgia, 'Arial Hebrew', 'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 180",
+              "text" : "Hebrew: אני יכול לאכול זכוכית ... "
+            },
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, Georgia, 'Arial Hebrew', 'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 215",
+              "text" : "Yiddish: איך קען עסן גלאָז און ..."
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, 'MS Song', SimHei,'LucidaSansUnicode', 'Arial Unicode MS'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 250",
+              "text" : "Chinese:我能吞下玻璃而不伤身体。"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "contents" : [
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "MissingInAction, 'MS-Gothic','LucidaSansUnicode', 'Arial Unicode MS'",
+                "size" : 17,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 285",
+              "text" : "Japanese: 私はガラスを食べます。"
+            }
+          ],
+          "node" : "Group"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "align" : "min",
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.9 $"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
+      "stroke" : {
+        "cap" : "butt",
+        "dashes" : [
+
+        ],
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "join" : "miter",
+        "width" : 1
+      }
+    }
+  ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
+  "node" : "Canvas"
+}

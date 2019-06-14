@@ -19,7 +19,7 @@ class MacawSVGTests: XCTestCase {
     
     private let testFolderName = "MacawTestOutputData"
     private let shouldComparePNGImages = true
-    private let multipleTestsWillRun = false
+    private let multipleTestsWillRun = true
     private let shouldSaveFaildedTestImage = true
     
     override func setUp() {

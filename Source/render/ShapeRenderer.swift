@@ -193,7 +193,7 @@ class ShapeRenderer: NodeRenderer {
         }
 
         let tileImage = renderer.renderToImage(bounds: viewBox, inset: 0)
-        ctx?.concatenate(pattern.position.toCG())
+        ctx?.concatenate(pattern.place.toCG())
         ctx?.clip()
         ctx?.draw(tileImage.cgImage!, in: patternBounds.toCG(), byTiling: true)
     }

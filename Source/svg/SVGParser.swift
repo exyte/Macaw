@@ -392,7 +392,7 @@ open class SVGParser {
             contentUserSpace = false
         }
 
-        let position = getPatternPosition(element)
+        let place = getPatternPlace(element)
 
         var contentNode: Node?
         if pattern.children.isEmpty {
@@ -414,7 +414,7 @@ open class SVGParser {
         }
 
         if let contentNode = contentNode {
-            return UserSpacePattern(content: contentNode, bounds: bounds, viewBox: viewBox, userSpace: userSpace, contentUserSpace: contentUserSpace, position: position)
+            return UserSpacePattern(content: contentNode, bounds: bounds, viewBox: viewBox, userSpace: userSpace, contentUserSpace: contentUserSpace, place: place)
         }
         return .none
     }
@@ -439,7 +439,7 @@ open class SVGParser {
         return parseTransformationAttribute(transformAttribute)
     }
 
-    fileprivate func getPatternPosition(_ element: SWXMLHash.XMLElement) -> Transform {
+    fileprivate func getPatternPlace(_ element: SWXMLHash.XMLElement) -> Transform {
         guard let transformAttribute = element.allAttributes["patternTransform"]?.text else {
             return .identity
         }
@@ -692,14 +692,14 @@ open class SVGParser {
     fileprivate func getPatternFill(pattern: UserSpacePattern, locus: Locus?) -> Pattern {
         if pattern.userSpace == false && pattern.contentUserSpace == true {
             let tranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: pattern.bounds, absoluteLocus: locus!)
-            return Pattern(content: pattern.content, bounds: pattern.bounds.applying(tranform), viewBox: pattern.viewBox, userSpace: true, position: pattern.position)
+            return Pattern(content: pattern.content, bounds: pattern.bounds.applying(tranform), viewBox: pattern.viewBox, userSpace: true, place: pattern.place)
         }
         if pattern.userSpace == true && pattern.contentUserSpace == false {
             if let patternNode = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: locus!) {
-                return Pattern(content: patternNode, bounds: pattern.bounds, viewBox: pattern.viewBox, userSpace: pattern.userSpace, position: pattern.position)
+                return Pattern(content: patternNode, bounds: pattern.bounds, viewBox: pattern.viewBox, userSpace: pattern.userSpace, place: pattern.place)
             }
         }
-        return Pattern(content: pattern.content, bounds: pattern.bounds, viewBox: pattern.viewBox, userSpace: true, position: pattern.position)
+        return Pattern(content: pattern.content, bounds: pattern.bounds, viewBox: pattern.viewBox, userSpace: true, place: pattern.place)
     }
 
     fileprivate func getStroke(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Stroke? {
@@ -1945,15 +1945,15 @@ fileprivate class UserSpacePattern {
     let bounds: Rect
     let userSpace: Bool
     let contentUserSpace: Bool
-    let position: Transform
+    let place: Transform
 
-    init(content: Node, bounds: Rect, viewBox: Rect = Rect(x: 0, y: 0, w: 0, h: 0), userSpace: Bool = false, contentUserSpace: Bool = true, position: Transform = .identity) {
+    init(content: Node, bounds: Rect, viewBox: Rect = Rect(x: 0, y: 0, w: 0, h: 0), userSpace: Bool = false, contentUserSpace: Bool = true, place: Transform = .identity) {
         self.viewBox = viewBox
         self.content = content
         self.bounds = bounds
         self.userSpace = userSpace
         self.contentUserSpace = contentUserSpace
-        self.position = position
+        self.place = place
     }
 }
 

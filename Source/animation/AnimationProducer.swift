@@ -243,12 +243,6 @@ class AnimationProducer {
 
         let startDate = Date(timeInterval: contentsAnimation.delay, since: Date())
 
-        var unionBounds = contentsAnimation.getVFunc()(0.0).group().bounds
-        stride(from: 0.0, to: 1.0, by: 0.2).forEach { progress in
-            let t = animation.easing.progressFor(time: progress)
-            unionBounds = unionBounds?.union(rect: contentsAnimation.getVFunc()(t).group().bounds!)
-        }
-
         let animationDesc = ContentAnimationDesc(
             animation: contentsAnimation,
             startDate: Date(),

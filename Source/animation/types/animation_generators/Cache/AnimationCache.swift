@@ -51,9 +51,6 @@ class AnimationUtils {
             // Clip
             if let clip = AbsoluteUtils.absoluteClip(renderer) {
                 let maskLayer = CAShapeLayer()
-                let origPath = clip.toCGPath()
-                var offsetTransform = CGAffineTransform(translationX: 0, y: 0)
-                let clipPath = origPath.mutableCopy(using: &offsetTransform)
                 maskLayer.path = clip.toCGPath()
                 layer.mask = maskLayer
             }

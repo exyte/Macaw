@@ -1,11 +1,34 @@
 import XCTest
+
+#if os(OSX)
+@testable import MacawOSX
+#elseif os(iOS)
 @testable import Macaw
+#endif
 
 class MacawSVGTests: XCTestCase {
+    
+    /*
+     When test are running, if shouldSaveFaildedTestImage set to true, result images will be saved into MacawTestOutputData folder in documents.
+     
+     Also, there is no way to detect that multiple test will runs.
+     In this case, when all MacawSVGTests will be performed, set multipleTestsWillRun to true, then all test images will be saved to the folder.
+     
+     Then, if you want to investigate one particular test result, set multipleTestsWillRun to false and test folder will be deleted before new test will run.
+     */
+    
+    private let testFolderName = "MacawTestOutputData"
+    private let shouldComparePNGImages = true
+    private let multipleTestsWillRun = false
+    private let shouldSaveFaildedTestImage = false
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         super.setUp()
+        
+        if shouldSaveFaildedTestImage {
+            setupTestFolderDirectory()
+        }
     }
     
     override func tearDown() {
@@ -25,8 +48,7 @@ class MacawSVGTests: XCTestCase {
                 XCTFail("No file \(referenceFile)")
             }
         } catch {
-            print(error)
-            XCTFail()
+            XCTFail(error.localizedDescription)
         }
     }
     
@@ -36,8 +58,7 @@ class MacawSVGTests: XCTestCase {
             let node = try SVGParser.parse(resource: testResource, fromBundle: bundle)
             validate(node: node, referenceFile: testResource)
         } catch {
-            print(error)
-            XCTFail()
+            XCTFail(error.localizedDescription)
         }
     }
 
@@ -59,8 +80,7 @@ class MacawSVGTests: XCTestCase {
             let path = bundle.bundlePath + "/" + name + ".reference"
             try result.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
         } catch {
-            print(error)
-            XCTFail()
+            XCTFail(error.localizedDescription)
         }
     }
     
@@ -105,10 +125,13 @@ class MacawSVGTests: XCTestCase {
     func testSVGImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
         if let path = bundle.path(forResource: "small-logo", ofType: "png") {
-            if let mimage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mimage)?.base64EncodedString() {
-                let node = Image(image: mimage)
-                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"59.0\" height=\"43.0\" /></svg>"
-                XCTAssertEqual(SVGSerializer.serialize(node: node), imageReferenceContent)
+            if let mImage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mImage)?.base64EncodedString() {
+                let imageSize = mImage.size
+                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"\(imageSize.width)\" height=\"\(imageSize.height)\" /></svg>"
+                
+                let node = Image(image: mImage)
+                let imageSerialization = SVGSerializer.serialize(node: node)
+                XCTAssertEqual(imageSerialization, imageReferenceContent)
             }
         }
     }
@@ -174,10 +197,18 @@ class MacawSVGTests: XCTestCase {
                 let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
                 
                 if nodeContent != referenceContent {
-                    let referencePath = writeToFile(string: referenceContent, fileName: referenceFile + "_reference.txt")
-                    let _ = writeToFile(string: nodeContent!, fileName: referenceFile + "_incorrect.txt")
-                    XCTFail("Not equal, see both files in \(String(describing: referencePath?.deletingLastPathComponent().path))")
+                    XCTFail("nodeContent is not equal to referenceContent")
                 }
+                
+                let nativeImage = getImage(from: referenceFile)
+            
+                //To save new PNG image for test, uncomment this
+                //saveImage(image: nativeImage, fileName: referenceFile)
+                #if os(OSX)
+                if shouldComparePNGImages {
+                    validateImage(nodeImage: nativeImage, referenceFile: referenceFile)
+                }
+                #endif
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -193,6 +224,53 @@ class MacawSVGTests: XCTestCase {
             validateJSON(node: node, referenceFile: testResource)
         } catch {
             XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func validateImage(nodeImage: MImage, referenceFile: String) {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        
+        guard let fullpath = bundle.path(forResource: referenceFile, ofType: "png"), let referenceImage = MImage(contentsOfFile: fullpath) else {
+            XCTFail("No reference image \(referenceFile)")
+            return
+        }
+        
+        #if os(OSX)
+        guard let referenceContentData = referenceImage.tiffRepresentation else {
+            XCTFail("Failed to get Data from png \(referenceFile).png")
+            return
+        }
+        
+        guard let nodeContentData = nodeImage.tiffRepresentation else {
+            XCTFail("Failed to get Data from reference image \(referenceFile)")
+            return
+        }
+        #endif
+        
+        #if os(iOS)
+        guard let referenceContentData = referenceImage.pngData() else {
+            XCTFail("Failed to get Data from png \(referenceFile).png")
+            return
+        }
+        
+        guard  let nodeContentData = nodeImage.pngData() else {
+            XCTFail("Failed to get Data from reference image \(referenceFile)")
+            return
+        }
+        #endif
+        
+        if referenceContentData != nodeContentData {
+            
+            var failInfo = "referenceContentData is not equal to nodeContentData"
+            
+            if shouldSaveFaildedTestImage {
+                let _ = saveImage(image: referenceImage, fileName: referenceFile + "_reference")
+                let _ = saveImage(image: nodeImage, fileName: referenceFile + "_incorrect")
+                
+                failInfo.append("\n Images are saved in \(testFolderName) folder in Documents directory")
+            }
+            
+            XCTFail(failInfo)
         }
     }
 
@@ -214,11 +292,21 @@ class MacawSVGTests: XCTestCase {
             return Data()
         }
         do {
+            #if os(OSX)
+            if #available(OSX 10.13, *) {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
+            } else {
+                return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
+            }
+            #endif
+            
+            #if os(iOS)
             if #available(iOS 11.0, *) {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
             } else {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: .prettyPrinted)
             }
+            #endif
         } catch {
             XCTFail(error.localizedDescription)
             return Data()
@@ -240,15 +328,16 @@ class MacawSVGTests: XCTestCase {
     }
 
     func writeToFile(data: Data, fileName: String) -> URL? {
-        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
-            return .none
+        guard let documentDirectory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL,
+            let testDirectory = documentDirectory.appendingPathComponent(testFolderName) else {
+                return .none
         }
         do {
-            let path = directory.appendingPathComponent("\(fileName)")!
-            try data.write(to: URL(fileURLWithPath: fileName))
+            let path = testDirectory.appendingPathComponent("\(fileName)")
+            try data.write(to: path)
             return path
         } catch {
-            print(error.localizedDescription)
+            XCTFail(error.localizedDescription)
             return .none
         }
     }
@@ -546,7 +635,11 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testColorProp04() {
+        #if os(iOS)
         validateJSON("color-prop-04-t-manual")
+        #elseif os(OSX)
+        validateJSON("color-prop-04-t-manual-osx")
+        #endif
     }
     
     func testTypesBasic01() {
@@ -652,6 +745,10 @@ class MacawSVGTests: XCTestCase {
     func testPathsData10() {
         validateJSON("paths-data-10-t-manual")
     }
+
+    func testShapesGrammar01() {
+        validateJSON("shapes-grammar-01-f-manual")
+    }
     
     func testPserversGrad01() {
         validateJSON("pservers-grad-01-b-manual")
@@ -661,23 +758,118 @@ class MacawSVGTests: XCTestCase {
         validateJSON("pservers-grad-02-b-manual")
     }
     
+    func testPserversGrad03() {
+        validateJSON("pservers-grad-03-b-manual")
+    }
+    
     func testPserversGrad07() {
         validateJSON("pservers-grad-07-b-manual")
     }
-
-    func testShapesGrammar01() {
-        validateJSON("shapes-grammar-01-f-manual")
+    
+    func testPserversGrad09() {
+        validateJSON("pservers-grad-09-b-manual")
     }
-
-    func testMaskingPath02() {
-        validateJSON("masking-path-02-b-manual")
+    
+    func testPserversGrad12() {
+        validateJSON("pservers-grad-12-b-manual")
+    }
+    
+    func testPserversGrad13() {
+        validateJSON("pservers-grad-13-b-manual")
+    }
+    
+    func testPserversGrad15() {
+        validateJSON("pservers-grad-15-b-manual")
+    }
+    
+    func testPserversGrad22() {
+        validateJSON("pservers-grad-22-b-manual")
+    }
+    
+    func testPserversGrad23() {
+        validateJSON("pservers-grad-23-f-manual")
+    }
+    
+    func testPserversGrad24() {
+        validateJSON("pservers-grad-24-f-manual")
     }
     
     func testMaskingIntro01() {
         validateJSON("masking-intro-01-f-manual")
     }
-
-    func testPserversGrad03() {
-        validateJSON("pservers-grad-03-b-manual")
+    
+    func testMaskingFilter01() {
+        validateJSON("masking-filter-01-f-manual")
     }
+    
+    func testMaskingPath02() {
+        validateJSON("masking-path-02-b-manual")
+    }
+    
+    func testMaskingPath13() {
+        validateJSON("masking-path-13-f-manual")
+    }
+    
+    func testMaskingMask02() {
+        validateJSON("masking-mask-02-f-manual")
+    }
+    
+    func getImage(from svgName: String) -> MImage {
+        let bundle = Bundle(for: type(of: TestUtils()))
+        do {
+            let node = try SVGParser.parse(resource: svgName, fromBundle: bundle)
+            
+            var frame = node.bounds
+            if frame == nil, let group = node as? Group {
+                frame = Group(contents: group.contents).bounds
+            }
+            
+            let image = node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
+            return image
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+        
+        XCTFail()
+        return MImage()
+    }
+    
+    func saveImage(image: MImage, fileName: String) {
+        #if os(OSX)
+        guard let data = image.tiffRepresentation else {
+            return
+        }
+        #endif
+        
+        #if os(iOS)
+        guard let data = image.pngData() else {
+            return
+        }
+        #endif
+        
+        let _ = writeToFile(data: data, fileName: "\(fileName).png")
+    }
+    
+    fileprivate func setupTestFolderDirectory() {
+        guard let myDocuments = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        let testDirectoryPath = myDocuments.appendingPathComponent("\(testFolderName)")
+        
+        do {
+            if !multipleTestsWillRun {
+                try FileManager.default.removeItem(at: testDirectoryPath)
+            }
+            
+            var isDirectory: ObjCBool = ObjCBool(true)
+            if !FileManager.default.fileExists(atPath: testDirectoryPath.absoluteString, isDirectory: &isDirectory) {
+                try FileManager.default.createDirectory(at: testDirectoryPath, withIntermediateDirectories: true, attributes: .none)
+            }
+        } catch {
+            XCTFail(error.localizedDescription)
+            return
+        }
+    }
+
 }

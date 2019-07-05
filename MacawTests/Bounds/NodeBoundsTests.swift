@@ -6,13 +6,16 @@
 //  Copyright © 2017 Exyte. All rights reserved.
 //
 
-#if os(iOS)
-
 import XCTest
+
+#if os(OSX)
+@testable import MacawOSX
+#elseif os(iOS)
 @testable import Macaw
+#endif
 
 class NodeBoundsTests: XCTestCase {
-    var window: UIWindow!
+    var window: MWindow!
     
     //TO DO: need to test paths bounds: M 50 50 C 20 20, 40 20, 50 10 and M 50 50 c 20 20, 40 20, 50 10
     //currently doesn't work because of http://www.openradar.me/6468254639 or #41355347 on https://bugreport.apple.com/
@@ -20,7 +23,7 @@ class NodeBoundsTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        window = UIWindow()
+        window = MWindow()
     }
     
     override func tearDown() {
@@ -317,5 +320,3 @@ class NodeBoundsTests: XCTestCase {
         validate(node: shape, referenceBounds: targetRect)
     }
 }
-
-#endif

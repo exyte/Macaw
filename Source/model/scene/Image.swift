@@ -150,7 +150,7 @@ open class Image: Node {
         }
 
         // Base64 image
-        let decodableFormat = ["image/png", "image/jpg"]
+        let decodableFormat = ["image/png", "image/jpg", "image/svg+xml"]
         for format in decodableFormat {
             let prefix = "data:\(format);base64,"
             if src.hasPrefix(prefix) {
@@ -163,6 +163,10 @@ open class Image: Node {
             }
         }
 
+        #if os(iOS)
         return MImage(named: src)
+        #elseif os(OSX)
+        return MImage(contentsOfFile: src)
+        #endif
     }
 }

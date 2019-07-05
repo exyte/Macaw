@@ -12,6 +12,7 @@ import Foundation
 import Cocoa
 import Quartz
 
+public typealias MWindow = NSWindow
 public typealias MFont = NSFont
 public typealias MFontDescriptor = NSFontDescriptor
 public typealias MColor = NSColor
@@ -173,6 +174,13 @@ extension CGContext {
         set(newValue) {
             CGContextScale._scale = newValue
         }
+    }
+}
+
+extension NSWindow {
+
+    func addSubview(_ subview: NSView) {
+        contentView?.addSubview(subview)
     }
 }
 

@@ -574,4 +574,12 @@ class RenderUtils {
             ctx.addPath(locus.toCGPath())
         }
     }
+
+    internal class func setClip(_ clip: Locus?, ctx: CGContext) {
+        if let rect = clip as? Rect {
+            ctx.clip(to: CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
+        } else if let clip = clip {
+            RenderUtils.toBezierPath(clip).addClip()
+        }
+    }
 }

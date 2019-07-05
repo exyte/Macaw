@@ -55,7 +55,16 @@ open class Group: Node {
     }
 
     override open var bounds: Rect? {
-        return BoundsUtils.getNodesBounds(contents)
+        let bounds = BoundsUtils.getNodesBounds(contents)
+        if let bounds = bounds?.toCG(),
+            let clip = self.clip?.bounds().toCG() {
+            let newX = max(bounds.minX, clip.minX)
+            let newY = max(bounds.minY, clip.minY)
+            return CGRect(x: newX, y: newY,
+                          width: min(bounds.maxX, clip.maxX) - newX,
+                          height: min(bounds.maxY, clip.maxY) - newY).toMacaw()
+        }
+        return bounds
     }
 
     override func shouldCheckForPressed() -> Bool {

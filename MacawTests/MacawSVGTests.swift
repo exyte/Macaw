@@ -176,6 +176,7 @@ class MacawSVGTests: XCTestCase {
                 if nodeContent != referenceContent {
                     let referencePath = writeToFile(string: referenceContent, fileName: referenceFile + "_reference.txt")
                     let _ = writeToFile(string: nodeContent!, fileName: referenceFile + "_incorrect.txt")
+                    print(nodeContent)
                     XCTFail("Not equal, see both files in \(String(describing: referencePath?.deletingLastPathComponent().path))")
                 }
             } else {

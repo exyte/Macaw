@@ -137,19 +137,7 @@ public extension Node {
 
     func toNativeImage(size: Size, layout: ContentLayout = .of()) -> MImage {
         let renderer = RenderUtils.createNodeRenderer(self, view: nil)
-        let rect = size.rect()
-
-        MGraphicsBeginImageContextWithOptions(size.toCG(), false, 1)
-        let ctx = MGraphicsGetCurrentContext()!
-        ctx.clear(rect.toCG())
-
-        let transform = LayoutHelper.calcTransform(self, layout, size)
-        ctx.concatenate(transform.toCG())
-        renderer.render(in: ctx, force: false, opacity: self.opacity)
-
-        let img = MGraphicsGetImageFromCurrentImageContext()
-        MGraphicsEndImageContext()
-        return img!
+        return renderer.renderToImage(bounds: size.rect())
     }
 
 }

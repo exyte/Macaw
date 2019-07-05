@@ -637,10 +637,8 @@ class LayoutHelper {
     }
 
     private func setSize(size: Size) {
-        if let prevSize = prevSize {
-            if prevSize == size {
-                return
-            }
+        if let prevSize = prevSize, prevSize == size {
+            return
         }
         prevSize = size
         prevRect = nil

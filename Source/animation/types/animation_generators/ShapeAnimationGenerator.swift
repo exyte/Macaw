@@ -14,7 +14,7 @@ import UIKit
 import AppKit
 #endif
 
-func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer?, completion: @escaping (() -> Void)) {
     guard let shapeAnimation = animation as? ShapeAnimation else {
         return
     }
@@ -23,74 +23,56 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
         return
     }
 
+    let transactionsDisabled = CATransaction.disableActions()
+    CATransaction.setDisableActions(true)
+
     let fromShape = shapeAnimation.getVFunc()(0.0)
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    let mutatingShape = SceneUtils.shapeCopy(from: fromShape)
-    renderer.replaceNode(with: mutatingShape)
-
-    guard let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false) else {
-        return
-    }
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false)
 
     // Creating proper animation
-    let generatedAnim = generateShapeAnimation(context,
-                                               from: mutatingShape,
-                                               to: toShape,
-                                               animation: shapeAnimation,
-                                               duration: duration,
-                                               renderTransform: layer.renderTransform!)
+    let generatedAnimation = generateShapeAnimation(context,
+                                                    from: fromShape,
+                                                    to: toShape,
+                                                    animation: shapeAnimation,
+                                                    duration: duration)
 
-    generatedAnim.repeatCount = Float(animation.repeatCount)
-    generatedAnim.timingFunction = caTimingFunction(animation.easing)
-    generatedAnim.autoreverses = animation.autoreverses
+    generatedAnimation.repeatCount = Float(animation.repeatCount)
+    generatedAnimation.timingFunction = caTimingFunction(animation.easing)
+    generatedAnimation.autoreverses = animation.autoreverses
 
-    generatedAnim.completion = { finished in
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
+
+    generatedAnimation.completion = { finished in
 
         animation.progress = animation.manualStop ? 0.0 : 1.0
 
         if !animation.autoreverses && finished {
-            mutatingShape.form = toShape.form
-            mutatingShape.stroke = toShape.stroke
-            mutatingShape.fill = toShape.fill
+            shape.form = toShape.form
+            shape.stroke = toShape.stroke
+            shape.fill = toShape.fill
         }
 
         if !finished {
             animation.progress = 0.0
-            mutatingShape.form = fromShape.form
-            mutatingShape.stroke = fromShape.stroke
-            mutatingShape.fill = fromShape.fill
+            shape.form = fromShape.form
+            shape.stroke = fromShape.stroke
+            shape.fill = fromShape.fill
         }
 
-        animationCache?.freeLayer(renderer)
+        renderer.freeLayer()
 
         if !animation.cycled && !animation.manualStop {
             animation.completion?()
         }
 
         completion()
-    }
-
-    generatedAnim.progress = { progress in
-
-        let t = Double(progress)
-
-        if !animation.autoreverses {
-            let currentShape = shapeAnimation.getVFunc()(t)
-            mutatingShape.place = currentShape.place
-            mutatingShape.opaque = currentShape.opaque
-            mutatingShape.opacity = currentShape.opacity
-            mutatingShape.clip = currentShape.clip
-            mutatingShape.mask = currentShape.mask
-            mutatingShape.effect = currentShape.effect
-            mutatingShape.form = currentShape.form
-            mutatingShape.stroke = currentShape.stroke
-            mutatingShape.fill = currentShape.fill
-        }
-
-        animation.progress = t
-        animation.onProgressUpdate?(t)
     }
 
     layer.path = fromShape.form.toCGPath()
@@ -121,21 +103,23 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     }
 
     let animationId = animation.ID
-    layer.add(generatedAnim, forKey: animationId)
+    layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
         layer?.removeAnimation(forKey: animationId)
     }
+
+    if !transactionsDisabled {
+        CATransaction.commit()
+    }
 }
 
-fileprivate func generateShapeAnimation(_ context: AnimationContext, from: Shape, to: Shape, animation: ShapeAnimation, duration: Double, renderTransform: CGAffineTransform) -> CAAnimation {
+fileprivate func generateShapeAnimation(_ context: AnimationContext, from: Shape, to: Shape, animation: ShapeAnimation, duration: Double) -> CAAnimation {
 
     let group = CAAnimationGroup()
 
-    // Shape
     // Path
-    var transform = renderTransform
-    let fromPath = from.form.toCGPath().copy(using: &transform)
-    let toPath = to.form.toCGPath().copy(using: &transform)
+    let fromPath = from.form.toCGPath()
+    let toPath = to.form.toCGPath()
 
     let pathAnimation = CABasicAnimation(keyPath: "path")
     pathAnimation.fromValue = fromPath
@@ -145,16 +129,12 @@ fileprivate func generateShapeAnimation(_ context: AnimationContext, from: Shape
     group.animations = [pathAnimation]
 
     // Transform
-    let scaleAnimation = CABasicAnimation(keyPath: "transform")
-    scaleAnimation.duration = duration
-    let parentPos = AnimationUtils.absolutePosition(animation.nodeRenderer?.parentRenderer, context)
-    let fromPos = parentPos.concat(with: from.place)
-    let toParentPos = animation.toParentGlobalTransfrom
-    let toPos = toParentPos.concat(with: to.place)
-    scaleAnimation.fromValue = CATransform3DMakeAffineTransform(fromPos.toCG())
-    scaleAnimation.toValue = CATransform3DMakeAffineTransform(toPos.toCG())
+    let transformAnimation = CABasicAnimation(keyPath: "transform")
+    transformAnimation.duration = duration
+    transformAnimation.fromValue = CATransform3DMakeAffineTransform(from.place.toCG())
+    transformAnimation.toValue = CATransform3DMakeAffineTransform(to.place.toCG())
 
-    group.animations?.append(scaleAnimation)
+    group.animations?.append(transformAnimation)
 
     // Fill
     let fromFillColor = from.fill as? Color ?? Color.clear

@@ -6,12 +6,16 @@ import UIKit
 
 class GroupRenderer: NodeRenderer {
 
-    weak var group: Group?
+    var group: Group
     var renderers: [NodeRenderer] = []
 
-    init(group: Group, view: MacawView?, animationCache: AnimationCache?) {
+    override var node: Node {
+        return group
+    }
+
+    init(group: Group, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.group = group
-        super.init(node: group, view: view, animationCache: animationCache)
+        super.init(node: group, view: view, parentRenderer: parentRenderer)
         updateRenderers()
     }
 
@@ -22,23 +26,23 @@ class GroupRenderer: NodeRenderer {
     override func doAddObservers() {
         super.doAddObservers()
 
-        guard let group = group else {
-            return
-        }
-
         group.contentsVar.onChange { [weak self] _ in
             self?.updateRenderers()
         }
         observe(group.contentsVar)
     }
 
-    override func node() -> Node? {
-        return group
+    override func freeCachedAbsPlace() {
+        for renderer in renderers {
+            renderer.freeCachedAbsPlace()
+        }
     }
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         renderers.forEach { renderer in
-            renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
+            if !renderer.isAnimating() {
+                renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
+            }
         }
     }
 
@@ -60,17 +64,12 @@ class GroupRenderer: NodeRenderer {
     private func updateRenderers() {
 
         renderers.forEach {
-            animationCache?.freeLayerHard($0)
             $0.dispose()
         }
         renderers.removeAll()
 
-        if let updatedRenderers = group?.contents.compactMap ({ child -> NodeRenderer? in
-            let childRenderer = RenderUtils.createNodeRenderer(child, view: view, animationCache: animationCache)
-            childRenderer.parentRenderer = self
-            return childRenderer
-        }) {
-            renderers = updatedRenderers
+        renderers = group.contents.compactMap { child -> NodeRenderer? in
+            return RenderUtils.createNodeRenderer(child, view: view, parentRenderer: self)
         }
 
         var parent: NodeRenderer = self
@@ -78,13 +77,5 @@ class GroupRenderer: NodeRenderer {
             parent = parentRenderer
         }
         parent.calculateZPositionRecursively()
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Group {
-            group = node
-        }
     }
 }

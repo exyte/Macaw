@@ -7,27 +7,23 @@ import AppKit
 #endif
 
 class TextRenderer: NodeRenderer {
-    weak var text: Text?
+    var text: Text
 
-    init(text: Text, view: MacawView?, animationCache: AnimationCache?) {
+    override var node: Node {
+        return text
+    }
+
+    init(text: Text, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.text = text
-        super.init(node: text, view: view, animationCache: animationCache)
+        super.init(node: text, view: view, parentRenderer: parentRenderer)
     }
 
     deinit {
         dispose()
     }
 
-    override func node() -> Node? {
-        return text
-    }
-
     override func doAddObservers() {
         super.doAddObservers()
-
-        guard let text = text else {
-            return
-        }
 
         observe(text.textVar)
         observe(text.fontVar)
@@ -39,9 +35,6 @@ class TextRenderer: NodeRenderer {
     }
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let text = text else {
-            return
-        }
 
         let message = text.text
         let font = getMFont()
@@ -78,7 +71,7 @@ class TextRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
-        guard let node = node(), let contains = node.bounds?.toCG().contains(path.location) else {
+        guard let contains = node.bounds?.toCG().contains(path.location) else {
             return .none
         }
 
@@ -95,7 +88,7 @@ class TextRenderer: NodeRenderer {
             // However it is needed for the Swift Package Manager to work accordingly.
             return MFont()
         }
-        guard let text = text, let textFont = text.font else {
+        guard let textFont = text.font else {
             return MFont.systemFont(ofSize: MFont.mSystemFontSize)
         }
 
@@ -130,9 +123,6 @@ class TextRenderer: NodeRenderer {
     }
 
     fileprivate func getBounds(_ font: MFont) -> CGRect {
-        guard let text = text else {
-            return .zero
-        }
 
         var textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
         if text.kerning != 0.0 {
@@ -181,13 +171,5 @@ class TextRenderer: NodeRenderer {
 
         }
         return MColor.black
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Text {
-            text = node
-        }
     }
 }

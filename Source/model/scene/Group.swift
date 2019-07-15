@@ -55,7 +55,16 @@ open class Group: Node {
     }
 
     override open var bounds: Rect? {
-        return BoundsUtils.getNodesBounds(contents)
+        let bounds = BoundsUtils.getNodesBounds(contents)
+        if let bounds = bounds?.toCG(),
+            let clip = self.clip?.bounds().toCG() {
+            let newX = max(bounds.minX, clip.minX)
+            let newY = max(bounds.minY, clip.minY)
+            return Rect(Double(newX), Double(newY),
+                        Double(min(bounds.maxX, clip.maxX) - newX),
+                        Double(min(bounds.maxY, clip.maxY) - newY))
+        }
+        return bounds
     }
 
     override func shouldCheckForPressed() -> Bool {

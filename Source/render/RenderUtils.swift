@@ -16,19 +16,15 @@ class RenderUtils {
         return p
     }
 
-    class func createNodeRenderer(
-        _ node: Node,
-        view: MacawView?,
-        animationCache: AnimationCache?
-        ) -> NodeRenderer {
+    class func createNodeRenderer(_ node: Node, view: MacawView?, parentRenderer: GroupRenderer? = nil) -> NodeRenderer {
         if let group = node as? Group {
-            return GroupRenderer(group: group, view: view, animationCache: animationCache)
+            return GroupRenderer(group: group, view: view, parentRenderer: parentRenderer)
         } else if let shape = node as? Shape {
-            return ShapeRenderer(shape: shape, view: view, animationCache: animationCache)
+            return ShapeRenderer(shape: shape, view: view, parentRenderer: parentRenderer)
         } else if let text = node as? Text {
-            return TextRenderer(text: text, view: view, animationCache: animationCache)
+            return TextRenderer(text: text, view: view, parentRenderer: parentRenderer)
         } else if let image = node as? Image {
-            return ImageRenderer(image: image, view: view, animationCache: animationCache)
+            return ImageRenderer(image: image, view: view, parentRenderer: parentRenderer)
         }
         fatalError("Unsupported node: \(node)")
     }
@@ -576,6 +572,14 @@ class RenderUtils {
             ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
         } else {
             ctx.addPath(locus.toCGPath())
+        }
+    }
+
+    internal class func setClip(_ clip: Locus?, ctx: CGContext) {
+        if let rect = clip as? Rect {
+            ctx.clip(to: CGRect(x: rect.x, y: rect.y, width: rect.w, height: rect.h))
+        } else if let clip = clip {
+            RenderUtils.toBezierPath(clip).addClip()
         }
     }
 }

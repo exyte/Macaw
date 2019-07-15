@@ -6,92 +6,101 @@ import UIKit
 import AppKit
 #endif
 
-class AnimationCache {
+class AnimationUtils {
 
-    class CachedLayer {
-        let layer: ShapeLayer
-        let animation: Animation
-        var linksCounter = 1
+    class func layerForNodeRenderer(_ renderer: NodeRenderer, _ context: AnimationContext, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
 
-        required init(layer: ShapeLayer, animation: Animation) {
-            self.layer = layer
-            self.animation = animation
-        }
-    }
-
-    weak var sceneLayer: CALayer?
-    var layerCache = [NodeRenderer: CachedLayer]()
-
-    required init(sceneLayer: CALayer) {
-        self.sceneLayer = sceneLayer
-    }
-
-    func layerForNodeRenderer(_ renderer: NodeRenderer, _ context: AnimationContext, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
-
-        guard let node = renderer.node() else {
-            return ShapeLayer()
+        let node = renderer.node
+        if let cachedLayer = renderer.layer {
+            cachedLayer.rootLayer.transform = CATransform3DMakeAffineTransform(uncachedParentsPlace(renderer).toCG())
+            cachedLayer.animationLayer.opacity = Float(node.opacity)
+            return cachedLayer.animationLayer
         }
 
-        if let cachedLayer = layerCache[renderer] {
-            cachedLayer.linksCounter += 1
-            return cachedLayer.layer
-        }
+        // 'sublayer' is for actual CAAnimations, and 'layer' is for manual transforming and hierarchy changes
+        let sublayer = ShapeLayer()
+        sublayer.shouldRenderContent = shouldRenderContent
 
         let layer = ShapeLayer()
-        layer.shouldRenderContent = shouldRenderContent
-        layer.animationCache = self
+        layer.addSublayer(sublayer)
+        layer.masksToBounds = false
 
         // Use to debug animation layers
-        // layer.backgroundColor = MColor.green.cgColor
-        // layer.borderWidth = 1.0
-        // layer.borderColor = MColor.blue.cgColor
+        //        sublayer.backgroundColor = MColor.green.cgColor
+        //        sublayer.borderWidth = 2.0
+        //        sublayer.borderColor = MColor.red.cgColor
+        //        layer.backgroundColor = MColor.blue.cgColor
+        //        layer.borderWidth = 2.0
+        //        layer.borderColor = MColor.cyan.cgColor
 
         let calculatedBounds = customBounds ?? node.bounds
         if let shapeBounds = calculatedBounds {
             let cgRect = shapeBounds.toCG()
 
-            let origFrame = CGRect(x: 0.0, y: 0.0,
-                                   width: cgRect.width,
-                                   height: cgRect.height)
-
-            layer.bounds = origFrame
-            layer.anchorPoint = CGPoint(
+            let anchorPoint = CGPoint(
                 x: -1.0 * cgRect.origin.x / cgRect.width,
                 y: -1.0 * cgRect.origin.y / cgRect.height
             )
+
+            layer.bounds = cgRect
+            sublayer.bounds = cgRect
+            layer.anchorPoint = anchorPoint
+            sublayer.anchorPoint = anchorPoint
             layer.zPosition = CGFloat(renderer.zPosition)
 
-            layer.renderTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
-
-            let nodeTransform = AnimationUtils.absolutePosition(renderer, context).toCG()
-            layer.transform = CATransform3DMakeAffineTransform(nodeTransform)
-
             // Clip
-            if let clip = AnimationUtils.absoluteClip(renderer) {
+            if let clip = AbsoluteUtils.absoluteClip(renderer) {
                 let maskLayer = CAShapeLayer()
-                let origPath = clip.toCGPath()
-                var offsetTransform = CGAffineTransform(translationX: -1.0 * cgRect.origin.x, y: -1.0 * cgRect.origin.y)
-                let clipPath = origPath.mutableCopy(using: &offsetTransform)
-                maskLayer.path = clipPath
+                maskLayer.path = clip.toCGPath()
                 layer.mask = maskLayer
             }
         }
 
-        layer.opacity = Float(node.opacity)
-        layer.renderer = renderer
+        sublayer.opacity = Float(node.opacity)
+        sublayer.renderer = renderer
+        sublayer.contentsScale = calculateAnimationScale(animation: animation)
+        sublayer.setNeedsDisplay()
 
-        layer.contentsScale = calculateAnimationScale(animation: animation)
+        // find first parent with cached layer
+        var parent: NodeRenderer? = renderer.parentRenderer
+        var parentCachedLayer: CALayer? = renderer.sceneLayer
+        while parent != nil {
+            if let parent = parent {
+                if let cached = parent.layer {
+                    parentCachedLayer = cached.animationLayer
+                    break
+                }
+            }
+            parent = parent?.parentRenderer
+        }
+        layer.transform = CATransform3DMakeAffineTransform(uncachedParentsPlace(renderer).toCG())
+        sublayer.transform = CATransform3DMakeAffineTransform(node.place.toCG())
+        parentCachedLayer?.addSublayer(layer)
+        parentCachedLayer?.setNeedsDisplay()
 
-        layer.setNeedsDisplay()
-        sceneLayer?.addSublayer(layer)
+        renderer.layer = CachedLayer(rootLayer: layer, animationLayer: sublayer)
 
-        layerCache[renderer] = CachedLayer(layer: layer, animation: animation)
-        sceneLayer?.setNeedsDisplay()
+        // move children to new layer
+        for child in renderer.getAllChildrenRecursive() {
+            if let cachedChildLayer = child.layer, let parentCachedLayer = parentCachedLayer {
+                parentCachedLayer.sublayers?.forEach { childLayer in
+                    if childLayer === cachedChildLayer.rootLayer {
 
-        return layer
+                        childLayer.removeFromSuperlayer()
+                        childLayer.transform = CATransform3DMakeAffineTransform(uncachedParentsPlace(child).toCG())
+                        sublayer.addSublayer(childLayer)
+                        sublayer.setNeedsDisplay()
+                    }
+                }
+            }
+        }
+
+        renderer.sceneLayer?.setNeedsDisplay()
+
+        return sublayer
     }
 
-    private func calculateAnimationScale(animation: Animation) -> CGFloat {
+    class private func calculateAnimationScale(animation: Animation) -> CGFloat {
         guard let defaultScale = MMainScreen()?.mScale else {
             return 1.0
         }
@@ -129,107 +138,77 @@ class AnimationCache {
         return defaultScale * CGFloat(sqrt(maxArea))
     }
 
-    func freeLayerHard(_ renderer: NodeRenderer) {
-        guard let cachedLayer = layerCache[renderer] else {
-            return
-        }
-
-        let layer = cachedLayer.layer
-        layerCache.removeValue(forKey: renderer)
-        sceneLayer?.setNeedsDisplay()
-        layer.removeFromSuperlayer()
-    }
-
-    func freeLayer(layer: ShapeLayer) {
-        var cached: CachedLayer?
-        var renderer: NodeRenderer?
-        layerCache.forEach { key, value in
-            if value.layer === layer {
-                cached = value
-                renderer = key
+    class func uncachedParentsPlace(_ renderer: NodeRenderer) -> Transform {
+        var parent: NodeRenderer? = renderer.parentRenderer
+        var uncachedParentsPlace = Transform.identity
+        while parent != nil {
+            if let parent = parent {
+                if parent.layer != nil {
+                    break
+                }
+                uncachedParentsPlace = uncachedParentsPlace.concat(with: parent.node.place)
             }
+            parent = parent?.parentRenderer
         }
-        guard let cachedLayer = cached, let nodeRenderer = renderer else {
-            return
-        }
+        return uncachedParentsPlace
+    }
+}
 
-        cachedLayer.linksCounter -= 1
+extension Node {
 
-        if cachedLayer.linksCounter != 0 {
-            return
-        }
-
-        let layer = cachedLayer.layer
-        layerCache.removeValue(forKey: nodeRenderer)
-        sceneLayer?.setNeedsDisplay()
-        layer.removeFromSuperlayer()
+    func isAnimating() -> Bool {
+        return !animations.filter { $0.state() == AnimationState.running }.isEmpty
     }
 
-    func freeLayer(_ renderer: NodeRenderer) {
-        guard let cachedLayer = layerCache[renderer] else {
-            return
-        }
+    func needsLayer() -> Bool {
+        return !animations.filter { $0.state() == AnimationState.running || $0.state() == AnimationState.initial }.isEmpty
+    }
+}
 
-        cachedLayer.linksCounter -= 1
+extension NodeRenderer {
 
-        if cachedLayer.linksCounter != 0 {
-            return
-        }
-
-        let layer = cachedLayer.layer
-        layerCache.removeValue(forKey: renderer)
-        sceneLayer?.setNeedsDisplay()
-        layer.removeFromSuperlayer()
+    func isAnimating() -> Bool {
+        return layer != nil
     }
 
-    func isAnimating(_ node: Node) -> Bool {
+    func freeLayer() {
 
-        let renderer = layerCache.keys.first { $0.node() === node }
-        if let renderer = renderer, let _ = layerCache[renderer] {
-            return true
+        let nodeRenderer = self
+        guard let layer = nodeRenderer.layer, !node.needsLayer() else {
+            return
         }
+        nodeRenderer.layer = nil
 
-        return false
-    }
-
-    func isChildrenAnimating(_ group: Group) -> Bool {
-
-        for child in group.contents {
-            if isAnimating(child) {
-                return true
+        // find first parent with cached layer
+        var parent: NodeRenderer? = nodeRenderer.parentRenderer
+        var parentCachedLayer: CALayer? = nodeRenderer.sceneLayer
+        while parent != nil {
+            if let parent = parent, let cached = parent.layer {
+                parentCachedLayer = cached.animationLayer
+                break
             }
+            parent = parent?.parentRenderer
+        }
 
-            if let childGroup = child as? Group {
-                return isChildrenAnimating(childGroup)
+        // move children to closest parent layer
+        for child in nodeRenderer.getAllChildrenRecursive() {
+            if let cachedChildLayer = child.layer, let parentCachedLayer = parentCachedLayer {
+                layer.animationLayer.sublayers?.forEach { childLayer in
+                    if childLayer === cachedChildLayer.rootLayer {
+                        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+                        childLayer.removeFromSuperlayer()
+                        childLayer.transform = CATransform3DMakeAffineTransform(AnimationUtils.uncachedParentsPlace(child).toCG())
+                        parentCachedLayer.addSublayer(childLayer)
+                        childLayer.setNeedsDisplay()
+                        CATransaction.commit()
+                    }
+                }
             }
         }
 
-        return false
-    }
-
-    func containsAnimation(_ node: Node) -> Bool {
-        if isAnimating(node) {
-            return true
-        }
-
-        if let group = node as? Group {
-            return isChildrenAnimating(group)
-        }
-
-        return false
-    }
-
-    func animations() -> [Animation] {
-
-        return layerCache.map { $0.1.animation }
-    }
-
-    func replace(original: NodeRenderer, replacement: NodeRenderer) {
-        guard let layer = layerCache[original] else {
-            return
-        }
-
-        layerCache[replacement] = layer
-        layerCache.removeValue(forKey: original)
+        layer.animationLayer.removeFromSuperlayer()
+        layer.rootLayer.removeFromSuperlayer()
+        parentCachedLayer?.setNeedsDisplay()
+        sceneLayer?.setNeedsDisplay()
     }
 }

@@ -8,27 +8,23 @@ import AppKit
 
 class ShapeRenderer: NodeRenderer {
 
-    weak var shape: Shape?
+    var shape: Shape
 
-    init(shape: Shape, view: MacawView?, animationCache: AnimationCache?) {
+    init(shape: Shape, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.shape = shape
-        super.init(node: shape, view: view, animationCache: animationCache)
+        super.init(node: shape, view: view, parentRenderer: parentRenderer)
     }
 
     deinit {
         dispose()
     }
 
-    override func node() -> Node? {
+    override var node: Node {
         return shape
     }
 
     override func doAddObservers() {
         super.doAddObservers()
-
-        guard let shape = shape else {
-            return
-        }
 
         observe(shape.formVar)
         observe(shape.fillVar)
@@ -36,9 +32,6 @@ class ShapeRenderer: NodeRenderer {
     }
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let shape = shape else {
-            return
-        }
         if shape.fill == nil && shape.stroke == nil {
             return
         }
@@ -61,10 +54,6 @@ class ShapeRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
-        guard let shape = shape else {
-            return .none
-        }
-
         RenderUtils.setGeometry(shape.form, ctx: ctx)
         var drawingMode: CGPathDrawingMode?
         if let stroke = shape.stroke {
@@ -172,14 +161,11 @@ class ShapeRenderer: NodeRenderer {
     }
 
     fileprivate func drawPattern(_ pattern: Pattern, ctx: CGContext?, opacity: Double) {
-        guard let shape = shape else {
-            return
-        }
         var patternNode = pattern.content
         if !pattern.userSpace, let node = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form) {
             patternNode = node
         }
-        let renderer = RenderUtils.createNodeRenderer(patternNode, view: view, animationCache: animationCache)
+        let renderer = RenderUtils.createNodeRenderer(patternNode, view: view)
 
         var patternBounds = pattern.bounds
         if !pattern.userSpace {
@@ -237,14 +223,6 @@ class ShapeRenderer: NodeRenderer {
             ctx!.drawRadialGradient(cgGradient!, startCenter: innerCenter, startRadius: 0, endCenter: outerCenter, endRadius: radius, options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
         }
         ctx!.restoreGState()
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Shape {
-            shape = node
-        }
     }
 
 }

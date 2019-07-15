@@ -10,27 +10,73 @@ enum ColoringMode {
     case rgb, greyscale, alphaOnly
 }
 
+class CachedLayer {
+    let rootLayer: ShapeLayer
+    let animationLayer: ShapeLayer
+
+    required init(rootLayer: ShapeLayer, animationLayer: ShapeLayer) {
+        self.rootLayer = rootLayer
+        self.animationLayer = animationLayer
+    }
+}
+
 class NodeRenderer {
 
     weak var view: MacawView?
-    weak var parentRenderer: NodeRenderer?
-    internal var zPosition: Int = 0
+    var sceneLayer: CALayer? {
+        return view?.mLayer
+    }
+    var layer: CachedLayer?
+    var zPosition: Int = 0
+
+    let parentRenderer: GroupRenderer?
 
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
-    weak var animationCache: AnimationCache?
 
-    init(node: Node, view: MacawView?, animationCache: AnimationCache?) {
-        self.view = view
-        self.animationCache = animationCache
+    fileprivate var cachedAbsPlace: Transform?
+    fileprivate var absPlace: Transform {
+        if let place = cachedAbsPlace {
+            return place
+        }
 
-        onNodeChange = { [unowned node, weak view] in
-            guard let isAnimating = animationCache?.isAnimating(node) else {
-                return
+        if let place = parentRenderer?.absPlace.concat(with: node.place) {
+            cachedAbsPlace = place
+            return place
+        }
+
+        return node.place
+    }
+
+    func freeCachedAbsPlace() {
+        cachedAbsPlace = nil
+    }
+
+    public func place(in relativity: Relativity = .parent) -> Transform {
+        switch relativity {
+        case .parent:
+            return node.place
+        case .scene:
+            return absPlace
+        case .view:
+            if let viewPlace = view?.place {
+                return viewPlace.concat(with: absPlace)
             }
+            return absPlace
+        }
+    }
 
-            if isAnimating {
+    open var node: Node {
+        fatalError("Unsupported")
+    }
+
+    init(node: Node, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
+        self.view = view
+        self.parentRenderer = parentRenderer
+
+        onNodeChange = { [weak view] in
+            if node.isAnimating() {
                 return
             }
 
@@ -45,10 +91,6 @@ class NodeRenderer {
     }
 
     func doAddObservers() {
-        guard let node = node() else {
-            return
-        }
-
         observe(node.placeVar)
         observe(node.opaqueVar)
         observe(node.opacityVar)
@@ -56,6 +98,10 @@ class NodeRenderer {
         observe(node.effectVar)
 
         node.animationObservers.append(self)
+
+        node.placeVar.onChange { [weak self] _ in
+            self?.freeCachedAbsPlace()
+        }
     }
 
     func observe<E>(_ v: Variable<E>) {
@@ -72,20 +118,14 @@ class NodeRenderer {
 
     open func dispose() {
         removeObservers()
-        node()?.animationObservers = node()?.animationObservers.filter { !($0 as? NodeRenderer === self) } ?? []
-    }
-
-    open func node() -> Node? {
-        fatalError("Unsupported")
+        node.animationObservers = node.animationObservers.filter { !($0 as? NodeRenderer === self) }
+        freeLayer()
     }
 
     final public func render(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         context.saveGState()
         defer {
             context.restoreGState()
-        }
-        guard let node = node() else {
-            return
         }
         let newOpacity = node.opacity * opacity
 
@@ -133,11 +173,7 @@ class NodeRenderer {
     }
 
     final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, coloringMode: ColoringMode = .rgb) {
-        guard let node = node() else {
-            return
-        }
-
-        if let isAnimating = animationCache?.isAnimating(node), isAnimating {
+        if isAnimating() {
             self.removeObservers()
             if !force {
                 return
@@ -166,7 +202,7 @@ class NodeRenderer {
     }
 
     fileprivate func applyEffects(_ effects: [Effect], context: CGContext, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let node = node(), let bounds = node.bounds else {
+        guard let bounds = node.bounds else {
             return
         }
         var inset: Double = 0
@@ -232,54 +268,44 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    final func findNodeAt(parentNodePath: NodePath, ctx: CGContext) -> NodePath? {
-        guard let node = node() else {
+    final func findNodeAt(location: CGPoint, ctx: CGContext) -> NodePath? {
+        guard node.opaque, let inverted = node.place.invert() else {
             return .none
         }
 
-        if node.opaque {
-            let place = node.place
-            if let inverted = place.invert() {
-                ctx.saveGState()
-                defer {
-                    ctx.restoreGState()
-                }
-
-                ctx.concatenate(place.toCG())
-                applyClip(in: ctx)
-                let loc = parentNodePath.location.applying(inverted.toCG())
-                let path = NodePath(node: node, location: loc, parent: parentNodePath)
-                let result = doFindNodeAt(path: path, ctx: ctx)
-                return result
-            }
+        ctx.saveGState()
+        defer {
+            ctx.restoreGState()
         }
-        return .none
+
+        ctx.concatenate(node.place.toCG())
+        applyClip(in: ctx)
+        let loc = location.applying(inverted.toCG())
+        let path = NodePath(node: node, location: loc)
+        let result = doFindNodeAt(path: path, ctx: ctx)
+        return result
+    }
+
+    final func findNodeAt(parentNodePath: NodePath, ctx: CGContext) -> NodePath? {
+        guard node.opaque, let inverted = node.place.invert() else {
+            return .none
+        }
+
+        ctx.saveGState()
+        defer {
+            ctx.restoreGState()
+        }
+
+        ctx.concatenate(node.place.toCG())
+        applyClip(in: ctx)
+        let loc = parentNodePath.location.applying(inverted.toCG())
+        let path = NodePath(node: node, location: loc, parent: parentNodePath)
+        let result = doFindNodeAt(path: path, ctx: ctx)
+        return result
     }
 
     public func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
         return nil
-    }
-
-    func replaceNode(with replacementNode: Node) {
-        guard let node = node() else {
-            return
-        }
-
-        if let groupRenderer = parentRenderer as? GroupRenderer, let group = groupRenderer.node() as? Group {
-            var contents = group.contents
-            var indexToInsert = 0
-            if let index = contents.firstIndex(of: node) {
-                contents.remove(at: index)
-                indexToInsert = index
-            }
-
-            contents.insert(replacementNode, at: indexToInsert)
-            group.contents = contents
-        }
-
-        if let hostingView = view, hostingView.node == node {
-            hostingView.node = replacementNode
-        }
     }
 
     func calculateZPositionRecursively() {
@@ -287,10 +313,6 @@ class NodeRenderer {
     }
 
     private func applyClip(in context: CGContext) {
-        guard let node = node() else {
-            return
-        }
-
         guard let clip = node.clip else {
             return
         }
@@ -309,9 +331,9 @@ class NodeRenderer {
     }
 
     private func getMaskedImage(bounds: Rect) -> CGImage {
-        let mask = node()!.mask!
+        let mask = node.mask!
         let image = renderToImage(bounds: bounds)
-        let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none, animationCache: animationCache)
+        let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none)
         let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)
         return apply(maskImage: maskImage, to: image)
     }
@@ -352,7 +374,11 @@ class NodeRenderer {
     }
 
     func getAllChildrenRecursive() -> [NodeRenderer] {
-        return getAllChildren(self)
+        var children = getAllChildren(self)
+        children.removeAll(where: { r -> Bool in
+            r === self
+        })
+        return children
     }
 
     private func getAllChildren(_ nodeRenderer: NodeRenderer) -> [NodeRenderer] {

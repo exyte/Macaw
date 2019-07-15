@@ -57,6 +57,7 @@ open class Shape: Node {
         }
 
         RenderUtils.setGeometry(self.form, ctx: ctx)
+        RenderUtils.setClip(self.clip, ctx: ctx)
 
         let point = ctx.currentPointOfPath
 

@@ -2,7 +2,7 @@ import UIKit
 
 open class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-	@IBOutlet var tableView: UITableView?
+	@IBOutlet var tableView: UITableView!
     
     fileprivate var viewControllers = [
         "FirstPageViewController",
@@ -13,7 +13,8 @@ open class MenuViewController: UIViewController, UITableViewDataSource, UITableV
         "MorphingExampleController",
         "EventsExampleController",
         "FiltersViewController",
-        "TextsViewController"
+        "TextsViewController",
+        "AnimationsHierarchyViewController"
     ].map {
         UIStoryboard(name: "Main", bundle: .none).instantiateViewController(withIdentifier: $0)
     }
@@ -23,10 +24,6 @@ open class MenuViewController: UIViewController, UITableViewDataSource, UITableV
         
         tableView?.reloadData()
     }
-
-	open func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
-	}
 
 	open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewControllers.count

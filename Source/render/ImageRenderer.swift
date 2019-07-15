@@ -9,29 +9,25 @@ import UIKit
 #endif
 
 class ImageRenderer: NodeRenderer {
-    weak var image: Image?
+    var image: Image
 
     var renderedPaths: [CGPath] = [CGPath]()
 
-    init(image: Image, view: MacawView?, animationCache: AnimationCache?) {
+    override var node: Node {
+        return image
+    }
+
+    init(image: Image, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
         self.image = image
-        super.init(node: image, view: view, animationCache: animationCache)
+        super.init(node: image, view: view, parentRenderer: parentRenderer)
     }
 
     deinit {
         dispose()
     }
 
-    override func node() -> Node? {
-        return image
-    }
-
     override func doAddObservers() {
         super.doAddObservers()
-
-        guard let image = image else {
-            return
-        }
 
         observe(image.srcVar)
         observe(image.xAlignVar)
@@ -42,9 +38,6 @@ class ImageRenderer: NodeRenderer {
     }
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
-        guard let image = image else {
-            return
-        }
 
         var mImage: MImage?
         if image.src.contains("memory") {
@@ -64,9 +57,6 @@ class ImageRenderer: NodeRenderer {
     }
 
     override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
-        guard let image = image else {
-            return .none
-        }
 
         if let mImage = MImage(named: image.src),
             let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
@@ -76,13 +66,5 @@ class ImageRenderer: NodeRenderer {
             }
         }
         return .none
-    }
-
-    override func replaceNode(with replacementNode: Node) {
-        super.replaceNode(with: replacementNode)
-
-        if let node = replacementNode as? Image {
-            image = node
-        }
     }
 }

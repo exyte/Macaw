@@ -6,7 +6,7 @@ import UIKit
 import AppKit
 #endif
 
-func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, animationCache: AnimationCache?, completion: @escaping (() -> Void)) {
+func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer?, completion: @escaping (() -> Void)) {
     guard let opacityAnimation = animation as? OpacityAnimation else {
         return
     }
@@ -14,6 +14,9 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
     guard let node = animation.node, let renderer = animation.nodeRenderer else {
         return
     }
+
+    let transactionsDisabled = CATransaction.disableActions()
+    CATransaction.setDisableActions(true)
 
     // Creating proper animation
     let generatedAnimation = opacityAnimationByFunc(opacityAnimation.getVFunc(),
@@ -23,9 +26,13 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
     generatedAnimation.repeatCount = Float(animation.repeatCount)
     generatedAnimation.timingFunction = caTimingFunction(animation.easing)
 
-    generatedAnimation.completion = { finished in
+    generatedAnimation.progress = { progress in
+        let t = Double(progress)
+        animation.progress = t
+        animation.onProgressUpdate?(t)
+    }
 
-        animationCache?.freeLayer(renderer)
+    generatedAnimation.completion = { finished in
 
         if animation.paused {
             animation.pausedProgress += animation.progress
@@ -40,6 +47,8 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
             node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
         }
 
+        renderer.freeLayer()
+
         if  !animation.cycled &&
             !animation.manualStop &&
             !animation.paused {
@@ -49,21 +58,15 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
         completion()
     }
 
-    generatedAnimation.progress = { progress in
-
-        let t = Double(progress)
-        node.opacityVar.value = opacityAnimation.getVFunc()(t)
-
-        animation.progress = t
-        animation.onProgressUpdate?(t)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation)
+    let animationId = animation.ID
+    layer.add(generatedAnimation, forKey: animationId)
+    animation.removeFunc = { [weak layer] in
+        layer?.removeAnimation(forKey: animationId)
     }
 
-    if let renderer = animation.nodeRenderer, let layer = animationCache?.layerForNodeRenderer(renderer, context, animation: animation) {
-        let animationId = animation.ID
-        layer.add(generatedAnimation, forKey: animationId)
-        animation.removeFunc = { [weak layer] in
-            layer?.removeAnimation(forKey: animationId)
-        }
+    if !transactionsDisabled {
+        CATransaction.commit()
     }
 }
 

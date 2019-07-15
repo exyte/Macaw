@@ -22,7 +22,16 @@ enum AnimationType {
 
 class BasicAnimation: Animation {
 
-    weak var node: Node?
+    weak var node: Node? {
+        didSet {
+            node?.animations.append(self)
+            if let group = node as? Group {
+                for node in group.contents {
+                    node.animations.append(self)
+                }
+            }
+        }
+    }
     weak var nodeRenderer: NodeRenderer?
     var type = AnimationType.unknown
     let ID: String

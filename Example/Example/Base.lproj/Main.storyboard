@@ -383,5 +383,38 @@
             </objects>
             <point key="canvasLocation" x="-113" y="1196"/>
         </scene>
+        <!--AnimationsHierarchy-->
+        <scene sceneID="8bU-7m-OgE">
+            <objects>
+                <viewController storyboardIdentifier="AnimationsHierarchyViewController" title="Animations Hierarchy" id="T46-H6-N3f" userLabel="AnimationsHierarchy" customClass="AnimationsHierarchyViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F0r-c7-NMQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="MiP-PT-hkh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ONf-4d-IZ5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WpG-iW-4sM" customClass="MacawView" customModule="Macaw">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WpG-iW-4sM" firstAttribute="top" secondItem="F0r-c7-NMQ" secondAttribute="bottom" id="IyG-gg-H9z"/>
+                            <constraint firstAttribute="trailing" secondItem="WpG-iW-4sM" secondAttribute="trailing" id="Zx6-cu-1ui"/>
+                            <constraint firstItem="WpG-iW-4sM" firstAttribute="leading" secondItem="ONf-4d-IZ5" secondAttribute="leading" id="gPb-ic-ege"/>
+                            <constraint firstItem="MiP-PT-hkh" firstAttribute="top" secondItem="WpG-iW-4sM" secondAttribute="bottom" id="iOg-aV-zFW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="animView" destination="WpG-iW-4sM" id="a3r-wa-eYi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t7f-Bd-Zcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="598" y="1194"/>
+        </scene>
     </scenes>
 </document>

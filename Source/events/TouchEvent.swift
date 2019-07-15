@@ -15,6 +15,7 @@ import AppKit
 public enum Relativity {
     case parent
     case scene
+    case view
 }
 
 class NodePath {
@@ -36,11 +37,13 @@ public struct TouchPoint {
 
     private let absoluteLocation: Point
     private let relativeLocation: Point // location inside the node
+    private let viewLocation: Point // location relative to containing view - no content layout or zoom transformations
 
-    init(id: Int, location: Point, relativeLocation: Point) {
+    init(id: Int, location: Point, relativeToNodeLocation: Point, relativeToViewLocation: Point) {
         self.id = id
         self.absoluteLocation = location
-        self.relativeLocation = relativeLocation
+        self.relativeLocation = relativeToNodeLocation
+        self.viewLocation = relativeToViewLocation
     }
 
     public func location(in relativity: Relativity = .parent) -> Point {
@@ -49,6 +52,8 @@ public struct TouchPoint {
             return relativeLocation
         case .scene:
             return absoluteLocation
+        case .view:
+            return viewLocation
         }
     }
 }

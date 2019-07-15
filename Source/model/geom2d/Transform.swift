@@ -134,6 +134,10 @@ public final class Transform {
     }
 
     public func invert() -> Transform? {
+        if m11 == 1 && m12 == 0 && m21 == 0 && m22 == 1 {
+            return .move(dx: -dx, dy: -dy)
+        }
+
         let det = self.m11 * self.m22 - self.m12 * self.m21
         if det == 0 {
             return nil

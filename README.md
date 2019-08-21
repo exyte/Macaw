@@ -1,4 +1,20 @@
-# Macaw
+<img src="https://github.com/exyte/Macaw/blob/new-demo/header.png">
+<img align="right" src="https://raw.githubusercontent.com/exyte/Macaw/new-demo/demo.gif" width="480" />
+
+<p><h1 align="left">Macaw</h1></p>
+
+<p><h4>Powerful and easy-to-use vector graphics Swift library with SVG support</h4></p>
+
+___
+
+<p> We are a development agency building
+  <a href="https://clutch.co/profile/exyte#review-731233">phenomenal</a> apps.</p>
+
+</br>
+
+<a href="https://exyte.com/contacts"><img src="https://i.imgur.com/vGjsQPt.png" width="134" height="34"></a> <a href="https://twitter.com/exyteHQ"><img src="https://i.imgur.com/DngwSn1.png" width="165" height="34"></a>
+
+</br></br>
 
 [![CI Status](https://travis-ci.org/exyte/Macaw.svg?style=flat)](https://travis-ci.org/exyte/Macaw)
 [![Version](https://img.shields.io/cocoapods/v/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
@@ -6,11 +22,10 @@
 [![License](https://img.shields.io/cocoapods/l/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 [![Platform](https://img.shields.io/cocoapods/p/Macaw.svg?style=flat)](http://cocoapods.org/pods/Macaw)
 
-<img src="https://raw.githubusercontent.com/exyte/Macaw/master/logo.png" width="400">
-
-Stay tuned on [twitter](https://twitter.com/MacawFramework) or [Instagram](https://www.instagram.com/macaw.framework/).
 
 ## What is Macaw?
+
+<img src="https://raw.githubusercontent.com/exyte/Macaw/master/logo.png" width="300">
 
 Macaw is a powerful and easy-to-use vector graphics library written in Swift.
 
@@ -103,17 +118,11 @@ To build Macaw from sources:
 Over one thousand users already utilize Macaw in their applications. We would like to prepare the list of top use cases.
 Please share your story with us at info@exyte.com and we will thank you with Macaw stickers!
 
-Follow Macaw on [twitter](https://twitter.com/MacawFramework) and [Instagram](https://www.instagram.com/macaw.framework/)
-
 <img src="https://i.imgur.com/m0pBChS.jpg" height="200">
 
 ## Change Log
 
 You can find list of all changes by version in the [Change Log](https://github.com/exyte/Macaw/wiki/Change-Log)
-
-## Author
-
-This project is maintained by [exyte](http://www.exyte.com). We design and build mobile and VR/AR applications.
 
 ## License
 

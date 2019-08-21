@@ -76,6 +76,9 @@ class NodeSerializer {
             if let baselineString = dictionary["baseline"] as? String {
                 text.baseline = baselineForString(baselineString)
             }
+            if let directionString = dictionary["direction"] as? String{
+                text.direction = directionForString(directionString)
+            }
             
             return text
         }
@@ -174,6 +177,9 @@ extension Text: Serializable {
         }
         result["align"] = align.toString()
         result["baseline"] = "\(baseline)"
+        if direction != .lre {
+            result["direction"] = "\(direction)"
+        }
         return result
     }
 }
@@ -627,5 +633,15 @@ fileprivate func baselineForString(_ string: String) -> Baseline {
     case "bottom": return .bottom
     case "mid": return .mid
     default: return .top
+    }
+}
+
+fileprivate func directionForString(_ string: String) -> Direction {
+    switch string {
+    case "lre": return .lre
+    case "lro": return .lro
+    case "rle": return .rle
+    case "rlo": return .rlo
+    default: return .lre
     }
 }

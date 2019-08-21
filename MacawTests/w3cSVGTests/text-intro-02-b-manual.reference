@@ -1,0 +1,183 @@
+{
+  "contents" : [
+    {
+      "contents" : [
+        {
+          "align" : "min",
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 17,
+            "weight" : "normal"
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 40",
+          "text" : "unicode-bidi=\"bidi-override\" direction=\"ltr\"."
+        },
+        {
+          "contents" : [
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "direction" : "lro",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 18,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 80",
+              "text" : "Text \"אני יכול לאכול זכוכית וזה לא מזיק לי\" is in Hebrew"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "align" : "min",
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 17,
+            "weight" : "normal"
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 140",
+          "text" : "unicode-bidi=\"bidi-override\" direction=\"rtl\"."
+        },
+        {
+          "contents" : [
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "direction" : "rlo",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 18,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 180",
+              "text" : "Text \"אני יכול לאכול זכוכית וזה לא מזיק לי\" is in Hebrew"
+            }
+          ],
+          "node" : "Group"
+        },
+        {
+          "align" : "min",
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 255
+          },
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 17,
+            "weight" : "normal"
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 240",
+          "text" : "unicode-bidi=\"normal\" direction=\"rtl\"."
+        },
+        {
+          "contents" : [
+            {
+              "align" : "min",
+              "baseline" : "bottom",
+              "direction" : "rle",
+              "fill" : {
+                "type" : "Color",
+                "val" : 0
+              },
+              "font" : {
+                "name" : "'Arial Unicode MS', 'LucidaSansUnicode','MS-Gothic'",
+                "size" : 18,
+                "weight" : "normal"
+              },
+              "node" : "Text",
+              "place" : "1, 0, 0, 1, 10, 280",
+              "text" : "Text \"אני יכול לאכול זכוכית וזה לא מזיק לי\" is in Hebrew"
+            }
+          ],
+          "node" : "Group"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "contents" : [
+        {
+          "align" : "min",
+          "baseline" : "bottom",
+          "fill" : {
+            "type" : "Color",
+            "val" : 0
+          },
+          "font" : {
+            "name" : "SVGFreeSansASCII,sans-serif",
+            "size" : 32,
+            "weight" : "normal"
+          },
+          "node" : "Text",
+          "place" : "1, 0, 0, 1, 10, 340",
+          "text" : "$Revision: 1.10 $"
+        }
+      ],
+      "node" : "Group"
+    },
+    {
+      "form" : {
+        "h" : 358,
+        "type" : "Rect",
+        "w" : 478,
+        "x" : 1,
+        "y" : 1
+      },
+      "node" : "Shape",
+      "stroke" : {
+        "cap" : "butt",
+        "dashes" : [
+
+        ],
+        "fill" : {
+          "type" : "Color",
+          "val" : 0
+        },
+        "join" : "miter",
+        "width" : 1
+      }
+    }
+  ],
+  "layout" : {
+    "scalingMode" : "meet",
+    "svgSize" : {
+      "height" : "100.0%",
+      "width" : "100.0%"
+    },
+    "viewBox" : {
+      "h" : 360,
+      "type" : "Rect",
+      "w" : 480,
+      "x" : 0,
+      "y" : 0
+    },
+    "xAligningMode" : "mid",
+    "yAligningMode" : "mid"
+  },
+  "node" : "Canvas"
+}

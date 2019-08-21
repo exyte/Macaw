@@ -1,5 +1,5 @@
-<img src="https://github.com/exyte/Macaw/blob/new-demo/header.png">
-<img align="right" src="https://raw.githubusercontent.com/exyte/Macaw/new-demo/demo.gif" width="480" />
+<img src="https://github.com/exyte/Macaw/blob/master/header.png">
+<img align="right" src="https://raw.githubusercontent.com/exyte/Macaw/master/demo.gif" width="480" />
 
 <p><h1 align="left">Macaw</h1></p>
 

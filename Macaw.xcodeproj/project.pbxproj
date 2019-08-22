@@ -158,7 +158,6 @@
 		57614B051F83D15600875933 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC61E2CED4B008C7C83 /* SWXMLHash.swift */; };
 		57614B071F83D15600875933 /* RenderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1421E3B393900D1CB28 /* RenderUtils.swift */; };
 		57614B081F83D15600875933 /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F11E3B393900D1CB28 /* FuncBounds.swift */; };
-		57614B091F83D15600875933 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
 		57614B0A1F83D15600875933 /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */; };
 		57614B0B1F83D15600875933 /* PathSegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12F1E3B393900D1CB28 /* PathSegmentType.swift */; };
 		57614B0C1F83D15600875933 /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E21E3B393900D1CB28 /* AnimatableVariable.swift */; };
@@ -200,9 +199,7 @@
 		57614B391F83D15600875933 /* PathBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F21E3B393900D1CB28 /* PathBounds.swift */; };
 		57614B3A1F83D15600875933 /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E51E3B393900D1CB28 /* AnimationProducer.swift */; };
 		57614B3C1F83D15600875933 /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */; };
-		57614B3D1F83D15600875933 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		57614B411F83D15600875933 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13C1E3B393900D1CB28 /* Text.swift */; };
-		57614B421F83D15600875933 /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
 		57614B431F83D15600875933 /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1411E3B393900D1CB28 /* RenderContext.swift */; };
 		57614B441F83D15600875933 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1351E3B393900D1CB28 /* Size.swift */; };
 		57614B451F83D15600875933 /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1321E3B393900D1CB28 /* Polyline.swift */; };
@@ -220,7 +217,6 @@
 		57614B511F83D15600875933 /* NodeHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F91E3B393900D1CB28 /* NodeHashable.swift */; };
 		57614B521F83D15600875933 /* GeomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1271E3B393900D1CB28 /* GeomUtils.swift */; };
 		57614B531F83D15600875933 /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14C1E3B393900D1CB28 /* CAAnimationClosure.swift */; };
-		57614B551F83D15600875933 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		57614B561F83D15600875933 /* Common_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD491F45C28F00966E06 /* Common_macOS.swift */; };
 		57614B571F83D15600875933 /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108791F53C92000DC365B /* MDisplayLink.swift */; };
 		57614B591F83D15600875933 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10A1E3B393900D1CB28 /* Event.swift */; };
@@ -670,6 +666,18 @@
 		A74C8326229EB77B0085A832 /* masking-path-13-f-manual.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C8325229EB77B0085A832 /* masking-path-13-f-manual.reference */; };
 		A74C832C229FB7690085A832 /* color-prop-04-t-manual-osx.svg in Resources */ = {isa = PBXBuildFile; fileRef = A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */; };
 		A74C832E229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference in Resources */ = {isa = PBXBuildFile; fileRef = A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */; };
+		A7B47E39230EA380009DD7E5 /* MCAShapeLayerLineJoin_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4965215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift */; };
+		A7B47E3A230EA398009DD7E5 /* MCAShapeLayerLineCap_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */; };
+		A7B47E3C230EA3E9009DD7E5 /* MCAMediaTimingFillMode_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4963215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift */; };
+		A7B47E3D230EA3F0009DD7E5 /* MCAMediaTimingFunctionName_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */; };
+		A7B47E3E230EA3F3009DD7E5 /* MCAMediaTimingFunctionName_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */; };
+		A7B47E3F230EA3F5009DD7E5 /* MCAShapeLayerLineCap_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496A215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift */; };
+		A7B47E40230EA3F7009DD7E5 /* MCAShapeLayerLineJoin_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4967215CECA400FF653C /* MCAShapeLayerLineJoin_iOS.swift */; };
+		A7B47E41230EA3FA009DD7E5 /* MCAMediaTimingFillMode_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4961215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift */; };
+		A7B47E42230EA3FC009DD7E5 /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
+		A7B47E43230EA3FF009DD7E5 /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
+		A7B47E44230EA402009DD7E5 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
+		A7B47E45230EA404009DD7E5 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
@@ -2684,10 +2692,10 @@
 				57614B031F83D15600875933 /* UIImage2Image.swift in Sources */,
 				5B6E194020AC58F900454E7E /* Stroke.swift in Sources */,
 				57614B041F83D15600875933 /* SVGParser.swift in Sources */,
+				A7B47E42230EA3FC009DD7E5 /* MDisplayLink_iOS.swift in Sources */,
 				57614B051F83D15600875933 /* SWXMLHash.swift in Sources */,
 				57614B071F83D15600875933 /* RenderUtils.swift in Sources */,
 				57614B081F83D15600875933 /* FuncBounds.swift in Sources */,
-				57614B091F83D15600875933 /* MView_iOS.swift in Sources */,
 				57614B0A1F83D15600875933 /* DoubleInterpolation.swift in Sources */,
 				57614B0B1F83D15600875933 /* PathSegmentType.swift in Sources */,
 				57614B0C1F83D15600875933 /* AnimatableVariable.swift in Sources */,
@@ -2706,6 +2714,8 @@
 				30FF4964215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				5B7D7ED421300D4A00B5ED00 /* TimingFunction.swift in Sources */,
 				5B6E193420AC58F900454E7E /* Baseline.swift in Sources */,
+				A7B47E45230EA404009DD7E5 /* Common_iOS.swift in Sources */,
+				A7B47E40230EA3F7009DD7E5 /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
 				57614B1B1F83D15600875933 /* Image.swift in Sources */,
 				57614B1C1F83D15600875933 /* TransformGenerator.swift in Sources */,
 				57614B1D1F83D15600875933 /* AnimationImpl.swift in Sources */,
@@ -2745,14 +2755,13 @@
 				585288F620AD96A2003E51D1 /* ContentLayout.swift in Sources */,
 				57614B3C1F83D15600875933 /* ShapeInterpolation.swift in Sources */,
 				5876C63322572859000B31B6 /* MacawZoom.swift in Sources */,
-				57614B3D1F83D15600875933 /* Graphics_iOS.swift in Sources */,
 				57614BDB1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
 				57614B411F83D15600875933 /* Text.swift in Sources */,
-				57614B421F83D15600875933 /* MDisplayLink_iOS.swift in Sources */,
 				5815D59E2186E89A00BD08F9 /* CSSParser.swift in Sources */,
 				57614B431F83D15600875933 /* RenderContext.swift in Sources */,
 				57614B441F83D15600875933 /* Size.swift in Sources */,
 				5B6E193220AC58F900454E7E /* LineJoin.swift in Sources */,
+				A7B47E43230EA3FF009DD7E5 /* MView_iOS.swift in Sources */,
 				5835969C20A9CA150090400C /* CGMappings.swift in Sources */,
 				57614B451F83D15600875933 /* Polyline.swift in Sources */,
 				57614B461F83D15600875933 /* ContentsAnimation.swift in Sources */,
@@ -2761,6 +2770,7 @@
 				5BFEF5CF20B80A83008DAC11 /* BlendEffect.swift in Sources */,
 				30FF496D215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift in Sources */,
 				57614B491F83D15600875933 /* MView_macOS.swift in Sources */,
+				A7B47E3F230EA3F5009DD7E5 /* MCAShapeLayerLineCap_iOS.swift in Sources */,
 				5B6E192E20AC58F900454E7E /* Font.swift in Sources */,
 				5BFEF5D120B80A83008DAC11 /* ColorMatrixEffect.swift in Sources */,
 				57614B4A1F83D15600875933 /* Easing.swift in Sources */,
@@ -2776,7 +2786,6 @@
 				5B6E194420AC58F900454E7E /* Gradient.swift in Sources */,
 				57614B531F83D15600875933 /* CAAnimationClosure.swift in Sources */,
 				5B6E194220AC58F900454E7E /* Color.swift in Sources */,
-				57614B551F83D15600875933 /* Common_iOS.swift in Sources */,
 				57614B561F83D15600875933 /* Common_macOS.swift in Sources */,
 				5BC2CA0E21C7B8F900AC46D9 /* CombinationAnimationGenerator.swift in Sources */,
 				57614B571F83D15600875933 /* MDisplayLink.swift in Sources */,
@@ -2784,10 +2793,13 @@
 				57614B5B1F83D15600875933 /* Interpolable.swift in Sources */,
 				57614B5D1F83D15600875933 /* Variable.swift in Sources */,
 				5B6E193820AC58F900454E7E /* LineCap.swift in Sources */,
+				A7B47E41230EA3FA009DD7E5 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
 				3002331D20CC0BDD00EFD92D /* BoundsUtils.swift in Sources */,
 				57614B5E1F83D15600875933 /* OpacityAnimation.swift in Sources */,
 				57614B5F1F83D15600875933 /* Touchable.swift in Sources */,
+				A7B47E3E230EA3F3009DD7E5 /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				57614B601F83D15600875933 /* Node.swift in Sources */,
+				A7B47E44230EA402009DD7E5 /* Graphics_iOS.swift in Sources */,
 				57614B611F83D15600875933 /* PanEvent.swift in Sources */,
 				57614B621F83D15600875933 /* RotateEvent.swift in Sources */,
 				57614B631F83D15600875933 /* Insets.swift in Sources */,
@@ -2820,6 +2832,7 @@
 				57E5E19E1E3B393900D1CB28 /* Group.swift in Sources */,
 				57E5E1A91E3B393900D1CB28 /* TextRenderer.swift in Sources */,
 				57E5E1B01E3B393900D1CB28 /* CGFloat+Double.swift in Sources */,
+				A7B47E39230EA380009DD7E5 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				57E5E19B1E3B393900D1CB28 /* RoundRect.swift in Sources */,
 				57900FF91EA0DEBF00809FFB /* UIImage2Image.swift in Sources */,
 				57E5E1AB1E3B393900D1CB28 /* SVGParser.swift in Sources */,
@@ -2832,6 +2845,7 @@
 				57E5E1961E3B393900D1CB28 /* PathSegmentType.swift in Sources */,
 				57E5E1531E3B393900D1CB28 /* AnimatableVariable.swift in Sources */,
 				5B6E193B20AC58F900454E7E /* Effect.swift in Sources */,
+				A7B47E3A230EA398009DD7E5 /* MCAShapeLayerLineCap_macOS.swift in Sources */,
 				57E5E1631E3B393900D1CB28 /* AnimationCache.swift in Sources */,
 				57E5E19D1E3B393900D1CB28 /* Transform.swift in Sources */,
 				A718CD4E1F45C28F00966E06 /* Graphics_macOS.swift in Sources */,
@@ -2882,6 +2896,7 @@
 				57E5E1611E3B393900D1CB28 /* PathBounds.swift in Sources */,
 				57E5E1561E3B393900D1CB28 /* AnimationProducer.swift in Sources */,
 				585288F420AD96A2003E51D1 /* ContentLayout.swift in Sources */,
+				A7B47E3D230EA3F0009DD7E5 /* MCAMediaTimingFunctionName_macOS.swift in Sources */,
 				57A27BD51E44C5840057BD3A /* ShapeInterpolation.swift in Sources */,
 				A718CD471F45C28700966E06 /* Graphics_iOS.swift in Sources */,
 				57614BDA1F8739EE00875933 /* MacawView+PDF.swift in Sources */,
@@ -2921,6 +2936,7 @@
 				57F1087A1F53C92000DC365B /* MDisplayLink.swift in Sources */,
 				5BC2CA0D21C7B8F500AC46D9 /* CombinationAnimationGenerator.swift in Sources */,
 				57E5E1741E3B393900D1CB28 /* Event.swift in Sources */,
+				A7B47E3C230EA3E9009DD7E5 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				57E5E15D1E3B393900D1CB28 /* Interpolable.swift in Sources */,
 				57E5E1731E3B393900D1CB28 /* Variable.swift in Sources */,
 				57E5E16F1E3B393900D1CB28 /* OpacityAnimation.swift in Sources */,
@@ -3175,7 +3191,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macOS";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
@@ -3200,7 +3216,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macOS";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};

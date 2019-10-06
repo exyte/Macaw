@@ -152,4 +152,20 @@ public extension Node {
         return img!
     }
 
+    func renderOn(ctx: CGContext) {
+        let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
+        renderer.render(in: ctx, force: false, opacity: self.opacity)
+        renderer.dispose() // have leaks without it
+    }
+    
+    func renderOn(ctx: CGContext, size: Size, layout: ContentLayout = .of()) {
+        let rect = size.rect()
+        ctx.clear(rect.toCG())
+        let transform = LayoutHelper.calcTransform(self, layout, size)
+        ctx.saveGState()
+        ctx.concatenate(transform.toCG())
+        renderOn(ctx: ctx)
+        ctx.restoreGState()
+    }
+
 }

@@ -136,7 +136,6 @@ public extension CGAffineTransform {
 public extension Node {
 
     func toNativeImage(size: Size, layout: ContentLayout = .of()) -> MImage {
-        let renderer = RenderUtils.createNodeRenderer(self, view: nil)
         let rect = size.rect()
 
         MGraphicsBeginImageContextWithOptions(size.toCG(), false, 1)
@@ -145,7 +144,7 @@ public extension Node {
 
         let transform = LayoutHelper.calcTransform(self, layout, size)
         ctx.concatenate(transform.toCG())
-        renderer.render(in: ctx, force: false, opacity: self.opacity)
+        rendererOn(ctx: ctx)
 
         let img = MGraphicsGetImageFromCurrentImageContext()
         MGraphicsEndImageContext()
@@ -156,16 +155,6 @@ public extension Node {
         let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
         renderer.render(in: ctx, force: false, opacity: self.opacity)
         renderer.dispose() // have leaks without it
-    }
-    
-    func renderOn(ctx: CGContext, size: Size, layout: ContentLayout = .of()) {
-        let rect = size.rect()
-        ctx.clear(rect.toCG())
-        let transform = LayoutHelper.calcTransform(self, layout, size)
-        ctx.saveGState()
-        ctx.concatenate(transform.toCG())
-        renderOn(ctx: ctx)
-        ctx.restoreGState()
     }
 
 }

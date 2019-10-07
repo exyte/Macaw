@@ -144,7 +144,7 @@ public extension Node {
 
         let transform = LayoutHelper.calcTransform(self, layout, size)
         ctx.concatenate(transform.toCG())
-        rendererOn(ctx: ctx)
+        renderOn(ctx: ctx)
 
         let img = MGraphicsGetImageFromCurrentImageContext()
         MGraphicsEndImageContext()
@@ -152,7 +152,7 @@ public extension Node {
     }
 
     func renderOn(ctx: CGContext) {
-        let renderer = RenderUtils.createNodeRenderer(self, view: nil, animationCache: nil)
+        let renderer = RenderUtils.createNodeRenderer(self, view: nil)
         renderer.render(in: ctx, force: false, opacity: self.opacity)
         renderer.dispose() // have leaks without it
     }

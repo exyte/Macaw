@@ -93,6 +93,16 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 ## Installation
 
+## [Swift Package Manager](https://swift.org/package-manager/)
+
+To install it, simply add the following to your Package.swift dependencies:
+```swift
+.package(
+	url: "https://github.com/exyte/Macaw",
+	from: Version(X, X, X)
+)
+```
+
 ## [CocoaPods](http://cocoapods.org)
 
 To install it, simply add the following line to your Podfile:

@@ -1,13 +1,13 @@
 language: swift
-osx_image: xcode10.2
+osx_image: xcode11.1
 
 branches:
     only:
     - master
 
 script:
-  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw iOS' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,OS=12.2,name=iPhone X' | xcpretty;
-  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'MacawOSX' ONLY_ACTIVE_ARCH=NO | xcpretty;
+  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,OS=12.2,name=iPhone X' | xcpretty;
+  - set -o pipefail && xcodebuild test -project Macaw.xcodeproj -scheme 'Macaw' ONLY_ACTIVE_ARCH=NO | xcpretty;
 
 
 notifications:

@@ -33,48 +33,26 @@ class MacawSVGTests: XCTestCase {
     }
 
     func validate(node: Node, referenceFile: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        
-        do {
-            if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
-                let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                let result = SVGSerializer.serialize(node: node)
-                XCTAssertEqual(result, clipReferenceContent)
-            } else {
-                XCTFail("No file \(referenceFile)")
-            }
-        } catch {
-            XCTFail(error.localizedDescription)
+        guard let url = TestUtils.getResource(group: "svg", name: referenceFile, type: "reference") else {
+            XCTFail("No reference file \(referenceFile)")
+            return
         }
+        
+        let clipReferenceContent = try! String(contentsOf: url).trimmingCharacters(in: .newlines)
+        let result = SVGSerializer.serialize(node: node)
+        
+        XCTAssertEqual(result, clipReferenceContent)
     }
     
     func validate(_ testResource: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
+        guard let url = TestUtils.getResource(group: "svg", name: testResource, type: "svg") else {
+            XCTFail("No file \(testResource)")
+            return
+        }
+        
         do {
-            let node = try SVGParser.parse(resource: testResource, fromBundle: bundle)
+            let node = try SVGParser.parse(fullPath: url.path)
             validate(node: node, referenceFile: testResource)
-        } catch {
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-    func createWithPath(_ testResourcePath: String) {
-        do {
-            let node = try SVGParser.parse(fullPath: testResourcePath)
-            let result = SVGSerializer.serialize(node: node)
-            let path = testResourcePath.replacingOccurrences(of: ".svg", with: ".reference")
-            try result.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            XCTFail(error.localizedDescription)
-        }
-    }
-
-    func createReference(node: Node, name: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        do {
-            let result = SVGSerializer.serialize(node: node)
-            let path = bundle.bundlePath + "/" + name + ".reference"
-            try result.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -119,17 +97,19 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testSVGImage() {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        if let path = bundle.path(forResource: "small-logo", ofType: "png") {
-            if let mImage = MImage(contentsOfFile: path), let base64Content = MImagePNGRepresentation(mImage)?.base64EncodedString() {
-                let imageSize = mImage.size
-                let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"\(imageSize.width)\" height=\"\(imageSize.height)\" /></svg>"
-                
-                let node = Image(image: mImage)
-                let imageSerialization = SVGSerializer.serialize(node: node)
-                XCTAssertEqual(imageSerialization, imageReferenceContent)
-            }
+        guard let url = TestUtils.getResource(group: "svg", name: "small-logo", type: "png"),
+              let mImage = MImage(contentsOf: url),
+              let base64Content = MImagePNGRepresentation(mImage)?.base64EncodedString() else {
+            XCTFail()
+            return
         }
+            
+        let imageSize = mImage.size
+        let imageReferenceContent = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"  ><image    xlink:href=\"data:image/png;base64,\(String(base64Content))\" width=\"\(imageSize.width)\" height=\"\(imageSize.height)\" /></svg>"
+        
+        let node = Image(image: mImage)
+        let imageSerialization = SVGSerializer.serialize(node: node)
+        XCTAssertEqual(imageSerialization, imageReferenceContent)
     }
     
     func testViewBox() {
@@ -185,38 +165,37 @@ class MacawSVGTests: XCTestCase {
     }
     
     func validateJSON(node: Node, referenceFile: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        do {
-            if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
-                let referenceContent = try String(contentsOfFile: path)
-                
-                let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
-                
-                if nodeContent != referenceContent {
-                    XCTFail("nodeContent is not equal to referenceContent")
-                }
-                
-                let nativeImage = getImage(from: referenceFile)
-            
-                //To save new PNG image for test, uncomment this
-                //saveImage(image: nativeImage, fileName: referenceFile)
-                #if os(OSX)
-                if shouldComparePNGImages {
-                    validateImage(nodeImage: nativeImage, referenceFile: referenceFile)
-                }
-                #endif
-            } else {
-                XCTFail("No file \(referenceFile)")
-            }
-        } catch {
-            XCTFail(error.localizedDescription)
+ 
+        guard let url = TestUtils.getResource(group: "w3cSVG", name: referenceFile, type: "reference") else {
+            XCTFail("No file \(referenceFile)")
+            return
         }
+        
+        let referenceContent = try! String(contentsOf: url)
+        
+        let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
+        
+        XCTAssertEqual(nodeContent, referenceContent)
+        
+        let nativeImage = getImage(from: referenceFile)
+    
+        //To save new PNG image for test, uncomment this
+        //saveImage(image: nativeImage, fileName: referenceFile)
+        #if os(OSX)
+        if shouldComparePNGImages {
+            validateImage(nodeImage: nativeImage, referenceFile: referenceFile)
+        }
+        #endif
     }
     
     func validateJSON(_ testResource: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
+        guard let url = TestUtils.getResource(group: "w3cSVG", name: testResource, type: "svg") else {
+            XCTFail("No file \(testResource)")
+            return
+        }
+        
         do {
-            let node = try SVGParser.parse(resource: testResource, fromBundle: bundle)
+            let node = try SVGParser.parse(fullPath: url.path)
             validateJSON(node: node, referenceFile: testResource)
         } catch {
             XCTFail(error.localizedDescription)
@@ -224,9 +203,8 @@ class MacawSVGTests: XCTestCase {
     }
     
     func validateImage(nodeImage: MImage, referenceFile: String) {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        
-        guard let fullpath = bundle.path(forResource: referenceFile, ofType: "png"), let referenceImage = MImage(contentsOfFile: fullpath) else {
+
+        guard let url = TestUtils.getResource(group: "png", name: referenceFile, type: "png"), let referenceImage = MImage(contentsOf: url) else {
             XCTFail("No reference image \(referenceFile)")
             return
         }
@@ -267,18 +245,6 @@ class MacawSVGTests: XCTestCase {
             }
             
             XCTFail(failInfo)
-        }
-    }
-
-    func createJSON(_ testResourcePath: String) {
-        do {
-            let bundle = Bundle(for: type(of: TestUtils()))
-            let node = try SVGParser.parse(resource: testResourcePath, fromBundle: bundle)
-            let fileName = testResourcePath + ".reference"
-            let jsonData = getJSONData(node: node)
-            print("New reference file in \(String(writeToFile(data: jsonData, fileName: fileName)!.path))")
-        } catch {
-            XCTFail(error.localizedDescription)
         }
     }
 
@@ -811,23 +777,27 @@ class MacawSVGTests: XCTestCase {
     }
     
     func getImage(from svgName: String) -> MImage {
-        let bundle = Bundle(for: type(of: TestUtils()))
+        var image = MImage()
+        
+        guard let url = TestUtils.getResource(group: "w3cSVG", name: svgName, type: "svg") else {
+            XCTFail()
+            return image
+        }
+        
         do {
-            let node = try SVGParser.parse(resource: svgName, fromBundle: bundle)
+            let node = try SVGParser.parse(fullPath: url.path)
             
             var frame = node.bounds
             if frame == nil, let group = node as? Group {
                 frame = Group(contents: group.contents).bounds
             }
             
-            let image = node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
-            return image
+            image = node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
         } catch {
             XCTFail(error.localizedDescription)
         }
         
-        XCTFail()
-        return MImage()
+        return image
     }
     
     func saveImage(image: MImage, fileName: String) {

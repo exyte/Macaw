@@ -1,7 +1,5 @@
 import Foundation
 
-@testable import Macaw
-
 class TestUtils {
 
 	class func compareWithReferenceObject(_ fileName: String, referenceObject: AnyObject) -> Bool {
@@ -19,5 +17,20 @@ class TestUtils {
 		}
 		return result
 	}
-
+    
+    // MARK: - Resources
+    static func getResource(group: String, name: String, type: String) -> URL? {
+        let resourceURL = resourcesFolder
+            .appendingPathComponent(group)
+            .appendingPathComponent("\(name).\(type)", isDirectory: false)
+        return resourceURL
+    }
+    
+    static let resourcesFolder: URL = {
+        let sourceFile = #file // this file must be in the root of the MacawTests Directory
+        let testFile = URL(fileURLWithPath: "\(sourceFile)", isDirectory: false)
+        let testsFolder = testFile.deletingLastPathComponent()
+        return testsFolder.appendingPathComponent("Resources", isDirectory: true)
+    }()
+    
 }

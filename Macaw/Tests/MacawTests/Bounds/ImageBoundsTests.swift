@@ -13,13 +13,14 @@ import XCTest
 class ImageBoundsTests: XCTestCase {
     
     func testSrcAsPath() {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        guard let path = bundle.path(forResource: "logo", ofType: "png") else {
+        guard let url = TestUtils.getResource(group: "bounds", name: "logo", type: "png") else {
             XCTFail()
             return
         }
         
-        let image = Image(src: path)
+        print(url.path)
+        
+        let image = Image(src: url.path)
         guard let bounds = image.bounds else {
             XCTFail("Bounds not available")
             return
@@ -33,13 +34,11 @@ class ImageBoundsTests: XCTestCase {
     }
     
     func testSrcAsBase64() {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        guard let path = bundle.path(forResource: "logo_base64", ofType: "txt") else {
+        guard let url = TestUtils.getResource(group: "bounds", name: "logo_base64", type: "txt") else {
             XCTFail()
             return
         }
         
-        let url = URL(fileURLWithPath: path)
         guard let base64Content = try? String(contentsOf: url) else {
             XCTFail()
             return
@@ -59,20 +58,12 @@ class ImageBoundsTests: XCTestCase {
     }
     
     func testInMemoryImage() {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        
-        #if os(iOS)
-        guard let mImage = MImage(named: "logo.png", in: bundle, compatibleWith: .none) else {
+        guard let url = TestUtils.getResource(group: "bounds", name: "logo", type: "png") else {
             XCTFail()
             return
         }
         
-        #elseif os(OSX)
-        guard let mImage = bundle.image(forResource: "logo.png") else {
-            XCTFail()
-            return
-        }
-        #endif
+        let mImage = MImage(contentsOf: url)!
         
         let image = Image(image: mImage)
         guard let bounds = image.bounds else {

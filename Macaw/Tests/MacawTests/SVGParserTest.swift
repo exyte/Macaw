@@ -12,13 +12,15 @@ import XCTest
 
 class SVGParserTest: XCTestCase {
     func testParseFromOtherBundle() {
-        let bundle = Bundle(for: type(of: TestUtils()))
-        let bundleMacawTestsURL = bundle.resourceURL?.appendingPathComponent("MacawTests.bundle")
-        let macawTestsBundle = Bundle(url: bundleMacawTestsURL!)!
+        guard let bundleURL = TestUtils.getResource(group: "bundle", name: "BundleTest", type: "bundle"), let bundle = Bundle(url: bundleURL) else {
+            XCTFail()
+            return
+        }
+        
         do {
-            let node = try SVGParser.parse(resource: "circle", fromBundle: macawTestsBundle)
+            let node = try SVGParser.parse(resource: "circle", fromBundle: bundle)
             XCTAssertNotNil(node)
-            if let fullPath = macawTestsBundle.path(forResource: "circle", ofType: "svg") {
+            if let fullPath = bundle.path(forResource: "circle", ofType: "svg") {
                 let node2 = try SVGParser.parse(fullPath: fullPath)
                 XCTAssertNotNil(node2)
             } else {

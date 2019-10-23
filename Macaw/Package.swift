@@ -28,6 +28,6 @@ let package = Package(
         .testTarget(
             name: "MacawTests",
             dependencies: ["Macaw"]
-        ),
+        )
     ]
 )

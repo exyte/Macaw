@@ -207,7 +207,7 @@ open class SVGParser {
         let widthAttributeNil = element.allAttributes["width"] == nil
         let heightAttributeNil = element.allAttributes["height"] == nil
         let viewBoxAttributeNil = element.allAttributes["viewBox"] == nil
-        
+
         if  widthAttributeNil && heightAttributeNil && viewBoxAttributeNil {
             return .none
         }
@@ -1141,17 +1141,17 @@ open class SVGParser {
                                       bounds: bounds,
                                       previousCollectedTspan: collection.last) else {
 
-                    // skip this element if it can't be parsed
-                    return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length),
-                                         collectedTspans: collectedTspans,
-                                         textAnchor: textAnchor,
-                                         fill: fill,
-                                         stroke: stroke,
-                                         opacity: opacity,
-                                         fontName: fontName,
-                                         fontSize: fontSize,
-                                         fontWeight: fontWeight,
-                                         bounds: bounds)
+                                        // skip this element if it can't be parsed
+                                        return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length),
+                                                             collectedTspans: collectedTspans,
+                                                             textAnchor: textAnchor,
+                                                             fill: fill,
+                                                             stroke: stroke,
+                                                             opacity: opacity,
+                                                             fontName: fontName,
+                                                             fontSize: fontSize,
+                                                             fontWeight: fontWeight,
+                                                             bounds: bounds)
             }
             collection.append(text)
             let nextString = fullString.substring(from: closingTagRange.location + closingTagRange.length) as NSString
@@ -1217,7 +1217,8 @@ open class SVGParser {
                                 fontName: String?,
                                 fontSize: Int?,
                                 fontWeight: String?,
-                                bounds: Rect, previousCollectedTspan: Node?) -> Text? {
+                                bounds: Rect,
+                                previousCollectedTspan: Node?) -> Text? {
 
         guard let element = tspan.element else {
             return .none

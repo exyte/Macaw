@@ -375,9 +375,9 @@ class NodeRenderer {
 
     func getAllChildrenRecursive() -> [NodeRenderer] {
         var children = getAllChildren(self)
-        children.removeAll(where: { r -> Bool in
+        children.removeAll { r -> Bool in
             r === self
-        })
+        }
         return children
     }
 

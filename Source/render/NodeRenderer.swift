@@ -172,7 +172,10 @@ class NodeRenderer {
         }
     }
 
-    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, coloringMode: ColoringMode = .rgb) {
+    final func directRender(in context: CGContext,
+                            force: Bool = true,
+                            opacity: Double = 1.0,
+                            coloringMode: ColoringMode = .rgb) {
         if isAnimating() {
             self.removeObservers()
             if !force {

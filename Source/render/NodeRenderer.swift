@@ -172,7 +172,10 @@ class NodeRenderer {
         }
     }
 
-    final func directRender(in context: CGContext, force: Bool = true, opacity: Double = 1.0, coloringMode: ColoringMode = .rgb) {
+    final func directRender(in context: CGContext,
+                            force: Bool = true,
+                            opacity: Double = 1.0,
+                            coloringMode: ColoringMode = .rgb) {
         if isAnimating() {
             self.removeObservers()
             if !force {
@@ -375,9 +378,9 @@ class NodeRenderer {
 
     func getAllChildrenRecursive() -> [NodeRenderer] {
         var children = getAllChildren(self)
-        children.removeAll(where: { r -> Bool in
+        children.removeAll { r -> Bool in
             r === self
-        })
+        }
         return children
     }
 

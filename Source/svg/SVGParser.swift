@@ -1675,7 +1675,7 @@ open class SVGParser {
 
             let unitString = (string as NSString).substring(with: match.range(at: 1))
             let numberString = String(string.dropLast(unitString.count))
-            let value = Double(numberString)!
+            let value = Double(numberString) ?? 0
             switch unitString {
             case "px" :
                 return value

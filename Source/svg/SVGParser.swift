@@ -465,16 +465,15 @@ open class SVGParser {
         if let units = element.allAttributes["patternContentUnits"]?.text, units == "objectBoundingBox" {
             contentUserSpace = false
         }
-
+        
         var contentNode: Node?
         if pattern.children.isEmpty {
             if let parentPattern = parentPattern {
                 contentNode = parentPattern.content
             }
-        } else if pattern.children.count == 1 {
-            if let shape = try parseNode(pattern.children.first!) as? Shape {
-                contentNode = shape
-            }
+        } else if pattern.children.count == 1,
+            let shape = try parseNode(pattern.children.first!) as? Shape {
+            contentNode = shape
         } else {
             var shapes = [Shape]()
             try pattern.children.forEach { indexer in
@@ -484,7 +483,7 @@ open class SVGParser {
             }
             contentNode = Group(contents: shapes)
         }
-
+        
         return UserSpacePattern(content: contentNode!,
                                 bounds: bounds,
                                 userSpace: userSpace,

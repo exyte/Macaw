@@ -191,7 +191,7 @@ class ShapeRenderer: NodeRenderer {
             var start = CGPoint(x: CGFloat(gradient.x1), y: CGFloat(gradient.y1))
             var end = CGPoint(x: CGFloat(gradient.x2), y: CGFloat(gradient.y2))
             if !gradient.userSpace {
-                let bounds = ctx!.boundingBoxOfPath
+                let bounds = ctx!.pathBounds
                 start = CGPoint(x: start.x * bounds.width + bounds.minX, y: start.y * bounds.height + bounds.minY)
                 end = CGPoint(x: end.x * bounds.width + bounds.minX, y: end.y * bounds.height + bounds.minY)
             }
@@ -203,7 +203,7 @@ class ShapeRenderer: NodeRenderer {
             var outerCenter = CGPoint(x: CGFloat(gradient.cx), y: CGFloat(gradient.cy))
             var radius = CGFloat(gradient.r)
             if !gradient.userSpace {
-                var bounds = ctx!.boundingBoxOfPath
+                var bounds = ctx!.pathBounds
                 var scaleX: CGFloat = 1
                 var scaleY: CGFloat = 1
                 if bounds.width > bounds.height {
@@ -212,7 +212,7 @@ class ShapeRenderer: NodeRenderer {
                     scaleX = bounds.width / bounds.height
                 }
                 ctx!.scaleBy(x: scaleX, y: scaleY)
-                bounds = ctx!.boundingBoxOfPath
+                bounds = ctx!.pathBounds
                 innerCenter = CGPoint(x: innerCenter.x * bounds.width + bounds.minX, y: innerCenter.y * bounds.height + bounds.minY)
                 outerCenter = CGPoint(x: outerCenter.x * bounds.width + bounds.minX, y: outerCenter.y * bounds.height + bounds.minY)
                 radius = min(radius * bounds.width, radius * bounds.height)

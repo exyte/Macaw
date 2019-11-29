@@ -84,3 +84,12 @@ final internal class BoundsUtils {
         return copy
     }
 }
+
+extension CGContext {
+    var pathBounds: CGRect {
+        if let path = self.path {
+            return path.boundingBoxOfPath
+        }
+        return boundingBoxOfPath
+    }
+}

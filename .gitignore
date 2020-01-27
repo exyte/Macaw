@@ -23,3 +23,4 @@ contents.xcworkspacedata
 .Macaw.podspec.swp
 .Package.swift.swp
 Podfile.lock
+Package.resolved

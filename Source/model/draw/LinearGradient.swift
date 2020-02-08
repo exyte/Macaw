@@ -52,7 +52,10 @@ open class LinearGradient: Gradient {
         )
     }
 
-    override func equals<T>(other: T) -> Bool where T: LinearGradient {
+    override func equals<T>(other: T) -> Bool where T: Fill {
+        guard let other = other as? LinearGradient else {
+            return false
+        }
         return super.equals(other: other) && x1 == other.x1 && x2 == other.x2 && y1 == other.y1 && y2 == other.y2
     }
 }

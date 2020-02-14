@@ -58,7 +58,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
         completion()
     }
 
-    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation)
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in

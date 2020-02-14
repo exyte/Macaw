@@ -8,7 +8,7 @@ import AppKit
 
 class AnimationUtils {
 
-    class func layerForNodeRenderer(_ renderer: NodeRenderer, _ context: AnimationContext, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
+    class func layerForNodeRenderer(_ renderer: NodeRenderer, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
 
         let node = renderer.node
         if let cachedLayer = renderer.layer {

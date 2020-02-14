@@ -142,8 +142,14 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     private func onZoomChange(t: Transform) {
+        // TODO: actually we should track all changes
         placeManager.setZoom(place: t)
-        self.setNeedsDisplay()
+        placeManager.setLayout(place: layoutHelper.getTransform(renderer!, contentLayout, bounds.size.toMacaw()))
+
+        if let viewLayer = mLayer {
+        let deltaTransform = CATransform3DMakeAffineTransform(self.place.toCG())
+            viewLayer.transform = CATransform3DConcat(viewLayer.transform, deltaTransform)
+        }
     }
 
     func initializeView() {
@@ -195,11 +201,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             return
         }
         renderer.calculateZPositionRecursively()
-
-        // TODO: actually we should track all changes
-        placeManager.setLayout(place: layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw()))
-
-        ctx.concatenate(self.place.toCG())
         renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
 

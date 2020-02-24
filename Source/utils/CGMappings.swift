@@ -151,5 +151,20 @@ public extension Node {
         MGraphicsEndImageContext()
         return img!
     }
-
+    #if os(iOS)
+    @available(iOS 10.0, *)
+    func toNativeImage2(size: Size, layout: ContentLayout = .of()) -> MImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        return UIGraphicsImageRenderer(bounds: size.rect().toCG(), format: format).image { context in
+            let renderer = RenderUtils.createNodeRenderer(self, view: nil)
+            let rect = size.rect()
+            let ctx = context.cgContext
+            ctx.clear(rect.toCG())
+            let transform = LayoutHelper.calcTransform(self, layout, size)
+            ctx.concatenate(transform.toCG())
+            renderer.render(in: ctx, force: false, opacity: self.opacity)
+        }
+    }
+    #endif
 }

@@ -116,6 +116,7 @@ extension AnimationProducer {
     func addCombineAnimation(_ combineAnimation: Animation, _ context: AnimationContext) {
         guard let combine = combineAnimation as? CombineAnimation,
             let renderer = combine.nodeRenderer,
+            let node = combine.node,
             let view = renderer.view else {
                 return
         }
@@ -176,6 +177,7 @@ extension AnimationProducer {
         }
 
         combine.removeFunc = {
+            node.animations.removeAll { $0 === combine }
             animations.forEach { animation in
                 animation.removeFunc?()
             }

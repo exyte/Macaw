@@ -54,6 +54,15 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
             node.placeVar.value = transformAnimation.getVFunc()(1.0)
         }
 
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        renderer.layer?.animationLayer.transform = CATransform3DMakeAffineTransform(node.place.toCG())
+        CATransaction.commit()
+
+        if !animation.paused {
+            animation.removeFunc?()
+        }
+
         renderer.freeLayer()
 
         if !animation.cycled &&
@@ -68,6 +77,7 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
+        node.animations.removeAll { $0 === animation }
         layer?.removeAnimation(forKey: animationId)
     }
 

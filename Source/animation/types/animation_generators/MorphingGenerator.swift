@@ -94,6 +94,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
+        shape.animations.removeAll { $0 === animation }
         layer?.removeAnimation(forKey: animationId)
     }
 

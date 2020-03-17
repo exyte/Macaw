@@ -47,6 +47,15 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
             node.opacityVar.value = opacityAnimation.getVFunc()(1.0)
         }
 
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        renderer.layer?.animationLayer.opacity = Float(node.opacity)
+        CATransaction.commit()
+
+        if !animation.paused {
+            animation.removeFunc?()
+        }
+
         renderer.freeLayer()
 
         if  !animation.cycled &&
@@ -62,6 +71,7 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
+        node.animations.removeAll { $0 === animation }
         layer?.removeAnimation(forKey: animationId)
     }
 

@@ -147,7 +147,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         placeManager.setLayout(place: layoutHelper.getTransform(renderer!, contentLayout, bounds.size.toMacaw()))
 
         if let viewLayer = mLayer {
-        let deltaTransform = CATransform3DMakeAffineTransform(self.place.toCG())
+            let deltaTransform = CATransform3DMakeAffineTransform(self.place.toCG())
             viewLayer.transform = CATransform3DConcat(viewLayer.transform, deltaTransform)
         }
     }

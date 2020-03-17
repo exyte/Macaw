@@ -27,17 +27,21 @@ internal class AnimationSequence: BasicAnimation {
     open override func stop() {
         super.stop()
 
-        animations.forEach { animation in
-            animation.stop()
+        guard let active = animations.first(where: { $0.isActive() }) else {
+            return
         }
+
+        active.stop()
     }
 
     open override func pause() {
         super.pause()
 
-        animations.forEach { animation in
-            animation.pause()
+        guard let active = animations.first(where: { $0.isActive() }) else {
+            return
         }
+
+        active.pause()
     }
 
     open override func play() {

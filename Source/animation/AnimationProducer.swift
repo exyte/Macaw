@@ -313,7 +313,6 @@ class AnimationProducer {
         }
 
         let currentDate = Date()
-        var animationsToRemove = [Animation]()
         let count = contentsAnimations.count
         for (index, animationDesc) in contentsAnimations.reversed().enumerated() {
 

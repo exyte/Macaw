@@ -386,7 +386,10 @@ open class SVGParser {
             contentNode = Group(contents: shapes)
         }
 
-        return UserSpacePattern(content: contentNode!, bounds: bounds, userSpace: userSpace, contentUserSpace: contentUserSpace)
+        return UserSpacePattern(content: contentNode!,
+                                bounds: bounds,
+                                userSpace: userSpace,
+                                contentUserSpace: contentUserSpace)
     }
 
     fileprivate func parseGroup(_ group: XMLIndexer, style: [String: String]) throws -> Group? {

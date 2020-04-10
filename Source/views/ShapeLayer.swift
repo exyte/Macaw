@@ -17,9 +17,6 @@ class ShapeLayer: CAShapeLayer {
             return
         }
 
-        let renderContext = RenderContext(view: .none)
-        renderContext.cgContext = ctx
-
         renderer?.directRender(in: ctx, force: isForceRenderingEnabled)
     }
 }

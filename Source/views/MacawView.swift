@@ -141,17 +141,6 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.init(node: Group(), coder: aDecoder)
     }
 
-    private func onZoomChange(t: Transform) {
-        // TODO: actually we should track all changes
-        placeManager.setZoom(place: t)
-        placeManager.setLayout(place: layoutHelper.getTransform(renderer!, contentLayout, bounds.size.toMacaw()))
-
-        if let viewLayer = mLayer {
-            let deltaTransform = CATransform3DMakeAffineTransform(self.place.toCG())
-            viewLayer.transform = CATransform3DConcat(viewLayer.transform, deltaTransform)
-        }
-    }
-
     func initializeView() {
         self.contentLayout = .none
         self.context = RenderContext(view: self)
@@ -187,6 +176,12 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         setNeedsDisplay()
     }
 
+    private func onZoomChange(t: Transform) {
+        if let viewLayer = mLayer {
+            viewLayer.transform = CATransform3DMakeAffineTransform(t.toCG())
+        }
+    }
+
     override open func draw(_ rect: CGRect) {
         context.cgContext = MGraphicsGetCurrentContext()
         guard let ctx = context.cgContext else {
@@ -200,6 +195,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         guard let renderer = renderer else {
             return
         }
+
+        // TODO: actually we should track all changes
+        placeManager.setLayout(place: layoutHelper.getTransform(renderer, contentLayout, bounds.size.toMacaw()))
+        ctx.concatenate(self.place.toCG())
+
         renderer.calculateZPositionRecursively()
         renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
@@ -335,7 +335,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     private func convert(touches: Set<MTouch>) -> [MTouchEvent] {
         return touches.map { touch -> MTouchEvent in
-            let location = touch.location(in: self)
+            let location = touch.applyCurrentLayerTransform(self)
             let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
             return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
         }

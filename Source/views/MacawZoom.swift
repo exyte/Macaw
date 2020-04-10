@@ -81,6 +81,9 @@ open class MacawZoom {
     }
 
     private func getNewZoom() -> ZoomData {
+        if !trackMove && !trackScale && !trackRotate {
+            return zoomData
+        }
         if touches.isEmpty || (touches.count == 1 && !trackMove) {
             return zoomData
         }
@@ -144,7 +147,7 @@ fileprivate class TouchData {
     let point: Point
 
     convenience init(touch: MTouch, in view: MView) {
-        self.init(touch: touch, point: touch.location(in: view).toMacaw())
+        self.init(touch: touch, point: touch.applyCurrentLayerTransform(view))
     }
 
     init(touch: MTouch, point: Point) {
@@ -153,7 +156,16 @@ fileprivate class TouchData {
     }
 
     func current(in view: MView) -> Point {
-        return touch.location(in: view).toMacaw()
+        return touch.applyCurrentLayerTransform(view)
     }
 
+}
+
+extension MTouch {
+
+    func applyCurrentLayerTransform(_ view: MView) -> Point {
+        let layerTransform = CATransform3DGetAffineTransform(view.mLayer!.transform).toMacaw()
+        let location = self.location(in: view).toMacaw()
+        return layerTransform.apply(to: location)
+    }
 }

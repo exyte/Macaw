@@ -10,6 +10,31 @@ import AppKit
 /// MacawView is a main class used to embed Macaw scene into your Cocoa UI.
 /// You could create your own view extended from MacawView with predefined scene.
 ///
+
+internal class TouchInterceptionView: MView {
+    weak var macawView: MacawView?
+
+    open override func touchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesBegan(touches, with: event)
+        macawView?.mTouchesBegan(touches, with: event)
+    }
+
+    open override func touchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesMoved(touches, with: event)
+        macawView?.mTouchesMoved(touches, with: event)
+    }
+
+    open override func touchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesEnded(touches, with: event)
+        macawView?.mTouchesEnded(touches, with: event)
+    }
+
+    override open func touchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.touchesCancelled(touches, with: event)
+        macawView?.mTouchesCancelled(touches, with: event)
+    }
+}
+
 open class MacawView: MView, MGestureRecognizerDelegate {
 
     /// Scene root node
@@ -53,6 +78,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     private let placeManager = RootPlaceManager()
+    internal let touchInterceptionView = TouchInterceptionView()
 
     override open var frame: CGRect {
         didSet {
@@ -133,17 +159,35 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         zoom.initialize(view: self, onChange: onZoomChange)
-
-        initializeView()
     }
 
     @objc public convenience required init?(coder aDecoder: NSCoder) {
         self.init(node: Group(), coder: aDecoder)
     }
 
+    open override func didMoveToWindow() {
+        super.didMoveToWindow()
+
+        initializeView()
+    }
+
     func initializeView() {
         self.contentLayout = .none
         self.context = RenderContext(view: self)
+
+        if let superview = self.superview {
+            self.isUserInteractionEnabled = false
+            touchInterceptionView.isMultipleTouchEnabled = true
+            touchInterceptionView.macawView = self
+            touchInterceptionView.backgroundColor = .clear
+            superview.insertSubview(touchInterceptionView, aboveSubview: self)
+
+            touchInterceptionView.translatesAutoresizingMaskIntoConstraints = false
+            touchInterceptionView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            touchInterceptionView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            touchInterceptionView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            touchInterceptionView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        }
 
         let tapRecognizer = MTapGestureRecognizer(target: self, action: #selector(MacawView.handleTap))
         let longTapRecognizer = MLongPressGestureRecognizer(target: self, action: #selector(MacawView.handleLongTap(recognizer:)))
@@ -163,12 +207,12 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         rotationRecognizer.cancelsTouchesInView = false
         pinchRecognizer.cancelsTouchesInView = false
 
-        self.removeGestureRecognizers()
-        self.addGestureRecognizer(tapRecognizer)
-        self.addGestureRecognizer(longTapRecognizer)
-        self.addGestureRecognizer(panRecognizer)
-        self.addGestureRecognizer(rotationRecognizer)
-        self.addGestureRecognizer(pinchRecognizer)
+        touchInterceptionView.removeGestureRecognizers()
+        touchInterceptionView.addGestureRecognizer(tapRecognizer)
+        touchInterceptionView.addGestureRecognizer(longTapRecognizer)
+        touchInterceptionView.addGestureRecognizer(panRecognizer)
+        touchInterceptionView.addGestureRecognizer(rotationRecognizer)
+        touchInterceptionView.addGestureRecognizer(pinchRecognizer)
     }
 
     open override func layoutSubviews() {

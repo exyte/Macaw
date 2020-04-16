@@ -254,7 +254,8 @@ class NodeRenderer {
     }
 
     func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage {
-        MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, 1)
+        let screenScale: CGFloat = MMainScreen()?.scale ?? 1.0
+        MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, screenScale)
         let tempContext = MGraphicsGetCurrentContext()!
 
         // flip y-axis and leave space for the blur

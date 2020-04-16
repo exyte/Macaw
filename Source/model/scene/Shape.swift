@@ -84,10 +84,10 @@ open class Shape: Node {
     }
 
     fileprivate func createContext() -> CGContext? {
-
+        let screenScale: CGFloat = MMainScreen()?.scale ?? 1.0
         let smallSize = CGSize(width: 1.0, height: 1.0)
 
-        MGraphicsBeginImageContextWithOptions(smallSize, false, 1.0)
+        MGraphicsBeginImageContextWithOptions(smallSize, false, screenScale)
 
         return MGraphicsGetCurrentContext()
     }

@@ -49,6 +49,11 @@ open class MacawView: MView {
         get { return drawingView.intrinsicContentSize }
     }
 
+    internal var renderer: NodeRenderer? {
+        get { return drawingView.renderer }
+        set { drawingView.renderer = newValue }
+    }
+
     #if os(OSX)
     open override var layer: CALayer? {
         didSet {
@@ -57,7 +62,7 @@ open class MacawView: MView {
             }
             initializeView()
 
-            drawingView.renderer = RenderUtils.createNodeRenderer(node, view: self)
+            renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
         }
     }
     #endif
@@ -96,8 +101,8 @@ open class MacawView: MView {
         }
     }
 
-    open override func didMoveToWindow() {
-        super.didMoveToWindow()
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
 
         initializeView()
     }
@@ -145,29 +150,29 @@ open class MacawView: MView {
         self.addGestureRecognizer(pinchRecognizer)
     }
 
-    open override func touchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesBegan(touches, with: event)
+    open override func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.mTouchesBegan(touches, with: event)
         zoom.touchesBegan(touches)
 
         drawingView.touchesBegan(touchPoints: convert(touches: touches))
     }
 
-    open override func touchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesMoved(touches, with: event)
+    open override func mTouchesMoved(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.mTouchesMoved(touches, with: event)
         zoom.touchesMoved(touches)
 
         drawingView.touchesMoved(touchPoints: convert(touches: touches))
     }
 
-    open override func touchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesEnded(touches, with: event)
+    open override func mTouchesEnded(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.mTouchesEnded(touches, with: event)
         zoom.touchesEnded(touches)
 
         drawingView.touchesEnded(touchPoints: convert(touches: touches))
     }
 
-    override open func touchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
-        super.touchesEnded(touches, with: event)
+    override open func mTouchesCancelled(_ touches: Set<MTouch>, with event: MEvent?) {
+        super.mTouchesCancelled(touches, with: event)
         zoom.touchesEnded(touches)
 
         drawingView.touchesEnded(touchPoints: convert(touches: touches))

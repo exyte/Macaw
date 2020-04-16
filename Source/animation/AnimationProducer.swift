@@ -198,7 +198,7 @@ class AnimationProducer {
     }
 
     // MARK: - Stored animation
-    func addStoredAnimations(_ node: Node, _ view: MacawView) {
+    func addStoredAnimations(_ node: Node, _ view: DrawingView) {
         addStoredAnimations(node, AnimationContext())
     }
 

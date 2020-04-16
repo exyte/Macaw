@@ -139,7 +139,7 @@ fileprivate class TouchData {
     let point: Point
 
     convenience init(touch: MTouch, in view: MacawView) {
-        self.init(touch: touch, point: touch.applyCurrentLayerTransform(view))
+        self.init(touch: touch, point: touch.location(in: view).toMacaw())
     }
 
     init(touch: MTouch, point: Point) {
@@ -148,14 +148,7 @@ fileprivate class TouchData {
     }
 
     func current(in view: MacawView) -> Point {
-        return touch.applyCurrentLayerTransform(view)
+        return touch.location(in: view).toMacaw()
     }
 
-}
-
-extension MTouch {
-
-    func applyCurrentLayerTransform(_ view: MacawView) -> Point {
-        return self.location(in: view.touchInterceptionView).toMacaw()
-    }
 }

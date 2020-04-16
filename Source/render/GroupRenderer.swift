@@ -13,7 +13,7 @@ class GroupRenderer: NodeRenderer {
         return group
     }
 
-    init(group: Group, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
+    init(group: Group, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {
         self.group = group
         super.init(node: group, view: view, parentRenderer: parentRenderer)
         updateRenderers()

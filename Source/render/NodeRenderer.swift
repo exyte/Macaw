@@ -254,7 +254,7 @@ class NodeRenderer {
     }
 
     func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage {
-        let screenScale: CGFloat = MMainScreen()?.scale ?? 1.0
+        let screenScale: CGFloat = MMainScreen()?.mScale ?? 1.0
         MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, screenScale)
         let tempContext = MGraphicsGetCurrentContext()!
 

@@ -69,7 +69,7 @@ class GroupRenderer: NodeRenderer {
         renderers.removeAll()
 
         renderers = group.contents.compactMap { child -> NodeRenderer? in
-            return RenderUtils.createNodeRenderer(child, view: view, parentRenderer: self)
+            RenderUtils.createNodeRenderer(child, view: view, parentRenderer: self)
         }
 
         var parent: NodeRenderer = self

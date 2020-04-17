@@ -115,13 +115,16 @@ extension AnimationProducer {
     // MARK: - Combine animation
     func addCombineAnimation(_ combineAnimation: Animation, _ context: AnimationContext) {
         guard let combine = combineAnimation as? CombineAnimation,
+            let _ = combine.nodeRenderer,
             let node = combine.node else {
                 return
         }
 
         var animations = combine.animations
-        let childAnimations = createChildAnimations(combine) as! [BasicAnimation]
-        animations.append(contentsOf: childAnimations)
+        if let _ = combine.node?.bounds, let _ = combine.toNodes.group().bounds {
+            let childAnimations = createChildAnimations(combine) as! [BasicAnimation]
+            animations.append(contentsOf: childAnimations)
+        }
 
         // Reversing
         if combine.autoreverses {

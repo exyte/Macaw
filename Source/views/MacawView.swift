@@ -74,9 +74,8 @@ open class MacawView: MView {
     @objc public init?(node: Node, coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        if let drawingView = DrawingView(node: node, coder: aDecoder) {
-            self.drawingView = drawingView
-        }
+        self.node = node
+        self.renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
 
         zoom.initialize(view: self, onChange: onZoomChange)
     }
@@ -84,13 +83,12 @@ open class MacawView: MView {
     public convenience init(node: Node, frame: CGRect) {
         self.init(frame: frame)
 
-        self.drawingView = DrawingView(node: node, frame: frame)
+        self.node = node
+        self.renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
     }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.drawingView = DrawingView(frame: frame)
 
         zoom.initialize(view: self, onChange: onZoomChange)
     }
@@ -107,21 +105,27 @@ open class MacawView: MView {
         initializeView()
     }
 
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+
+        drawingView.frame = self.bounds
+    }
+
     func initializeView() {
 
         if !self.subviews.contains(drawingView) {
-            self.backgroundColor = .white
-            self.clipsToBounds = true
+            if self.backgroundColor == nil {
+                self.backgroundColor = .white
+            }
+            drawingView.removeFromSuperview()
             self.addSubview(drawingView)
-            drawingView.backgroundColor = .white
-            drawingView.isUserInteractionEnabled = false
+            drawingView.backgroundColor = .clear
             drawingView.initializeView()
 
-            drawingView.translatesAutoresizingMaskIntoConstraints = false
-            drawingView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            drawingView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            drawingView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-            drawingView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            #if os(iOS)
+            self.clipsToBounds = true
+            drawingView.isUserInteractionEnabled = false
+            #endif
         }
 
         let tapRecognizer = MTapGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleTap(recognizer:)))
@@ -277,24 +281,8 @@ internal class DrawingView: MView, MGestureRecognizerDelegate {
         self.context = RenderContext(view: self)
     }
 
-    @objc public convenience required init?(coder aDecoder: NSCoder) {
-        self.init(node: Group(), coder: aDecoder)
-    }
-
-    @objc public init?(node: Node, coder aDecoder: NSCoder) {
+    @objc public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
-        self.node = node
-        self.renderer = RenderUtils.createNodeRenderer(node, view: self)
-        backgroundColor = .white
-    }
-
-    public convenience init(node: Node, frame: CGRect) {
-        self.init(frame: frame)
-
-        self.node = node
-        self.renderer = RenderUtils.createNodeRenderer(node, view: self)
-        backgroundColor = .white
     }
 
     public override init(frame: CGRect) {

@@ -11,7 +11,7 @@ import AppKit
 /// You could create your own view extended from MacawView with predefined scene.
 ///
 
-open class MacawView: MView {
+open class MacawView: MView, MGestureRecognizerDelegate {
 
     internal var drawingView = DrawingView()
 
@@ -80,6 +80,7 @@ open class MacawView: MView {
         self.renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
 
         zoom.initialize(view: self, onChange: onZoomChange)
+        initializeView()
     }
 
     public convenience init(node: Node, frame: CGRect) {
@@ -93,18 +94,13 @@ open class MacawView: MView {
         super.init(frame: frame)
 
         zoom.initialize(view: self, onChange: onZoomChange)
+        initializeView()
     }
 
     private func onZoomChange(t: Transform) {
         if let viewLayer = drawingView.mLayer {
             viewLayer.transform = CATransform3DMakeAffineTransform(t.toCG())
         }
-    }
-
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-
-        initializeView()
     }
 
     open override func layoutSubviews() {
@@ -136,11 +132,11 @@ open class MacawView: MView {
         let rotationRecognizer = MRotationGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleRotation))
         let pinchRecognizer = MPinchGestureRecognizer(target: drawingView, action: #selector(DrawingView.handlePinch))
 
-        tapRecognizer.delegate = drawingView
-        longTapRecognizer.delegate = drawingView
-        panRecognizer.delegate = drawingView
-        rotationRecognizer.delegate = drawingView
-        pinchRecognizer.delegate = drawingView
+        tapRecognizer.delegate = self
+        longTapRecognizer.delegate = self
+        panRecognizer.delegate = self
+        rotationRecognizer.delegate = self
+        pinchRecognizer.delegate = self
 
         tapRecognizer.cancelsTouchesInView = false
         longTapRecognizer.cancelsTouchesInView = false
@@ -191,9 +187,19 @@ open class MacawView: MView {
             return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
         }
     }
+
+    // MARK: - MGestureRecognizerDelegate
+
+    public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldReceive touch: MTouch) -> Bool {
+        return true
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
-internal class DrawingView: MView, MGestureRecognizerDelegate {
+internal class DrawingView: MView {
 
     /// Scene root node
     open var node: Node = Group() {
@@ -658,16 +664,6 @@ internal class DrawingView: MView, MGestureRecognizerDelegate {
         if recognizer.state == .ended || recognizer.state == .cancelled {
             recognizersMap.removeValue(forKey: recognizer)
         }
-    }
-
-    // MARK: - MGestureRecognizerDelegate
-
-    public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldReceive touch: MTouch) -> Bool {
-        return true
-    }
-
-    public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
-        return true
     }
 }
 

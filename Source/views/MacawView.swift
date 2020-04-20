@@ -40,9 +40,11 @@ open class MacawView: MView {
         get { return drawingView.placeVar }
     }
 
-    open override var frame: CGRect {
-        get { return drawingView.frame }
-        set { drawingView.frame = newValue }
+    override open var frame: CGRect {
+        didSet {
+            super.frame = frame
+            drawingView.frame = frame
+        }
     }
 
     override open var intrinsicContentSize: CGSize {

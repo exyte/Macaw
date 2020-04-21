@@ -30,7 +30,7 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false)
 
     // Creating proper animation
     let generatedAnimation = generateShapeAnimation(context,

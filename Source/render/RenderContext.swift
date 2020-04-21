@@ -5,10 +5,10 @@ import UIKit
 #endif
 
 class RenderContext {
-    weak var view: MacawView?
+    weak var view: DrawingView?
     var cgContext: CGContext?
 
-    init(view: MacawView?) {
+    init(view: DrawingView?) {
         self.view = view
         self.cgContext = nil
     }

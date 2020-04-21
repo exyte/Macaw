@@ -24,11 +24,8 @@ class BasicAnimation: Animation {
 
     weak var node: Node? {
         didSet {
-            node?.animations.append(self)
-            if let group = node as? Group {
-                for node in group.contents {
-                    node.animations.append(self)
-                }
+            if !(self is CombineAnimation || self is AnimationSequence || self is EmptyAnimation) {
+                node?.animations.append(self)
             }
         }
     }
@@ -104,6 +101,8 @@ class BasicAnimation: Animation {
         }
 
         removeFunc?()
+        node?.animations.removeAll { $0 === self }
+        nodeRenderer?.freeLayer()
     }
 
     override open func pause() {
@@ -115,6 +114,8 @@ class BasicAnimation: Animation {
         }
 
         removeFunc?()
+        node?.animations.removeAll { $0 === self }
+        nodeRenderer?.freeLayer()
     }
 
     override func state() -> AnimationState {

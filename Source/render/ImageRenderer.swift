@@ -17,7 +17,7 @@ class ImageRenderer: NodeRenderer {
         return image
     }
 
-    init(image: Image, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
+    init(image: Image, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {
         self.image = image
         super.init(node: image, view: view, parentRenderer: parentRenderer)
     }

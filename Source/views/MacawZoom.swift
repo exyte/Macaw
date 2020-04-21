@@ -16,7 +16,7 @@ import AppKit
 
 open class MacawZoom {
 
-    private var view: MView!
+    private var view: MacawView!
     private var onChange: ((Transform) -> Void)!
     private var touches = [TouchData]()
     private var zoomData = ZoomData()
@@ -50,7 +50,7 @@ open class MacawZoom {
         onChange(zoomData.transform())
     }
 
-    func initialize(view: MView, onChange: @escaping ((Transform) -> Void)) {
+    func initialize(view: MacawView, onChange: @escaping ((Transform) -> Void)) {
         self.view = view
         self.onChange = onChange
     }
@@ -81,6 +81,9 @@ open class MacawZoom {
     }
 
     private func getNewZoom() -> ZoomData {
+        if !trackMove && !trackScale && !trackRotate {
+            return zoomData
+        }
         if touches.isEmpty || (touches.count == 1 && !trackMove) {
             return zoomData
         }
@@ -93,15 +96,7 @@ open class MacawZoom {
         let e2 = touches[1].current(in: view)
         let scale = trackScale ? e1.distance(to: e2) / s1.distance(to: s2) : 1
         let a = trackRotate ? (e1 - e2).angle() - (s1 - s2).angle() : 0
-        var offset = Size.zero
-        if trackMove {
-            let sina = sin(a)
-            let cosa = cos(a)
-            let w = e1.x - scale * (s1.x * cosa - s1.y * sina)
-            let h = e1.y - scale * (s1.x * sina + s1.y * cosa)
-            offset = Size(w: w, h: h)
-        }
-        return ZoomData(offset: offset, scale: scale, angle: a).combine(with: zoomData)
+        return ZoomData(offset: .zero, scale: scale, angle: a).combine(with: zoomData)
     }
 
 }
@@ -143,7 +138,7 @@ fileprivate class TouchData {
     let touch: MTouch
     let point: Point
 
-    convenience init(touch: MTouch, in view: MView) {
+    convenience init(touch: MTouch, in view: MacawView) {
         self.init(touch: touch, point: touch.location(in: view).toMacaw())
     }
 
@@ -152,7 +147,7 @@ fileprivate class TouchData {
         self.point = point
     }
 
-    func current(in view: MView) -> Point {
+    func current(in view: MacawView) -> Point {
         return touch.location(in: view).toMacaw()
     }
 

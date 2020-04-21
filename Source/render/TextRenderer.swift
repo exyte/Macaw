@@ -13,7 +13,7 @@ class TextRenderer: NodeRenderer {
         return text
     }
 
-    init(text: Text, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
+    init(text: Text, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {
         self.text = text
         super.init(node: text, view: view, parentRenderer: parentRenderer)
     }

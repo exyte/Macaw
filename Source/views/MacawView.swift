@@ -103,22 +103,21 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         }
     }
 
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-
-        drawingView.frame = self.bounds
-    }
-
     func initializeView() {
 
         if !self.subviews.contains(drawingView) {
             if self.backgroundColor == nil {
                 self.backgroundColor = .white
             }
-            drawingView.removeFromSuperview()
             self.addSubview(drawingView)
             drawingView.backgroundColor = .clear
             drawingView.initializeView()
+
+            drawingView.translatesAutoresizingMaskIntoConstraints = false
+            drawingView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            drawingView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+            drawingView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            drawingView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
 
             #if os(iOS)
             self.clipsToBounds = true

@@ -97,6 +97,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         initializeView()
     }
 
+    public final func findNodeAt(location: CGPoint) -> Node? {
+        return drawingView.findNodeAt(location: location)
+    }
+
     private func onZoomChange(t: Transform) {
         if let viewLayer = drawingView.mLayer {
             viewLayer.transform = CATransform3DMakeAffineTransform(t.toCG())
@@ -230,11 +234,11 @@ internal class DrawingView: MView {
         }
     }
 
-    public var place: Transform {
+    var place: Transform {
         return placeManager.placeVar.value
     }
 
-    public var placeVar: Variable<Transform> {
+    var placeVar: Variable<Transform> {
         return placeManager.placeVar
     }
 
@@ -323,7 +327,7 @@ internal class DrawingView: MView {
         renderer.render(in: ctx, force: false, opacity: node.opacity)
     }
 
-    public final func findNodeAt(location: CGPoint) -> Node? {
+    final func findNodeAt(location: CGPoint) -> Node? {
         guard let ctx = context.cgContext else {
             return .none
         }

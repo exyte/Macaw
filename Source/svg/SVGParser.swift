@@ -986,15 +986,14 @@ open class SVGParser {
 
     fileprivate func parsePoints(_ pointsString: String) -> [Double] {
         var resultPoints: [Double] = []
-        let pointPairs = pointsString.replacingOccurrences(of: "-", with: " -").components(separatedBy: " ")
 
-        pointPairs.forEach { pointPair in
-            let points = pointPair.components(separatedBy: ",")
-            points.forEach { point in
-                if let resultPoint = Double(point) {
-                    resultPoints.append(resultPoint)
-                }
+        let scanner = Scanner(string: pointsString)
+        while !scanner.isAtEnd {
+            var resultPoint: Double = 0
+            if scanner.scanDouble(&resultPoint) {
+                resultPoints.append(resultPoint)
             }
+            _ = scanner.scanCharacters(from: [","], into: nil)
         }
 
         if resultPoints.count % 2 == 1 {

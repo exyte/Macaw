@@ -153,3 +153,52 @@ public extension Node {
     }
 
 }
+
+extension CGPath {
+
+    public func toMacaw() -> Path {
+
+        func createPathSegment(type: PathSegmentType, points: UnsafeMutablePointer<CGPoint>, count: Int) -> PathSegment {
+
+            var data = [Double]()
+            for index in 0..<count {
+                let point = points[index]
+                data.append(contentsOf: [Double(point.x), Double(point.y)])
+            }
+            return PathSegment(type: type, data: data)
+        }
+
+        var segments = [PathSegment]()
+        self.forEach(body: { (element: CGPathElement) in
+
+            let segment: PathSegment
+            switch element.type {
+            case .moveToPoint:
+                segment = createPathSegment(type: .M, points: element.points, count: 1)
+            case .addLineToPoint:
+                segment = createPathSegment(type: .L, points: element.points, count: 1)
+            case .addQuadCurveToPoint:
+                segment = createPathSegment(type: .Q, points: element.points, count: 2)
+            case .addCurveToPoint:
+                segment = createPathSegment(type: .C, points: element.points, count: 3)
+            case .closeSubpath:
+                segment = PathSegment(type: .z)
+            @unknown default:
+                fatalError()
+            }
+            segments.append(segment)
+        })
+
+        return Path(segments: segments, fillRule: .nonzero)
+    }
+
+    private func forEach( body: @escaping @convention(block) (CGPathElement) -> Void) {
+        typealias Body = @convention(block) (CGPathElement) -> Void
+        func callback(info: UnsafeMutableRawPointer?, element: UnsafePointer<CGPathElement>) {
+            let body = unsafeBitCast(info, to: Body.self)
+            body(element.pointee)
+        }
+        let unsafeBody = unsafeBitCast(body, to: UnsafeMutableRawPointer.self)
+        self.apply(info: unsafeBody, function: callback)
+    }
+}

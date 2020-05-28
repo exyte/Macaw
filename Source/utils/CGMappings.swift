@@ -154,7 +154,7 @@ public extension Node {
 
 }
 
-extension UIBezierPath {
+extension MBezierPath {
 
     public func toMacaw() -> Path {
         let fillRule: FillRule = self.usesEvenOddFillRule ? .evenodd : .nonzero

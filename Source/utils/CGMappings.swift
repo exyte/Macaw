@@ -154,9 +154,18 @@ public extension Node {
 
 }
 
-extension CGPath {
+extension UIBezierPath {
 
     public func toMacaw() -> Path {
+        let fillRule: FillRule = self.usesEvenOddFillRule ? .evenodd : .nonzero
+        return self.cgPath.toMacaw(fillRule: fillRule)
+    }
+
+}
+
+extension CGPath {
+
+    public func toMacaw(fillRule: FillRule = .nonzero) -> Path {
 
         func createPathSegment(type: PathSegmentType, points: UnsafeMutablePointer<CGPoint>, count: Int) -> PathSegment {
 
@@ -184,7 +193,7 @@ extension CGPath {
             case .closeSubpath:
                 segment = PathSegment(type: .z)
             @unknown default:
-                fatalError()
+                fatalError("Unknown element type: \(element.type)")
             }
             segments.append(segment)
         })

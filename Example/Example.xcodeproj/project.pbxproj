@@ -17,6 +17,7 @@
 		57AF398C1E67E9DB00F0BFE2 /* EventsExampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */; };
 		58E4D50C1D841C6E00EC8815 /* TransformExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */; };
 		5B195EAD2276D5C40008AE8B /* AnimationsHierarchyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B195EAB2276D5C40008AE8B /* AnimationsHierarchyViewController.swift */; };
+		5B5B393B2481094200753058 /* PathAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B393A2481094200753058 /* PathAnimationView.swift */; };
 		5BAE3CB120C54E3D006BEF51 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE3CB020C54E3D006BEF51 /* FiltersViewController.swift */; };
 		66AE19DB1CC8CB3C00B78B5E /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 66AE19DA1CC8CB3C00B78B5E /* tiger.svg */; };
 		B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02E75F01C16104900D1971D /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		57AF398B1E67E9DB00F0BFE2 /* EventsExampleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsExampleController.swift; sourceTree = "<group>"; };
 		58E4D50B1D841C6E00EC8815 /* TransformExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformExampleView.swift; sourceTree = "<group>"; };
 		5B195EAB2276D5C40008AE8B /* AnimationsHierarchyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsHierarchyViewController.swift; sourceTree = "<group>"; };
+		5B5B393A2481094200753058 /* PathAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathAnimationView.swift; sourceTree = "<group>"; };
 		5BAE3CB020C54E3D006BEF51 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		66AE19DA1CC8CB3C00B78B5E /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = tiger.svg; path = Example/Assets/SVG/tiger.svg; sourceTree = "<group>"; };
 		B02E75ED1C16104900D1971D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,7 @@
 		574EC4271CB7DE7F0063F317 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				5B5B39392481092A00753058 /* PathAnimation */,
 				49265C7E2227B1B200923A66 /* Text */,
 				574EC4331CB7DE7F0063F317 /* Shapes */,
 				6699B7CE1DFFE8B90072585E /* Transform */,
@@ -151,6 +154,14 @@
 				B04416F91E041A420016BC50 /* EasingView.swift */,
 			);
 			path = Easing;
+			sourceTree = "<group>";
+		};
+		5B5B39392481092A00753058 /* PathAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				5B5B393A2481094200753058 /* PathAnimationView.swift */,
+			);
+			path = PathAnimation;
 			sourceTree = "<group>";
 		};
 		5BAE3CAF20C54DA5006BEF51 /* Filters */ = {
@@ -374,6 +385,7 @@
 				5B195EAD2276D5C40008AE8B /* AnimationsHierarchyViewController.swift in Sources */,
 				58E4D50C1D841C6E00EC8815 /* TransformExampleView.swift in Sources */,
 				B02E75F11C16104900D1971D /* AppDelegate.swift in Sources */,
+				5B5B393B2481094200753058 /* PathAnimationView.swift in Sources */,
 				5BAE3CB120C54E3D006BEF51 /* FiltersViewController.swift in Sources */,
 				57AF398C1E67E9DB00F0BFE2 /* EventsExampleController.swift in Sources */,
 				B04416FA1E041A420016BC50 /* EasingView.swift in Sources */,

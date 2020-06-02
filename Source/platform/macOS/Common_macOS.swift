@@ -184,4 +184,10 @@ extension NSWindow {
     }
 }
 
+extension NSBezierPath {
+    var usesEvenOddFillRule: Bool {
+        return self.windingRule == .evenOdd
+    }
+}
+
 #endif

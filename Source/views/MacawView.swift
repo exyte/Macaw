@@ -346,10 +346,11 @@ internal class DrawingView: MView {
         defer {
             MGraphicsEndImageContext()
         }
-        guard let ctx = MGraphicsGetCurrentContext() else {
+        guard let ctx = MGraphicsGetCurrentContext(), let inverted = self.place.invert() else {
             return .none
         }
-        return doFindNode(location: location, ctx: ctx)
+        let loc = location.applying(inverted.toCG())
+        return doFindNode(location: loc, ctx: ctx)
     }
 
     // MARK: - Touches

@@ -557,52 +557,51 @@ open class SVGParser {
 
             switch attributeName {
             case "translate":
-                if let x = Double(values[0]) {
-                    var y: Double = 0
-                    if values.indices.contains(1) {
-                        y = Double(values[1]) ?? 0
-                    }
-                    transform = transform.move(dx: x, dy: y)
-                }
+                let x = values[0]
+				var y: Double = 0
+				if values.indices ~= 1 {
+					y = values[1]
+				}
+				transform = transform.move(dx: x, dy: y)
             case "scale":
-                if let x = Double(values[0]) {
-                    var y: Double = x
-                    if values.indices.contains(1) {
-                        y = Double(values[1]) ?? x
-                    }
-                    transform = transform.scale(sx: x, sy: y)
-                }
+                let x = values[0]
+				var y: Double = x
+				if values.indices ~= 1 {
+					y = values[1]
+				}
+				transform = transform.scale(sx: x, sy: y)
             case "rotate":
-                if let angle = Double(values[0]) {
-                    if values.count == 1 {
-                        transform = transform.rotate(angle: degreesToRadians(angle))
-                    } else if values.count == 3 {
-                        if let x = Double(values[1]), let y = Double(values[2]) {
-                            transform = transform.move(dx: x, dy: y).rotate(angle: degreesToRadians(angle)).move(dx: -x, dy: -y)
-                        }
-                    }
-                }
+                let angle = values[0]
+				if values.count == 1 {
+					transform = transform.rotate(angle: degreesToRadians(angle))
+				} else if values.count == 3 {
+					let x = values[1]
+					let y = values[2]
+					transform = transform
+						.move(dx: x, dy: y)
+						.rotate(angle: degreesToRadians(angle))
+						.move(dx: -x, dy: -y)
+				}
             case "skewX":
-                if let x = Double(values[0]) {
-                    let v = tan((x * Double.pi) / 180.0)
-                    transform = transform.shear(shx: v, shy: 0)
-                }
+                let x = values[0]
+				let v = tan((x * Double.pi) / 180.0)
+				transform = transform.shear(shx: v, shy: 0)
             case "skewY":
-                if let y = Double(values[0]) {
-                    let y = tan((y * Double.pi) / 180.0)
-                    transform = transform.shear(shx: 0, shy: y)
-                }
+                let y = values[0]
+				let v = tan((y * Double.pi) / 180.0)
+				transform = transform.shear(shx: 0, shy: v)
             case "matrix":
                 if values.count != 6 {
                     return transform
                 }
-                if let m11 = Double(values[0]), let m12 = Double(values[1]),
-                    let m21 = Double(values[2]), let m22 = Double(values[3]),
-                    let dx = Double(values[4]), let dy = Double(values[5]) {
-
-                    let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    transform = transform.concat(with: transformMatrix)
-                }
+                let m11 = values[0]
+                let m12 = values[1]
+				let m21 = values[2]
+				let m22 = values[3]
+				let dx = values[4]
+				let dy = values[5]
+				let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
+				transform = transform.concat(with: transformMatrix)
             default:
                 break stopParse
             }
@@ -641,20 +640,21 @@ open class SVGParser {
                          b: Int(blue.rounded(.up)))
     }
 
-    fileprivate func parseTransformValues(_ values: String, collectedValues: [String] = []) -> [String] {
-        guard let matcher = SVGParserRegexHelper.getTransformMatcher() else {
-            return collectedValues
-        }
-        var updatedValues: [String] = collectedValues
-        let fullRange = NSRange(location: 0, length: values.count)
-        if let matchedValue = matcher.firstMatch(in: values, options: .reportCompletion, range: fullRange) {
-            let value = (values as NSString).substring(with: matchedValue.range)
-            updatedValues.append(value)
-            let rangeToRemove = NSRange(location: 0, length: matchedValue.range.location + matchedValue.range.length)
-            let newValues = (values as NSString).replacingCharacters(in: rangeToRemove, with: "")
-            return parseTransformValues(newValues, collectedValues: updatedValues)
-        }
-        return updatedValues
+    fileprivate func parseTransformValues(_ values: String) -> [Double] {
+		// Parse comma-separated list of numbers.
+		var collectedValues: [Double] = []
+		let scanner = Scanner(string: values)
+
+		while !scanner.isAtEnd {
+			if let value = scanner.scannedDouble() {
+				collectedValues.append(value)
+			} else {
+				break
+			}
+			_ = scanner.scanString(",", into: nil)
+		}
+
+		return collectedValues
     }
 
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String],

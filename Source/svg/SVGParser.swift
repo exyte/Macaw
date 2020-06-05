@@ -534,21 +534,27 @@ open class SVGParser {
 
     fileprivate func parseTransformationAttribute(_ attributes: String,
                                                   transform: Transform = Transform()) -> Transform {
-        guard let matcher = SVGParserRegexHelper.getTransformAttributeMatcher() else {
-            return transform
-        }
+		// Transform attribute regular grammar (whitespace characters are ignored):
+		// ([a-zA-Z]+)\(((-?\d+\.?\d*e?-?\d*,?)+)\)
+		// Group (1) is an attribute name.
+		// Group (2) is comma-separated numbers.
 
-        let attributes = attributes.replacingOccurrences(of: "\n", with: "")
-        var finalTransform = transform
-        let fullRange = NSRange(location: 0, length: attributes.count)
+		var transform = transform
+		let scanner = Scanner(string: attributes)
 
-        if let matchedAttribute = matcher.firstMatch(in: attributes, options: .reportCompletion, range: fullRange) {
+		stopParse: while !scanner.isAtEnd {
+			guard let attributeName = scanner.scannedCharacters(from: .transformationAttributeCharacters),
+				scanner.scanString("(", into: nil),
+				let valuesString = scanner.scannedUpToString(")"),
+				scanner.scanString(")", into: nil) else {
+				break stopParse
+			}
 
-            let attributeName = (attributes as NSString).substring(with: matchedAttribute.range(at: 1))
-            let values = parseTransformValues((attributes as NSString).substring(with: matchedAttribute.range(at: 2)))
+            let values = parseTransformValues(valuesString)
             if values.isEmpty {
                 return transform
             }
+
             switch attributeName {
             case "translate":
                 if let x = Double(values[0]) {
@@ -556,7 +562,7 @@ open class SVGParser {
                     if values.indices.contains(1) {
                         y = Double(values[1]) ?? 0
                     }
-                    finalTransform = transform.move(dx: x, dy: y)
+                    transform = transform.move(dx: x, dy: y)
                 }
             case "scale":
                 if let x = Double(values[0]) {
@@ -564,27 +570,27 @@ open class SVGParser {
                     if values.indices.contains(1) {
                         y = Double(values[1]) ?? x
                     }
-                    finalTransform = transform.scale(sx: x, sy: y)
+                    transform = transform.scale(sx: x, sy: y)
                 }
             case "rotate":
                 if let angle = Double(values[0]) {
                     if values.count == 1 {
-                        finalTransform = transform.rotate(angle: degreesToRadians(angle))
+                        transform = transform.rotate(angle: degreesToRadians(angle))
                     } else if values.count == 3 {
                         if let x = Double(values[1]), let y = Double(values[2]) {
-                            finalTransform = transform.move(dx: x, dy: y).rotate(angle: degreesToRadians(angle)).move(dx: -x, dy: -y)
+                            transform = transform.move(dx: x, dy: y).rotate(angle: degreesToRadians(angle)).move(dx: -x, dy: -y)
                         }
                     }
                 }
             case "skewX":
                 if let x = Double(values[0]) {
                     let v = tan((x * Double.pi) / 180.0)
-                    finalTransform = transform.shear(shx: v, shy: 0)
+                    transform = transform.shear(shx: v, shy: 0)
                 }
             case "skewY":
                 if let y = Double(values[0]) {
                     let y = tan((y * Double.pi) / 180.0)
-                    finalTransform = transform.shear(shx: 0, shy: y)
+                    transform = transform.shear(shx: 0, shy: y)
                 }
             case "matrix":
                 if values.count != 6 {
@@ -595,18 +601,14 @@ open class SVGParser {
                     let dx = Double(values[4]), let dy = Double(values[5]) {
 
                     let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = transform.concat(with: transformMatrix)
+                    transform = transform.concat(with: transformMatrix)
                 }
             default:
-                break
+                break stopParse
             }
-            let rangeToRemove = NSRange(location: 0,
-                                        length: matchedAttribute.range.location + matchedAttribute.range.length)
-            let newAttributeString = (attributes as NSString).replacingCharacters(in: rangeToRemove, with: "")
-            return parseTransformationAttribute(newAttributeString, transform: finalTransform)
-        } else {
-            return transform
         }
+
+        return transform
     }
 
     /// Parse an RGB
@@ -2217,6 +2219,16 @@ fileprivate extension Scanner {
 			return scanUpToCharacters(from: set, into: &string) ? string as String? : nil
 		}
 	}
+
+	/// A version of `scanUpToString(_:)`, available for an earlier OS.
+	func scannedUpToString(_ substring: String) -> String? {
+		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+			return scanUpToString(substring)
+		} else {
+			var string: NSString? = nil
+			return scanUpTo(substring, into: &string) ? string as String? : nil
+		}
+	}
 }
 
 fileprivate extension CharacterSet {
@@ -2225,4 +2237,6 @@ fileprivate extension CharacterSet {
 		.union(CharacterSet(charactersIn: "A"..."Z"))
 
 	static let unitCharacters = CharacterSet.latinAlphabet
+
+	static let transformationAttributeCharacters = CharacterSet.latinAlphabet
 }

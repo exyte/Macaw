@@ -2,24 +2,11 @@ import Foundation
 
 class SVGParserRegexHelper {
 
-    fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*e?\\-?\\d*\\s*,?\\s*)+)\\)"
     fileprivate static let transformPattern = "\\-?\\d+\\.?\\d*e?\\-?\\d*"
     fileprivate static let textElementPattern = "<text.*?>((?s:.*))<\\/text>"
 
     fileprivate static var transformMatcher: NSRegularExpression?
-    fileprivate static var transformAttributeMatcher: NSRegularExpression?
     fileprivate static var textElementMatcher: NSRegularExpression?
-
-    class func getTransformAttributeMatcher() -> NSRegularExpression? {
-        if self.transformAttributeMatcher == nil {
-            do {
-                self.transformAttributeMatcher = try NSRegularExpression(pattern: transformAttributePattern, options: .caseInsensitive)
-            } catch {
-
-            }
-        }
-        return self.transformAttributeMatcher
-    }
 
     class func getTransformMatcher() -> NSRegularExpression? {
         if self.transformMatcher == nil {

@@ -1659,30 +1659,27 @@ open class SVGParser {
     }
 
     fileprivate func doubleFromString(_ string: String) -> Double? {
-        if let doubleValue = Double(string) {
-            return doubleValue
-        }
         if string == "none" {
             return 0
         }
-        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else {
-            return .none
-        }
-        let fullRange = NSRange(location: 0, length: string.count)
-        if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
 
-            let unitString = (string as NSString).substring(with: match.range(at: 1))
-            let numberString = String(string.dropLast(unitString.count))
-            let value = Double(numberString) ?? 0
-            switch unitString {
-            case "px" :
-                return value
-            default:
-                print("SVG parsing error. Unit \(unitString) not supported")
-                return value
-            }
-        }
-        return .none
+		let scanner = Scanner(string: string)
+		let value = scanner.scannedDouble()
+		let unit = scanner.scannedCharacters(from: .unitCharacters)
+
+		if !scanner.isAtEnd {
+			let junk = scanner.scannedUpToCharacters(from: []) ?? ""
+			print("Found trailing junk \"\(junk)\" in string \"\(string)\".")
+			return .none
+		}
+
+		switch unit {
+		case nil, "px":
+			return value
+		default:
+			print("SVG parsing error. Unit \"\(unit ?? "")\" is not supported")
+			return value
+		}
     }
 
     fileprivate func getDoubleValueFromPercentage(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
@@ -2188,4 +2185,44 @@ fileprivate enum SVGKeys {
     static let fill = "fill"
     static let color = "color"
     static let currentColor = "currentColor"
+}
+
+fileprivate extension Scanner {
+	/// A version of `scanDouble()`, available for an earlier OS.
+	func scannedDouble() -> Double? {
+		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+			return scanDouble()
+		} else {
+			var double: Double = 0
+			return scanDouble(&double) ? double : nil
+		}
+	}
+
+	/// A version of `scanCharacters(from:)`, available for an earlier OS.
+	func scannedCharacters(from set: CharacterSet) -> String? {
+		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+			return scanCharacters(from: set)
+		} else {
+			var string: NSString? = nil
+			return scanCharacters(from: set, into: &string) ? string as String? : nil
+		}
+	}
+
+	/// A version of `scanUpToCharacters(from:)`, available for an earlier OS.
+	func scannedUpToCharacters(from set: CharacterSet) -> String? {
+		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+			return scanUpToCharacters(from: set)
+		} else {
+			var string: NSString? = nil
+			return scanUpToCharacters(from: set, into: &string) ? string as String? : nil
+		}
+	}
+}
+
+fileprivate extension CharacterSet {
+	/// Latin alphabet characters.
+	static let latinAlphabet = CharacterSet(charactersIn: "a"..."z")
+		.union(CharacterSet(charactersIn: "A"..."Z"))
+
+	static let unitCharacters = CharacterSet.latinAlphabet
 }

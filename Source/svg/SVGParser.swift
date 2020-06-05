@@ -1649,11 +1649,11 @@ open class SVGParser {
     }
 
     fileprivate func dimensionFromString(_ string: String) -> SVGLength? {
+        if string.hasSuffix("%"), let value = Double(string.dropLast()) {
+            return SVGLength(percent: value)
+        }
         if let value = doubleFromString(string) {
             return SVGLength(pixels: value)
-        }
-        if string.hasSuffix("%") {
-            return SVGLength(percent: Double(string.dropLast())!)
         }
         return .none
     }

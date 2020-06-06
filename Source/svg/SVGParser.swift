@@ -550,6 +550,9 @@ open class SVGParser {
                 break stopParse
             }
 
+            // Skip an optional comma after ")".
+            _ = scanner.scanString(",", into: nil)
+
             let values = parseTransformValues(valuesString)
             if values.isEmpty {
                 return transform

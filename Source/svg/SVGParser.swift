@@ -534,21 +534,21 @@ open class SVGParser {
 
     fileprivate func parseTransformationAttribute(_ attributes: String,
                                                   transform: Transform = Transform()) -> Transform {
-		// Transform attribute regular grammar (whitespace characters are ignored):
-		// ([a-zA-Z]+)\(((-?\d+\.?\d*e?-?\d*,?)+)\)
-		// Group (1) is an attribute name.
-		// Group (2) is comma-separated numbers.
+        // Transform attribute regular grammar (whitespace characters are ignored):
+        // ([a-zA-Z]+)\(((-?\d+\.?\d*e?-?\d*,?)+)\)
+        // Group (1) is an attribute name.
+        // Group (2) is comma-separated numbers.
 
-		var transform = transform
-		let scanner = Scanner(string: attributes)
+        var transform = transform
+        let scanner = Scanner(string: attributes)
 
-		stopParse: while !scanner.isAtEnd {
-			guard let attributeName = scanner.scannedCharacters(from: .transformationAttributeCharacters),
-				scanner.scanString("(", into: nil),
-				let valuesString = scanner.scannedUpToString(")"),
-				scanner.scanString(")", into: nil) else {
-				break stopParse
-			}
+        stopParse: while !scanner.isAtEnd {
+            guard let attributeName = scanner.scannedCharacters(from: .transformationAttributeCharacters),
+                scanner.scanString("(", into: nil),
+                let valuesString = scanner.scannedUpToString(")"),
+                scanner.scanString(")", into: nil) else {
+                break stopParse
+            }
 
             let values = parseTransformValues(valuesString)
             if values.isEmpty {
@@ -558,50 +558,50 @@ open class SVGParser {
             switch attributeName {
             case "translate":
                 let x = values[0]
-				var y: Double = 0
-				if values.indices ~= 1 {
-					y = values[1]
-				}
-				transform = transform.move(dx: x, dy: y)
+                var y: Double = 0
+                if values.indices ~= 1 {
+                    y = values[1]
+                }
+                transform = transform.move(dx: x, dy: y)
             case "scale":
                 let x = values[0]
-				var y: Double = x
-				if values.indices ~= 1 {
-					y = values[1]
-				}
-				transform = transform.scale(sx: x, sy: y)
+                var y: Double = x
+                if values.indices ~= 1 {
+                    y = values[1]
+                }
+                transform = transform.scale(sx: x, sy: y)
             case "rotate":
                 let angle = values[0]
-				if values.count == 1 {
-					transform = transform.rotate(angle: degreesToRadians(angle))
-				} else if values.count == 3 {
-					let x = values[1]
-					let y = values[2]
-					transform = transform
-						.move(dx: x, dy: y)
-						.rotate(angle: degreesToRadians(angle))
-						.move(dx: -x, dy: -y)
-				}
+                if values.count == 1 {
+                    transform = transform.rotate(angle: degreesToRadians(angle))
+                } else if values.count == 3 {
+                    let x = values[1]
+                    let y = values[2]
+                    transform = transform
+                        .move(dx: x, dy: y)
+                        .rotate(angle: degreesToRadians(angle))
+                        .move(dx: -x, dy: -y)
+                }
             case "skewX":
                 let x = values[0]
-				let v = tan((x * Double.pi) / 180.0)
-				transform = transform.shear(shx: v, shy: 0)
+                let v = tan((x * Double.pi) / 180.0)
+                transform = transform.shear(shx: v, shy: 0)
             case "skewY":
                 let y = values[0]
-				let v = tan((y * Double.pi) / 180.0)
-				transform = transform.shear(shx: 0, shy: v)
+                let v = tan((y * Double.pi) / 180.0)
+                transform = transform.shear(shx: 0, shy: v)
             case "matrix":
                 if values.count != 6 {
                     return transform
                 }
                 let m11 = values[0]
                 let m12 = values[1]
-				let m21 = values[2]
-				let m22 = values[3]
-				let dx = values[4]
-				let dy = values[5]
-				let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-				transform = transform.concat(with: transformMatrix)
+                let m21 = values[2]
+                let m22 = values[3]
+                let dx = values[4]
+                let dy = values[5]
+                let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
+                transform = transform.concat(with: transformMatrix)
             default:
                 break stopParse
             }
@@ -641,20 +641,20 @@ open class SVGParser {
     }
 
     fileprivate func parseTransformValues(_ values: String) -> [Double] {
-		// Parse comma-separated list of numbers.
-		var collectedValues: [Double] = []
-		let scanner = Scanner(string: values)
+        // Parse comma-separated list of numbers.
+        var collectedValues: [Double] = []
+        let scanner = Scanner(string: values)
 
-		while !scanner.isAtEnd {
-			if let value = scanner.scannedDouble() {
-				collectedValues.append(value)
-			} else {
-				break
-			}
-			_ = scanner.scanString(",", into: nil)
-		}
+        while !scanner.isAtEnd {
+            if let value = scanner.scannedDouble() {
+                collectedValues.append(value)
+            } else {
+                break
+            }
+            _ = scanner.scanString(",", into: nil)
+        }
 
-		return collectedValues
+        return collectedValues
     }
 
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String],
@@ -1044,18 +1044,18 @@ open class SVGParser {
                                    fontWeight: fontWeight,
                                    pos: pos)
         } else {
-			let rect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
-							y: getDoubleValue(element, attribute: "y") ?? 0)
-			let collectedTspans = collectTspans(element.children,
-												textAnchor: textAnchor,
-												fill: fill,
-												stroke: stroke,
-												opacity: opacity,
-												fontName: fontName,
-												fontSize: fontSize,
-												fontWeight: fontWeight,
-												bounds: rect)
-			return Group(contents: collectedTspans, place: pos, tag: getTag(element))
+            let rect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
+                            y: getDoubleValue(element, attribute: "y") ?? 0)
+            let collectedTspans = collectTspans(element.children,
+                                                textAnchor: textAnchor,
+                                                fill: fill,
+                                                stroke: stroke,
+                                                opacity: opacity,
+                                                fontName: fontName,
+                                                fontSize: fontSize,
+                                                fontWeight: fontWeight,
+                                                bounds: rect)
+            return Group(contents: collectedTspans, place: pos, tag: getTag(element))
         }
     }
 
@@ -1105,72 +1105,72 @@ open class SVGParser {
                                    fontSize: Int?,
                                    fontWeight: String?,
                                    bounds: Rect) -> [Node] {
-		var collection: [Node] = []
-		var bounds = bounds
-		// Whether to add a space before the next non-whitespace-only text.
-		var addWhitespace = false
-		// Whether to preserve leading whitespaces before the next text
-		// by adding a single space prefix.
-		var preserveWhitespace = false
+        var collection: [Node] = []
+        var bounds = bounds
+        // Whether to add a space before the next non-whitespace-only text.
+        var addWhitespace = false
+        // Whether to preserve leading whitespaces before the next text
+        // by adding a single space prefix.
+        var preserveWhitespace = false
 
-		for element in contents {
-			let text: Text?
-			if let textElement = element as? TextElement {
-				// parse as regular text element
-				let textString = textElement.text
-				let hasLeadingWhitespace = textString.first?.isWhitespace == true
-				let hasTrailingWhitespace = textString.last?.isWhitespace == true
+        for element in contents {
+            let text: Text?
+            if let textElement = element as? TextElement {
+                // parse as regular text element
+                let textString = textElement.text
+                let hasLeadingWhitespace = textString.first?.isWhitespace == true
+                let hasTrailingWhitespace = textString.last?.isWhitespace == true
 
-				var trimmedString = textString.trimmingCharacters(in: .whitespacesAndNewlines)
-				let isWhitespaceOnly = trimmedString.isEmpty
+                var trimmedString = textString.trimmingCharacters(in: .whitespacesAndNewlines)
+                let isWhitespaceOnly = trimmedString.isEmpty
 
-				if hasLeadingWhitespace && preserveWhitespace && !isWhitespaceOnly {
-					trimmedString = " " + trimmedString
-				}
+                if hasLeadingWhitespace && preserveWhitespace && !isWhitespaceOnly {
+                    trimmedString = " " + trimmedString
+                }
 
-				addWhitespace = preserveWhitespace && hasTrailingWhitespace
-				preserveWhitespace = false
+                addWhitespace = preserveWhitespace && hasTrailingWhitespace
+                preserveWhitespace = false
 
-				if trimmedString.isEmpty {
-					continue
-				}
+                if trimmedString.isEmpty {
+                    continue
+                }
 
-				let place = Transform().move(dx: bounds.x + bounds.w, dy: bounds.y)
+                let place = Transform().move(dx: bounds.x + bounds.w, dy: bounds.y)
 
-				text = Text(text: trimmedString,
-							font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-							fill: fill,
-							stroke: stroke,
-							align: anchorToAlign(textAnchor),
-							baseline: .alphabetic,
-							place: place,
-							opacity: opacity)
-			} else if let tspanElement = element as? XMLElement,
-				tspanElement.name == "tspan" {
-				// parse as <tspan> element
-				// ultimately skip it if it cannot be parsed
-				text = parseTspan(tspanElement,
-								  withWhitespace: addWhitespace,
-								  textAnchor: textAnchor,
-								  fill: fill,
-								  stroke: stroke,
-								  opacity: opacity,
-								  fontName: fontName,
-								  fontSize: fontSize,
-								  fontWeight: fontWeight,
-								  bounds: bounds,
-								  previousCollectedTspan: collection.last)
-				preserveWhitespace = true
-				addWhitespace = false
-			} else {
-				print("Skipped an unexpected element type: \(type(of: element)).")
-				text = nil
-			}
+                text = Text(text: trimmedString,
+                            font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
+                            fill: fill,
+                            stroke: stroke,
+                            align: anchorToAlign(textAnchor),
+                            baseline: .alphabetic,
+                            place: place,
+                            opacity: opacity)
+            } else if let tspanElement = element as? XMLElement,
+                tspanElement.name == "tspan" {
+                // parse as <tspan> element
+                // ultimately skip it if it cannot be parsed
+                text = parseTspan(tspanElement,
+                                  withWhitespace: addWhitespace,
+                                  textAnchor: textAnchor,
+                                  fill: fill,
+                                  stroke: stroke,
+                                  opacity: opacity,
+                                  fontName: fontName,
+                                  fontSize: fontSize,
+                                  fontWeight: fontWeight,
+                                  bounds: bounds,
+                                  previousCollectedTspan: collection.last)
+                preserveWhitespace = true
+                addWhitespace = false
+            } else {
+                print("Skipped an unexpected element type: \(type(of: element)).")
+                text = nil
+            }
 
-			if let text = text {
-				collection.append(text)
-				bounds = Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h)
-			}
+            if let text = text {
+                collection.append(text)
+                bounds = Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h)
+            }
         }
 
         return collection
@@ -1629,23 +1629,23 @@ open class SVGParser {
             return 0
         }
 
-		let scanner = Scanner(string: string)
-		let value = scanner.scannedDouble()
-		let unit = scanner.scannedCharacters(from: .unitCharacters)
+        let scanner = Scanner(string: string)
+        let value = scanner.scannedDouble()
+        let unit = scanner.scannedCharacters(from: .unitCharacters)
 
-		if !scanner.isAtEnd {
-			let junk = scanner.scannedUpToCharacters(from: []) ?? ""
-			print("Found trailing junk \"\(junk)\" in string \"\(string)\".")
-			return .none
-		}
+        if !scanner.isAtEnd {
+            let junk = scanner.scannedUpToCharacters(from: []) ?? ""
+            print("Found trailing junk \"\(junk)\" in string \"\(string)\".")
+            return .none
+        }
 
-		switch unit {
-		case nil, "px":
-			return value
-		default:
-			print("SVG parsing error. Unit \"\(unit ?? "")\" is not supported")
-			return value
-		}
+        switch unit {
+        case nil, "px":
+            return value
+        default:
+            print("SVG parsing error. Unit \"\(unit ?? "")\" is not supported")
+            return value
+        }
     }
 
     fileprivate func getDoubleValueFromPercentage(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
@@ -2154,53 +2154,53 @@ fileprivate enum SVGKeys {
 }
 
 fileprivate extension Scanner {
-	/// A version of `scanDouble()`, available for an earlier OS.
-	func scannedDouble() -> Double? {
-		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-			return scanDouble()
-		} else {
-			var double: Double = 0
-			return scanDouble(&double) ? double : nil
-		}
-	}
+    /// A version of `scanDouble()`, available for an earlier OS.
+    func scannedDouble() -> Double? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanDouble()
+        } else {
+            var double: Double = 0
+            return scanDouble(&double) ? double : nil
+        }
+    }
 
-	/// A version of `scanCharacters(from:)`, available for an earlier OS.
-	func scannedCharacters(from set: CharacterSet) -> String? {
-		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-			return scanCharacters(from: set)
-		} else {
-			var string: NSString? = nil
-			return scanCharacters(from: set, into: &string) ? string as String? : nil
-		}
-	}
+    /// A version of `scanCharacters(from:)`, available for an earlier OS.
+    func scannedCharacters(from set: CharacterSet) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanCharacters(from: set)
+        } else {
+            var string: NSString? = nil
+            return scanCharacters(from: set, into: &string) ? string as String? : nil
+        }
+    }
 
-	/// A version of `scanUpToCharacters(from:)`, available for an earlier OS.
-	func scannedUpToCharacters(from set: CharacterSet) -> String? {
-		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-			return scanUpToCharacters(from: set)
-		} else {
-			var string: NSString? = nil
-			return scanUpToCharacters(from: set, into: &string) ? string as String? : nil
-		}
-	}
+    /// A version of `scanUpToCharacters(from:)`, available for an earlier OS.
+    func scannedUpToCharacters(from set: CharacterSet) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanUpToCharacters(from: set)
+        } else {
+            var string: NSString? = nil
+            return scanUpToCharacters(from: set, into: &string) ? string as String? : nil
+        }
+    }
 
-	/// A version of `scanUpToString(_:)`, available for an earlier OS.
-	func scannedUpToString(_ substring: String) -> String? {
-		if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-			return scanUpToString(substring)
-		} else {
-			var string: NSString? = nil
-			return scanUpTo(substring, into: &string) ? string as String? : nil
-		}
-	}
+    /// A version of `scanUpToString(_:)`, available for an earlier OS.
+    func scannedUpToString(_ substring: String) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanUpToString(substring)
+        } else {
+            var string: NSString? = nil
+            return scanUpTo(substring, into: &string) ? string as String? : nil
+        }
+    }
 }
 
 fileprivate extension CharacterSet {
-	/// Latin alphabet characters.
-	static let latinAlphabet = CharacterSet(charactersIn: "a"..."z")
-		.union(CharacterSet(charactersIn: "A"..."Z"))
+    /// Latin alphabet characters.
+    static let latinAlphabet = CharacterSet(charactersIn: "a"..."z")
+        .union(CharacterSet(charactersIn: "A"..."Z"))
 
-	static let unitCharacters = CharacterSet.latinAlphabet
+    static let unitCharacters = CharacterSet.latinAlphabet
 
-	static let transformationAttributeCharacters = CharacterSet.latinAlphabet
+    static let transformationAttributeCharacters = CharacterSet.latinAlphabet
 }

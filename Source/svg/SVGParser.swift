@@ -1044,28 +1044,19 @@ open class SVGParser {
                                    fontWeight: fontWeight,
                                    pos: pos)
         } else {
-            guard let matcher = SVGParserRegexHelper.getTextElementMatcher() else {
-                return .none
-            }
-            let elementString = element.description
-            let fullRange = NSRange(location: 0, length: elementString.count)
-            if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
-                let tspans = (elementString as NSString).substring(with: match.range(at: 1))
-                let rect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
-                                y: getDoubleValue(element, attribute: "y") ?? 0)
-                let collectedTspans = collectTspans(tspans,
-                                                    textAnchor: textAnchor,
-                                                    fill: fill,
-                                                    stroke: stroke,
-                                                    opacity: opacity,
-                                                    fontName: fontName,
-                                                    fontSize: fontSize,
-                                                    fontWeight: fontWeight,
-                                                    bounds: rect)
-                return Group(contents: collectedTspans, place: pos, tag: getTag(element))
-            }
+			let rect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
+							y: getDoubleValue(element, attribute: "y") ?? 0)
+			let collectedTspans = collectTspans(element.children,
+												textAnchor: textAnchor,
+												fill: fill,
+												stroke: stroke,
+												opacity: opacity,
+												fontName: fontName,
+												fontSize: fontSize,
+												fontWeight: fontWeight,
+												bounds: rect)
+			return Group(contents: collectedTspans, place: pos, tag: getTag(element))
         }
-        return .none
     }
 
     fileprivate func anchorToAlign(_ textAnchor: String?) -> Align {
@@ -1105,9 +1096,7 @@ open class SVGParser {
 
     // REFACTOR
 
-    fileprivate func collectTspans(_ tspan: String,
-                                   collectedTspans: [Node] = [],
-                                   withWhitespace: Bool = false,
+    fileprivate func collectTspans(_ contents: [XMLContent],
                                    textAnchor: String?,
                                    fill: Fill?,
                                    stroke: Stroke?,
@@ -1116,99 +1105,78 @@ open class SVGParser {
                                    fontSize: Int?,
                                    fontWeight: String?,
                                    bounds: Rect) -> [Node] {
-        let fullString = tspan.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
-        // exit recursion
-        if fullString.isEqual(to: "") {
-            return collectedTspans
-        }
-        var collection = collectedTspans
-        let tagRange = fullString.range(of: "<tspan".lowercased())
-        if tagRange.location == 0 {
-            // parse as <tspan> element
-            let closingTagRange = fullString.range(of: "</tspan>".lowercased())
-            let tspanString = fullString.substring(to: closingTagRange.location + closingTagRange.length)
-            let tspanXml = SWXMLHash.parse(tspanString)
-            guard let indexer = tspanXml.children.first,
-                let text = parseTspan(indexer,
-                                      withWhitespace: withWhitespace,
-                                      textAnchor: textAnchor,
-                                      fill: fill,
-                                      stroke: stroke,
-                                      opacity: opacity,
-                                      fontName: fontName,
-                                      fontSize: fontSize,
-                                      fontWeight: fontWeight,
-                                      bounds: bounds,
-                                      previousCollectedTspan: collection.last) else {
+		var collection: [Node] = []
+		var bounds = bounds
+		// Whether to add a space before the next non-whitespace-only text.
+		var addWhitespace = false
+		// Whether to preserve leading whitespaces before the next text
+		// by adding a single space prefix.
+		var preserveWhitespace = false
 
-                                        // skip this element if it can't be parsed
-                                        return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length),
-                                                             collectedTspans: collectedTspans,
-                                                             textAnchor: textAnchor,
-                                                             fill: fill,
-                                                             stroke: stroke,
-                                                             opacity: opacity,
-                                                             fontName: fontName,
-                                                             fontSize: fontSize,
-                                                             fontWeight: fontWeight,
-                                                             bounds: bounds)
-            }
-            collection.append(text)
-            let nextString = fullString.substring(from: closingTagRange.location + closingTagRange.length) as NSString
-            var withWhitespace = false
-            if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
-                withWhitespace = true
-            }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length),
-                                 collectedTspans: collection,
-                                 withWhitespace: withWhitespace,
-                                 textAnchor: textAnchor,
-                                 fill: fill,
-                                 stroke: stroke,
-                                 opacity: opacity,
-                                 fontName: fontName,
-                                 fontSize: fontSize,
-                                 fontWeight: fontWeight,
-                                 bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
+		for element in contents {
+			let text: Text?
+			if let textElement = element as? TextElement {
+				// parse as regular text element
+				let textString = textElement.text
+				let hasLeadingWhitespace = textString.first?.isWhitespace == true
+				let hasTrailingWhitespace = textString.last?.isWhitespace == true
+
+				var trimmedString = textString.trimmingCharacters(in: .whitespacesAndNewlines)
+				let isWhitespaceOnly = trimmedString.isEmpty
+
+				if hasLeadingWhitespace && preserveWhitespace && !isWhitespaceOnly {
+					trimmedString = " " + trimmedString
+				}
+
+				addWhitespace = preserveWhitespace && hasTrailingWhitespace
+				preserveWhitespace = false
+
+				if trimmedString.isEmpty {
+					continue
+				}
+
+				let place = Transform().move(dx: bounds.x + bounds.w, dy: bounds.y)
+
+				text = Text(text: trimmedString,
+							font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
+							fill: fill,
+							stroke: stroke,
+							align: anchorToAlign(textAnchor),
+							baseline: .alphabetic,
+							place: place,
+							opacity: opacity)
+			} else if let tspanElement = element as? XMLElement,
+				tspanElement.name == "tspan" {
+				// parse as <tspan> element
+				// ultimately skip it if it cannot be parsed
+				text = parseTspan(tspanElement,
+								  withWhitespace: addWhitespace,
+								  textAnchor: textAnchor,
+								  fill: fill,
+								  stroke: stroke,
+								  opacity: opacity,
+								  fontName: fontName,
+								  fontSize: fontSize,
+								  fontWeight: fontWeight,
+								  bounds: bounds,
+								  previousCollectedTspan: collection.last)
+				preserveWhitespace = true
+				addWhitespace = false
+			} else {
+				print("Skipped an unexpected element type: \(type(of: element)).")
+				text = nil
+			}
+
+			if let text = text {
+				collection.append(text)
+				bounds = Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h)
+			}
         }
-        // parse as regular text element
-        var textString: NSString
-        if tagRange.location >= fullString.length {
-            textString = fullString
-        } else {
-            textString = fullString.substring(to: tagRange.location) as NSString
-        }
-        var nextStringWhitespace = false
-        var trimmedString = textString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if trimmedString.count != textString.length {
-            nextStringWhitespace = true
-        }
-        trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
-        let text = Text(text: trimmedString,
-                        font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                        fill: fill,
-                        stroke: stroke,
-                        align: anchorToAlign(textAnchor),
-                        baseline: .alphabetic,
-                        place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
-        collection.append(text)
-        if tagRange.location >= fullString.length { // leave recursion
-            return collection
-        }
-        return collectTspans(fullString.substring(from: tagRange.location),
-                             collectedTspans: collection,
-                             withWhitespace: nextStringWhitespace,
-                             textAnchor: textAnchor,
-                             fill: fill,
-                             stroke: stroke,
-                             opacity: opacity,
-                             fontName: fontName,
-                             fontSize: fontSize,
-                             fontWeight: fontWeight,
-                             bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
+
+        return collection
     }
 
-    fileprivate func parseTspan(_ tspan: XMLIndexer,
+    fileprivate func parseTspan(_ element: XMLElement,
                                 withWhitespace: Bool = false,
                                 textAnchor: String?,
                                 fill: Fill?,
@@ -1219,10 +1187,6 @@ open class SVGParser {
                                 fontWeight: String?,
                                 bounds: Rect,
                                 previousCollectedTspan: Node?) -> Text? {
-
-        guard let element = tspan.element else {
-            return .none
-        }
 
         let string = element.text
         var shouldAddWhitespace = withWhitespace

@@ -233,7 +233,6 @@
 		57614B661F83D15600875933 /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10C1E3B393900D1CB28 /* PinchEvent.swift */; };
 		57614B671F83D15600875933 /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
 		57614B681F83D15600875933 /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13E1E3B393900D1CB28 /* GroupRenderer.swift */; };
-		57614B691F83D15600875933 /* SVGParserRegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */; };
 		57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14E1E3B393900D1CB28 /* NSTimer+Closure.swift */; };
 		57614B6C1F83D15600875933 /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572CEFC51E2CED4B008C7C83 /* SWXMLHash+TypeConversion.swift */; };
 		57614B6D1F83D15600875933 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FF1E3B393900D1CB28 /* AnimationSequence.swift */; };
@@ -330,7 +329,6 @@
 		57E5E1AA1E3B393900D1CB28 /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1461E3B393900D1CB28 /* SVGConstants.swift */; };
 		57E5E1AB1E3B393900D1CB28 /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1471E3B393900D1CB28 /* SVGParser.swift */; };
 		57E5E1AC1E3B393900D1CB28 /* SVGParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1481E3B393900D1CB28 /* SVGParserError.swift */; };
-		57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */; };
 		57E5E1AE1E3B393900D1CB28 /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14A1E3B393900D1CB28 /* SVGView.swift */; };
 		57E5E1AF1E3B393900D1CB28 /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14C1E3B393900D1CB28 /* CAAnimationClosure.swift */; };
 		57E5E1B01E3B393900D1CB28 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */; };
@@ -950,7 +948,6 @@
 		57E5E1461E3B393900D1CB28 /* SVGConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGConstants.swift; sourceTree = "<group>"; };
 		57E5E1471E3B393900D1CB28 /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
 		57E5E1481E3B393900D1CB28 /* SVGParserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParserError.swift; sourceTree = "<group>"; };
-		57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParserRegexHelper.swift; sourceTree = "<group>"; };
 		57E5E14A1E3B393900D1CB28 /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
 		57E5E14C1E3B393900D1CB28 /* CAAnimationClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimationClosure.swift; sourceTree = "<group>"; };
 		57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Double.swift"; sourceTree = "<group>"; };
@@ -1731,7 +1728,6 @@
 				5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */,
 				57E5E1471E3B393900D1CB28 /* SVGParser.swift */,
 				57E5E1481E3B393900D1CB28 /* SVGParserError.swift */,
-				57E5E1491E3B393900D1CB28 /* SVGParserRegexHelper.swift */,
 				C4820B171F458D0E008CE0FF /* SVGSerializer.swift */,
 				57E5E14A1E3B393900D1CB28 /* SVGView.swift */,
 			);
@@ -2811,7 +2807,6 @@
 				57614B671F83D15600875933 /* ContentsInterpolation.swift in Sources */,
 				57614B681F83D15600875933 /* GroupRenderer.swift in Sources */,
 				5B6E192820AC58F900454E7E /* RadialGradient.swift in Sources */,
-				57614B691F83D15600875933 /* SVGParserRegexHelper.swift in Sources */,
 				5B6E192A20AC58F900454E7E /* Align.swift in Sources */,
 				57614B6B1F83D15600875933 /* NSTimer+Closure.swift in Sources */,
 				5B6E193620AC58F900454E7E /* Stop.swift in Sources */,
@@ -2954,7 +2949,6 @@
 				57A27BCF1E44C4EC0057BD3A /* ContentsInterpolation.swift in Sources */,
 				57E5E1A31E3B393900D1CB28 /* GroupRenderer.swift in Sources */,
 				5B6E192720AC58F900454E7E /* RadialGradient.swift in Sources */,
-				57E5E1AD1E3B393900D1CB28 /* SVGParserRegexHelper.swift in Sources */,
 				5B6E192920AC58F900454E7E /* Align.swift in Sources */,
 				57E5E1B11E3B393900D1CB28 /* NSTimer+Closure.swift in Sources */,
 				30FF4962215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift in Sources */,

@@ -43,7 +43,9 @@ class MacawSVGTests: XCTestCase {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
                 let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
                 let result = SVGSerializer.serialize(node: node)
-                XCTAssertEqual(result, clipReferenceContent)
+                if result != clipReferenceContent {
+                    XCTFail("result is not equal to referenceContent")
+                }
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -195,7 +197,7 @@ class MacawSVGTests: XCTestCase {
                 let referenceContent = try String(contentsOfFile: path)
                 
                 let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
-                
+
                 if nodeContent != referenceContent {
                     XCTFail("nodeContent is not equal to referenceContent")
                 }
@@ -314,7 +316,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func writeToFile(string: String, fileName: String) -> URL? {
-        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) as NSURL else {
             return .none
         }
         do {

@@ -41,10 +41,10 @@ class MacawSVGTests: XCTestCase {
         
         do {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
-                let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                let result = SVGSerializer.serialize(node: node)
-                if result != clipReferenceContent {
-                    XCTFail("result is not equal to referenceContent")
+                let referenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
+                let nodeContent = SVGSerializer.serialize(node: node)
+                if nodeContent != referenceContent {
+                    XCTFail("nodeContent is not equal to referenceContent")
                 }
             } else {
                 XCTFail("No file \(referenceFile)")

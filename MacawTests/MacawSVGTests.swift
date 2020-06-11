@@ -36,16 +36,29 @@ class MacawSVGTests: XCTestCase {
         super.tearDown()
     }
 
+    func compareResults(nodeContent: String?, referenceContent: String?) {
+        guard let nodeContent = nodeContent else {
+            XCTFail("nodeContent is empty")
+            return
+        }
+        guard let referenceContent = referenceContent else {
+            XCTFail("referenceContent is empty")
+            return
+        }
+
+        if nodeContent != referenceContent {
+            XCTFail("nodeContent is not equal to referenceContent" + TestUtils.prettyFirstDifferenceBetweenStrings(s1: nodeContent, s2: referenceContent))
+        }
+    }
+
     func validate(node: Node, referenceFile: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         
         do {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
-                let referenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
-                let nodeContent = SVGSerializer.serialize(node: node)
-                if nodeContent != referenceContent {
-                    XCTFail("nodeContent is not equal to referenceContent")
-                }
+                let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
+                let result = SVGSerializer.serialize(node: node)
+                compareResults(nodeContent: result, referenceContent: clipReferenceContent)
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -194,13 +207,10 @@ class MacawSVGTests: XCTestCase {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
-                let referenceContent = try String(contentsOfFile: path)
-                
-                let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
 
-                if nodeContent != referenceContent {
-                    XCTFail("nodeContent is not equal to referenceContent")
-                }
+                let referenceContent = try String(contentsOfFile: path)
+                let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
+                compareResults(nodeContent: nodeContent, referenceContent: referenceContent)
                 
                 let nativeImage = getImage(from: referenceFile)
             

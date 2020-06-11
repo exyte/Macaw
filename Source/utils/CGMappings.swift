@@ -157,7 +157,7 @@ public extension Node {
 extension MBezierPath {
 
     public func toMacaw() -> Path {
-        let fillRule: FillRule = self.usesEvenOddFillRule ? .evenodd : .nonzero
+        let fillRule: FillRule = self.mUsesEvenOddFillRule ? .evenodd : .nonzero
         return self.cgPath.toMacaw(fillRule: fillRule)
     }
 
@@ -178,7 +178,7 @@ extension CGPath {
         }
 
         var segments = [PathSegment]()
-        self.forEach(body: { (element: CGPathElement) in
+        self.forEach { (element: CGPathElement) in
 
             let segment: PathSegment
             switch element.type {
@@ -196,7 +196,7 @@ extension CGPath {
                 fatalError("Unknown element type: \(element.type)")
             }
             segments.append(segment)
-        })
+        }
 
         return Path(segments: segments, fillRule: .nonzero)
     }

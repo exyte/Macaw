@@ -100,7 +100,7 @@ extension UIScreen {
 }
 
 extension UIBezierPath {
-    var usesEvenOddFillRule: Bool {
+    var mUsesEvenOddFillRule: Bool {
         return self.usesEvenOddFillRule
     }
 }

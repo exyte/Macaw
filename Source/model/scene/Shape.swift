@@ -24,10 +24,13 @@ open class Shape: Node {
         set(val) { strokeVar.value = val }
     }
 
+    public let strokeEndVar: AnimatableVariable<StrokeEnd>
+
     public init(form: Locus, fill: Fill? = nil, stroke: Stroke? = nil, place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
         self.formVar = AnimatableVariable<Locus>(form)
         self.fillVar = AnimatableVariable<Fill?>(fill)
         self.strokeVar = AnimatableVariable<Stroke?>(stroke)
+        self.strokeEndVar = AnimatableVariable<StrokeEnd>(StrokeEnd.zero)
         super.init(
             place: place,
             opaque: opaque,
@@ -42,6 +45,7 @@ open class Shape: Node {
         self.formVar.node = self
         self.strokeVar.node = self
         self.fillVar.node = self
+        self.strokeEndVar.node = self
     }
 
     override open var bounds: Rect? {

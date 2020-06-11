@@ -15,16 +15,18 @@ import AppKit
 
 func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, sceneLayer: CALayer, completion: @escaping (() -> Void)) {
 
-    guard let shape = animation.node as? Shape, let renderer = animation.nodeRenderer else {
+    guard let pathAnimation = animation as? PathAnimation, let shape = animation.node as? Shape, let renderer = animation.nodeRenderer else {
         return
     }
-
-    let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
     let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false)
 
     // Creating proper animation
-    let generatedAnim = generatePathAnimation(from: 0.0, to: 1.0, duration: duration)
+    let generatedAnim = generatePathAnimation(
+        pathAnimation.getVFunc(),
+        duration: animation.getDuration(),
+        offset: animation.pausedProgress,
+        fps: pathAnimation.logicalFps)
 
     generatedAnim.repeatCount = Float(animation.repeatCount)
     generatedAnim.timingFunction = caTimingFunction(animation.easing)
@@ -60,14 +62,35 @@ func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, 
     }
 }
 
-fileprivate func generatePathAnimation(from: Double, to: Double, duration: Double) -> CAAnimation {
+fileprivate func generatePathAnimation(_ valueFunc: (Double) -> StrokeEnd, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
-    let animation = CABasicAnimation(keyPath: "strokeEnd")
-    animation.fromValue = from
-    animation.toValue = to
-    animation.duration = duration
-    animation.fillMode = CAMediaTimingFillMode.forwards
+    var strokeEndValues = [Double]()
+    var timeValues = [Double]()
+
+    let step = 1.0 / (duration * Double(fps))
+
+    var dt = 0.0
+    var tValue = Array(stride(from: 0.0, to: 1.0, by: step))
+    tValue.append(1.0)
+    for t in tValue {
+
+        dt = t
+        if 1.0 - dt < step {
+            dt = 1.0
+        }
+
+        let value = valueFunc(offset + dt)
+        strokeEndValues.append(value.double)
+        timeValues.append(dt)
+    }
+
+    let animation = CAKeyframeAnimation(keyPath: "strokeEnd")
+    animation.fillMode = MCAMediaTimingFillMode.forwards
     animation.isRemovedOnCompletion = false
+
+    animation.duration = duration
+    animation.values = strokeEndValues
+    animation.keyTimes = timeValues as [NSNumber]?
 
     return animation
 }

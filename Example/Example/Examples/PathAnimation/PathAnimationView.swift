@@ -30,7 +30,7 @@ class PathAnimationView: MacawView {
     func fractalStep(allTriangles: [Shape], currentTier: [Shape], side: Double, depth: Int) {
         var tierAnimations = [Animation]()
         for shape in currentTier {
-            tierAnimations.append(shape.formVar.appearanceAnimation())
+            tierAnimations.append(shape.strokeEndVar.animation(to: StrokeEnd(1)))
         }
         tierAnimations.combine().onComplete {
             if depth < 4 {

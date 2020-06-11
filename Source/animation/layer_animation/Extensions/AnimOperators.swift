@@ -7,6 +7,12 @@ public func >> (a: Double, b: Double) -> OpacityAnimationDescription {
     })
 }
 
+public func >> (a: StrokeEnd, b: StrokeEnd) -> PathAnimationDescription {
+    return PathAnimationDescription(valueFunc: { t in
+        a.interpolate(b, progress: t)
+    })
+}
+
 public func >> (a: Transform, b: Transform) -> TransformAnimationDescription {
     return TransformAnimationDescription(valueFunc: { t in
         a.interpolate(b, progress: t)

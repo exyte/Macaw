@@ -20,13 +20,13 @@ class MacawSVGTests: XCTestCase {
     private let testFolderName = "MacawTestOutputData"
     private let shouldComparePNGImages = true
     private let multipleTestsWillRun = false
-    private let shouldSaveFaildedTestImage = false
+    private let shouldSaveFailedTestImage = false
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         super.setUp()
         
-        if shouldSaveFaildedTestImage {
+        if shouldSaveFailedTestImage {
             setupTestFolderDirectory()
         }
     }
@@ -273,9 +273,9 @@ class MacawSVGTests: XCTestCase {
         
         if referenceContentData != nodeContentData {
             
-            var failInfo = "referenceContentData is not equal to nodeContentData"
+            var failInfo = "referenceImageData is not equal to nodeImageData"
             
-            if shouldSaveFaildedTestImage {
+            if shouldSaveFailedTestImage {
                 let _ = saveImage(image: referenceImage, fileName: referenceFile + "_reference")
                 let _ = saveImage(image: nodeImage, fileName: referenceFile + "_incorrect")
                 

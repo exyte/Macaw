@@ -547,7 +547,7 @@ open class SVGParser {
                 scanner.scanString("(", into: nil),
                 let valuesString = scanner.scannedUpToString(")"),
                 scanner.scanString(")", into: nil) else {
-                break stopParse
+                    break stopParse
             }
 
             // Skip an optional comma after ")".
@@ -1148,7 +1148,7 @@ open class SVGParser {
                             baseline: .alphabetic,
                             place: place,
                             opacity: opacity)
-            } else if let tspanElement = element as? XMLElement,
+            } else if let tspanElement = element as? SWXMLHash.XMLElement,
                 tspanElement.name == "tspan" {
                 // parse as <tspan> element
                 // ultimately skip it if it cannot be parsed
@@ -1179,7 +1179,7 @@ open class SVGParser {
         return collection
     }
 
-    fileprivate func parseTspan(_ element: XMLElement,
+    fileprivate func parseTspan(_ element: SWXMLHash.XMLElement,
                                 withWhitespace: Bool = false,
                                 textAnchor: String?,
                                 fill: Fill?,

@@ -111,11 +111,11 @@ open class Node: Drawable {
 
     @discardableResult public func onTap(tapCount: Int = 1, f: @escaping (TapEvent) -> Void) -> Disposable {
         let handler = ChangeHandler<TapEvent>(f)
-        if var handlers = tapHandlers[tapCount] {
-            handlers.append(handler)
-        } else {
-            tapHandlers[tapCount] = [handler]
-        }
+        
+        var handlers = tapHandlers[tapCount] ?? []
+        handlers.append(handler)
+        
+        tapHandlers[tapCount] = handlers
 
         return Disposable { [weak self, unowned handler]  in
             guard let index = self?.tapHandlers[tapCount]?.firstIndex(of: handler) else {

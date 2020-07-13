@@ -29,8 +29,8 @@ class NodeRenderer {
     var layer: CachedLayer?
     var zPosition: Int = 0
 
-    let parentRenderer: GroupRenderer?
-
+    private(set) weak var parentRenderer: GroupRenderer?
+    
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false

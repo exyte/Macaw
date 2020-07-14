@@ -26,28 +26,28 @@ open class Group: Node {
     }
 
     // Searching
-
-    override public func nodeBy(tag: String) -> Node? {
-        if let node = super.nodeBy(tag: tag) {
+    
+    override public func nodeBy(predicate: (String) -> Bool) -> Node? {
+        if let node = super.nodeBy(predicate: predicate) {
             return node
         }
 
         for child in contents {
-            if let node = child.nodeBy(tag: tag) {
+            if let node = child.nodeBy(predicate: predicate) {
                 return node
             }
         }
 
         return .none
     }
-
-    override public func nodesBy(tag: String) -> [Node] {
+    
+    override public func nodesBy(predicate: (String) -> Bool) -> [Node] {
         var result = [Node]()
         contents.forEach { child in
-            result.append(contentsOf: child.nodesBy(tag: tag))
+            result.append(contentsOf: child.nodesBy(predicate: predicate))
         }
 
-        if let node = super.nodeBy(tag: tag) {
+        if let node = super.nodeBy(predicate: predicate) {
             result.append(node)
         }
 

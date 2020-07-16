@@ -272,7 +272,7 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    final func findNodeAt(location: CGPoint, ctx: CGContext) -> NodePath? {
+    final func findNodeAt(location: CGPoint, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
         guard node.opaque, let inverted = node.place.invert() else {
             return .none
         }
@@ -286,11 +286,11 @@ class NodeRenderer {
         applyClip(in: ctx)
         let loc = location.applying(inverted.toCG())
         let path = NodePath(node: node, location: loc)
-        let result = doFindNodeAt(path: path, ctx: ctx)
+        let result = doFindNodeAt(path: path, ctx: ctx, contentInset: contentInset)
         return result
     }
 
-    final func findNodeAt(parentNodePath: NodePath, ctx: CGContext) -> NodePath? {
+    final func findNodeAt(parentNodePath: NodePath, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
         guard node.opaque, let inverted = node.place.invert() else {
             return .none
         }
@@ -304,11 +304,11 @@ class NodeRenderer {
         applyClip(in: ctx)
         let loc = parentNodePath.location.applying(inverted.toCG())
         let path = NodePath(node: node, location: loc, parent: parentNodePath)
-        let result = doFindNodeAt(path: path, ctx: ctx)
+        let result = doFindNodeAt(path: path, ctx: ctx, contentInset: contentInset)
         return result
     }
 
-    public func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
+    public func doFindNodeAt(path: NodePath, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
         return nil
     }
 

@@ -30,6 +30,7 @@ public typealias MPinchGestureRecognizer = UIPinchGestureRecognizer
 public typealias MRotationGestureRecognizer = UIRotationGestureRecognizer
 public typealias MScreen = UIScreen
 public typealias MViewContentMode = UIView.ContentMode
+public typealias MEdgeInsets = UIEdgeInsets
 
 func MDefaultRunLoopMode() -> RunLoop.Mode {
     return RunLoop.Mode.default

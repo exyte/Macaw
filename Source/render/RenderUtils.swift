@@ -551,24 +551,26 @@ class RenderUtils {
         }
     }
 
-    internal class func setGeometry(_ locus: Locus, ctx: CGContext) {
+    internal class func setGeometry(_ locus: Locus, ctx: CGContext, contentInset: MEdgeInsets? = nil) {
+        let contentInset = contentInset ?? .zero
+        
         if let rect = locus as? Rect {
-            ctx.addRect(rect.toCG())
+            ctx.addRect(rect.toCG().inset(by: contentInset.inverted))
         } else if let round = locus as? RoundRect {
             let corners = CGSize(width: CGFloat(round.rx), height: CGFloat(round.ry))
-            let path = MBezierPath(roundedRect: round.rect.toCG(), byRoundingCorners:
-                                    MRectCorner.allCorners, cornerRadii: corners).cgPath
+            let path = MBezierPath(roundedRect: round.rect.toCG().inset(by: contentInset.inverted),
+                                   byRoundingCorners: MRectCorner.allCorners, cornerRadii: corners).cgPath
             ctx.addPath(path)
         } else if let circle = locus as? Circle {
             let cx = circle.cx
             let cy = circle.cy
-            let r = circle.r
+            let r = circle.r + max(contentInset.horizontal, contentInset.vertical)
             ctx.addEllipse(in: CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2))
         } else if let ellipse = locus as? Ellipse {
             let cx = ellipse.cx
             let cy = ellipse.cy
-            let rx = ellipse.rx
-            let ry = ellipse.ry
+            let rx = ellipse.rx + contentInset.horizontal
+            let ry = ellipse.ry + contentInset.vertical
             ctx.addEllipse(in: CGRect(x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2))
         } else {
             ctx.addPath(locus.toCGPath())

@@ -56,7 +56,7 @@ class ImageRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
+    override func doFindNodeAt(path: NodePath, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
 
         if let mImage = MImage(named: image.src),
            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {

@@ -29,6 +29,7 @@ public typealias MPanGestureRecognizer = NSPanGestureRecognizer
 public typealias MPinchGestureRecognizer = NSMagnificationGestureRecognizer
 public typealias MRotationGestureRecognizer = NSRotationGestureRecognizer
 public typealias MScreen = NSScreen
+public typealias MEdgeInsets = NSEdgeInsets
 
 func MDefaultRunLoopMode() -> RunLoop.Mode {
     return RunLoop.Mode.default
@@ -187,6 +188,24 @@ extension NSWindow {
 extension NSBezierPath {
     var mUsesEvenOddFillRule: Bool {
         return self.windingRule == .evenOdd
+    }
+}
+
+extension MEdgeInsets {
+    
+    static var zero: MEdgeInsets {
+        return MEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+}
+
+extension CGRect {
+    func inset(by contentInset: MEdgeInsets) -> CGRect {
+        return CGRect(
+            x: minX + contentInset.left,
+            y: minY + contentInset.top,
+            width: width - CGFloat(contentInset.horizontal),
+            height: height - CGFloat(contentInset.vertical)
+        )
     }
 }
 

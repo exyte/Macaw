@@ -211,3 +211,18 @@ extension CGPath {
         self.apply(info: unsafeBody, function: callback)
     }
 }
+
+extension MEdgeInsets {
+    
+    var inverted: MEdgeInsets {
+        return MEdgeInsets(top: -top, left: -left, bottom: -bottom, right: -right)
+    }
+    
+    var horizontal: Double {
+        return Double(left + right)
+    }
+    
+    var vertical: Double {
+        return Double(top + bottom)
+    }
+}

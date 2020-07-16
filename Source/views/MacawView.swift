@@ -16,7 +16,12 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     internal var drawingView = DrawingView()
 
     public lazy var zoom = MacawZoom(view: self)
-
+    
+    public var touchContentInset: MEdgeInsets {
+        get { return drawingView.touchContentInset }
+        set { drawingView.touchContentInset = newValue }
+    }
+    
     open var node: Node {
         get { return drawingView.node }
         set { drawingView.node = newValue }
@@ -282,7 +287,9 @@ internal class DrawingView: MView {
     var touchesMap = [MTouchEvent: [NodePath]]()
     var touchesOfNode = [Node: [MTouchEvent]]()
     var recognizersMap = [MGestureRecognizer: [Node]]()
-
+    
+    var touchContentInset: MEdgeInsets = .zero
+    
     var context: RenderContext!
     var renderer: NodeRenderer?
 
@@ -333,17 +340,17 @@ internal class DrawingView: MView {
         guard let ctx = context.cgContext else {
             return .none
         }
-        return doFindNode(location: location, ctx: ctx)?.node
+        return doFindNode(location: location, ctx: ctx, contentInset: nil)?.node
     }
 
-    private func doFindNode(location: CGPoint, ctx: CGContext) -> NodePath? {
+    private func doFindNode(location: CGPoint, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
         guard let renderer = renderer else {
             return .none
         }
-        return renderer.findNodeAt(location: location, ctx: ctx)
+        return renderer.findNodeAt(location: location, ctx: ctx, contentInset: contentInset)
     }
 
-    private func doFindNode(location: CGPoint) -> NodePath? {
+    private func doFindNode(location: CGPoint, contentInset: MEdgeInsets?) -> NodePath? {
         MGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1.0)
         defer {
             MGraphicsEndImageContext()
@@ -352,7 +359,7 @@ internal class DrawingView: MView {
             return .none
         }
         let loc = location.applying(inverted.toCG())
-        return doFindNode(location: loc, ctx: ctx)
+        return doFindNode(location: loc, ctx: ctx, contentInset: contentInset)
     }
 
     // MARK: - Touches
@@ -370,7 +377,7 @@ internal class DrawingView: MView {
 
         for touch in touchPoints {
             let location = CGPoint(x: touch.x, y: touch.y)
-            var nodePath = doFindNode(location: location)
+            var nodePath = doFindNode(location: location, contentInset: touchContentInset)
 
             if touchesMap[touch] == nil {
                 touchesMap[touch] = [NodePath]()
@@ -498,7 +505,7 @@ internal class DrawingView: MView {
         }
 
         let location = recognizer.location(in: self)
-        var nodePath = doFindNode(location: location)
+        var nodePath = doFindNode(location: location, contentInset: touchContentInset)
 
         while let current = nodePath {
             let node = current.node
@@ -522,7 +529,7 @@ internal class DrawingView: MView {
         }
 
         let location = recognizer.location(in: self)
-        guard var nodePath = doFindNode(location: location) else {
+        guard var nodePath = doFindNode(location: location, contentInset: touchContentInset) else {
             return
         }
 
@@ -549,7 +556,7 @@ internal class DrawingView: MView {
 
         if recognizer.state == .began {
             let location = recognizer.location(in: self)
-            guard var nodePath = doFindNode(location: location) else {
+            guard var nodePath = doFindNode(location: location, contentInset: touchContentInset) else {
                 return
             }
 
@@ -599,7 +606,7 @@ internal class DrawingView: MView {
 
         if recognizer.state == .began {
             let location = recognizer.location(in: self)
-            guard var nodePath = doFindNode(location: location) else {
+            guard var nodePath = doFindNode(location: location, contentInset: touchContentInset) else {
                 return
             }
 
@@ -642,7 +649,7 @@ internal class DrawingView: MView {
 
         if recognizer.state == .began {
             let location = recognizer.location(in: self)
-            guard var nodePath = doFindNode(location: location) else {
+            guard var nodePath = doFindNode(location: location, contentInset: touchContentInset) else {
                 return
             }
 

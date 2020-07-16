@@ -46,9 +46,9 @@ class GroupRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
+    override func doFindNodeAt(path: NodePath, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
         for renderer in renderers.reversed() {
-            if let result = renderer.findNodeAt(parentNodePath: path, ctx: ctx) {
+            if let result = renderer.findNodeAt(parentNodePath: path, ctx: ctx, contentInset: contentInset) {
                 return result
             }
         }

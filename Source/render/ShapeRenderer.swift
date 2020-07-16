@@ -53,8 +53,8 @@ class ShapeRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
-        RenderUtils.setGeometry(shape.form, ctx: ctx)
+    override func doFindNodeAt(path: NodePath, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
+        RenderUtils.setGeometry(shape.form, ctx: ctx, contentInset: contentInset)
         var drawingMode: CGPathDrawingMode?
         if let stroke = shape.stroke {
             RenderUtils.setStrokeAttributes(stroke, ctx: ctx)

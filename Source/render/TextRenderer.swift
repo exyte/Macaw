@@ -70,7 +70,7 @@ class TextRenderer: NodeRenderer {
         }
     }
 
-    override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
+    override func doFindNodeAt(path: NodePath, ctx: CGContext, contentInset: MEdgeInsets?) -> NodePath? {
         guard let contains = node.bounds?.toCG().contains(path.location) else {
             return .none
         }

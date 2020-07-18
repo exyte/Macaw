@@ -27,7 +27,7 @@ open class Group: Node {
 
     // Searching
     
-    override public func nodeBy(predicate: (String) -> Bool) -> Node? {
+    override public func nodeBy(predicate: (Node) -> Bool) -> Node? {
         if let node = super.nodeBy(predicate: predicate) {
             return node
         }
@@ -41,7 +41,7 @@ open class Group: Node {
         return .none
     }
     
-    override public func nodesBy(predicate: (String) -> Bool) -> [Node] {
+    override public func nodesBy(predicate: (Node) -> Bool) -> [Node] {
         var result = [Node]()
         contents.forEach { child in
             result.append(contentsOf: child.nodesBy(predicate: predicate))

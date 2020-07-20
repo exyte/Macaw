@@ -42,16 +42,24 @@ open class Node: Drawable {
 
     // MARK: - Searching
     public func nodeBy(tag: String) -> Node? {
-        if self.tag.contains(tag) {
-            return self
-        }
-
-        return .none
+        return nodeBy(predicate: { $0.tag.contains(tag) })
     }
 
     public func nodesBy(tag: String) -> [Node] {
-        return [nodeBy(tag: tag)].compactMap { $0 }
+        return nodesBy(predicate: { $0.tag.contains(tag) })
     }
+    
+    public func nodeBy(predicate: (Node) -> Bool) -> Node? {
+        if predicate(self) {
+            return self
+        }
+        return .none
+    }
+    
+    public func nodesBy(predicate: (Node) -> Bool) -> [Node] {
+        return [nodeBy(predicate: predicate)].compactMap { $0 }
+    }
+
 
     // MARK: - Events
     internal var animationObservers = [AnimationObserver]()

@@ -16,14 +16,18 @@ import AppKit
 
 open class MacawZoom {
 
-    private var view: MacawView!
-    private var onChange: ((Transform) -> Void)!
+    private unowned let view: MacawView
+    private var onChange: ((Transform) -> Void)?
     private var touches = [TouchData]()
     private var zoomData = ZoomData()
 
     private var trackMove = false
     private var trackScale = false
     private var trackRotate = false
+    
+    init(view: MacawView) {
+        self.view = view
+    }
 
     open func enable(move: Bool = true, scale: Bool = true, rotate: Bool = false) {
         trackMove = move
@@ -47,11 +51,10 @@ open class MacawZoom {
         let s = scale ?? zoomData.scale
         let a = angle ?? zoomData.angle
         zoomData = ZoomData(offset: o, scale: s, angle: a)
-        onChange(zoomData.transform())
+        onChange?(zoomData.transform())
     }
 
-    func initialize(view: MacawView, onChange: @escaping ((Transform) -> Void)) {
-        self.view = view
+    func initialize(onChange: @escaping (Transform) -> Void) {
         self.onChange = onChange
     }
 
@@ -63,7 +66,7 @@ open class MacawZoom {
 
     func touchesMoved(_ touches: Set<MTouch>) {
         let zoom = cleanTouches() ?? getNewZoom()
-        onChange(zoom.transform())
+        onChange?(zoom.transform())
     }
 
     func touchesEnded(_ touches: Set<MTouch>) {

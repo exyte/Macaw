@@ -60,9 +60,9 @@ open class Group: Node {
             let clip = self.clip?.bounds().toCG() {
             let newX = max(bounds.minX, clip.minX)
             let newY = max(bounds.minY, clip.minY)
-            return Rect(Double(newX), Double(newY),
-                        Double(min(bounds.maxX, clip.maxX) - newX),
-                        Double(min(bounds.maxY, clip.maxY) - newY))
+            return Rect(x: Double(newX), y: Double(newY),
+                        w: Double(min(bounds.maxX, clip.maxX) - newX),
+                        h: Double(min(bounds.maxY, clip.maxY) - newY))
         }
         return bounds
     }

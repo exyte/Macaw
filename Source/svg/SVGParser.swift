@@ -534,79 +534,83 @@ open class SVGParser {
 
     fileprivate func parseTransformationAttribute(_ attributes: String,
                                                   transform: Transform = Transform()) -> Transform {
-        guard let matcher = SVGParserRegexHelper.getTransformAttributeMatcher() else {
-            return transform
-        }
+        // Transform attribute regular grammar (whitespace characters are ignored):
+        // ([a-zA-Z]+)\(((-?\d+\.?\d*e?-?\d*,?)+)\)
+        // Group (1) is an attribute name.
+        // Group (2) is comma-separated numbers.
 
-        let attributes = attributes.replacingOccurrences(of: "\n", with: "")
-        var finalTransform = transform
-        let fullRange = NSRange(location: 0, length: attributes.count)
+        var transform = transform
+        let scanner = Scanner(string: attributes)
 
-        if let matchedAttribute = matcher.firstMatch(in: attributes, options: .reportCompletion, range: fullRange) {
+        stopParse: while !scanner.isAtEnd {
+            guard let attributeName = scanner.scannedCharacters(from: .transformationAttributeCharacters),
+                scanner.scanString("(", into: nil),
+                let valuesString = scanner.scannedUpToString(")"),
+                scanner.scanString(")", into: nil) else {
+                    break stopParse
+            }
 
-            let attributeName = (attributes as NSString).substring(with: matchedAttribute.range(at: 1))
-            let values = parseTransformValues((attributes as NSString).substring(with: matchedAttribute.range(at: 2)))
+            // Skip an optional comma after ")".
+            _ = scanner.scanString(",", into: nil)
+
+            let values = parseTransformValues(valuesString)
             if values.isEmpty {
                 return transform
             }
+
             switch attributeName {
             case "translate":
-                if let x = Double(values[0]) {
-                    var y: Double = 0
-                    if values.indices.contains(1) {
-                        y = Double(values[1]) ?? 0
-                    }
-                    finalTransform = transform.move(dx: x, dy: y)
+                let x = values[0]
+                var y: Double = 0
+                if values.indices ~= 1 {
+                    y = values[1]
                 }
+                transform = transform.move(dx: x, dy: y)
             case "scale":
-                if let x = Double(values[0]) {
-                    var y: Double = x
-                    if values.indices.contains(1) {
-                        y = Double(values[1]) ?? x
-                    }
-                    finalTransform = transform.scale(sx: x, sy: y)
+                let x = values[0]
+                var y: Double = x
+                if values.indices ~= 1 {
+                    y = values[1]
                 }
+                transform = transform.scale(sx: x, sy: y)
             case "rotate":
-                if let angle = Double(values[0]) {
-                    if values.count == 1 {
-                        finalTransform = transform.rotate(angle: degreesToRadians(angle))
-                    } else if values.count == 3 {
-                        if let x = Double(values[1]), let y = Double(values[2]) {
-                            finalTransform = transform.move(dx: x, dy: y).rotate(angle: degreesToRadians(angle)).move(dx: -x, dy: -y)
-                        }
-                    }
+                let angle = values[0]
+                if values.count == 1 {
+                    transform = transform.rotate(angle: degreesToRadians(angle))
+                } else if values.count == 3 {
+                    let x = values[1]
+                    let y = values[2]
+                    transform = transform
+                        .move(dx: x, dy: y)
+                        .rotate(angle: degreesToRadians(angle))
+                        .move(dx: -x, dy: -y)
                 }
             case "skewX":
-                if let x = Double(values[0]) {
-                    let v = tan((x * Double.pi) / 180.0)
-                    finalTransform = transform.shear(shx: v, shy: 0)
-                }
+                let x = values[0]
+                let v = tan((x * Double.pi) / 180.0)
+                transform = transform.shear(shx: v, shy: 0)
             case "skewY":
-                if let y = Double(values[0]) {
-                    let y = tan((y * Double.pi) / 180.0)
-                    finalTransform = transform.shear(shx: 0, shy: y)
-                }
+                let y = values[0]
+                let v = tan((y * Double.pi) / 180.0)
+                transform = transform.shear(shx: 0, shy: v)
             case "matrix":
                 if values.count != 6 {
                     return transform
                 }
-                if let m11 = Double(values[0]), let m12 = Double(values[1]),
-                    let m21 = Double(values[2]), let m22 = Double(values[3]),
-                    let dx = Double(values[4]), let dy = Double(values[5]) {
-
-                    let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
-                    finalTransform = transform.concat(with: transformMatrix)
-                }
+                let m11 = values[0]
+                let m12 = values[1]
+                let m21 = values[2]
+                let m22 = values[3]
+                let dx = values[4]
+                let dy = values[5]
+                let transformMatrix = Transform(m11: m11, m12: m12, m21: m21, m22: m22, dx: dx, dy: dy)
+                transform = transform.concat(with: transformMatrix)
             default:
-                break
+                break stopParse
             }
-            let rangeToRemove = NSRange(location: 0,
-                                        length: matchedAttribute.range.location + matchedAttribute.range.length)
-            let newAttributeString = (attributes as NSString).replacingCharacters(in: rangeToRemove, with: "")
-            return parseTransformationAttribute(newAttributeString, transform: finalTransform)
-        } else {
-            return transform
         }
+
+        return transform
     }
 
     /// Parse an RGB
@@ -639,20 +643,21 @@ open class SVGParser {
                          b: Int(blue.rounded(.up)))
     }
 
-    fileprivate func parseTransformValues(_ values: String, collectedValues: [String] = []) -> [String] {
-        guard let matcher = SVGParserRegexHelper.getTransformMatcher() else {
-            return collectedValues
+    fileprivate func parseTransformValues(_ values: String) -> [Double] {
+        // Parse comma-separated list of numbers.
+        var collectedValues: [Double] = []
+        let scanner = Scanner(string: values)
+
+        while !scanner.isAtEnd {
+            if let value = scanner.scannedDouble() {
+                collectedValues.append(value)
+            } else {
+                break
+            }
+            _ = scanner.scanString(",", into: nil)
         }
-        var updatedValues: [String] = collectedValues
-        let fullRange = NSRange(location: 0, length: values.count)
-        if let matchedValue = matcher.firstMatch(in: values, options: .reportCompletion, range: fullRange) {
-            let value = (values as NSString).substring(with: matchedValue.range)
-            updatedValues.append(value)
-            let rangeToRemove = NSRange(location: 0, length: matchedValue.range.location + matchedValue.range.length)
-            let newValues = (values as NSString).replacingCharacters(in: rangeToRemove, with: "")
-            return parseTransformValues(newValues, collectedValues: updatedValues)
-        }
-        return updatedValues
+
+        return collectedValues
     }
 
     fileprivate func getStyleAttributes(_ groupAttributes: [String: String],
@@ -986,15 +991,14 @@ open class SVGParser {
 
     fileprivate func parsePoints(_ pointsString: String) -> [Double] {
         var resultPoints: [Double] = []
-        let pointPairs = pointsString.replacingOccurrences(of: "-", with: " -").components(separatedBy: " ")
 
-        pointPairs.forEach { pointPair in
-            let points = pointPair.components(separatedBy: ",")
-            points.forEach { point in
-                if let resultPoint = Double(point) {
-                    resultPoints.append(resultPoint)
-                }
+        let scanner = Scanner(string: pointsString)
+        while !scanner.isAtEnd {
+            var resultPoint: Double = 0
+            if scanner.scanDouble(&resultPoint) {
+                resultPoints.append(resultPoint)
             }
+            _ = scanner.scanCharacters(from: [","], into: nil)
         }
 
         if resultPoints.count % 2 == 1 {
@@ -1043,28 +1047,19 @@ open class SVGParser {
                                    fontWeight: fontWeight,
                                    pos: pos)
         } else {
-            guard let matcher = SVGParserRegexHelper.getTextElementMatcher() else {
-                return .none
-            }
-            let elementString = element.description
-            let fullRange = NSRange(location: 0, length: elementString.count)
-            if let match = matcher.firstMatch(in: elementString, options: .reportCompletion, range: fullRange) {
-                let tspans = (elementString as NSString).substring(with: match.range(at: 1))
-                let rect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
-                                y: getDoubleValue(element, attribute: "y") ?? 0)
-                let collectedTspans = collectTspans(tspans,
-                                                    textAnchor: textAnchor,
-                                                    fill: fill,
-                                                    stroke: stroke,
-                                                    opacity: opacity,
-                                                    fontName: fontName,
-                                                    fontSize: fontSize,
-                                                    fontWeight: fontWeight,
-                                                    bounds: rect)
-                return Group(contents: collectedTspans, place: pos, tag: getTag(element))
-            }
+            let rect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
+                            y: getDoubleValue(element, attribute: "y") ?? 0)
+            let collectedTspans = collectTspans(element.children,
+                                                textAnchor: textAnchor,
+                                                fill: fill,
+                                                stroke: stroke,
+                                                opacity: opacity,
+                                                fontName: fontName,
+                                                fontSize: fontSize,
+                                                fontWeight: fontWeight,
+                                                bounds: rect)
+            return Group(contents: collectedTspans, place: pos, tag: getTag(element))
         }
-        return .none
     }
 
     fileprivate func anchorToAlign(_ textAnchor: String?) -> Align {
@@ -1104,9 +1099,7 @@ open class SVGParser {
 
     // REFACTOR
 
-    fileprivate func collectTspans(_ tspan: String,
-                                   collectedTspans: [Node] = [],
-                                   withWhitespace: Bool = false,
+    fileprivate func collectTspans(_ contents: [XMLContent],
                                    textAnchor: String?,
                                    fill: Fill?,
                                    stroke: Stroke?,
@@ -1115,99 +1108,78 @@ open class SVGParser {
                                    fontSize: Int?,
                                    fontWeight: String?,
                                    bounds: Rect) -> [Node] {
-        let fullString = tspan.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
-        // exit recursion
-        if fullString.isEqual(to: "") {
-            return collectedTspans
-        }
-        var collection = collectedTspans
-        let tagRange = fullString.range(of: "<tspan".lowercased())
-        if tagRange.location == 0 {
-            // parse as <tspan> element
-            let closingTagRange = fullString.range(of: "</tspan>".lowercased())
-            let tspanString = fullString.substring(to: closingTagRange.location + closingTagRange.length)
-            let tspanXml = SWXMLHash.parse(tspanString)
-            guard let indexer = tspanXml.children.first,
-                let text = parseTspan(indexer,
-                                      withWhitespace: withWhitespace,
-                                      textAnchor: textAnchor,
-                                      fill: fill,
-                                      stroke: stroke,
-                                      opacity: opacity,
-                                      fontName: fontName,
-                                      fontSize: fontSize,
-                                      fontWeight: fontWeight,
-                                      bounds: bounds,
-                                      previousCollectedTspan: collection.last) else {
+        var collection: [Node] = []
+        var bounds = bounds
+        // Whether to add a space before the next non-whitespace-only text.
+        var addWhitespace = false
+        // Whether to preserve leading whitespaces before the next text
+        // by adding a single space prefix.
+        var preserveWhitespace = false
 
-                                        // skip this element if it can't be parsed
-                                        return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length),
-                                                             collectedTspans: collectedTspans,
-                                                             textAnchor: textAnchor,
-                                                             fill: fill,
-                                                             stroke: stroke,
-                                                             opacity: opacity,
-                                                             fontName: fontName,
-                                                             fontSize: fontSize,
-                                                             fontWeight: fontWeight,
-                                                             bounds: bounds)
+        for element in contents {
+            let text: Text?
+            if let textElement = element as? TextElement {
+                // parse as regular text element
+                let textString = textElement.text
+                let hasLeadingWhitespace = textString.first?.isWhitespace == true
+                let hasTrailingWhitespace = textString.last?.isWhitespace == true
+
+                var trimmedString = textString.trimmingCharacters(in: .whitespacesAndNewlines)
+                let isWhitespaceOnly = trimmedString.isEmpty
+
+                if hasLeadingWhitespace && preserveWhitespace && !isWhitespaceOnly {
+                    trimmedString = " " + trimmedString
+                }
+
+                addWhitespace = preserveWhitespace && hasTrailingWhitespace
+                preserveWhitespace = false
+
+                if trimmedString.isEmpty {
+                    continue
+                }
+
+                let place = Transform().move(dx: bounds.x + bounds.w, dy: bounds.y)
+
+                text = Text(text: trimmedString,
+                            font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
+                            fill: fill,
+                            stroke: stroke,
+                            align: anchorToAlign(textAnchor),
+                            baseline: .alphabetic,
+                            place: place,
+                            opacity: opacity)
+            } else if let tspanElement = element as? SWXMLHash.XMLElement,
+                tspanElement.name == "tspan" {
+                // parse as <tspan> element
+                // ultimately skip it if it cannot be parsed
+                text = parseTspan(tspanElement,
+                                  withWhitespace: addWhitespace,
+                                  textAnchor: textAnchor,
+                                  fill: fill,
+                                  stroke: stroke,
+                                  opacity: opacity,
+                                  fontName: fontName,
+                                  fontSize: fontSize,
+                                  fontWeight: fontWeight,
+                                  bounds: bounds,
+                                  previousCollectedTspan: collection.last)
+                preserveWhitespace = true
+                addWhitespace = false
+            } else {
+                print("Skipped an unexpected element type: \(type(of: element)).")
+                text = nil
             }
-            collection.append(text)
-            let nextString = fullString.substring(from: closingTagRange.location + closingTagRange.length) as NSString
-            var withWhitespace = false
-            if nextString.rangeOfCharacter(from: CharacterSet.whitespacesAndNewlines).location == 0 {
-                withWhitespace = true
+
+            if let text = text {
+                collection.append(text)
+                bounds = Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h)
             }
-            return collectTspans(fullString.substring(from: closingTagRange.location + closingTagRange.length),
-                                 collectedTspans: collection,
-                                 withWhitespace: withWhitespace,
-                                 textAnchor: textAnchor,
-                                 fill: fill,
-                                 stroke: stroke,
-                                 opacity: opacity,
-                                 fontName: fontName,
-                                 fontSize: fontSize,
-                                 fontWeight: fontWeight,
-                                 bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
         }
-        // parse as regular text element
-        var textString: NSString
-        if tagRange.location >= fullString.length {
-            textString = fullString
-        } else {
-            textString = fullString.substring(to: tagRange.location) as NSString
-        }
-        var nextStringWhitespace = false
-        var trimmedString = textString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if trimmedString.count != textString.length {
-            nextStringWhitespace = true
-        }
-        trimmedString = withWhitespace ? " \(trimmedString)" : trimmedString
-        let text = Text(text: trimmedString,
-                        font: getFont(fontName: fontName, fontWeight: fontWeight, fontSize: fontSize),
-                        fill: fill,
-                        stroke: stroke,
-                        align: anchorToAlign(textAnchor),
-                        baseline: .alphabetic,
-                        place: Transform().move(dx: bounds.x + bounds.w, dy: bounds.y), opacity: opacity)
-        collection.append(text)
-        if tagRange.location >= fullString.length { // leave recursion
-            return collection
-        }
-        return collectTspans(fullString.substring(from: tagRange.location),
-                             collectedTspans: collection,
-                             withWhitespace: nextStringWhitespace,
-                             textAnchor: textAnchor,
-                             fill: fill,
-                             stroke: stroke,
-                             opacity: opacity,
-                             fontName: fontName,
-                             fontSize: fontSize,
-                             fontWeight: fontWeight,
-                             bounds: Rect(x: bounds.x, y: bounds.y, w: bounds.w + text.bounds.w, h: bounds.h))
+
+        return collection
     }
 
-    fileprivate func parseTspan(_ tspan: XMLIndexer,
+    fileprivate func parseTspan(_ element: SWXMLHash.XMLElement,
                                 withWhitespace: Bool = false,
                                 textAnchor: String?,
                                 fill: Fill?,
@@ -1218,10 +1190,6 @@ open class SVGParser {
                                 fontWeight: String?,
                                 bounds: Rect,
                                 previousCollectedTspan: Node?) -> Text? {
-
-        guard let element = tspan.element else {
-            return .none
-        }
 
         let string = element.text
         var shouldAddWhitespace = withWhitespace
@@ -1650,40 +1618,37 @@ open class SVGParser {
     }
 
     fileprivate func dimensionFromString(_ string: String) -> SVGLength? {
+        if string.hasSuffix("%"), let value = Double(string.dropLast()) {
+            return SVGLength(percent: value)
+        }
         if let value = doubleFromString(string) {
             return SVGLength(pixels: value)
-        }
-        if string.hasSuffix("%") {
-            return SVGLength(percent: Double(string.dropLast())!)
         }
         return .none
     }
 
     fileprivate func doubleFromString(_ string: String) -> Double? {
-        if let doubleValue = Double(string) {
-            return doubleValue
-        }
         if string == "none" {
             return 0
         }
-        guard let matcher = SVGParserRegexHelper.getUnitsIdenitifierMatcher() else {
+
+        let scanner = Scanner(string: string)
+        let value = scanner.scannedDouble()
+        let unit = scanner.scannedCharacters(from: .unitCharacters)
+
+        if !scanner.isAtEnd {
+            let junk = scanner.scannedUpToCharacters(from: []) ?? ""
+            print("Found trailing junk \"\(junk)\" in string \"\(string)\".")
             return .none
         }
-        let fullRange = NSRange(location: 0, length: string.count)
-        if let match = matcher.firstMatch(in: string, options: .reportCompletion, range: fullRange) {
 
-            let unitString = (string as NSString).substring(with: match.range(at: 1))
-            let numberString = String(string.dropLast(unitString.count))
-            let value = Double(numberString) ?? 0
-            switch unitString {
-            case "px" :
-                return value
-            default:
-                print("SVG parsing error. Unit \(unitString) not supported")
-                return value
-            }
+        switch unit {
+        case nil, "px":
+            return value
+        default:
+            print("SVG parsing error. Unit \"\(unit ?? "")\" is not supported")
+            return value
         }
-        return .none
     }
 
     fileprivate func getDoubleValueFromPercentage(_ element: SWXMLHash.XMLElement, attribute: String) -> Double? {
@@ -2189,4 +2154,56 @@ fileprivate enum SVGKeys {
     static let fill = "fill"
     static let color = "color"
     static let currentColor = "currentColor"
+}
+
+fileprivate extension Scanner {
+    /// A version of `scanDouble()`, available for an earlier OS.
+    func scannedDouble() -> Double? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanDouble()
+        } else {
+            var double: Double = 0
+            return scanDouble(&double) ? double : nil
+        }
+    }
+
+    /// A version of `scanCharacters(from:)`, available for an earlier OS.
+    func scannedCharacters(from set: CharacterSet) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanCharacters(from: set)
+        } else {
+            var string: NSString? = nil
+            return scanCharacters(from: set, into: &string) ? string as String? : nil
+        }
+    }
+
+    /// A version of `scanUpToCharacters(from:)`, available for an earlier OS.
+    func scannedUpToCharacters(from set: CharacterSet) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanUpToCharacters(from: set)
+        } else {
+            var string: NSString? = nil
+            return scanUpToCharacters(from: set, into: &string) ? string as String? : nil
+        }
+    }
+
+    /// A version of `scanUpToString(_:)`, available for an earlier OS.
+    func scannedUpToString(_ substring: String) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanUpToString(substring)
+        } else {
+            var string: NSString? = nil
+            return scanUpTo(substring, into: &string) ? string as String? : nil
+        }
+    }
+}
+
+fileprivate extension CharacterSet {
+    /// Latin alphabet characters.
+    static let latinAlphabet = CharacterSet(charactersIn: "a"..."z")
+        .union(CharacterSet(charactersIn: "A"..."Z"))
+
+    static let unitCharacters = CharacterSet.latinAlphabet
+
+    static let transformationAttributeCharacters = CharacterSet.latinAlphabet
 }

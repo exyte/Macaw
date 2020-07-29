@@ -70,7 +70,7 @@ class MyView: MacawView {
 
 ## 系统要求
 
-* iOS 8.0+
+* iOS 9.0+
 * Mac OS X 10.11+
 * Xcode 7.3+
 

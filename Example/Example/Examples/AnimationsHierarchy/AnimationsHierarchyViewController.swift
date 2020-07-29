@@ -13,11 +13,30 @@ class AnimationsHierarchyViewController: UIViewController {
 
     @IBOutlet weak var animView: MacawView!
 
+    var startCallbacks: [()->()] = []
+    var stopCallbacks: [()->()] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         animView.node = createTree(height: 3)
         animView.zoom.enable()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        startCallbacks.forEach {
+            $0()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        stopCallbacks.forEach {
+            $0()
+        }
     }
 
     func createTree(height: Int) -> Node {
@@ -52,7 +71,14 @@ class AnimationsHierarchyViewController: UIViewController {
     func createLeaf(childForm: Locus, xDelta: Double, yDelta: Double) -> Group {
         let inset = childForm.bounds().w / 2
         let leaf = Shape(form: childForm, fill: Color.teal, place: .move(dx: -inset, dy: -inset))
-        leaf.placeVar.animation(angle: 2 * .pi, during: 5).cycle().play()
+
+        let animation = leaf.placeVar.animation(angle: 2 * .pi, during: 5).cycle()
+        startCallbacks.append({
+            animation.play()
+        })
+        stopCallbacks.append({
+            animation.stop()
+        })
 
         let leafGroup = [leaf].group(place: .move(dx: xDelta, dy: yDelta))
         leaf.onTap { _ in

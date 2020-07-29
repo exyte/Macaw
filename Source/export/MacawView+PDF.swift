@@ -27,8 +27,8 @@ public extension MacawView {
             y: -size.height / bounds.height
         )
 
-        context.cgContext = ctx
-        renderer?.render(in: ctx, force: false, opacity: node.opacity)
+        drawingView.context.cgContext = ctx
+        drawingView.renderer?.render(in: ctx, force: false, opacity: node.opacity)
 
         ctx.endPDFPage()
     }

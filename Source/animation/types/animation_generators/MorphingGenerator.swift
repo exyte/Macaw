@@ -30,7 +30,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     let toLocus = morphingAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    let layer = AnimationUtils.layerForNodeRenderer(renderer, context, animation: animation, shouldRenderContent: false)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false)
 
     // Creating proper animation
     let generatedAnimation = pathAnimation(
@@ -94,6 +94,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)
     animation.removeFunc = { [weak layer] in
+        shape.animations.removeAll { $0 === animation }
         layer?.removeAnimation(forKey: animationId)
     }
 

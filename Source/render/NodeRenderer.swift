@@ -22,15 +22,15 @@ class CachedLayer {
 
 class NodeRenderer {
 
-    weak var view: MacawView?
+    weak var view: DrawingView?
     var sceneLayer: CALayer? {
         return view?.mLayer
     }
     var layer: CachedLayer?
     var zPosition: Int = 0
 
-    let parentRenderer: GroupRenderer?
-
+    private(set) weak var parentRenderer: GroupRenderer?
+    
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false
@@ -71,7 +71,7 @@ class NodeRenderer {
         fatalError("Unsupported")
     }
 
-    init(node: Node, view: MacawView?, parentRenderer: GroupRenderer? = nil) {
+    init(node: Node, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {
         self.view = view
         self.parentRenderer = parentRenderer
 

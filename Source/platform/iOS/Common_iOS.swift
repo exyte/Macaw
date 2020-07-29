@@ -99,4 +99,10 @@ extension UIScreen {
     }
 }
 
+extension UIBezierPath {
+    var mUsesEvenOddFillRule: Bool {
+        return self.usesEvenOddFillRule
+    }
+}
+
 #endif

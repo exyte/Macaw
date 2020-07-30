@@ -120,7 +120,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
             )
 
             return place.concat(with: move).concat(with: rotation).concat(with: move.invert()!)
-            }
+        }
         }
 
         return TransformAnimation(animatedNode: node!, factory: factory, animationDuration: during, delay: delay)

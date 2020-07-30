@@ -24,7 +24,7 @@ open class MacawZoom {
     private var trackMove = false
     private var trackScale = false
     private var trackRotate = false
-    
+
     init(view: MacawView) {
         self.view = view
     }

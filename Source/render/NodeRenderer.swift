@@ -30,7 +30,7 @@ class NodeRenderer {
     var zPosition: Int = 0
 
     private(set) weak var parentRenderer: GroupRenderer?
-    
+
     fileprivate let onNodeChange: () -> Void
     fileprivate let disposables = GroupDisposable()
     fileprivate var active = false

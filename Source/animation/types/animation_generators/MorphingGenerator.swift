@@ -61,7 +61,7 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
         renderer.freeLayer()
 
         if  !animation.cycled &&
-            !animation.manualStop {
+                !animation.manualStop {
             animation.completion?()
         }
 

@@ -360,7 +360,7 @@ internal class DrawingView: MView {
 
         if !self.node.shouldCheckForPressed() &&
             !self.node.shouldCheckForMoved() &&
-            !self.node.shouldCheckForReleased () {
+            !self.node.shouldCheckForReleased() {
             return
         }
 

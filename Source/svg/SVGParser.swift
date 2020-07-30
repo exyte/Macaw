@@ -273,9 +273,9 @@ open class SVGParser {
             }
 
             if let result = result,
-                let filterString = style["filter"],
-                let filterId = parseIdFromUrl(filterString),
-                let effect = defEffects[filterId] {
+               let filterString = style["filter"],
+               let filterId = parseIdFromUrl(filterString),
+               let effect = defEffects[filterId] {
                 result.effect = effect
             }
         }
@@ -446,7 +446,7 @@ open class SVGParser {
 
         var parentPattern: UserSpacePattern?
         if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: ""),
-            link.hasPrefix("#") {
+           link.hasPrefix("#") {
             let id = link.replacingOccurrences(of: "#", with: "")
             parentPattern = defPatterns[id]
         }
@@ -472,7 +472,7 @@ open class SVGParser {
                 contentNode = parentPattern.content
             }
         } else if pattern.children.count == 1,
-            let shape = try parseNode(pattern.children.first!) as? Shape {
+                  let shape = try parseNode(pattern.children.first!) as? Shape {
             contentNode = shape
         } else {
             var shapes = [Shape]()
@@ -544,10 +544,10 @@ open class SVGParser {
 
         stopParse: while !scanner.isAtEnd {
             guard let attributeName = scanner.scannedCharacters(from: .transformationAttributeCharacters),
-                scanner.scanString("(", into: nil),
-                let valuesString = scanner.scannedUpToString(")"),
-                scanner.scanString(")", into: nil) else {
-                    break stopParse
+                  scanner.scanString("(", into: nil),
+                  let valuesString = scanner.scannedUpToString(")"),
+                  scanner.scanString(")", into: nil) else {
+                break stopParse
             }
 
             // Skip an optional comma after ")".
@@ -916,10 +916,10 @@ open class SVGParser {
 
     fileprivate func parseRect(_ rect: XMLIndexer) -> Locus? {
         guard let element = rect.element,
-            let width = getDoubleValue(element, attribute: "width"),
-            let height = getDoubleValue(element, attribute: "height"), width > 0 && height > 0 else {
+              let width = getDoubleValue(element, attribute: "width"),
+              let height = getDoubleValue(element, attribute: "height"), width > 0 && height > 0 else {
 
-                return .none
+            return .none
         }
 
         let resultRect = Rect(x: getDoubleValue(element, attribute: "x") ?? 0,
@@ -951,9 +951,9 @@ open class SVGParser {
 
     fileprivate func parseEllipse(_ ellipse: XMLIndexer) -> Arc? {
         guard let element = ellipse.element,
-            let rx = getDoubleValue(element, attribute: "rx"),
-            let ry = getDoubleValue(element, attribute: "ry"), rx > 0 && ry > 0 else {
-                return .none
+              let rx = getDoubleValue(element, attribute: "rx"),
+              let ry = getDoubleValue(element, attribute: "ry"), rx > 0 && ry > 0 else {
+            return .none
         }
         return Arc(
             ellipse: Ellipse(cx: getDoubleValue(element, attribute: "cx") ?? 0,
@@ -1149,7 +1149,7 @@ open class SVGParser {
                             place: place,
                             opacity: opacity)
             } else if let tspanElement = element as? SWXMLHash.XMLElement,
-                tspanElement.name == "tspan" {
+                      tspanElement.name == "tspan" {
                 // parse as <tspan> element
                 // ultimately skip it if it cannot be parsed
                 text = parseTspan(tspanElement,
@@ -1373,7 +1373,7 @@ open class SVGParser {
             switch element.name {
             case "feOffset":
                 if let dx = getDoubleValue(element, attribute: "dx"),
-                    let dy = getDoubleValue(element, attribute: "dy") {
+                   let dy = getDoubleValue(element, attribute: "dy") {
                     resultingEffect = OffsetEffect(dx: dx, dy: dy, input: currentEffect)
                 }
             case "feGaussianBlur":
@@ -1427,7 +1427,7 @@ open class SVGParser {
 
         var parentGradient: Gradient?
         if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: ""),
-            link.hasPrefix("#") {
+           link.hasPrefix("#") {
 
             let id = link.replacingOccurrences(of: "#", with: "")
             parentGradient = defFills[id] as? Gradient
@@ -1489,7 +1489,7 @@ open class SVGParser {
 
         var parentGradient: Gradient?
         if let link = element.allAttributes["xlink:href"]?.text.replacingOccurrences(of: " ", with: ""),
-            link.hasPrefix("#") {
+           link.hasPrefix("#") {
 
             let id = link.replacingOccurrences(of: "#", with: "")
             parentGradient = defFills[id] as? Gradient
@@ -1575,7 +1575,7 @@ open class SVGParser {
 
         var opacity: Double = 1
         if let stopOpacity = getStyleAttributes([:], element: element)["stop-opacity"],
-            let doubleValue = Double(stopOpacity) {
+           let doubleValue = Double(stopOpacity) {
             opacity = doubleValue
         }
         var color = Color.black.with(a: opacity)
@@ -2172,7 +2172,7 @@ fileprivate extension Scanner {
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
             return scanCharacters(from: set)
         } else {
-            var string: NSString? = nil
+            var string: NSString?
             return scanCharacters(from: set, into: &string) ? string as String? : nil
         }
     }
@@ -2182,7 +2182,7 @@ fileprivate extension Scanner {
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
             return scanUpToCharacters(from: set)
         } else {
-            var string: NSString? = nil
+            var string: NSString?
             return scanUpToCharacters(from: set, into: &string) ? string as String? : nil
         }
     }
@@ -2192,7 +2192,7 @@ fileprivate extension Scanner {
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
             return scanUpToString(substring)
         } else {
-            var string: NSString? = nil
+            var string: NSString?
             return scanUpTo(substring, into: &string) ? string as String? : nil
         }
     }

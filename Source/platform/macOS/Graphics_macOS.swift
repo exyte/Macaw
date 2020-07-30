@@ -67,8 +67,8 @@ func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ sca
 
 func MGraphicsGetImageFromCurrentImageContext() -> MImage? {
     guard let ctx = MGraphicsGetCurrentContext(),
-        let theCGImage = ctx.makeImage() else {
-            return nil
+          let theCGImage = ctx.makeImage() else {
+        return nil
     }
     let scale = ctx.scale
     let size = CGSize(width: CGFloat(ctx.width) / scale, height: CGFloat(ctx.height) / scale)

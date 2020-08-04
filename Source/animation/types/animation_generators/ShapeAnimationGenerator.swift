@@ -26,7 +26,9 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     let transactionsDisabled = CATransaction.disableActions()
     CATransaction.setDisableActions(true)
 
-    let fromShape = shapeAnimation.getVFunc()(0.0)
+    guard let fromShape = SceneUtils.copyNode(shapeAnimation.getVFunc()(0.0)) as? Shape else {
+        return
+    }
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
@@ -54,16 +56,28 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
         animation.progress = animation.manualStop ? 0.0 : 1.0
 
         if !animation.autoreverses && finished {
-            shape.form = toShape.form
-            shape.stroke = toShape.stroke
-            shape.fill = toShape.fill
+            if fromShape.form != toShape.form {
+                shape.form = toShape.form
+            }
+            if fromShape.stroke != toShape.stroke {
+                shape.stroke = toShape.stroke
+            }
+            if fromShape.fill != toShape.fill {
+                shape.fill = toShape.fill
+            }
         }
 
         if !finished {
             animation.progress = 0.0
-            shape.form = fromShape.form
-            shape.stroke = fromShape.stroke
-            shape.fill = fromShape.fill
+            if fromShape.form != toShape.form {
+                shape.form = toShape.form
+            }
+            if fromShape.stroke != toShape.stroke {
+                shape.stroke = toShape.stroke
+            }
+            if fromShape.fill != toShape.fill {
+                shape.fill = toShape.fill
+            }
         }
 
         renderer.freeLayer()

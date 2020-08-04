@@ -18,4 +18,12 @@ open class TransformedLocus: Locus {
     open override func bounds() -> Rect {
         return locus.bounds().applying(transform)
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? TransformedLocus else {
+            return false
+        }
+        return locus == other.locus
+            && transform == other.transform
+    }
 }

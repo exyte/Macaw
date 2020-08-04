@@ -13,4 +13,13 @@ open class RoundRect: Locus {
     override open func bounds() -> Rect {
         return rect
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? RoundRect else {
+            return false
+        }
+        return rect == other.rect
+            && rx == other.rx
+            && ry == other.ry
+    }
 }

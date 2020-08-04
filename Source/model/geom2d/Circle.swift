@@ -25,4 +25,13 @@ open class Circle: Locus {
     override open func toPath() -> Path {
         return MoveTo(x: cx, y: cy).m(-r, 0).a(r, r, 0.0, true, false, r * 2.0, 0.0).a(r, r, 0.0, true, false, -(r * 2.0), 0.0).build()
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Circle else {
+            return false
+        }
+        return cx == other.cx
+            && cy == other.cy
+            && r == other.r
+    }
 }

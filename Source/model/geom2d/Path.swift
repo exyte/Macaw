@@ -19,4 +19,12 @@ open class Path: Locus {
     override open func toPath() -> Path {
         return self
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Path else {
+            return false
+        }
+        return segments == other.segments
+            && fillRule == other.fillRule
+    }
 }

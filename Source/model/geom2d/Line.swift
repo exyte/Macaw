@@ -26,4 +26,14 @@ open class Line: Locus {
     override open func toPath() -> Path {
         return MoveTo(x: x1, y: y1).lineTo(x: x2, y: y2).build()
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Line else {
+            return false
+        }
+        return x1 == other.x1
+            && y1 == other.y1
+            && x2 == other.x2
+            && y2 == other.y2
+    }
 }

@@ -38,13 +38,17 @@ open class Point: Locus {
     override open func toPath() -> Path {
         return MoveTo(x: x, y: y).lineTo(x: x, y: y).build()
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Point else {
+            return false
+        }
+        return x == other.y
+            && y == other.y
+    }
 }
 
-extension Point: Equatable {
-    public static func == (lhs: Point, rhs: Point) -> Bool {
-        return lhs.x == rhs.x
-            && lhs.y == rhs.y
-    }
+extension Point {
 
     public static func - (lhs: Point, rhs: Point) -> Size {
         return Size(w: lhs.x - rhs.x, h: lhs.y - rhs.y)

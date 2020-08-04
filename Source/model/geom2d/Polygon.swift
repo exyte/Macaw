@@ -60,4 +60,11 @@ open class Polygon: Locus {
         }
         return pb.close().build()
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Polygon else {
+            return false
+        }
+        return points == other.points
+    }
 }

@@ -1,4 +1,4 @@
-open class Locus {
+open class Locus: Equatable {
 
     public init() {
     }
@@ -38,4 +38,13 @@ open class Locus {
     open func toPath() -> Path {
         fatalError("Unsupported locus: \(self)")
     }
+
+    func equals<T>(other: T) -> Bool where T: Locus {
+        fatalError("Equals can't be implemented for Locus")
+    }
+}
+
+public func ==<T> (lhs: T, rhs: T) -> Bool where T: Locus {
+    return type(of: lhs) == type(of: rhs)
+        && lhs.equals(other: rhs)
 }

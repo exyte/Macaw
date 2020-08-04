@@ -1,6 +1,6 @@
 import Foundation
 
-open class PathSegment {
+open class PathSegment: Equatable {
 
     public let type: PathSegmentType
     public let data: [Double]
@@ -17,5 +17,10 @@ open class PathSegment {
         default:
             return false
         }
+    }
+
+    public static func == (lhs: PathSegment, rhs: PathSegment) -> Bool {
+        return lhs.type == rhs.type
+            && lhs.data == rhs.data
     }
 }

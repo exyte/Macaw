@@ -78,7 +78,7 @@ open class Rect: Locus {
         guard let other = other as? Rect else {
             return false
         }
-        return x == other.y
+        return x == other.x
             && y == other.y
             && w == other.w
             && h == other.h

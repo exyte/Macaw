@@ -62,7 +62,7 @@ func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, 
     }
 }
 
-fileprivate func generatePathAnimation(_ valueFunc: (Double) -> StrokeEnd, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
+fileprivate func generatePathAnimation(_ valueFunc: (Double) -> Double, duration: Double, offset: Double, fps: UInt) -> CAAnimation {
 
     var strokeEndValues = [Double]()
     var timeValues = [Double]()
@@ -80,7 +80,7 @@ fileprivate func generatePathAnimation(_ valueFunc: (Double) -> StrokeEnd, durat
         }
 
         let value = valueFunc(offset + dt)
-        strokeEndValues.append(value.double)
+        strokeEndValues.append(value)
         timeValues.append(dt)
     }
 

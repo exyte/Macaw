@@ -7,19 +7,21 @@
 
 import Foundation
 
-class PathAnimation: AnimationImpl<StrokeEnd> {
+class PathAnimation: AnimationImpl<Double> {
 
-    convenience init(animatedNode: Shape, startValue: StrokeEnd, finalValue: StrokeEnd, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+    let isEnd: Bool = true
 
-        let interpolationFunc = { (t: Double) -> StrokeEnd in
+    convenience init(animatedNode: Shape, isEnd: Bool, startValue: Double, finalValue: Double, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+
+        let interpolationFunc = { (t: Double) -> Double in
             startValue.interpolate(finalValue, progress: t)
         }
 
-        self.init(animatedNode: animatedNode, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
+        self.init(animatedNode: animatedNode, isEnd: isEnd, valueFunc: interpolationFunc, animationDuration: animationDuration, delay: delay, autostart: autostart, fps: fps)
     }
 
-    init(animatedNode: Shape, valueFunc: @escaping (Double) -> StrokeEnd, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
-        super.init(observableValue: animatedNode.strokeEndVar, valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
+    init(animatedNode: Shape, isEnd: Bool, valueFunc: @escaping (Double) -> Double, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+        super.init(observableValue: AnimatableVariable<Double>(isEnd ? animatedNode.strokeVar.end.value : animatedNode.strokeVar.start.value), valueFunc: valueFunc, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .path
         node = animatedNode
 
@@ -28,8 +30,8 @@ class PathAnimation: AnimationImpl<StrokeEnd> {
         }
     }
 
-    init(animatedNode: Shape, factory: @escaping (() -> ((Double) -> StrokeEnd)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
-        super.init(observableValue: animatedNode.strokeEndVar, factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
+    init(animatedNode: Shape, isEnd: Bool, factory: @escaping (() -> ((Double) -> Double)), animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
+        super.init(observableValue: AnimatableVariable<Double>(isEnd ? animatedNode.strokeVar.end.value : animatedNode.strokeVar.start.value), factory: factory, animationDuration: animationDuration, delay: delay, fps: fps)
         type = .path
         node = animatedNode
 
@@ -44,34 +46,59 @@ class PathAnimation: AnimationImpl<StrokeEnd> {
     }
 }
 
-public typealias PathAnimationDescription = AnimationDescription<StrokeEnd>
+public typealias PathAnimationDescription = AnimationDescription<Double>
 
-public extension AnimatableVariable where T: StrokeEndInterpolation {
+open class StrokeAnimatableVariable: AnimatableVariable<Stroke?> {
 
-    func animate(_ desc: PathAnimationDescription) {
-        _ = PathAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
+    public var end: StrokeSideVariable {
+        return StrokeSideVariable(parentVar: self, isEnd: true)
     }
 
-    func animation(_ desc: PathAnimationDescription) -> Animation {
-        return PathAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+    public var start: StrokeSideVariable {
+        return StrokeSideVariable(parentVar: self, isEnd: false)
+    }
+}
+
+open class StrokeSideVariable {
+
+    let parentVar: StrokeAnimatableVariable
+    let isEnd: Bool
+    var value: Double = 0
+
+    var node: Node? {
+        parentVar.node
     }
 
-    func animate(from: StrokeEnd? = nil, to: StrokeEnd, during: Double = 1.0, delay: Double = 0.0) {
-        self.animate(((from ?? StrokeEnd.zero) >> to).t(during, delay: delay))
+    init(parentVar: StrokeAnimatableVariable, isEnd: Bool, value: Double = 0) {
+        self.parentVar = parentVar
+        self.isEnd = isEnd
+        self.value = value
     }
 
-    func animation(from: StrokeEnd? = nil, to: StrokeEnd, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    public func animate(_ desc: PathAnimationDescription) {
+        _ = PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
+    }
+
+    public func animation(_ desc: PathAnimationDescription) -> Animation {
+        return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+    }
+
+    public func animate(from: Double? = nil, to: Double = 1, during: Double = 1.0, delay: Double = 0.0) {
+        self.animate(((from ?? 0) >> to).t(during, delay: delay))
+    }
+
+    public func animation(from: Double? = nil, to: Double = 1, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
-        let origin = StrokeEnd.zero
-        let factory = { () -> (Double) -> StrokeEnd in
+        let origin = Double(0)
+        let factory = { () -> (Double) -> Double in
             { (t: Double) in origin.interpolate(to, progress: t) }
         }
-        return PathAnimation(animatedNode: node as! Shape, factory: factory, animationDuration: during, delay: delay)
+        return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, factory: factory, animationDuration: during, delay: delay)
     }
 
-    func animation(_ f: @escaping ((Double) -> StrokeEnd), during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        return PathAnimation(animatedNode: node as! Shape, valueFunc: f, animationDuration: during, delay: delay)
+    public func animation(_ f: @escaping ((Double) -> Double), during: Double = 1.0, delay: Double = 0.0) -> Animation {
+        return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: f, animationDuration: during, delay: delay)
     }
 }

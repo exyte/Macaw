@@ -72,7 +72,7 @@ open class Shape: Node {
         var rect = ctx.boundingBoxOfPath
 
         if rect.height == 0,
-            rect.width == 0 && (rect.origin.x == CGFloat.infinity || rect.origin.y == CGFloat.infinity) {
+           rect.width == 0 && (rect.origin.x == CGFloat.infinity || rect.origin.y == CGFloat.infinity) {
 
             rect.origin = point
         }
@@ -88,10 +88,10 @@ open class Shape: Node {
     }
 
     fileprivate func createContext() -> CGContext? {
-
+        let screenScale: CGFloat = MMainScreen()?.mScale ?? 1.0
         let smallSize = CGSize(width: 1.0, height: 1.0)
 
-        MGraphicsBeginImageContextWithOptions(smallSize, false, 1.0)
+        MGraphicsBeginImageContextWithOptions(smallSize, false, screenScale)
 
         return MGraphicsGetCurrentContext()
     }

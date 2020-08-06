@@ -1,4 +1,4 @@
-open class Stroke {
+open class Stroke: Equatable {
 
     public let fill: Fill
     public let width: Double
@@ -17,4 +17,14 @@ open class Stroke {
         self.dashes = dashes
         self.offset = offset
     }
+}
+
+public func ==<T> (lhs: T, rhs: T) -> Bool where T: Stroke {
+    return lhs.fill == rhs.fill
+        && lhs.width == rhs.width
+        && lhs.cap == rhs.cap
+        && lhs.join == rhs.join
+        && lhs.miterLimit == rhs.miterLimit
+        && lhs.dashes == rhs.dashes
+        && lhs.offset == rhs.offset
 }

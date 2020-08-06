@@ -59,8 +59,8 @@ func addOpacityAnimation(_ animation: BasicAnimation, _ context: AnimationContex
         renderer.freeLayer()
 
         if  !animation.cycled &&
-            !animation.manualStop &&
-            !animation.paused {
+                !animation.manualStop &&
+                !animation.paused {
             animation.completion?()
         }
 

@@ -23,4 +23,14 @@ open class Ellipse: Locus {
     open func arc(shift: Double, extent: Double) -> Arc {
         return Arc(ellipse: self, shift: shift, extent: extent)
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Ellipse else {
+            return false
+        }
+        return cx == other.cx
+            && cy == other.cy
+            && rx == other.rx
+            && ry == other.ry
+    }
 }

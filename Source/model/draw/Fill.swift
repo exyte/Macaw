@@ -4,7 +4,7 @@ open class Fill: Equatable {
     }
 
     func equals<T>(other: T) -> Bool where T: Fill {
-        fatalError("Equals can't be realised for  Fill")
+        fatalError("Equals can't be implemented for Fill")
     }
 }
 

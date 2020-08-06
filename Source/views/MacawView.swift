@@ -15,7 +15,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 
     internal var drawingView = DrawingView()
 
-    public let zoom = MacawZoom()
+    public lazy var zoom = MacawZoom(view: self)
 
     open var node: Node {
         get { return drawingView.node }
@@ -59,12 +59,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     #if os(OSX)
     open override var layer: CALayer? {
         didSet {
-            guard self.layer != nil else {
-                return
+            if self.layer == nil {
+                initializeView()
+                renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
             }
-            initializeView()
-
-            renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
         }
     }
     #endif
@@ -79,7 +77,9 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         self.node = node
         self.renderer = RenderUtils.createNodeRenderer(node, view: drawingView)
 
-        zoom.initialize(view: self, onChange: onZoomChange)
+        zoom.initialize(onChange: { [weak self] transform in
+            self?.onZoomChange(t: transform)
+        })
         initializeView()
     }
 
@@ -93,7 +93,9 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
-        zoom.initialize(view: self, onChange: onZoomChange)
+        zoom.initialize(onChange: { [weak self] transform in
+            self?.onZoomChange(t: transform)
+        })
         initializeView()
     }
 
@@ -346,10 +348,11 @@ internal class DrawingView: MView {
         defer {
             MGraphicsEndImageContext()
         }
-        guard let ctx = MGraphicsGetCurrentContext() else {
+        guard let ctx = MGraphicsGetCurrentContext(), let inverted = self.place.invert() else {
             return .none
         }
-        return doFindNode(location: location, ctx: ctx)
+        let loc = location.applying(inverted.toCG())
+        return doFindNode(location: loc, ctx: ctx)
     }
 
     // MARK: - Touches
@@ -357,7 +360,7 @@ internal class DrawingView: MView {
 
         if !self.node.shouldCheckForPressed() &&
             !self.node.shouldCheckForMoved() &&
-            !self.node.shouldCheckForReleased () {
+            !self.node.shouldCheckForReleased() {
             return
         }
 

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Macaw"
-  s.version          = "0.9.6"
+  s.version          = "0.9.7"
   s.summary          = "Powerful and easy-to-use vector graphics library with SVG support written in Swift."
 
   s.homepage         = 'https://github.com/exyte/Macaw.git'
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.osx.deployment_target = "10.12"
   s.requires_arc = true
-  s.swift_version = "5.2"
+  s.swift_version = "5.3"
 
   s.source_files = [
      'Source/**/*.swift'

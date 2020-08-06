@@ -48,7 +48,7 @@ class ImageRenderer: NodeRenderer {
         }
 
         if let mImage = mImage,
-            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
+           let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
             context.scaleBy(x: 1.0, y: -1.0)
             context.translateBy(x: 0.0, y: -1.0 * rect.height)
             context.setAlpha(CGFloat(opacity))
@@ -59,7 +59,7 @@ class ImageRenderer: NodeRenderer {
     override func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
 
         if let mImage = MImage(named: image.src),
-            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
+           let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
 
             if rect.contains(path.location) {
                 return path

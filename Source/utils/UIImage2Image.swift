@@ -26,15 +26,15 @@ public extension MImage {
         imagesMap[id] = self
 
         return Image(src: "memory://\(id)",
-            xAlign: xAlign, yAlign: yAlign,
-            aspectRatio: aspectRatio,
-            w: w, h: h,
-            place: place,
-            opaque: opaque,
-            opacity: opacity,
-            clip: clip,
-            effect: effect,
-            visible: visible,
-            tag: tag)
+                     xAlign: xAlign, yAlign: yAlign,
+                     aspectRatio: aspectRatio,
+                     w: w, h: h,
+                     place: place,
+                     opaque: opaque,
+                     opacity: opacity,
+                     clip: clip,
+                     effect: effect,
+                     visible: visible,
+                     tag: tag)
     }
 }

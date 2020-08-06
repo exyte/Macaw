@@ -150,6 +150,9 @@ class AnimationUtils {
             }
             parent = parent?.parentRenderer
         }
+        if let viewPlace = renderer.view?.place {
+            uncachedParentsPlace = uncachedParentsPlace.concat(with: viewPlace)
+        }
         return uncachedParentsPlace
     }
 }

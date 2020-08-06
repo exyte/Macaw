@@ -73,13 +73,14 @@ open class Rect: Locus {
     override open func toPath() -> Path {
         return MoveTo(x: x, y: y).lineTo(x: x, y: y + h).lineTo(x: x + w, y: y + h).lineTo(x: x + w, y: y).close().build()
     }
-}
 
-extension Rect {
-    public static func == (lhs: Rect, rhs: Rect) -> Bool {
-        return lhs.x == rhs.x
-            && lhs.y == rhs.y
-            && lhs.w == rhs.w
-            && lhs.h == rhs.h
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Rect else {
+            return false
+        }
+        return x == other.x
+            && y == other.y
+            && w == other.w
+            && h == other.h
     }
 }

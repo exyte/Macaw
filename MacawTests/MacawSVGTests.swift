@@ -20,13 +20,13 @@ class MacawSVGTests: XCTestCase {
     private let testFolderName = "MacawTestOutputData"
     private let shouldComparePNGImages = true
     private let multipleTestsWillRun = false
-    private let shouldSaveFaildedTestImage = false
+    private let shouldSaveFailedTestImage = false
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         super.setUp()
         
-        if shouldSaveFaildedTestImage {
+        if shouldSaveFailedTestImage {
             setupTestFolderDirectory()
         }
     }
@@ -36,6 +36,21 @@ class MacawSVGTests: XCTestCase {
         super.tearDown()
     }
 
+    func compareResults(nodeContent: String?, referenceContent: String?) {
+        guard let nodeContent = nodeContent else {
+            XCTFail("nodeContent is empty")
+            return
+        }
+        guard let referenceContent = referenceContent else {
+            XCTFail("referenceContent is empty")
+            return
+        }
+
+        if nodeContent != referenceContent {
+            XCTFail("nodeContent is not equal to referenceContent" + TestUtils.prettyFirstDifferenceBetweenStrings(s1: nodeContent, s2: referenceContent))
+        }
+    }
+
     func validate(node: Node, referenceFile: String) {
         let bundle = Bundle(for: type(of: TestUtils()))
         
@@ -43,7 +58,7 @@ class MacawSVGTests: XCTestCase {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
                 let clipReferenceContent = try String.init(contentsOfFile: path).trimmingCharacters(in: .newlines)
                 let result = SVGSerializer.serialize(node: node)
-                XCTAssertEqual(result, clipReferenceContent)
+                compareResults(nodeContent: result, referenceContent: clipReferenceContent)
             } else {
                 XCTFail("No file \(referenceFile)")
             }
@@ -192,13 +207,10 @@ class MacawSVGTests: XCTestCase {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
             if let path = bundle.path(forResource: referenceFile, ofType: "reference") {
+
                 let referenceContent = try String(contentsOfFile: path)
-                
                 let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
-                
-                if nodeContent != referenceContent {
-                    XCTFail("nodeContent is not equal to referenceContent")
-                }
+                compareResults(nodeContent: nodeContent, referenceContent: referenceContent)
                 
                 let nativeImage = getImage(from: referenceFile)
             
@@ -261,9 +273,9 @@ class MacawSVGTests: XCTestCase {
         
         if referenceContentData != nodeContentData {
             
-            var failInfo = "referenceContentData is not equal to nodeContentData"
+            var failInfo = "referenceImageData is not equal to nodeImageData"
             
-            if shouldSaveFaildedTestImage {
+            if shouldSaveFailedTestImage {
                 let _ = saveImage(image: referenceImage, fileName: referenceFile + "_reference")
                 let _ = saveImage(image: nodeImage, fileName: referenceFile + "_incorrect")
                 
@@ -314,7 +326,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func writeToFile(string: String, fileName: String) -> URL? {
-        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
+        guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) as NSURL else {
             return .none
         }
         do {

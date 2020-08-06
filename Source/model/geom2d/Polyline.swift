@@ -60,4 +60,11 @@ open class Polyline: Locus {
         }
         return pb.build()
     }
+
+    override func equals<T>(other: T) -> Bool where T: Locus {
+        guard let other = other as? Polyline else {
+            return false
+        }
+        return points == other.points
+    }
 }

@@ -14,7 +14,7 @@ import AppKit
 public struct MRectCorner: OptionSet {
     public let rawValue: UInt
 
-    public static let none = MRectCorner(rawValue: 0)
+    public static let none = MRectCorner([])
     public static let topLeft = MRectCorner(rawValue: 1 << 0)
     public static let topRight = MRectCorner(rawValue: 1 << 1)
     public static let bottomLeft = MRectCorner(rawValue: 1 << 2)

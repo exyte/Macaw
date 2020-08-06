@@ -70,7 +70,7 @@ class MyView: MacawView {
 
 ## 系统要求
 
-* iOS 8.0+
+* iOS 9.0+
 * Mac OS X 10.11+
 * Xcode 7.3+
 
@@ -80,13 +80,13 @@ class MyView: MacawView {
 
 要安装，把以下句子加到你的Podfile中：
 ```ruby
-pod "Macaw", "0.9.6"
+pod "Macaw", "0.9.7"
 ```
 
 ## [Carthage](http://github.com/Carthage/Carthage)
 
 ```ogdl
-github "Exyte/Macaw" ~> 0.9.6
+github "Exyte/Macaw" ~> 0.9.7
 ```
 
 ## 从原始檔建立

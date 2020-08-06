@@ -65,7 +65,7 @@ class ShapeAnimation: AnimationImpl<Shape> {
     }
 }
 
-public extension AnimatableVariable {
+public extension AnimatableVariable where T == Stroke? {
     func animate<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
         let shape = node as! Shape
 
@@ -107,7 +107,7 @@ public extension AnimatableVariable {
     }
 }
 
-public extension AnimatableVariable {
+public extension AnimatableVariable where T == Fill? {
     func animate<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
         let shape = node as! Shape
 

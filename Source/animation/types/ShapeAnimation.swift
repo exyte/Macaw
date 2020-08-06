@@ -65,86 +65,39 @@ class ShapeAnimation: AnimationImpl<Shape> {
     }
 }
 
-public extension AnimatableVariable {
-    func animate<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
+public extension AnimatableVariable where T == Stroke? {
+
+    func animate(from: Stroke? = nil, to: Stroke, during: Double = 1.0, delay: Double = 0.0) {
         let shape = node as! Shape
-
-        var safeFrom = from
-        if safeFrom == nil {
-            if let shapeStroke = shape.stroke as? T {
-                safeFrom = shapeStroke
-            } else {
-                safeFrom = Stroke(width: 1.0) as? T
-            }
-        }
-
-        shape.stroke = safeFrom
-
+        shape.stroke = from ?? (shape.stroke ?? Stroke(width: 1.0))
         let finalShape = SceneUtils.shapeCopy(from: shape)
         finalShape.stroke = to
-
         _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
 
-    func animation<T: Stroke>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(from: Stroke? = nil, to: Stroke, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let shape = node as! Shape
-
-        var safeFrom = from
-        if safeFrom == nil {
-            if let shapeStroke = shape.stroke as? T {
-                safeFrom = shapeStroke
-            } else {
-                safeFrom = Stroke(width: 1.0) as? T
-            }
-        }
-
-        shape.stroke = safeFrom
-
+        shape.stroke = from ?? (shape.stroke ?? Stroke(width: 1.0))
         let finalShape = SceneUtils.shapeCopy(from: shape)
         finalShape.stroke = to
-
         return ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: false)
     }
 }
+public extension AnimatableVariable where T == Fill? {
 
-public extension AnimatableVariable {
-    func animate<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) {
+    func animate(from: Fill? = nil, to: Fill, during: Double = 1.0, delay: Double = 0.0) {
         let shape = node as! Shape
-
-        var safeFrom = from
-        if safeFrom == nil {
-            if let shapeFill = shape.fill as? T {
-                safeFrom = shapeFill
-            } else {
-                safeFrom = Color.clear as? T
-            }
-        }
-
-        shape.fill = safeFrom
-
+        shape.fill = from ?? (shape.fill ?? Color.clear)
         let finalShape = SceneUtils.shapeCopy(from: shape)
         finalShape.fill = to
-
         _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
-
-    func animation<T: Fill>(from: T? = nil, to: T, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    
+    func animation(from: Fill? = nil, to: Fill, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let shape = node as! Shape
-
-        var safeFrom = from
-        if safeFrom == nil {
-            if let shapeFill = shape.fill as? T {
-                safeFrom = shapeFill
-            } else {
-                safeFrom = Color.clear as? T
-            }
-        }
-
-        shape.fill = safeFrom
-
+        shape.fill = from ?? (shape.fill ?? Color.clear)
         let finalShape = SceneUtils.shapeCopy(from: shape)
         finalShape.fill = to
-
         return ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: false)
     }
 }

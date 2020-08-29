@@ -8,7 +8,7 @@ import AppKit
 
 class AnimationUtils {
 
-    class func layerForNodeRenderer(_ renderer: NodeRenderer, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true) -> ShapeLayer {
+    class func layerForNodeRenderer(_ renderer: NodeRenderer, animation: Animation, customBounds: Rect? = .none, shouldRenderContent: Bool = true, isGradient: Bool = false) -> LayerProtocol {
 
         let node = renderer.node
         if let cachedLayer = renderer.layer {
@@ -18,10 +18,10 @@ class AnimationUtils {
         }
 
         // 'sublayer' is for actual CAAnimations, and 'layer' is for manual transforming and hierarchy changes
-        let sublayer = ShapeLayer()
+        let sublayer: LayerProtocol = isGradient ? GradientLayer () : ShapeLayer()
         sublayer.shouldRenderContent = shouldRenderContent
 
-        let layer = ShapeLayer()
+        let layer: LayerProtocol = isGradient ? GradientLayer () : ShapeLayer()
         layer.addSublayer(sublayer)
         layer.masksToBounds = false
 

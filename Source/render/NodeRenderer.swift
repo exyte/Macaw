@@ -11,10 +11,10 @@ enum ColoringMode {
 }
 
 class CachedLayer {
-    let rootLayer: ShapeLayer
-    let animationLayer: ShapeLayer
+    let rootLayer: LayerProtocol
+    let animationLayer: LayerProtocol
 
-    required init(rootLayer: ShapeLayer, animationLayer: ShapeLayer) {
+    required init(rootLayer: LayerProtocol, animationLayer: LayerProtocol) {
         self.rootLayer = rootLayer
         self.animationLayer = animationLayer
     }

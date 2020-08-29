@@ -22,7 +22,7 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
     let transactionsDisabled = CATransaction.disableActions()
     CATransaction.setDisableActions(true)
 
-    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: true)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: true, isGradient: (node as? Shape)?.fill is LinearGradient)
 
     // Creating proper animation
     let generatedAnimation = transformAnimationByFunc(transformAnimation,

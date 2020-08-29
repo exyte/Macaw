@@ -32,7 +32,7 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
     let toShape = shapeAnimation.getVFunc()(animation.autoreverses ? 0.5 : 1.0)
     let duration = animation.autoreverses ? animation.getDuration() / 2.0 : animation.getDuration()
 
-    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false, isGradient: shape.fill is LinearGradient)
 
     // Creating proper animation
     let generatedAnimation = generateShapeAnimation(context,
@@ -89,8 +89,22 @@ func addShapeAnimation(_ animation: BasicAnimation, _ context: AnimationContext,
         completion()
     }
 
-    layer.path = fromShape.form.toCGPath()
-    layer.setupStrokeAndFill(fromShape)
+    if let layer = layer as? ShapeLayer {
+        layer.path = fromShape.form.toCGPath()
+        layer.setupStrokeAndFill(fromShape)
+    } else if let layer = layer as? GradientLayer {
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = fromShape.form.toCGPath()
+        layer.mask = maskLayer
+        
+        if let color = shape.fill as? LinearGradient {
+            let properties = color.toCG()
+            layer.colors = properties.colors
+            layer.locations = properties.locations
+            layer.startPoint = CGPoint(x: color.x1, y: color.y1)
+            layer.endPoint = CGPoint(x: color.x2, y: color.y2)
+        }
+    }
 
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)
@@ -127,16 +141,25 @@ fileprivate func generateShapeAnimation(_ context: AnimationContext, from: Shape
     group.animations?.append(transformAnimation)
 
     // Fill
-    let fromFillColor = from.fill as? Color ?? Color.clear
-    let toFillColor = to.fill as? Color ?? Color.clear
+    
+    if from.fill != to.fill {
+        if let fromFillColor = from.fill as? Color, let toFillColor = to.fill as? Color {
+            let fillAnimation = CABasicAnimation(keyPath: "fillColor")
+            fillAnimation.fromValue = fromFillColor.toCG()
+            fillAnimation.toValue = toFillColor.toCG()
+            fillAnimation.duration = duration
 
-    if fromFillColor != toFillColor {
-        let fillAnimation = CABasicAnimation(keyPath: "fillColor")
-        fillAnimation.fromValue = fromFillColor.toCG()
-        fillAnimation.toValue = toFillColor.toCG()
-        fillAnimation.duration = duration
+            group.animations?.append(fillAnimation)
+        } else if let fromFillColor = from.fill as? LinearGradient, let toFillColor = to.fill as? LinearGradient {
+            let fillAnimation = CABasicAnimation(keyPath: "colors")
+            let fromProperties = fromFillColor.toCG()
+            let toProperties = toFillColor.toCG()
+            fillAnimation.fromValue = fromProperties.colors
+            fillAnimation.toValue = toProperties.colors
+            fillAnimation.duration = duration
 
-        group.animations?.append(fillAnimation)
+            group.animations?.append(fillAnimation)
+        }
     }
 
     // Stroke

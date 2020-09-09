@@ -114,12 +114,6 @@ To build Macaw from sources:
 * run `pod install` to install all dependencies
 * run `open Example.xcworkspace/` to open project in the Xcode
 
-## Who is using Macaw?
-Over one thousand users already utilize Macaw in their applications. We would like to prepare the list of top use cases.
-Please share your story with us at info@exyte.com and we will thank you with Macaw stickers!
-
-<img src="https://i.imgur.com/m0pBChS.jpg" height="200">
-
 ## Change Log
 
 You can find list of all changes by version in the [Change Log](https://github.com/exyte/Macaw/wiki/Change-Log)

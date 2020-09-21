@@ -139,7 +139,7 @@ public extension Node {
         let renderer = RenderUtils.createNodeRenderer(self, view: nil)
         let rect = size.rect()
 
-        MGraphicsBeginImageContextWithOptions(size.toCG(), false, 1)
+        MGraphicsBeginImageContextWithOptions(size.toCG(), false, 0.0)
         let ctx = MGraphicsGetCurrentContext()!
         ctx.clear(rect.toCG())
 

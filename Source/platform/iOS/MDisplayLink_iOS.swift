@@ -23,7 +23,11 @@ class MDisplayLink: MDisplayLinkProtocol {
         self.onUpdate = onUpdate
 
         displayLink = CADisplayLink(target: self, selector: #selector(updateHandler))
-        displayLink?.frameInterval = 1
+        if #available(iOS 10.0, *) {
+            displayLink?.preferredFramesPerSecond = 1
+        } else {
+            displayLink?.frameInterval = 1
+        }
         displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
     }
 

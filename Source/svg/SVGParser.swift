@@ -705,7 +705,7 @@ open class SVGParser {
         }
         var rgbValue: UInt32 = 0
         if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *), let scannedInt = Scanner(string: cleanedHexString).scanUInt64(representation: .hexadecimal) {
-                rgbValue = UInt32(scannedInt)
+            rgbValue = UInt32(scannedInt)
         } else {
             Scanner(string: cleanedHexString).scanHexInt32(&rgbValue)
         }

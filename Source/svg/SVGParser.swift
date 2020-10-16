@@ -704,10 +704,8 @@ open class SVGParser {
             cleanedHexString = "\(x[0])\(x[0])\(x[1])\(x[1])\(x[2])\(x[2])"
         }
         var rgbValue: UInt32 = 0
-        if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-            if let scannedInt = Scanner(string: cleanedHexString).scanUInt64(representation: .hexadecimal) {
+        if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *), let scannedInt = Scanner(string: cleanedHexString).scanUInt64(representation: .hexadecimal) {
                 rgbValue = UInt32(scannedInt)
-            }
         } else {
             Scanner(string: cleanedHexString).scanHexInt32(&rgbValue)
         }

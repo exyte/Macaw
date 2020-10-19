@@ -6,10 +6,32 @@ import UIKit
 import AppKit
 #endif
 
-class ShapeLayer: CAShapeLayer {
+protocol LayerProtocol: CALayer {
+    var renderer: NodeRenderer? { get set }
+    var shouldRenderContent: Bool { get set }
+    var isForceRenderingEnabled: Bool { get set }
+    func draw(in ctx: CGContext)
+}
+
+class ShapeLayer: CAShapeLayer, LayerProtocol {
     weak var renderer: NodeRenderer?
-    var shouldRenderContent = true
-    var isForceRenderingEnabled = true
+    var shouldRenderContent: Bool = true
+    var isForceRenderingEnabled: Bool = true
+
+    override func draw(in ctx: CGContext) {
+        if !shouldRenderContent {
+            super.draw(in: ctx)
+            return
+        }
+
+        renderer?.directRender(in: ctx, force: isForceRenderingEnabled)
+    }
+}
+
+class GradientLayer: CAGradientLayer, LayerProtocol {
+    weak var renderer: NodeRenderer?
+    var shouldRenderContent: Bool = true
+    var isForceRenderingEnabled: Bool = true
 
     override func draw(in ctx: CGContext) {
         if !shouldRenderContent {

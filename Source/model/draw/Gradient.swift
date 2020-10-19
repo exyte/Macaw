@@ -1,3 +1,5 @@
+import UIKit
+
 open class Gradient: Fill {
 
     public let userSpace: Bool
@@ -18,5 +20,16 @@ open class Gradient: Fill {
         }
 
         return stops.elementsEqual(other.stops)
+    }
+    
+    public func toCG() -> (colors: Array<CGColor>, locations: Array<NSNumber>) {
+        var colors: Array<CGColor> = []
+        var locations: Array<NSNumber> = []
+        for stop in stops {
+            colors += [stop.color.toCG()]
+            locations += [NSNumber(value: stop.offset)]
+        }
+        
+        return (colors, locations)
     }
 }

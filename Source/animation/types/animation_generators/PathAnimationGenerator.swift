@@ -19,7 +19,7 @@ func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, 
         return
     }
 
-    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false)
+    let layer = AnimationUtils.layerForNodeRenderer(renderer, animation: animation, shouldRenderContent: false, isGradient: shape.fill is LinearGradient)
 
     // Creating proper animation
     let generatedAnim = generatePathAnimation(
@@ -52,9 +52,11 @@ func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, 
         completion()
     }
 
-    //layer.path = RenderUtils.toCGPath(shape.form).copy(using: &layer.transform)
-    layer.path = shape.form.toCGPath()
-    layer.setupStrokeAndFill(shape)
+    if let layer = layer as? ShapeLayer {
+        //layer.path = RenderUtils.toCGPath(shape.form).copy(using: &layer.transform)
+        layer.path = shape.form.toCGPath()
+        layer.setupStrokeAndFill(shape)
+    }
 
     layer.add(generatedAnim, forKey: animation.ID)
     animation.removeFunc = { [weak layer] in

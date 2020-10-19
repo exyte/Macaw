@@ -549,14 +549,14 @@ open class SVGParser {
 
         stopParse: while !scanner.isAtEnd {
             guard let attributeName = scanner.scannedCharacters(from: .transformationAttributeCharacters),
-                  scanner.scanString("(", into: nil),
+                  scanner.scannedString("(") != nil,
                   let valuesString = scanner.scannedUpToString(")"),
-                  scanner.scanString(")", into: nil) else {
+                  scanner.scannedString(")") != nil else {
                 break stopParse
             }
 
             // Skip an optional comma after ")".
-            _ = scanner.scanString(",", into: nil)
+            _ = scanner.scannedString(",")
 
             let values = parseTransformValues(valuesString)
             if values.isEmpty {
@@ -659,7 +659,7 @@ open class SVGParser {
             } else {
                 break
             }
-            _ = scanner.scanString(",", into: nil)
+            _ = scanner.scannedString(",")
         }
 
         return collectedValues
@@ -709,7 +709,11 @@ open class SVGParser {
             cleanedHexString = "\(x[0])\(x[0])\(x[1])\(x[1])\(x[2])\(x[2])"
         }
         var rgbValue: UInt32 = 0
-        Scanner(string: cleanedHexString).scanHexInt32(&rgbValue)
+        if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *), let scannedInt = Scanner(string: cleanedHexString).scanUInt64(representation: .hexadecimal) {
+            rgbValue = UInt32(scannedInt)
+        } else {
+            Scanner(string: cleanedHexString).scanHexInt32(&rgbValue)
+        }
 
         let red = CGFloat((rgbValue >> 16) & 0xff)
         let green = CGFloat((rgbValue >> 08) & 0xff)
@@ -999,11 +1003,10 @@ open class SVGParser {
 
         let scanner = Scanner(string: pointsString)
         while !scanner.isAtEnd {
-            var resultPoint: Double = 0
-            if scanner.scanDouble(&resultPoint) {
+            if let resultPoint = scanner.scannedDouble() {
                 resultPoints.append(resultPoint)
             }
-            _ = scanner.scanCharacters(from: [","], into: nil)
+            _ = scanner.scannedString(",")
         }
 
         if resultPoints.count % 2 == 1 {
@@ -2243,6 +2246,16 @@ fileprivate extension Scanner {
         } else {
             var string: NSString?
             return scanUpTo(substring, into: &string) ? string as String? : nil
+        }
+    }
+    
+    /// A version of `scanString(_:)`, available for an earlier OS.
+    func scannedString(_ searchString: String) -> String? {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return scanString(searchString)
+        } else {
+            var string: NSString?
+            return scanString(searchString, into: &string) ? string as String? : nil
         }
     }
 }

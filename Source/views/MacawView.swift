@@ -283,7 +283,7 @@ internal class DrawingView: MView {
     var touchesOfNode = [Node: [MTouchEvent]]()
     var recognizersMap = [MGestureRecognizer: [Node]]()
 
-    var context: RenderContext!
+    lazy var context: RenderContext = RenderContext(view: self)
     var renderer: NodeRenderer?
 
     var toRender = true
@@ -376,7 +376,10 @@ internal class DrawingView: MView {
                 touchesMap[touch] = [NodePath]()
             }
 
-            let inverted = node.place.invert()!
+            guard let inverted = node.place.invert()
+            else {
+                return
+            }
             let loc = location.applying(inverted.toCG())
 
             var relativeToView = CGPoint.zero
@@ -430,7 +433,10 @@ internal class DrawingView: MView {
                     continue
                 }
                 let location = CGPoint(x: currentTouch.x, y: currentTouch.y)
-                let inverted = currentNode.place.invert()!
+                guard let inverted = currentNode.place.invert()
+                else {
+                    return
+                }
                 let loc = location.applying(inverted.toCG())
 
                 var relativeToView = CGPoint.zero
@@ -458,7 +464,10 @@ internal class DrawingView: MView {
             touchesMap[touch]?.forEach { nodePath in
 
                 let node = nodePath.node
-                let inverted = node.place.invert()!
+                guard let inverted = node.place.invert()
+                else {
+                    return
+                }
                 let location = CGPoint(x: touch.x, y: touch.y)
                 let loc = location.applying(inverted.toCG())
 
@@ -502,11 +511,14 @@ internal class DrawingView: MView {
 
         while let current = nodePath {
             let node = current.node
-            let inverted = node.place.invert()!
+            nodePath = nodePath?.parent
+            guard let inverted = node.place.invert()
+            else {
+                break
+            }
             let loc = location.applying(inverted.toCG())
             let event = TapEvent(node: node, location: loc.toMacaw())
             node.handleTap(event)
-            nodePath = nodePath?.parent
         }
     }
 
@@ -528,11 +540,14 @@ internal class DrawingView: MView {
 
         while let next = nodePath.parent {
             let node = nodePath.node
-            let inverted = node.place.invert()!
+            nodePath = next
+            guard let inverted = node.place.invert()
+            else {
+                break
+            }
             let loc = location.applying(inverted.toCG())
             let event = TapEvent(node: node, location: loc.toMacaw())
             node.handleLongTap(event, touchBegan: recognizer.state == .began)
-            nodePath = next
         }
     }
 
@@ -727,7 +742,11 @@ class LayoutHelper {
             if let rect = prevRect {
                 return rect
             }
-            return canvas.layout(size: prevSize!).rect()
+            if let prevSize = prevSize {
+                return canvas.layout(size: prevSize).rect()
+            } else {
+                return node.bounds
+            }
         } else {
             return node.bounds
         }

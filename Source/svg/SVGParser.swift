@@ -470,8 +470,8 @@ open class SVGParser {
             if pattern.children.isEmpty {
                 return parentPattern?.content
             } else if pattern.children.count == 1,
-                let child = pattern.children.first,
-                let shape = try parseNode(child) as? Shape {
+                      let child = pattern.children.first,
+                      let shape = try parseNode(child) as? Shape {
                 return shape
             } else {
                 var shapes = [Shape]()
@@ -1633,7 +1633,7 @@ open class SVGParser {
             if stopColor == SVGKeys.currentColor, let currentColor = groupStyle[SVGKeys.color] {
                 stopColor = currentColor
             }
-            color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity)!
+            color = createColor(stopColor.replacingOccurrences(of: " ", with: ""), opacity: opacity) ?? color
         }
 
         return Stop(offset: offset, color: color)
@@ -2248,7 +2248,7 @@ fileprivate extension Scanner {
             return scanUpTo(substring, into: &string) ? string as String? : nil
         }
     }
-    
+
     /// A version of `scanString(_:)`, available for an earlier OS.
     func scannedString(_ searchString: String) -> String? {
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {

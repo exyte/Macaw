@@ -48,11 +48,12 @@ class ImageRenderer: NodeRenderer {
         }
 
         if let mImage = mImage,
+           let cgImage = mImage.cgImage,
            let rect = BoundsUtils.getRect(of: image, mImage: mImage) {
             context.scaleBy(x: 1.0, y: -1.0)
             context.translateBy(x: 0.0, y: -1.0 * rect.height)
             context.setAlpha(CGFloat(opacity))
-            context.draw(mImage.cgImage!, in: rect)
+            context.draw(cgImage, in: rect)
         }
     }
 

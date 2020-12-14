@@ -22,13 +22,15 @@ public class MDisplayLink: MDisplayLinkProtocol {
 
     // MARK: - MDisplayLinkProtocol
     func startUpdates(_ onUpdate: @escaping () -> Void) {
-        self.onUpdate = onUpdate
-
-        if CVDisplayLinkCreateWithActiveCGDisplays(&displayLink) != kCVReturnSuccess {
+        guard CVDisplayLinkCreateWithActiveCGDisplays(&displayLink) == kCVReturnSuccess,
+              let displayLink = displayLink
+        else {
             return
         }
 
-        CVDisplayLinkSetOutputCallback(displayLink!, { _, _, _, _, _, userData -> CVReturn in
+        self.onUpdate = onUpdate
+
+        CVDisplayLinkSetOutputCallback(displayLink, { _, _, _, _, _, userData -> CVReturn in
 
             let `self` = unsafeBitCast(userData, to: MDisplayLink.self)
             `self`.onUpdate?()
@@ -36,9 +38,7 @@ public class MDisplayLink: MDisplayLinkProtocol {
             return kCVReturnSuccess
         }, Unmanaged.passUnretained(self).toOpaque())
 
-        if displayLink != nil {
-            CVDisplayLinkStart(displayLink!)
-        }
+        CVDisplayLinkStart(displayLink)
     }
 
     func invalidate() {

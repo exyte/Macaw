@@ -92,8 +92,7 @@ open class StrokeSideVariable {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
         let origin = Double(0)
-        let factory = { () -> (Double) -> Double in
-            { (t: Double) in origin.interpolate(to, progress: t) }
+        let factory = { () -> (Double) -> Double in { (t: Double) in origin.interpolate(to, progress: t) }
         }
         return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, factory: factory, animationDuration: during, delay: delay)
     }

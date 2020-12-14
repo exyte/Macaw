@@ -39,7 +39,7 @@ public class Animation {
         return self
     }
 
-    public func reverse() -> Animation {
+    public func reverse() -> Animation? {
         return self
     }
 

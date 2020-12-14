@@ -82,16 +82,20 @@ class ShapeRenderer: NodeRenderer {
     }
 
     fileprivate func drawPath(fill: Fill?, stroke: Stroke?, ctx: CGContext?, opacity: Double, fillRule: FillRule) {
+        guard let ctx = ctx
+        else {
+            return
+        }
         var shouldStrokePath = false
         if fill is Gradient || stroke?.fill is Gradient {
             shouldStrokePath = true
         }
 
         if let fill = fill, let stroke = stroke {
-            let path = ctx!.path
+            let path = ctx.path
             setFill(fill, ctx: ctx, opacity: opacity)
             if stroke.fill is Gradient && !(fill is Gradient) {
-                ctx!.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
+                ctx.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
             }
             drawWithStroke(stroke, ctx: ctx, opacity: opacity, shouldStrokePath: shouldStrokePath, path: path, mode: fillRule == .nonzero ? .fillStroke : .eoFillStroke)
             return
@@ -99,7 +103,7 @@ class ShapeRenderer: NodeRenderer {
 
         if let fill = fill {
             setFill(fill, ctx: ctx, opacity: opacity)
-            ctx!.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
+            ctx.drawPath(using: fillRule == .nonzero ? .fill : .eoFill)
             return
         }
 
@@ -110,12 +114,14 @@ class ShapeRenderer: NodeRenderer {
     }
 
     fileprivate func setFill(_ fill: Fill?, ctx: CGContext?, opacity: Double) {
-        guard let fill = fill else {
+        guard let fill = fill,
+              let ctx = ctx
+        else {
             return
         }
         if let fillColor = fill as? Color {
             let color = RenderUtils.applyOpacity(fillColor, opacity: opacity)
-            ctx!.setFillColor(color.toCG())
+            ctx.setFillColor(color.toCG())
         } else if let gradient = fill as? Gradient {
             drawGradient(gradient, ctx: ctx, opacity: opacity)
         } else if let pattern = fill as? Pattern {
@@ -126,8 +132,13 @@ class ShapeRenderer: NodeRenderer {
     }
 
     fileprivate func drawWithStroke(_ stroke: Stroke, ctx: CGContext?, opacity: Double, shouldStrokePath: Bool = false, path: CGPath? = nil, mode: CGPathDrawingMode) {
+        guard let ctx = ctx
+        else {
+            return
+        }
+
         if let path = path, shouldStrokePath {
-            ctx!.addPath(path)
+            ctx.addPath(path)
         }
         RenderUtils.setStrokeAttributes(stroke, ctx: ctx)
 
@@ -138,29 +149,35 @@ class ShapeRenderer: NodeRenderer {
             colorStroke(stroke, ctx: ctx, opacity: opacity)
         }
         if shouldStrokePath {
-            ctx!.strokePath()
+            ctx.strokePath()
         } else {
-            ctx!.drawPath(using: mode)
+            ctx.drawPath(using: mode)
         }
     }
 
     fileprivate func colorStroke(_ stroke: Stroke, ctx: CGContext?, opacity: Double) {
-        guard let strokeColor = stroke.fill as? Color else {
+        guard let ctx = ctx,
+              let strokeColor = stroke.fill as? Color else {
             return
         }
         let color = RenderUtils.applyOpacity(strokeColor, opacity: opacity)
-        ctx!.setStrokeColor(color.toCG())
+        ctx.setStrokeColor(color.toCG())
     }
 
     fileprivate func gradientStroke(_ stroke: Stroke, ctx: CGContext?, opacity: Double) {
-        guard let gradient = stroke.fill as? Gradient else {
+        guard let ctx = ctx,
+              let gradient = stroke.fill as? Gradient else {
             return
         }
-        ctx!.replacePathWithStrokedPath()
+        ctx.replacePathWithStrokedPath()
         drawGradient(gradient, ctx: ctx, opacity: opacity)
     }
 
     fileprivate func drawPattern(_ pattern: Pattern, ctx: CGContext?, opacity: Double) {
+        guard let ctx = ctx
+        else {
+            return
+        }
         var patternNode = pattern.content
         if !pattern.userSpace, let node = BoundsUtils.createNodeFromRespectiveCoords(respectiveNode: pattern.content, absoluteLocus: shape.form) {
             patternNode = node
@@ -172,13 +189,21 @@ class ShapeRenderer: NodeRenderer {
             let boundsTranform = BoundsUtils.transformForLocusInRespectiveCoords(respectiveLocus: pattern.bounds, absoluteLocus: shape.form)
             patternBounds = pattern.bounds.applying(boundsTranform)
         }
-        let tileImage = renderer.renderToImage(bounds: patternBounds, inset: 0)
-        ctx?.clip()
-        ctx?.draw(tileImage.cgImage!, in: patternBounds.toCG(), byTiling: true)
+        guard let tileImage = renderer.renderToImage(bounds: patternBounds, inset: 0),
+              let cgTileImage = tileImage.cgImage
+        else {
+            return
+        }
+        ctx.clip()
+        ctx.draw(cgTileImage, in: patternBounds.toCG(), byTiling: true)
     }
 
     fileprivate func drawGradient(_ gradient: Gradient, ctx: CGContext?, opacity: Double) {
-        ctx!.saveGState()
+        guard let ctx = ctx
+        else {
+            return
+        }
+        ctx.saveGState()
         var colors: [CGColor] = []
         var stops: [CGFloat] = []
         for stop in gradient.stops {
@@ -191,19 +216,22 @@ class ShapeRenderer: NodeRenderer {
             var start = CGPoint(x: CGFloat(gradient.x1), y: CGFloat(gradient.y1))
             var end = CGPoint(x: CGFloat(gradient.x2), y: CGFloat(gradient.y2))
             if !gradient.userSpace {
-                let bounds = ctx!.boundingBoxOfPath
+                let bounds = ctx.boundingBoxOfPath
                 start = CGPoint(x: start.x * bounds.width + bounds.minX, y: start.y * bounds.height + bounds.minY)
                 end = CGPoint(x: end.x * bounds.width + bounds.minX, y: end.y * bounds.height + bounds.minY)
             }
-            ctx!.clip()
-            let cgGradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors as CFArray, locations: stops)
-            ctx!.drawLinearGradient(cgGradient!, start: start, end: end, options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
+            ctx.clip()
+            guard let cgGradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors as CFArray, locations: stops)
+            else {
+                return
+            }
+            ctx.drawLinearGradient(cgGradient, start: start, end: end, options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
         } else if let gradient = gradient as? RadialGradient {
             var innerCenter = CGPoint(x: CGFloat(gradient.fx), y: CGFloat(gradient.fy))
             var outerCenter = CGPoint(x: CGFloat(gradient.cx), y: CGFloat(gradient.cy))
             var radius = CGFloat(gradient.r)
             if !gradient.userSpace {
-                var bounds = ctx!.boundingBoxOfPath
+                var bounds = ctx.boundingBoxOfPath
                 var scaleX: CGFloat = 1
                 var scaleY: CGFloat = 1
                 if bounds.width > bounds.height {
@@ -211,18 +239,21 @@ class ShapeRenderer: NodeRenderer {
                 } else {
                     scaleX = bounds.width / bounds.height
                 }
-                ctx!.scaleBy(x: scaleX, y: scaleY)
-                bounds = ctx!.boundingBoxOfPath
+                ctx.scaleBy(x: scaleX, y: scaleY)
+                bounds = ctx.boundingBoxOfPath
                 innerCenter = CGPoint(x: innerCenter.x * bounds.width + bounds.minX, y: innerCenter.y * bounds.height + bounds.minY)
                 outerCenter = CGPoint(x: outerCenter.x * bounds.width + bounds.minX, y: outerCenter.y * bounds.height + bounds.minY)
                 radius = min(radius * bounds.width, radius * bounds.height)
 
             }
-            ctx!.clip()
-            let cgGradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors as CFArray, locations: stops)
-            ctx!.drawRadialGradient(cgGradient!, startCenter: innerCenter, startRadius: 0, endCenter: outerCenter, endRadius: radius, options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
+            ctx.clip()
+            guard let cgGradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors as CFArray, locations: stops)
+            else {
+                return
+            }
+            ctx.drawRadialGradient(cgGradient, startCenter: innerCenter, startRadius: 0, endCenter: outerCenter, endRadius: radius, options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
         }
-        ctx!.restoreGState()
+        ctx.restoreGState()
     }
 
 }

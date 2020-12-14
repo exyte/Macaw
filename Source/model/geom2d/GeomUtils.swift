@@ -15,6 +15,10 @@ open class GeomUtils {
 
     open class func anchorRotation(node: Node, place: Transform, anchor: Point, angle: Double) -> Transform {
         let move = Transform.move(dx: anchor.x, dy: anchor.y)
+        guard let invert = move.invert()
+        else {
+            return Transform.identity
+        }
 
         let asin = sin(angle); let acos = cos(angle)
 
@@ -25,7 +29,7 @@ open class GeomUtils {
         )
 
         let t1 = move.concat(with: rotation)
-        let t2 = t1.concat(with: move.invert()!)
+        let t2 = t1.concat(with: invert)
         let result = place.concat(with: t2)
 
         return result

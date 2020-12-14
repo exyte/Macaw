@@ -212,8 +212,12 @@ class MacawSVGTests: XCTestCase {
                 let nodeContent = String(data: getJSONData(node: node), encoding: String.Encoding.utf8)
                 compareResults(nodeContent: nodeContent, referenceContent: referenceContent)
                 
-                let nativeImage = getImage(from: referenceFile)
-            
+                guard let nativeImage = getImage(from: referenceFile)
+                else {
+                    XCTFail("Failed to create Image from file \(referenceFile)")
+                    return
+                }
+                            
                 //To save new PNG image for test, uncomment this
                 //saveImage(image: nativeImage, fileName: referenceFile)
                 #if os(OSX)
@@ -826,7 +830,7 @@ class MacawSVGTests: XCTestCase {
         validateJSON("masking-mask-02-f-manual")
     }
     
-    func getImage(from svgName: String) -> MImage {
+    func getImage(from svgName: String) -> MImage? {
         let bundle = Bundle(for: type(of: TestUtils()))
         do {
             let node = try SVGParser.parse(resource: svgName, fromBundle: bundle)

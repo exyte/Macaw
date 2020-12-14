@@ -230,9 +230,9 @@ class AnimationProducer {
             return
         }
 
-        if animation.autoreverses {
-            animation.autoreverses = false
-            play([animation, animation.reverse()].sequence() as! BasicAnimation, context)
+        if contentsAnimation.autoreverses {
+            contentsAnimation.autoreverses = false
+            play([contentsAnimation, contentsAnimation.reverse()].sequence() as! BasicAnimation, context)
             return
         }
 

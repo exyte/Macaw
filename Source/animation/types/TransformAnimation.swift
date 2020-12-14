@@ -44,8 +44,11 @@ internal class TransformAnimation: AnimationImpl<Transform> {
         }
     }
 
-    open override func reverse() -> Animation {
-
+    open override func reverse() -> Animation? {
+        guard let node = node
+        else {
+            return .none
+        }
         let factory = { () -> (Double) -> Transform in
             let original = self.timeFactory()
             return { (t: Double) -> Transform in
@@ -53,7 +56,7 @@ internal class TransformAnimation: AnimationImpl<Transform> {
             }
         }
 
-        let reversedAnimation = TransformAnimation(animatedNode: node!,
+        let reversedAnimation = TransformAnimation(animatedNode: node,
                                                    factory: factory, animationDuration: duration, fps: logicalFps)
         reversedAnimation.progress = progress
         reversedAnimation.completion = completion
@@ -66,45 +69,75 @@ public typealias TransformAnimationDescription = AnimationDescription<Transform>
 
 public extension AnimatableVariable where T: TransformInterpolation {
     func animate(_ desc: TransformAnimationDescription) {
-        _ = TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
+        guard let node = node
+        else {
+            return
+        }
+        _ = TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: true)
     }
 
-    func animation(_ desc: TransformAnimationDescription) -> Animation {
-        return TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+    func animation(_ desc: TransformAnimationDescription) -> Animation? {
+        guard let node = node
+        else {
+            return .none
+        }
+        return TransformAnimation(animatedNode: node, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
     func animate(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
-        self.animate(((from ?? node!.place) >> to).t(during, delay: delay))
+        guard let node = node
+        else {
+            return
+        }
+        self.animate(((from ?? node.place) >> to).t(during, delay: delay))
     }
 
     func animate(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) {
-        let animation = self.animation(angle: angle, x: x, y: y, during: during, delay: delay)
+        guard let animation = self.animation(angle: angle, x: x, y: y, during: during, delay: delay)
+        else {
+            return
+        }
         animation.play()
     }
 
     func animate(along path: Path, during: Double = 1.0, delay: Double = 0.0) {
-        let animation = self.animation(along: path, during: during, delay: delay)
+        guard let animation = self.animation(along: path, during: during, delay: delay)
+        else {
+            return
+        }
         animation.play()
     }
 
-    func animation(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) -> Animation? {
+        guard let node = node
+        else {
+            return .none
+        }
+
         if let safeFrom = from {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
 
-        let origin = node!.place
+        let origin = node.place
         let factory = { () -> (Double) -> Transform in { (t: Double) in origin.interpolate(to, progress: t) }
         }
-        return TransformAnimation(animatedNode: self.node!, factory: factory, animationDuration: during, delay: delay)
+        return TransformAnimation(animatedNode: node, factory: factory, animationDuration: during, delay: delay)
     }
 
-    func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
+    func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation? {
+        guard let node = node
+        else {
+            return .none
+        }
+        return TransformAnimation(animatedNode: node, valueFunc: f, animationDuration: during, delay: delay)
     }
 
-    func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        let bounds = node!.bounds!
-        let place = node!.place
+    func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation? {
+        guard let node = node,
+              let bounds = node.bounds
+        else {
+            return .none
+        }
 
         let factory = { () -> (Double) -> Transform in { t in
             let asin = sin(angle * t); let acos = cos(angle * t)
@@ -119,18 +152,27 @@ public extension AnimatableVariable where T: TransformInterpolation {
                 dy: y ?? bounds.y + bounds.h / 2.0
             )
 
-            return place.concat(with: move).concat(with: rotation).concat(with: move.invert()!)
+            if let invert = move.invert() {
+                return node.place.concat(with: move).concat(with: rotation).concat(with: invert)
+            } else {
+                return node.place
+            }
+
         }
         }
 
-        return TransformAnimation(animatedNode: node!, factory: factory, animationDuration: during, delay: delay)
+        return TransformAnimation(animatedNode: node, factory: factory, animationDuration: during, delay: delay)
     }
 
-    func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation {
+    func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation? {
+        guard let node = node
+        else {
+            return .none
+        }
 
         let factory = { () -> (Double) -> Transform in { (t: Double) in self.node?.place ?? .identity }
         }
-        return TransformAnimation(animatedNode: self.node!, factory: factory, along: path, animationDuration: during, delay: delay)
+        return TransformAnimation(animatedNode: node, factory: factory, along: path, animationDuration: during, delay: delay)
     }
 
 }

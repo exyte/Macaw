@@ -254,9 +254,9 @@ extension SVGLength {
             return
         }
         if string.hasSuffix("%") {
-            self = SVGLength.percent(Double(string.dropLast())!)
+            self = SVGLength.percent(Double(string.dropLast()) ?? 0.0)
         } else {
-            self = SVGLength.pixels(Double(string)!)
+            self = SVGLength.pixels(Double(string) ?? 0.0)
         }
     }
 }
@@ -479,9 +479,9 @@ extension Stroke: Serializable {
                   width: parse(dictionary["width"]),
                   cap: cap,
                   join: join,
-                  miterLimit: miterLimit != nil ? miterLimit! : 4,
+                  miterLimit: miterLimit ?? 4,
                   dashes: dashes,
-                  offset: offset != nil ? offset! : 0)
+                  offset: offset ?? 0)
     }
 }
 

@@ -298,28 +298,28 @@ class RenderUtils {
         func t(_ x: Double, y: Double) {
             if let cur = currentPoint {
                 let next = CGPoint(x: CGFloat(x) + cur.x, y: CGFloat(y) + cur.y)
-                var quadr: CGPoint?
+                var quadr: CGPoint
                 if let curQuadr = quadrPoint {
                     quadr = CGPoint(x: 2 * cur.x - curQuadr.x, y: 2 * cur.y - curQuadr.y)
                 } else {
                     quadr = cur
                 }
-                bezierPath.addQuadCurve(to: next, controlPoint: quadr!)
-                setQuadrPoint(next, quadr: quadr!)
+                bezierPath.addQuadCurve(to: next, controlPoint: quadr)
+                setQuadrPoint(next, quadr: quadr)
             }
         }
 
         func T(_ x: Double, y: Double) {
             if let cur = currentPoint {
                 let next = CGPoint(x: CGFloat(x), y: CGFloat(y))
-                var quadr: CGPoint?
+                var quadr: CGPoint
                 if let curQuadr = quadrPoint {
                     quadr = CGPoint(x: 2 * cur.x - curQuadr.x, y: 2 * cur.y - curQuadr.y)
                 } else {
                     quadr = cur
                 }
-                bezierPath.addQuadCurve(to: next, controlPoint: quadr!)
-                setQuadrPoint(next, quadr: quadr!)
+                bezierPath.addQuadCurve(to: next, controlPoint: quadr)
+                setQuadrPoint(next, quadr: quadr)
             }
         }
 
@@ -541,13 +541,17 @@ class RenderUtils {
     }
 
     internal class func setStrokeAttributes(_ stroke: Stroke, ctx: CGContext?) {
-        ctx!.setLineWidth(CGFloat(stroke.width))
-        ctx!.setLineJoin(stroke.join.toCG())
-        ctx!.setLineCap(stroke.cap.toCG())
-        ctx!.setMiterLimit(CGFloat(stroke.miterLimit))
+        guard let ctx = ctx
+        else {
+            return
+        }
+        ctx.setLineWidth(CGFloat(stroke.width))
+        ctx.setLineJoin(stroke.join.toCG())
+        ctx.setLineCap(stroke.cap.toCG())
+        ctx.setMiterLimit(CGFloat(stroke.miterLimit))
         if !stroke.dashes.isEmpty {
-            ctx?.setLineDash(phase: CGFloat(stroke.offset),
-                             lengths: stroke.dashes.map { CGFloat($0) })
+            ctx.setLineDash(phase: CGFloat(stroke.offset),
+                            lengths: stroke.dashes.map { CGFloat($0) })
         }
     }
 

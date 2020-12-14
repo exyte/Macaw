@@ -44,7 +44,9 @@ extension AnimationProducer {
             for i in minPathsNumber..<fromShapes.count {
                 let shapeToHide = fromShapes[i]
                 let animation = shapeToHide.opacityVar.animation(to: 0.0, during: during, delay: delay)
-                animations.append(animation)
+                if let animation = animation {
+                    animations.append(animation)
+                }
             }
         }
 
@@ -55,7 +57,9 @@ extension AnimationProducer {
                 fromNode.contents.append(shapeToShow)
 
                 let animation = shapeToShow.opacityVar.animation(to: 1.0, during: during, delay: delay)
-                animations.append(animation)
+                if let animation = animation {
+                    animations.append(animation)
+                }
             }
         }
 
@@ -75,7 +79,9 @@ extension AnimationProducer {
         for i in minGroupsNumber..<fromGroups.count {
             let groupToHide = fromGroups[i]
             let animation = groupToHide.opacityVar.animation(to: 0.0, during: during, delay: delay)
-            animations.append(animation)
+            if let animation = animation {
+                animations.append(animation)
+            }
         }
 
         for i in minGroupsNumber..<toGroups.count {
@@ -84,7 +90,9 @@ extension AnimationProducer {
             fromNode.contents.append(groupToShow)
 
             let animation = groupToShow.opacityVar.animation(to: 1.0, during: during, delay: delay)
-            animations.append(animation)
+            if let animation = animation {
+                animations.append(animation)
+            }
         }
 
         // Rest nodes
@@ -98,7 +106,9 @@ extension AnimationProducer {
 
         fromNodes.forEach { node in
             let animation = node.opacityVar.animation(to: 0.0, during: during, delay: delay)
-            animations.append(animation)
+            if let animation = animation {
+                animations.append(animation)
+            }
         }
 
         toNodes.forEach { node in
@@ -106,7 +116,9 @@ extension AnimationProducer {
             fromNode.contents.append(node)
 
             let animation = node.opacityVar.animation(to: 1.0, during: during, delay: delay)
-            animations.append(animation)
+            if let animation = animation {
+                animations.append(animation)
+            }
         }
 
         return animations

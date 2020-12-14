@@ -40,33 +40,51 @@ internal class ContentsAnimation: AnimationImpl<[Node]> {
 
 public extension AnimatableVariable where T: ContentsInterpolation {
 
-    func animation(_ f: @escaping (Double) -> [Node]) -> Animation {
-        let group = node! as! Group
+    func animation(_ f: @escaping (Double) -> [Node]) -> Animation? {
+        guard let group = node as? Group
+        else {
+            return nil
+        }
         return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: 1.0, delay: 0.0, autostart: false)
     }
 
-    func animation(_ f: @escaping ((Double) -> [Node]), during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        let group = node! as! Group
+    func animation(_ f: @escaping ((Double) -> [Node]), during: Double = 1.0, delay: Double = 0.0) -> Animation? {
+        guard let group = node as? Group
+        else {
+            return nil
+        }
         return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: false)
     }
 
-    func animation(during: Double = 1.0, delay: Double = 0.0, _ f: @escaping ((Double) -> [Node])) -> Animation {
-        let group = node! as! Group
+    func animation(during: Double = 1.0, delay: Double = 0.0, _ f: @escaping ((Double) -> [Node])) -> Animation? {
+        guard let group = node as? Group
+        else {
+            return nil
+        }
         return ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: false)
     }
 
     func animate(_ f: @escaping (Double) -> [Node]) {
-        let group = node! as! Group
+        guard let group = node as? Group
+        else {
+            return
+        }
         _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: 1.0, delay: 0.0, autostart: true)
     }
 
     func animate(_ f: @escaping ((Double) -> [Node]), during: Double = 1.0, delay: Double = 0.0) {
-        let group = node! as! Group
+        guard let group = node as? Group
+        else {
+            return
+        }
         _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: true)
     }
 
     func animate(during: Double = 1.0, delay: Double = 0.0, _ f: @escaping ((Double) -> [Node])) {
-        let group = node! as! Group
+        guard let group = node as? Group
+        else {
+            return
+        }
         _ = ContentsAnimation(animatedGroup: group, valueFunc: f, animationDuration: during, delay: delay, autostart: true)
     }
 }

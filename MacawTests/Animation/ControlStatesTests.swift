@@ -86,8 +86,8 @@ class ControlStatesTests: XCTestCase {
     
     func testCombineAnimation() {
         let animation = [
-            testNode.placeVar.animation(to: .identity),
-            testNode.opacityVar.animation(to: 0.0)
+            testNode.placeVar.animation(to: .identity)!,
+            testNode.opacityVar.animation(to: 0.0)!
         ].combine() as! CombineAnimation
         
         animation.play()

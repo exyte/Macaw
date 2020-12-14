@@ -135,7 +135,7 @@ class BasicAnimation: Animation {
         return .running
     }
 
-    override open func reverse() -> Animation {
+    override open func reverse() -> Animation? {
         return self
     }
 

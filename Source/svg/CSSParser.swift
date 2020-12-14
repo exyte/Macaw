@@ -40,21 +40,18 @@ class CSSParser {
             for (index, header) in headers.enumerated() {
                 for headerPart in header.split(separator: ",") where headerPart.count > 1 {
                     let selector = parseSelector(text: String(headerPart))
-                    var currentStyles = getStyles(selector: selector)
-                    if currentStyles == nil {
-                        currentStyles = [String: String]()
-                    }
+                    var currentStyles = getStyles(selector: selector) ?? [String: String]()
                     let style = String(bodies[index])
                     let styleParts = style.components(separatedBy: ";")
                     styleParts.forEach { styleAttribute in
                         if !styleAttribute.isEmpty {
                             let currentStyle = styleAttribute.components(separatedBy: ":")
                             if currentStyle.count == 2 {
-                                currentStyles![currentStyle[0]] = currentStyle[1]
+                                currentStyles[currentStyle[0]] = currentStyle[1]
                             }
                         }
                     }
-                    setStyles(selector: selector, styles: currentStyles!)
+                    setStyles(selector: selector, styles: currentStyles)
                 }
             }
         }

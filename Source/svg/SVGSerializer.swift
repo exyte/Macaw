@@ -409,6 +409,6 @@ extension Double {
         formatter.minimumIntegerDigits = 1
         formatter.maximumFractionDigits = 6
         formatter.decimalSeparator = "."
-        return abs(self.remainder(dividingBy: 1)) > 0.00001 ? formatter.string(from: NSNumber(value: self))! : String(Int(self.rounded()))
+        return abs(self.remainder(dividingBy: 1)) > 0.00001 ? formatter.string(from: NSNumber(value: self)) ?? "" : String(Int(self.rounded()))
     }
 }

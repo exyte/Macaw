@@ -160,7 +160,11 @@ extension MBezierPath {
         self.appendArc(withCenter: withCenter, radius: radius, startAngle: startAngleRadian, endAngle: endAngleRadian, clockwise: !clockwise)
     }
 
-    func addPath(path: NSBezierPath!) {
+    func addPath(path: NSBezierPath?) {
+        guard let path = path
+        else {
+            return
+        }
         self.append(path)
     }
 }

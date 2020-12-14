@@ -15,7 +15,7 @@ func MGraphicsGetCurrentContext() -> CGContext? {
     return UIGraphicsGetCurrentContext()
 }
 
-func MGraphicsGetImageFromCurrentImageContext() -> MImage! {
+func MGraphicsGetImageFromCurrentImageContext() -> MImage? {
     return UIGraphicsGetImageFromCurrentImageContext()
 }
 

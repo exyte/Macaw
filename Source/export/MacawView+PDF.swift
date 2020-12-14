@@ -18,7 +18,10 @@ public extension MacawView {
         }
 
         var frame = CGRect(origin: CGPoint.zero, size: size)
-        let ctx = CGContext(path as CFURL, mediaBox: &frame, .none)!
+        guard let ctx = CGContext(path as CFURL, mediaBox: &frame, .none)
+        else {
+            return
+        }
 
         ctx.beginPDFPage(.none)
         ctx.translateBy(x: 0.0, y: size.height)

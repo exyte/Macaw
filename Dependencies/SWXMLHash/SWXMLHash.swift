@@ -269,6 +269,11 @@ class LazyXMLParser: NSObject, SimpleXmlParser, XMLParserDelegate {
     }
 
     func startParsing(_ ops: [IndexOp]) {
+        guard let data = data
+        else {
+            return
+        }
+        
         // clear any prior runs of parse... expected that this won't be necessary,
         // but you never know
         parentStack.removeAll()
@@ -276,7 +281,7 @@ class LazyXMLParser: NSObject, SimpleXmlParser, XMLParserDelegate {
         parentStack.push(root)
 
         self.ops = ops
-        let parser = Foundation.XMLParser(data: data!)
+        let parser = Foundation.XMLParser(data: data)
         parser.shouldProcessNamespaces = options.shouldProcessNamespaces
         parser.delegate = self
         _ = parser.parse()

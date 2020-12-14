@@ -133,8 +133,8 @@ class NodeRenderer {
         applyClip(in: context)
 
         // draw masked image
-        if let mask = node.mask, let bounds = mask.bounds {
-            context.draw(getMaskedImage(bounds: bounds), in: bounds.toCG())
+        if let mask = node.mask, let bounds = mask.bounds, let image = getMaskedImage(bounds: bounds) {
+            context.draw(image, in: bounds.toCG())
             return
         }
 
@@ -214,35 +214,47 @@ class NodeRenderer {
                 inset = min(blur.r * 6 + 1, 150)
             }
         }
-
-        let shapeImage = CIImage(cgImage: renderToImage(bounds: bounds, inset: inset, coloringMode: coloringMode).cgImage!)
+        guard let image = renderToImage(bounds: bounds, inset: inset, coloringMode: coloringMode)?.cgImage
+        else {
+            return
+        }
+        let shapeImage = CIImage(cgImage: image)
 
         var filteredImage = shapeImage
         for effect in effects {
             if let blur = effect as? GaussianBlur {
-                filteredImage = applyBlur(filteredImage, blur: blur)
+                filteredImage = applyBlur(filteredImage, blur: blur) ?? filteredImage
             }
             if let matrix = effect as? ColorMatrixEffect {
-                filteredImage = applyColorMatrix(filteredImage, colorMatrixEffect: matrix)
+                filteredImage = applyColorMatrix(filteredImage, colorMatrixEffect: matrix) ?? filteredImage
             }
         }
 
         let ciContext = CIContext(options: nil)
-        let finalImage = ciContext.createCGImage(filteredImage, from: shapeImage.extent)!
+        guard let finalImage = ciContext.createCGImage(filteredImage, from: shapeImage.extent)
+        else {
+            return
+        }
         context.draw(finalImage, in: CGRect(x: bounds.x - inset / 2, y: bounds.y - inset / 2, width: bounds.w + inset, height: bounds.h + inset))
     }
 
-    fileprivate func applyBlur(_ image: CIImage, blur: GaussianBlur) -> CIImage {
-        let filter = CIFilter(name: "CIGaussianBlur")!
+    fileprivate func applyBlur(_ image: CIImage, blur: GaussianBlur) -> CIImage? {
+        guard let filter = CIFilter(name: "CIGaussianBlur")
+        else {
+            return .none
+        }
         filter.setDefaults()
         filter.setValue(Int(blur.r), forKey: kCIInputRadiusKey)
         filter.setValue(image, forKey: kCIInputImageKey)
-        return filter.outputImage!
+        return filter.outputImage
     }
 
-    fileprivate func applyColorMatrix(_ image: CIImage, colorMatrixEffect: ColorMatrixEffect) -> CIImage {
+    fileprivate func applyColorMatrix(_ image: CIImage, colorMatrixEffect: ColorMatrixEffect) -> CIImage? {
+        guard let filter = CIFilter(name: "CIColorMatrix")
+        else {
+            return .none
+        }
         let matrix = colorMatrixEffect.matrix.values.map { CGFloat($0) }
-        let filter = CIFilter(name: "CIColorMatrix")!
         filter.setDefaults()
         filter.setValue(CIVector(x: matrix[0], y: matrix[1], z: matrix[2], w: matrix[3]), forKey: "inputRVector")
         filter.setValue(CIVector(x: matrix[5], y: matrix[6], z: matrix[7], w: matrix[8]), forKey: "inputGVector")
@@ -250,13 +262,16 @@ class NodeRenderer {
         filter.setValue(CIVector(x: matrix[15], y: matrix[16], z: matrix[17], w: matrix[18]), forKey: "inputAVector")
         filter.setValue(CIVector(x: matrix[4], y: matrix[9], z: matrix[14], w: matrix[19]), forKey: "inputBiasVector")
         filter.setValue(image, forKey: kCIInputImageKey)
-        return filter.outputImage!
+        return filter.outputImage
     }
 
-    func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage {
+    func renderToImage(bounds: Rect, inset: Double = 0, coloringMode: ColoringMode = .rgb) -> MImage? {
+        guard let tempContext = MGraphicsGetCurrentContext()
+        else {
+            return .none
+        }
         let screenScale: CGFloat = MMainScreen()?.mScale ?? 1.0
         MGraphicsBeginImageContextWithOptions(CGSize(width: bounds.w + inset, height: bounds.h + inset), false, screenScale)
-        let tempContext = MGraphicsGetCurrentContext()!
 
         // flip y-axis and leave space for the blur
         tempContext.translateBy(x: CGFloat(inset / 2 - bounds.x), y: CGFloat(bounds.h + inset / 2 + bounds.y))
@@ -265,7 +280,7 @@ class NodeRenderer {
 
         let img = MGraphicsGetImageFromCurrentImageContext()
         MGraphicsEndImageContext()
-        return img!
+        return img
     }
 
     func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
@@ -334,33 +349,46 @@ class NodeRenderer {
         RenderUtils.toBezierPath(clip).addClip()
     }
 
-    private func getMaskedImage(bounds: Rect) -> CGImage {
-        let mask = node.mask!
-        let image = renderToImage(bounds: bounds)
+    private func getMaskedImage(bounds: Rect) -> CGImage? {
+        guard let mask = node.mask
+        else {
+            return .none
+        }
         let nodeRenderer = RenderUtils.createNodeRenderer(mask, view: .none)
-        let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)
+        guard let image = renderToImage(bounds: bounds),
+              let maskImage = nodeRenderer.renderToImage(bounds: bounds, coloringMode: .greyscale)
+        else {
+            return .none
+        }
         return apply(maskImage: maskImage, to: image)
     }
 
-    func apply(maskImage: MImage, to image: MImage) -> CGImage {
-        let imageReference = image.cgImage!
-        let maskReference = maskImage.cgImage!
+    func apply(maskImage: MImage, to image: MImage) -> CGImage? {
+        guard let imageReference = image.cgImage,
+              let maskReference = maskImage.cgImage,
+              let dataProvider = maskReference.dataProvider
+        else {
+            return .none
+        }
 
         let decode = [CGFloat(1), CGFloat(0),
                       CGFloat(0), CGFloat(1),
                       CGFloat(0), CGFloat(1),
                       CGFloat(0), CGFloat(1)]
 
-        let invertedMask = CGImage(maskWidth: maskReference.width,
-                                   height: maskReference.height,
-                                   bitsPerComponent: maskReference.bitsPerComponent,
-                                   bitsPerPixel: maskReference.bitsPerPixel,
-                                   bytesPerRow: maskReference.bytesPerRow,
-                                   provider: maskReference.dataProvider!,
-                                   decode: decode,
-                                   shouldInterpolate: maskReference.shouldInterpolate)!
+        guard let invertedMask = CGImage(maskWidth: maskReference.width,
+                                         height: maskReference.height,
+                                         bitsPerComponent: maskReference.bitsPerComponent,
+                                         bitsPerPixel: maskReference.bitsPerPixel,
+                                         bytesPerRow: maskReference.bytesPerRow,
+                                         provider: dataProvider,
+                                         decode: decode,
+                                         shouldInterpolate: maskReference.shouldInterpolate)
+        else {
+            return .none
+        }
 
-        return imageReference.masking(invertedMask)!
+        return imageReference.masking(invertedMask)
     }
 
     private func addObservers() {

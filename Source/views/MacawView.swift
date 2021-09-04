@@ -671,6 +671,12 @@ internal class DrawingView: MView {
             recognizersMap.removeValue(forKey: recognizer)
         }
     }
+    
+    // MARK: - Cleanup
+    
+    deinit {
+        renderer?.dispose()
+    }
 }
 
 class LayoutHelper {

@@ -836,7 +836,7 @@ class MacawSVGTests: XCTestCase {
                 frame = Group(contents: group.contents).bounds
             }
             
-            let image = node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
+            let image = try node.toNativeImage(size: frame?.size() ?? Size.init(w: 100, h: 100))
             return image
         } catch {
             XCTFail(error.localizedDescription)

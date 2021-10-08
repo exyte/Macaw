@@ -69,7 +69,7 @@ class CSSParser {
         return .byTag(text)
     }
 
-    func getStyles(element: SWXMLHash.XMLElement) -> [String: String] {
+    func getStyles(element: XMLHash.XMLElement) -> [String: String] {
         var styleAttributes = [String: String]()
 
         if let styles = stylesByTag[element.name] {

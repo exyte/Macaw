@@ -11,7 +11,7 @@ import Foundation
 @testable import MacawOSX
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 @testable import Macaw
 #endif
@@ -374,7 +374,7 @@ extension Path: Serializable {
     }
 }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 extension Polygon: Serializable {
     
     func toDictionary() -> [String:Any] {

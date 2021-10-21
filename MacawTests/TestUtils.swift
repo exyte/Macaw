@@ -3,7 +3,7 @@ import Foundation
 @testable import MacawOSX
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 @testable import Macaw
 #endif
 

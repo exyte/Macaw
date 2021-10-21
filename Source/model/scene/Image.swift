@@ -2,7 +2,7 @@
 import AppKit
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #endif
 
@@ -163,7 +163,7 @@ open class Image: Node {
             }
         }
 
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         return MImage(named: src)
         #elseif os(OSX)
         return MImage(contentsOfFile: src)

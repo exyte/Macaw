@@ -1,6 +1,6 @@
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(OSX)
 import AppKit
@@ -163,7 +163,7 @@ class TextRenderer: NodeRenderer {
     fileprivate func getTextColor(_ fill: Fill) -> MColor {
         if let color = fill as? Color {
 
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             return MColor(cgColor: color.toCG())
             #elseif os(OSX)
             return MColor(cgColor: color.toCG()) ?? .black

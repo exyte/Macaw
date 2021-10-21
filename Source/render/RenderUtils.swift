@@ -1,6 +1,6 @@
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(OSX)
 import AppKit
@@ -53,7 +53,7 @@ class RenderUtils {
         var fontDesc = MFontDescriptor(name: fontName, size: CGFloat(size))
         let lowerWeight = weight?.lowercased()
         if lowerWeight == "bold" || lowerWeight == "bolder" {
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             if let boldDesc = fontDesc.withSymbolicTraits(.traitBold) {
                 fontDesc = boldDesc
             }
@@ -394,7 +394,7 @@ class RenderUtils {
                 let maxSize = CGFloat(max(w, h))
                 let path = MBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
 
-                #if os(iOS)
+                #if os(iOS) || os(tvOS)
                 var transform = CGAffineTransform(translationX: cx, y: cy)
                 transform = transform.rotated(by: CGFloat(rotation))
                 path.apply(transform.scaledBy(x: CGFloat(w) / maxSize, y: CGFloat(h) / maxSize))

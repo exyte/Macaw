@@ -11,9 +11,12 @@ import Foundation
 @testable import MacawOSX
 #endif
 
-#if os(iOS) || os(tvOS)
+#if os(iOS)
 import UIKit
 @testable import Macaw
+#elseif os(tvOS)
+import UIKit
+@testable import MacawTV
 #endif
 
 protocol Initializable {

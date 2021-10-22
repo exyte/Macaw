@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EF78802327220CE8006E331E"
-               BuildableName = "Macaw copy.framework"
+               BuildableName = "MacawTV.framework"
                BlueprintName = "MacawTV"
                ReferencedContainer = "container:Macaw.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EF78802327220CE8006E331E"
-            BuildableName = "Macaw copy.framework"
+            BuildableName = "MacawTV.framework"
             BlueprintName = "MacawTV"
             ReferencedContainer = "container:Macaw.xcodeproj">
          </BuildableReference>

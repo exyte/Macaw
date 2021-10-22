@@ -3,8 +3,10 @@ import Foundation
 @testable import MacawOSX
 #endif
 
-#if os(iOS) || os(tvOS)
+#if os(iOS)
 @testable import Macaw
+#elseif os(tvOS)
+@testable import MacawTV
 #endif
 
 class TestUtils {

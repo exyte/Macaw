@@ -2,8 +2,10 @@ import XCTest
 
 #if os(OSX)
 @testable import MacawOSX
-#elseif os(iOS) || os(tvOS)
+#elseif os(iOS)
 @testable import Macaw
+#elseif os(tvOS)
+@testable import MacawTV
 #endif
 
 class MacawTests: XCTestCase {

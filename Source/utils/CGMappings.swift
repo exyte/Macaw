@@ -149,6 +149,7 @@ public extension Node {
         
         defer {
             MGraphicsEndImageContext()
+            renderer.dispose()
         }
 
         guard let img = MGraphicsGetImageFromCurrentImageContext() else {

@@ -897,8 +897,15 @@ open class SVGParser {
     }
 
     fileprivate func getTag(_ element: XMLHash.XMLElement) -> [String] {
-        let id = element.allAttributes["id"]?.text
-        return id.map { [$0] } ?? []
+        var result: [String] = []
+        if let id = element.allAttributes["id"]?.text {
+            result.append(id)
+        }
+        if let classes = element.allAttributes["class"]?.text.split(separator: " ").map({ String($0) }) {
+            result.append(contentsOf: classes)
+        }
+        
+        return Array(Set(result))
     }
 
     fileprivate func getOpacity(_ styleParts: [String: String]) -> Double {

@@ -13,7 +13,7 @@ open class Arc: Locus {
     }
 
     override open func bounds() -> Rect {
-        return Rect(
+        Rect(
             x: ellipse.cx - ellipse.rx,
             y: ellipse.cy - ellipse.ry,
             w: ellipse.rx * 2.0,

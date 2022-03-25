@@ -155,23 +155,23 @@ open class Color: Fill {
     }
 
     open func r() -> Int {
-        return ( ( val >> 16 ) & 0xff )
+        ( ( val >> 16 ) & 0xff )
     }
 
     open func g() -> Int {
-        return ( ( val >> 8 ) & 0xff )
+        ( ( val >> 8 ) & 0xff )
     }
 
     open func b() -> Int {
-        return ( val & 0xff )
+        ( val & 0xff )
     }
 
     open func a() -> Int {
-        return ( 255 - ( ( val >> 24 ) & 0xff ) )
+        ( 255 - ( ( val >> 24 ) & 0xff ) )
     }
 
     public func with(a: Double) -> Color {
-        return Color.rgba(r: r(), g: g(), b: b(), a: a)
+        Color.rgba(r: r(), g: g(), b: b(), a: a)
     }
 
     open class func rgbt(r: Int, g: Int, b: Int, t: Int) -> Color {
@@ -183,11 +183,11 @@ open class Color: Fill {
     }
 
     open class func rgba(r: Int, g: Int, b: Int, a: Double) -> Color {
-        return rgbt( r: r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
+        rgbt( r: r, g: g, b: b, t: Int( ( ( 1 - a ) * 255 ) ) )
     }
 
     open class func rgb(r: Int, g: Int, b: Int) -> Color {
-        return rgbt( r: r, g: g, b: b, t: 0 )
+        rgbt( r: r, g: g, b: b, t: 0 )
     }
 
     override func equals<T>(other: T) -> Bool where T: Fill {

@@ -26,8 +26,8 @@ public extension Color {
 public extension Transform {
 
     func toCG() -> CGAffineTransform {
-        return CGAffineTransform(a: CGFloat(m11), b: CGFloat(m12), c: CGFloat(m21),
-                                 d: CGFloat(m22), tx: CGFloat(dx), ty: CGFloat(dy))
+        CGAffineTransform(a: CGFloat(m11), b: CGFloat(m12), c: CGFloat(m21),
+                          d: CGFloat(m22), tx: CGFloat(dx), ty: CGFloat(dy))
     }
 
 }
@@ -65,11 +65,11 @@ public extension LineCap {
 public extension Rect {
 
     func toCG() -> CGRect {
-        return CGRect(x: self.x, y: self.y, width: self.w, height: self.h)
+        CGRect(x: self.x, y: self.y, width: self.w, height: self.h)
     }
 
     func applying(_ t: Transform) -> Rect {
-        return toCG().applying(t.toCG()).toMacaw()
+        toCG().applying(t.toCG()).toMacaw()
     }
 
 }
@@ -77,10 +77,10 @@ public extension Rect {
 public extension CGRect {
 
     func toMacaw() -> Rect {
-        return Rect(x: Double(origin.x),
-                    y: Double(origin.y),
-                    w: Double(size.width),
-                    h: Double(size.height))
+        Rect(x: Double(origin.x),
+             y: Double(origin.y),
+             w: Double(size.width),
+             h: Double(size.height))
     }
 
 }
@@ -88,7 +88,7 @@ public extension CGRect {
 public extension Size {
 
     func toCG() -> CGSize {
-        return CGSize(width: self.w, height: self.h)
+        CGSize(width: self.w, height: self.h)
     }
 
 }
@@ -96,8 +96,8 @@ public extension Size {
 public extension CGSize {
 
     func toMacaw() -> Size {
-        return Size(w: Double(width),
-                    h: Double(height))
+        Size(w: Double(width),
+             h: Double(height))
     }
 
 }
@@ -105,7 +105,7 @@ public extension CGSize {
 public extension Point {
 
     func toCG() -> CGPoint {
-        return CGPoint(x: self.x, y: self.y)
+        CGPoint(x: self.x, y: self.y)
     }
 
 }
@@ -113,7 +113,7 @@ public extension Point {
 public extension CGPoint {
 
     func toMacaw() -> Point {
-        return Point(x: Double(x), y: Double(y))
+        Point(x: Double(x), y: Double(y))
     }
 
 }
@@ -121,7 +121,7 @@ public extension CGPoint {
 public extension Locus {
 
     func toCGPath() -> CGPath {
-        return RenderUtils.toCGPath(self)
+        RenderUtils.toCGPath(self)
     }
 
 }
@@ -129,7 +129,7 @@ public extension Locus {
 public extension CGAffineTransform {
 
     func toMacaw() -> Transform {
-        return Transform(m11: Double(a), m12: Double(b), m21: Double(c), m22: Double(d), dx: Double(tx), dy: Double(ty))
+        Transform(m11: Double(a), m12: Double(b), m21: Double(c), m22: Double(d), dx: Double(tx), dy: Double(ty))
     }
 }
 
@@ -146,7 +146,7 @@ public extension Node {
         let transform = LayoutHelper.calcTransform(self, layout, size)
         ctx.concatenate(transform.toCG())
         renderer.render(in: ctx, force: false, opacity: self.opacity)
-        
+
         defer {
             MGraphicsEndImageContext()
         }

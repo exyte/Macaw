@@ -11,7 +11,7 @@ open class RoundRect: Locus {
     }
 
     override open func bounds() -> Rect {
-        return rect
+        rect
     }
 
     override func equals<T>(other: T) -> Bool where T: Locus {

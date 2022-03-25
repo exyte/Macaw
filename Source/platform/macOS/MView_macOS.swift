@@ -41,16 +41,16 @@ open class MView: NSView, Touchable {
     }
 
     open override var isFlipped: Bool {
-        return true
+        true
     }
 
     var mGestureRecognizers: [NSGestureRecognizer]? {
-        return self.gestureRecognizers
+        self.gestureRecognizers
     }
 
     open var backgroundColor: MColor? {
         get {
-            return self.layer?.backgroundColor == nil ? nil : NSColor(cgColor: self.layer!.backgroundColor!)
+            self.layer?.backgroundColor == nil ? nil : NSColor(cgColor: self.layer!.backgroundColor!)
         }
 
         set {
@@ -59,7 +59,7 @@ open class MView: NSView, Touchable {
     }
 
     var mLayer: CALayer? {
-        return self.layer
+        self.layer
     }
 
     var contentMode: MViewContentMode = .scaleToFill

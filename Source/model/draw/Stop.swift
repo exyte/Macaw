@@ -10,5 +10,5 @@ open class Stop: Equatable {
 }
 
 public func == (lhs: Stop, rhs: Stop) -> Bool {
-    return lhs.offset == rhs.offset && lhs.color == rhs.color
+    lhs.offset == rhs.offset && lhs.color == rhs.color
 }

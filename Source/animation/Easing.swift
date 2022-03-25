@@ -23,26 +23,26 @@ open class Easing {
     public static let elasticInOut: Easing = ElasticInOut()
 
     public static func elasticOut(elasticity: Double = 10.0) -> ElasticOut {
-        return ElasticOut(elasticity: elasticity)
+        ElasticOut(elasticity: elasticity)
     }
     public static func elasticInOut(elasticity: Double = 10.0) -> ElasticInOut {
-        return ElasticInOut(elasticity: elasticity)
+        ElasticInOut(elasticity: elasticity)
     }
 
     open func progressFor(time: Double) -> Double {
-        return time
+        time
     }
 }
 
 private class EaseIn: Easing {
     override open func progressFor(time t: Double) -> Double {
-        return t * t
+        t * t
     }
 }
 
 private class EaseOut: Easing {
     override open func progressFor(time t: Double) -> Double {
-        return -(t * (t - 2))
+        -(t * (t - 2))
     }
 }
 

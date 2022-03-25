@@ -92,7 +92,7 @@ public extension AnimatableVariable where T == Fill? {
         finalShape.fill = to
         _ = ShapeAnimation(animatedNode: shape, finalValue: finalShape, animationDuration: during, delay: delay, autostart: true)
     }
-    
+
     func animation(from: Fill? = nil, to: Fill, during: Double = 1.0, delay: Double = 0.0) -> Animation {
         let shape = node as! Shape
         shape.fill = from ?? (shape.fill ?? Color.clear)

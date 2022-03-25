@@ -10,7 +10,7 @@ extension Transform: Hashable {
 }
 
 public func == (lhs: Transform, rhs: Transform) -> Bool {
-    return lhs.m11 == rhs.m11 &&
+    lhs.m11 == rhs.m11 &&
         lhs.m12 == rhs.m12 &&
         lhs.m21 == rhs.m21 &&
         lhs.m22 == rhs.m22 &&

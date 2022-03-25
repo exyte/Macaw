@@ -136,10 +136,10 @@ class BasicAnimation: Animation {
     }
 
     override open func reverse() -> Animation {
-        return self
+        self
     }
 
-    func getDuration() -> Double { return 0 }
+    func getDuration() -> Double { 0 }
 }
 
 // MARK: - Hashable
@@ -150,14 +150,14 @@ extension BasicAnimation: Hashable {
     }
 
     public static func == (lhs: BasicAnimation, rhs: BasicAnimation) -> Bool {
-        return lhs.ID == rhs.ID
+        lhs.ID == rhs.ID
     }
 }
 
 // MARK: - Activity
 extension BasicAnimation {
     func isActive() -> Bool {
-        return progress > 0.0 && progress < 1.0
+        progress > 0.0 && progress < 1.0
     }
 }
 
@@ -284,6 +284,6 @@ open class AnimationDescription <T> {
     }
 
     open func t(_ duration: Double, delay: Double = 0.0) -> AnimationDescription<T> {
-        return AnimationDescription(valueFunc: valueFunc, duration: duration, delay: delay)
+        AnimationDescription(valueFunc: valueFunc, duration: duration, delay: delay)
     }
 }

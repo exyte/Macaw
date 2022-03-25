@@ -54,7 +54,7 @@ public extension AnimatableVariable where T: DoubleInterpolation {
     }
 
     func animation(_ desc: OpacityAnimationDescription) -> Animation {
-        return OpacityAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+        OpacityAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
     func animate(from: Double? = nil, to: Double, during: Double = 1.0, delay: Double = 0.0) {
@@ -72,7 +72,7 @@ public extension AnimatableVariable where T: DoubleInterpolation {
     }
 
     func animation(_ f: @escaping ((Double) -> Double), during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        return OpacityAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
+        OpacityAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
     }
 
 }

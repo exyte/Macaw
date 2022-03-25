@@ -12,11 +12,11 @@ import Foundation
 import UIKit
 
 func MGraphicsGetCurrentContext() -> CGContext? {
-    return UIGraphicsGetCurrentContext()
+    UIGraphicsGetCurrentContext()
 }
 
 func MGraphicsGetImageFromCurrentImageContext() -> MImage! {
-    return UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsGetImageFromCurrentImageContext()
 }
 
 func MGraphicsPushContext(_ context: CGContext) {
@@ -32,15 +32,15 @@ func MGraphicsEndImageContext() {
 }
 
 func MImagePNGRepresentation(_ image: MImage) -> Data? {
-    return image.pngData()
+    image.pngData()
 }
 
 func MImageJPEGRepresentation(_ image: MImage, _ quality: CGFloat = 0.8) -> Data? {
-    return image.jpegData(compressionQuality: quality)
+    image.jpegData(compressionQuality: quality)
 }
 
 func MMainScreen() -> MScreen? {
-    return MScreen.main
+    MScreen.main
 }
 
 func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ scale: CGFloat) {
@@ -48,7 +48,7 @@ func MGraphicsBeginImageContextWithOptions(_ size: CGSize, _ opaque: Bool, _ sca
 }
 
 func MNoIntrinsicMetric() -> CGFloat {
-    return UIView.noIntrinsicMetric
+    UIView.noIntrinsicMetric
 }
 
 #endif

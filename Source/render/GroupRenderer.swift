@@ -10,7 +10,7 @@ class GroupRenderer: NodeRenderer {
     var renderers: [NodeRenderer] = []
 
     override var node: Node {
-        return group
+        group
     }
 
     init(group: Group, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {
@@ -40,7 +40,7 @@ class GroupRenderer: NodeRenderer {
 
     override func doRender(in context: CGContext, force: Bool, opacity: Double, coloringMode: ColoringMode = .rgb) {
         renderers.forEach { renderer in
-            if !renderer.isAnimating() {
+            if !renderer.isAnimating {
                 renderer.render(in: context, force: force, opacity: opacity, coloringMode: coloringMode)
             }
         }

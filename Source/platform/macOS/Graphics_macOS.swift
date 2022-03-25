@@ -12,7 +12,7 @@ import Foundation
 import AppKit
 
 func MGraphicsGetCurrentContext() -> CGContext? {
-    return NSGraphicsContext.current?.cgContext
+    NSGraphicsContext.current?.cgContext
 }
 
 func MGraphicsPushContext(_ context: CGContext) {
@@ -81,7 +81,7 @@ func MGraphicsEndImageContext() {
 }
 
 func MNoIntrinsicMetric() -> CGFloat {
-    return NSView.noIntrinsicMetric
+    NSView.noIntrinsicMetric
 }
 
 #endif

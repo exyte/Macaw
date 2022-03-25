@@ -2,7 +2,7 @@ class MorphingAnimation: AnimationImpl<Locus> {
 
     convenience init(animatedNode: Shape, startValue: Locus, finalValue: Locus, animationDuration: Double, delay: Double = 0.0, autostart: Bool = false, fps: UInt = 30) {
 
-        let interpolationFunc = { (t: Double) -> Locus in
+        let interpolationFunc = { (_: Double) -> Locus in
             finalValue
         }
 
@@ -43,7 +43,7 @@ public extension AnimatableVariable where T: LocusInterpolation {
     }
 
     func animation(_ desc: MorphingAnimationDescription) -> Animation {
-        return MorphingAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+        MorphingAnimation(animatedNode: node as! Shape, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
     func animate(from: Locus? = nil, to: Locus, during: Double = 1.0, delay: Double = 0.0) {
@@ -68,7 +68,7 @@ public extension AnimatableVariable where T: LocusInterpolation {
     }
 
     func animation(_ f: @escaping (Double) -> Locus, during: Double, delay: Double = 0.0) -> Animation {
-        return MorphingAnimation(animatedNode: node as! Shape, valueFunc: f, animationDuration: during, delay: delay)
+        MorphingAnimation(animatedNode: node as! Shape, valueFunc: f, animationDuration: during, delay: delay)
     }
 
 }

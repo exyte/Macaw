@@ -18,11 +18,11 @@ open class Size {
     }
 
     open func rect(at point: Point = Point.origin) -> Rect {
-        return Rect(point: point, size: self)
+        Rect(point: point, size: self)
     }
 
     open func angle() -> Double {
-        return atan2(h, w)
+        atan2(h, w)
     }
 
 }
@@ -30,15 +30,15 @@ open class Size {
 extension Size {
 
     public static func == (lhs: Size, rhs: Size) -> Bool {
-        return lhs.w == rhs.w && lhs.h == rhs.h
+        lhs.w == rhs.w && lhs.h == rhs.h
     }
 
     public static func + (lhs: Size, rhs: Size) -> Size {
-        return Size(w: lhs.w + rhs.w, h: lhs.h + rhs.h)
+        Size(w: lhs.w + rhs.w, h: lhs.h + rhs.h)
     }
 
     public static func - (lhs: Size, rhs: Size) -> Size {
-        return Size(w: lhs.w - rhs.w, h: lhs.h - rhs.h)
+        Size(w: lhs.w - rhs.w, h: lhs.h - rhs.h)
     }
 
 }

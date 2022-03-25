@@ -336,7 +336,7 @@ open class SVGConstants {
     #endif
 
     public static func valueToColor(_ color: Int) -> String? {
-        return SVGConstants.colorList.filter { _, v -> Bool in v == color }.map { k, _ -> String in k }.first
+        SVGConstants.colorList.filter { _, v -> Bool in v == color }.map { k, _ -> String in k }.first
     }
 
     public static let defaultStrokeLineCap = LineCap.butt

@@ -1019,9 +1019,21 @@ open class SVGParser {
                                 opacity: Double,
                                 pos: Transform = Transform(),
                                 clip: Locus?) -> Image? {
-        guard let element = image.element, let link = element.allAttributes["xlink:href"]?.text else {
-            return .none
+        guard let element = image.element else { return .none }
+        
+        var link: String? {
+            if let href = element.allAttributes["href"]?.text {
+                return href
+            } else if let xlinkHref = element.allAttributes["xlink:href"]?.text {
+                return xlinkHref
+            } else {
+                return .none
+            }
         }
+        
+        guard let link = link else { return .none }
+
+
         let position = pos.move(dx: getDoubleValue(element, attribute: "x") ?? 0,
                                 dy: getDoubleValue(element, attribute: "y") ?? 0)
         return Image(src: link,

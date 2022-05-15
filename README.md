@@ -1,4 +1,16 @@
 <img src="https://github.com/exyte/Macaw/blob/master/header.png">
+
+<img align="left" src="https://raw.githubusercontent.com/exyte/Macaw/master/Deprecation.svg" height="300" />
+<h1>Macaw Deprecated</h1>
+
+Check out <a href="https://github.com/exyte/Macaw/wiki/Deprecation">this post</a> for deatils. **TL;DR**:
+* You can continue to use this framework as is: expect no new features or bug fixing; however, it will be updated to work in future Xcode releases.
+* if you need some good declarative UI framework, please use [SwiftUI](https://developer.apple.com/xcode/swiftui/).
+* If you need a powerful SVG support, please use [SVGView](https://github.com/exyte/SVGView).
+* If you’d like to fix something in Macaw, feel free to fork this repo. Publish your PRs so that other people can use it as well. Some PRs will be merged from time to time.
+
+<h1 align="center"></h1>
+
 <img align="right" src="https://raw.githubusercontent.com/exyte/Macaw/master/demo.gif" width="480" />
 
 <p><h1 align="left">Macaw</h1></p>

@@ -1,7 +1,6 @@
 <img src="https://github.com/exyte/Macaw/blob/master/header.png">
 
-<img align="left" src="https://raw.githubusercontent.com/exyte/Macaw/master/Deprecation.svg" height="300" />
-<h1>Macaw Deprecated</h1>
+<h1>❗Macaw Deprecated❗</h1>
 
 Check out <a href="https://github.com/exyte/Macaw/wiki/Deprecation">this post</a> for deatils. **TL;DR**:
 * You can continue to use this framework as is: expect no new features or bug fixing; however, it will be updated to work in future Xcode releases.

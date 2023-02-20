@@ -92,9 +92,11 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 [Macaw-Examples](https://github.com/exyte/macaw-examples) is a repository where you can find various usages of the `Macaw` library from simple charts to the complex periodic table.
 
-<img src="http://i.imgur.com/rQIh3qD.gif" height="280"> <img src="http://i.imgur.com/bIgHtzt.gif" height="280"> <img src="http://i.imgur.com/NiBT2rv.gif" height="280"> <img src="http://i.imgur.com/Un8TJKc.gif" height="280">
+<img src="http://i.imgur.com/rQIh3qD.gif" width="400"> 
 
-<img src="http://i.imgur.com/o6tBKW6.gif" height="280"><img src="http://i.imgur.com/1JXF60f.gif" height="280">
+<img src="http://i.imgur.com/bIgHtzt.gif" width="160"> <img src="http://i.imgur.com/NiBT2rv.gif" width="160"> <img src="http://i.imgur.com/Un8TJKc.gif" width="160">
+
+<img src="http://i.imgur.com/o6tBKW6.gif" width="160"><img src="http://i.imgur.com/1JXF60f.gif" width="160">
 
 
 ## Requirements

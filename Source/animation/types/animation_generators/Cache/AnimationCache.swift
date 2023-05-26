@@ -160,18 +160,18 @@ class AnimationUtils {
 extension Node {
 
     func isAnimating() -> Bool {
-        return !animations.filter { $0.state() == AnimationState.running }.isEmpty
+        !animations.filter { $0.state() == AnimationState.running }.isEmpty
     }
 
     func needsLayer() -> Bool {
-        return !animations.filter { $0.state() == AnimationState.running || $0.state() == AnimationState.initial }.isEmpty
+        !animations.filter { $0.state() == AnimationState.running || $0.state() == AnimationState.initial }.isEmpty
     }
 }
 
 extension NodeRenderer {
 
     func isAnimating() -> Bool {
-        return layer != nil
+        layer != nil
     }
 
     func freeLayer() {

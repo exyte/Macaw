@@ -9,5 +9,5 @@ open class Fill: Equatable {
 }
 
 public func ==<T> (lhs: T, rhs: T) -> Bool where T: Fill {
-    return lhs.equals(other: rhs)
+    lhs.equals(other: rhs)
 }

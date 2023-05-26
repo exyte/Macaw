@@ -100,7 +100,7 @@ We're working hard to provide full documentation. Currently you can take a look 
 
 ## Requirements
 
-* iOS 9.0+
+* iOS 11.0+
 * Mac OS X 10.11+
 * Xcode 7.3+
 

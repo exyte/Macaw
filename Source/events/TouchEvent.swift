@@ -33,7 +33,7 @@ class NodePath {
 public struct TouchPoint {
     public let id: Int
     @available(*, deprecated) public var location: Point // absolute location
-    { return absoluteLocation }
+    { absoluteLocation }
 
     private let absoluteLocation: Point
     private let relativeLocation: Point // location inside the node

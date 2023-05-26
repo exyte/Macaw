@@ -51,11 +51,11 @@ public typealias PathAnimationDescription = AnimationDescription<Double>
 open class StrokeAnimatableVariable: AnimatableVariable<Stroke?> {
 
     public var end: StrokeSideVariable {
-        return StrokeSideVariable(parentVar: self, isEnd: true)
+        StrokeSideVariable(parentVar: self, isEnd: true)
     }
 
     public var start: StrokeSideVariable {
-        return StrokeSideVariable(parentVar: self, isEnd: false)
+        StrokeSideVariable(parentVar: self, isEnd: false)
     }
 }
 
@@ -80,7 +80,7 @@ open class StrokeSideVariable {
     }
 
     public func animation(_ desc: PathAnimationDescription) -> Animation {
-        return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+        PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
     public func animate(from: Double? = nil, to: Double = 1, during: Double = 1.0, delay: Double = 0.0) {
@@ -92,13 +92,12 @@ open class StrokeSideVariable {
             return self.animation((safeFrom >> to).t(during, delay: delay))
         }
         let origin = Double(0)
-        let factory = { () -> (Double) -> Double in
-            { (t: Double) in origin.interpolate(to, progress: t) }
+        let factory = { () -> (Double) -> Double in { (t: Double) in origin.interpolate(to, progress: t) }
         }
         return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, factory: factory, animationDuration: during, delay: delay)
     }
 
     public func animation(_ f: @escaping ((Double) -> Double), during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        return PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: f, animationDuration: during, delay: delay)
+        PathAnimation(animatedNode: node as! Shape, isEnd: isEnd, valueFunc: f, animationDuration: during, delay: delay)
     }
 }

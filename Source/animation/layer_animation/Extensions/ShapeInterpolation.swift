@@ -12,6 +12,6 @@ public protocol ShapeInterpolation: Interpolable {
 
 extension Shape: ShapeInterpolation {
     public func interpolate(_ endValue: Shape, progress: Double) -> Self {
-        return self
+        self
     }
 }

@@ -13,7 +13,7 @@ open class Ellipse: Locus {
     }
 
     override open func bounds() -> Rect {
-        return Rect(
+        Rect(
             x: cx - rx,
             y: cy - ry,
             w: rx * 2.0,
@@ -21,7 +21,7 @@ open class Ellipse: Locus {
     }
 
     open func arc(shift: Double, extent: Double) -> Arc {
-        return Arc(ellipse: self, shift: shift, extent: extent)
+        Arc(ellipse: self, shift: shift, extent: extent)
     }
 
     override func equals<T>(other: T) -> Bool where T: Locus {

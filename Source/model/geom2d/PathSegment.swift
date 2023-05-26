@@ -20,7 +20,7 @@ open class PathSegment: Equatable {
     }
 
     public static func == (lhs: PathSegment, rhs: PathSegment) -> Bool {
-        return lhs.type == rhs.type
+        lhs.type == rhs.type
             && lhs.data == rhs.data
     }
 }

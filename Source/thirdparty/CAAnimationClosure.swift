@@ -139,7 +139,7 @@ public extension CAAnimation {
         }
 
         get {
-            return animating
+            animating
         }
     }
 }

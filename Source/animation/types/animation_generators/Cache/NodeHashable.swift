@@ -1,7 +1,7 @@
 // TODO: Implement better hash
 
 public func == (lhs: Node, rhs: Node) -> Bool {
-    return lhs === rhs
+    lhs === rhs
 }
 
 extension NodeRenderer: Hashable {
@@ -11,5 +11,5 @@ extension NodeRenderer: Hashable {
 }
 
 func == (lhs: NodeRenderer, rhs: NodeRenderer) -> Bool {
-    return lhs === rhs
+    lhs === rhs
 }

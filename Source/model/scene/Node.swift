@@ -4,37 +4,37 @@ open class Node: Drawable {
 
     public let placeVar: AnimatableVariable<Transform>
     open var place: Transform {
-        get { return placeVar.value }
+        get { placeVar.value }
         set(val) { placeVar.value = val }
     }
 
     public let opaqueVar: Variable<Bool>
     open var opaque: Bool {
-        get { return opaqueVar.value }
+        get { opaqueVar.value }
         set(val) { opaqueVar.value = val }
     }
 
     public let opacityVar: AnimatableVariable<Double>
     open var opacity: Double {
-        get { return opacityVar.value }
+        get { opacityVar.value }
         set(val) { opacityVar.value = val }
     }
 
     public let clipVar: Variable<Locus?>
     open var clip: Locus? {
-        get { return clipVar.value }
+        get { clipVar.value }
         set(val) { clipVar.value = val }
     }
 
     public let maskVar: Variable<Node?>
     open var mask: Node? {
-        get { return maskVar.value }
+        get { maskVar.value }
         set(val) { maskVar.value = val }
     }
 
     public let effectVar: Variable<Effect?>
     open var effect: Effect? {
-        get { return effectVar.value }
+        get { effectVar.value }
         set(val) { effectVar.value = val }
     }
 
@@ -42,11 +42,11 @@ open class Node: Drawable {
 
     // MARK: - Searching
     public func nodeBy(tag: String) -> Node? {
-        return nodeBy(predicate: { $0.tag.contains(tag) })
+        nodeBy(predicate: { $0.tag.contains(tag) })
     }
 
     public func nodesBy(tag: String) -> [Node] {
-        return nodesBy(predicate: { $0.tag.contains(tag) })
+        nodesBy(predicate: { $0.tag.contains(tag) })
     }
 
     public func nodeBy(predicate: (Node) -> Bool) -> Node? {
@@ -57,7 +57,7 @@ open class Node: Drawable {
     }
 
     public func nodesBy(predicate: (Node) -> Bool) -> [Node] {
-        return [nodeBy(predicate: predicate)].compactMap { $0 }
+        [nodeBy(predicate: predicate)].compactMap { $0 }
     }
 
     // MARK: - Events
@@ -265,35 +265,35 @@ open class Node: Drawable {
     }
 
     func shouldCheckForPressed() -> Bool {
-        return !touchPressedHandlers.isEmpty
+        !touchPressedHandlers.isEmpty
     }
 
     func shouldCheckForMoved() -> Bool {
-        return !touchMovedHandlers.isEmpty
+        !touchMovedHandlers.isEmpty
     }
 
     func shouldCheckForReleased() -> Bool {
-        return !touchReleasedHandlers.isEmpty
+        !touchReleasedHandlers.isEmpty
     }
 
     func shouldCheckForTap() -> Bool {
-        return !tapHandlers.isEmpty
+        !tapHandlers.isEmpty
     }
 
     func shouldCheckForLongTap() -> Bool {
-        return !longTapHandlers.isEmpty
+        !longTapHandlers.isEmpty
     }
 
     func shouldCheckForPan() -> Bool {
-        return !panHandlers.isEmpty
+        !panHandlers.isEmpty
     }
 
     func shouldCheckForRotate() -> Bool {
-        return !rotateHandlers.isEmpty
+        !rotateHandlers.isEmpty
     }
 
     func shouldCheckForPinch() -> Bool {
-        return !pinchHandlers.isEmpty
+        !pinchHandlers.isEmpty
     }
 
     public init(place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
@@ -313,7 +313,7 @@ open class Node: Drawable {
     }
 
     open var bounds: Rect? {
-        return .none
+        .none
     }
 
     // MARK: - Hash

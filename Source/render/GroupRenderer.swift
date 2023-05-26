@@ -10,7 +10,7 @@ class GroupRenderer: NodeRenderer {
     var renderers: [NodeRenderer] = []
 
     override var node: Node {
-        return group
+        group
     }
 
     init(group: Group, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {

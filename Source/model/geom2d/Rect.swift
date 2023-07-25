@@ -27,31 +27,31 @@ open class Rect: Locus {
     }
 
     override open func bounds() -> Rect {
-        return self
+        self
     }
 
     open func round(rx: Double, ry: Double) -> RoundRect {
-        return RoundRect(rect: self, rx: rx, ry: ry)
+        RoundRect(rect: self, rx: rx, ry: ry)
     }
 
     public func round(r: Double) -> RoundRect {
-        return RoundRect(rect: self, rx: r, ry: r)
+        RoundRect(rect: self, rx: r, ry: r)
     }
 
     open func center() -> Point {
-        return Point(x: x + w / 2, y: y + h / 2)
+        Point(x: x + w / 2, y: y + h / 2)
     }
 
     open func contains(locus: Locus) -> Bool {
-        return false
+        false
     }
 
     class func zero() -> Rect {
-        return Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
+        Rect(x: 0.0, y: 0.0, w: 0.0, h: 0.0)
     }
 
     open func move(offset: Point) -> Rect {
-        return Rect(
+        Rect(
             x: self.x + offset.x,
             y: self.y + offset.y,
             w: self.w,
@@ -59,7 +59,7 @@ open class Rect: Locus {
     }
 
     open func union(rect: Rect) -> Rect {
-        return Rect(
+        Rect(
             x: min(self.x, rect.x),
             y: min(self.y, rect.y),
             w: max(self.x + self.w, rect.x + rect.w) - min(self.x, rect.x),
@@ -67,11 +67,11 @@ open class Rect: Locus {
     }
 
     open func size() -> Size {
-        return Size(w: w, h: h)
+        Size(w: w, h: h)
     }
 
     override open func toPath() -> Path {
-        return MoveTo(x: x, y: y).lineTo(x: x, y: y + h).lineTo(x: x + w, y: y + h).lineTo(x: x + w, y: y).close().build()
+        MoveTo(x: x, y: y).lineTo(x: x, y: y + h).lineTo(x: x + w, y: y + h).lineTo(x: x + w, y: y).close().build()
     }
 
     override func equals<T>(other: T) -> Bool where T: Locus {

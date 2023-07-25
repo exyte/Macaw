@@ -13,11 +13,11 @@ import UIKit
 
 open class MView: UIView, Touchable {
     var mLayer: CALayer? {
-        return self.layer
+        self.layer
     }
 
     var mGestureRecognizers: [MGestureRecognizer]? {
-        return self.gestureRecognizers
+        self.gestureRecognizers
     }
 
     func removeGestureRecognizers() {

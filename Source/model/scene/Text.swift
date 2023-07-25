@@ -8,43 +8,43 @@ open class Text: Node {
 
     public let textVar: Variable<String>
     open var text: String {
-        get { return textVar.value }
+        get { textVar.value }
         set(val) { textVar.value = val }
     }
 
     public let fontVar: Variable<Font?>
     open var font: Font? {
-        get { return fontVar.value }
+        get { fontVar.value }
         set(val) { fontVar.value = val }
     }
 
     public let fillVar: Variable<Fill?>
     open var fill: Fill? {
-        get { return fillVar.value }
+        get { fillVar.value }
         set(val) { fillVar.value = val }
     }
 
     public let strokeVar: Variable<Stroke?>
     open var stroke: Stroke? {
-        get { return strokeVar.value }
+        get { strokeVar.value }
         set(val) { strokeVar.value = val }
     }
 
     public let alignVar: Variable<Align>
     open var align: Align {
-        get { return alignVar.value }
+        get { alignVar.value }
         set(val) { alignVar.value = val }
     }
 
     public let baselineVar: Variable<Baseline>
     open var baseline: Baseline {
-        get { return baselineVar.value }
+        get { baselineVar.value }
         set(val) { baselineVar.value = val }
     }
 
     public let kerningVar: Variable<Float>
     open var kerning: Float {
-        get { return kerningVar.value }
+        get { kerningVar.value }
         set(val) { kerningVar.value = val }
     }
 

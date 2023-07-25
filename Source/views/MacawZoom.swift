@@ -117,11 +117,11 @@ fileprivate class ZoomData {
     }
 
     func transform() -> Transform {
-        return Transform.move(dx: offset.w, dy: offset.h).scale(sx: scale, sy: scale).rotate(angle: angle)
+        Transform.move(dx: offset.w, dy: offset.h).scale(sx: scale, sy: scale).rotate(angle: angle)
     }
 
     func move(delta: Size) -> ZoomData {
-        return ZoomData(offset: offset + delta, scale: scale, angle: angle)
+        ZoomData(offset: offset + delta, scale: scale, angle: angle)
     }
 
     func combine(with: ZoomData) -> ZoomData {
@@ -151,7 +151,7 @@ fileprivate class TouchData {
     }
 
     func current(in view: MacawView) -> Point {
-        return touch.location(in: view).toMacaw()
+        touch.location(in: view).toMacaw()
     }
 
 }

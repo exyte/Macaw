@@ -10,6 +10,6 @@ import Foundation
 
 extension Rect: CustomStringConvertible {
     public var description: String {
-        return "x: \(String(format: "%f", x)), y: \(String(format: "%f", y)), w: \(String(format: "%f", w)), h: \(String(format: "%f", h))"
+        "x: \(String(format: "%f", x)), y: \(String(format: "%f", y)), w: \(String(format: "%f", w)), h: \(String(format: "%f", h))"
     }
 }

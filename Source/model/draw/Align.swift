@@ -5,11 +5,11 @@ open class Align {
     public static let max: Align = MaxAlign()
 
     open func align(outer: Double, inner: Double) -> Double {
-        return 0
+        0
     }
 
     open func align(size: Double) -> Double {
-        return align(outer: size, inner: 0)
+        align(outer: size, inner: 0)
     }
 
 }
@@ -17,13 +17,13 @@ open class Align {
 private class MidAlign: Align {
 
     override func align(outer: Double, inner: Double) -> Double {
-        return (outer - inner) / 2
+        (outer - inner) / 2
     }
 }
 
 private class MaxAlign: Align {
 
     override func align(outer: Double, inner: Double) -> Double {
-        return outer - inner
+        outer - inner
     }
 }

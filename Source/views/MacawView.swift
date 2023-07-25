@@ -18,26 +18,26 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     public lazy var zoom = MacawZoom(view: self)
 
     open var node: Node {
-        get { return drawingView.node }
+        get { drawingView.node }
         set { drawingView.node = newValue }
     }
 
     open var contentLayout: ContentLayout {
-        get { return drawingView.contentLayout }
+        get { drawingView.contentLayout }
         set { drawingView.contentLayout = newValue }
     }
 
     open override var contentMode: MViewContentMode {
-        get { return drawingView.contentMode }
+        get { drawingView.contentMode }
         set { drawingView.contentMode = newValue }
     }
 
     open var place: Transform {
-        get { return drawingView.place }
+        get { drawingView.place }
     }
 
     open var placeVar: Variable<Transform> {
-        get { return drawingView.placeVar }
+        get { drawingView.placeVar }
     }
 
     override open var frame: CGRect {
@@ -48,11 +48,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     override open var intrinsicContentSize: CGSize {
-        get { return drawingView.intrinsicContentSize }
+        get { drawingView.intrinsicContentSize }
     }
 
     internal var renderer: NodeRenderer? {
-        get { return drawingView.renderer }
+        get { drawingView.renderer }
         set { drawingView.renderer = newValue }
     }
 
@@ -100,7 +100,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     public final func findNodeAt(location: CGPoint) -> Node? {
-        return drawingView.findNodeAt(location: location)
+        drawingView.findNodeAt(location: location)
     }
 
     private func onZoomChange(t: Transform) {
@@ -186,7 +186,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     private func convert(touches: Set<MTouch>) -> [MTouchEvent] {
-        return touches.map { touch -> MTouchEvent in
+        touches.map { touch -> MTouchEvent in
             let location = touch.location(in: self).toMacaw()
             let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
             return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
@@ -196,11 +196,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     // MARK: - MGestureRecognizerDelegate
 
     public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldReceive touch: MTouch) -> Bool {
-        return true
+        true
     }
 
     public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
-        return true
+        true
     }
 }
 
@@ -237,11 +237,11 @@ internal class DrawingView: MView {
     }
 
     var place: Transform {
-        return placeManager.placeVar.value
+        placeManager.placeVar.value
     }
 
     var placeVar: Variable<Transform> {
-        return placeManager.placeVar
+        placeManager.placeVar
     }
 
     override open var frame: CGRect {
@@ -358,9 +358,9 @@ internal class DrawingView: MView {
     // MARK: - Touches
     func touchesBegan(touchPoints: [MTouchEvent]) {
 
-        if !self.node.shouldCheckForPressed() &&
-            !self.node.shouldCheckForMoved() &&
-            !self.node.shouldCheckForReleased() {
+        if !self.node.shouldCheckForPressed &&
+            !self.node.shouldCheckForMoved &&
+            !self.node.shouldCheckForReleased {
             return
         }
 
@@ -406,7 +406,7 @@ internal class DrawingView: MView {
     }
 
     func touchesMoved(touchPoints: [MTouchEvent]) {
-        if !self.node.shouldCheckForMoved() {
+        if !self.node.shouldCheckForMoved {
             return
         }
 
@@ -489,7 +489,7 @@ internal class DrawingView: MView {
     // MARK: - Tap
 
     @objc func handleTap(recognizer: MTapGestureRecognizer) {
-        if !self.node.shouldCheckForTap() {
+        if !self.node.shouldCheckForTap {
             return
         }
 
@@ -513,7 +513,7 @@ internal class DrawingView: MView {
     // MARK: - Tap
 
     @objc func handleLongTap(recognizer: MLongPressGestureRecognizer) {
-        if !self.node.shouldCheckForLongTap() {
+        if !self.node.shouldCheckForLongTap {
             return
         }
 
@@ -539,7 +539,7 @@ internal class DrawingView: MView {
     // MARK: - Pan
 
     @objc func handlePan(recognizer: MPanGestureRecognizer) {
-        if !self.node.shouldCheckForPan() {
+        if !self.node.shouldCheckForPan {
             return
         }
 
@@ -559,7 +559,7 @@ internal class DrawingView: MView {
 
             while let next = nodePath.parent {
                 let node = nodePath.node
-                if node.shouldCheckForPan() {
+                if node.shouldCheckForPan {
                     self.recognizersMap[recognizer]?.append(node)
                 }
                 nodePath = next
@@ -589,7 +589,7 @@ internal class DrawingView: MView {
     // MARK: - Rotation
 
     @objc func handleRotation(_ recognizer: MRotationGestureRecognizer) {
-        if !self.node.shouldCheckForRotate() {
+        if !self.node.shouldCheckForRotate {
             return
         }
 
@@ -609,7 +609,7 @@ internal class DrawingView: MView {
 
             while let next = nodePath.parent {
                 let node = nodePath.node
-                if node.shouldCheckForRotate() {
+                if node.shouldCheckForRotate {
                     self.recognizersMap[recognizer]?.append(node)
                 }
                 nodePath = next
@@ -632,7 +632,7 @@ internal class DrawingView: MView {
     // MARK: - Pinch
 
     @objc func handlePinch(_ recognizer: MPinchGestureRecognizer) {
-        if !self.node.shouldCheckForPinch() {
+        if !self.node.shouldCheckForPinch {
             return
         }
 
@@ -652,7 +652,7 @@ internal class DrawingView: MView {
 
             while let next = nodePath.parent {
                 let node = nodePath.node
-                if node.shouldCheckForPinch() {
+                if node.shouldCheckForPinch {
                     self.recognizersMap[recognizer]?.append(node)
                 }
                 nodePath = next

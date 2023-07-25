@@ -2,10 +2,8 @@ open class Group: Node {
 
     open var contentsVar: AnimatableVariable<[Node]>
     open var contents: [Node] {
-        get { return contentsVar.value }
-        set(val) {
-            contentsVar.value = val
-        }
+        get { contentsVar.value }
+        set(val) { contentsVar.value = val }
     }
 
     public init(contents: [Node] = [], place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, mask: Node? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) {
@@ -67,66 +65,66 @@ open class Group: Node {
         return bounds
     }
 
-    override func shouldCheckForPressed() -> Bool {
-        if super.shouldCheckForPressed() {
+    override var shouldCheckForPressed: Bool {
+        if super.shouldCheckForPressed {
             return true
         }
-        return contents.contains { $0.shouldCheckForPressed() }
+        return contents.contains { $0.shouldCheckForPressed }
     }
 
-    override func shouldCheckForMoved() -> Bool {
-        if super.shouldCheckForMoved() {
+    override var shouldCheckForMoved: Bool {
+        if super.shouldCheckForMoved {
             return true
         }
-        return contents.contains { $0.shouldCheckForMoved() }
+        return contents.contains { $0.shouldCheckForMoved }
     }
 
-    override func shouldCheckForReleased() -> Bool {
-        if super.shouldCheckForReleased() {
+    override var shouldCheckForReleased: Bool {
+        if super.shouldCheckForReleased {
             return true
         }
-        return contents.contains { $0.shouldCheckForReleased() }
+        return contents.contains { $0.shouldCheckForReleased }
     }
 
-    override func shouldCheckForTap() -> Bool {
-        if super.shouldCheckForTap() {
+    override var shouldCheckForTap: Bool {
+        if super.shouldCheckForTap {
             return true
         }
-        return contents.contains { $0.shouldCheckForTap() }
+        return contents.contains { $0.shouldCheckForTap }
     }
 
-    override func shouldCheckForLongTap() -> Bool {
-        if super.shouldCheckForLongTap() {
+    override var shouldCheckForLongTap: Bool {
+        if super.shouldCheckForLongTap {
             return true
         }
-        return contents.contains { $0.shouldCheckForLongTap() }
+        return contents.contains { $0.shouldCheckForLongTap }
     }
 
-    override func shouldCheckForPan() -> Bool {
-        if super.shouldCheckForPan() {
+    override var shouldCheckForPan: Bool {
+        if super.shouldCheckForPan {
             return true
         }
-        return contents.contains { $0.shouldCheckForPan() }
+        return contents.contains { $0.shouldCheckForPan }
     }
 
-    override func shouldCheckForPinch() -> Bool {
-        if super.shouldCheckForPinch() {
+    override var shouldCheckForPinch: Bool {
+        if super.shouldCheckForPinch {
             return true
         }
 
-        return contents.contains { $0.shouldCheckForPinch() }
+        return contents.contains { $0.shouldCheckForPinch }
     }
 
-    override func shouldCheckForRotate() -> Bool {
-        if super.shouldCheckForRotate() {
+    override var shouldCheckForRotate: Bool {
+        if super.shouldCheckForRotate {
             return true
         }
-        return contents.contains { $0.shouldCheckForRotate() }
+        return contents.contains { $0.shouldCheckForRotate }
     }
 }
 
 public extension Array where Element: Node {
     func group( place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) -> Group {
-        return Group(contents: self, place: place, opaque: opaque, opacity: opacity, clip: clip, effect: effect, visible: visible, tag: tag)
+        Group(contents: self, place: place, opaque: opaque, opacity: opacity, clip: clip, effect: effect, visible: visible, tag: tag)
     }
 }

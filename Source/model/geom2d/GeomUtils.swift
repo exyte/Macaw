@@ -5,7 +5,7 @@ open class GeomUtils {
 
     @available(*, deprecated)
     open class func concat(t1: Transform, t2: Transform) -> Transform {
-        return t1.concat(with: t2)
+        t1.concat(with: t2)
     }
 
     open class func centerRotation(node: Node, place: Transform, angle: Double) -> Transform {

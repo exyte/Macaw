@@ -20,34 +20,34 @@ public class Animation {
     }
 
     public func state() -> AnimationState {
-        return .initial
+        .initial
     }
 
     public func easing(_ easing: Easing) -> Animation {
-        return self
+        self
     }
 
     public func delay(_ delay: Double) -> Animation {
-        return self
+        self
     }
 
     public func cycle(_ count: Double) -> Animation {
-        return self
+        self
     }
 
     public func cycle() -> Animation {
-        return self
+        self
     }
 
     public func reverse() -> Animation {
-        return self
+        self
     }
 
     public func autoreversed() -> Animation {
-        return self
+        self
     }
 
     @discardableResult public func onComplete(_: @escaping (() -> Void)) -> Animation {
-        return self
+        self
     }
 }

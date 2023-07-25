@@ -14,7 +14,7 @@ class ImageRenderer: NodeRenderer {
     var renderedPaths: [CGPath] = [CGPath]()
 
     override var node: Node {
-        return image
+        image
     }
 
     init(image: Image, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {

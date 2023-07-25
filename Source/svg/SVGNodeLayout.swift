@@ -32,8 +32,8 @@ class SVGSize {
     }
 
     func toPixels(total: Size) -> Size {
-        return Size(w: width.toPixels(total: total.w),
-                    h: height.toPixels(total: total.h))
+        Size(w: width.toPixels(total: total.w),
+             h: height.toPixels(total: total.h))
     }
 
 }
@@ -62,7 +62,7 @@ class SVGNodeLayout: NodeLayout {
     }
 
     func computeSize(parent: Size) -> Size {
-        return svgSize.toPixels(total: parent)
+        svgSize.toPixels(total: parent)
     }
 
     func layout(node: Node, in size: Size) {

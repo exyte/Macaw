@@ -11,7 +11,7 @@ open class Circle: Locus {
     }
 
     override open func bounds() -> Rect {
-        return Rect(
+        Rect(
             x: cx - r,
             y: cy - r,
             w: r * 2.0,
@@ -19,11 +19,11 @@ open class Circle: Locus {
     }
 
     open func arc(shift: Double, extent: Double) -> Arc {
-        return Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
+        Arc(ellipse: Ellipse(cx: cx, cy: cy, rx: r, ry: r), shift: shift, extent: extent)
     }
 
     override open func toPath() -> Path {
-        return MoveTo(x: cx, y: cy).m(-r, 0).a(r, r, 0.0, true, false, r * 2.0, 0.0).a(r, r, 0.0, true, false, -(r * 2.0), 0.0).build()
+        MoveTo(x: cx, y: cy).m(-r, 0).a(r, r, 0.0, true, false, r * 2.0, 0.0).a(r, r, 0.0, true, false, -(r * 2.0), 0.0).build()
     }
 
     override func equals<T>(other: T) -> Bool where T: Locus {

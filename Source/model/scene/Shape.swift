@@ -8,19 +8,19 @@ open class Shape: Node {
 
     public let formVar: AnimatableVariable<Locus>
     open var form: Locus {
-        get { return formVar.value }
+        get { formVar.value }
         set(val) { formVar.value = val }
     }
 
     public let fillVar: AnimatableVariable<Fill?>
     open var fill: Fill? {
-        get { return fillVar.value }
+        get { fillVar.value }
         set(val) { fillVar.value = val }
     }
 
     public let strokeVar: StrokeAnimatableVariable
     open var stroke: Stroke? {
-        get { return strokeVar.value }
+        get { strokeVar.value }
         set(val) { strokeVar.value = val }
     }
 

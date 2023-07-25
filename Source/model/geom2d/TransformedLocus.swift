@@ -16,7 +16,7 @@ open class TransformedLocus: Locus {
     }
 
     open override func bounds() -> Rect {
-        return locus.bounds().applying(transform)
+        locus.bounds().applying(transform)
     }
 
     override func equals<T>(other: T) -> Bool where T: Locus {

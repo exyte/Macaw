@@ -12,6 +12,6 @@ public protocol StrokeInterpolation: Interpolable {
 
 extension Stroke: StrokeInterpolation {
     public func interpolate(_ endValue: Stroke, progress: Double) -> Self {
-        return self
+        self
     }
 }

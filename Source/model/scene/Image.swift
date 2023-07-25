@@ -10,37 +10,37 @@ open class Image: Node {
 
     public let srcVar: Variable<String>
     open var src: String {
-        get { return srcVar.value }
+        get { srcVar.value }
         set(val) { srcVar.value = val }
     }
 
     public let xAlignVar: Variable<Align>
     open var xAlign: Align {
-        get { return xAlignVar.value }
+        get { xAlignVar.value }
         set(val) { xAlignVar.value = val }
     }
 
     public let yAlignVar: Variable<Align>
     open var yAlign: Align {
-        get { return yAlignVar.value }
+        get { yAlignVar.value }
         set(val) { yAlignVar.value = val }
     }
 
     public let aspectRatioVar: Variable<AspectRatio>
     open var aspectRatio: AspectRatio {
-        get { return aspectRatioVar.value }
+        get { aspectRatioVar.value }
         set(val) { aspectRatioVar.value = val }
     }
 
     public let wVar: Variable<Int>
     open var w: Int {
-        get { return wVar.value }
+        get { wVar.value }
         set(val) { wVar.value = val }
     }
 
     public let hVar: Variable<Int>
     open var h: Int {
-        get { return hVar.value }
+        get { hVar.value }
         set(val) { hVar.value = val }
     }
 

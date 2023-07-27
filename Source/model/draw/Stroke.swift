@@ -20,7 +20,7 @@ open class Stroke: Equatable {
 }
 
 public func ==<T> (lhs: T, rhs: T) -> Bool where T: Stroke {
-    return lhs.fill == rhs.fill
+    lhs.fill == rhs.fill
         && lhs.width == rhs.width
         && lhs.cap == rhs.cap
         && lhs.join == rhs.join

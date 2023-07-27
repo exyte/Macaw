@@ -6,15 +6,15 @@ open class AspectRatio {
     internal static let doNothing: AspectRatio = DoNothingAspectRatio()
 
     open func fit(size: Size, into sizeToFitIn: Size) -> Size {
-        return Size(w: sizeToFitIn.w, h: sizeToFitIn.h)
+        Size(w: sizeToFitIn.w, h: sizeToFitIn.h)
     }
 
     open func fit(rect: Rect, into rectToFitIn: Rect) -> Size {
-        return fit(size: rect.size(), into: rectToFitIn.size())
+        fit(size: rect.size(), into: rectToFitIn.size())
     }
 
     open func fit(size: Size, into rectToFitIn: Rect) -> Size {
-        return fit(size: size, into: rectToFitIn.size())
+        fit(size: size, into: rectToFitIn.size())
     }
 
 }
@@ -22,7 +22,7 @@ open class AspectRatio {
 internal class DoNothingAspectRatio: AspectRatio {
 
     override func fit(size: Size, into sizeToFitIn: Size) -> Size {
-        return size
+        size
     }
 }
 

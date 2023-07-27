@@ -37,7 +37,7 @@ open class SVGParser {
     /// - Throws: An SVGParserError of no such file
     @available(*, deprecated)
     open class func parse(path: String, ofType: String = "svg") throws -> Node {
-        return try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
+        try SVGParser.parse(bundle: Bundle.main, path: path, ofType: ofType)
     }
 
     /// Parse an SVG file
@@ -74,7 +74,7 @@ open class SVGParser {
     /// Parse the specified content of an SVG file.
     /// - returns: Root node of the corresponding Macaw scene.
     open class func parse(text: String) throws -> Node {
-        return try SVGParser(text).parse()
+        try SVGParser(text).parse()
     }
 
     let availableStyleAttributes = ["stroke",
@@ -470,8 +470,8 @@ open class SVGParser {
             if pattern.children.isEmpty {
                 return parentPattern?.content
             } else if pattern.children.count == 1,
-                let child = pattern.children.first,
-                let shape = try parseNode(child) as? Shape {
+                      let child = pattern.children.first,
+                      let shape = try parseNode(child) as? Shape {
                 return shape
             } else {
                 var shapes = [Shape]()
@@ -876,7 +876,7 @@ open class SVGParser {
         return dashes
     }
 
-	fileprivate func getMatrix(_ element: XMLHash.XMLElement, attribute: String) -> [Double] {
+    fileprivate func getMatrix(_ element: XMLHash.XMLElement, attribute: String) -> [Double] {
         var result = [Double]()
         if let values = element.allAttributes[attribute]?.text {
             let separatedValues = values.components(separatedBy: CharacterSet(charactersIn: " ,"))
@@ -909,7 +909,7 @@ open class SVGParser {
     }
 
     fileprivate func getOpacity(_ opacity: String) -> Double {
-        return Double(opacity.replacingOccurrences(of: " ", with: "")) ?? 1
+        Double(opacity.replacingOccurrences(of: " ", with: "")) ?? 1
     }
 
     fileprivate func parseLine(_ line: XMLIndexer) -> Line? {
@@ -1236,7 +1236,7 @@ open class SVGParser {
                              fontName: String?,
                              fontWeight: String?,
                              fontSize: Int?) -> Font {
-        return Font(
+        Font(
             name: getFontName(attributes) ?? fontName ?? "Serif",
             size: getFontSize(attributes) ?? fontSize ?? 12,
             weight: getFontWeight(attributes) ?? fontWeight ?? "normal")
@@ -1726,7 +1726,7 @@ open class SVGParser {
     }
 
     fileprivate func getFontName(_ attributes: [String: String]) -> String? {
-        return attributes["font-family"]?.trimmingCharacters(in: .whitespacesAndNewlines)
+        attributes["font-family"]?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     fileprivate func getFontSize(_ attributes: [String: String]) -> Int? {
@@ -1895,7 +1895,7 @@ open class SVGParser {
     }
 
     fileprivate func degreesToRadians(_ degrees: Double) -> Double {
-        return degrees * .pi / 180
+        degrees * .pi / 180
     }
 
 }
@@ -2248,7 +2248,7 @@ fileprivate extension Scanner {
             return scanUpTo(substring, into: &string) ? string as String? : nil
         }
     }
-    
+
     /// A version of `scanString(_:)`, available for an earlier OS.
     func scannedString(_ searchString: String) -> String? {
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {

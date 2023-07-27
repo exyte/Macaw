@@ -10,7 +10,7 @@ class TextRenderer: NodeRenderer {
     var text: Text
 
     override var node: Node {
-        return text
+        text
     }
 
     init(text: Text, view: DrawingView?, parentRenderer: GroupRenderer? = nil) {

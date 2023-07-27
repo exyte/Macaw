@@ -24,7 +24,7 @@ class NodeRenderer {
 
     weak var view: DrawingView?
     var sceneLayer: CALayer? {
-        return view?.mLayer
+        view?.mLayer
     }
     var layer: CachedLayer?
     var zPosition: Int = 0
@@ -218,7 +218,7 @@ class NodeRenderer {
         guard let shapeCGImage = renderToImage(bounds: bounds, inset: inset, coloringMode: coloringMode)?.cgImage else {
             return
         }
-        
+
         let shapeImage = CIImage(cgImage: shapeCGImage)
         var filteredImage = shapeImage
         for effect in effects {
@@ -312,7 +312,7 @@ class NodeRenderer {
     }
 
     public func doFindNodeAt(path: NodePath, ctx: CGContext) -> NodePath? {
-        return nil
+        nil
     }
 
     func calculateZPositionRecursively() {

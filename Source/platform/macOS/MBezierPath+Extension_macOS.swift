@@ -20,7 +20,7 @@ public struct MRectCorner: OptionSet {
     public static let bottomLeft = MRectCorner(rawValue: 1 << 2)
     public static let bottomRight = MRectCorner(rawValue: 1 << 3)
     public static var allCorners: MRectCorner {
-        return [.topLeft, .topRight, .bottomLeft, .bottomRight]
+        [.topLeft, .topRight, .bottomLeft, .bottomRight]
     }
 
     public init(rawValue: UInt) {

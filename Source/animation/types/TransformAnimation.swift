@@ -70,7 +70,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
     }
 
     func animation(_ desc: TransformAnimationDescription) -> Animation {
-        return TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
+        TransformAnimation(animatedNode: node!, valueFunc: desc.valueFunc, animationDuration: desc.duration, delay: desc.delay, autostart: false)
     }
 
     func animate(from: Transform? = nil, to: Transform, during: Double = 1.0, delay: Double = 0.0) {
@@ -99,7 +99,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
     }
 
     func animation(_ f: @escaping ((Double) -> Transform), during: Double = 1.0, delay: Double = 0.0) -> Animation {
-        return TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
+        TransformAnimation(animatedNode: node!, valueFunc: f, animationDuration: during, delay: delay)
     }
 
     func animation(angle: Double, x: Double? = .none, y: Double? = .none, during: Double = 1.0, delay: Double = 0.0) -> Animation {
@@ -128,7 +128,7 @@ public extension AnimatableVariable where T: TransformInterpolation {
 
     func animation(along path: Path, during: Double = 1.0, delay: Double = 0.0) -> Animation {
 
-        let factory = { () -> (Double) -> Transform in { (t: Double) in self.node?.place ?? .identity }
+        let factory = { () -> (Double) -> Transform in { (_: Double) in self.node?.place ?? .identity }
         }
         return TransformAnimation(animatedNode: self.node!, factory: factory, along: path, animationDuration: during, delay: delay)
     }

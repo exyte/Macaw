@@ -76,7 +76,7 @@ class RenderUtils {
     }
 
     class func applyOpacity(_ color: Color, opacity: Double) -> Color {
-        return Color.rgba(r: color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
+        Color.rgba(r: color.r(), g: color.g(), b: color.b(), a: Double(color.a()) / 255.0 * opacity)
     }
 
     class func toCGPath(_ locus: Locus) -> CGPath {
@@ -537,7 +537,7 @@ class RenderUtils {
     }
 
     class func num2bool(_ double: Double) -> Bool {
-        return double > 0.5 ? true : false
+        double > 0.5 ? true : false
     }
 
     internal class func setStrokeAttributes(_ stroke: Stroke, ctx: CGContext?) {

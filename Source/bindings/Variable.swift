@@ -16,7 +16,7 @@ class  ChangeHandler<T>: Equatable {
     }
 
     static func == (lhs: ChangeHandler<T>, rhs: ChangeHandler<T>) -> Bool {
-        return lhs === rhs
+        lhs === rhs
     }
 }
 

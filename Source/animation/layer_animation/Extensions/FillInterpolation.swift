@@ -12,6 +12,6 @@ public protocol FillInterpolation: Interpolable {
 
 extension Fill: FillInterpolation {
     public func interpolate(_ endValue: Fill, progress: Double) -> Self {
-        return self
+        self
     }
 }

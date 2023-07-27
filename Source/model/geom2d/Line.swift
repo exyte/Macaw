@@ -20,11 +20,11 @@ open class Line: Locus {
     }
 
     override open func bounds() -> Rect {
-        return Rect(x: min(x1, x2), y: min(y1, y2), w: abs(x1 - x2), h: abs(y1 - y2))
+        Rect(x: min(x1, x2), y: min(y1, y2), w: abs(x1 - x2), h: abs(y1 - y2))
     }
 
     override open func toPath() -> Path {
-        return MoveTo(x: x1, y: y1).lineTo(x: x2, y: y2).build()
+        MoveTo(x: x1, y: y1).lineTo(x: x2, y: y2).build()
     }
 
     override func equals<T>(other: T) -> Bool where T: Locus {

@@ -6,7 +6,7 @@ let package = Package(
     name: "Macaw",
     platforms: [
         .macOS(.v10_12),
-        .iOS(.v9)
+        .iOS(.v11)
     ],
     products: [
         .library(

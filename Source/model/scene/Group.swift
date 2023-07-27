@@ -2,7 +2,7 @@ open class Group: Node {
 
     open var contentsVar: AnimatableVariable<[Node]>
     open var contents: [Node] {
-        get { return contentsVar.value }
+        get { contentsVar.value }
         set(val) {
             contentsVar.value = val
         }
@@ -127,6 +127,6 @@ open class Group: Node {
 
 public extension Array where Element: Node {
     func group( place: Transform = Transform.identity, opaque: Bool = true, opacity: Double = 1, clip: Locus? = nil, effect: Effect? = nil, visible: Bool = true, tag: [String] = []) -> Group {
-        return Group(contents: self, place: place, opaque: opaque, opacity: opacity, clip: clip, effect: effect, visible: visible, tag: tag)
+        Group(contents: self, place: place, opaque: opaque, opacity: opacity, clip: clip, effect: effect, visible: visible, tag: tag)
     }
 }

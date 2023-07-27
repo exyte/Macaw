@@ -14,7 +14,7 @@ class MTouchEvent: Hashable {
     }
 
     public static func == (lhs: MTouchEvent, rhs: MTouchEvent) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 }
 

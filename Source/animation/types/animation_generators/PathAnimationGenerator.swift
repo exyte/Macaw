@@ -39,7 +39,7 @@ func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, 
         animation.onProgressUpdate?(t)
     }
 
-    generatedAnim.completion = { finished in
+    generatedAnim.completion = { _ in
 
         animation.progress = animation.manualStop ? 0.0 : 1.0
 
@@ -52,7 +52,7 @@ func addPathAnimation(_ animation: BasicAnimation, _ context: AnimationContext, 
         completion()
     }
 
-    //layer.path = RenderUtils.toCGPath(shape.form).copy(using: &layer.transform)
+    // layer.path = RenderUtils.toCGPath(shape.form).copy(using: &layer.transform)
     layer.path = shape.form.toCGPath()
     layer.setupStrokeAndFill(shape)
 

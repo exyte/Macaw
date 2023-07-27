@@ -18,26 +18,26 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     public lazy var zoom = MacawZoom(view: self)
 
     open var node: Node {
-        get { return drawingView.node }
+        get { drawingView.node }
         set { drawingView.node = newValue }
     }
 
     open var contentLayout: ContentLayout {
-        get { return drawingView.contentLayout }
+        get { drawingView.contentLayout }
         set { drawingView.contentLayout = newValue }
     }
 
     open override var contentMode: MViewContentMode {
-        get { return drawingView.contentMode }
+        get { drawingView.contentMode }
         set { drawingView.contentMode = newValue }
     }
 
     open var place: Transform {
-        get { return drawingView.place }
+        get { drawingView.place }
     }
 
     open var placeVar: Variable<Transform> {
-        get { return drawingView.placeVar }
+        get { drawingView.placeVar }
     }
 
     override open var frame: CGRect {
@@ -48,11 +48,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     override open var intrinsicContentSize: CGSize {
-        get { return drawingView.intrinsicContentSize }
+        get { drawingView.intrinsicContentSize }
     }
 
     internal var renderer: NodeRenderer? {
-        get { return drawingView.renderer }
+        get { drawingView.renderer }
         set { drawingView.renderer = newValue }
     }
 
@@ -100,7 +100,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     public final func findNodeAt(location: CGPoint) -> Node? {
-        return drawingView.findNodeAt(location: location)
+        drawingView.findNodeAt(location: location)
     }
 
     private func onZoomChange(t: Transform) {
@@ -186,7 +186,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     }
 
     private func convert(touches: Set<MTouch>) -> [MTouchEvent] {
-        return touches.map { touch -> MTouchEvent in
+        touches.map { touch -> MTouchEvent in
             let location = touch.location(in: self).toMacaw()
             let id = Int(bitPattern: Unmanaged.passUnretained(touch).toOpaque())
             return MTouchEvent(x: Double(location.x), y: Double(location.y), id: id)
@@ -196,11 +196,11 @@ open class MacawView: MView, MGestureRecognizerDelegate {
     // MARK: - MGestureRecognizerDelegate
 
     public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldReceive touch: MTouch) -> Bool {
-        return true
+        true
     }
 
     public func gestureRecognizer(_ gestureRecognizer: MGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: MGestureRecognizer) -> Bool {
-        return true
+        true
     }
 }
 
@@ -237,11 +237,11 @@ internal class DrawingView: MView {
     }
 
     var place: Transform {
-        return placeManager.placeVar.value
+        placeManager.placeVar.value
     }
 
     var placeVar: Variable<Transform> {
-        return placeManager.placeVar
+        placeManager.placeVar
     }
 
     override open var frame: CGRect {

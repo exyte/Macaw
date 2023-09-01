@@ -67,9 +67,15 @@ func addMorphingAnimation(_ animation: BasicAnimation, _ context: AnimationConte
 
         completion()
     }
-
-    layer.path = fromLocus.toCGPath()
-    layer.setupStrokeAndFill(shape)
+    
+    if let layer = layer as? ShapeLayer {
+        layer.path = fromLocus.toCGPath()
+        layer.setupStrokeAndFill(shape)
+    } else if let layer = layer as? GradientLayer {
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = fromLocus.toCGPath()
+        layer.mask = maskLayer
+    }
 
     let animationId = animation.ID
     layer.add(generatedAnimation, forKey: animationId)

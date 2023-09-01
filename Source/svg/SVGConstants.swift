@@ -293,7 +293,7 @@ open class SVGConstants {
         "yellowgreen": 0x9acd32
     ]
 
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public static let systemColorList = [
         "AppWorkspace": 0xffffff,
         "ActiveBorder": 0xffffff,

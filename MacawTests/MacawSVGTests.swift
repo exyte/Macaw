@@ -4,6 +4,8 @@ import XCTest
 @testable import MacawOSX
 #elseif os(iOS)
 @testable import Macaw
+#elseif os(tvOS)
+@testable import MacawTV
 #endif
 
 class MacawSVGTests: XCTestCase {
@@ -259,7 +261,7 @@ class MacawSVGTests: XCTestCase {
         }
         #endif
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         guard let referenceContentData = referenceImage.pngData() else {
             XCTFail("Failed to get Data from png \(referenceFile).png")
             return
@@ -312,7 +314,7 @@ class MacawSVGTests: XCTestCase {
             }
             #endif
             
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             if #available(iOS 11.0, *) {
                 return try JSONSerialization.data(withJSONObject: serializableNode.toDictionary(), options: [.prettyPrinted, .sortedKeys])
             } else {
@@ -647,7 +649,7 @@ class MacawSVGTests: XCTestCase {
     }
     
     func testColorProp04() {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         validateJSON("color-prop-04-t-manual")
         #elseif os(OSX)
         validateJSON("color-prop-04-t-manual-osx")
@@ -853,7 +855,7 @@ class MacawSVGTests: XCTestCase {
         }
         #endif
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         guard let data = image.pngData() else {
             return
         }

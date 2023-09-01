@@ -677,19 +677,160 @@
 		A7B47E44230EA402009DD7E5 /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
 		A7B47E45230EA404009DD7E5 /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
 		A7E675561EC4213500BD9ECB /* NodeBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */; };
-		A7F46DEA270B2219008DA1DF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DE9270B2219008DA1DF /* CommonError.swift */; };
-		A7F46DEB270B2219008DA1DF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DE9270B2219008DA1DF /* CommonError.swift */; };
 		A7F46DE0270B0EE8008DA1DF /* XMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDD270B0EE8008DA1DF /* XMLHash.swift */; };
 		A7F46DE1270B0EE8008DA1DF /* XMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDD270B0EE8008DA1DF /* XMLHash.swift */; };
 		A7F46DE2270B0EE8008DA1DF /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDE270B0EE8008DA1DF /* shim.swift */; };
 		A7F46DE3270B0EE8008DA1DF /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDE270B0EE8008DA1DF /* shim.swift */; };
 		A7F46DE4270B0EE8008DA1DF /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDF270B0EE8008DA1DF /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		A7F46DE5270B0EE8008DA1DF /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDF270B0EE8008DA1DF /* XMLIndexer+XMLIndexerDeserializable.swift */; };
+		A7F46DEA270B2219008DA1DF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DE9270B2219008DA1DF /* CommonError.swift */; };
+		A7F46DEB270B2219008DA1DF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DE9270B2219008DA1DF /* CommonError.swift */; };
 		C410148E1F834D290022EE44 /* style.svg in Resources */ = {isa = PBXBuildFile; fileRef = C410148D1F834D280022EE44 /* style.svg */; };
 		C4153A8F1F8793DE001BA5EE /* small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C4153A8E1F8793DD001BA5EE /* small-logo.png */; };
 		C46E83551F94B20E00208037 /* transform.svg in Resources */ = {isa = PBXBuildFile; fileRef = C46E83541F94B20E00208037 /* transform.svg */; };
 		C4820B181F458D0E008CE0FF /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
 		C4820B1A1F458D64008CE0FF /* MacawSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B191F458D64008CE0FF /* MacawSVGTests.swift */; };
+		EF78802527220CE8006E331E /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1381E3B393900D1CB28 /* Group.swift */; };
+		EF78802627220CE8006E331E /* TextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1441E3B393900D1CB28 /* TextRenderer.swift */; };
+		EF78802727220CE8006E331E /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14D1E3B393900D1CB28 /* CGFloat+Double.swift */; };
+		EF78802827220CE8006E331E /* MCAShapeLayerLineJoin_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4965215CEC0C00FF653C /* MCAShapeLayerLineJoin_macOS.swift */; };
+		EF78802927220CE8006E331E /* RoundRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1341E3B393900D1CB28 /* RoundRect.swift */; };
+		EF78802A27220CE8006E331E /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57900FF81EA0DEBF00809FFB /* UIImage2Image.swift */; };
+		EF78802B27220CE8006E331E /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1471E3B393900D1CB28 /* SVGParser.swift */; };
+		EF78802C27220CE8006E331E /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191E20AC58F900454E7E /* Stroke.swift */; };
+		EF78802D27220CE8006E331E /* RenderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1421E3B393900D1CB28 /* RenderUtils.swift */; };
+		EF78802E27220CE8006E331E /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F11E3B393900D1CB28 /* FuncBounds.swift */; };
+		EF78802F27220CE8006E331E /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD461F45C28700966E06 /* MView_iOS.swift */; };
+		EF78803027220CE8006E331E /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EC1E3B393900D1CB28 /* DoubleInterpolation.swift */; };
+		EF78803127220CE8006E331E /* PathSegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12F1E3B393900D1CB28 /* PathSegmentType.swift */; };
+		EF78803227220CE8006E331E /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E21E3B393900D1CB28 /* AnimatableVariable.swift */; };
+		EF78803327220CE8006E331E /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DE9270B2219008DA1DF /* CommonError.swift */; };
+		EF78803427220CE8006E331E /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191C20AC58F800454E7E /* Effect.swift */; };
+		EF78803527220CE8006E331E /* MCAShapeLayerLineCap_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496C215CF27E00FF653C /* MCAShapeLayerLineCap_macOS.swift */; };
+		EF78803627220CE8006E331E /* AnimationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F71E3B393900D1CB28 /* AnimationCache.swift */; };
+		EF78803727220CE8006E331E /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1361E3B393900D1CB28 /* Transform.swift */; };
+		EF78803827220CE8006E331E /* Graphics_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4A1F45C28F00966E06 /* Graphics_macOS.swift */; };
+		EF78803927220CE8006E331E /* ShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1431E3B393900D1CB28 /* ShapeRenderer.swift */; };
+		EF78803A27220CE8006E331E /* AlphaEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E190F20AC58F700454E7E /* AlphaEffect.swift */; };
+		EF78803B27220CE8006E331E /* MDisplayLink_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4B1F45C28F00966E06 /* MDisplayLink_macOS.swift */; };
+		EF78803C27220CE8006E331E /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1071E3B393900D1CB28 /* GroupDisposable.swift */; };
+		EF78803D27220CE8006E331E /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10E1E3B393900D1CB28 /* TapEvent.swift */; };
+		EF78803E27220CE8006E331E /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14A1E3B393900D1CB28 /* SVGView.swift */; };
+		EF78803F27220CE8006E331E /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1241E3B393900D1CB28 /* Arc.swift */; };
+		EF78804027220CE8006E331E /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1501E3B393900D1CB28 /* MacawView.swift */; };
+		EF78804127220CE8006E331E /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1391E3B393900D1CB28 /* Image.swift */; };
+		EF78804227220CE8006E331E /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D7ED221300D4A00B5ED00 /* TimingFunction.swift */; };
+		EF78804327220CE8006E331E /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191820AC58F800454E7E /* Baseline.swift */; };
+		EF78804427220CE8006E331E /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FE1E3B393900D1CB28 /* TransformGenerator.swift */; };
+		EF78804527220CE8006E331E /* AnimationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E41E3B393900D1CB28 /* AnimationImpl.swift */; };
+		EF78804627220CE8006E331E /* AnimOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EB1E3B393900D1CB28 /* AnimOperators.swift */; };
+		EF78804727220CE8006E331E /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1251E3B393900D1CB28 /* Circle.swift */; };
+		EF78804827220CE8006E331E /* PathSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12E1E3B393900D1CB28 /* PathSegment.swift */; };
+		EF78804927220CE8006E331E /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE201E208E1211006BF277 /* SVGCanvas.swift */; };
+		EF78804A27220CE8006E331E /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13F1E3B393900D1CB28 /* ImageRenderer.swift */; };
+		EF78804B27220CE8006E331E /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191D20AC58F900454E7E /* Fill.swift */; };
+		EF78804C27220CE8006E331E /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5852891520B29D67003E51D1 /* TransformedLocus.swift */; };
+		EF78804D27220CE8006E331E /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F31E3B393900D1CB28 /* PathFunctions.swift */; };
+		EF78804E27220CE8006E331E /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4820B171F458D0E008CE0FF /* SVGSerializer.swift */; };
+		EF78804F27220CE8006E331E /* MorphingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1021E3B393900D1CB28 /* MorphingAnimation.swift */; };
+		EF78805027220CE8006E331E /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD01E44C5460057BD3A /* ShapeAnimation.swift */; };
+		EF78805127220CE8006E331E /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191020AC58F700454E7E /* OffsetEffect.swift */; };
+		EF78805227220CE8006E331E /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191620AC58F800454E7E /* LinearGradient.swift */; };
+		EF78805327220CE8006E331E /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F01E3B393900D1CB28 /* TransformInterpolation.swift */; };
+		EF78805427220CE8006E331E /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD21E44C5570057BD3A /* ShapeAnimationGenerator.swift */; };
+		EF78805527220CE8006E331E /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E61E3B393900D1CB28 /* AnimationUtils.swift */; };
+		EF78805627220CE8006E331E /* MCAMediaTimingFunctionName_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496E215CF3B000FF653C /* MCAMediaTimingFunctionName_iOS.swift */; };
+		EF78805727220CE8006E331E /* XMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDD270B0EE8008DA1DF /* XMLHash.swift */; };
+		EF78805827220CE8006E331E /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1311E3B393900D1CB28 /* Polygon.swift */; };
+		EF78805927220CE8006E331E /* TransformAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1041E3B393900D1CB28 /* TransformAnimation.swift */; };
+		EF78805A27220CE8006E331E /* CombineAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1001E3B393900D1CB28 /* CombineAnimation.swift */; };
+		EF78805B27220CE8006E331E /* TransformHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FA1E3B393900D1CB28 /* TransformHashable.swift */; };
+		EF78805C27220CE8006E331E /* MoveTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12B1E3B393900D1CB28 /* MoveTo.swift */; };
+		EF78805D27220CE8006E331E /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7E79BF20CA7E9300C50BCF /* Pattern.swift */; };
+		EF78805E27220CE8006E331E /* NodeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1401E3B393900D1CB28 /* NodeRenderer.swift */; };
+		EF78805F27220CE8006E331E /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191B20AC58F800454E7E /* Drawable.swift */; };
+		EF78806027220CE8006E331E /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E31E3B393900D1CB28 /* Animation.swift */; };
+		EF78806127220CE8006E331E /* SVGParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1481E3B393900D1CB28 /* SVGParserError.swift */; };
+		EF78806227220CE8006E331E /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1061E3B393900D1CB28 /* Disposable.swift */; };
+		EF78806327220CE8006E331E /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12C1E3B393900D1CB28 /* Path.swift */; };
+		EF78806427220CE8006E331E /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191420AC58F700454E7E /* AspectRatio.swift */; };
+		EF78806527220CE8006E331E /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1291E3B393900D1CB28 /* Line.swift */; };
+		EF78806627220CE8006E331E /* PathBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F21E3B393900D1CB28 /* PathBounds.swift */; };
+		EF78806727220CE8006E331E /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E51E3B393900D1CB28 /* AnimationProducer.swift */; };
+		EF78806827220CE8006E331E /* ContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585288F320AD96A2003E51D1 /* ContentLayout.swift */; };
+		EF78806927220CE8006E331E /* MCAMediaTimingFunctionName_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4970215CF4CE00FF653C /* MCAMediaTimingFunctionName_macOS.swift */; };
+		EF78806A27220CE8006E331E /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BD41E44C5840057BD3A /* ShapeInterpolation.swift */; };
+		EF78806B27220CE8006E331E /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD451F45C28700966E06 /* Graphics_iOS.swift */; };
+		EF78806C27220CE8006E331E /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57614BD91F8739EE00875933 /* MacawView+PDF.swift */; };
+		EF78806D27220CE8006E331E /* MacawZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5876C63122572859000B31B6 /* MacawZoom.swift */; };
+		EF78806E27220CE8006E331E /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13C1E3B393900D1CB28 /* Text.swift */; };
+		EF78806F27220CE8006E331E /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F1087B1F53CA7E00DC365B /* MDisplayLink_iOS.swift */; };
+		EF78807027220CE8006E331E /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1411E3B393900D1CB28 /* RenderContext.swift */; };
+		EF78807127220CE8006E331E /* MCAShapeLayerLineJoin_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4967215CECA400FF653C /* MCAShapeLayerLineJoin_iOS.swift */; };
+		EF78807227220CE8006E331E /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5815D59C2186E89A00BD08F9 /* CSSParser.swift */; };
+		EF78807327220CE8006E331E /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1351E3B393900D1CB28 /* Size.swift */; };
+		EF78807427220CE8006E331E /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1321E3B393900D1CB28 /* Polyline.swift */; };
+		EF78807527220CE8006E331E /* LineJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191720AC58F800454E7E /* LineJoin.swift */; };
+		EF78807627220CE8006E331E /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5835969A20A9CA140090400C /* CGMappings.swift */; };
+		EF78807727220CE8006E331E /* ContentsAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1011E3B393900D1CB28 /* ContentsAnimation.swift */; };
+		EF78807827220CE8006E331E /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713C4E11E51EC8F00BBA4D9 /* TouchEvent.swift */; };
+		EF78807927220CE8006E331E /* MBezierPath+Extension_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD511F45C2A400966E06 /* MBezierPath+Extension_macOS.swift */; };
+		EF78807A27220CE8006E331E /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5874CCB620DA8A860090DBD5 /* ColorMatrix.swift */; };
+		EF78807B27220CE8006E331E /* BlendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CC20B80A82008DAC11 /* BlendEffect.swift */; };
+		EF78807C27220CE8006E331E /* MView_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD4C1F45C28F00966E06 /* MView_macOS.swift */; };
+		EF78807D27220CE8006E331E /* Easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0E71E3B393900D1CB28 /* Easing.swift */; };
+		EF78807E27220CE8006E331E /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDE270B0EE8008DA1DF /* shim.swift */; };
+		EF78807F27220CE8006E331E /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFEF5CD20B80A83008DAC11 /* ColorMatrixEffect.swift */; };
+		EF78808027220CE8006E331E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191520AC58F700454E7E /* Font.swift */; };
+		EF78808127220CE8006E331E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1301E3B393900D1CB28 /* Point.swift */; };
+		EF78808227220CE8006E331E /* OpacityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FC1E3B393900D1CB28 /* OpacityGenerator.swift */; };
+		EF78808327220CE8006E331E /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191120AC58F700454E7E /* GaussianBlur.swift */; };
+		EF78808427220CE8006E331E /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13B1E3B393900D1CB28 /* Shape.swift */; };
+		EF78808527220CE8006E331E /* Ellipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1261E3B393900D1CB28 /* Ellipse.swift */; };
+		EF78808627220CE8006E331E /* Locus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12A1E3B393900D1CB28 /* Locus.swift */; };
+		EF78808727220CE8006E331E /* SceneUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF39881E66E06200F0BFE2 /* SceneUtils.swift */; };
+		EF78808827220CE8006E331E /* NodeHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0F91E3B393900D1CB28 /* NodeHashable.swift */; };
+		EF78808927220CE8006E331E /* GeomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1271E3B393900D1CB28 /* GeomUtils.swift */; };
+		EF78808A27220CE8006E331E /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14C1E3B393900D1CB28 /* CAAnimationClosure.swift */; };
+		EF78808B27220CE8006E331E /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E192020AC58F900454E7E /* Gradient.swift */; };
+		EF78808C27220CE8006E331E /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD431F45C28200966E06 /* Common_iOS.swift */; };
+		EF78808D27220CE8006E331E /* PathAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECDC7C222FE6E2009C8E6A /* PathAnimationGenerator.swift */; };
+		EF78808E27220CE8006E331E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191F20AC58F900454E7E /* Color.swift */; };
+		EF78808F27220CE8006E331E /* Common_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A718CD491F45C28F00966E06 /* Common_macOS.swift */; };
+		EF78809027220CE8006E331E /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108791F53C92000DC365B /* MDisplayLink.swift */; };
+		EF78809127220CE8006E331E /* CombinationAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2CA0C21C7B8F400AC46D9 /* CombinationAnimationGenerator.swift */; };
+		EF78809227220CE8006E331E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10A1E3B393900D1CB28 /* Event.swift */; };
+		EF78809327220CE8006E331E /* MCAMediaTimingFillMode_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4963215CEA9900FF653C /* MCAMediaTimingFillMode_macOS.swift */; };
+		EF78809427220CE8006E331E /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EE1E3B393900D1CB28 /* Interpolable.swift */; };
+		EF78809527220CE8006E331E /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1081E3B393900D1CB28 /* Variable.swift */; };
+		EF78809627220CE8006E331E /* OpacityAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1031E3B393900D1CB28 /* OpacityAnimation.swift */; };
+		EF78809727220CE8006E331E /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002331B20CC0BDD00EFD92D /* BoundsUtils.swift */; };
+		EF78809827220CE8006E331E /* LineCap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191A20AC58F800454E7E /* LineCap.swift */; };
+		EF78809927220CE8006E331E /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F108731F502A3600DC365B /* Touchable.swift */; };
+		EF78809A27220CE8006E331E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13A1E3B393900D1CB28 /* Node.swift */; };
+		EF78809B27220CE8006E331E /* PanEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10B1E3B393900D1CB28 /* PanEvent.swift */; };
+		EF78809C27220CE8006E331E /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10D1E3B393900D1CB28 /* RotateEvent.swift */; };
+		EF78809D27220CE8006E331E /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1281E3B393900D1CB28 /* Insets.swift */; };
+		EF78809E27220CE8006E331E /* DescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3081E77C20DB58B100640F96 /* DescriptionExtensions.swift */; };
+		EF78809F27220CE8006E331E /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1331E3B393900D1CB28 /* Rect.swift */; };
+		EF7880A027220CE8006E331E /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E12D1E3B393900D1CB28 /* PathBuilder.swift */; };
+		EF7880A127220CE8006E331E /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F46DDF270B0EE8008DA1DF /* XMLIndexer+XMLIndexerDeserializable.swift */; };
+		EF7880A227220CE8006E331E /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E10C1E3B393900D1CB28 /* PinchEvent.swift */; };
+		EF7880A327220CE8006E331E /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A27BCE1E44C4EC0057BD3A /* ContentsInterpolation.swift */; };
+		EF7880A427220CE8006E331E /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E13E1E3B393900D1CB28 /* GroupRenderer.swift */; };
+		EF7880A527220CE8006E331E /* RadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191220AC58F700454E7E /* RadialGradient.swift */; };
+		EF7880A627220CE8006E331E /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191320AC58F700454E7E /* Align.swift */; };
+		EF7880A727220CE8006E331E /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E14E1E3B393900D1CB28 /* NSTimer+Closure.swift */; };
+		EF7880A827220CE8006E331E /* MCAMediaTimingFillMode_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF4961215CE97300FF653C /* MCAMediaTimingFillMode_iOS.swift */; };
+		EF7880A927220CE8006E331E /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E191920AC58F800454E7E /* Stop.swift */; };
+		EF7880AA27220CE8006E331E /* MCAShapeLayerLineCap_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FF496A215CF0ED00FF653C /* MCAShapeLayerLineCap_iOS.swift */; };
+		EF7880AB27220CE8006E331E /* PathAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECDC7A222FE6DD009C8E6A /* PathAnimation.swift */; };
+		EF7880AC27220CE8006E331E /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FF1E3B393900D1CB28 /* AnimationSequence.swift */; };
+		EF7880AD27220CE8006E331E /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1A8C7520A15F7300E5FFAE /* SVGNodeLayout.swift */; };
+		EF7880AE27220CE8006E331E /* MorphingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0FB1E3B393900D1CB28 /* MorphingGenerator.swift */; };
+		EF7880AF27220CE8006E331E /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1461E3B393900D1CB28 /* SVGConstants.swift */; };
+		EF7880B027220CE8006E331E /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E1521E3B393900D1CB28 /* ShapeLayer.swift */; };
+		EF7880B127220CE8006E331E /* LocusInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E5E0EF1E3B393900D1CB28 /* LocusInterpolation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -713,6 +854,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		57D202181D78047000A90D4F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF7880B527220CE8006E331E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -1262,16 +1412,17 @@
 		A74C832B229FB7690085A832 /* color-prop-04-t-manual-osx.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.svg"; sourceTree = "<group>"; };
 		A74C832D229FBA4C0085A832 /* color-prop-04-t-manual-osx.reference */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "color-prop-04-t-manual-osx.reference"; sourceTree = "<group>"; };
 		A7E675551EC4213500BD9ECB /* NodeBoundsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NodeBoundsTests.swift; path = Bounds/NodeBoundsTests.swift; sourceTree = "<group>"; };
-		A7F46DE9270B2219008DA1DF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		A7F46DDD270B0EE8008DA1DF /* XMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLHash.swift; sourceTree = "<group>"; };
 		A7F46DDE270B0EE8008DA1DF /* shim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shim.swift; sourceTree = "<group>"; };
 		A7F46DDF270B0EE8008DA1DF /* XMLIndexer+XMLIndexerDeserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLIndexer+XMLIndexerDeserializable.swift"; sourceTree = "<group>"; };
+		A7F46DE9270B2219008DA1DF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		C410148D1F834D280022EE44 /* style.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = style.svg; sourceTree = "<group>"; };
 		C4153A8E1F8793DD001BA5EE /* small-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-logo.png"; sourceTree = "<group>"; };
 		C43B064C1F9738EF00787A35 /* clip.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = clip.svg; sourceTree = "<group>"; };
 		C46E83541F94B20E00208037 /* transform.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transform.svg; sourceTree = "<group>"; };
 		C4820B171F458D0E008CE0FF /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
 		C4820B191F458D64008CE0FF /* MacawSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacawSVGTests.swift; sourceTree = "<group>"; };
+		EF7880BA27220CE8006E331E /* MacawTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacawTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1290,6 +1441,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		57FCD2731D76EA4600CC0FB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF7880B227220CE8006E331E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1787,6 +1945,7 @@
 				57FCD26C1D76EA4600CC0FB6 /* Macaw.framework */,
 				57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */,
 				57614B791F83D15600875933 /* MacawOSX.framework */,
+				EF7880BA27220CE8006E331E /* MacawTV.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2143,6 +2302,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EF7880B327220CE8006E331E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -2204,6 +2370,26 @@
 			productReference = 57FCD2761D76EA4600CC0FB6 /* MacawTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EF78802327220CE8006E331E /* MacawTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF7880B727220CE8006E331E /* Build configuration list for PBXNativeTarget "MacawTV" */;
+			buildPhases = (
+				EF78802427220CE8006E331E /* Sources */,
+				EF7880B227220CE8006E331E /* Frameworks */,
+				EF7880B327220CE8006E331E /* Headers */,
+				EF7880B427220CE8006E331E /* Resources */,
+				EF7880B527220CE8006E331E /* CopyFiles */,
+				EF7880B627220CE8006E331E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacawTV;
+			productName = Macaw;
+			productReference = EF7880BA27220CE8006E331E /* MacawTV.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2245,6 +2431,7 @@
 				57FCD26B1D76EA4600CC0FB6 /* Macaw */,
 				57FCD2751D76EA4600CC0FB6 /* MacawTests */,
 				57614AFB1F83D15600875933 /* MacawOSX */,
+				EF78802327220CE8006E331E /* MacawTV */,
 			);
 		};
 /* End PBXProject section */
@@ -2660,6 +2847,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EF7880B427220CE8006E331E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -2677,6 +2871,19 @@
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect --format\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		669D360B1F8F9B4C0048EF8B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint autocorrect --format\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		EF7880B627220CE8006E331E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3007,6 +3214,154 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EF78802427220CE8006E331E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF78802527220CE8006E331E /* Group.swift in Sources */,
+				EF78802627220CE8006E331E /* TextRenderer.swift in Sources */,
+				EF78802727220CE8006E331E /* CGFloat+Double.swift in Sources */,
+				EF78802827220CE8006E331E /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
+				EF78802927220CE8006E331E /* RoundRect.swift in Sources */,
+				EF78802A27220CE8006E331E /* UIImage2Image.swift in Sources */,
+				EF78802B27220CE8006E331E /* SVGParser.swift in Sources */,
+				EF78802C27220CE8006E331E /* Stroke.swift in Sources */,
+				EF78802D27220CE8006E331E /* RenderUtils.swift in Sources */,
+				EF78802E27220CE8006E331E /* FuncBounds.swift in Sources */,
+				EF78802F27220CE8006E331E /* MView_iOS.swift in Sources */,
+				EF78803027220CE8006E331E /* DoubleInterpolation.swift in Sources */,
+				EF78803127220CE8006E331E /* PathSegmentType.swift in Sources */,
+				EF78803227220CE8006E331E /* AnimatableVariable.swift in Sources */,
+				EF78803327220CE8006E331E /* CommonError.swift in Sources */,
+				EF78803427220CE8006E331E /* Effect.swift in Sources */,
+				EF78803527220CE8006E331E /* MCAShapeLayerLineCap_macOS.swift in Sources */,
+				EF78803627220CE8006E331E /* AnimationCache.swift in Sources */,
+				EF78803727220CE8006E331E /* Transform.swift in Sources */,
+				EF78803827220CE8006E331E /* Graphics_macOS.swift in Sources */,
+				EF78803927220CE8006E331E /* ShapeRenderer.swift in Sources */,
+				EF78803A27220CE8006E331E /* AlphaEffect.swift in Sources */,
+				EF78803B27220CE8006E331E /* MDisplayLink_macOS.swift in Sources */,
+				EF78803C27220CE8006E331E /* GroupDisposable.swift in Sources */,
+				EF78803D27220CE8006E331E /* TapEvent.swift in Sources */,
+				EF78803E27220CE8006E331E /* SVGView.swift in Sources */,
+				EF78803F27220CE8006E331E /* Arc.swift in Sources */,
+				EF78804027220CE8006E331E /* MacawView.swift in Sources */,
+				EF78804127220CE8006E331E /* Image.swift in Sources */,
+				EF78804227220CE8006E331E /* TimingFunction.swift in Sources */,
+				EF78804327220CE8006E331E /* Baseline.swift in Sources */,
+				EF78804427220CE8006E331E /* TransformGenerator.swift in Sources */,
+				EF78804527220CE8006E331E /* AnimationImpl.swift in Sources */,
+				EF78804627220CE8006E331E /* AnimOperators.swift in Sources */,
+				EF78804727220CE8006E331E /* Circle.swift in Sources */,
+				EF78804827220CE8006E331E /* PathSegment.swift in Sources */,
+				EF78804927220CE8006E331E /* SVGCanvas.swift in Sources */,
+				EF78804A27220CE8006E331E /* ImageRenderer.swift in Sources */,
+				EF78804B27220CE8006E331E /* Fill.swift in Sources */,
+				EF78804C27220CE8006E331E /* TransformedLocus.swift in Sources */,
+				EF78804D27220CE8006E331E /* PathFunctions.swift in Sources */,
+				EF78804E27220CE8006E331E /* SVGSerializer.swift in Sources */,
+				EF78804F27220CE8006E331E /* MorphingAnimation.swift in Sources */,
+				EF78805027220CE8006E331E /* ShapeAnimation.swift in Sources */,
+				EF78805127220CE8006E331E /* OffsetEffect.swift in Sources */,
+				EF78805227220CE8006E331E /* LinearGradient.swift in Sources */,
+				EF78805327220CE8006E331E /* TransformInterpolation.swift in Sources */,
+				EF78805427220CE8006E331E /* ShapeAnimationGenerator.swift in Sources */,
+				EF78805527220CE8006E331E /* AnimationUtils.swift in Sources */,
+				EF78805627220CE8006E331E /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
+				EF78805727220CE8006E331E /* XMLHash.swift in Sources */,
+				EF78805827220CE8006E331E /* Polygon.swift in Sources */,
+				EF78805927220CE8006E331E /* TransformAnimation.swift in Sources */,
+				EF78805A27220CE8006E331E /* CombineAnimation.swift in Sources */,
+				EF78805B27220CE8006E331E /* TransformHashable.swift in Sources */,
+				EF78805C27220CE8006E331E /* MoveTo.swift in Sources */,
+				EF78805D27220CE8006E331E /* Pattern.swift in Sources */,
+				EF78805E27220CE8006E331E /* NodeRenderer.swift in Sources */,
+				EF78805F27220CE8006E331E /* Drawable.swift in Sources */,
+				EF78806027220CE8006E331E /* Animation.swift in Sources */,
+				EF78806127220CE8006E331E /* SVGParserError.swift in Sources */,
+				EF78806227220CE8006E331E /* Disposable.swift in Sources */,
+				EF78806327220CE8006E331E /* Path.swift in Sources */,
+				EF78806427220CE8006E331E /* AspectRatio.swift in Sources */,
+				EF78806527220CE8006E331E /* Line.swift in Sources */,
+				EF78806627220CE8006E331E /* PathBounds.swift in Sources */,
+				EF78806727220CE8006E331E /* AnimationProducer.swift in Sources */,
+				EF78806827220CE8006E331E /* ContentLayout.swift in Sources */,
+				EF78806927220CE8006E331E /* MCAMediaTimingFunctionName_macOS.swift in Sources */,
+				EF78806A27220CE8006E331E /* ShapeInterpolation.swift in Sources */,
+				EF78806B27220CE8006E331E /* Graphics_iOS.swift in Sources */,
+				EF78806C27220CE8006E331E /* MacawView+PDF.swift in Sources */,
+				EF78806D27220CE8006E331E /* MacawZoom.swift in Sources */,
+				EF78806E27220CE8006E331E /* Text.swift in Sources */,
+				EF78806F27220CE8006E331E /* MDisplayLink_iOS.swift in Sources */,
+				EF78807027220CE8006E331E /* RenderContext.swift in Sources */,
+				EF78807127220CE8006E331E /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
+				EF78807227220CE8006E331E /* CSSParser.swift in Sources */,
+				EF78807327220CE8006E331E /* Size.swift in Sources */,
+				EF78807427220CE8006E331E /* Polyline.swift in Sources */,
+				EF78807527220CE8006E331E /* LineJoin.swift in Sources */,
+				EF78807627220CE8006E331E /* CGMappings.swift in Sources */,
+				EF78807727220CE8006E331E /* ContentsAnimation.swift in Sources */,
+				EF78807827220CE8006E331E /* TouchEvent.swift in Sources */,
+				EF78807927220CE8006E331E /* MBezierPath+Extension_macOS.swift in Sources */,
+				EF78807A27220CE8006E331E /* ColorMatrix.swift in Sources */,
+				EF78807B27220CE8006E331E /* BlendEffect.swift in Sources */,
+				EF78807C27220CE8006E331E /* MView_macOS.swift in Sources */,
+				EF78807D27220CE8006E331E /* Easing.swift in Sources */,
+				EF78807E27220CE8006E331E /* shim.swift in Sources */,
+				EF78807F27220CE8006E331E /* ColorMatrixEffect.swift in Sources */,
+				EF78808027220CE8006E331E /* Font.swift in Sources */,
+				EF78808127220CE8006E331E /* Point.swift in Sources */,
+				EF78808227220CE8006E331E /* OpacityGenerator.swift in Sources */,
+				EF78808327220CE8006E331E /* GaussianBlur.swift in Sources */,
+				EF78808427220CE8006E331E /* Shape.swift in Sources */,
+				EF78808527220CE8006E331E /* Ellipse.swift in Sources */,
+				EF78808627220CE8006E331E /* Locus.swift in Sources */,
+				EF78808727220CE8006E331E /* SceneUtils.swift in Sources */,
+				EF78808827220CE8006E331E /* NodeHashable.swift in Sources */,
+				EF78808927220CE8006E331E /* GeomUtils.swift in Sources */,
+				EF78808A27220CE8006E331E /* CAAnimationClosure.swift in Sources */,
+				EF78808B27220CE8006E331E /* Gradient.swift in Sources */,
+				EF78808C27220CE8006E331E /* Common_iOS.swift in Sources */,
+				EF78808D27220CE8006E331E /* PathAnimationGenerator.swift in Sources */,
+				EF78808E27220CE8006E331E /* Color.swift in Sources */,
+				EF78808F27220CE8006E331E /* Common_macOS.swift in Sources */,
+				EF78809027220CE8006E331E /* MDisplayLink.swift in Sources */,
+				EF78809127220CE8006E331E /* CombinationAnimationGenerator.swift in Sources */,
+				EF78809227220CE8006E331E /* Event.swift in Sources */,
+				EF78809327220CE8006E331E /* MCAMediaTimingFillMode_macOS.swift in Sources */,
+				EF78809427220CE8006E331E /* Interpolable.swift in Sources */,
+				EF78809527220CE8006E331E /* Variable.swift in Sources */,
+				EF78809627220CE8006E331E /* OpacityAnimation.swift in Sources */,
+				EF78809727220CE8006E331E /* BoundsUtils.swift in Sources */,
+				EF78809827220CE8006E331E /* LineCap.swift in Sources */,
+				EF78809927220CE8006E331E /* Touchable.swift in Sources */,
+				EF78809A27220CE8006E331E /* Node.swift in Sources */,
+				EF78809B27220CE8006E331E /* PanEvent.swift in Sources */,
+				EF78809C27220CE8006E331E /* RotateEvent.swift in Sources */,
+				EF78809D27220CE8006E331E /* Insets.swift in Sources */,
+				EF78809E27220CE8006E331E /* DescriptionExtensions.swift in Sources */,
+				EF78809F27220CE8006E331E /* Rect.swift in Sources */,
+				EF7880A027220CE8006E331E /* PathBuilder.swift in Sources */,
+				EF7880A127220CE8006E331E /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
+				EF7880A227220CE8006E331E /* PinchEvent.swift in Sources */,
+				EF7880A327220CE8006E331E /* ContentsInterpolation.swift in Sources */,
+				EF7880A427220CE8006E331E /* GroupRenderer.swift in Sources */,
+				EF7880A527220CE8006E331E /* RadialGradient.swift in Sources */,
+				EF7880A627220CE8006E331E /* Align.swift in Sources */,
+				EF7880A727220CE8006E331E /* NSTimer+Closure.swift in Sources */,
+				EF7880A827220CE8006E331E /* MCAMediaTimingFillMode_iOS.swift in Sources */,
+				EF7880A927220CE8006E331E /* Stop.swift in Sources */,
+				EF7880AA27220CE8006E331E /* MCAShapeLayerLineCap_iOS.swift in Sources */,
+				EF7880AB27220CE8006E331E /* PathAnimation.swift in Sources */,
+				EF7880AC27220CE8006E331E /* AnimationSequence.swift in Sources */,
+				EF7880AD27220CE8006E331E /* SVGNodeLayout.swift in Sources */,
+				EF7880AE27220CE8006E331E /* MorphingGenerator.swift in Sources */,
+				EF7880AF27220CE8006E331E /* SVGConstants.swift in Sources */,
+				EF7880B027220CE8006E331E /* ShapeLayer.swift in Sources */,
+				EF7880B127220CE8006E331E /* LocusInterpolation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3258,10 +3613,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos macosx iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = "x86_64 i386 arm64";
 			};
 			name = Debug;
 		};
@@ -3281,10 +3636,63 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvos appletvsimulator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3,4";
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = "x86_64 i386 arm64";
+			};
+			name = Release;
+		};
+		EF7880B827220CE8006E331E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		EF7880B927220CE8006E331E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				OTHER_SWIFT_FLAGS = "-D CARTHAGE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.exyte.Macaw;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4";
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -3323,6 +3731,15 @@
 			buildConfigurations = (
 				57FCD2841D76EA4600CC0FB6 /* Debug */,
 				57FCD2851D76EA4600CC0FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF7880B727220CE8006E331E /* Build configuration list for PBXNativeTarget "MacawTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF7880B827220CE8006E331E /* Debug */,
+				EF7880B927220CE8006E331E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

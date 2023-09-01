@@ -6,7 +6,7 @@
 //  Copyright © 2018 Exyte. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(OSX)
 import AppKit
@@ -46,7 +46,7 @@ open class ContentLayout {
             return of(scaling: .doNothing, xAlign: .min, yAlign: .max)
         case .bottomRight:
             return of(scaling: .doNothing, xAlign: .max, yAlign: .max)
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         @unknown default:
             return .none
         #endif

@@ -5,6 +5,8 @@ import Foundation
 
 #if os(iOS)
 @testable import Macaw
+#elseif os(tvOS)
+@testable import MacawTV
 #endif
 
 class TestUtils {

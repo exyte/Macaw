@@ -12,6 +12,8 @@ import XCTest
 @testable import MacawOSX
 #elseif os(iOS)
 @testable import Macaw
+#elseif os(tvOS)
+@testable import MacawTV
 #endif
 
 class ImageBoundsTests: XCTestCase {
@@ -29,7 +31,7 @@ class ImageBoundsTests: XCTestCase {
             return
         }
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for path src")
         #elseif os(OSX)
             XCTAssert(bounds.w == 587.0 && bounds.h == 431.0, "Wrong bounds for path src")
@@ -55,7 +57,7 @@ class ImageBoundsTests: XCTestCase {
             return
         }
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for base64 src")
         #elseif os(OSX)
             XCTAssert(bounds.w == 587.0 && bounds.h == 431.0, "Wrong bounds for base64 src")
@@ -65,7 +67,7 @@ class ImageBoundsTests: XCTestCase {
     func testInMemoryImage() {
         let bundle = Bundle(for: type(of: TestUtils()))
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         guard let mImage = MImage(named: "logo.png", in: bundle, compatibleWith: .none) else {
             XCTFail()
             return
@@ -84,7 +86,7 @@ class ImageBoundsTests: XCTestCase {
             return
         }
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             XCTAssert(bounds.w == 1174.0 && bounds.h == 862.0, "Wrong bounds for in-memory image")
         #elseif os(OSX)
             XCTAssert(bounds.w == 587.0 && bounds.h == 431.0, "Wrong bounds for in-memory image")

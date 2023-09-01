@@ -1,6 +1,6 @@
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(OSX)
 import AppKit
@@ -125,7 +125,7 @@ open class MacawView: MView, MGestureRecognizerDelegate {
             drawingView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
             drawingView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
 
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             self.clipsToBounds = true
             drawingView.isUserInteractionEnabled = false
             #endif
@@ -134,27 +134,33 @@ open class MacawView: MView, MGestureRecognizerDelegate {
         let tapRecognizer = MTapGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleTap(recognizer:)))
         let longTapRecognizer = MLongPressGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleLongTap(recognizer:)))
         let panRecognizer = MPanGestureRecognizer(target: drawingView, action: #selector(DrawingView.handlePan))
-        let rotationRecognizer = MRotationGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleRotation))
-        let pinchRecognizer = MPinchGestureRecognizer(target: drawingView, action: #selector(DrawingView.handlePinch))
 
         tapRecognizer.delegate = self
         longTapRecognizer.delegate = self
         panRecognizer.delegate = self
-        rotationRecognizer.delegate = self
-        pinchRecognizer.delegate = self
-
+        
         tapRecognizer.cancelsTouchesInView = false
         longTapRecognizer.cancelsTouchesInView = false
         panRecognizer.cancelsTouchesInView = false
-        rotationRecognizer.cancelsTouchesInView = false
-        pinchRecognizer.cancelsTouchesInView = false
 
         self.removeGestureRecognizers()
         self.addGestureRecognizer(tapRecognizer)
         self.addGestureRecognizer(longTapRecognizer)
-        self.addGestureRecognizer(panRecognizer)
+        
+#if os(iOS)
+        let rotationRecognizer = MRotationGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleRotation))
+        let pinchRecognizer = MPinchGestureRecognizer(target: drawingView, action: #selector(DrawingView.handlePinch))
+
+        rotationRecognizer.delegate = self
+        pinchRecognizer.delegate = self
+
+        rotationRecognizer.cancelsTouchesInView = false
+        pinchRecognizer.cancelsTouchesInView = false
+
         self.addGestureRecognizer(rotationRecognizer)
         self.addGestureRecognizer(pinchRecognizer)
+#endif
+
     }
 
     open override func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
@@ -588,6 +594,7 @@ internal class DrawingView: MView {
 
     // MARK: - Rotation
 
+    #if os(iOS)
     @objc func handleRotation(_ recognizer: MRotationGestureRecognizer) {
         if !self.node.shouldCheckForRotate() {
             return
@@ -671,6 +678,7 @@ internal class DrawingView: MView {
             recognizersMap.removeValue(forKey: recognizer)
         }
     }
+    #endif
 }
 
 class LayoutHelper {

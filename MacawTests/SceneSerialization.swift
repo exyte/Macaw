@@ -14,6 +14,9 @@ import Foundation
 #if os(iOS)
 import UIKit
 @testable import Macaw
+#elseif os(tvOS)
+import UIKit
+@testable import MacawTV
 #endif
 
 protocol Initializable {
@@ -374,7 +377,7 @@ extension Path: Serializable {
     }
 }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 extension Polygon: Serializable {
     
     func toDictionary() -> [String:Any] {

@@ -6,7 +6,7 @@
 //
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 
 class MDisplayLink: MDisplayLinkProtocol {
@@ -23,7 +23,7 @@ class MDisplayLink: MDisplayLinkProtocol {
         self.onUpdate = onUpdate
 
         displayLink = CADisplayLink(target: self, selector: #selector(updateHandler))
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, tvOS 10.0, *) {
             displayLink?.preferredFramesPerSecond = 60
         } else {
             displayLink?.frameInterval = 1
